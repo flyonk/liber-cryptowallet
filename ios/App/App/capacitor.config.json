@@ -1,0 +1,6 @@
+{
+	"appId": "liber.cryptowize.tech",
+	"appName": "Liber",
+	"webDir": "dist",
+	"bundledWebRuntime": false
+}
