@@ -1,6 +1,6 @@
 <template>
-  <div class="welcome-logo-screen">
-    <h1>Welcome</h1>
+  <div class="six-digits-code">
+    <!--  -->
   </div>
 </template>
 

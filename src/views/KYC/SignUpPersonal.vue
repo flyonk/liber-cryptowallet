@@ -1,6 +1,6 @@
 <template>
-  <div class="welcome-logo-screen">
-    <h1>Welcome</h1>
+  <div class="sign-up">
+    <h1>Sign Up - Personal Data</h1>
   </div>
 </template>
 

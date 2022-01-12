@@ -1,11 +1,11 @@
 <template>
-  <div class="welcome-logo-screen">
-    <h1>Welcome</h1>
+  <div class="bottom-nav">
+    <!-- TODO: bottom nav bar -->
   </div>
 </template>
 
 <script setup lang="ts">
-//
+// It can be made by component ...
 </script>
 
 <style lang="scss" scoped>

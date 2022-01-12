@@ -1,4 +1,5 @@
 import { defineStore } from 'pinia';
+import { STORE_AUTH_KEY } from '@/constants';
 
 // === Account Types ===
 
@@ -20,6 +21,9 @@ export const useAccountStore = defineStore('account', {
   },
 
   actions: {
-    //
+    async init() {
+      const payload = window.localStorage.getItem(STORE_AUTH_KEY);
+      console.debug(payload);
+    },
   },
 });

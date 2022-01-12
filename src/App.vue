@@ -1,10 +1,16 @@
 <template>
-  <div class="main-nav">
-    <router-link class="link" to="/"> Home </router-link> |
-    <router-link class="link" to="/about"> About </router-link>
-  </div>
+  <p-toast />
+
   <router-view />
 </template>
+
+<script setup lang="ts">
+import PToast from 'primevue/toast';
+import { useAccountStore } from './stores/account';
+
+const store = useAccountStore();
+store.init();
+</script>
 
 <style lang="scss" scoped>
 #app {

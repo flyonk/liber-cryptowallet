@@ -1,6 +1,6 @@
 <template>
-  <div class="welcome-logo-screen">
-    <h1>Welcome</h1>
+  <div class="dashboard-home">
+    <!-- TODO: -->
   </div>
 </template>
 
