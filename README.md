@@ -1,5 +1,11 @@
 # Liber iOs Application
 
+## Links
+
+TODO: Add links to figma and etc.
+
+[Figma Liber App](https://www.figma.com/file/jiR05eX1dbN6NFNBEUolDa/Liber-App)
+
 ## Project setup
 
 ```
