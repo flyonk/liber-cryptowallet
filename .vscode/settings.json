@@ -1,0 +1,11 @@
+{
+  "eslint.validate": ["javascript", "vue"],
+  "vetur.validation.template": false,
+
+  // Spell checker exceptions
+  "cSpell.words": [
+    "Pinia",
+    "primevue",
+    "stylelint"
+  ]
+}
