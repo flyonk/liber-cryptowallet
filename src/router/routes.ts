@@ -4,6 +4,7 @@ import { RouteRecordRaw } from 'vue-router';
 import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
+import SignUp from '@/views/Auth/SignUp.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -25,6 +26,12 @@ const routes: Array<RouteRecordRaw> = [
     component: PasscodeEnter,
     meta: { layout: 'default' },
   },
+  {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: SignUp,
+    meta: { layout: 'default' },
+  },
 
   // route level code-splitting
   // this generates a separate chunk (about.[hash].js) for this route
@@ -36,17 +43,21 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: 'dashboard-home',
     component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'),
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'
+      ),
   },
   {
     path: '/account',
     name: 'dashboard-account',
     component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'),
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
+      ),
   },
-  
+
   // === KYC ===
-  
+
   {
     path: '/kyc/personal',
     name: 'kyc-personal',
@@ -59,7 +70,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
-  
 ];
 
 export default routes;
