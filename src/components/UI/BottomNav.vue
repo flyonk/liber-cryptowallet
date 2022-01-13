@@ -1,79 +1,23 @@
 <template>
-  <div class="navbar__wrapper relative">
-    <ul class="navbar">
-      <li class="navbar__item">
-        <img
-          src="/assets/images/navbar/home.svg"
-          alt="Home"
-        >
-        <p>Home</p>
-      </li>
-      <li
-        class="navbar__item"
-        @click="$router.push('/dashboard/accounts')"
-      >
-        <img
-          src="/assets/images/navbar/account.svg"
-          alt="Account"
-        >
-        <p>Account</p>
-      </li>
-      <li class="navbar__item">
-        <img
-          src="/assets/images/navbar/send.svg"
-          alt="Account"
-        >
-        <p>Send</p>
-      </li>
-      <li class="navbar__item">
-        <img
-          src="/assets/images/navbar/recipients.svg"
-          alt="Recipients"
-        >
-        <p>Recipients</p>
-      </li>
-      <li class="navbar__item">
-        <img
-          src="/assets/images/navbar/gift.svg"
-          alt="Recipients"
-        >
-        <p>Invite</p>
-      </li>
-    </ul>
-    <img
-      id="indicator"
-      src="/assets/images/navbar/indicator.png"
-      @click="showBottomMenu"
-    >
-
-    <div
-      v-if="isMenuOpen"
-      class="navbar__bottom-menu"
-    >
-      <div
-        class="navbar__bottom-menu--close"
-        @click="showBottomMenu"
-      />
-    </div>
-  </div>
+  <h1>hello</h1>
 </template>
 
-<script>
-export default {
-  name: "NavBar",
-  data() {
-    return {
-      isMenuOpen: false,
-      hello: 'world'
-    }
-  },
-  methods: {
-    showBottomMenu() {
-      this.isMenuOpen = !this.isMenuOpen
-      console.log('aga')
-    }
-  }
-}
+<script setup lang="ts">
+// export default {
+//   name: "NavBar",
+//   data() {
+//     return {
+//       isMenuOpen: false,
+//       hello: 'world'
+//     }
+//   },
+//   methods: {
+//     showBottomMenu() {
+//       this.isMenuOpen = !this.isMenuOpen
+//       console.log('aga')
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss" scoped>

@@ -13,3 +13,49 @@
 @import './theme/index';
 
 // No styles here
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+ul,
+li,
+a,
+button {
+  margin: 0;
+  padding: 0;
+}
+
+button {
+  border: 0;
+}
+
+.flex {
+  display: flex;
+  align-items: center;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.justify-between {
+  justify-content: space-between;
+}
+
+.items-center {
+  align-items: center;
+}
