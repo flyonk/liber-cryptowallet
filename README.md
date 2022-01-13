@@ -5,6 +5,7 @@
 TODO: Add links to figma and etc.
 
 [Figma Liber App](https://www.figma.com/file/jiR05eX1dbN6NFNBEUolDa/Liber-App)
+[Figma Liber UI Kit](https://www.figma.com/file/03BEDylTZpq3uwoGEaQ6nk/Liber-UI-KIT)
 
 ## Project setup
 
