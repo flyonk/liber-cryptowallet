@@ -9,20 +9,23 @@
       to this number.
     </div>
     <div class="grid">
-      <BaseCountryPhoneInput class="col-3" />
-      <BaseInput
-        v-model="number"
-        class="col-9"
-      >
-        <template #label>
-          Number
-        </template>
-      </BaseInput>
+      <div class="col-4">
+        <BaseCountryPhoneInput />
+      </div>
+      <div class="col-8 ml-auto">
+        <BaseInput
+          v-model="number"
+        >
+          <template #label>
+            Number
+          </template>
+        </BaseInput>
+      </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang='ts'>
 import { defineComponent, ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
@@ -35,22 +38,22 @@ export default defineComponent({
   components: {
     TopNavigation,
     BaseInput,
-    BaseCountryPhoneInput,
+    BaseCountryPhoneInput
   },
-  setup () {
-    const number = ref('')
+  setup() {
+    const number = ref('');
 
     return {
       number
-    }
+    };
   },
-  created () {
-    getFullList()
+  created() {
+    getFullList();
   }
 });
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .sign-up--container {
   padding: 0 16px;
 

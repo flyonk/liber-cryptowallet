@@ -1,22 +1,22 @@
 <template>
-  <!--  <p-toast />-->
+  <p-toast />
 
   <router-view />
 </template>
 
 <script lang="ts" setup>
+import PToast from 'primevue/toast';
 import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();
 store.init();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
   font-family: Inter, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
 }
 

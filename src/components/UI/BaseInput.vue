@@ -27,7 +27,7 @@ export default defineComponent({
 
 <style lang='scss'>
 .base-input {
-  background: #edf0fb;
+  background: var(--ion-color-input-background);
   border: 1px solid transparent;
   border-radius: 12px;
   height: 56px;

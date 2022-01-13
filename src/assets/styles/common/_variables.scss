@@ -96,6 +96,7 @@ $color-ui-primary: $color-ui-primary-500;
 $color-green: $color-green-500;
 $color-red: $color-red-500;
 $color-yellow: $color-yellow-500;
+$color-input-background: #edf0fb;
 
 :root {
   --ion-color-brand-50: #{$color-brand-50};
@@ -197,4 +198,5 @@ $color-yellow: $color-yellow-500;
   --ion-color-red: #{$color-red};
   --ion-color-yellow: #{$color-yellow};
   --ion-background-color: #e5e5e5;
+  --ion-color-input-background: #{$color-input-background};
 }
