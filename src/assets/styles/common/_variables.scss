@@ -1,0 +1,21 @@
+$color-black:       #000000;
+$color-white:       #ffffff;
+$color-blue:        #2862FF;
+$color-grey-100:    #EDF0FB;
+$color-grey:        #AFB3C3;
+$color-red-100:     #FEECEB;
+$color-red:         #F44336;
+$color-yellow:      #FFEBB0;
+
+
+$color-primary:     $color-blue;
+$color-secondary:   $color-grey;
+$color-success:     $color-blue;
+$color-danger:      $color-red;
+$color-warning:     $color-red;
+$color-info:        $color-yellow;
+$color-light:       $color-white;
+$color-dark:        $color-black;
+
+$bg-color-primary:  $color-grey-100;
+$bg-color-danger:   $color-red-100;
