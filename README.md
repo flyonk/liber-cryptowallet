@@ -2,8 +2,7 @@
 
 ## Links
 
-TODO: Add links to figma and etc.
-
+[Kanban Tasks](https://github.com/orgs/cryptowize-tech/projects/2/views/1)
 [Figma Liber App](https://www.figma.com/file/jiR05eX1dbN6NFNBEUolDa/Liber-App)
 [Figma Liber UI Kit](https://www.figma.com/file/03BEDylTZpq3uwoGEaQ6nk/Liber-UI-KIT)
 
