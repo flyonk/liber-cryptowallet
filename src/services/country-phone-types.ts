@@ -1,4 +1,4 @@
-export interface CityInformation {
+export interface CountryInformation {
   name: string;
   dialCode: string;
   isoCode: string;
