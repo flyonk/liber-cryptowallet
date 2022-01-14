@@ -1,26 +1,78 @@
-<template>
-  <h1>hello</h1>
+<template name="BottomNav">
+  <div class="wrapper">
+    <ul class="navbar">
+      <li class="item">
+        <img
+          src="@/assets/images/navbar/home.svg"
+          alt="Home"
+        >
+        <p>Home</p>
+      </li>
+      <li
+        class="item"
+        @click="$router.push('/home')"
+      >
+        <img
+          src="@/assets/images/navbar/account.svg"
+          alt="Account"
+        >
+        <p>Account</p>
+      </li>
+      <li class="item">
+        <img
+          src="@/assets/images/navbar/send.svg"
+          alt="Send"
+        >
+        <p>Send</p>
+      </li>
+      <li class="item">
+        <img
+          src="@/assets/images/navbar/recipients.svg"
+          alt="Recipients"
+        >
+        <p>Recipients</p>
+      </li>
+      <li class="item">
+        <img
+          src="@/assets/images/navbar/gift.svg"
+          alt="Invite"
+        >
+        <p>Invite</p>
+      </li>
+    </ul>
+    <img
+      id="indicator"
+      src="@/assets/images/navbar/indicator.png"
+      @click="showBottomMenu"
+    >
+
+    <div
+      v-if="isMenuOpen"
+      class="bottom-menu"
+    >
+      <div
+        class="bottom-menu--close"
+        @click="showBottomMenu"
+      />
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-// export default {
-//   name: "NavBar",
-//   data() {
-//     return {
-//       isMenuOpen: false,
-//       hello: 'world'
-//     }
-//   },
-//   methods: {
-//     showBottomMenu() {
-//       this.isMenuOpen = !this.isMenuOpen
-//       console.log('aga')
-//     }
-//   }
+const isMenuOpen = false;
+// function showBottomMenu() {
+//   isMenuOpen = isMenuOpen
+//   console.log('aga')
 // }
 </script>
 
 <style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .navbar {
   background: white;
   margin-top: auto;
@@ -30,13 +82,15 @@
   justify-content: space-around;
   margin-bottom: 15px;
 
-  &__wrapper {
+  >.item {
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
   }
 
-  &__bottom-menu {
+  >.bottom-menu {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -55,18 +109,6 @@
       background: #AFB3C3;
       margin: 0 auto;
     }
-  }
-
-  img {
-    margin-bottom: 6px;
-  }
-
-  &__item {
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: flex-end;
   }
 }
 

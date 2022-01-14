@@ -99,11 +99,13 @@
         </VueAgile>
       </div>
     </div>
+    <bottom-nav />
   </div>
 </template>
 
 <script setup lang="ts">
 import { VueAgile } from 'vue-agile'
+import BottomNav from '@/components/UI/BottomNav.vue'
 // import { toRefs } from 'vue';
 const activeTab = 1;
 const tabs = [
