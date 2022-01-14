@@ -59,11 +59,13 @@
 </template>
 
 <script setup lang="ts">
-const isMenuOpen = false;
-// function showBottomMenu() {
-//   isMenuOpen = isMenuOpen
-//   console.log('aga')
-// }
+import { ref } from 'vue';
+
+let isMenuOpen = ref(false);
+function showBottomMenu() {
+  isMenuOpen.value = !isMenuOpen.value
+  console.log('aga', isMenuOpen.value)
+}
 </script>
 
 <style lang="scss" scoped>
@@ -90,25 +92,25 @@ const isMenuOpen = false;
     justify-content: flex-end;
   }
 
-  >.bottom-menu {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: white;
-    border-radius: 32px 32px 0px 0px;
-    max-height: 70%;
-    min-height: 30%;
-    animation: topToBottom ease 1s;
-    padding: 8px;
+}
+.bottom-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 32px 32px 0px 0px;
+  max-height: 70%;
+  min-height: 30%;
+  animation: topToBottom ease 1s;
+  padding: 8px;
 
-    &--close {
-      width: 64px;
-      height: 5px;
-      border-radius: 1px;
-      background: #AFB3C3;
-      margin: 0 auto;
-    }
+  &--close {
+    width: 64px;
+    height: 5px;
+    border-radius: 1px;
+    background: #AFB3C3;
+    margin: 0 auto;
   }
 }
 

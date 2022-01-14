@@ -107,7 +107,9 @@
 import { VueAgile } from 'vue-agile'
 import BottomNav from '@/components/UI/BottomNav.vue'
 // import { toRefs } from 'vue';
-const activeTab = 1;
+import { ref } from 'vue';
+let activeTab = ref(1);
+
 const tabs = [
   {
     id: 1,
@@ -127,26 +129,26 @@ const carousel = [
   {
     status: 'In Progress',
     description: 'We’re verifying your ID',
-    imgSrc: '@/assets/icon/todo/empty-profile.svg',
+    imgSrc: require('@/assets/icon/todo/empty-profile.svg'),
     text: 'blue'
   },
   {
     status: 'Required',
     description: 'Verify your email address',
-    imgSrc: '@/assets/icon/todo/mail.svg',
+    imgSrc: require('@/assets/icon/todo/mail.svg'),
     text: 'blue'
     
   },
   {
     status: 'Recommend',
     description: 'Get your first crypto property',
-    imgSrc: '@/assets/icon/todo/wallet.svg',
+    imgSrc: require('@/assets/icon/todo/wallet.svg'),
     text: 'green'
   },
   {
     status: '_',
     description: 'How can we reach you?',
-    imgSrc: '@/assets/icon/todo/mail.svg',
+    imgSrc: require('@/assets/icon/todo/mail.svg'),
     text: 'black'
   }
 ]
