@@ -59,6 +59,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
+  {
+    path: '/survey',
+    name: 'survey',
+    component: () =>
+      import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
+  },
   
 ];
 
