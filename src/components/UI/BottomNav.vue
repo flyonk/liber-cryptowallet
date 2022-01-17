@@ -10,7 +10,7 @@
       </li>
       <li
         class="item"
-        @click="$router.push('/home')"
+        @click="$router.push('/home/accounts')"
       >
         <img
           src="@/assets/images/navbar/account.svg"
