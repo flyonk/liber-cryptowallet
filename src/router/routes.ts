@@ -50,7 +50,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/home/transactions',
-    name: 'dashboard-account',
+    name: 'dashboard-transactions',
     component: () =>
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardTransactions.vue'
@@ -58,7 +58,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/home/verification',
-    name: 'dashboard-account',
+    name: 'dashboard-verification',
     component: () =>
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'

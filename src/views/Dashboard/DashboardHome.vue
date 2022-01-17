@@ -115,8 +115,8 @@
         </VueAgile>
       </div>
     </div>
-    <bottom-nav />
   </div>
+  <bottom-nav />
 </template>
 
 <script setup lang="ts">
@@ -173,9 +173,11 @@ const carousel = [
 
 <style lang="scss" scoped>
 .dashboard {
-  height: 100vh;
-  padding: 15px;
+  padding: 15px 15px 0 15px;
   background: #FAFAFE;
+  overflow: auto;
+  flex-grow: 1;
+
 
   >.header {
     align-items: center;

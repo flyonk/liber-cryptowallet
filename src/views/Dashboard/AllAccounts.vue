@@ -39,8 +39,8 @@
         </h5>
       </li>
     </ul>
-    <BottomNav />
   </div>
+  <bottom-nav />
 </template>
 
 <script setup lang="ts">
@@ -84,6 +84,8 @@ const currencies = [
 .all-accounts {
   height: 100%;
   padding: 60px 16px 0 16px;
+  flex-grow: 1;
+  overflow: auto;
 
   &__header {
     display: flex;

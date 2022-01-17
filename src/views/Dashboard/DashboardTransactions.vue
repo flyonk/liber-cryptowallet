@@ -151,6 +151,8 @@ import { ref } from 'vue'
   background: #FAFAFE;
   height: 85%;
   padding: 60px 16px 0 16px;
+  flex-grow: 1;
+  overflow: auto;
 
   >.count {
     >.flex {

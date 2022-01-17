@@ -3,6 +3,7 @@
     <ul class="navbar">
       <li class="item">
         <img
+          class="icon"
           src="@/assets/images/navbar/home.svg"
           alt="Home"
         >
@@ -13,6 +14,7 @@
         @click="$router.push('/home/accounts')"
       >
         <img
+          class="icon"
           src="@/assets/images/navbar/account.svg"
           alt="Account"
         >
@@ -20,6 +22,8 @@
       </li>
       <li class="item">
         <img
+          id="center-btn-img"
+          class="icon"
           src="@/assets/images/navbar/send.svg"
           alt="Send"
         >
@@ -27,6 +31,7 @@
       </li>
       <li class="item">
         <img
+          class="icon"
           src="@/assets/images/navbar/recipients.svg"
           alt="Recipients"
         >
@@ -34,6 +39,7 @@
       </li>
       <li class="item">
         <img
+          class="icon"
           src="@/assets/images/navbar/gift.svg"
           alt="Invite"
         >
@@ -73,13 +79,15 @@ function showBottomMenu() {
   display: flex;
   flex-direction: column;
   align-items: center;
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  width: 100%;
 }
 
 .navbar {
   background: white;
   margin-top: auto;
   width: 100%;
-  height: 85px;
+  height: 65px;
   display: flex;
   justify-content: space-around;
   margin-bottom: 15px;
@@ -90,6 +98,17 @@ function showBottomMenu() {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+
+    >.icon {
+      vertical-align: top;
+    }
+
+    #center-btn-img {
+      position: relative;
+      top: -10px;
+    }
+
+    
   }
 
 }
