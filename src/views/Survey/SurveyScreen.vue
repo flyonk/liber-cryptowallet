@@ -24,7 +24,8 @@
               @change="selectAnswer(answer.id)"
             >
             <span class="radio-label">{{ answer.body }}</span>
-            <img src="@/assets/images/arrow.svg" alt="right arrow">
+            <img src="@/assets/images/arrow-white.svg" alt="right arrow" v-if="answer.isSelected">
+            <img src="@/assets/images/arrow.svg" alt="right arrow" v-else>
           </label>
         </template>
       </div>
@@ -234,6 +235,15 @@ const closePage = () => {
   img {
     width: 20px;
     height: auto;
+  }
+
+  &:first-of-type {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+  }
+  &:last-of-type {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
   }
 }
 
