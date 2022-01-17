@@ -35,6 +35,7 @@
         class="ml-auto"
         src="@/assets/icon/currencies/euro.svg"
         alt="eurounion"
+        @click="$router.push('/home/transactions')"
       >
     </div>
     <h3 class="heading-gray-md mb-4">

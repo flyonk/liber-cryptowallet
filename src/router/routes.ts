@@ -48,6 +48,14 @@ const routes: Array<RouteRecordRaw> = [
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/AllAccounts.vue'
       ),
   },
+  {
+    path: '/home/transactions',
+    name: 'dashboard-account',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardTransactions.vue'
+      ),
+  },
 
   // === KYC ===
 
