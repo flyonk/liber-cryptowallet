@@ -12,7 +12,7 @@ const store = useAccountStore();
 store.init();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 #app {
   font-family: Inter, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -20,6 +20,7 @@ store.init();
   text-align: center;
   color: #2c3e50;
   height: 100vh;
+  min-height: 100vh;
 }
 
 .main-nav {
