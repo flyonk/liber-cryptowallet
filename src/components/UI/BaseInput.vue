@@ -1,7 +1,10 @@
 <template>
   <div class="base-input">
     <div class="p-float-label">
-      <PInput v-bind="$attrs" />
+      <component
+        :is="currentComponent"
+        v-bind="$attrs"
+      />
       <label>
         <slot name="label" />
       </label>
@@ -12,8 +15,18 @@
 <script>
 import { defineComponent, ref } from 'vue';
 
+import PInput from 'primevue/inputtext';
+import PInputNumber from 'primevue/inputnumber';
+
 export default defineComponent({
   name: 'BaseInput',
+
+  props: {
+    type: {
+      type: String,
+      default: 'text'
+    }
+  },
 
   setup() {
     const isFocused = ref(false);
@@ -21,6 +34,19 @@ export default defineComponent({
     return {
       isFocused
     };
+  },
+
+  computed: {
+    currentComponent() {
+      switch (this.type) {
+        case 'text':
+          return PInput;
+        case 'number':
+          return PInputNumber;
+        default:
+          return PInput;
+      }
+    }
   }
 });
 </script>
@@ -59,7 +85,7 @@ export default defineComponent({
     border: 1px solid var(--ion-color-ui-primary-500);
   }
 
-  .p-inputtext {
+  .p-inputtext, .p-inputnumber {
     background: transparent;
     border: 0;
     color: var(--ion-color-brand-primary);

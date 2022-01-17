@@ -15,12 +15,21 @@
       <div class="col-8 ml-auto">
         <BaseInput
           v-model="number"
+          :use-grouping="false"
+          type="number"
         >
           <template #label>
             Number
           </template>
         </BaseInput>
       </div>
+    </div>
+    <div class="sign-button-wrapper">
+      <BaseButton
+        block
+      >
+        Sign up
+      </BaseButton>
     </div>
   </div>
 </template>
@@ -30,6 +39,7 @@ import { defineComponent, ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 import { getFullList } from '@/services/country-phone';
 
@@ -38,10 +48,11 @@ export default defineComponent({
   components: {
     TopNavigation,
     BaseInput,
-    BaseCountryPhoneInput
+    BaseCountryPhoneInput,
+    BaseButton
   },
   setup() {
-    const number = ref('');
+    const number = ref(null);
 
     return {
       number
@@ -59,6 +70,13 @@ export default defineComponent({
 
   .sign-up--description {
     padding-bottom: 24px;
+  }
+
+  .sign-button-wrapper {
+    position: fixed;
+    bottom: 50px;
+    left: 16px;
+    right: 16px;
   }
 }
 </style>

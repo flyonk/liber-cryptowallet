@@ -10,6 +10,7 @@ import '@/assets/styles/index.scss';
 import PrimeVue from 'primevue/config';
 
 import PInput from 'primevue/inputtext';
+import PInputNumber from 'primevue/inputnumber';
 import PDialog from 'primevue/dialog';
 
 const app = createApp(App)
@@ -20,6 +21,7 @@ const app = createApp(App)
 
 app.component('PInput', PInput);
 app.component('PDialog', PDialog);
+app.component('PInputNumber', PInputNumber);
 
 router.isReady().then(() => {
   app.mount('#app');

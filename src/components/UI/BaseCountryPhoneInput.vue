@@ -175,6 +175,10 @@ export default defineComponent({
           width: 40px;
         }
       }
+
+      .code {
+        color: var(--ion-color-dark-grey);
+      }
     }
   }
 }
