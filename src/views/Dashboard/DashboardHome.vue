@@ -2,8 +2,23 @@
   <div class="dashboard">
     <div class="header flex mb-4">
       <img src="@/assets/images/avatar.png">
-      <div class="verification">
+      <div
+        v-if="VerificationStatus === 'in_progress'"
+        class="verification"
+      >
         ID Verification
+      </div>
+      <div
+        v-if="VerificationStatus === 'verified'"
+        class="verification verification--verified"
+      >
+        ID Verified
+      </div>
+      <div
+        v-if="VerificationStatus === 'failed'"
+        class="verification verification--failed"
+      >
+        ID Verification Failed
       </div>
       <img
         src="@/assets/icon/bell.svg"
@@ -110,6 +125,7 @@ import BottomNav from '@/components/UI/BottomNav.vue'
 // import { toRefs } from 'vue';
 import { ref } from 'vue';
 let activeTab = ref(1);
+const VerificationStatus = ref('failed')
 
 const tabs = [
   {
@@ -178,6 +194,17 @@ const carousel = [
       line-height: 21px;
       letter-spacing: -0.0031em;
       color: #8C6900;
+
+      &--verified {
+        background: #C5EBCA;
+        color: #256A2F;
+      }
+
+      &--failed {
+        width: 181px;
+        background: #FCC5C1;
+        color: #AD3026;
+      }
     }
   }
 
