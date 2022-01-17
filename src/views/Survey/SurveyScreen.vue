@@ -1,13 +1,255 @@
 <template>
-  <div>
-    <h1>Hello world survey</h1>
+  <div class="page-wrapper">
+    <button class="close-page" @click="closePage">
+      <img src="@/assets/images/close-icon.svg" alt="close page">
+    </button>
+
+    <div v-if="dictionary[activeQuestion]">
+      <h1 class="main-title">{{ dictionary[activeQuestion].question.body }}</h1>
+
+      <p class="text-default">We need to know this for regulatory reasons. And also, we are curious!</p>
+      
+      <div>
+        <template
+          v-for="answer in dictionary[activeQuestion].answers" 
+          :key="answer.id"
+        >
+          <label class="radio-btn" :class="{ isSelected: answer.isSelected }">
+            <input 
+              :id="answer.id" 
+              type="radio" 
+              name="surveyAnswer" 
+              :value="answer.id" 
+              style="display: none"
+              @change="selectAnswer(answer.id)"
+            >
+            <span class="radio-label">{{ answer.body }}</span>
+            <img src="@/assets/images/arrow.svg" alt="right arrow">
+          </label>
+        </template>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-//
+import { ref } from 'vue'
+
+/*
+type dictionaryItem = {
+  id: number | string
+  body: string
+  isSelected?: boolean
+}
+
+interface Dictionary {
+  question: dictionaryItem;
+  answers: dictionaryItem[]
+}
+*/
+
+let activeQuestion = ref(0)
+const dictionary = ref([
+  {
+    question: {
+      id: 1,
+      body: 'Main reason for using Liber'
+    },
+    answers: [
+      {
+        id: 11,
+        body: 'Spend or save daily'
+      },
+      {
+        id: 12,
+        body: 'Spend while travelling'
+      },
+      {
+        id: 13,
+        body: 'Send money'
+      },
+      {
+        id: 14,
+        body: 'Gain exposure to financial assets'
+      }
+    ]
+  },
+  {
+    question: {
+      id: 2,
+      body: 'question number two'
+    },
+    answers: [
+      {
+        id: 11,
+        body: 'anser number one two'
+      },
+      {
+        id: 12,
+        body: 'anser number two two'
+      },
+      {
+        id: 13,
+        body: 'anser number three four'
+      },
+      {
+        id: 14,
+        body: 'anser number four two'
+      }
+    ]
+  },
+  {
+    question: {
+      id: 3,
+      body: 'question number three'
+    },
+    answers: [
+      {
+        id: 31,
+        body: 'anser number one three'
+      },
+      {
+        id: 32,
+        body: 'anser number two three'
+      },
+      {
+        id: 33,
+        body: 'anser number three theee'
+      },
+      {
+        id: 34,
+        body: 'anser number four three'
+      }
+    ]
+  },
+  {
+    question: {
+      id: 4,
+      body: 'question number one four'
+    },
+    answers: [
+      {
+        id: 11,
+        body: 'anser number one four'
+      },
+      {
+        id: 12,
+        body: 'anser number two four'
+      },
+      {
+        id: 13,
+        body: 'anser number three four'
+      },
+      {
+        id: 14,
+        body: 'anser number four five'
+      }
+    ]
+  }
+])
+
+/**
+ * Save user answer to database
+ */
+const saveAnswers = () => {
+  console.log('store answere logic here')
+}
+
+const markAnswerAsSelected = (id: number | string) => {
+  dictionary.value[activeQuestion.value].answers = dictionary.value[activeQuestion.value].answers.map((item) => {
+    if (item.id === id) {
+      item.isSelected = true
+    } else {
+      item.isSelected = false
+    }
+    return item
+  })
+}
+
+const getSelectedAnswers = () => {
+  return dictionary.value.map(item => {
+    return {
+      question: item.question.id,
+      answer: item.answers.filter((a) => a.isSelected).map(a => a.id).join(', ')
+    }
+  })
+}
+
+const selectAnswer = (id: number | string) => {
+  const maxValue = dictionary.value.length
+  if (maxValue <= activeQuestion.value + 1) {
+    markAnswerAsSelected(id)
+    const userAnswers = getSelectedAnswers()
+    console.log('select last anser please done', userAnswers)
+    saveAnswers()
+    return
+  }
+  markAnswerAsSelected(id)
+  activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue)
+}
+
+const closePage = () => {
+  console.log('close this page')
+}
 </script>
 
 <style lang="scss" scoped>
-//
+.close-page {
+  border: none;
+  padding: 0;
+}
+.page-wrapper {
+  margin: 15px;
+}
+
+.main-title {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.0038em;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.text-default {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+  color: #0D1F3C;
+  margin-bottom: 40px;
+}
+
+.radio-btn {
+  display: block;
+  border: 1px solid #EBECF0;
+  padding: 15px 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  img {
+    width: 20px;
+    height: auto;
+  }
+}
+
+.radio-btn.isSelected {
+  background-color: #2862FF;
+  .radio-label {
+    color: white;
+  }
+}
+
+.radio-label {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: -0.0031em;
+  color: #0D1F3C;
+}
 </style>
