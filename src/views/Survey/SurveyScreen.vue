@@ -58,92 +58,20 @@ const dictionary = ref([
     },
     answers: [
       {
-        id: 11,
+        id: 1,
         body: 'Spend or save daily'
       },
       {
-        id: 12,
+        id: 2,
         body: 'Spend while travelling'
       },
       {
-        id: 13,
+        id: 3,
         body: 'Send money'
       },
       {
-        id: 14,
+        id: 4,
         body: 'Gain exposure to financial assets'
-      }
-    ]
-  },
-  {
-    question: {
-      id: 2,
-      body: 'question number two'
-    },
-    answers: [
-      {
-        id: 11,
-        body: 'anser number one two'
-      },
-      {
-        id: 12,
-        body: 'anser number two two'
-      },
-      {
-        id: 13,
-        body: 'anser number three four'
-      },
-      {
-        id: 14,
-        body: 'anser number four two'
-      }
-    ]
-  },
-  {
-    question: {
-      id: 3,
-      body: 'question number three'
-    },
-    answers: [
-      {
-        id: 31,
-        body: 'anser number one three'
-      },
-      {
-        id: 32,
-        body: 'anser number two three'
-      },
-      {
-        id: 33,
-        body: 'anser number three theee'
-      },
-      {
-        id: 34,
-        body: 'anser number four three'
-      }
-    ]
-  },
-  {
-    question: {
-      id: 4,
-      body: 'question number one four'
-    },
-    answers: [
-      {
-        id: 11,
-        body: 'anser number one four'
-      },
-      {
-        id: 12,
-        body: 'anser number two four'
-      },
-      {
-        id: 13,
-        body: 'anser number three four'
-      },
-      {
-        id: 14,
-        body: 'anser number four five'
       }
     ]
   }
