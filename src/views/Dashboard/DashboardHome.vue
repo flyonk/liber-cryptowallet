@@ -65,13 +65,25 @@
       </h4>
     </div>
     <div class="controls">
-      <button class="btn">
+      <button
+        class="btn"
+        :class="{'btn--active': VerificationStatus === 'verified'}"
+        :disabled="VerificationStatus !== 'verified'"
+      >
         Deposit
       </button>
-      <button class="btn">
+      <button
+        class="btn"
+        :class="{'btn--active': VerificationStatus === 'verified'}"
+        :disabled="VerificationStatus !== 'verified'"
+      >
         Send
       </button>
-      <button class="btn">
+      <button
+        class="btn"
+        :class="{'btn--active': VerificationStatus === 'verified'}"
+        :disabled="VerificationStatus !== 'verified'"
+      >
         ...
       </button>
     </div>
@@ -125,7 +137,7 @@ import BottomNav from '@/components/UI/BottomNav.vue'
 // import { toRefs } from 'vue';
 import { ref } from 'vue';
 let activeTab = ref(1);
-const VerificationStatus = ref('failed')
+const VerificationStatus = ref('verified')
 
 const tabs = [
   {
@@ -278,6 +290,10 @@ const carousel = [
       height: 40px;
       margin-right: 8px;
       color: white;
+
+      &--active {
+        background: #2862FF;
+      }
 
       &:last-child {
         width: 40px;
