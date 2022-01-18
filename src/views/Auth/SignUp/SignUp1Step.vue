@@ -24,9 +24,18 @@
         </BaseInput>
       </div>
     </div>
+    <div class="footer">
+      <span class="text--footnote font-weight--semibold">
+        Already have an account?
+        <span class="link">
+          Log in
+        </span>
+      </span>
+    </div>
     <div class="sign-button-wrapper">
       <BaseButton
         block
+        @click="nextStep"
       >
         Sign up
       </BaseButton>
@@ -34,14 +43,15 @@
   </div>
 </template>
 
-<script lang='ts'>
+<script>
+
 import { defineComponent, ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
 
-import { getFullList } from '@/services/country-phone';
+import { StepDirection } from '@/views/Auth/SignUp/types';
 
 export default defineComponent({
   name: 'SignUp',
@@ -51,6 +61,7 @@ export default defineComponent({
     BaseCountryPhoneInput,
     BaseButton
   },
+emits: ['step'],
   setup() {
     const number = ref(null);
 
@@ -58,25 +69,15 @@ export default defineComponent({
       number
     };
   },
-  created() {
-    getFullList();
+
+  methods: {
+    nextStep() {
+      this.$emit('step', StepDirection.next)
+    }
   }
 });
 </script>
 
-<style lang='scss'>
-.sign-up--container {
-  padding: 0 16px;
+<style scoped>
 
-  .sign-up--description {
-    padding-bottom: 24px;
-  }
-
-  .sign-button-wrapper {
-    position: fixed;
-    bottom: 50px;
-    left: 16px;
-    right: 16px;
-  }
-}
 </style>

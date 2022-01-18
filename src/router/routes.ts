@@ -4,7 +4,7 @@ import { RouteRecordRaw } from 'vue-router';
 import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
-import SignUp from '@/views/Auth/SignUp.vue';
+import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
