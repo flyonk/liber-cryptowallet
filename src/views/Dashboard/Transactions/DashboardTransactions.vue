@@ -66,6 +66,7 @@
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
+          @click="$router.push('/home/transactions/details')"
         >
           <img
             class="icon"
@@ -117,7 +118,7 @@
         </h4>
         <div class="account">
           <div class="address-number">
-            <p>1Mtree35df4543sdgErtrryryEe13rr<br/>sd21213<span class="bold">Opa139z0l</span></p>
+            <p>1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span></p>
           </div>
           <img
             src="@/assets/icon/folders.svg"
