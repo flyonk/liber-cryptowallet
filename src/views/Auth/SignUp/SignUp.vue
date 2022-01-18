@@ -17,7 +17,7 @@ export default defineComponent({
   name: 'SignUp',
 
   setup() {
-    const step = ref(2) as Ref<number>;
+    const step = ref(1) as Ref<number>;
 
     return {
       step
