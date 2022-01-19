@@ -1,28 +1,33 @@
 <template>
   <div class="page-wrapper">
-    <button
-      type="button"
-      class="back-btn"
-      @click="$router.go(-1)"
+    <BackHistoryBtn />
+
+    <h1 class="main-title">
+      Enter verification code
+    </h1>
+
+    <p class="text-default">
+      Get a verification code from the authenticator app
+    </p>
+
+    <input
+      v-model="verificationCode"
+      type="text"
     >
-      <img
-        src="@/assets/images/back-arrow.svg"
-        alt="Go back"
-      >
-    </button>
-
-    <h1 class="main-title">Enter verification code</h1>
-
-    <p class="text-default">Get a verification code from the authenticator app</p>
-
-    <input type="text" v-model="verificationCode">
   </div>
   <div style="padding: 15px;">
-    <button tyte="button" class="btn btn-primary" @click="pasteFromClipboard">Paste</button>
+    <button
+      tyte="button"
+      class="btn-default btn-primary"
+      @click="pasteFromClipboard"
+    >
+      Paste
+    </button>
   </div>
 </template>
 
 <script setup lang="ts">
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 import { ref, watch } from 'vue'
 const verificationCode = ref('')
 
@@ -43,16 +48,6 @@ watch(verificationCode, (code) => {
 </script>
 
 <style lang="scss" scoped>
-.back-btn {
-  border: none;
-  padding: 0;
-
-  img {
-    background-color: #fff;
-    height: 16px;
-    width: auto;
-  }
-}
 .page-wrapper {
   margin: 15px;
   flex-grow: 1;
@@ -60,6 +55,7 @@ watch(verificationCode, (code) => {
   flex-direction: column;
   align-items: flex-start;
 }
+
 .main-title {
   font-style: normal;
   font-weight: 800;
@@ -69,6 +65,7 @@ watch(verificationCode, (code) => {
   margin-bottom: 10px;
   margin-top: 20px;
 }
+
 .text-default {
   font-style: normal;
   font-weight: normal;
@@ -79,32 +76,32 @@ watch(verificationCode, (code) => {
   margin-bottom: 20px;
 }
 
-.btn {
+.btn-default {
   border-radius: 13px;
   text-align: center;
   box-shadow: none;
   outline: none;
   border: none;
-
   height: 48px;
-  line-height: 48px;
   width: 100%;
-
   font-style: normal;
   font-weight: 600;
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
 }
+
 .btn-primary {
   background-color: #2862FF;
   color: #fff;
 }
+
 .btn-secondary {
   margin-top: 10px;
   color: #2862FF;
   background-color: transparent;
 }
+
 .page-content {
   flex-grow: 1;
   display: flex;
