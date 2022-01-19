@@ -1,57 +1,120 @@
 <template name="BottomNav">
   <div class="wrapper">
     <ul class="navbar">
-      <li class="item">
-        <img
-          class="icon"
-          src="@/assets/images/navbar/home.svg"
-          alt="Home"
+      <router-link
+        style="text-decoration: none;"
+        to="/home"
+        class="item"
+        @click="changeTab(1)"
+      >
+        <svg
+          v-if="activeTab === 1"
+          class="svg"
         >
-        <p>Home</p>
-      </li>
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#home-active" />
+        </svg>
+        <svg
+          v-else
+          class="svg"
+        >
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#home" />
+        </svg>
+        <p
+          class="label"
+          :class="{'label--active': activeTab === 1}"
+        >
+          Home
+        </p>
+      </router-link>
+      <router-link
+        style="text-decoration: none;"
+        to="/home/accounts"
+        class="item"
+        @click="changeTab(2)"
+      >
+        <svg
+          v-if="activeTab === 2"
+          class="svg"
+        >
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#account-active" />
+        </svg>
+        <svg
+          v-else
+          class="svg"
+        >
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#account" />
+        </svg>
+        <p
+          class="label"
+          :class="{'label--active': activeTab === 2}"
+        >
+          Account
+        </p>
+      </router-link>
       <li
         class="item"
-        @click="$router.push('/home/accounts')"
+        @click="changeTab(3)"
       >
-        <img
-          class="icon"
-          src="@/assets/images/navbar/account.svg"
-          alt="Account"
-        >
-        <p>Account</p>
-      </li>
-      <li class="item">
         <img
           id="center-btn-img"
           class="icon"
-          src="@/assets/images/navbar/send.svg"
+          src="@/assets/icon/navbar/send.svg"
           alt="Send"
         >
-        <p>Send</p>
-      </li>
-      <li class="item">
-        <img
-          class="icon"
-          src="@/assets/images/navbar/recipients.svg"
-          alt="Recipients"
+        <p
+          class="label"
+          :class="{'label--active': activeTab === 3}"
         >
-        <p>Recipients</p>
+          Send
+        </p>
       </li>
-      <li class="item">
-        <img
-          class="icon"
-          src="@/assets/images/navbar/gift.svg"
-          alt="Invite"
+      <li
+        class="item"
+        @click="changeTab(4)"
+      >
+        <svg
+          v-if="activeTab === 4"
+          class="svg"
         >
-        <p>Invite</p>
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients-active" />
+        </svg>
+        <svg
+          v-else
+          class="svg"
+        >
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients" />
+        </svg>
+        <p
+          class="label"
+          :class="{'label--active': activeTab === 4}"
+        >
+          Recipients
+        </p>
+      </li>
+      <li
+        class="item"
+        @click="changeTab(5)"
+      >
+        <svg
+          v-if="activeTab === 5"
+          class="svg"
+        >
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#gift-active" />
+        </svg>
+        <svg
+          v-else
+          class="svg"
+        >
+          <use xlink:href="@/assets/icon/navbar/sprite.svg#gift" />
+        </svg>
+        <p
+          class="label"
+          :class="{'label--active': activeTab === 5}"
+        >
+          Invite
+        </p>
       </li>
     </ul>
-    <img
-      id="indicator"
-      src="@/assets/images/navbar/indicator.png"
-      @click="showBottomMenu"
-    >
-
     <div
       v-if="isMenuOpen"
       class="bottom-menu"
@@ -67,10 +130,18 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
+const activeTab = ref(1)
+
+
 let isMenuOpen = ref(false);
 function showBottomMenu() {
   isMenuOpen.value = !isMenuOpen.value
-  console.log('aga', isMenuOpen.value)
+}
+
+function changeTab(tabNum: number) {
+  setTimeout(() => {
+    activeTab.value = tabNum
+  }, 111);
 }
 </script>
 
@@ -99,8 +170,18 @@ function showBottomMenu() {
     align-items: center;
     justify-content: flex-end;
 
-    >.icon {
-      vertical-align: top;
+    >.label {
+      text-decoration: none;
+
+      &--active {
+        color: #2862FF;
+      }
+    }
+
+    >.svg {
+      width: 24px;
+      height: 24px;
+      fill: red;
     }
 
     #center-btn-img {
@@ -131,10 +212,6 @@ function showBottomMenu() {
     background: #AFB3C3;
     margin: 0 auto;
   }
-}
-
-#indicator {
-  margin: 0 auto;
 }
 
 @keyframes topToBottom {
