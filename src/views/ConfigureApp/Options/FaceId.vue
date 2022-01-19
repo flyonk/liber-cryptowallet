@@ -43,7 +43,7 @@
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 .main-title {
   font-style: normal;
