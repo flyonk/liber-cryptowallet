@@ -59,6 +59,35 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
+
+  // === Configure app ===
+
+  {
+    path: '/config',
+    name: 'configure-app',
+    component: () =>
+      import('@/views/ConfigureApp/ConfigureApp.vue'),
+  },
+
+  // === Configure app options ===
+  
+  {
+    path: '/faceid',
+    name: 'face-id',
+    component: () =>
+      import('@/views/ConfigureApp/Options/FaceId.vue'),
+  },{
+    path: '/touchid',
+    name: 'touch-id',
+    component: () =>
+      import('@/views/ConfigureApp/Options/TouchId.vue'),
+  },
+  {
+    path: '/push-notifications',
+    name: 'push-notifications',
+    component: () =>
+      import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+  },
   
 ];
 
