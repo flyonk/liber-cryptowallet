@@ -45,7 +45,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'dashboard-account',
     component: () =>
       import(
-        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/AllAccounts.vue'
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
+      ),
+  },
+  {
+    path: '/home/accounts/add',
+    name: 'dashboard-account-add',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
       ),
   },
   {
