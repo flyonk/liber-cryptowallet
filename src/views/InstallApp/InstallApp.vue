@@ -41,7 +41,7 @@
     </p>
 
     <a
-      href=""
+      href="https://apps.apple.com/lb/app"
       class="store-link"
     ><img
       class="store-link-img"
@@ -49,7 +49,7 @@
       alt="App Store"
     ></a>
     <a
-      href=""
+      href="https://play.google.com/store/apps"
       class="store-link"
     ><img
       class="store-link-img"
