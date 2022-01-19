@@ -59,6 +59,15 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
+
+  // === Install app ===
+
+  {
+    path: '/install',
+    name: 'install-app',
+    component: () =>
+      import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
+  },
   
 ];
 
