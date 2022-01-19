@@ -13,11 +13,8 @@ let showNavBar = ref(true)
 let path = route.currentRoute._value.name
 
 if (path === 'dashboard-verification') showNavBar.value = false
-console.log('created', route.currentRoute._value.name, showNavBar.value)
 
 watch(route.currentRoute, (val) => {
-  console.log('watcher', val.name)
-
   if (val.name === 'dashboard-verification') {
     showNavBar.value = false 
   } else {
