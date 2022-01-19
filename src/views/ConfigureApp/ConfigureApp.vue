@@ -39,7 +39,11 @@
     <p class="text-default">If you ever lose access to your device, you can use this code to verify you identity.</p>
   </div>
   <div style="padding: 15px;">
-    <button tyte="button" class="btn btn-primary">Continue</button>
+    <button
+      tyte="button"
+      class="btn btn-primary"
+      @click="$router.push('/config-verify')"
+    >Continue</button>
   </div>
 </template>
 

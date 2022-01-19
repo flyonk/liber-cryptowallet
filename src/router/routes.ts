@@ -68,6 +68,12 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import('@/views/ConfigureApp/ConfigureApp.vue'),
   },
+  {
+    path: '/config-verify',
+    name: 'configure-app-verify',
+    component: () =>
+      import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
+  },
 
   // === Configure app options ===
   
