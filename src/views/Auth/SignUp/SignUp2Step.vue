@@ -1,6 +1,6 @@
 <template>
   <div class="sign-up--container">
-    <TopNavigation>
+    <TopNavigation @click:left-icon="$emit('step', prevStep )">
       Enter the 6-digit code
     </TopNavigation>
     <div class="sign-up--description text--body">
@@ -16,17 +16,32 @@
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        Resend code in 0:56
+        <BaseCountdown
+          v-if="showCountdown"
+          @time:up="onTimeIsUp"
+        >
+          <template #countdown="{ minute, second }">
+            Resend code in {{ minute }}:{{ second }}
+          </template>
+        </BaseCountdown>
+        <template v-else>
+          <BaseButton
+            class="resend-button"
+            size="medium"
+            view="flat"
+          >
+            Resend
+          </BaseButton>
+        </template>
       </span>
     </div>
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 
-import { defineComponent, ref } from 'vue';
-import TopNavigation from '@/components/UI/TopNavigation.vue';
-import BaseVerificationCodeInput from '@/components/UI/BaseVerificationCodeInput.vue';
+import { defineComponent, ref, Ref } from 'vue';
+import { BaseButton, BaseCountdown, BaseVerificationCodeInput, TopNavigation } from '@/components/UI';
 
 import { StepDirection } from '@/views/Auth/SignUp/types';
 
@@ -34,25 +49,42 @@ export default defineComponent({
   name: 'SignUp',
   components: {
     TopNavigation,
-    BaseVerificationCodeInput
+    BaseVerificationCodeInput,
+    BaseCountdown,
+    BaseButton
   },
   emits: ['step'],
+
   setup() {
-    const number = ref(null);
+    const number = ref(null) as Ref<number | null>;
+    const showCountdown = ref(true) as Ref<boolean>
 
     return {
-      number
+      number,
+      showCountdown
     };
   },
 
   methods: {
-    nextStep() {
+    nextStep(): void {
       this.$emit('step', StepDirection.next);
+    },
+
+    prevStep(): void {
+      this.$emit('step', StepDirection.prev);
+    },
+
+    onTimeIsUp(): void {
+      this.showCountdown = false
     }
   }
 });
 </script>
 
-<style scoped>
-
+<style lang='scss'>
+.footer {
+  .resend-button {
+    padding: 0;
+  }
+}
 </style>

@@ -1,7 +1,10 @@
 <template>
   <div class="top-navigation--block">
     <div class="top-navigation--controllers">
-      <i class="ci-short_left back--icon" />
+      <i
+        class="ci-short_left back--icon"
+        @click="$emit('click:left-icon')"
+      />
     </div>
     <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold">
       <slot />
@@ -9,12 +12,13 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 
 export default defineComponent(
   {
-    name: 'TopNavigation'
+    name: 'TopNavigation',
+    emits: ['click:left-icon']
   }
 );
 </script>

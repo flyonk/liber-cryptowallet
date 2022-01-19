@@ -9,7 +9,7 @@
         placeholder="Search"
         type="text"
         v-bind="$attrs"
-        @update:modelValue="$emit('update:modelValue', $event)"
+        @update:model-value="$emit('update:modelValue', $event)"
       />
       <i
         class="ci-off_close"
@@ -19,7 +19,7 @@
   </div>
 </template>
 
-<script>
+<script lang='ts'>
 import { defineComponent } from 'vue';
 
 export default defineComponent({
@@ -28,7 +28,9 @@ export default defineComponent({
 
   computed: {
     filled() {
-      return (this.$attrs.modelValue != null && this.$attrs.modelValue.toString().length > 0);
+      const modelValue = this.$attrs.modelValue as null | number
+
+      return (modelValue != null && modelValue.toString().length > 0);
     }
   }
 
