@@ -1,20 +1,33 @@
 <template>
   <div class="page-wrapper">
-    <button class="close-page" @click="closePage">
-      <img src="@/assets/images/close-icon.svg" alt="close page">
+    <button
+      class="close-page"
+      @click="closePage"
+    >
+      <img
+        src="@/assets/images/close-icon.svg"
+        alt="close page"
+      >
     </button>
 
     <div v-if="dictionary[activeQuestion]">
-      <h1 class="main-title">{{ dictionary[activeQuestion].question.body }}</h1>
+      <h1 class="main-title">
+        {{ dictionary[activeQuestion].question.body }}
+      </h1>
 
-      <p class="text-default">We need to know this for regulatory reasons. And also, we are curious!</p>
+      <p class="text-default">
+        We need to know this for regulatory reasons. And also, we are curious!
+      </p>
       
       <div>
         <template
           v-for="answer in dictionary[activeQuestion].answers" 
           :key="answer.id"
         >
-          <label class="radio-btn" :class="{ isSelected: answer.isSelected }">
+          <label
+            class="radio-btn"
+            :class="{ 'is-selected': answer.isSelected }"
+          >
             <input 
               :id="answer.id" 
               type="radio" 
@@ -23,9 +36,20 @@
               style="display: none"
               @change="selectAnswer(answer.id)"
             >
-            <span class="radio-label">{{ answer.body }}</span>
-            <img src="@/assets/images/arrow-white.svg" alt="right arrow" v-if="answer.isSelected">
-            <img src="@/assets/images/arrow.svg" alt="right arrow" v-else>
+            <span
+              class="radiobtn-item"
+              :class="{ 'radiobtn-selected': answer.isSelected }"
+            >{{ answer.body }}</span>
+            <img
+              v-if="answer.isSelected"
+              src="@/assets/images/arrow-white.svg"
+              alt="right arrow"
+            >
+            <img
+              v-else
+              src="@/assets/images/arrow.svg"
+              alt="right arrow"
+            >
           </label>
         </template>
       </div>
@@ -127,6 +151,7 @@ const closePage = () => {
   border: none;
   padding: 0;
 }
+
 .page-wrapper {
   margin: 15px;
 }
@@ -151,16 +176,23 @@ const closePage = () => {
   margin-bottom: 40px;
 }
 
+.radiobtn-item {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 21px;
+  letter-spacing: -0.0031em;
+  color: #0D1F3C;
+}
+
 .radio-btn {
-  display: block;
   border: 1px solid #EBECF0;
   padding: 15px 20px;
-
   display: flex;
   justify-content: space-between;
   align-items: center;
 
-  img {
+  > img {
     width: 20px;
     height: auto;
   }
@@ -169,25 +201,20 @@ const closePage = () => {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
+
   &:last-of-type {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
+
 }
 
-.radio-btn.isSelected {
+.is-selected {
   background-color: #2862FF;
-  .radio-label {
-    color: white;
-  }
 }
 
-.radio-label {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 21px;
-  letter-spacing: -0.0031em;
-  color: #0D1F3C;
+.radiobtn-selected {
+  color: white;
 }
+
 </style>
