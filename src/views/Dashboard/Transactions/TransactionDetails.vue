@@ -99,7 +99,6 @@
       Open in Explorer
     </h2>
   </div>
-  <!-- <bottom-nav v-if="activeTab === 1" /> -->
 </template>
 
 <script setup lang="ts">

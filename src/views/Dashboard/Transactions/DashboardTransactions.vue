@@ -139,11 +139,9 @@
       </div>
     </div>
   </div>
-  <bottom-nav v-if="activeTab === 1" />
 </template>
 
 <script setup lang="ts">
-import BottomNav from '@/components/UI/BottomNav.vue'
 import { ref } from 'vue'
   const activeTab = ref(1)
   const transactions = [
@@ -193,7 +191,8 @@ import { ref } from 'vue'
   background: #FAFAFE;
   height: 85%;
   padding: 35px 0 0 0;
-  overflow: hidden;
+  overflow-x: hidden;
+  overflow-y: auto;
   flex-grow: 1;
 
   >.header  {
@@ -411,8 +410,6 @@ import { ref } from 'vue'
         }
       }
     }
-
-    
   }
 }
 </style>

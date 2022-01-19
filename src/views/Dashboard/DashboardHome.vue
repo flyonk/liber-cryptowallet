@@ -43,7 +43,9 @@
       <div class="circle-wrap">
         <img
           class="down"
+          :class="{'down--reverted': isMenuOpen }"
           src="@/assets/icon/arrow-down.svg"
+          @click="showBottomMenu"
         >
       </div>
       <img
@@ -127,17 +129,29 @@
         </VueAgile>
       </div>
     </div>
+    <div
+      v-if="isMenuOpen"
+      class="bottom-menu"
+    >
+      <div
+        class="bottom-menu--close"
+        @click="showBottomMenu"
+      />
+    </div>
   </div>
-  <bottom-nav />
 </template>
 
 <script setup lang="ts">
 import { VueAgile } from 'vue-agile'
-import BottomNav from '@/components/UI/BottomNav.vue'
 // import { toRefs } from 'vue';
 import { ref } from 'vue';
 let activeTab = ref(1);
 const VerificationStatus = ref('verified')
+
+let isMenuOpen = ref(false);
+function showBottomMenu() {
+  isMenuOpen.value = !isMenuOpen.value
+}
 
 const tabs = [
   {
@@ -254,6 +268,10 @@ const carousel = [
       align-items: center;
       height: 36px;
       width: 36px;
+
+      >.down--reverted {
+        transform: rotate(180deg)
+      }
     }
   }
 
@@ -306,6 +324,9 @@ const carousel = [
 .carousel {
   display: flex;
   margin-bottom: 20px;
+  position: relative;
+  left: -37px;
+  width: 113%;
 }
 .carousel-item {
   width: 160px;
@@ -438,43 +459,41 @@ const carousel = [
   }
 }
 
-#id-verification {
-  margin-left: 8px;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  padding: 5px 12px;
-  width: 131px;
-  height: 31px;
-  background: #FFEBB0;
-  border-radius: 100px;
-  white-space: nowrap;
-  font-size: 16px;
-  line-height: 21px;
-  letter-spacing: -0.0031em;
-  color: #8C6900;
-}
-
-#currency {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  color: #000000;
-  margin-right: 8px;
-}
 
 .agile {
   width: 100%;
 }
 
-.text-green {
-  color: #3EAF4D !important;
+@keyframes topToBottom {
+  0% {
+    bottom: -100%;
+    opacity: 0;
+  }
+  100% {
+    bottom: 0;
+    opacity: 1;
+  }
 }
 
-.text-black {
-  color: black !important;
+.bottom-menu {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: white;
+  border-radius: 32px 32px 0px 0px;
+  max-height: 70%;
+  min-height: 30%;
+  animation: topToBottom ease 1s;
+  padding: 8px;
+  z-index: 2;
+
+  &--close {
+    width: 64px;
+    height: 5px;
+    border-radius: 1px;
+    background: #AFB3C3;
+    margin: 0 auto;
+  }
 }
 </style>

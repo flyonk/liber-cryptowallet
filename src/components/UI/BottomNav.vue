@@ -115,15 +115,6 @@
         </p>
       </li>
     </ul>
-    <div
-      v-if="isMenuOpen"
-      class="bottom-menu"
-    >
-      <div
-        class="bottom-menu--close"
-        @click="showBottomMenu"
-      />
-    </div>
   </div>
 </template>
 
@@ -133,15 +124,8 @@ import { ref } from 'vue';
 const activeTab = ref(1)
 
 
-let isMenuOpen = ref(false);
-function showBottomMenu() {
-  isMenuOpen.value = !isMenuOpen.value
-}
-
 function changeTab(tabNum: number) {
-  setTimeout(() => {
-    activeTab.value = tabNum
-  }, 111);
+  activeTab.value = tabNum
 }
 </script>
 
@@ -192,37 +176,6 @@ function changeTab(tabNum: number) {
     
   }
 
-}
-.bottom-menu {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: white;
-  border-radius: 32px 32px 0px 0px;
-  max-height: 70%;
-  min-height: 30%;
-  animation: topToBottom ease 1s;
-  padding: 8px;
-
-  &--close {
-    width: 64px;
-    height: 5px;
-    border-radius: 1px;
-    background: #AFB3C3;
-    margin: 0 auto;
-  }
-}
-
-@keyframes topToBottom {
-  0% {
-    bottom: -100%;
-    opacity: 0;
-  }
-  100% {
-    bottom: 0;
-    opacity: 1;
-  }
 }
 
 </style>

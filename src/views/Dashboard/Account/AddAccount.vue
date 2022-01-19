@@ -120,11 +120,9 @@
       </ul>
     </div>
   </div>
-  <bottom-nav />
 </template>
 
 <script setup lang="ts">
-import BottomNav from '@/components/UI/BottomNav.vue'
 // import { ref } from 'vue'
  
 </script>
