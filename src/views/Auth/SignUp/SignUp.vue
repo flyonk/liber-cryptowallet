@@ -1,5 +1,6 @@
 <template>
   <div>
+    {{ step }}
     <component
       :is="currentComponent"
       @step="onStep"
@@ -8,19 +9,21 @@
 </template>
 
 <script lang='ts'>
-import { defineComponent, ref, Ref } from 'vue';
+import { defineComponent } from 'vue';
+
+import { useAuthStore } from '@/stores/auth';
 
 import { SignUp1Step, SignUp2Step } from '@/views/Auth/SignUp/index';
-import { StepDirection } from '@/views/Auth/SignUp/types';
 
 export default defineComponent({
   name: 'SignUp',
 
   setup() {
-    const step = ref(1) as Ref<number>;
+    const authStore = useAuthStore()
 
     return {
-      step
+      authStore,
+      step: authStore.getState.registrationStep
     };
   },
 
@@ -38,12 +41,13 @@ export default defineComponent({
   },
 
   methods: {
-    onStep(direction: StepDirection) {
-      if (direction === StepDirection.next) {
-        this.step += 1;
-      } else {
-        this.step -= 1;
-      }
+    onStep() {
+      // if (direction === StepDirection.next) {
+      //   this.step += 1;
+      // } else {
+      //   this.step -= 1;
+      // }
+      this.authStore.setStep(2)
     }
   }
 });
