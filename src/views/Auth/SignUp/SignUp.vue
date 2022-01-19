@@ -1,59 +1,41 @@
 <template>
   <div>
     {{ step }}
-    <component
-      :is="currentComponent"
-      @step="onStep"
-    />
+    <component :is="currentComponent" @step="onStep" />
   </div>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue';
-
+<script setup lang="ts">
 import { useAuthStore } from '@/stores/auth';
-
 import { SignUp1Step, SignUp2Step } from '@/views/Auth/SignUp/index';
+import { computed } from 'vue-demi';
 
-export default defineComponent({
-  name: 'SignUp',
+const authStore = useAuthStore();
 
-  setup() {
-    const authStore = useAuthStore()
+const step = computed(() => authStore.getState.registrationStep);
 
-    return {
-      authStore,
-      step: authStore.getState.registrationStep
-    };
-  },
-
-  computed: {
-    currentComponent() {
-      switch (this.step) {
-        case 1:
-          return SignUp1Step;
-        case 2:
-          return SignUp2Step;
-        default:
-          return null;
-      }
-    }
-  },
-
-  methods: {
-    onStep() {
-      // if (direction === StepDirection.next) {
-      //   this.step += 1;
-      // } else {
-      //   this.step -= 1;
-      // }
-      this.authStore.setStep(2)
-    }
+const currentComponent = computed(() => {
+  switch (step.value) {
+    case 1:
+      return SignUp1Step;
+    case 2:
+      return SignUp2Step;
+    default:
+      return null;
   }
 });
+
+function onStep() {
+  // if (direction === StepDirection.next) {
+  //   this.step += 1;
+  // } else {
+  //   this.step -= 1;
+  // }
+  authStore.setStep(2);
+}
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .sign-up--container {
   padding: 0 16px;
 
