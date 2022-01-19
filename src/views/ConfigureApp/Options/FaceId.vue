@@ -14,6 +14,7 @@
     <h1 class="main-title">Log in with a Face ID</h1>
 
     <div class="page-content">
+      <img src="@/assets/images/face-icon.svg" alt="Face id">
       <p class="text-default">Use Face ID instead of a passcode to log in. It is more secure.</p>
     </div>
   </div>
@@ -96,5 +97,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  flex-direction: column;
 }
 </style>

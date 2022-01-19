@@ -14,6 +14,7 @@
     <h1 class="main-title">Don’t miss a beat</h1>
 
     <div class="page-content">
+      <img src="@/assets/images/pushnotification-icon.svg" alt="Puch notifications">
       <p class="text-default">Get notified about spending, security, wealth, market movements, discounts and deals, so you’re always in the know</p>
     </div>
   </div>
@@ -96,5 +97,6 @@
   align-items: center;
   justify-content: center;
   text-align: center;
+  flex-direction: column;
 }
 </style>
