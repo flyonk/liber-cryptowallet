@@ -81,13 +81,13 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 }
 
 .btn-primary {
-  background-color: #2862FF;
-  color: #fff;
+  background-color: $color-primary;
+  color: $color-white;
 }
 
 .btn-secondary {
   margin-top: 10px;
-  color: #2862FF;
+  color: $color-primary;
   background-color: transparent;
 }
 

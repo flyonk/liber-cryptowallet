@@ -24,7 +24,7 @@
 }
 
 .back-btn-img {
-  background-color: #fff;
+  background-color: $color-white;
   height: 16px;
   width: auto;
 }

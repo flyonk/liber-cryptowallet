@@ -127,8 +127,8 @@ const copyToClipboard = () => {
 }
 
 .btn-primary {
-  background-color: #2862FF;
-  color: #fff;
+  background-color: $color-primary;
+  color: $color-white;
 }
 
 .qr-code-canvas {
@@ -169,7 +169,7 @@ const copyToClipboard = () => {
   color: #0D1F3C;
 
   &:focus {
-    border-color: #2862FF;
+    border-color: $color-primary;
   }
 }
 
