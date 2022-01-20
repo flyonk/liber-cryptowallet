@@ -59,8 +59,8 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 import { onMounted, ref } from 'vue'
 import QrCodeWithLogo from "qrcode-with-logos";
 
-const canvas = ref(null)
-let qrCodeValue = ref(null)
+const canvas = ref<HTMLCanvasElement|undefined>()
+let qrCodeValue = ref<string>('')
 
 onMounted(() => {
   qrCodeValue.value = '12345798'
