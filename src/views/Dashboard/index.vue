@@ -10,7 +10,7 @@ import { ref, watch } from 'vue'
 const route = useRouter()
 
 let showNavBar = ref(true)
-let path = route.currentRoute._value.name
+let path = route.currentRoute.value.name
 
 if (path === 'dashboard-verification') showNavBar.value = false
 

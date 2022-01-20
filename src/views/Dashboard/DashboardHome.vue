@@ -137,6 +137,17 @@
         class="bottom-menu--close"
         @click="showBottomMenu"
       />
+      <div class="header">
+        <h4 class="title">
+          Accounts
+        </h4>
+        <div
+          class="add"
+          @click="$router.push('/home/accounts/add')"
+        >
+          +
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -485,7 +496,7 @@ const carousel = [
   max-height: 70%;
   min-height: 30%;
   animation: topToBottom ease 1s;
-  padding: 8px;
+  padding: 8px 16px 0 16px;
   z-index: 2;
 
   &--close {
@@ -494,6 +505,33 @@ const carousel = [
     border-radius: 1px;
     background: #AFB3C3;
     margin: 0 auto;
+    margin-bottom: 25px;
+  }
+
+  >.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    >.title {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 25px;
+      letter-spacing: -0.0045em;
+    }
+
+    >.add {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      background: #2862FF;
+      border-radius: 8px;
+      width: 40px;
+      height: 40px;
+      font-size: 25px;
+      padding-bottom: 4px;
+    }
   }
 }
 </style>
