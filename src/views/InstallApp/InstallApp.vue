@@ -79,7 +79,7 @@
 }
 
 .back-btn-img {
-  background-color: #fff;
+  background-color: $color-white;
   height: 16px;
   width: auto;
 }
@@ -137,8 +137,8 @@
 }
 
 .btn-primary {
-  background-color: #2862FF;
-  color: #fff;
+  background-color: $color-primary;
+  color: $color-white;
 }
 
 .auth-item {
