@@ -60,18 +60,16 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-/*
 type dictionaryItem = {
   id: number | string
   body: string
   isSelected?: boolean
 }
 
-interface Dictionary {
+type Dictionary = {
   question: dictionaryItem;
   answers: dictionaryItem[]
 }
-*/
 
 let activeQuestion = ref(0)
 const dictionary = ref([
@@ -98,7 +96,7 @@ const dictionary = ref([
         body: 'Gain exposure to financial assets'
       }
     ]
-  }
+  } as Dictionary
 ])
 
 /**
@@ -210,7 +208,7 @@ const closePage = () => {
 }
 
 .is-selected {
-  background-color: #2862FF;
+  background-color: $color-blue;
 }
 
 .radiobtn-selected {
