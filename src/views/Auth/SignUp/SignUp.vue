@@ -1,11 +1,13 @@
 <template>
   <div>
-    {{ step }}
-    <component :is="currentComponent" @step="onStep" />
+    <component
+      :is="currentComponent"
+      @step="onStep"
+    />
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang='ts' setup>
 import { useAuthStore } from '@/stores/auth';
 import { SignUp1Step, SignUp2Step } from '@/views/Auth/SignUp/index';
 import { computed } from 'vue-demi';
@@ -35,7 +37,7 @@ function onStep() {
 }
 </script>
 
-<style lang="scss">
+<style lang='scss'>
 .sign-up--container {
   padding: 0 16px;
 
