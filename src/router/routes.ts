@@ -14,6 +14,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'default' },
   },
   {
+    path: '/welcome',
+    name: 'welcome-logo-screen',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeLogoScreen.vue'
+      ),
+  },
+  {
     path: '/code',
     name: 'auth-code',
     component: CodeEnter,
@@ -36,17 +44,21 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: 'dashboard-home',
     component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'),
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'
+      ),
   },
   {
     path: '/account',
     name: 'dashboard-account',
     component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'),
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
+      ),
   },
-  
+
   // === KYC ===
-  
+
   {
     path: '/kyc/personal',
     name: 'kyc-personal',
@@ -59,7 +71,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
-  
 ];
 
 export default routes;
