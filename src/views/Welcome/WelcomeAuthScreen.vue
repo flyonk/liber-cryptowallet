@@ -1,11 +1,11 @@
 <template>
   <div class="welcome-auth">
-    <nav class="slider"></nav>
-    <header class="header">
-      <h1 class="title">Welcome to</h1>
-      <img class="logo" src="@/assets/images/full-logo-white.png" alt="logo" />
-    </header>
-    <section class="content"></section>
+    <nav class="slider">
+      <!-- <stores-slider :stories="stories" /> -->
+    </nav>
+    <section class="content">
+      <stores-slider :stories="stories" />
+    </section>
     <footer class="footer">
       <button class="login">Log in</button>
       <button class="signup">Sign up</button>
@@ -48,7 +48,7 @@
     display: flex;
     justify-content: space-around;
     flex: 0 0 auto;
-    margin-bottom:50px;
+    margin-bottom: 50px;
   }
 
   > .footer > .login {
