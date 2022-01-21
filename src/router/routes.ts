@@ -22,6 +22,14 @@ const routes: Array<RouteRecordRaw> = [
       ),
   },
   {
+    path: '/welcome-auth',
+    name: 'welcome-auth-screen',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeAuthScreen.vue'
+      ),
+  },
+  {
     path: '/code',
     name: 'auth-code',
     component: CodeEnter,
