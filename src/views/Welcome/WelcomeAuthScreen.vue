@@ -18,11 +18,14 @@
 
 <style lang="scss" scoped>
 .welcome-auth {
+  display: flex;
+  flex-direction: column;
   background-color: $color-brand-2-800;
+  height: 100vh;
 
   > .header {
     display: flex;
-    height: 100px;
+    flex: 0 0 auto;
   }
   > .header > .title {
     font-family: Inter;
@@ -37,9 +40,15 @@
     height: 30px;
   }
 
+  > .content {
+    flex: 1 0 auto;
+  }
+
   > .footer {
     display: flex;
     justify-content: space-around;
+    flex: 0 0 auto;
+    margin-bottom:50px;
   }
 
   > .footer > .login {
