@@ -10,14 +10,8 @@
   </PDialog>
 </template>
 
-<script>
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
 
-export default defineComponent(
-  {
-    name: 'BaseBottomSheet'
-  }
-);
 </script>
 
 <style lang='scss'>
@@ -27,7 +21,7 @@ export default defineComponent(
   height: 100%;
   max-height: 95% !important;
 
-  .p-dialog-content {
+  >.p-dialog-content {
     border-radius: 10px 10px 0 0;
     height: 100%;
   }

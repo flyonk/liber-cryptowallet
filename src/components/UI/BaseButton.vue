@@ -27,65 +27,114 @@
   </button>
 </template>
 
-<script lang='ts'>
-import { defineComponent } from 'vue';
+<script lang='ts' setup>
+import { computed, defineProps } from 'vue';
 
-export default defineComponent({
-  name: 'BaseButton',
-
-  props: {
-    block: {
+const props = defineProps({
+  block: {
       type: Boolean,
       default: false
-    },
-    size: {
-      type: String,
-      default: 'large',
-      validator: (value) => ['large', 'medium', 'small', 'x-small'].includes(value)
-    },
-    view: {
-      type: String,
-      default: 'simple',
-      validator: (value) => ['simple', 'secondary', 'ghost', 'flat'].includes(value)
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    iconLeft: {
-      type: [String, null],
-      default: null
-    },
-    iconRight: {
-      type: [String, null],
-      default: null
-    },
-    loading: {
-      type: Boolean,
-      default: false
-    },
-    icon: {
-      type: [String, null],
-      default: null
-    }
   },
-
-  computed: {
-    classes() {
-      return [
-        {
-          'block': this.block,
-          'disabled': this.disabled,
-          'with-icon-left': this.iconLeft,
-          'with-icon-right': this.iconRight,
-          'only-icon': this.icon
-        },
-        `view-${this.view}`,
-        `size-${this.size}`
-      ];
-    }
+  size: {
+    type: String,
+    default: 'large',
+    validator: (value: string) => ['large', 'medium', 'small', 'x-small'].includes(value)
+  },
+  view: {
+    type: String,
+    default: 'simple',
+    validator: (value: string) => ['simple', 'secondary', 'ghost', 'flat'].includes(value)
+  },
+  disabled: {
+    type: Boolean,
+    default: false
+  },
+  iconLeft: {
+    type: [String, null],
+    default: null
+  },
+  iconRight: {
+    type: [String, null],
+    default: null
+  },
+  loading: {
+    type: Boolean,
+    default: false
+  },
+  icon: {
+    type: [String, null],
+    default: null
   }
-});
+})
+
+const classes = computed(() => ([
+  {
+    '-block': this.block,
+    '-disabled': this.disabled,
+    '-withiconleft': this.iconLeft,
+    '-withiconright': this.iconRight,
+    '-onlyicon': this.icon
+  },
+  `-view${this.view}`,
+  `-size-${this.size}`
+]))
+
+// export default defineComponent({
+//   name: 'BaseButton',
+
+//   props: {
+//     block: {
+//       type: Boolean,
+//       default: false
+//     },
+//     size: {
+//       type: String,
+//       default: 'large',
+//       validator: (value) => ['large', 'medium', 'small', 'x-small'].includes(value)
+//     },
+//     view: {
+//       type: String,
+//       default: 'simple',
+//       validator: (value) => ['simple', 'secondary', 'ghost', 'flat'].includes(value)
+//     },
+//     disabled: {
+//       type: Boolean,
+//       default: false
+//     },
+//     iconLeft: {
+//       type: [String, null],
+//       default: null
+//     },
+//     iconRight: {
+//       type: [String, null],
+//       default: null
+//     },
+//     loading: {
+//       type: Boolean,
+//       default: false
+//     },
+//     icon: {
+//       type: [String, null],
+//       default: null
+//     }
+//   },
+
+//   computed: {
+//     classes() {
+//       return [
+//         {
+//           '-block': this.block,
+//           '-disabled': this.disabled,
+//           '-withiconleft': this.iconLeft,
+//           '-withiconright': this.iconRight,
+//           '-onlyicon': this.icon
+//         },
+//         `-view${this.view}`,
+//         `-size-${this.size}`
+//       ];
+//     }
+//   }
+// });
 </script>
 
 <style lang='scss'>
@@ -99,46 +148,42 @@ export default defineComponent({
   outline: inherit;
   transition: all 0.5s;
 
-  .label {
+  > .label {
     font-weight: 600;
   }
 
-  .container {
+  > .container {
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
-  &.block {
+  &.-block {
     width: 100%
   }
 
-  &.size- {
+  &.-size_ {
     &large {
-      -webkit-border-radius: 13px;
-      -moz-border-radius: 13px;
       border-radius: 13px;
       padding: 13px 24px;
 
-      .label {
+      > .label {
         font-size: 17px;
         line-height: 22px;
         letter-spacing: -0.0043em;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
       }
 
-      i {
+      > i {
         font-size: 24px;
       }
     }
 
     &medium {
-      -webkit-border-radius: 8px;
-      -moz-border-radius: 8px;
       border-radius: 8px;
       padding: 11px 16px;
 
-      .label {
+      > .label {
         font-size: 13px;
         line-height: 18px;
         letter-spacing: -0.0008em;
@@ -148,8 +193,6 @@ export default defineComponent({
     &small {
       height: 32px;
       width: 32px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
       border-radius: 50%;
       padding: 0 !important;
     }
@@ -157,18 +200,16 @@ export default defineComponent({
     &x-small {
       height: 24px;
       width: 24px;
-      -webkit-border-radius: 50%;
-      -moz-border-radius: 50%;
       border-radius: 50%;
       padding: 0 !important;
     }
   }
 
-  &.view- {
+  &.-view {
     &simple {
       background: var(--ion-color-ui-primary-500);
 
-      .label, i {
+      > .label, i {
         color: #fff;
       }
 
@@ -188,14 +229,14 @@ export default defineComponent({
     &secondary {
       background: var(--ion-color-light-grey);
 
-      .label, i {
+      > .label, i {
         color: var(--ion-color-ui-primary-500);
       }
 
       &:disabled, &[disabled] {
         background: var(--ion-color-brand-2-100) !important;
 
-        .label, i {
+        > .label, i {
           color: #fff;
         }
       }
@@ -213,16 +254,16 @@ export default defineComponent({
       background: transparent;
       border: 2px solid var(--ion-color-ui-primary-500);
 
-      .label, i {
-        color: var(--ion-color-ui-primary-500);
-      }
-
       &:disabled, &[disabled] {
         border-color: var(--ion-color-brand-2-100) !important;
 
-        .label, i {
+        > .label, i {
           color: var(--ion-color-brand-2-100);
         }
+      }
+
+      > .label, i {
+        color: var(--ion-color-ui-primary-500);
       }
 
       &:hover, &:focus {
@@ -238,7 +279,7 @@ export default defineComponent({
       padding: 13px 0;
       background: transparent;
 
-      .label, i {
+      > .label, i {
         color: var(--ion-color-ui-primary-500);
       }
 
@@ -262,19 +303,19 @@ export default defineComponent({
     }
   }
 
-  &.with-icon-left {
-    .label {
+  &.-withiconleft {
+    > .label {
       margin-left: 13px;
     }
   }
 
-  &.with-icon-right {
-    .label {
+  &.-withiconright {
+    > .label {
       margin-right: 13px;
     }
   }
 
-  &.only-icon {
+  &.-onlyicon {
     padding: 12px;
   }
 }
