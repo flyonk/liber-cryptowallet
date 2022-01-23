@@ -1,22 +1,19 @@
 <template>
   <div>
-    <slot
-      name="countdown"
-      v-bind="diff"
-    />
+    <slot name="countdown" v-bind="diff" />
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
 
 export interface Difference {
-  year: number,
-  month: number,
-  day: number,
-  hour: number,
-  minute: number | string,
-  second: number | string
+  year: number;
+  month: number;
+  day: number;
+  hour: number;
+  minute: number | string;
+  second: number | string;
 }
 
 const getDateDiff = (date1: Date, date2: Date): Difference => {
@@ -26,8 +23,14 @@ const getDateDiff = (date1: Date, date2: Date): Difference => {
     month: diff.getUTCMonth(),
     day: diff.getUTCDate() - 1,
     hour: diff.getUTCHours(),
-    minute: diff.getUTCMinutes() < 10 ? '0' + diff.getUTCMinutes() : diff.getUTCMinutes(),
-    second: diff.getUTCSeconds() < 10 ? '0' + diff.getUTCSeconds() : diff.getUTCSeconds()
+    minute:
+      diff.getUTCMinutes() < 10
+        ? '0' + diff.getUTCMinutes()
+        : diff.getUTCMinutes(),
+    second:
+      diff.getUTCSeconds() < 10
+        ? '0' + diff.getUTCSeconds()
+        : diff.getUTCSeconds(),
   };
 };
 export default defineComponent({
@@ -36,8 +39,8 @@ export default defineComponent({
   props: {
     countdown: {
       type: Number,
-      default: 1 // adds 1 minute to current time
-    }
+      default: 1, // adds 1 minute to current time
+    },
   },
 
   emits: ['time:up'],
@@ -50,7 +53,7 @@ export default defineComponent({
     return {
       diff,
       timer,
-      until
+      until,
     };
   },
 
@@ -76,7 +79,7 @@ export default defineComponent({
       }
 
       this.diff = getDateDiff(now, until);
-    }
-  }
+    },
+  },
 });
 </script>

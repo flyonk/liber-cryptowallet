@@ -1,10 +1,7 @@
 <template>
   <div class="base-verification-code-input">
     <div class="input-container">
-      <template
-        v-for="(v, index) in values"
-        :key="`input-${index}`"
-      >
+      <template v-for="(v, index) in values" :key="`input-${index}`">
         <div class="input-wrapper">
           <input
             :ref="iRefs[index]"
@@ -19,7 +16,7 @@
             @focus="onFocus"
             @input="onValueChange"
             @keydown="onKeyDown"
-          >
+          />
         </div>
       </template>
     </div>
@@ -32,49 +29,49 @@ const KEY_CODE = {
   left: 37,
   up: 38,
   right: 39,
-  down: 40
+  down: 40,
 };
 export default {
   name: 'CodeInput',
   props: {
     type: {
       type: String,
-      default: 'number'
+      default: 'number',
     },
     className: String,
     fields: {
       type: Number,
-      default: 6
+      default: 6,
     },
     fieldWidth: {
       type: Number,
-      default: 58
+      default: 58,
     },
     fieldHeight: {
       type: Number,
-      default: 54
+      default: 54,
     },
     autoFocus: {
       type: Boolean,
-      default: true
+      default: true,
     },
     disabled: {
       type: Boolean,
-      default: false
+      default: false,
     },
     required: {
       type: Boolean,
-      default: false
+      default: false,
     },
     title: String,
     change: Function,
     complete: Function,
     loading: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
-emits: ['change', 'complete'],
+  emits: ['change', 'complete'],
   data() {
     const { fields, values } = this;
     let vals;
@@ -192,12 +189,12 @@ emits: ['change', 'complete'],
       if (val.length >= fields) {
         this.$emit('complete', val);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .input-container {
   display: flex;
   width: 100%;

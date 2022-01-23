@@ -27,117 +27,65 @@
   </button>
 </template>
 
-<script lang='ts' setup>
-import { computed, defineProps } from 'vue';
+<script lang="ts" setup>
+import { computed, defineProps, toRefs } from 'vue';
 
 const props = defineProps({
   block: {
-      type: Boolean,
-      default: false
+    type: Boolean,
+    default: false,
   },
   size: {
     type: String,
     default: 'large',
-    validator: (value: string) => ['large', 'medium', 'small', 'x-small'].includes(value)
+    validator: (value: string) =>
+      ['large', 'medium', 'small', 'x-small'].includes(value),
   },
   view: {
     type: String,
     default: 'simple',
-    validator: (value: string) => ['simple', 'secondary', 'ghost', 'flat'].includes(value)
+    validator: (value: string) =>
+      ['simple', 'secondary', 'ghost', 'flat'].includes(value),
   },
   disabled: {
     type: Boolean,
-    default: false
+    default: false,
   },
   iconLeft: {
     type: [String, null],
-    default: null
+    default: null,
   },
   iconRight: {
     type: [String, null],
-    default: null
+    default: null,
   },
   loading: {
     type: Boolean,
-    default: false
+    default: false,
   },
   icon: {
     type: [String, null],
-    default: null
-  }
-})
-
-const classes = computed(() => ([
-  {
-    '-block': this.block,
-    '-disabled': this.disabled,
-    '-withiconleft': this.iconLeft,
-    '-withiconright': this.iconRight,
-    '-onlyicon': this.icon
+    default: null,
   },
-  `-view${this.view}`,
-  `-size-${this.size}`
-]))
+});
 
-// export default defineComponent({
-//   name: 'BaseButton',
+const { block, size, view, disabled, iconLeft, iconRight, icon } =
+  toRefs(props);
 
-//   props: {
-//     block: {
-//       type: Boolean,
-//       default: false
-//     },
-//     size: {
-//       type: String,
-//       default: 'large',
-//       validator: (value) => ['large', 'medium', 'small', 'x-small'].includes(value)
-//     },
-//     view: {
-//       type: String,
-//       default: 'simple',
-//       validator: (value) => ['simple', 'secondary', 'ghost', 'flat'].includes(value)
-//     },
-//     disabled: {
-//       type: Boolean,
-//       default: false
-//     },
-//     iconLeft: {
-//       type: [String, null],
-//       default: null
-//     },
-//     iconRight: {
-//       type: [String, null],
-//       default: null
-//     },
-//     loading: {
-//       type: Boolean,
-//       default: false
-//     },
-//     icon: {
-//       type: [String, null],
-//       default: null
-//     }
-//   },
-
-//   computed: {
-//     classes() {
-//       return [
-//         {
-//           '-block': this.block,
-//           '-disabled': this.disabled,
-//           '-withiconleft': this.iconLeft,
-//           '-withiconright': this.iconRight,
-//           '-onlyicon': this.icon
-//         },
-//         `-view${this.view}`,
-//         `-size-${this.size}`
-//       ];
-//     }
-//   }
-// });
+const classes = computed(() => [
+  {
+    '-block': block,
+    '-disabled': disabled,
+    '-with_icon_left': iconLeft,
+    '-with_icon_right': iconRight,
+    '-only_icon': icon,
+  },
+  `-${view}`,
+  `-${size}`,
+]);
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .base-button {
   background: none;
   color: inherit;
@@ -159,165 +107,203 @@ const classes = computed(() => ([
   }
 
   &.-block {
-    width: 100%
+    width: 100%;
   }
 
-  &.-size_ {
-    &large {
-      border-radius: 13px;
-      padding: 13px 24px;
+  &.-large {
+    border-radius: 13px;
+    padding: 13px 24px;
 
+    > .container {
       > .label {
         font-size: 17px;
         line-height: 22px;
         letter-spacing: -0.0043em;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
-      }
-
-      > i {
-        font-size: 24px;
+        text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
       }
     }
 
-    &medium {
-      border-radius: 8px;
-      padding: 11px 16px;
+    > i {
+      font-size: 24px;
+    }
+  }
 
+  &.-medium {
+    border-radius: 8px;
+    padding: 11px 16px;
+
+    > .container {
       > .label {
         font-size: 13px;
         line-height: 18px;
         letter-spacing: -0.0008em;
       }
     }
-
-    &small {
-      height: 32px;
-      width: 32px;
-      border-radius: 50%;
-      padding: 0 !important;
-    }
-
-    &x-small {
-      height: 24px;
-      width: 24px;
-      border-radius: 50%;
-      padding: 0 !important;
-    }
   }
 
-  &.-view {
-    &simple {
-      background: var(--ion-color-ui-primary-500);
+&.-flat {
+    padding: 13px 0;
+    background: transparent;
 
-      > .label, i {
-        color: #fff;
-      }
-
-      &:disabled, &[disabled] {
-        background: var(--ion-color-grey-500) !important;
-      }
-
-      &:hover, &:focus {
-        background: var(--ion-color-ui-primary-400);
-      }
-
-      &:active {
-        background: var(--ion-color-ui-primary-600);
+    > .container {
+      > .label,
+      i {
+        color: var(--ion-color-ui-primary-500);
       }
     }
 
-    &secondary {
-      background: var(--ion-color-light-grey);
-
-      > .label, i {
-        color: var(--ion-color-ui-primary-500);
-      }
-
-      &:disabled, &[disabled] {
-        background: var(--ion-color-brand-2-100) !important;
-
-        > .label, i {
-          color: #fff;
-        }
-      }
-
-      &:hover, &:focus {
-        background: var(--ion-color-ui-primary-100);
-      }
-
-      &:active {
-        background: var(--ion-color-ui-primary-100);
-      }
-    }
-
-    &ghost {
-      background: transparent;
-      border: 2px solid var(--ion-color-ui-primary-500);
-
-      &:disabled, &[disabled] {
-        border-color: var(--ion-color-brand-2-100) !important;
-
-        > .label, i {
-          color: var(--ion-color-brand-2-100);
-        }
-      }
-
-      > .label, i {
-        color: var(--ion-color-ui-primary-500);
-      }
-
-      &:hover, &:focus {
-        background: var(--ion-color-ui-primary-50);
-      }
-
-      &:active {
-        background: var(--ion-color-ui-primary-100);
-      }
-    }
-
-    &flat {
-      padding: 13px 0;
-      background: transparent;
-
-      > .label, i {
-        color: var(--ion-color-ui-primary-500);
-      }
-
-      &:disabled, &[disabled] {
-        .label, i {
+    &:disabled,
+    &[disabled] {
+      > .container {
+        > .label,
+        i {
           color: var(--ion-color-brand-2-100) !important;
         }
       }
+    }
 
-      &:hover, &:focus {
-        .label, i {
+    &:hover,
+    &:focus {
+      > .container {
+        > .label,
+        i {
           color: var(--ion-color-ui-primary-400);
         }
       }
+    }
 
-      &:active {
-        .label, i {
+    &:active {
+      > .container {
+        > .label,
+        i {
           color: var(--ion-color-ui-primary-600);
         }
       }
     }
   }
 
-  &.-withiconleft {
-    > .label {
-      margin-left: 13px;
+  &.-ghost {
+    background: transparent;
+    border: 2px solid var(--ion-color-ui-primary-500);
+
+    > .container {
+      > .label,
+      i {
+        color: var(--ion-color-ui-primary-500);
+      }
+    }
+
+    &:disabled,
+    &[disabled] {
+      border-color: var(--ion-color-brand-2-100) !important;
+
+      > .container {
+        > .label,
+        i {
+          color: var(--ion-color-brand-2-100);
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      background: var(--ion-color-ui-primary-50);
+    }
+
+    &:active {
+      background: var(--ion-color-ui-primary-100);
     }
   }
 
-  &.-withiconright {
-    > .label {
-      margin-right: 13px;
-    }
-  }
-
-  &.-onlyicon {
+  &.-only-icon {
     padding: 12px;
   }
-}
 
+   &.-secondary {
+    background: var(--ion-color-light-grey);
+
+    > .container {
+      > .label,
+      i {
+        color: var(--ion-color-ui-primary-500);
+      }
+    }
+
+    &:disabled,
+    &[disabled] {
+      background: var(--ion-color-brand-2-100) !important;
+
+      > .container {
+        > .label,
+        i {
+          color: #fff;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      background: var(--ion-color-ui-primary-100);
+    }
+
+    &:active {
+      background: var(--ion-color-ui-primary-100);
+    }
+  }
+
+  &.-simple {
+    background: var(--ion-color-ui-primary-500);
+
+    > .container {
+      > .label,
+      i {
+        color: #fff;
+      }
+    }
+
+    &:disabled,
+    &[disabled] {
+      background: var(--ion-color-grey-500) !important;
+    }
+
+    &:hover,
+    &:focus {
+      background: var(--ion-color-ui-primary-400);
+    }
+
+    &:active {
+      background: var(--ion-color-ui-primary-600);
+    }
+  }
+
+  &.-small {
+    height: 32px;
+    width: 32px;
+    border-radius: 50%;
+    padding: 0 !important;
+  }
+
+  &.-x-small {
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
+    padding: 0 !important;
+  }
+
+  &.-with_icon_left {
+    > .container {
+      > .label {
+        margin-left: 13px;
+      }
+    }
+  }
+
+  &.-with_icon_right {
+    > .container {
+      > .label {
+        margin-right: 13px;
+      }
+    }
+  }
+}
 </style>

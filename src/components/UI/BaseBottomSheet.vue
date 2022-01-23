@@ -10,18 +10,16 @@
   </PDialog>
 </template>
 
-<script lang="ts" setup>
+<script lang="ts" setup></script>
 
-</script>
-
-<style lang='scss'>
+<style lang="scss">
 .base-bottom-sheet {
   margin: 0 !important;
   width: 100%;
   height: 100%;
   max-height: 95% !important;
 
-  >.p-dialog-content {
+  > .p-dialog-content {
     border-radius: 10px 10px 0 0;
     height: 100%;
   }

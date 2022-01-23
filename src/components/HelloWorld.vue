@@ -143,16 +143,13 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
-
-const props = defineProps({
+import { defineProps } from 'vue';
+defineProps({
   msg: {
     type: String,
     required: true,
   },
 });
-
-const { msg } = toRefs(props);
 </script>
 
 <style scoped lang="scss">

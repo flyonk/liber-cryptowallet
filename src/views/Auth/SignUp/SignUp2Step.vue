@@ -1,35 +1,25 @@
 <template>
   <div class="sign-up--container">
-    <TopNavigation @click:left-icon="$emit('step', prevStep )">
+    <TopNavigation @click:left-icon="$emit('step', prevStep)">
       Enter the 6-digit code
     </TopNavigation>
     <div class="sign-up--description text--body">
       To sign up, enter the security code
-      <br>
+      <br />
       we’ve sent to ********6123
     </div>
     <div class="grid">
-      <BaseVerificationCodeInput
-        :loading="false"
-        class="input"
-      />
+      <BaseVerificationCodeInput :loading="false" class="input" />
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        <BaseCountdown
-          v-if="showCountdown"
-          @time:up="onTimeIsUp"
-        >
+        <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
           <template #countdown="{ minute, second }">
             Resend code in {{ minute }}:{{ second }}
           </template>
         </BaseCountdown>
         <template v-else>
-          <BaseButton
-            class="resend-button"
-            size="medium"
-            view="flat"
-          >
+          <BaseButton class="resend-button" size="medium" view="flat">
             Resend
           </BaseButton>
         </template>
@@ -38,10 +28,14 @@
   </div>
 </template>
 
-<script lang='ts'>
-
+<script lang="ts">
 import { defineComponent, ref, Ref } from 'vue';
-import { BaseButton, BaseCountdown, BaseVerificationCodeInput, TopNavigation } from '@/components/UI';
+import {
+  BaseButton,
+  BaseCountdown,
+  BaseVerificationCodeInput,
+  TopNavigation,
+} from '@/components/UI';
 
 import { StepDirection } from '@/views/Auth/SignUp/types';
 
@@ -51,17 +45,17 @@ export default defineComponent({
     TopNavigation,
     BaseVerificationCodeInput,
     BaseCountdown,
-    BaseButton
+    BaseButton,
   },
   emits: ['step'],
 
   setup() {
     const number = ref(null) as Ref<number | null>;
-    const showCountdown = ref(true) as Ref<boolean>
+    const showCountdown = ref(true) as Ref<boolean>;
 
     return {
       number,
-      showCountdown
+      showCountdown,
     };
   },
 
@@ -75,13 +69,13 @@ export default defineComponent({
     },
 
     onTimeIsUp(): void {
-      this.showCountdown = false
-    }
-  }
+      this.showCountdown = false;
+    },
+  },
 });
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .footer {
   .resend-button {
     padding: 0;

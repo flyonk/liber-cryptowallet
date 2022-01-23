@@ -1,10 +1,7 @@
 <template>
   <div class="base-input">
     <div class="p-float-label">
-      <component
-        :is="currentComponent"
-        v-bind="$attrs"
-      />
+      <component :is="currentComponent" v-bind="$attrs" />
       <label>
         <slot name="label" />
       </label>
@@ -24,15 +21,15 @@ export default defineComponent({
   props: {
     type: {
       type: String,
-      default: 'text'
-    }
+      default: 'text',
+    },
   },
 
   setup() {
     const isFocused = ref(false);
 
     return {
-      isFocused
+      isFocused,
     };
   },
 
@@ -46,12 +43,12 @@ export default defineComponent({
         default:
           return PInput;
       }
-    }
-  }
+    },
+  },
 });
 </script>
 
-<style lang='scss'>
+<style lang="scss">
 .base-input {
   background: var(--ion-color-input-background);
   border: 1px solid transparent;
@@ -76,7 +73,6 @@ export default defineComponent({
       font-size: 11px;
       line-height: 13px;
       top: 10px;
-
     }
   }
 
@@ -85,7 +81,8 @@ export default defineComponent({
     border: 1px solid var(--ion-color-ui-primary-500);
   }
 
-  .p-inputtext, .p-inputnumber {
+  .p-inputtext,
+  .p-inputnumber {
     background: transparent;
     border: 0;
     color: var(--ion-color-brand-primary);

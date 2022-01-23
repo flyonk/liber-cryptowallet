@@ -29,13 +29,13 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, ref } from "vue";
-import TopNavigation from "@/components/UI/TopNavigation.vue";
-import BaseInput from "@/components/UI/BaseInput.vue";
-import BaseCountryPhoneInput from "@/components/UI/BaseCountryPhoneInput.vue";
-import BaseButton from "@/components/UI/BaseButton.vue";
+import { defineEmits, ref } from 'vue';
+import TopNavigation from '@/components/UI/TopNavigation.vue';
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
-import { StepDirection } from "@/views/Auth/SignUp/types";
+import { StepDirection } from '@/views/Auth/SignUp/types';
 
 // export default defineComponent({
 //   name: "SignUp",
@@ -63,10 +63,10 @@ import { StepDirection } from "@/views/Auth/SignUp/types";
 
 const number = ref(null);
 
-const emit = defineEmits(["step"]);
+const emit = defineEmits(['step']);
 
 function nextStep(): void {
-  emit("step", StepDirection.next);
+  emit('step', StepDirection.next);
 }
 </script>
 
