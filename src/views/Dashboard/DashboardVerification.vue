@@ -1,54 +1,33 @@
 <template name="DashboardVerification">
   <div class="verification">
     <div class="dragndrop">
-      <img src="@/assets/images/dragndrop-bg.png">
-      <div
-        v-if="isVerificationSuccess"
-        class="main"
-      >
-        <h1 class="title">
-          Your identity has been verified
-        </h1>
+      <img src="@/assets/images/dragndrop-bg.png" />
+      <div v-if="isVerificationSuccess" class="main">
+        <h1 class="title">Your identity has been verified</h1>
         <div class="description">
-          Success! Your idenity has been verfified. You can deposit you first crypto properties
+          Success! Your idenity has been verfified. You can deposit you first
+          crypto properties
         </div>
       </div>
-      <div
-        v-else
-        class="main"
-      >
-        <h1 class="title">
-          Your verification failed
-        </h1>
+      <div v-else class="main">
+        <h1 class="title">Your verification failed</h1>
         <div class="description">
-          We weren't able to verify your identity. Make sure your information is entered correctly.
+          We weren't able to verify your identity. Make sure your information is
+          entered correctly.
         </div>
       </div>
       <div class="controls">
-        <button
-          v-if="isVerificationSuccess"
-          class="btn"
-        >
-          Deposit
-        </button>
-        <button
-          v-else
-          class="btn"
-        >
-          Try Again
-        </button>
-        <button class="btn">
-          Close
-        </button>
+        <button v-if="isVerificationSuccess" class="btn">Deposit</button>
+        <button v-else class="btn">Try Again</button>
+        <button class="btn">Close</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-const isVerificationSuccess = ref(true)
-
+import { ref } from 'vue';
+const isVerificationSuccess = ref(true);
 </script>
 
 <style scoped lang="scss">
@@ -59,18 +38,18 @@ const isVerificationSuccess = ref(true)
   padding: 100px 10px 60px;
   height: 100%;
 
-    >.dragndrop {
-      width: 343px;
-      height: 345px;
-      border-radius: 24px;
+  > .dragndrop {
+    width: 343px;
+    height: 345px;
+    border-radius: 24px;
 
-      >.main {
+    > .main {
       display: flex;
       flex-direction: column;
       padding-top: 24px;
       margin-bottom: 58px;
 
-      >.title {
+      > .title {
         font-weight: 600;
         font-size: 22px;
         line-height: 34px;
@@ -79,24 +58,24 @@ const isVerificationSuccess = ref(true)
         margin-bottom: 16px;
       }
 
-      >.description {
+      > .description {
         font-size: 17px;
         line-height: 22px;
         text-align: center;
         letter-spacing: -0.0043em;
-        color: #0D1F3C;
+        color: #0d1f3c;
       }
     }
 
-    >.controls {
-      >.btn {
+    > .controls {
+      > .btn {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 0px 24px;
+        padding: 0 24px;
         width: 343px;
         height: 48px;
-        background: #2862FF;
+        background: #2862ff;
         border-radius: 13px;
         color: white;
         font-weight: 600;
@@ -104,11 +83,10 @@ const isVerificationSuccess = ref(true)
 
         &:last-child {
           background: transparent;
-          color: #2862FF;
+          color: #2862ff;
         }
       }
     }
   }
-
 }
 </style>

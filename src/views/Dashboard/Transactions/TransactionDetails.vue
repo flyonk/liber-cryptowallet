@@ -6,48 +6,27 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home/transactions')"
-      >
+      />
       <div class="sum">
-        <div class="title">
-          - 2.12345678<span>USDT</span>
-        </div>
+        <div class="title">- 2.12345678<span>USDT</span></div>
         <div class="arrow-wrap">
-          <img
-            src="@/assets/icon/short_right.svg"
-            alt="right"
-          >
+          <img src="@/assets/icon/short_right.svg" alt="right" />
         </div>
       </div>
-      <h2 class="sendto">
-        To Abraham Watson
-      </h2>
-      <p class="date">
-        2 days ago
-      </p>
+      <h2 class="sendto">To Abraham Watson</h2>
+      <p class="date">2 days ago</p>
       <button class="pdf-btn">
-        <img
-          class="pdf-icon"
-          src="@/assets/icon/file_pdf.svg"
-        >
+        <img class="pdf-icon" src="@/assets/icon/file_pdf.svg" />
         <p>Download Statement</p>
       </button>
     </div>
     <ul class="main">
       <li class="item">
-        <p class="name">
-          Sent without reference
-        </p>
+        <p class="name">Sent without reference</p>
       </li>
       <li class="item">
-        <p class="name">
-          Status
-        </p>
-        <div
-          v-if="transactionStatus === 'pending'"
-          class="status"
-        >
-          Pending
-        </div>
+        <p class="name">Status</p>
+        <div v-if="transactionStatus === 'pending'" class="status">Pending</div>
         <div
           v-if="transactionStatus === 'complete'"
           class="status status--complete"
@@ -62,63 +41,48 @@
         </div>
       </li>
       <li class="item">
-        <p class="name">
-          Payment to
-        </p>
+        <p class="name">Payment to</p>
         <div class="right">
-          <img src="@/assets/icon/green_ok.svg">
+          <img src="@/assets/icon/green_ok.svg" />
           <p>Abraham Watson ∙ USDT</p>
         </div>
       </li>
       <li class="item">
-        <p class="name">
-          Transfer Fee
-        </p>
-        <p class="description">
-          0,12345678 USDT
-        </p>
+        <p class="name">Transfer Fee</p>
+        <p class="description">0,12345678 USDT</p>
       </li>
       <li class="item">
         <div class="inner">
-          <p class="name">
-            Transaction ID
-          </p>
-          <p class="transaction-id">
-            3M8w2knJKsr3jqMatYiyuraxVvZA
-          </p>
+          <p class="name">Transaction ID</p>
+          <p class="transaction-id">3M8w2knJKsr3jqMatYiyuraxVvZA</p>
         </div>
         <div class="inner">
-          <img
-            src="@/assets/icon/folders.svg"
-            alt="folders"
-          >
+          <img src="@/assets/icon/folders.svg" alt="folders" />
         </div>
       </li>
     </ul>
-    <h2 class="open-title">
-      Open in Explorer
-    </h2>
+    <h2 class="open-title">Open in Explorer</h2>
   </div>
 </template>
 
 <script setup lang="ts">
-const transactionStatus = 'complete'
-
+const transactionStatus = 'complete';
 </script>
 
 <style lang="scss" scoped>
 .transaction-details {
-  padding: 32px 16px 0 16px;
+  padding: 32px 16px 0;
   height: 100%;
 
-  >.header {
+  > .header {
     height: 29%;
-    >.sum {
+
+    > .sum {
       display: flex;
       justify-content: space-between;
       margin-bottom: 4px;
-      
-      >.title {
+
+      > .title {
         display: flex;
         align-items: center;
         font-weight: 600;
@@ -134,36 +98,36 @@ const transactionStatus = 'complete'
         }
       }
 
-      >.arrow-wrap {
+      > .arrow-wrap {
         display: flex;
         align-items: center;
         justify-content: center;
         border-radius: 50%;
         width: 48px;
         height: 48px;
-        background: #DEE0EB;
+        background: #dee0eb;
       }
     }
 
-    >.sendto {
+    > .sendto {
       font-weight: 500;
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #0D1F3C;
+      color: #0d1f3c;
       margin-bottom: 4px;
     }
 
-    >.date {
+    > .date {
       font-weight: 500;
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #78809B;
+      color: #78809b;
       margin-bottom: 16px;
     }
 
-    >.pdf-btn {
+    > .pdf-btn {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -172,65 +136,66 @@ const transactionStatus = 'complete'
       height: 40px;
       left: 16px;
       top: 194px;
-      background: #2862FF;
+      background: #2862ff;
       border-radius: 8px;
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #FFFFFF;
+      color: #fff;
       margin-bottom: 40px;
 
-      >.pdf-icon {
+      > .pdf-icon {
         margin-right: 12px;
       }
     }
   }
 
-  >.main {
+  > .main {
     margin-bottom: 28px;
-    >.item {
+
+    > .item {
       display: flex;
       align-items: center;
       justify-content: space-between;
       height: 53px;
-      border-bottom: 1px solid rgba(175,179,195, 0.3);
+      border-bottom: 1px solid rgb(175 179 195 / 30%);
 
       &:first-child {
-        border-top: 1px solid rgba(175,179,195, 0.3);
+        border-top: 1px solid rgb(175 179 195 / 30%);
       }
 
-      >.name {
+      > .name {
         font-weight: 500;
         font-size: 16px;
         line-height: 21px;
         display: flex;
         align-items: center;
         letter-spacing: -0.0031em;
-        color: #78809B;
+        color: #78809b;
       }
 
-      >.status {
+      > .status {
         display: flex;
         justify-content: center;
         align-items: center;
         width: 87px;
         height: 31px;
-        background: #FFEBB0;
+        background: #ffebb0;
         border-radius: 100px;
-        color: #8C6900;
+        color: #8c6900;
 
         &--complete {
-          background: #C5EBCA;
-          color: #256A2F;
+          background: #c5ebca;
+          color: #256a2f;
         }
 
         &--reverted {
-          background: #FCC5C1;
-          color: #AD3026;
+          background: #fcc5c1;
+          color: #ad3026;
         }
       }
 
-      >.right {
+      > .right {
         display: flex;
 
         p {
@@ -241,7 +206,7 @@ const transactionStatus = 'complete'
           align-items: center;
           text-align: right;
           letter-spacing: -0.0031em;
-          color: #0D1F3C;
+          color: #0d1f3c;
         }
 
         img {
@@ -249,7 +214,7 @@ const transactionStatus = 'complete'
         }
       }
 
-      >.description {
+      > .description {
         font-weight: 500;
         font-size: 16px;
         line-height: 21px;
@@ -257,18 +222,18 @@ const transactionStatus = 'complete'
         letter-spacing: -0.0031em;
       }
 
-      >.inner {
-        >.name {
+      > .inner {
+        > .name {
           font-weight: 500;
           font-size: 16px;
           line-height: 21px;
           display: flex;
           align-items: center;
           letter-spacing: -0.0031em;
-          color: #78809B;
+          color: #78809b;
         }
 
-        >.transaction-id {
+        > .transaction-id {
           font-weight: 500;
           font-size: 16px;
           line-height: 21px;
@@ -278,13 +243,13 @@ const transactionStatus = 'complete'
     }
   }
 
-  >.open-title {
+  > .open-title {
     font-weight: 600;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #2862FF;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
+    color: #2862ff;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   }
 }
 </style>

@@ -1,20 +1,14 @@
 <template>
   <div class="page-wrapper">
-    <button
-      type="button"
-      class="back-btn"
-      @click="$router.go(-1)"
-    >
+    <button type="button" class="back-btn" @click="$router.go(-1)">
       <img
         src="@/assets/images/back-arrow.svg"
         alt="Go back"
         class="back-btn-img"
-      >
+      />
     </button>
 
-    <h1 class="main-title">
-      Step 1. Install App
-    </h1>
+    <h1 class="main-title">Step 1. Install App</h1>
 
     <p class="text-default">
       Install an authenticator app on your mobile device. Recommended options:
@@ -25,45 +19,33 @@
         src="@/assets/brands/ga.png"
         alt="Google Authenticator"
         class="auth-app-icon"
-      >
+      />
       <span>Google Authenticator</span>
     </p>
-    <p
-      class="auth-item"
-      style="margin-bottom: 50px;"
-    >
+    <p class="auth-item" style="margin-bottom: 50px">
       <img
         src="@/assets/brands/ma.svg"
         alt="Microsoft Authenticator"
         class="auth-app-icon"
-      >
+      />
       <span>Microsoft Authenticator</span>
     </p>
 
-    <a
-      href="https://apps.apple.com/lb/app"
-      class="store-link"
-    ><img
-      class="store-link-img"
-      src="@/assets/brands/appstore.png"
-      alt="App Store"
-    ></a>
-    <a
-      href="https://play.google.com/store/apps"
-      class="store-link"
-    ><img
-      class="store-link-img"
-      src="@/assets/brands/googleplay.png"
-      alt="Google play"
-    ></a>
+    <a href="https://apps.apple.com/lb/app" class="store-link"
+      ><img
+        class="store-link-img"
+        src="@/assets/brands/appstore.png"
+        alt="App Store"
+    /></a>
+    <a href="https://play.google.com/store/apps" class="store-link"
+      ><img
+        class="store-link-img"
+        src="@/assets/brands/googleplay.png"
+        alt="Google play"
+    /></a>
   </div>
-  <div style="padding: 15px;">
-    <button
-      tyte="button"
-      class="btn-default btn-primary"
-    >
-      Continue
-    </button>
+  <div style="padding: 15px">
+    <button tyte="button" class="btn-default btn-primary">Continue</button>
   </div>
 </template>
 
@@ -75,7 +57,6 @@
 .back-btn {
   border: none;
   padding: 0;
-
 }
 
 .back-btn-img {
@@ -105,7 +86,7 @@
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: #0d1f3c;
   margin-bottom: 40px;
 }
 
@@ -113,7 +94,6 @@
   display: block;
   max-width: 180px;
   margin-bottom: 20px;
-
 }
 
 .store-link-img {

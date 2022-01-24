@@ -6,78 +6,59 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      >
+      />
       <div class="count">
         <div class="flex">
-          <h1 class="title">
-            2.12345678 <span>USDT</span>
-          </h1>
+          <h1 class="title">2.12345678 <span>USDT</span></h1>
           <img
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
             alt="currency"
-          >
+          />
         </div>
-        <p class="subtitle heading-gray-md">
-          €594.41
-        </p>
+        <p class="subtitle heading-gray-md">€594.41</p>
       </div>
       <div class="controls">
         <button class="control-btn">
-          <img
-            class="label"
-            src="@/assets/icon/plus.svg"
-          >Deposit
+          <img class="label" src="@/assets/icon/plus.svg" />Deposit
         </button>
         <button class="control-btn">
-          <img
-            class="label"
-            src="@/assets/icon/arrow-right-white.svg"
-          >Send
+          <img class="label" src="@/assets/icon/arrow-right-white.svg" />Send
         </button>
         <button class="control-btn">
-          <img
-            class="label"
-            src="@/assets/icon/repeat.svg"
-          >Exchange
+          <img class="label" src="@/assets/icon/repeat.svg" />Exchange
         </button>
       </div>
       <div class="tabs">
         <div
           class="tab"
-          :class="{'active': activeTab === 1}"
+          :class="{ active: activeTab === 1 }"
           @click="activeTab = 1"
         >
           History
         </div>
         <div
           class="tab"
-          :class="{'active': activeTab === 2}"
+          :class="{ active: activeTab === 2 }"
           @click="activeTab = 2"
         >
           Wallet Address
         </div>
       </div>
-      <ul
-        v-if="activeTab === 1"
-        class="transactions"
-      >
+      <ul v-if="activeTab === 1" class="transactions">
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
           @click="$router.push('/home/transactions/details')"
         >
-          <img
-            class="icon"
-            :src="transaction.img"
-          >
+          <img class="icon" :src="transaction.img" />
           <div class="info">
             <div class="flex">
               <h1 class="title">
                 {{ transaction.info }}
               </h1>
-              <p :class="{'received': transaction.sum.startsWith('+')}">
+              <p :class="{ received: transaction.sum.startsWith('+') }">
                 {{ transaction.sum }}
               </p>
             </div>
@@ -87,14 +68,11 @@
               </div>
               <p
                 v-if="transaction.status"
-                :class="{'pending' : transaction.status === 'Pending'}"
+                :class="{ pending: transaction.status === 'Pending' }"
               >
                 {{ transaction.status }}
               </p>
-              <p
-                v-else
-                class="second-sum"
-              >
+              <p v-else class="second-sum">
                 {{ transaction.sum }}
               </p>
             </div>
@@ -103,38 +81,24 @@
       </ul>
     </div>
 
-    <div
-      v-if="activeTab === 2"
-      class="wallet-address"
-    >
-      <img
-        src="@/assets/images/qr-code.png"
-        alt="qr-code"
-        class="qr-code"
-      >
+    <div v-if="activeTab === 2" class="wallet-address">
+      <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr-code" />
       <div class="address">
-        <h4 class="title">
-          Wallet Address
-        </h4>
+        <h4 class="title">Wallet Address</h4>
         <div class="account">
           <div class="address-number">
-            <p>1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span></p>
+            <p>
+              1Mtree35df4543sdgErtrryryEe13rr<br />sd21213<span class="bold"
+                >Opa139z0l</span
+              >
+            </p>
           </div>
-          <img
-            src="@/assets/icon/folders.svg"
-            alt="folders"
-          >
+          <img src="@/assets/icon/folders.svg" alt="folders" />
         </div>
-        <h2 class="blue-title">
-          Generate New Address
-        </h2>
+        <h2 class="blue-title">Generate New Address</h2>
         <div class="controls">
-          <button class="btn">
-            Save Image
-          </button>
-          <button class="btn">
-            Share Address
-          </button>
+          <button class="btn">Save Image</button>
+          <button class="btn">Share Address</button>
         </div>
       </div>
     </div>
@@ -142,107 +106,107 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-  const activeTab = ref(1)
-  const transactions = [
-    {
-      info: 'Received USDT',
-      from: 'From andrew@gmail.com',
-      sum: '+ 13.55 USDT',
-      status: 'Pending',
-      img: require('@/assets/icon/transactions/received.svg'),
-    },
-      {
-      info: 'Deposit USDT',
-      from: 'From Bitcoin address',
-      sum: '+ 125.00 USDT',
-      img: require('@/assets/icon/transactions/sent.svg')
-    },
-      {
-      info: 'Sent USDT',
-      from: 'To andrew@gmail.com',
-      sum: '- 13.55 USDT',
-      img: require('@/assets/icon/transactions/exchange.svg')
-    },
-    {
-      info: 'Received USDT',
-      from: 'From andrew@gmail.com',
-      sum: '+ 13.55 USDT',
-      status: 'Pending',
-      img: require('@/assets/icon/transactions/received.svg')
-    },
-      {
-      info: 'Deposit USDT',
-      from: 'From Bitcoin address',
-      sum: '+ 125.00 USDT',
-      img: require('@/assets/icon/transactions/sent.svg')
-    },
-      {
-      info: 'Sent USDT',
-      from: 'To andrew@gmail.com',
-      sum: '- 13.55 USDT',
-      img: require('@/assets/icon/transactions/exchange.svg')
-    }
-  ]
+import { ref } from 'vue';
+const activeTab = ref(1);
+const transactions = [
+  {
+    info: 'Received USDT',
+    from: 'From andrew@gmail.com',
+    sum: '+ 13.55 USDT',
+    status: 'Pending',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+  {
+    info: 'Deposit USDT',
+    from: 'From Bitcoin address',
+    sum: '+ 125.00 USDT',
+    img: require('@/assets/icon/transactions/sent.svg'),
+  },
+  {
+    info: 'Sent USDT',
+    from: 'To andrew@gmail.com',
+    sum: '- 13.55 USDT',
+    img: require('@/assets/icon/transactions/exchange.svg'),
+  },
+  {
+    info: 'Received USDT',
+    from: 'From andrew@gmail.com',
+    sum: '+ 13.55 USDT',
+    status: 'Pending',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+  {
+    info: 'Deposit USDT',
+    from: 'From Bitcoin address',
+    sum: '+ 125.00 USDT',
+    img: require('@/assets/icon/transactions/sent.svg'),
+  },
+  {
+    info: 'Sent USDT',
+    from: 'To andrew@gmail.com',
+    sum: '- 13.55 USDT',
+    img: require('@/assets/icon/transactions/exchange.svg'),
+  },
+];
 </script>
 
 <style lang="scss" scoped>
 .account-transactions {
-  background: #FAFAFE;
+  background: #fafafe;
   height: 85%;
-  padding: 35px 0 0 0;
+  padding: 35px 0 0;
   overflow-x: hidden;
   overflow-y: auto;
   flex-grow: 1;
 
-  >.header  {
-    padding: 0 16px 0 16px;
-    >.count {
-    >.flex {
-      >.icon {
-        height: 56px;
-        width: 56px;
-        margin-left: auto;
-      }
+  > .header {
+    padding: 0 16px;
 
-      >.title {
-        font-weight: 600;
-        font-size: 28px;
-        line-height: 34px;
-        letter-spacing: 0.0038em;
-
-        span {
-          font-weight: 600;
-          font-size: 22px;
-          line-height: 34px;
-          letter-spacing: -0.0026em;
+    > .count {
+      > .flex {
+        > .icon {
+          height: 56px;
+          width: 56px;
+          margin-left: auto;
         }
-      
+
+        > .title {
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 34px;
+          letter-spacing: 0.0038em;
+
+          span {
+            font-weight: 600;
+            font-size: 22px;
+            line-height: 34px;
+            letter-spacing: -0.0026em;
+          }
+        }
+      }
+
+      > .subtitle {
+        margin-bottom: 28px;
       }
     }
 
-    >.subtitle {
-      margin-bottom: 28px;
-    }
-  }
-
-    >.controls {
+    > .controls {
       display: flex;
       justify-content: space-between;
       width: 100%;
       margin-bottom: 32px;
 
-      >.control-btn {
+      > .control-btn {
         display: flex;
         align-items: center;
         justify-content: center;
         width: 109px;
         height: 40px;
-        background: #2862FF;
+        background: #2862ff;
         color: white;
         border-radius: 10px;
 
-        >.label {
+        > .label {
           margin-right: 9px;
         }
       }
@@ -254,157 +218,158 @@ import { ref } from 'vue'
       width: 100%;
       padding: 4px;
       border-radius: 8px;
-      background: #EDF0FB;
+      background: #edf0fb;
       margin-bottom: 30px;
 
-      >.tab {
+      > .tab {
         width: 49%;
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #78809B;
+        color: #78809b;
         height: 32px;
-        background: #EDF0FB;
+        background: #edf0fb;
         font-weight: 600;
         font-size: 13px;
         line-height: 18px;
       }
 
-      >.active {
+      > .active {
         background: white;
-        color: #36416A;
+        color: #36416a;
       }
     }
-    >.transactions {
+
+    > .transactions {
       max-height: 360px;
       overflow-y: auto;
       padding-right: 10px;
 
-      >.item {
+      > .item {
         display: flex;
         width: 100%;
         margin-bottom: 24px;
 
-        >.icon {
+        > .icon {
           margin-right: 12px;
           width: 40px;
           height: 40px;
         }
 
-        >.info {
+        > .info {
           width: 100%;
-          >.flex {
+
+          > .flex {
             width: 100%;
             justify-content: space-between;
 
-            >.title {
+            > .title {
               font-weight: 500;
               font-size: 16px;
               line-height: 21px;
               letter-spacing: -0.0031em;
             }
 
-            >.subtitle {
+            > .subtitle {
               font-size: 13px;
               line-height: 18px;
               letter-spacing: -0.0008em;
-              color: #78809B;
+              color: #78809b;
             }
 
-            >.pending {
-              color: #E8AD00;
+            > .pending {
+              color: #e8ad00;
             }
 
-            >.received {
-              color: #3EAF4D;
+            > .received {
+              color: #3eaf4d;
             }
 
-            >.second-sum {
+            > .second-sum {
               font-size: 13px;
               line-height: 18px;
               text-align: right;
               letter-spacing: -0.0008em;
-              color: #78809B;
+              color: #78809b;
             }
-
           }
         }
       }
     }
   }
 
-  >.wallet-address {
+  > .wallet-address {
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 24px;
 
-    >.qr-code {
+    > .qr-code {
       margin-bottom: 56px;
     }
 
-    >.address {
+    > .address {
       width: 100%;
-      background: #FFFFFF;
-      box-shadow: 0px 0px 24px rgba(64, 70, 105, 0.08);
-      padding: 34px 32px 50px 32px;
+      background: #fff;
+      box-shadow: 0 0 24px rgb(64 70 105 / 8%);
+      padding: 34px 32px 50px;
 
-      >.title {
+      > .title {
         font-size: 13px;
         line-height: 18px;
         letter-spacing: -0.0008em;
-        color: #78809B;
+        color: #78809b;
         margin-bottom: 4px;
       }
 
-      >.account {
+      > .account {
         display: flex;
         justify-content: space-between;
         margin-bottom: 20px;
 
-        >.address-number {
+        > .address-number {
           p {
             font-size: 16px;
             line-height: 21px;
             letter-spacing: -0.0031em;
-            color: #000000;
+            color: #000;
 
-            >.bold {
+            > .bold {
               font-weight: bold;
             }
           }
         }
       }
 
-      >.blue-title {
+      > .blue-title {
         font-weight: 600;
         font-size: 17px;
         line-height: 22px;
         letter-spacing: -0.0043em;
-        color: #2862FF;
-        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
+        color: #2862ff;
+        text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
         margin-bottom: 43px;
       }
 
-      >.controls {
+      > .controls {
         display: flex;
 
-        >.btn {
+        > .btn {
           width: 166px;
           height: 48px;
-          background: #EDF0FB;
+          background: #edf0fb;
           border-radius: 13px;
           font-weight: 600;
           font-size: 17px;
 
           &:first-child {
             margin-right: 12px;
-            color: #2862FF;
-            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
+            color: #2862ff;
+            text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
           }
 
           &:last-child {
-            background: #2862FF;
+            background: #2862ff;
             color: white;
           }
         }

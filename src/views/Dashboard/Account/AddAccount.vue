@@ -6,116 +6,55 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      >
-      <h1 class="title">
-        Select a coin
-      </h1>
-      <label
-        for="searchCoin"
-        class="input-label"
-      >
-        <img
-          src="@/assets/icon/search.svg"
-          alt="search"
-          class="icon"
-        >
+      />
+      <h1 class="title">Select a coin</h1>
+      <label for="searchCoin" class="input-label">
+        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
           class="search"
           type="text"
           placeholder="Search a coin"
           name="searchCoin"
-        >
+        />
       </label>
     </div>
     <div class="main">
-      <h4 class="title">
-        Suggested
-      </h4>
+      <h4 class="title">Suggested</h4>
       <ul class="coin-list suggested">
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/btc.svg"
-            alt=""
-          >
-          <p class="name">
-            Bitcoin <span>BTC</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/btc.svg" alt="" />
+          <p class="name">Bitcoin <span>BTC</span></p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/eth.svg"
-            alt=""
-          >
-          <p class="name">
-            Ethereum <span>ETH</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/eth.svg" alt="" />
+          <p class="name">Ethereum <span>ETH</span></p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/binance.svg"
-            alt=""
-          >
-          <p class="name">
-            Binance <span>BNB</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/binance.svg" alt="" />
+          <p class="name">Binance <span>BNB</span></p>
         </li>
       </ul>
-      <h4 class="title">
-        All Coins
-      </h4>
+      <h4 class="title">All Coins</h4>
       <ul class="coin-list all-coins">
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/dash.svg"
-            alt=""
-          >
-          <p class="name">
-            Dash <span>DSH</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/dash.svg" alt="" />
+          <p class="name">Dash <span>DSH</span></p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/xrp.svg"
-            alt=""
-          >
-          <p class="name">
-            Ripple <span>XRP</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/xrp.svg" alt="" />
+          <p class="name">Ripple <span>XRP</span></p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/fantom.svg"
-            alt=""
-          >
-          <p class="name">
-            Fantom <span>FTN</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/fantom.svg" alt="" />
+          <p class="name">Fantom <span>FTN</span></p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/tron.svg"
-            alt=""
-          >
-          <p class="name">
-            Tron <span>TRX</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/tron.svg" alt="" />
+          <p class="name">Tron <span>TRX</span></p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/graph.svg"
-            alt=""
-          >
-          <p class="name">
-            Graph <span>GRT</span>
-          </p>
+          <img class="img" src="@/assets/icon/currencies/graph.svg" alt="" />
+          <p class="name">Graph <span>GRT</span></p>
         </li>
       </ul>
     </div>
@@ -124,25 +63,25 @@
 
 <script setup lang="ts">
 // import { ref } from 'vue'
- 
 </script>
 
 <style lang="scss" scoped>
 .add-account {
-  background: #FAFAFE;
+  background: #fafafe;
   height: 100%;
-  padding: 35px 16px 0 16px;
+  padding: 35px 16px 0;
   overflow-x: hidden;
   overflow-y: auto;
   flex-grow: 1;
 
-  >.header {
+  > .header {
     margin-bottom: 32px;
-    >.back {
+
+    > .back {
       margin-bottom: 20px;
     }
 
-    >.title {
+    > .title {
       font-weight: 800;
       font-size: 28px;
       line-height: 34px;
@@ -150,10 +89,11 @@
       margin-bottom: 16px;
     }
 
-    >.input-label {
+    > .input-label {
       position: relative;
-      >.search {
-        background: #EDF0FB;
+
+      > .search {
+        background: #edf0fb;
         border-radius: 12px;
         width: 100%;
         height: 44px;
@@ -163,13 +103,12 @@
         display: flex;
         align-items: center;
         letter-spacing: -0.0031em;
-        color: #78809B;
+        color: #78809b;
         border: 0;
         outline: none;
-
       }
 
-      >.icon {
+      > .icon {
         position: absolute;
         top: 10px;
         left: 10px;
@@ -178,36 +117,36 @@
     }
   }
 
-  >.main {
-    >.title {
+  > .main {
+    > .title {
       font-weight: 500;
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #0D1F3C;
+      color: #0d1f3c;
       margin-bottom: 16px;
     }
 
-    >.coin-list {
+    > .coin-list {
       margin-bottom: 40px;
 
-      >.item {
+      > .item {
         display: flex;
         align-items: center;
         margin-bottom: 24px;
 
-        >.img {
+        > .img {
           margin-right: 16px;
         }
 
-        >.name {
+        > .name {
           font-weight: 500;
           font-size: 17px;
           line-height: 22px;
           letter-spacing: -0.0043em;
 
           span {
-            color: #AFB3C3;
+            color: #afb3c3;
             padding-left: 14px;
           }
         }
@@ -215,5 +154,4 @@
     }
   }
 }
-
 </style>

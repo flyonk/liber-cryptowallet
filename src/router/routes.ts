@@ -105,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   // === Survey ===
-  
+
   {
     path: '/survey',
     name: 'survey',

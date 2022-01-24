@@ -1,9 +1,5 @@
 <template>
-  <div
-    v-if="isMenuOpen"
-    class="bottom-menu"
-    ref="menu"
-  >
+  <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
     <div
       class="bottom-menu--close"
       @click="closeMenu"
@@ -11,23 +7,16 @@
       @touchend="endMove"
     />
     <div class="header">
-      <h4 class="title">
-        Accounts
-      </h4>
-      <div
-        class="add"
-        @click="$router.push('/home/accounts/add')"
-      >
-        +
-      </div>
+      <h4 class="title">Accounts</h4>
+      <div class="add" @click="$router.push('/home/accounts/add')">+</div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, defineEmits  } from 'vue'
+import { ref, toRefs, defineEmits } from 'vue';
 
-const menu = ref(null)
+const menu = ref(null);
 
 const props = defineProps({
   isMenuOpen: {
@@ -36,19 +25,17 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['closeMenu'])
+const emit = defineEmits(['closeMenu']);
 function closeMenu() {
-  emit('closeMenu')
+  emit('closeMenu');
 }
 
 function startMove($event: TouchEvent) {
-  menu.value.style.height =`calc(100% - ${$event.touches[0].pageY}px)`
+  menu.value.style.height = `calc(100% - ${$event.touches[0].pageY}px)`;
 }
 
-const { isMenuOpen } = toRefs(props)
-
+const { isMenuOpen } = toRefs(props);
 </script>
-
 
 <style lang="scss" scoped>
 .bottom-menu {
@@ -57,41 +44,41 @@ const { isMenuOpen } = toRefs(props)
   left: 0;
   width: 100%;
   background: white;
-  border-radius: 32px 32px 0px 0px;
+  border-radius: 32px 32px 0 0;
   max-height: 70%;
   min-height: 10%;
   height: 30%;
   animation: topToBottom ease 1s;
-  padding: 8px 16px 0 16px;
+  padding: 8px 16px 0;
   z-index: 2;
 
   &--close {
     width: 64px;
     height: 5px;
     border-radius: 1px;
-    background: #AFB3C3;
+    background: #afb3c3;
     margin: 0 auto;
     margin-bottom: 25px;
   }
 
-  >.header {
+  > .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
 
-    >.title {
+    > .title {
       font-weight: 600;
       font-size: 20px;
       line-height: 25px;
       letter-spacing: -0.0045em;
     }
 
-    >.add {
+    > .add {
       display: flex;
       justify-content: center;
       align-items: center;
       color: white;
-      background: #2862FF;
+      background: #2862ff;
       border-radius: 8px;
       width: 40px;
       height: 40px;
