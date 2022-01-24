@@ -42,7 +42,7 @@ defineProps<Props>();
 
   &__dot {
     background-color: green;
-    width: 33%;
+    width: 100%;
     height: auto;
     margin-left: 5px;
   }
