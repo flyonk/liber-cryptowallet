@@ -4,19 +4,28 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt="" />
+      <img
+        :src="selectedData?.flag"
+        alt=""
+      >
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
+    <BaseBottomSheet
+      v-model:visible="showList"
+      position="bottom"
+    >
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">
+            <div
+              class="cancel-button text--headline"
+              @click="showList = false"
+            >
               Cancel
             </div>
           </div>
@@ -31,7 +40,10 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt="" />
+              <img
+                :src="country.flag"
+                alt=""
+              >
             </div>
             <div class="code col-2">
               {{ country.dialCode }}
@@ -45,67 +57,41 @@
     </BaseBottomSheet>
   </div>
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, Ref } from 'vue';
-
+<script lang="ts" setup>
+import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
 import { getFullList } from '@/services/country-phone';
 import { CountryInformation } from '@/services/country-phone-types';
-
 import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
-export default defineComponent({
-  components: {
-    BaseBottomSheet,
-    BaseSearchInput,
-  },
+const list = ref([]) as Ref<Array<CountryInformation>>;
+const selectedData = ref(null) as Ref<CountryInformation | null>;
+const showList = ref(false) as Ref<boolean>;
+const searchQuery = ref('') as Ref<string>;
 
-  setup() {
-    const list = ref([]) as Ref<Array<CountryInformation>>;
-    const phone = ref('');
-    const selectedData = ref(null) as Ref<CountryInformation | null>;
-    const showList = ref(false) as Ref<boolean>;
-    const searchQuery = ref('') as Ref<string>;
+const filteredList: ComputedRef<Array<CountryInformation>> = computed(() => {
+  if (searchQuery.value) {
+    return list.value.filter(({ name }) => name.toLowerCase().includes(searchQuery.value.toLowerCase()))
+  }
 
-    return {
-      phone,
-      list,
-      selectedData,
-      showList,
-      searchQuery,
-    };
-  },
+  return list.value
+})
 
-  computed: {
-    filteredList(): Array<CountryInformation> {
-      if (this.searchQuery) {
-        return this.list.filter(({ name }) =>
-          name.toLowerCase().includes(this.searchQuery.toLowerCase())
-        );
-      }
+onBeforeMount(async(): Promise<void> => {
+  list.value = await getFullList()
 
-      return this.list;
-    },
-  },
+  selectedData.value = list.value[0]
+})
 
-  async created() {
-    this.list = await getFullList();
-    this.selectedData = this.list[0];
-  },
+function isSelectedCountry(country: CountryInformation): boolean {
+  return selectedData.value?.name === country.name
+}
 
-  methods: {
-    isSelectedCountry(country: CountryInformation): boolean {
-      return this.selectedData?.name === country.name;
-    },
+function setSelectedCountry(country: CountryInformation): void {
+  selectedData.value = country;
 
-    setSelectedCountry(country: CountryInformation): void {
-      this.selectedData = country;
-
-      this.showList = false;
-    },
-  },
-});
+  showList.value = false;
+}
 </script>
 
 <style lang="scss">

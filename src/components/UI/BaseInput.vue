@@ -1,7 +1,10 @@
 <template>
   <div class="base-input">
     <div class="p-float-label">
-      <component :is="currentComponent" v-bind="$attrs" />
+      <component
+        :is="currentComponent"
+        v-bind="$attrs"
+      />
       <label>
         <slot name="label" />
       </label>
@@ -9,43 +12,30 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, ref } from 'vue';
+<script lang="ts" setup>
+import { defineProps, computed } from 'vue';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
 
-export default defineComponent({
-  name: 'BaseInput',
-
-  props: {
-    type: {
+const props = defineProps({
+  type: {
       type: String,
       default: 'text',
     },
-  },
+})
 
-  setup() {
-    const isFocused = ref(false);
+const currentComponent = computed(() => {
+  switch (props.type) {
+    case 'text':
+      return PInput;
+    case 'number':
+      return PInputNumber;
+    default:
+      return PInput;
+  }
+})
 
-    return {
-      isFocused,
-    };
-  },
-
-  computed: {
-    currentComponent() {
-      switch (this.type) {
-        case 'text':
-          return PInput;
-        case 'number':
-          return PInputNumber;
-        default:
-          return PInput;
-      }
-    },
-  },
-});
 </script>
 
 <style lang="scss">

@@ -80,8 +80,8 @@ const classes = computed(() => [
     '-with_icon_right': iconRight,
     '-only_icon': icon,
   },
-  `-${view}`,
-  `-${size}`,
+  `-${view.value}`,
+  `-${size.value}`,
 ]);
 </script>
 

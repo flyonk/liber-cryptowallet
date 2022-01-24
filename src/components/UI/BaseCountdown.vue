@@ -1,11 +1,14 @@
 <template>
   <div>
-    <slot name="countdown" v-bind="diff" />
+    <slot
+      name="countdown"
+      v-bind="diff"
+    />
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, Ref } from 'vue';
+<script lang="ts" setup>
+import { onBeforeMount, defineProps, ref, Ref } from 'vue';
 
 export interface Difference {
   year: number;
@@ -33,53 +36,36 @@ const getDateDiff = (date1: Date, date2: Date): Difference => {
         : diff.getUTCSeconds(),
   };
 };
-export default defineComponent({
-  name: 'BaseCountdown',
 
-  props: {
-    countdown: {
+const props = defineProps({
+  countdown: {
       type: Number,
       default: 1, // adds 1 minute to current time
     },
-  },
+})
 
-  emits: ['time:up'],
+const emit = defineEmits(['time:up'])
 
-  setup() {
-    const diff = ref({}) as Ref<Difference | Record<string, never>>;
-    const timer = ref(null) as Ref<number | null>;
-    const until = ref(null) as Ref<Date | null>;
+const until = ref(null) as Ref<Date | null>;
+const timer = ref(null) as Ref<number | null>;
+const diff = ref({}) as Ref<Difference | Record<string, never>>;
 
-    return {
-      diff,
-      timer,
-      until,
-    };
-  },
+onBeforeMount(() => {
+  until.value = new Date(new Date().getTime() + props.countdown * 60000);
+  timer.value = setInterval(getDiff, 1000);
+})
 
-  created() {
-    this.until = new Date(new Date().getTime() + this.countdown * 60000);
-    this.timer = setInterval(this.getDiff, 1000);
-  },
+function getDiff(): void {
+  const now = new Date();
+  
+  if (now > (until.value as Date)) {
+    clearInterval(timer as unknown as number)
 
-  beforeUnmount() {
-    clearInterval(this.timer as number);
-  },
+    emit('time:up');
+    return;
+  }
 
-  methods: {
-    getDiff(): void {
-      const now = new Date();
-      const until = this.until as Date;
+  diff.value = getDateDiff(now, until.value as Date)
+}
 
-      if (now > until) {
-        clearInterval(this.timer as number);
-
-        this.$emit('time:up');
-        return;
-      }
-
-      this.diff = getDateDiff(now, until);
-    },
-  },
-});
 </script>
