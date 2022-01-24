@@ -28,8 +28,11 @@
 
 <script setup lang="ts">
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
+import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
 const verificationCode = ref('')
+
+const router = useRouter()
 
 const pasteFromClipboard = () => {
   navigator.clipboard.readText().then(function(clipText ) {
@@ -39,10 +42,28 @@ const pasteFromClipboard = () => {
   })
 }
 
+
+/**
+ * Fuction to check support faceId or TouchId
+ * 
+ * returns the page name corresponding to the supported method
+ */
+function getSupportedIdentificationWay() {
+  // @TODO
+  // Check logic
+
+  // return 'face-id'
+  return 'touch-id'
+}
+
 watch(verificationCode, (code) => {
   if (code.length === 6) {
     // @TODO
     // Check code logic
+    const name = getSupportedIdentificationWay()
+    router.push({
+      name
+    })
   }
 })
 </script>
