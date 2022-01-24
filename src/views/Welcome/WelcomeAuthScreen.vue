@@ -39,12 +39,12 @@ const stories = ref([
 .welcome-auth {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   background-color: $color-brand-2-800;
   height: 100vh;
   > .content {
-    flex: 1 0 auto; /* flex-grow, flex-shrink, flex-basis */
     overflow: scroll;
-    height: 200px;
+    height: 85%;
   }
 
   > .content > .slider {
@@ -54,9 +54,9 @@ const stories = ref([
   > .footer {
     display: flex;
     justify-content: space-around;
+    background-color: $color-brand-2-800;
     align-items: center;
-    height: 100px;
-    flex: 0 0 auto;
+    height: 15%;
   }
 
   > .footer > .login {
