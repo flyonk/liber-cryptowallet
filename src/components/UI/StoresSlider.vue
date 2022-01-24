@@ -1,12 +1,16 @@
 <template>
   <vue-agile
     :nav-buttons="false"
-    :speed="2500"
+    :speed="speed"
+    :autoplay="autoPlay"
+    :infinite="infinite"
+    :dots="lines"
     fade="fade"
     pause-on-hover="pause-on-hover"
     pause-on-dots-hover="pause-on-dots-hover"
   >
     <div v-for="({ link }, index) in stories" :key="index">
+      <h1 style="color: white">Some content {{ index }}</h1>
       <img :src="link" />
       <!-- or other template code for stories -->
     </div>
