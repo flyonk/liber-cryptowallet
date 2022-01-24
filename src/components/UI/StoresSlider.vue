@@ -30,5 +30,5 @@ interface Props {
 defineProps<Props>();
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 </style>
