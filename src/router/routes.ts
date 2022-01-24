@@ -34,19 +34,63 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/home',
-    name: 'dashboard-home',
+    name: 'dashboard-parent',
     component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'),
+      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'dashboard-home',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'
+          ),
+      },
+      {
+        path: 'accounts',
+        name: 'dashboard-account',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
+          ),
+      },
+      {
+        path: 'accounts/add',
+        name: 'dashboard-account-add',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
+          ),
+      },
+      {
+        path: 'transactions',
+        name: 'dashboard-transactions',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
+          ),
+      },
+      {
+        path: 'transactions/details',
+        name: 'dashboard-transactions-details',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
+          ),
+      },
+      {
+        path: 'verification',
+        name: 'dashboard-verification',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
+          ),
+      },
+    ],
   },
-  {
-    path: '/account',
-    name: 'dashboard-account',
-    component: () =>
-      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'),
-  },
-  
+
   // === KYC ===
-  
+
   {
     path: '/kyc/personal',
     name: 'kyc-personal',
@@ -77,7 +121,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
   },
-  
 ];
 
 export default routes;
