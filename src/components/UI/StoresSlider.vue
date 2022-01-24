@@ -22,7 +22,10 @@ interface Story {
 
 interface Props {
   stories?: Story[];
-  timeInterval?: number;
+  speed?: number;
+  autoPlay?: boolean;
+  lines?: boolean;
+  infinite?: boolean;
 }
 
 defineProps<Props>();
