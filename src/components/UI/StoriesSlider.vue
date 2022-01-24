@@ -12,6 +12,8 @@
     <div v-for="({ link }, index) in stories" :key="index">
       <h1 style="color: white">Some content {{ index }}</h1>
       <img :src="link" />
+      <img :src="link" />
+      <img :src="link" />
       <!-- or other template code for stories -->
     </div>
   </vue-agile>
@@ -39,6 +41,18 @@ defineProps<Props>();
 .agile {
   display: flex;
   flex-direction: column-reverse;
+  height: 100%;
+
+  &__list,
+  &__slides,
+  &__slide,
+  &__track {
+    height: 100%;
+  }
+
+  &__slide {
+    overflow: scroll;
+  }
 
   &__dots {
     width: 100%;
@@ -58,14 +72,14 @@ defineProps<Props>();
 
   &__dot > button {
     display: block;
-    height: 2px;
     width: 100%;
+    height: 2px;
+    margin: 0;
     cursor: pointer;
     background-color: $color-brand-2-300;
     border: none;
     font-size: 0;
     line-height: 0;
-    margin: 0;
     padding: 0;
     transition-duration: 0.3s;
     border-radius: 2px;
