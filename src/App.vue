@@ -1,11 +1,12 @@
 <template>
-  <!-- <p-toast /> -->
+  <p-toast />
 
   <router-view />
 </template>
 
 <script setup lang="ts">
-// import PToast from 'primevue/toast';
+import PToast from 'primevue/toast';
+
 import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();

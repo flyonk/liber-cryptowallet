@@ -4,6 +4,7 @@ import { RouteRecordRaw } from 'vue-router';
 import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
+import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -23,6 +24,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/passcode',
     name: 'auth-passcode',
     component: PasscodeEnter,
+    meta: { layout: 'default' },
+  },
+  {
+    path: '/sign-up',
+    name: 'sign-up',
+    component: SignUp,
     meta: { layout: 'default' },
   },
 
@@ -88,6 +95,14 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+  // {
+  //   path: '/account',
+  //   name: 'dashboard-account',
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
+  //     ),
+  // },
 
   // === KYC ===
 
