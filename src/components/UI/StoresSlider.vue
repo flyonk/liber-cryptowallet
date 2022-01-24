@@ -1,10 +1,18 @@
 <template>
-  <vue-agile :infinite="true" :autoplay-speed="2000">
-    <div v-for="({ link }, index) in stories" :key="index">
-      <img :src="link" />
-    </div>
-    <template v-slot:prev><button>prev</button></template>
-  </vue-agile>
+  <div>
+    <vue-agile
+      ref="carousel"
+      :nav-buttons="false"
+      :speed="2500"
+      fade="fade"
+      pause-on-hover="pause-on-hover"
+      pause-on-dots-hover="pause-on-dots-hover"
+    >
+      <div v-for="({ link }, index) in stories" :key="index">
+        <img :src="link" />
+      </div>
+    </vue-agile>
+  </div>
 </template>
 
 <script setup lang="ts">
