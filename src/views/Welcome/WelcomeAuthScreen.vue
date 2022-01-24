@@ -1,10 +1,15 @@
 <template>
   <div class="welcome-auth">
-    <nav class="slider">
-      <!-- <stores-slider :stories="stories" /> -->
-    </nav>
     <section class="content">
-      <stores-slider :stories="stories" />
+      <div class="slider">
+        <stories-slider
+          :stories="stories"
+          :autoPlay="true"
+          :lines="true"
+          :speed="3000"
+          :infinite="true"
+        />
+      </div>
     </section>
     <footer class="footer">
       <button class="login">Log in</button>
@@ -14,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import StoresSlider from '@/components/UI/StoresSlider.vue';
+import StoriesSlider from '@/components/UI/StoriesSlider.vue';
 import { ref } from 'vue';
 
 const stories = ref([
@@ -36,33 +41,22 @@ const stories = ref([
   flex-direction: column;
   background-color: $color-brand-2-800;
   height: 100vh;
-
-  > .header {
-    display: flex;
-    flex: 0 0 auto;
-  }
-  > .header > .title {
-    font-family: Inter;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    color: #fff;
-  }
-  > .header > .logo {
-    width: 85px;
-    height: 30px;
-  }
-
   > .content {
-    flex: 1 0 auto;
+    flex: 1 0 auto; /* flex-grow, flex-shrink, flex-basis */
+    overflow: scroll;
+    height: 200px;
+  }
+
+  > .content > .slider {
+    height: 100%;
   }
 
   > .footer {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    height: 100px;
     flex: 0 0 auto;
-    margin-bottom: 50px;
   }
 
   > .footer > .login {
