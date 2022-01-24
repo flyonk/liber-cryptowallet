@@ -94,6 +94,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import('@/views/ConfigureApp/Options/PushNotifications.vue'),
   },
+
+  // === Deposite btc ===
+  {
+    path: '/deposit',
+    name: 'deposit',
+    component: () =>
+      import('@/views/DepositeBTC/DepositeBTC.vue'),
+  },
   
 ];
 
