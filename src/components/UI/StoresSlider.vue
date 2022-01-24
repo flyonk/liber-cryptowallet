@@ -35,14 +35,14 @@ defineProps<Props>();
 
   &__dots {
     width: 100%;
-    background-color: $color-brand-2-400;
   }
 
   &__dot {
-    background-color: green;
+    background-color: $color-brand-2-300;
     width: 100%;
     height: auto;
     margin-left: 5px;
+    border-radius: 2px;
   }
 
   &__dot:first-child {
@@ -50,22 +50,24 @@ defineProps<Props>();
   }
 
   &__dot > button {
-    background-color: transparent;
-    border: 1px solid #fff;
-    cursor: pointer;
     display: block;
-    height: 5px;
+    height: 2px;
+    width: 100%;
+    cursor: pointer;
+    background-color: $color-brand-2-300;
+    border: none;
     font-size: 0;
     line-height: 0;
     margin: 0;
     padding: 0;
     transition-duration: 0.3s;
-    width: 100%;
+    border-radius: 2px;
   }
 
   &__dot:hover > button,
   &__dot--current > button {
     background-color: #fff;
+    border-radius: 2px;
   }
 }
 </style>
