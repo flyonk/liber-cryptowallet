@@ -26,7 +26,7 @@
         >
           <label
             class="radio-btn"
-            :class="{ 'is-selected': answer.isSelected }"
+            :class="{ '-selected': answer.isSelected }"
           >
             <input 
               :id="answer.id" 
@@ -37,8 +37,8 @@
               @change="selectAnswer(answer.id)"
             >
             <span
-              class="radiobtn-item"
-              :class="{ 'radiobtn-selected': answer.isSelected }"
+              class="title"
+              :class="{ '-selected': answer.isSelected }"
             >{{ answer.body }}</span>
             <img
               v-if="answer.isSelected"
@@ -59,6 +59,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 type dictionaryItem = {
   id: number | string
@@ -102,8 +105,8 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = () => {
-  console.log('store answere logic here')
+const saveAnswers = (answers:Dictionary) => {
+  return Promise.resolve(answers)
 }
 
 const markAnswerAsSelected = (id: number | string) => {
@@ -131,8 +134,10 @@ const selectAnswer = (id: number | string) => {
   if (maxValue <= activeQuestion.value + 1) {
     markAnswerAsSelected(id)
     const userAnswers = getSelectedAnswers()
-    console.log('select last anser please done', userAnswers)
-    saveAnswers()
+    saveAnswers(userAnswers)
+      .then(() => {
+        router.push('/')
+      })
     return
   }
   markAnswerAsSelected(id)
@@ -182,15 +187,6 @@ const title = computed(() => {
   margin-bottom: 40px;
 }
 
-.radiobtn-item {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 21px;
-  letter-spacing: -0.0031em;
-  color: #0D1F3C;
-}
-
 .radio-btn {
   border: 1px solid #EBECF0;
   padding: 15px 20px;
@@ -213,14 +209,22 @@ const title = computed(() => {
     border-bottom-right-radius: 5px;
   }
 
-}
+  &.-selected {
+    background-color: $color-blue;
+  }
 
-.is-selected {
-  background-color: $color-blue;
-}
+  & > .title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.0031em;
+    color: #0D1F3C;
+  }
 
-.radiobtn-selected {
-  color: white;
+  & > .title.-selected {
+    color: white;
+  }
 }
 
 </style>
