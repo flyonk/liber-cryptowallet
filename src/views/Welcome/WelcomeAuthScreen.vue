@@ -1,13 +1,10 @@
 <template>
   <section class="welcome-auth">
     <div class="slider">
-      <stories-slider
-        :stories="stories"
-        :autoPlay="false"
-        :lines="true"
-        :speed="5000"
-        :infinite="true"
-      />
+      <stories-slider :options="options">
+        <stories-slider-example-story />
+        <stories-slider-example-story />
+      </stories-slider>
     </div>
   </section>
 </template>
