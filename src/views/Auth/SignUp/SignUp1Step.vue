@@ -3,7 +3,7 @@
     <TopNavigation> Enter phone number </TopNavigation>
     <div class="sign-up--description text--body">
       We will send verification code
-      <br />
+      <br>
       to this number.
     </div>
     <div class="grid">
@@ -11,8 +11,14 @@
         <BaseCountryPhoneInput />
       </div>
       <div class="col-8 ml-auto">
-        <BaseInput v-model="number" :use-grouping="false" type="number">
-          <template #label> Number </template>
+        <BaseInput
+          v-model="number"
+          :use-grouping="false"
+          type="number"
+        >
+          <template #label>
+            Number
+          </template>
         </BaseInput>
       </div>
     </div>
@@ -23,50 +29,31 @@
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="nextStep"> Sign up </BaseButton>
+      <BaseButton
+        block
+        @click="nextStep"
+      >
+        Sign up
+      </BaseButton>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, ref } from 'vue';
+import { ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
 
-import { StepDirection } from '@/views/Auth/SignUp/types';
-
-// export default defineComponent({
-//   name: "SignUp",
-//   components: {
-//     TopNavigation,
-//     BaseInput,
-//     BaseCountryPhoneInput,
-//     BaseButton,
-//   },
-//   emits: ["step"],
-//   setup() {
-//     const number = ref(null);
-
-//     return {
-//       number,
-//     };
-//   },
-
-//   methods: {
-//     nextStep() {
-//       this.$emit("step", StepDirection.next);
-//     },
-//   },
-// });
+import { useAuthStore } from '@/stores/auth';
 
 const number = ref(null);
 
-const emit = defineEmits(['step']);
+const authStore = useAuthStore();
 
 function nextStep(): void {
-  emit('step', StepDirection.next);
+ authStore.setStep(2)
 }
 </script>
 

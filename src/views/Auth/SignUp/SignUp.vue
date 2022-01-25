@@ -1,6 +1,9 @@
 <template>
   <div>
-    <component :is="currentComponent" @step="onStep" />
+    <component
+      :is="currentComponent"
+      @step="onStep"
+    />
   </div>
 </template>
 

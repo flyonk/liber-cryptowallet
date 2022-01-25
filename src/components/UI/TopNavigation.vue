@@ -1,7 +1,10 @@
 <template>
   <div class="top-navigation--block">
     <div class="top-navigation--controllers">
-      <i class="ci-short_left back--icon" @click="$emit('click:left-icon')" />
+      <i
+        class="ci-short_left back--icon"
+        @click="$emit('click:left-icon')"
+      />
     </div>
     <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold">
       <slot />

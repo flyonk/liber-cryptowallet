@@ -5,6 +5,7 @@ import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
+import Login from '@/views/Auth/Login/MainLogin.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -31,6 +32,15 @@ const routes: Array<RouteRecordRaw> = [
     name: 'sign-up',
     component: SignUp,
     meta: { layout: 'default' },
+  },
+
+  {
+    path: '/login',
+    name: 'login',
+    component: Login,
+    meta: {
+      layout: 'default',
+    },
   },
 
   // route level code-splitting
