@@ -1,21 +1,15 @@
 <template>
-  <div class="welcome-auth">
-    <section class="content">
-      <div class="slider">
-        <stories-slider
-          :stories="stories"
-          :autoPlay="true"
-          :lines="true"
-          :speed="3000"
-          :infinite="true"
-        />
-      </div>
-    </section>
-    <footer class="footer">
-      <button class="login">Log in</button>
-      <button class="signup">Sign up</button>
-    </footer>
-  </div>
+  <section class="welcome-auth">
+    <div class="slider">
+      <stories-slider
+        :stories="stories"
+        :autoPlay="false"
+        :lines="true"
+        :speed="5000"
+        :infinite="true"
+      />
+    </div>
+  </section>
 </template>
 
 <script setup lang="ts">
