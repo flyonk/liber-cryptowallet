@@ -12,11 +12,11 @@
 
     <div v-if="dictionary[activeQuestion]">
       <h1 class="main-title">
-        {{ dictionary[activeQuestion].question.body }}
+        {{ title }}
       </h1>
 
       <p class="text-default">
-        We need to know this for regulatory reasons. And also, we are curious!
+        {{ description }}
       </p>
       
       <div>
@@ -58,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 
 type dictionaryItem = {
   id: number | string
@@ -142,6 +142,14 @@ const selectAnswer = (id: number | string) => {
 const closePage = () => {
   console.log('close this page')
 }
+
+const description = computed(() => {
+  return 'We need to know this for regulatory reasons. And also, we are curious!'
+})
+
+const title = computed(() => {
+  return dictionary.value[activeQuestion.value].question.body
+})
 </script>
 
 <style lang="scss" scoped>
