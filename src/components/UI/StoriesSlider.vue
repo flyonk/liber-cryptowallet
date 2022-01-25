@@ -1,34 +1,18 @@
 <template>
-  <vue-agile
-    :nav-buttons="false"
-    :speed="speed"
-    :autoplay="autoPlay"
-    :infinite="infinite"
-    :dots="lines"
-    pause-on-hover="pause-on-hover"
-    pause-on-dots-hover="pause-on-dots-hover"
-  >
-    <stories-slider-example-story />
+  <vue-agile :options="options">
+    <slot></slot>
   </vue-agile>
 </template>
 
 <script setup lang="ts">
 import { VueAgile } from 'vue-agile';
-import StoriesSliderExampleStory from './StoriesSliderExampleStory.vue';
+import { ISlider } from '@/types/ISlider';
 
-interface Story {
-  link: string;
+interface props {
+  options?: ISlider;
 }
 
-interface Props {
-  stories?: Story[];
-  speed?: number;
-  autoPlay?: boolean;
-  lines?: boolean;
-  infinite?: boolean;
-}
-
-defineProps<Props>();
+defineProps<props>();
 </script>
 
 <style lang="scss">
