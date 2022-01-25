@@ -36,46 +36,11 @@ const stories = ref([
   justify-content: flex-start;
   background-color: $color-brand-2-800;
   height: 100vh;
-  > .content {
+
+  .slider {
     overflow: scroll;
-    height: 85%;
-  }
-
-  > .content > .slider {
     height: 100%;
-  }
-
-  > .footer {
-    display: flex;
-    justify-content: space-around;
-    background-color: $color-brand-2-800;
-    align-items: center;
-    height: 15%;
-  }
-
-  > .footer > .login {
-    background-color: #fff;
-    color: #000;
-    width: 155.5px;
-    height: 48px;
-    border-radius: 13px;
-    border: none;
-    text-align: center;
-    font-size: 17px;
-    font-family: Inter;
-    font-style: normal;
-  }
-  > .footer > .signup {
-    background-color: $color-ui-primary-500;
-    color: #fff;
-    width: 155.5px;
-    height: 48px;
-    border-radius: 13px;
-    border: none;
-    text-align: center;
-    font-size: 17px;
-    font-family: Inter;
-    font-style: normal;
+    padding: 10px;
   }
 }
 </style>
