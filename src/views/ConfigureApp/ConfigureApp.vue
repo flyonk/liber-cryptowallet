@@ -107,7 +107,7 @@ const copyToClipboard = () => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: $color-brand;
   margin-bottom: 20px;
 }
 
@@ -166,7 +166,7 @@ const copyToClipboard = () => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: $color-brand;
 
   &:focus {
     border-color: $color-primary;
