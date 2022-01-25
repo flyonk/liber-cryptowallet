@@ -4,28 +4,19 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img
-        :src="selectedData?.flag"
-        alt=""
-      >
+      <img :src="selectedData?.flag" alt="" />
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet
-      v-model:visible="showList"
-      position="bottom"
-    >
+    <BaseBottomSheet v-model:visible="showList" position="bottom">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div
-              class="cancel-button text--headline"
-              @click="showList = false"
-            >
+            <div class="cancel-button text--headline" @click="showList = false">
               Cancel
             </div>
           </div>
@@ -40,10 +31,7 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img
-                :src="country.flag"
-                alt=""
-              >
+              <img :src="country.flag" alt="" />
             </div>
             <div class="code col-2">
               {{ country.dialCode }}
@@ -71,20 +59,22 @@ const searchQuery = ref('') as Ref<string>;
 
 const filteredList: ComputedRef<Array<CountryInformation>> = computed(() => {
   if (searchQuery.value) {
-    return list.value.filter(({ name }) => name.toLowerCase().includes(searchQuery.value.toLowerCase()))
+    return list.value.filter(({ name }) =>
+      name.toLowerCase().includes(searchQuery.value.toLowerCase())
+    );
   }
 
-  return list.value
-})
+  return list.value;
+});
 
-onBeforeMount(async(): Promise<void> => {
-  list.value = await getFullList()
+onBeforeMount(async (): Promise<void> => {
+  list.value = await getFullList();
 
-  selectedData.value = list.value[0]
-})
+  selectedData.value = list.value[0];
+});
 
 function isSelectedCountry(country: CountryInformation): boolean {
-  return selectedData.value?.name === country.name
+  return selectedData.value?.name === country.name;
 }
 
 function setSelectedCountry(country: CountryInformation): void {

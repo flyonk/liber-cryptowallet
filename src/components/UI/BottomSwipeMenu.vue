@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, defineEmits } from 'vue';
+import { ref, toRefs } from 'vue';
 
 const menu = ref(null);
 

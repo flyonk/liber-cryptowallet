@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineEmits, ref } from 'vue';
+import { ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';

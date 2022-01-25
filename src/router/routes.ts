@@ -26,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
     component: PasscodeEnter,
     meta: { layout: 'default' },
   },
+
   {
     path: '/sign-up',
     name: 'sign-up',
@@ -38,7 +39,7 @@ const routes: Array<RouteRecordRaw> = [
   // which is lazy-loaded when the route is visited.
 
   // === Dashboard ===
-
+  // TODO: Refactor to make it more flat without nesting
   {
     path: '/home',
     name: 'dashboard-parent',
@@ -113,7 +114,7 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpPersonal.vue'),
   },
   {
-    path: '/kyc/personal',
+    path: '/kyc/documents',
     name: 'kyc-documents',
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
