@@ -17,17 +17,11 @@ import StoriesSlider from '@/components/UI/StoriesSlider.vue';
 import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
 import { ISlider } from '@/types/ISlider';
 
-const stories = ref([
-  {
-    link: 'https://pbs.twimg.com/profile_images/1045580248467886080/_uwwJdr3_400x400.jpg',
-  },
-  {
-    link: 'https://pbs.twimg.com/profile_images/1045580248467886080/_uwwJdr3_400x400.jpg',
-  },
-  {
-    link: 'https://pbs.twimg.com/profile_images/1045580248467886080/_uwwJdr3_400x400.jpg',
-  },
-]);
+const options: ISlider = {
+  autoplay: false,
+  dots: true,
+  navButtons: false,
+};
 </script>
 
 <style lang="scss" scoped>
