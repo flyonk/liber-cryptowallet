@@ -28,7 +28,7 @@
       </router-link>
       <router-link
         style="text-decoration: none;"
-        to="/home/accounts"
+        to="/account"
         class="item"
         @click="changeTab(2)"
       >

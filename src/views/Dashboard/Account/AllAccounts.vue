@@ -11,7 +11,7 @@
         class="add"
         src="@/assets/icon/circle-add.svg"
         alt="circle-add"
-        @click="$router.push('/home/accounts/add')"
+        @click="$router.push('/account/add')"
       >
     </div>
     <h1 class="title">

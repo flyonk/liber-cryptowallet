@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isMenuOpen"
-    class="bottom-menu"
     ref="menu"
+    class="bottom-menu"
   >
     <div
       class="bottom-menu--close"

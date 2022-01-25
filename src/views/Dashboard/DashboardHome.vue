@@ -119,6 +119,7 @@
             v-for="(item, index) in carousel"
             :key="index"
             class="carousel-item slide"
+            @click="$router.push('/home/story')"
           >
             <img :src="item.imgSrc">
             <h4 :class="{'text-green' : item.text === 'green', 'text-black': item.text === 'black'}">

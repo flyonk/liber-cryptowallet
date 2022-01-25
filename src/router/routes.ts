@@ -47,22 +47,6 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: 'accounts',
-        name: 'dashboard-account',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
-          ),
-      },
-      {
-        path: 'accounts/add',
-        name: 'dashboard-account-add',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
-          ),
-      },
-      {
         path: 'transactions',
         name: 'dashboard-transactions',
         component: () =>
@@ -84,6 +68,41 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
+          ),
+      },
+      {
+        path: 'story',
+        name: 'dashboard-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
+          ),
+      },
+    ],
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/index.vue'
+      ),
+    meta: { layout: 'dashboardLayout' },
+    children: [
+      {
+        path: '',
+        name: 'account-main',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
+          ),
+      },
+      {
+        path: 'add',
+        name: 'account-add',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
           ),
       },
     ],

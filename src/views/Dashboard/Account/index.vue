@@ -1,10 +1,6 @@
 <template>
-  <div class="default-layout layout">
-    <main>
-      <slot />
-    </main>
-    <bottom-nav v-if="showNavBar" />
-  </div>
+  <router-view />
+  <bottom-nav v-if="showNavBar" />
 </template>
 
 <script setup lang="ts">
@@ -27,3 +23,7 @@ watch(route.currentRoute, (val) => {
 })
 
 </script>
+
+<style lang="scss" scoped>
+
+</style>

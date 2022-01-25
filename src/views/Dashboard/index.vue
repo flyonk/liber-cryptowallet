@@ -12,7 +12,7 @@ const route = useRouter()
 let showNavBar = ref(true)
 let path = route.currentRoute.value.name
 
-if (path === 'dashboard-verification') showNavBar.value = false
+if (path === 'dashboard-verification' || path === 'dashboard-story') showNavBar.value = false
 
 watch(route.currentRoute, (val) => {
   if (val.name === 'dashboard-verification') {
