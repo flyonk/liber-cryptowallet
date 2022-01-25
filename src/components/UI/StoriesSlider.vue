@@ -1,7 +1,9 @@
 <template>
-  <vue-agile :options="options">
-    <slot></slot>
-  </vue-agile>
+  <div class="stories-slider">
+    <vue-agile :options="options">
+      <slot></slot>
+    </vue-agile>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -15,8 +17,8 @@ interface props {
 defineProps<props>();
 </script>
 
-<style lang="scss">
-.agile {
+<style lang="scss" scoped>
+.stories-slider ::v-deep .agile {
   display: flex;
   flex-direction: column-reverse;
   height: 100%;
