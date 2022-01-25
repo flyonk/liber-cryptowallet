@@ -5,22 +5,16 @@
     :autoplay="autoPlay"
     :infinite="infinite"
     :dots="lines"
-    fade="fade"
     pause-on-hover="pause-on-hover"
     pause-on-dots-hover="pause-on-dots-hover"
   >
-    <div v-for="({ link }, index) in stories" :key="index">
-      <h1 style="color: white">Some content {{ index }}</h1>
-      <img :src="link" />
-      <img :src="link" />
-      <img :src="link" />
-      <!-- or other template code for stories -->
-    </div>
+    <stories-slider-example-story />
   </vue-agile>
 </template>
 
 <script setup lang="ts">
 import { VueAgile } from 'vue-agile';
+import StoriesSliderExampleStory from './StoriesSliderExampleStory.vue';
 
 interface Story {
   link: string;
