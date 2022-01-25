@@ -14,7 +14,8 @@
 
 <script setup lang="ts">
 import StoriesSlider from '@/components/UI/StoriesSlider.vue';
-import { ref } from 'vue';
+import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
+import { ISlider } from '@/types/ISlider';
 
 const stories = ref([
   {
