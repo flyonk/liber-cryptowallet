@@ -2,15 +2,25 @@ import { defineStore } from 'pinia';
 
 // === Auth Types ===
 
+export interface AuthSteps {
+  registration: number;
+  login: number;
+  recover: number;
+}
+
 export interface AuthState {
-  registrationStep: number;
+  steps: AuthSteps;
 }
 
 // === Auth Store ===
 
 export const useAuthStore = defineStore('auth', {
   state: (): AuthState => ({
-    registrationStep: 1,
+    steps: {
+      registration: 0,
+      login: 0,
+      recover: 0,
+    },
   }),
 
   getters: {
@@ -18,8 +28,8 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
-    setStep(step: number) {
-      this.registrationStep = step;
+    setStep(step: number, scope: keyof AuthSteps) {
+      this.steps[scope] = step;
     },
   },
 });

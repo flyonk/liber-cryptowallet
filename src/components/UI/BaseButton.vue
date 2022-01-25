@@ -96,14 +96,14 @@ const classes = computed(() => [
   outline: inherit;
   transition: all 0.5s;
 
-  > .label {
-    font-weight: 600;
-  }
-
   > .container {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    > .label {
+    font-weight: 600;
+  }
   }
 
   &.-block {

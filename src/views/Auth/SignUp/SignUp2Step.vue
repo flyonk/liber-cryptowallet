@@ -1,9 +1,9 @@
 <template>
-  <div class="sign-up--container">
+  <div class="auth-page-container">
     <TopNavigation @click:left-icon="prevStep">
       Enter the 6-digit code
     </TopNavigation>
-    <div class="sign-up--description text--body">
+    <div class="description text--body">
       To sign up, enter the security code
       <br>
       we’ve sent to ********6123
@@ -62,7 +62,7 @@ const authStore = useAuthStore();
 const showCountdown = ref(true) as Ref<boolean>;
 
 function prevStep(): void {
-  authStore.setStep(1);
+  authStore.setStep(0, 'registration');
 }
 
 function onTimeIsUp(): void {

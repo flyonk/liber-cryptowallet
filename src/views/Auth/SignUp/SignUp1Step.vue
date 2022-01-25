@@ -1,7 +1,7 @@
 <template>
-  <div class="sign-up--container">
+  <div class="auth-page-container">
     <TopNavigation> Enter phone number </TopNavigation>
-    <div class="sign-up--description text--body">
+    <div class="description text--body">
       We will send verification code
       <br>
       to this number.
@@ -25,7 +25,10 @@
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
         Already have an account?
-        <span class="link"> Log in </span>
+        <router-link
+          class="link"
+          :to="{ name: 'login' }"
+        > Log in </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
@@ -53,7 +56,7 @@ const number = ref(null);
 const authStore = useAuthStore();
 
 function nextStep(): void {
- authStore.setStep(2)
+ authStore.setStep(1, 'registration')
 }
 </script>
 

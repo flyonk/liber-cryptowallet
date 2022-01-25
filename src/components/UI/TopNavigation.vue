@@ -2,7 +2,8 @@
   <div class="top-navigation--block">
     <div class="top-navigation--controllers">
       <i
-        class="ci-short_left back--icon"
+        class="back--icon"
+        :class="leftIconName"
         @click="$emit('click:left-icon')"
       />
     </div>
@@ -12,13 +13,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script lang="ts" setup>
+defineProps({
+  leftIconName: {
+    type: String,
+    default: 'ci-short_left'
+  }
+})
 
-export default defineComponent({
-  name: 'TopNavigation',
-  emits: ['click:left-icon'],
-});
+defineEmits(['click:left-icon'])
 </script>
 
 <style lang="scss">
