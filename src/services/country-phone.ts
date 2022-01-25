@@ -1,7 +1,7 @@
 import axios from 'axios';
-import { CountryInformation } from '@/services/country-phone-types';
+import { ICountryInformation } from '@/types/country-phone-types';
 
-export const getFullList = async (): Promise<Array<CountryInformation>> => {
+export const getFullList = async (): Promise<Array<ICountryInformation>> => {
   const { data } = await axios.get('/country_dial_info.json');
 
   return data;

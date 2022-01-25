@@ -60,16 +60,16 @@
 <script lang="ts" setup>
 import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
 import { getFullList } from '@/services/country-phone';
-import { CountryInformation } from '@/services/country-phone-types';
+import { ICountryInformation } from '@/types/country-phone-types';
 import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
-const list = ref([]) as Ref<Array<CountryInformation>>;
-const selectedData = ref(null) as Ref<CountryInformation | null>;
+const list = ref([]) as Ref<Array<ICountryInformation>>;
+const selectedData = ref(null) as Ref<ICountryInformation | null>;
 const showList = ref(false) as Ref<boolean>;
 const searchQuery = ref('') as Ref<string>;
 
-const filteredList: ComputedRef<Array<CountryInformation>> = computed(() => {
+const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
   if (searchQuery.value) {
     return list.value.filter(({ name }) => name.toLowerCase().includes(searchQuery.value.toLowerCase()))
   }
@@ -83,11 +83,11 @@ onBeforeMount(async(): Promise<void> => {
   selectedData.value = list.value[0]
 })
 
-function isSelectedCountry(country: CountryInformation): boolean {
+function isSelectedCountry(country: ICountryInformation): boolean {
   return selectedData.value?.name === country.name
 }
 
-function setSelectedCountry(country: CountryInformation): void {
+function setSelectedCountry(country: ICountryInformation): void {
   selectedData.value = country;
 
   showList.value = false;

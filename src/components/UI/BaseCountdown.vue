@@ -8,18 +8,10 @@
 </template>
 
 <script lang="ts" setup>
+import { IDifference } from '@/types/base-component';
 import { onBeforeMount, defineProps, ref, Ref } from 'vue';
 
-export interface Difference {
-  year: number;
-  month: number;
-  day: number;
-  hour: number;
-  minute: number | string;
-  second: number | string;
-}
-
-const getDateDiff = (date1: Date, date2: Date): Difference => {
+const getDateDiff = (date1: Date, date2: Date): IDifference => {
   const diff = new Date(date2.getTime() - date1.getTime());
   return {
     year: diff.getUTCFullYear() - 1970,
@@ -48,7 +40,7 @@ const emit = defineEmits(['time:up'])
 
 const until = ref(null) as Ref<Date | null>;
 const timer = ref(null) as Ref<number | null>;
-const diff = ref({}) as Ref<Difference | Record<string, never>>;
+const diff = ref({}) as Ref<IDifference | Record<string, never>>;
 
 onBeforeMount(() => {
   until.value = new Date(new Date().getTime() + props.countdown * 60000);

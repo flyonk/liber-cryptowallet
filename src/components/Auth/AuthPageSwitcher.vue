@@ -5,7 +5,7 @@
 </template>
 
 <script lang="ts" setup>
-import { AuthSteps } from '@/stores/auth';
+import { IAuthSteps } from '@/stores/auth';
 import { computed, PropType } from 'vue-demi';
 
 import { useAuthStore } from '@/stores/auth';
@@ -14,7 +14,7 @@ const authStore = useAuthStore();
 
 const props = defineProps({
     scope: {
-        type: String as PropType<keyof AuthSteps>,
+        type: String as PropType<keyof IAuthSteps>,
         required: true,
     },
 

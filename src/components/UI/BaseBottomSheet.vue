@@ -9,7 +9,7 @@
     <slot />
   </PDialog>
 </template>
-
+// TODO check this https://www.primefaces.org/primevue/showcase/#/sidebar
 <script lang="ts" setup></script>
 
 <style lang="scss">
