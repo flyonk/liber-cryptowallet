@@ -1,5 +1,11 @@
 <template>
-  <div :class="['stories-slider', isHidden ? '-hidden' : '']">
+  <div
+    :class="[
+      'stories-slider',
+      isHidden ? '-hidden' : '',
+      onOverlay ? '-overlay' : '',
+    ]"
+  >
     <vue-agile :options="options">
       <slot></slot>
     </vue-agile>
@@ -13,6 +19,7 @@ import { ISlider } from '@/types/ISlider';
 interface props {
   options?: ISlider;
   isHidden?: boolean;
+  onOverlay?: boolean;
 }
 
 defineProps<props>();
@@ -21,10 +28,19 @@ defineProps<props>();
 <style lang="scss" scoped>
 .stories-slider {
   height: 100%;
+  box-sizing: border-box;
 
   &.-hidden {
     display: none;
   }
+  &.-overlay {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
+
   ::v-deep .agile {
     display: flex;
     flex-direction: column-reverse;
