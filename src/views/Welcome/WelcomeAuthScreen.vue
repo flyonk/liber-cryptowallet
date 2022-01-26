@@ -1,7 +1,7 @@
 <template>
   <section class="welcome-auth">
     <div class="slider">
-      <stories-slider :options="options" :is-hidden="false" :on-overlay="true">
+      <stories-slider :options="options" :is-hidden="false">
         <stories-slider-example-story />
         <stories-slider-example-story />
       </stories-slider>
@@ -15,7 +15,7 @@ import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory
 import { ISlider } from '@/types/ISlider';
 
 const options: ISlider = {
-  autoplay: false,
+  autoplay: true,
   dots: true,
   navButtons: false,
 };
