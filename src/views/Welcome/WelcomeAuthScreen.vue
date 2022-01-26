@@ -26,13 +26,11 @@ const options: ISlider = {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  background-color: $color-brand-2-800;
   height: 100vh;
-
-  .slider {
+  overflow: hidden;
+  > .slider {
     overflow: scroll;
     height: 100%;
-    padding: 10px;
   }
 }
 </style>
