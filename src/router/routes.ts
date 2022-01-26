@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
+import DepositeRoutes from './routesDeposite'
 
 // Pages
 import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
@@ -100,7 +101,8 @@ const routes: Array<RouteRecordRaw> = [
     path: '/deposit',
     name: 'deposit',
     component: () =>
-      import('@/views/DepositeBTC/DepositeBTC.vue'),
+      import('@/views/DepositeBTC/DepositeIndex.vue'),
+    children: DepositeRoutes
   },
   
 ];
