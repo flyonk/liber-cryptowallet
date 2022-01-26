@@ -1,7 +1,7 @@
 <template>
   <section class="welcome-auth">
     <div class="slider">
-      <stories-slider :options="options">
+      <stories-slider :options="options" :is-hidden="false">
         <stories-slider-example-story />
         <stories-slider-example-story />
       </stories-slider>

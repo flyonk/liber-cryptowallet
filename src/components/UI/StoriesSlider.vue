@@ -1,5 +1,5 @@
 <template>
-  <div class="stories-slider">
+  <div :class="['stories-slider', isHidden ? '-hidden' : '']">
     <vue-agile :options="options">
       <slot></slot>
     </vue-agile>
@@ -12,6 +12,7 @@ import { ISlider } from '@/types/ISlider';
 
 interface props {
   options?: ISlider;
+  isHidden?: boolean;
 }
 
 defineProps<props>();
@@ -20,6 +21,10 @@ defineProps<props>();
 <style lang="scss" scoped>
 .stories-slider {
   height: 100%;
+
+  &.-hidden {
+    display: none;
+  }
   ::v-deep .agile {
     display: flex;
     flex-direction: column-reverse;
