@@ -97,12 +97,22 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   // === Deposite btc ===
+  
   {
     path: '/deposit',
     name: 'deposit',
     component: () =>
       import('@/views/DepositeBTC/DepositeIndex.vue'),
     children: DepositeRoutes
+  },
+
+  // === Survey ===
+
+  {
+    path: '/survey',
+    name: 'survey',
+    component: () =>
+      import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
   },
   
 ];
