@@ -66,7 +66,7 @@
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
-          @click="$router.push('/home/transactions/details')"
+          @click="$router.push('/transactions/details')"
         >
           <img
             class="icon"

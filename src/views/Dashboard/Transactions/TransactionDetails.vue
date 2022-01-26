@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/home/transactions')"
+        @click="$router.push('/transactions')"
       >
       <div class="sum">
         <div class="title">

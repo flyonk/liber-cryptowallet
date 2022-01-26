@@ -47,22 +47,6 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: 'transactions',
-        name: 'dashboard-transactions',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
-          ),
-      },
-      {
-        path: 'transactions/details',
-        name: 'dashboard-transactions-details',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
-          ),
-      },
-      {
         path: 'verification',
         name: 'dashboard-verification',
         component: () =>
@@ -80,6 +64,9 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Account ===
+
   {
     path: '/account',
     name: 'account',
@@ -103,6 +90,32 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
+          ),
+      },
+    ],
+  },
+  {
+    path: '/transactions',
+    name: 'transactions',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/index.vue'
+      ),
+    children: [
+      {
+        path: '',
+        name: 'transactions-main',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
+          ),
+      },
+      {
+        path: 'details',
+        name: 'transactions-details',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
           ),
       },
     ],

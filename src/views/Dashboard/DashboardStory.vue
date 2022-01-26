@@ -24,7 +24,9 @@
         src="@/assets/images/passport_upload.png"
         alt="upload document"
       >
-      <button class="btn">Verify identity</button>
+      <button class="btn">
+        Verify identity
+      </button>
     </div>
   </div>
 </template>
