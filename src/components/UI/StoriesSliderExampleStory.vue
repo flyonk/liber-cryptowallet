@@ -36,6 +36,7 @@
   display: flex;
   flex-direction: column;
   height: 100%;
+  background-color: $color-brand-2-800;
   .header {
     display: flex;
     flex-direction: row;
