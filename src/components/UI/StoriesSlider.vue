@@ -93,6 +93,10 @@ defineProps<props>();
       background-color: #fff;
       border-radius: 2px;
     }
+
+    &__actions {
+      background-color: $color-brand-2-800;
+    }
   }
 }
 </style>
