@@ -20,11 +20,16 @@
 import StoriesSlider from '@/components/UI/StoriesSlider.vue';
 import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
 import { ISlider } from '@/types/ISlider';
+import { ref } from 'vue';
 
-const options: ISlider = {
+const options = ref<ISlider>({
   autoplay: true,
+  autoplaySpeed: 5000,
   dots: true,
   navButtons: false,
+  infinite: true,
+});
+
 const handleChangeSlideByUser = (event: Event) => {
   }
 };
