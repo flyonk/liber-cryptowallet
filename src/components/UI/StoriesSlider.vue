@@ -1,28 +1,27 @@
 <template>
-  <div
-    :class="[
-      'stories-slider',
-      isHidden ? '-hidden' : '',
-      onOverlay ? '-overlay' : '',
-    ]"
-  >
-    <vue-agile :options="options">
+  <div :class="['stories-slider', _hidden, _overlay]">
       <slot></slot>
     </vue-agile>
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { ISlider } from '@/types/ISlider';
 
 interface props {
+interface IProps {
   options?: ISlider;
   isHidden?: boolean;
   onOverlay?: boolean;
 }
 
 defineProps<props>();
+const props = defineProps<IProps>();
+
+let _hidden = computed<string>(() => (props.isHidden ? '-hidden' : ''));
+let _overlay = computed<string>(() => (props.onOverlay ? '-overlay' : ''));
 </script>
 
 <style lang="scss" scoped>
