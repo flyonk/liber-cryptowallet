@@ -50,17 +50,23 @@ const handleChangeSlideByUser = (event: Event) => {
   if (!isAfterChangeEventsFilled) afterChangeEvents.push(eventTime);
 
   //extracting useless event and adding a new one
-  afterChangeEvents.shift();
-  afterChangeEvents.push(eventTime);
+  if (isAfterChangeEventsFilled) {
+    afterChangeEvents.shift();
+    afterChangeEvents.push(eventTime);
+  }
 
   if (isAfterChangeEventsFilled) {
     const [prevAfterChangeEvent, currAfterChangeEvent] = afterChangeEvents;
 
+    const reductionOfMillisecondError = 100;
     const expectedTimeToAutoChangeSlide = Math.floor(
-      (prevAfterChangeEvent.occurTime + slideTimeOut) / 100
+      (prevAfterChangeEvent.occurTime + slideTimeOut) /
+        reductionOfMillisecondError
     );
-    const newChangeTime = Math.floor(currAfterChangeEvent.occurTime / 100);
-    
+    const newChangeTime = Math.floor(
+      currAfterChangeEvent.occurTime / reductionOfMillisecondError
+    );
+
     const isChangeSlideByUser = expectedTimeToAutoChangeSlide > newChangeTime;
 
     if (!isChangeSlideByUser) {
