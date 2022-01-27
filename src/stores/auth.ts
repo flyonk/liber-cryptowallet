@@ -1,3 +1,4 @@
+import { EStepDirection } from './../types/base-component';
 import { defineStore } from 'pinia';
 
 // === Auth Types ===
@@ -28,8 +29,14 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
-    setStep(step: number, scope: keyof IAuthSteps) {
-      this.steps[scope] = step;
+    setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
+      if (step === EStepDirection.next) {
+        this.steps[scope] = this.steps[scope] + 1;
+      } else if (step === EStepDirection.prev) {
+        this.steps[scope] = this.steps[scope] - 1;
+      } else {
+        this.steps[scope] = step;
+      }
     },
   },
 });
