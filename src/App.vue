@@ -1,13 +1,23 @@
 <template>
-  <p-toast />
+  <base-toast
+    :toast="toast"
+  />
 
   <router-view />
 </template>
 
 <script setup lang="ts">
-import PToast from 'primevue/toast';
+import { BaseToast } from './components/UI';
+
+import { computed } from 'vue';
 
 import { useAccountStore } from './stores/account';
+import { useToastStore } from './stores/ui/toast';
+
+
+const toastStore = useToastStore();
+
+const toast = computed(() => toastStore.state)
 
 const store = useAccountStore();
 store.init();

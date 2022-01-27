@@ -8,3 +8,4 @@ export { default as BaseVerificationCodeInput } from './BaseVerificationCodeInpu
 export { default as BottomNav } from './BottomNav.vue';
 export { default as TopNavigation } from './TopNavigation.vue';
 export { default as BasePasscode } from './BasePasscode.vue';
+export { default as BaseToast } from './BaseToast.vue';

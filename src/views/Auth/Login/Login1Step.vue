@@ -48,11 +48,10 @@
 import { TopNavigation, BaseCountryPhoneInput, BaseInput, BaseButton } from '@/components/UI';
 
 import { useAuthStore } from '@/stores/auth';
-import { EStepDirection } from '@/types/base-component';
 
 const authStore = useAuthStore();
 
 function nextStep (): void {
-  authStore.setStep(EStepDirection.next, 'login')
+  authStore.setStep(1, 'login')
 }
 </script>
