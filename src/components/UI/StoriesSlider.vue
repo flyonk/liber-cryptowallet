@@ -1,5 +1,6 @@
 <template>
   <div :class="['stories-slider', _hidden, _overlay]">
+    <vue-agile :options="options" @after-change="$emit('after-change', $event)">
       <slot></slot>
     </vue-agile>
   </div>
@@ -10,15 +11,14 @@ import { computed } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { ISlider } from '@/types/ISlider';
 
-interface props {
 interface IProps {
   options?: ISlider;
   isHidden?: boolean;
   onOverlay?: boolean;
 }
 
-defineProps<props>();
 const props = defineProps<IProps>();
+defineEmits(['after-change']);
 
 let _hidden = computed<string>(() => (props.isHidden ? '-hidden' : ''));
 let _overlay = computed<string>(() => (props.onOverlay ? '-overlay' : ''));
