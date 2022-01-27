@@ -2,16 +2,6 @@
   <div class="page-wrapper">
     <BackHistoryBtn :path="({ name: 'deposit-coin' })"/>
 
-    <button
-      class="close-page"
-      @click="closePage"
-    >
-      <img
-        src="@/assets/images/close-icon.svg"
-        alt="close page"
-      >
-    </button>
-
     <div v-if="dictionary[activeQuestion]">
       <h1 class="main-title">
         {{ title }}
@@ -138,9 +128,6 @@ const selectAnswer = (id: number | string) => {
   markAnswerAsSelected(id)
   activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue)
 }
-const closePage = () => {
-  console.log('close this page')
-}
 const description = computed(() => {
   return 'Ensure the network you choose to deposit metches the withdrawal network, or assets may be lost'
 })
@@ -150,11 +137,6 @@ const title = computed(() => {
 </script>
 
 <style lang="scss" scoped>
-.close-page {
-  border: none;
-  padding: 0;
-}
-
 .page-wrapper {
   margin: 15px;
 }
