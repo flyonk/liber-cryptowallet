@@ -30,7 +30,50 @@ const options = ref<ISlider>({
   infinite: true,
 });
 
+const slideTimeOut: number = options.value.autoplaySpeed;
+
+type EventTime = {
+  event: Event;
+  occurTime: number;
+};
+
+const afterChangeEvents: EventTime[] = [];
+
 const handleChangeSlideByUser = (event: Event) => {
+  const eventTime: EventTime = {
+    event,
+    occurTime: Date.now(),
+  };
+
+  const isAfterChangeEventsFilled = afterChangeEvents.length > 1;
+
+  if (!isAfterChangeEventsFilled) afterChangeEvents.push(eventTime);
+
+  //extracting useless event and adding a new one
+  afterChangeEvents.shift();
+  afterChangeEvents.push(eventTime);
+
+  if (isAfterChangeEventsFilled) {
+    const [prevAfterChangeEvent, currAfterChangeEvent] = afterChangeEvents;
+
+    const expectedTimeToAutoChangeSlide = Math.floor(
+      (prevAfterChangeEvent.occurTime + slideTimeOut) / 100
+    );
+    const newChangeTime = Math.floor(currAfterChangeEvent.occurTime / 100);
+    
+    const isChangeSlideByUser = expectedTimeToAutoChangeSlide > newChangeTime;
+
+    if (!isChangeSlideByUser) {
+      options.value.autoplay = true;
+      return;
+    }
+
+    options.value.autoplay = false;
+
+    // api for reload autoplay doesnt exist and i used this hack
+    setTimeout(() => {
+      options.value.autoplay = true;
+    }, 0);
   }
 };
 </script>
