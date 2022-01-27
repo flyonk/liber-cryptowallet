@@ -1,7 +1,14 @@
 <template>
   <section class="welcome-auth">
     <div class="slider">
-      <stories-slider :options="options" :is-hidden="false">
+      <stories-slider
+        :options="options"
+        :is-hidden="false"
+        :on-overlay="false"
+        @after-change="handleChangeSlideByUser($event)"
+      >
+        <stories-slider-example-story />
+        <stories-slider-example-story />
         <stories-slider-example-story />
         <stories-slider-example-story />
       </stories-slider>
@@ -18,6 +25,8 @@ const options: ISlider = {
   autoplay: true,
   dots: true,
   navButtons: false,
+const handleChangeSlideByUser = (event: Event) => {
+  }
 };
 </script>
 
