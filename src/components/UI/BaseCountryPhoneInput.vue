@@ -4,19 +4,28 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt="" />
+      <img
+        :src="selectedData?.flag"
+        alt=""
+      >
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
+    <BaseBottomSheet
+      v-model:visible="showList"
+      position="bottom"
+    >
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">
+            <div
+              class="cancel-button text--headline"
+              @click="showList = false"
+            >
               Cancel
             </div>
           </div>
@@ -31,7 +40,10 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt="" />
+              <img
+                :src="country.flag"
+                alt=""
+              >
             </div>
             <div class="code col-2">
               {{ country.dialCode }}
@@ -87,7 +99,7 @@ function setSelectedCountry(country: ICountryInformation): void {
 <style lang="scss">
 .base-country-phone-input {
   border-radius: 12px;
-  background: var(--ion-color-input-background);
+  background: $color-grey-100;
   width: 95px;
   height: 56px;
   padding: 16px;
@@ -108,7 +120,7 @@ function setSelectedCountry(country: ICountryInformation): void {
   padding-top: 16px;
 
   .cancel-button {
-    color: var(--ion-color-ui-primary);
+    color: $color-blue;
     cursor: pointer;
     user-select: none;
     user-select: none;
@@ -126,7 +138,7 @@ function setSelectedCountry(country: ICountryInformation): void {
       cursor: pointer;
 
       &.selected {
-        background: var(--ion-color-light-grey-300);
+        background: $color-light-grey-300;
       }
 
       .flag {
@@ -141,7 +153,7 @@ function setSelectedCountry(country: ICountryInformation): void {
       }
 
       .code {
-        color: var(--ion-color-dark-grey);
+        color: $color-dark-grey;
       }
     }
   }

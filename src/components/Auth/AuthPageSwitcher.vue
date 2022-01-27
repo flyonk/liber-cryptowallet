@@ -49,13 +49,13 @@ const currentComponent = computed(() => props.components[step.value])
     margin-top: 0.5rem;
 
     .text--footnote {
-      color: var(--ion-color-dark-grey);
+      color: $color-dark-grey;
 
       .link {
         user-select: none;
         cursor: pointer;
         text-decoration: none;
-        color: var(--ion-color-ui-primary);
+        color: $color-primary;
       }
     }
   }
