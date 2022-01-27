@@ -1,10 +1,7 @@
 <template>
   <div class="base-input">
     <div class="p-float-label">
-      <component
-        :is="currentComponent"
-        v-bind="$attrs"
-      />
+      <component :is="currentComponent" v-bind="$attrs" />
       <label>
         <slot name="label" />
       </label>
@@ -13,17 +10,17 @@
 </template>
 
 <script lang="ts" setup>
-import { defineProps, computed } from 'vue';
+import { computed } from 'vue';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
 
 const props = defineProps({
   type: {
-      type: String,
-      default: 'text',
-    },
-})
+    type: String,
+    default: 'text',
+  },
+});
 
 const currentComponent = computed(() => {
   switch (props.type) {
@@ -34,8 +31,7 @@ const currentComponent = computed(() => {
     default:
       return PInput;
   }
-})
-
+});
 </script>
 
 <style lang="scss">

@@ -1,9 +1,6 @@
 <template>
   <div>
-    <slot
-      name="countdown"
-      v-bind="diff"
-    />
+    <slot name="countdown" v-bind="diff" />
   </div>
 </template>
 
@@ -31,12 +28,12 @@ const getDateDiff = (date1: Date, date2: Date): IDifference => {
 
 const props = defineProps({
   countdown: {
-      type: Number,
-      default: 1, // adds 1 minute to current time
-    },
-})
+    type: Number,
+    default: 1, // adds 1 minute to current time
+  },
+});
 
-const emit = defineEmits(['time:up'])
+const emit = defineEmits(['time:up']);
 
 const until = ref(null) as Ref<Date | null>;
 const timer = ref(null) as Ref<number | null>;
@@ -45,19 +42,18 @@ const diff = ref({}) as Ref<IDifference | Record<string, never>>;
 onBeforeMount(() => {
   until.value = new Date(new Date().getTime() + props.countdown * 60000);
   timer.value = setInterval(getDiff, 1000);
-})
+});
 
 function getDiff(): void {
   const now = new Date();
-  
+
   if (now > (until.value as Date)) {
-    clearInterval(timer as unknown as number)
+    clearInterval(timer as unknown as number);
 
     emit('time:up');
     return;
   }
 
-  diff.value = getDateDiff(now, until.value as Date)
+  diff.value = getDateDiff(now, until.value as Date);
 }
-
 </script>

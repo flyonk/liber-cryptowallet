@@ -1,28 +1,12 @@
 <template>
-  <button
-    :class="classes"
-    :disabled="disabled"
-    class="base-button"
-  >
-    <i
-      v-if="icon"
-      :class="icon"
-    />
-    <div
-      v-else
-      class="container"
-    >
-      <i
-        v-if="iconLeft"
-        :class="iconLeft"
-      />
+  <button :class="classes" :disabled="disabled" class="base-button">
+    <i v-if="icon" :class="icon" />
+    <div v-else class="container">
+      <i v-if="iconLeft" :class="iconLeft" />
       <div class="label">
         <slot />
       </div>
-      <i
-        v-if="iconRight"
-        :class="iconRight"
-      />
+      <i v-if="iconRight" :class="iconRight" />
     </div>
   </button>
 </template>
@@ -141,7 +125,7 @@ const classes = computed(() => [
     }
   }
 
-&.-flat {
+  &.-flat {
     padding: 13px 0;
     background: transparent;
 
@@ -219,7 +203,7 @@ const classes = computed(() => [
     padding: 12px;
   }
 
-   &.-secondary {
+  &.-secondary {
     background: var(--ion-color-light-grey);
 
     > .container {

@@ -4,22 +4,16 @@
   <router-view />
 </template>
 
-<script lang="ts" setup>
+<script setup lang="ts">
 import PToast from 'primevue/toast';
+
 import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();
 store.init();
 </script>
 
-<style lang="scss">
-#app {
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
-}
-
+<style lang="scss" scoped>
 .main-nav {
   padding: 30px;
 

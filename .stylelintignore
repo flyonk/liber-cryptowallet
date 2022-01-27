@@ -3,3 +3,4 @@ node_modules/**/*
 public/**/*
 ios/**/*
 dist/**/*
+src/assets/styles/common/_reset.scss

@@ -27,6 +27,7 @@ const routes: Array<RouteRecordRaw> = [
     component: PasscodeEnter,
     meta: { layout: 'default' },
   },
+
   {
     path: '/sign-up',
     name: 'sign-up',
@@ -48,23 +49,71 @@ const routes: Array<RouteRecordRaw> = [
   // which is lazy-loaded when the route is visited.
 
   // === Dashboard ===
-
+  // TODO: Refactor to make it more flat without nesting
   {
     path: '/home',
-    name: 'dashboard-home',
+    name: 'dashboard-parent',
     component: () =>
-      import(
-        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'
-      ),
+      import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'dashboard-home',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'
+          ),
+      },
+      {
+        path: 'accounts',
+        name: 'dashboard-account',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
+          ),
+      },
+      {
+        path: 'accounts/add',
+        name: 'dashboard-account-add',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
+          ),
+      },
+      {
+        path: 'transactions',
+        name: 'dashboard-transactions',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
+          ),
+      },
+      {
+        path: 'transactions/details',
+        name: 'dashboard-transactions-details',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
+          ),
+      },
+      {
+        path: 'verification',
+        name: 'dashboard-verification',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
+          ),
+      },
+    ],
   },
-  {
-    path: '/account',
-    name: 'dashboard-account',
-    component: () =>
-      import(
-        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
-      ),
-  },
+  // {
+  //   path: '/account',
+  //   name: 'dashboard-account',
+  //   component: () =>
+  //     import(
+  //       /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
+  //     ),
+  // },
 
   // === KYC ===
 
@@ -75,10 +124,28 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpPersonal.vue'),
   },
   {
-    path: '/kyc/personal',
+    path: '/kyc/documents',
     name: 'kyc-documents',
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
+  },
+
+  // === Survey ===
+
+  {
+    path: '/survey',
+    name: 'survey',
+    component: () =>
+      import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
+  },
+
+  // === Install app ===
+
+  {
+    path: '/install',
+    name: 'install-app',
+    component: () =>
+      import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
   },
 ];
 

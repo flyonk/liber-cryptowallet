@@ -1,10 +1,7 @@
 <template>
   <div class="base-verification-code-input">
     <div class="input-container">
-      <template
-        v-for="(v, index) in values"
-        :key="`input-${index}`"
-      >
+      <template v-for="(v, index) in values" :key="`input-${index}`">
         <div class="input-wrapper">
           <input
             :ref="iRefs[index]"
@@ -19,7 +16,7 @@
             @focus="onFocus"
             @input="onValueChange"
             @keydown="onKeyDown"
-          >
+          />
         </div>
       </template>
     </div>
