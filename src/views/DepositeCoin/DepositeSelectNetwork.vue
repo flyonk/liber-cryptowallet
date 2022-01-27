@@ -1,5 +1,7 @@
 <template>
   <div class="page-wrapper">
+    <BackHistoryBtn :path="({ name: 'deposit-coin' })"/>
+
     <button
       class="close-page"
       @click="closePage"
@@ -60,6 +62,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 const router = useRouter()
 type dictionaryItem = {
   id: number | string

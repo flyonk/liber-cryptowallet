@@ -1,5 +1,6 @@
 <template>
   <div class="page-wrapper">
+    <BackHistoryBtn :path="({ name: 'deposit-network' })"/>
     
     <h1 class="main-title">
       Deposit {{ coin }}
@@ -60,12 +61,26 @@
           <p>2 network confirmations</p>
         </div>
       </div>
+
+      <div class="btns-container">
+        <button 
+          type="button" 
+          class="btn-default btn-secondary"
+          @click="saveImage"
+        >Save Image</button>
+        <button
+          class="btn-default btn-primary"
+          type="button" 
+          @click="shareAddress"
+        >Share Address</button>
+      </div>
     </div>
     
   </div>
 </template>
 
 <script setup lang="ts">
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 import { onMounted, ref } from 'vue'
 import QrCodeWithLogo from "qrcode-with-logos";
 
@@ -87,6 +102,14 @@ onMounted(() => {
 
   qrcode.toCanvas()
 })
+
+const saveImage = () => {
+  console.log('save image')
+}
+
+const shareAddress = () => {
+  console.log('share address')
+}
 </script>
 
 <style lang="scss" scoped>
@@ -137,6 +160,36 @@ onMounted(() => {
 }
 
 .wallet-row {
+  display: flex;
+  justify-content: space-between;
+}
+
+.btn-default {
+  border-radius: 13px;
+  text-align: center;
+  box-shadow: none;
+  outline: none;
+  border: none;
+  height: 48px;
+  width: 100%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+}
+
+.btn-primary {
+  background-color: $color-primary;
+  color: $color-white;
+}
+
+.btn-secondary {
+  color: $color-primary;
+  background-color: transparent;
+}
+
+.btns-container {
   display: flex;
   justify-content: space-between;
 }

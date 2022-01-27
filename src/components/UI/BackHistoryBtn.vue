@@ -2,7 +2,7 @@
   <button
     type="button"
     class="back-btn"
-    @click="$router.go(-1)"
+    @click="path === -1 ? $router.go(path) : $router.push(path)"
   >
     <img
       src="@/assets/images/back-arrow.svg"
@@ -13,14 +13,25 @@
 </template>
 
 <script setup lang="ts">
-// It can be made by component ...
+import { toRefs } from 'vue';
+
+const props = defineProps({
+  path: {
+    type: [String, Object, Number],
+    default: -1
+  }
+})
+
+console.log('what is props', props)
+
+const { path } = toRefs(props)
 </script>
 
 <style lang="scss" scoped>
 .back-btn {
   border: none;
   padding: 0;
-
+  align-self: flex-start;
 }
 
 .back-btn-img {
