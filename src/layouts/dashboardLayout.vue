@@ -1,5 +1,5 @@
 <template>
-  <div class="default-layout layout">
+  <div class="navbar-layout layout">
     <main>
       <slot />
     </main>
@@ -27,3 +27,10 @@ watch(route.currentRoute, (val) => {
 })
 
 </script>
+
+<style lang="scss" scoped>
+.navbar-layout {
+  height: 100vh;
+  position: relative;
+}
+</style>

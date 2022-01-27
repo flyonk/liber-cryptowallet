@@ -37,6 +37,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'dashboard-parent',
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/index.vue'),
+    meta: { layout: 'dashboard' },
     children: [
       {
         path: '',
@@ -74,7 +75,7 @@ const routes: Array<RouteRecordRaw> = [
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/index.vue'
       ),
-    meta: { layout: 'dashboardLayout' },
+    meta: { layout: 'dashboard' },
     children: [
       {
         path: '',
@@ -101,6 +102,7 @@ const routes: Array<RouteRecordRaw> = [
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/index.vue'
       ),
+    meta: { layout: 'dashboard' },
     children: [
       {
         path: '',
