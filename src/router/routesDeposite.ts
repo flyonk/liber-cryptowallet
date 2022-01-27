@@ -3,18 +3,18 @@ export default [
         path: '',
         name: 'deposit-coin',
         component: () =>
-        import('@/views/DepositeBTC/DepositeSelectCoin.vue'),
+        import('@/views/DepositeCoin/DepositeSelectCoin.vue'),
     },
     {
         path: 'network',
         name: 'deposit-network',
         component: () =>
-        import('@/views/DepositeBTC/DepositeSelectNetwork.vue'),
+        import('@/views/DepositeCoin/DepositeSelectNetwork.vue'),
     },
     {
         path: 'wallet',
         name: 'deposit-add',
         component: () =>
-        import('@/views/DepositeBTC/DepositeWallet.vue'),
+        import('@/views/DepositeCoin/DepositeWallet.vue'),
     },
 ]

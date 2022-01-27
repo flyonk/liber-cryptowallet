@@ -1,0 +1,143 @@
+<template>
+  <div class="page-wrapper">
+    
+    <h1 class="main-title">
+      Deposit {{ coin }}
+    </h1>
+
+    <p
+      class="text-default"
+    >
+      Send only {{ coin }} to this deposit address
+    </p>
+
+    <div class="qr-code-container">
+      <canvas
+        ref="canvas"
+        class="qr-code-canvas"
+      />
+    </div>
+
+    <div class="wallet-block">
+      <div class="wallet-info">
+        <div>
+          <h2 class="title">
+            Network
+          </h2>
+          <p class="address">
+            {{ network }}
+          </p>
+        </div>
+        <div class="icon">
+          <img src="" alt="">
+        </div>
+      </div>
+      <div class="wallet-info">
+        <div>
+          <h2 class="title">
+            Wallet Address
+          </h2>
+          <p class="address">
+            {{ wallet }}
+          </p>
+        </div>
+        <div class="icon">
+          <img src="" alt="">
+        </div>
+      </div>
+
+      <div class="wallet-footer">
+        <div class="wallet-row">
+          <p>Minimum deposit</p>
+          <p>0.000000001 {{ coin }}</p>
+        </div>
+        <div class="wallet-row">
+          <p>Expected arrival</p>
+          <p>1 network confirmation</p>
+        </div>
+        <div class="wallet-row">
+          <p>Expected unlock</p>
+          <p>2 network confirmations</p>
+        </div>
+      </div>
+    </div>
+    
+  </div>
+</template>
+
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import QrCodeWithLogo from "qrcode-with-logos";
+
+const canvas = ref<HTMLCanvasElement|undefined>()
+let qrCodeValue = ref<string>('')
+
+const coin = ref<string>('Fantom')
+const network = ref<string>('Bitcoin')
+const wallet = ref('1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l')
+
+onMounted(() => {
+  qrCodeValue.value = wallet.value
+
+  let qrcode = new QrCodeWithLogo({
+    canvas: canvas.value,
+    content: qrCodeValue.value,
+    width: 230
+  })
+
+  qrcode.toCanvas()
+})
+</script>
+
+<style lang="scss" scoped>
+.page-wrapper {
+  padding: 15px;
+  flex-grow: 1;
+  background-color: #F7F8FD;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.0038em;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.qr-code-container {
+  flex-grow: 1;
+}
+
+.qr-code-canvas {
+  margin: 0 auto;
+  width: 200px;
+  display: block;
+}
+
+.wallet-block {
+  background-color: $color-white;
+  margin: -15px;
+  padding: 15px;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+
+.wallet-info {
+  .title {
+
+  }
+
+  .address {
+    overflow-wrap: break-word;
+  }
+}
+
+.wallet-row {
+  display: flex;
+  justify-content: space-between;
+}
+</style>

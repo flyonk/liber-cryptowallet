@@ -128,7 +128,7 @@ const selectAnswer = (id: number | string) => {
     const userAnswers = getSelectedAnswers()
     saveAnswers(userAnswers)
       .then(() => {
-        router.push('/deposit/wallet')
+        router.push({name: 'deposit-add'})
       })
     return
   }
@@ -151,9 +151,11 @@ const title = computed(() => {
   border: none;
   padding: 0;
 }
+
 .page-wrapper {
   margin: 15px;
 }
+
 .main-title {
   font-style: normal;
   font-weight: 800;
@@ -163,6 +165,7 @@ const title = computed(() => {
   margin-bottom: 10px;
   margin-top: 20px;
 }
+
 .text-default {
   font-style: normal;
   font-weight: normal;
@@ -172,27 +175,33 @@ const title = computed(() => {
   color: #0D1F3C;
   margin-bottom: 40px;
 }
+
 .radio-btn {
   border: 1px solid #EBECF0;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   > img {
     width: 20px;
     height: auto;
   }
+
   &:first-of-type {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
   }
+
   &:last-of-type {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
+
   &.-selected {
     background-color: $color-blue;
   }
+
   & > .title {
     font-style: normal;
     font-weight: 600;
@@ -201,6 +210,7 @@ const title = computed(() => {
     letter-spacing: -0.0031em;
     color: #0D1F3C;
   }
+  
   & > .title.-selected {
     color: white;
   }

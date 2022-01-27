@@ -102,7 +102,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/deposit',
     name: 'deposit',
     component: () =>
-      import('@/views/DepositeBTC/DepositeIndex.vue'),
+      import('@/views/DepositeCoin/DepositeIndex.vue'),
     children: DepositeRoutes
   },
 
