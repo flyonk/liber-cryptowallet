@@ -21,7 +21,7 @@
 
     <div class="wallet-block">
       <div class="wallet-info">
-        <div>
+        <div class="block">
           <h2 class="title">
             Network
           </h2>
@@ -30,11 +30,14 @@
           </p>
         </div>
         <div class="icon">
-          <img src="" alt="">
+          <img
+            src="@/assets/images/update-icon.svg"
+            alt="Update"
+          >
         </div>
       </div>
       <div class="wallet-info">
-        <div>
+        <div class="block">
           <h2 class="title">
             Wallet Address
           </h2>
@@ -43,7 +46,10 @@
           </p>
         </div>
         <div class="icon">
-          <img src="" alt="">
+          <img
+            src="@/assets/images/copy-icon.svg"
+            alt="Copy"
+          >
         </div>
       </div>
 
@@ -150,6 +156,14 @@ const shareAddress = () => {
 }
 
 .wallet-info {
+  display: flex;
+  align-items: center;
+
+  & > .block {
+    flex-grow: 1;
+    overflow: hidden;
+  }
+
   .title {
 
   }
