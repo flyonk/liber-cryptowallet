@@ -1,4 +1,4 @@
-<template>
+<template name="DepositeWallet">
   <div class="page-wrapper">
     <BackHistoryBtn :path="({ name: 'deposit-coin' })"/>
 

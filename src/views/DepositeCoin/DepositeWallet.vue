@@ -1,4 +1,4 @@
-<template>
+<template name="">
   <div class="page-wrapper">
     <BackHistoryBtn :path="({ name: 'deposit-network' })"/>
     
