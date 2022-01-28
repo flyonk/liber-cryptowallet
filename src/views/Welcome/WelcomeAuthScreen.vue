@@ -5,7 +5,8 @@
         :options="options"
         :is-hidden="false"
         :on-overlay="false"
-        @after-change="handleChangeSlideByUser($event)"
+        @after-change="handleAutoplayChange"
+        @change-by-user="handleChangeByUser"
       >
         <stories-slider-example-story />
         <stories-slider-example-story />
@@ -30,57 +31,17 @@ const options = ref<ISlider>({
   infinite: true,
 });
 
-const slideTimeOut: number = options.value.autoplaySpeed;
-
-type EventTime = {
-  event: Event;
-  occurTime: number;
+const handleAutoplayChange = () => {
+  console.log('Check after change event by autoplay')
 };
 
-const afterChangeEvents: EventTime[] = [];
+const handleChangeByUser = async () => {
+  options.value.autoplay = false;
 
-const handleChangeSlideByUser = (event: Event) => {
-  const eventTime: EventTime = {
-    event,
-    occurTime: Date.now(),
-  };
-
-  const isAfterChangeEventsFilled = afterChangeEvents.length > 1;
-
-  if (!isAfterChangeEventsFilled) afterChangeEvents.push(eventTime);
-
-  //extracting useless event and adding a new one
-  if (isAfterChangeEventsFilled) {
-    afterChangeEvents.shift();
-    afterChangeEvents.push(eventTime);
-  }
-
-  if (isAfterChangeEventsFilled) {
-    const [prevAfterChangeEvent, currAfterChangeEvent] = afterChangeEvents;
-
-    const reductionOfMillisecondError = 100;
-    const expectedTimeToAutoChangeSlide = Math.floor(
-      (prevAfterChangeEvent.occurTime + slideTimeOut) /
-        reductionOfMillisecondError
-    );
-    const newChangeTime = Math.floor(
-      currAfterChangeEvent.occurTime / reductionOfMillisecondError
-    );
-
-    const isChangeSlideByUser = expectedTimeToAutoChangeSlide > newChangeTime;
-
-    if (!isChangeSlideByUser) {
-      options.value.autoplay = true;
-      return;
-    }
-
-    options.value.autoplay = false;
-
-    // api for reload autoplay doesnt exist and i used this hack
-    setTimeout(() => {
-      options.value.autoplay = true;
-    }, 0);
-  }
+  // api for reload autoplay doesnt exist and i used this hack
+  await setTimeout(() => {
+    options.value.autoplay = true;
+  }, 0);
 };
 </script>
 

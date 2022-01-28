@@ -1,13 +1,13 @@
 <template>
   <div :class="['stories-slider', _hidden, _overlay]">
-    <vue-agile :options="options" @after-change="$emit('after-change', $event)">
+    <vue-agile :options="options" @after-change="detectSlideChangeByUser">
       <slot></slot>
     </vue-agile>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { ISlider } from '@/types/ISlider';
 
@@ -18,10 +18,85 @@ interface IProps {
 }
 
 const props = defineProps<IProps>();
-defineEmits(['after-change']);
+const emit = defineEmits(['after-change', 'change-by-user']);
 
 let _hidden = computed<string>(() => (props.isHidden ? '-hidden' : ''));
 let _overlay = computed<string>(() => (props.onOverlay ? '-overlay' : ''));
+
+let slideTimeOut: Ref<number>;
+
+if (
+  typeof props?.options !== 'undefined' &&
+  typeof props?.options?.autoplaySpeed == 'number'
+) {
+  slideTimeOut = ref(props?.options.autoplaySpeed);
+}
+
+type TEventTime = {
+  event: Event;
+  occurTime: number;
+};
+
+const afterChangeEvents: TEventTime[] = [];
+
+/*After initializing the slider by default, 
+the "after-change" event that occurred in the slider 
+is placed in the "afterChangeEvents" list. */
+
+const detectSlideChangeByUser = (event: Event) => {
+  const eventTime: TEventTime = {
+    event,
+    occurTime: Date.now(),
+  };
+
+  const isNewAfterChangeEventAppeared = afterChangeEvents.length > 1;
+
+  if (!isNewAfterChangeEventAppeared) {
+    afterChangeEvents.push(eventTime);
+
+    const [prevEvent, newEvent] = afterChangeEvents;
+
+    let isNewEventMadeByUser = false;
+
+    if (newEvent) {
+      isNewEventMadeByUser =
+        newEvent.occurTime < prevEvent.occurTime + slideTimeOut.value;
+    }
+
+    if (newEvent && isNewEventMadeByUser) {
+      emit('change-by-user');
+      return;
+    }
+
+    emit('after-change');
+  }
+
+  if (isNewAfterChangeEventAppeared) {
+    //extracting useless event and adding a new one
+    afterChangeEvents.shift();
+    afterChangeEvents.push(eventTime);
+
+    const [prevAfterChangeEvent, currAfterChangeEvent] = afterChangeEvents;
+
+    const orderOfErrorMillisecondError = 100;
+    const expectedTimeToAutoChangeSlide = Math.floor(
+      (prevAfterChangeEvent.occurTime + slideTimeOut.value) /
+        orderOfErrorMillisecondError
+    );
+    const newChangeTime = Math.floor(
+      currAfterChangeEvent.occurTime / orderOfErrorMillisecondError
+    );
+
+    const isNewEventMadeByUser = expectedTimeToAutoChangeSlide > newChangeTime;
+
+    if (!isNewEventMadeByUser) {
+      emit('after-change');
+      return;
+    }
+
+    emit('change-by-user');
+  }
+};
 </script>
 
 <style lang="scss" scoped>
