@@ -1,7 +1,7 @@
 <template>
   <div :class="['stories-slider', _hidden, _overlay]">
     <vue-agile :options="options" @after-change="detectSlideChangeByUser">
-      <slot></slot>
+      <slot />
     </vue-agile>
   </div>
 </template>
@@ -115,27 +115,27 @@ const detectSlideChangeByUser = (event: Event) => {
     left: 0;
   }
 
-  ::v-deep .agile {
+  :deep(.agile) {
     display: flex;
     flex-direction: column-reverse;
     height: 100%;
 
-    &__list,
-    &__slides,
-    &__slide,
-    &__track {
+    .agile__list,
+    .agile__slides,
+    .agile__slide,
+    .agile__track {
       height: 100%;
     }
 
-    &__slide {
+    .agile__slide {
       overflow: scroll;
     }
 
-    &__dots {
+    .agile__dots {
       width: 100%;
     }
 
-    &__dot {
+    .agile__dot {
       background-color: $color-brand-2-300;
       width: 100%;
       height: auto;
@@ -143,11 +143,11 @@ const detectSlideChangeByUser = (event: Event) => {
       border-radius: 2px;
     }
 
-    &__dot:first-child {
+    .agile__dot:first-child {
       margin-left: 0;
     }
 
-    &__dot > button {
+    .agile__dot > button {
       display: block;
       width: 100%;
       height: 2px;
@@ -162,13 +162,13 @@ const detectSlideChangeByUser = (event: Event) => {
       border-radius: 2px;
     }
 
-    &__dot:hover > button,
-    &__dot--current > button {
+    .agile__dot:hover > button,
+    :deep(.agile__dot--current > button) {
       background-color: #fff;
       border-radius: 2px;
     }
 
-    &__actions {
+    .agile__actions {
       background-color: $color-brand-2-800;
     }
   }
