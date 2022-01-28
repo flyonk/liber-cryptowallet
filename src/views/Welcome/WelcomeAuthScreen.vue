@@ -32,10 +32,11 @@ const options = ref<ISlider>({
 });
 
 const handleAutoplayChange = () => {
-  console.log('Check after change event by autoplay')
+  console.log('Check after change event by autoplay');
 };
 
 const handleChangeByUser = async () => {
+  console.log('Check after change event by user');
   options.value.autoplay = false;
 
   // api for reload autoplay doesnt exist and i used this hack
