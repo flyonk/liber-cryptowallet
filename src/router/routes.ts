@@ -93,6 +93,15 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
           ),
       },
+      {
+        path: 'profile',
+        name: 'account-profile',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountProfile.vue'
+          ),
+          meta: { layout: 'default'}
+      },
     ],
   },
   {

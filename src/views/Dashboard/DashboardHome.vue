@@ -1,7 +1,10 @@
 <template name="DashboardHome">
   <div class="dashboard">
     <div class="header flex mb-4">
-      <img src="@/assets/images/avatar.png">
+      <img
+        src="@/assets/images/avatar.png"
+        @click="$router.push('/account/profile')"
+      >
       <div
         v-if="VerificationStatus === 'in_progress'"
         class="verification"

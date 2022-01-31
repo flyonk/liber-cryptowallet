@@ -16,7 +16,7 @@
       </h4>
       <div
         class="add"
-        @click="$router.push('/home/accounts/add')"
+        @click="$router.push('/account/add')"
       >
         +
       </div>

@@ -335,6 +335,7 @@ import { ref } from 'vue'
 
   >.wallet-address {
     display: flex;
+    height: 370px;
     flex-direction: column;
     align-items: center;
     padding-top: 24px;

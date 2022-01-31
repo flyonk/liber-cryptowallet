@@ -167,7 +167,6 @@ const transactionStatus = 'complete'
       display: flex;
       justify-content: center;
       align-items: center;
-      position: absolute;
       width: 192px;
       height: 40px;
       left: 16px;
