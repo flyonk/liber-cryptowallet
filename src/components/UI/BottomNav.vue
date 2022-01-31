@@ -173,11 +173,7 @@ function changeTab(tabNum: number) {
     #center-btn-img {
       position: relative;
       top: -10px;
-    }
-
-    
+    }    
   }
-
 }
-
 </style>
