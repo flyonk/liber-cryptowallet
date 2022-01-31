@@ -1,11 +1,11 @@
 <template name="CoinItem">
-  <li class="item">
+  <li class="coin-item">
     <img
-			class="img"
+			class="image"
 			:src="getSrcImage"
 			alt=""
     >
-    <p class="name">
+    <p class="title">
     	{{ fullName }} <span>{{shortName}}</span>
     </p>
 	</li>
@@ -32,3 +32,27 @@ const getSrcImage = computed(() => {
   return icon.value
 })
 </script>
+
+<style lang="scss" scoped>
+.coin-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24px;
+
+  >.image {
+    margin-right: 16px;
+  }
+
+  >.title {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+
+    span {
+      color: $color-grey;
+      padding-left: 14px;
+    }
+  }
+}
+</style>

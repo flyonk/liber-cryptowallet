@@ -176,27 +176,7 @@ const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : [])
     >.coin-list {
       margin-bottom: 40px;
 
-      >.item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 24px;
-
-        >.img {
-          margin-right: 16px;
-        }
-
-        >.name {
-          font-weight: 500;
-          font-size: 17px;
-          line-height: 22px;
-          letter-spacing: -0.0043em;
-
-          span {
-            color: #AFB3C3;
-            padding-left: 14px;
-          }
-        }
-      }
+      
     }
   }
 }
