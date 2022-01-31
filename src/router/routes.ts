@@ -100,7 +100,16 @@ const routes: Array<RouteRecordRaw> = [
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountProfile.vue'
           ),
-          meta: { layout: 'default'}
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'settings',
+        name: 'account-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountSettings.vue'
+          ),
+        meta: { layout: 'default' },
       },
     ],
   },
