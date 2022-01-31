@@ -34,7 +34,7 @@
     <div class="sign-button-wrapper">
       <BaseButton
         block
-        @click="nextStep"
+        @click="$emit('next')"
       >
         Sign up
       </BaseButton>
@@ -49,15 +49,10 @@ import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
 
-import { useAuthStore } from '@/stores/auth';
+defineEmits(['next']);
 
 const number = ref(null);
 
-const authStore = useAuthStore();
-
-function nextStep(): void {
- authStore.setStep(1, 'registration')
-}
 </script>
 
 <style scoped></style>

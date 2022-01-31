@@ -9,3 +9,4 @@ export { default as BottomNav } from './BottomNav.vue';
 export { default as TopNavigation } from './TopNavigation.vue';
 export { default as BasePasscode } from './BasePasscode.vue';
 export { default as BaseToast } from './BaseToast.vue';
+export { default as BaseSwitch } from './BaseSwitch.vue';

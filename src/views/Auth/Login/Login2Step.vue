@@ -9,28 +9,43 @@
     class="login-passcode"
     @submit="onSubmit"
   />
+  <base-toast
+    v-model:visible="showErrorToast"
+    severity="error"
+  >
+    <template #description>
+      <div>
+        Invalid password or phone number +7 (764) 432 32-32
+      </div>
+    </template>
+    <template #footer>
+      You do not have an account? 
+      <router-link
+        :to="{ name: 'sign-up' }"
+        class="link"
+      >
+        Registration
+      </router-link>
+    </template>
+  </base-toast>
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BasePasscode } from '@/components/UI';
+import { ref } from 'vue';
+
+import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
 
 import { useAuthStore } from '@/stores/auth';
-import { useToastStore } from '@/stores/ui/toast';
-import { EToastSeverity } from '@/types/toast';
 
 const authStore = useAuthStore();
-const toastStore = useToastStore();
 
-function openErrorToast (): void {
-  toastStore.openToast({
-    description: "<div class='text--title-3'>Invalid password or phone number +7 (764) 432 32-32</div>",
-  }, EToastSeverity.error)
-}
+const showErrorToast = ref(false);
 
 function onSubmit(passcode: string): void {
   console.debug('passcode is ', passcode)
 
-  openErrorToast();
+  authStore.setStep(2, 'login');
+  // showErrorToast.value = true;
 } 
 
 function prevStep(): void {

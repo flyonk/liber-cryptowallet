@@ -1,66 +1,56 @@
 <template>
   <p-dialog
-    :visible="toast.open"
     position="bottom"
     :show-header="false"
     modal
     class="base-toast"
     v-bind="$attrs"
     dismissable-mask
-    @update:visible="onClose"
   >
     <div class="close-wrapper" />
     <div class="image-block">
       <img
         :src="currentImage"
-        :alt="toast.severity"
+        :alt="severity"
         class="image"
       >
     </div>
+    <div class="header">
+      <slot name="header" />
+    </div>
     <div
-      class="header"
-      v-html="toast.header"
-    />
+      class="description text--title-3"
+    >
+      <slot name="description" />
+    </div>
     <div
-      class="description"
-      v-html="toast.description"
-    />
-    <div
-      class="footer"
-      v-html="toast.footer"
-    />
+      class="footer text--footnote font-weight--semibold"
+    >
+      <slot name="footer" />
+    </div>
   </p-dialog>    
 </template>
 
 <script setup lang="ts">
-import { IToastStore } from '@/types/toast';
-import { computed, PropType } from 'vue-demi';
-
-import { useToastStore } from '@/stores/ui/toast';
-
-const toastStore = useToastStore();
+import { computed } from 'vue-demi';
 
 const props = defineProps(
-    {
-    toast: {
-        type: Object as PropType<IToastStore>,
-        required: true
+  {
+    severity: {
+      type: String,
+      default: 'error'
     }
-}
+  }
 )
 
 const currentImage = computed(() => {
-    switch(props.toast.severity) {
-        case 'error':
-            return require('@/assets/images/sapphire-error.svg')
-        default: ''
-            return require('@/assets/images/sapphire-error.svg')
+  switch(props.severity) {
+    case 'error':
+			return require('@/assets/images/sapphire-error.svg')
+    default: ''
+      return require('@/assets/images/sapphire-error.svg')
     }
 })
-
-function onClose(): void {
-    toastStore.closeToast();
-}
 </script>
 
 <style lang="scss">
@@ -89,6 +79,15 @@ function onClose(): void {
 
         .image {
             color: red;
+        }
+    }
+
+     .footer {
+        margin-top: 42px;
+        color: $color-dark-grey;
+
+        .link {
+            color: $color-blue;
         }
     }
 }

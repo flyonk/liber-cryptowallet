@@ -8,10 +8,11 @@
       <br>
       we’ve sent to ********6123
     </div>
-    <div class="grid">
+    <div>
       <BaseVerificationCodeInput
         :loading="false"
         class="input"
+        @complete="onComplete"
       />
     </div>
     <div class="footer">
@@ -53,20 +54,25 @@ import {
   TopNavigation,
 } from '@/components/UI';
 
-import { useAuthStore } from '@/stores/auth';
-
-const authStore = useAuthStore();
-
+const emit = defineEmits(['next', 'prev']);
 
 // const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
 
 function prevStep(): void {
-  authStore.setStep(0, 'registration');
+  emit('prev');
+}
+
+function nextStep(): void {
+  emit('next');
 }
 
 function onTimeIsUp(): void {
   showCountdown.value = false;
+}
+
+function onComplete(): void {
+  nextStep();
 }
 </script>
 

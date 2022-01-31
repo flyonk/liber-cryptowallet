@@ -1,6 +1,10 @@
 <template>
   <div>
-    <component :is="currentComponent" />
+    <component
+      :is="currentComponent"
+      @next="nextStep"
+      @prev="prevStep"
+    />
   </div>
 </template>
 
@@ -9,6 +13,7 @@ import { IAuthSteps } from '@/stores/auth';
 import { computed, PropType } from 'vue-demi';
 
 import { useAuthStore } from '@/stores/auth';
+import { EStepDirection } from '@/types/base-component';
 
 const authStore = useAuthStore();
 
@@ -28,6 +33,9 @@ const step = computed(() => authStore.getState.steps[props.scope])
 
 const currentComponent = computed(() => props.components[step.value])
 
+const nextStep = () => authStore.setStep(EStepDirection.next, props.scope)
+
+const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
 </script>
 
 <style lang="scss">

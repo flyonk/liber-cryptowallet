@@ -189,7 +189,7 @@ export default {
       const { fields } = this;
       const val = values.join('');
       this.$emit('change', val);
-      if (val.length >= fields) {
+      if (val.length >= fields ) {
         this.$emit('complete', val);
       }
     },

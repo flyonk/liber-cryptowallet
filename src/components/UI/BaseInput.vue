@@ -17,6 +17,7 @@ import { computed } from 'vue';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
+import PInputMask from 'primevue/inputmask';
 
 const props = defineProps({
   type: {
@@ -31,6 +32,8 @@ const currentComponent = computed(() => {
       return PInput;
     case 'number':
       return PInputNumber;
+    case 'mask':
+      return PInputMask;
     default:
       return PInput;
   }

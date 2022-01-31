@@ -1,23 +1,9 @@
 <template>
-  <base-toast
-    :toast="toast"
-  />
-
-  <router-view />
+  <router-view :style="{ 'touch-action': 'manipulation' }" />
 </template>
 
 <script setup lang="ts">
-import { BaseToast } from './components/UI';
-
-import { computed } from 'vue';
-
 import { useAccountStore } from './stores/account';
-import { useToastStore } from './stores/ui/toast';
-
-
-const toastStore = useToastStore();
-
-const toast = computed(() => toastStore.state)
 
 const store = useAccountStore();
 store.init();
