@@ -24,9 +24,12 @@
       <slot name="description" />
     </div>
     <div
+      v-if="$slots.footer"
       class="footer text--footnote font-weight--semibold"
     >
-      <slot name="footer" />
+      <slot
+        name="footer"
+      />
     </div>
   </p-dialog>    
 </template>

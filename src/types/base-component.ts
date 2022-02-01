@@ -11,3 +11,9 @@ export enum EStepDirection {
   prev = 'prev',
   next = 'next',
 }
+
+export enum EState {
+  pending = 'pending',
+  success = 'success',
+  error = 'error',
+}

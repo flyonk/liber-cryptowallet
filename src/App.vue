@@ -1,5 +1,5 @@
 <template>
-  <router-view :style="{ 'touch-action': 'manipulation' }" />
+  <router-view class="router-view" />
 </template>
 
 <script setup lang="ts">
@@ -22,5 +22,9 @@ store.init();
       color: #42b983;
     }
   }
+}
+
+.router-view {
+  touch-action: manipulation;
 }
 </style>
