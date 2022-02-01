@@ -1,9 +1,14 @@
-// TODO: API
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-import { useAccountStore } from '@/stores/account';
+
+//config
 const BASE_URL = process.env.VUE_APP_BASE_API_URL;
 
-class ApiService {
+interface IApiService {
+    baseURL: string,
+    fetch: AxiosInstance,
+}
+
+class ApiService implements IApiService {
     /**
      * ApiService Service Instance
      *
@@ -14,14 +19,14 @@ class ApiService {
      */
     private static _instance: ApiService;
 
-    private baseURL = process.env.BASE_URL;
+    baseURL = "";
 
     private reqCount = 0;
     private resCount = 0;
     // keeping in mind making it private and wrap api work in separate services
     public fetch: AxiosInstance;
 
-    public constructor() {
+    private constructor() {
         if (BASE_URL) {
             this.baseURL = BASE_URL;
         }
@@ -31,15 +36,7 @@ class ApiService {
         });
 
         this.fetch.interceptors.request.use((config) => {
-            const store = useAccountStore();
-            const token = store.token;
-
-            if (token) {
-                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                // @ts-ignore
-                config.headers.Authorization = `Bearer ${token}`;
-            }
-
+            //todo
             return config;
         });
 
@@ -55,16 +52,14 @@ class ApiService {
         );
     }
 
-    // /**
-    //  * Returns Api Service singleton instance
-    //  *
-    //  * @static
-    //  * @returns {ApiService}
-    //  * @memberof ApiService
-    //  */
+    /**
+     * Returns Api Service singleton instance
+     *
+     * @static
+     * @returns {ApiService}
+     * @memberof ApiService
+     */
     static getInstance(): ApiService {
-        console.log('api service get instance');
-        
         return this._instance || (this._instance = new this());
     }
 
