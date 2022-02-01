@@ -1,44 +1,60 @@
-import { AxiosInstance } from "axios";
+// import { AxiosInstance } from "axios";
 import ApiService from "./ApiService";
 
+const URL = process.env.VUE_APP_AUTH_URL
+
 interface IAuthService {
-    signin(): void;
-    logout(): void;
-    refresh(): void;
+    url: string;
+    signIn(data: { phone: string }): void;
+    signInProceed(data: { phone: string, otp: string }): void
+    logout(data: { access_token: string }): void;
+    refresh(data: { access_token: string }): void;
 }
 
 class AuthService implements IAuthService {
-
     private static _instance: AuthService;
-    private _apiServiceInstance: ApiService
+    private _apiServiceInstance: ApiService | undefined;
 
-    constructor(apiServiceInstance: ApiService) {
-        // const apiServiceInstance = new ApiService()
-        this._apiServiceInstance = apiServiceInstance
+    url: string;
+
+    private constructor() {
+        if (URL) {
+            this.url = URL;
+        }
+
+        this.url = ''
+
+        if (!ApiService.getInstance()) {
+            this._apiServiceInstance = undefined
+            return
+        }
+
+        this._apiServiceInstance = ApiService.getInstance()
     }
 
     static getInstance(): AuthService {
-        if (this._instance) {
-            return this._instance
-        }
-
-        const apiServiceInstance = new ApiService()
-        return new this(apiServiceInstance);
+        return this._instance || (this._instance = new this());
     }
 
-    //public 
-    signin(): void {
-        this._apiServiceInstance.fetch({})
-        throw new Error("Method not implemented.");
+    //Public functions
+    signIn(data: { phone: string }): void {
+        const target = `${this.url}`
+        this._apiServiceInstance?.fetch.post(target, data)
     }
 
-    logout(): void {
-        this._apiServiceInstance
-        throw new Error("Method not implemented.");
+    signInProceed(data: { phone: string, otp: string }): void {
+        const target = `${this.url}`
+        this._apiServiceInstance?.fetch.post(target, data)
     }
 
-    refresh(): void {
-        throw new Error("Method not implemented.");
+    logout(data: { access_token: string }): void {
+        const target = `${this.url}/logout`
+        this._apiServiceInstance?.fetch.post(target, data)
+    }
+
+    refresh(data: { access_token: string }): void {
+        const target = `${this.url}/refresh`
+        this._apiServiceInstance?.fetch.post(target, data)
     }
 }
 
