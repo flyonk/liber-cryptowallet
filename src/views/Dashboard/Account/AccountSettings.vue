@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/home')"
+          @click="$router.push('/account')"
         >
         <h1 class="title">
           {{ accountName }}
@@ -112,7 +112,10 @@
             2FA: Google Authenticator
           </p>
         </li>
-        <li class="item">
+        <li
+          class="item"
+          @click="$router.push('/account/devices')"
+        >
           <img
             class="icon"
             src="@/assets/icon/devices.svg"
