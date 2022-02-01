@@ -7,14 +7,16 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 
+import ApiService from './services/ApiService';
 import AuthService from './services/AuthService';
 
 import '@/assets/styles/index.scss';
-import ApiService from './services/ApiService';
 
-const apiService = ApiService.getInstance()
-const authService = new AuthService(apiService)
-
+//test new features
+ApiService.getInstance();
+const authService = AuthService.getInstance();
+authService.signIn({ phone: "test" });
+//
 
 (async () => {
   const app = createApp(App).use(createPinia());
