@@ -35,6 +35,7 @@
           :icon="item.icon"
           :full-name="item.fullName"
           :short-name="item.shortName"
+          @click="selectCoin(item)"
         />
       </ul>
       <h4 class="title">
@@ -47,6 +48,7 @@
           :icon="item.icon"
           :full-name="item.fullName"
           :short-name="item.shortName"
+          @click="selectCoin(item)"
         />
       </ul>
     </div>
@@ -56,8 +58,10 @@
 <script setup lang="ts">
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 import CoinItem from './CoinItem.vue'
+import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
+const router = useRouter()
 const coins = ref([])
 
 coins.value = [
@@ -113,6 +117,13 @@ coins.value = [
 
 const suggestedCoins = ref(coins.value.slice(0, 3))
 const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : [])
+
+const selectCoin = (coin) => {
+  console.log('selected coin', coin)
+  router.push({
+    name: 'deposit-network'
+  })
+}
 
 </script>
 
