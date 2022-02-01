@@ -1,6 +1,6 @@
 <template name="">
   <div class="page-wrapper">
-    <BackHistoryBtn :path="({ name: 'deposit-network' })"/>
+    <BackHistoryBtn :path="({ name: 'deposit-network' })" />
     
     <h1 class="main-title">
       Deposit {{ coin }}
@@ -73,15 +73,18 @@
           type="button" 
           class="btn-default btn-secondary"
           @click="saveImage"
-        >Save Image</button>
+        >
+          Save Image
+        </button>
         <button
           class="btn-default btn-primary"
           type="button" 
           @click="shareAddress"
-        >Share Address</button>
+        >
+          Share Address
+        </button>
       </div>
     </div>
-    
   </div>
 </template>
 

@@ -1,28 +1,31 @@
 <template name="CoinItem">
   <li class="coin-item">
     <img
-			class="image"
-			:src="getSrcImage"
-			alt=""
+      class="image"
+      :src="getSrcImage"
+      alt=""
     >
     <p class="title">
-    	{{ fullName }} <span>{{shortName}}</span>
+      {{ fullName }} <span>{{ shortName }}</span>
     </p>
-	</li>
+  </li>
 </template>
 
 <script setup lang="ts">
-import { toRefs, computed } from 'vue';
+import { toRefs, computed, ref } from 'vue';
 
 const props = defineProps({
   icon: {
-    type: String
+    type: String,
+    default: ref('')
   },
   fullName: {
-    type: String
+    type: String,
+    default: ref('')
   },
   shortName: {
-    type: String
+    type: String,
+    default: ref('')
   }
 });
 

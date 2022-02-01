@@ -22,8 +22,6 @@ const props = defineProps({
   }
 })
 
-console.log('what is props', props)
-
 const { path } = toRefs(props)
 </script>
 

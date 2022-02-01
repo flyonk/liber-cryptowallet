@@ -33,8 +33,8 @@
           v-for="item in suggestedCoins"
           :key="item.id"
           :icon="item.icon"
-          :fullName="item.fullName"
-          :shortName="item.shortName"
+          :full-name="item.fullName"
+          :short-name="item.shortName"
         />
       </ul>
       <h4 class="title">
@@ -45,8 +45,8 @@
           v-for="item in otherCoins"
           :key="item.id"
           :icon="item.icon"
-          :fullName="item.fullName"
-          :shortName="item.shortName"
+          :full-name="item.fullName"
+          :short-name="item.shortName"
         />
       </ul>
     </div>
