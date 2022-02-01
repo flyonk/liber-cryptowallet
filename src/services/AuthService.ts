@@ -18,11 +18,11 @@ class AuthService implements IAuthService {
     url: string;
 
     private constructor() {
+        this.url = ''
+
         if (URL) {
             this.url = URL;
         }
-
-        this.url = ''
 
         if (!ApiService.getInstance()) {
             this._apiServiceInstance = undefined
