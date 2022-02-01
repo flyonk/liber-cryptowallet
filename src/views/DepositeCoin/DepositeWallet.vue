@@ -21,11 +21,11 @@
 
     <div class="wallet-block">
       <div class="wallet-info">
-        <div class="block">
+        <div class="titled-block">
           <h2 class="title">
             Network
           </h2>
-          <p class="address">
+          <p class="content">
             {{ network }}
           </p>
         </div>
@@ -37,11 +37,11 @@
         </div>
       </div>
       <div class="wallet-info">
-        <div class="block">
+        <div class="titled-block">
           <h2 class="title">
             Wallet Address
           </h2>
-          <p class="address">
+          <p class="content">
             {{ wallet }}
           </p>
         </div>
@@ -161,17 +161,13 @@ const shareAddress = () => {
 .wallet-info {
   display: flex;
   align-items: center;
+}
 
-  & > .block {
-    flex-grow: 1;
-    overflow: hidden;
-  }
+.titled-block {
+  flex-grow: 1;
+  overflow: hidden;
 
-  .title {
-
-  }
-
-  .address {
+  & > .content {
     overflow-wrap: break-word;
   }
 }

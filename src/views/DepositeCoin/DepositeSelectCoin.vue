@@ -1,5 +1,5 @@
 <template name="DepositeSelectCoin">
-  <div class="page-wrapper add-account">
+  <div class="page-wrapper">
     <div class="page-header">
       <BackHistoryBtn />
 
@@ -24,7 +24,7 @@
         >
       </label>
     </div>
-    <div class="main">
+    <div class="page-main">
       <h4 class="title">
         Suggested
       </h4>
@@ -138,21 +138,22 @@ const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : [])
 
 .input-label {
   position: relative;
+  display: block;
+  overflow: hidden;
+  border-radius: 12px;
+
   >.search {
     background: #EDF0FB;
-    border-radius: 12px;
+    color: #78809B;
     width: 100%;
     height: 44px;
     padding-left: 40px;
     font-size: 16px;
     line-height: 21px;
-    display: flex;
     align-items: center;
     letter-spacing: -0.0031em;
-    color: #78809B;
     border: 0;
     outline: none;
-
   }
 
   >.icon {
@@ -162,23 +163,20 @@ const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : [])
     z-index: 1;
   }
 }
-.add-account {
-  >.main {
-    >.title {
-      font-weight: 500;
-      font-size: 13px;
-      line-height: 18px;
-      letter-spacing: -0.0008em;
-      color: #0D1F3C;
-      margin-bottom: 16px;
-    }
 
-    >.coin-list {
-      margin-bottom: 40px;
-
-      
-    }
+.page-main {
+  >.title {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: #0D1F3C;
+    margin-bottom: 16px;
   }
+}
+
+.coin-list {
+  margin-bottom: 40px;  
 }
 
 </style>

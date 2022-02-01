@@ -6,7 +6,8 @@
       alt=""
     >
     <p class="title">
-      {{ fullName }} <span>{{ shortName }}</span>
+      {{ fullName }}
+      <span class="sub-title">{{ shortName }}</span>
     </p>
   </li>
 </template>
@@ -52,10 +53,11 @@ const getSrcImage = computed(() => {
     line-height: 22px;
     letter-spacing: -0.0043em;
 
-    span {
-      color: $color-grey;
-      padding-left: 14px;
-    }
   }
+}
+
+.sub-title {
+  color: $color-grey;
+  margin-left: 14px;
 }
 </style>
