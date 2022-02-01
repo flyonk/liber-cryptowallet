@@ -43,7 +43,7 @@ const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
   padding: 0 16px;
 
   > .description {
-    padding-bottom: 24px;
+    padding: 0 0 24px 0;
   }
 
   > .sign-button-wrapper {
@@ -55,8 +55,9 @@ const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
 
   .footer {
     margin-top: 0.5rem;
+  }
 
-    .text--footnote {
+  .text--footnote {
       color: $color-dark-grey;
 
       .link {
@@ -66,5 +67,5 @@ const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
         color: $color-primary;
       }
     }
-  }
-}</style>
+}
+</style>

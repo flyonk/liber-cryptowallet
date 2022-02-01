@@ -1,7 +1,9 @@
 {
-  "eslint.validate": ["javascript", "vue"],
+  "eslint.validate": [
+    "javascript",
+    "vue"
+  ],
   "vetur.validation.template": false,
-
   // Spell checker exceptions
   "cSpell.words": [
     "Pinia",
@@ -9,5 +11,5 @@
     "stylelint",
   ],
   "editor.formatOnSave": true,
-  "editor.formatOnPaste": false
+  "editor.formatOnPaste": true
 }

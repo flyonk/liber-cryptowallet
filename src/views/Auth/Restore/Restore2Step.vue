@@ -65,7 +65,7 @@
       </div>
 
       <div class="sign-button-wrapper">
-        <base-button>
+        <base-button @click="$emit('next')">
           Got it
         </base-button>
       </div>
@@ -79,7 +79,7 @@ import { Ref, ref } from 'vue';
 import { TopNavigation, BaseToast, BasePasscode, BaseButton } from '@/components/UI';
 import { EState } from '@/types/base-component';
 
-defineEmits(['prev', 'next'])
+const emit = defineEmits(['prev', 'next'])
 
 const showIncorrectPasswordToast = ref(false)
 
@@ -87,10 +87,8 @@ const showSessionExpiredToast = ref(false)
 
 const state = ref(EState.pending) as Ref<EState>;
 
-const onSubmit = (passcode: string): void => {
-  console.debug('passcode is: ', passcode)
-
-  showSessionExpiredToast.value = true;
+const onSubmit = (): void => {
+  emit('next');
 }
 </script>
 
