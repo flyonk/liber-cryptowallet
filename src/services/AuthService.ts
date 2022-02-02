@@ -6,7 +6,7 @@ const URL = process.env.VUE_APP_AUTH_URL
 class AuthService implements IAuthService {
     private _apiServiceInstance: typeof ApiService | undefined;
 
-    url: string;
+    private url: string;
 
     constructor() {
         this.url = ''
