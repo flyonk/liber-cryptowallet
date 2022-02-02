@@ -1,4 +1,4 @@
-import { TClaimCreateSuccess } from './../types/TClaim';
+import { TClaimFileList } from './../types/TClaim';
 import { TSuccessResponse } from '../types/TSuccessResponse';
 import { IApiService } from './../types/IApiService';
 import { TErrorResponse } from './../types/TErrorResponse';
@@ -29,15 +29,15 @@ class ProfileService implements IProfileService, IKycService {
     async getProfile() {
         const store = useAccountStore()
         const url = `${this.url}?access_token=${store.token}`
-        const profile: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
-        return profile
+        const res: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
+        return res
     }
 
     async updateProfile(payload: TProfile) {
         const store = useAccountStore()
         const url = `${this.url}?access_token=${store.token}`
-        const profile: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.patch(url, payload)
-        return profile
+        const res: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.patch(url, payload)
+        return res
     }
 
     async updateProfileAvatar(payload: File) {
@@ -54,11 +54,11 @@ class ProfileService implements IProfileService, IKycService {
 
     async kycCreateClaim(payload: any) {
         const store = useAccountStore()
-        const url = `${this.url}/kyc/claim?access_token=${store.token}`
-        const claimList: TClaimCreateSuccess | TErrorResponse = await this._apiServiceInstance.fetch.post(url, payload)
-        return claimList
+        const url = `${this.url}/kyc/claim?access_token=${store.token}` 
+        const res: TClaimFileList | TErrorResponse = await this._apiServiceInstance.fetch.post(url, payload)
+        return res
     }
-
+    
     kycHook(): void {
         throw new Error('Method not implemented.');
     }
