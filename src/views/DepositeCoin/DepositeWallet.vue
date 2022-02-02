@@ -28,12 +28,16 @@
             {{ network }}
           </p>
         </div>
-        <div class="icon">
+        <button
+          class="icon"
+          type="button"
+          @click="updateNetwork"
+        >
           <img
             src="@/assets/images/update-icon.svg"
             alt="Update"
           >
-        </div>
+        </button>
       </div>
 
       <div class="wallet-info">
@@ -45,12 +49,16 @@
             {{ wallet }}
           </p>
         </div>
-        <div class="icon">
+        <button
+          class="icon"
+          type="button"
+          @click="copyToClipboard"
+        >
           <img
             src="@/assets/images/copy-icon.svg"
             alt="Copy"
           >
-        </div>
+        </button>
       </div>
 
       <div class="wallet-footer">
@@ -132,6 +140,18 @@ const saveImage = () => {
 
 const shareAddress = () => {
   console.log('share address')
+}
+
+const copyToClipboard = () => {
+  navigator.clipboard.writeText(wallet.value).then(function() {
+    console.log('Async: Copying to clipboard was successful!', wallet.value)
+  }, function(err) {
+    console.error('Async: Could not copy text: ', err)
+  })
+}
+
+const updateNetwork = () => {
+  console.log('update coin network')
 }
 </script>
 
