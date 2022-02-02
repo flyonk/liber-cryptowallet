@@ -21,15 +21,14 @@
 import StoriesSlider from '@/components/UI/StoriesSlider.vue';
 import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
 import { ISlider } from '@/types/ISlider';
-import { ref } from 'vue';
 
-const options = ref<ISlider>({
+const options: ISlider = {
   autoplay: true,
   autoplaySpeed: 5000,
   dots: true,
   navButtons: false,
   infinite: true,
-});
+};
 
 const handleAutoplayChange = () => {
   console.log('Check after change event by autoplay');
@@ -37,11 +36,11 @@ const handleAutoplayChange = () => {
 
 const handleChangeByUser = async () => {
   console.log('Check after change event by user');
-  options.value.autoplay = false;
+  options.autoplay = false;
 
   // api for reload autoplay doesnt exist and i used this hack
   await setTimeout(() => {
-    options.value.autoplay = true;
+    options.autoplay = true;
   }, 0);
 };
 </script>
