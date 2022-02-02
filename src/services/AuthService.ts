@@ -4,28 +4,23 @@ import { IAuthService } from "@/types/IAuthService";
 const URL = process.env.VUE_APP_AUTH_URL
 
 class AuthService implements IAuthService {
-    private static _instance: AuthService;
-    private _apiServiceInstance: ApiService | undefined;
+    private _apiServiceInstance: typeof ApiService | undefined;
 
     url: string;
 
-    private constructor() {
+    constructor() {
         this.url = ''
 
         if (URL) {
             this.url = URL;
         }
 
-        if (!ApiService.getInstance()) {
+        if (!ApiService) {
             this._apiServiceInstance = undefined
             return
         }
 
-        this._apiServiceInstance = ApiService.getInstance()
-    }
-
-    static getInstance(): AuthService {
-        return this._instance || (this._instance = new this());
+        this._apiServiceInstance = ApiService
     }
 
     //Public functions
