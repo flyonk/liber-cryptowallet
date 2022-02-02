@@ -10,6 +10,12 @@ export type TClaim = {
     "deleted_at": string
 }
 
-export type TClaimCreateSuccess = {
-    "file_list": TClaim[]
+export type TClaimFileList = {
+    "file_list": TClaim[],
+    "user_id": string,
+    "id": number,
+    "status": number,
+    "created_at": string,
+    "updated_at": string,
+    "deleted_at": string
 }
