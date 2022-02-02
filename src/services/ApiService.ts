@@ -1,12 +1,9 @@
+// import { IApiServiceState } from './../stores/apiService';
+import { IApiService } from './../types/IApiService';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
-
+import { useApiServiceStore } from '@/stores/apiService';
 //config
 const BASE_URL = process.env.VUE_APP_BASE_API_URL;
-
-interface IApiService {
-    baseURL: string,
-    fetch: AxiosInstance,
-}
 
 class ApiService implements IApiService {
     /**
@@ -36,12 +33,13 @@ class ApiService implements IApiService {
         });
 
         this.fetch.interceptors.request.use((config) => {
-            //todo
+            this.incrReqCount()
             return config;
         });
 
         this.fetch.interceptors.response.use(
             (_response: AxiosResponse<any, any>) => {
+                this.decrReqCount()
                 console.debug(_response);
                 return _response;
             },
@@ -65,11 +63,13 @@ class ApiService implements IApiService {
 
     // Public functions
     incrReqCount() {
-        this.reqCount++
+        const store = useApiServiceStore();
+        store.incReqCount();
     }
 
-    incrResCount() {
-        this.resCount++
+    decrReqCount() {
+        const store = useApiServiceStore();
+        store.decResCount();
     }
 }
 
