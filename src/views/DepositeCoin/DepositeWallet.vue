@@ -114,6 +114,8 @@
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 import { onMounted, ref } from 'vue'
 import QrCodeWithLogo from "qrcode-with-logos";
+import { useToast } from "primevue/usetoast";
+const toast = useToast()
 
 const canvas = ref<HTMLCanvasElement|undefined>()
 let qrCodeValue = ref<string>('')
@@ -144,7 +146,7 @@ const shareAddress = () => {
 
 const copyToClipboard = () => {
   navigator.clipboard.writeText(wallet.value).then(function() {
-    console.log('Async: Copying to clipboard was successful!', wallet.value)
+    toast.add({ summary: 'Wallet Address Copied!', life: 3000, closable: false})
   }, function(err) {
     console.error('Async: Could not copy text: ', err)
   })

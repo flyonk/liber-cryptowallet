@@ -1,10 +1,22 @@
 <template>
-  <!-- <p-toast /> -->
+  <Toast position="center">
+    <template #message="slotProps">
+      <div class="toast-content">
+        <div class="icon">
+          <i class="pi pi-check" />
+        </div>
+        <h4 class="title">
+          {{ slotProps.message.summary }}
+        </h4>
+      </div>
+    </template>
+  </Toast>
 
   <router-view />
 </template>
 
 <script setup lang="ts">
+import Toast from 'primevue/toast';
 // import PToast from 'primevue/toast';
 import { useAccountStore } from './stores/account';
 

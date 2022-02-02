@@ -32,3 +32,37 @@ body {
   flex-direction: column;
   height: 100vh;
 }
+
+// toast styles
+.p-toast {
+  text-align: center;
+}
+
+.p-toast-message {
+  display: inline-block;
+  background-color: $color-brand;
+  color: $color-white;
+  border-radius: 12px !important;
+}
+
+.toast-content {
+  & > .icon {
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 50%;
+    color: #44C055;
+    border: 2px solid #44C055;
+    background-color: rgba(68, 192, 85, 0.3);
+    margin: 0 auto 15px;
+  }
+
+  & > .title {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.0043em;
+  }
+}
+// end toast
