@@ -1,3 +1,6 @@
+import { TSuccessResponse } from '../types/TSuccessResponse';
+import { IApiService } from './../types/IApiService';
+import { TErrorResponse } from './../types/TErrorResponse';
 import { TProfile } from './../types/TProfile';
 import { useAccountStore } from './../stores/account';
 import { IKycService } from './../types/IKycService';
@@ -28,8 +31,12 @@ class ProfileService implements IProfileService, IKycService {
         const profile: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
         return profile
     }
-    updateProfile(): void {
-        throw new Error('Method not implemented.');
+
+    async updateProfile(payload: TProfile) {
+        const store = useAccountStore()
+        const url = `${this.url}?access_token=${store.token}`
+        const profile: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.patch(url, payload)
+        return profile
     }
     updateProfileAvatar(): void {
         throw new Error('Method not implemented.');
