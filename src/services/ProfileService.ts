@@ -3,13 +3,12 @@ import { useAccountStore } from './../stores/account';
 import { IKycService } from './../types/IKycService';
 import { IProfileService } from './../types/IProfileService';
 import ApiService from './ApiService';
-import { AxiosPromise } from 'axios';
 
 const URL = process.env.VUE_APP_PROFILE_URL
 
 class ProfileService implements IProfileService, IKycService {
 
-    private _apiServiceInstance: typeof ApiService | undefined;
+    private _apiServiceInstance: IApiService;
 
     private url: string;
 
@@ -20,21 +19,14 @@ class ProfileService implements IProfileService, IKycService {
             this.url = URL;
         }
 
-        if (!ApiService) {
-            this._apiServiceInstance = undefined
-            return
-        }
-
         this._apiServiceInstance = ApiService
     }
 
-    async getProfile(): Promise<AxiosPromise<TProfile> | undefined> {
+    async getProfile() {
         const store = useAccountStore()
         const url = `${this.url}?access_token=${store.token}`
-
-        const profile = await this._apiServiceInstance?.fetch.get(url)
-
-        return profile ? profile : undefined
+        const profile: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
+        return profile
     }
     updateProfile(): void {
         throw new Error('Method not implemented.');
