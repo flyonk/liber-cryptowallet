@@ -62,9 +62,12 @@ class ProfileService implements IProfileService, IKycService {
     kycHook(): void {
         throw new Error('Method not implemented.');
     }
-
-    kycGetClaimById(): void {
-        throw new Error('Method not implemented.');
+    
+    async kycGetClaimById(id: number) {
+        const store = useAccountStore()
+        const url = `${this.url}/kyc/claim/${id}?access_token=${store.token}` 
+        const res: TClaimFileList | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
+        return res
     }
 
     kycProceedClaimById(): void {
