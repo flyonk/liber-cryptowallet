@@ -78,8 +78,11 @@ class ProfileService implements IProfileService, IKycService {
         return res
     }
 
-    kycAddFileById(): void {
-        throw new Error('Method not implemented.');
+    async kycDeleteFileById(id: number, fileId: number) {
+        const store = useAccountStore()
+        const url = `${this.url}/kyc/claim/${id}/file/${fileId}?access_token=${store.token}`
+        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.delete(url)
+        return res
     }
 
     kycDeleteFileById(): void {
