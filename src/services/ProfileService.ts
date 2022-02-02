@@ -1,3 +1,4 @@
+import { TClaimCreateSuccess } from './../types/TClaim';
 import { TSuccessResponse } from '../types/TSuccessResponse';
 import { IApiService } from './../types/IApiService';
 import { TErrorResponse } from './../types/TErrorResponse';
@@ -51,8 +52,11 @@ class ProfileService implements IProfileService, IKycService {
         return res
     }
 
-    kycCreateClaim(): void {
-        throw new Error('Method not implemented.');
+    async kycCreateClaim(payload: any) {
+        const store = useAccountStore()
+        const url = `${this.url}/kyc/claim?access_token=${store.token}`
+        const claimList: TClaimCreateSuccess | TErrorResponse = await this._apiServiceInstance.fetch.post(url, payload)
+        return claimList
     }
 
     kycHook(): void {
