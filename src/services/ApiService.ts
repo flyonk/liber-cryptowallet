@@ -73,4 +73,4 @@ class ApiService implements IApiService {
     }
 }
 
-export default ApiService;
+export default ApiService.getInstance();
