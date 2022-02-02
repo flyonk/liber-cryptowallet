@@ -38,27 +38,43 @@ class ProfileService implements IProfileService, IKycService {
         const profile: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.patch(url, payload)
         return profile
     }
-    updateProfileAvatar(): void {
-        throw new Error('Method not implemented.');
+
+    async updateProfileAvatar(payload: File) {
+        const store = useAccountStore()
+        const url = `${this.url}?access_token=${store.token}`
+        const config = {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }
+        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.patch(url, payload, config)
+        return res
     }
+
     kycCreateClaim(): void {
         throw new Error('Method not implemented.');
     }
+
     kycHook(): void {
         throw new Error('Method not implemented.');
     }
+
     kycGetClaimById(): void {
         throw new Error('Method not implemented.');
     }
+
     kycProceedClaimById(): void {
         throw new Error('Method not implemented.');
     }
+
     kycDeleteClaim(): void {
         throw new Error('Method not implemented.');
     }
+
     kycAddFileById(): void {
         throw new Error('Method not implemented.');
     }
+
     kycDeleteFileById(): void {
         throw new Error('Method not implemented.');
     }
