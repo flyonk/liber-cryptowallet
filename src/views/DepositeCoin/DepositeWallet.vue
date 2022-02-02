@@ -6,17 +6,16 @@
       Deposit {{ coin }}
     </h1>
 
-    <p
-      class="text-default"
-    >
-      Send only {{ coin }} to this deposit address
-    </p>
-
     <div class="qr-code-container">
       <canvas
         ref="canvas"
         class="qr-code-canvas"
       />
+      <p
+        class="text-default"
+      >
+        Send only {{ coin }} to this deposit address
+      </p>
     </div>
 
     <div class="wallet-block">
@@ -36,6 +35,7 @@
           >
         </div>
       </div>
+
       <div class="wallet-info">
         <div class="titled-block">
           <h2 class="title">
@@ -54,17 +54,31 @@
       </div>
 
       <div class="wallet-footer">
-        <div class="wallet-row">
-          <p>Minimum deposit</p>
-          <p>0.000000001 {{ coin }}</p>
+        <div class="row row-footer">
+          <p class="title">
+            Minimum deposit
+          </p>
+          <p class="content">
+            0.000000001 {{ coin }}
+          </p>
         </div>
-        <div class="wallet-row">
-          <p>Expected arrival</p>
-          <p>1 network confirmation</p>
+
+        <div class="row row-footer">
+          <p class="title">
+            Expected arrival
+          </p>
+          <p class="content">
+            1 network confirmation
+          </p>
         </div>
-        <div class="wallet-row">
-          <p>Expected unlock</p>
-          <p>2 network confirmations</p>
+
+        <div class="row row-footer">
+          <p class="title">
+            Expected unlock
+          </p>
+          <p class="content">
+            2 network confirmations
+          </p>
         </div>
       </div>
 
@@ -106,7 +120,7 @@ onMounted(() => {
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: qrCodeValue.value,
-    width: 230
+    width: 180
   })
 
   qrcode.toCanvas()
@@ -161,20 +175,32 @@ const shareAddress = () => {
 .wallet-info {
   display: flex;
   align-items: center;
+  padding: 15px;
+  padding-bottom: 0;
 }
 
 .titled-block {
   flex-grow: 1;
   overflow: hidden;
 
+  & > .title {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: #78809B;
+  }
+
   & > .content {
     overflow-wrap: break-word;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.0031em;
+    color: $color-black;
   }
-}
-
-.wallet-row {
-  display: flex;
-  justify-content: space-between;
 }
 
 .btn-default {
@@ -206,4 +232,41 @@ const shareAddress = () => {
   display: flex;
   justify-content: space-between;
 }
+
+.text-default {
+  color: #78809B;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-align: center;
+}
+
+.wallet-footer {
+  padding: 15px;
+  border: 1px solid #EBECF0;
+  border-radius: 12px;
+  margin-top: 20px;
+  margin-bottom: 40px;
+
+  & > .row {
+    margin-top: 6px;
+    margin-bottom: 6px;
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.row-footer {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 13px;
+  line-height: 18px;
+
+  & > .content { 
+    color: $color-brand;
+    font-weight: 500;
+  }
+}
+
 </style>
