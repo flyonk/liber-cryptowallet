@@ -78,13 +78,13 @@ const detectSlideChangeByUser = (event: Event) => {
 
     const [prevAfterChangeEvent, currAfterChangeEvent] = afterChangeEvents;
 
-    const orderOfErrorMillisecondError = 100;
+    const orderOfMillisecondError = 100;
     const expectedTimeToAutoChangeSlide = Math.floor(
       (prevAfterChangeEvent.occurTime + slideTimeOut.value) /
-        orderOfErrorMillisecondError
+        orderOfMillisecondError
     );
     const newChangeTime = Math.floor(
-      currAfterChangeEvent.occurTime / orderOfErrorMillisecondError
+      currAfterChangeEvent.occurTime / orderOfMillisecondError
     );
 
     const isNewEventMadeByUser = expectedTimeToAutoChangeSlide > newChangeTime;
@@ -163,7 +163,7 @@ const detectSlideChangeByUser = (event: Event) => {
     }
 
     .agile__dot:hover > button,
-    :deep(.agile__dot--current > button) {
+    .agile__dot--current > button {
       background-color: #fff;
       border-radius: 2px;
     }
