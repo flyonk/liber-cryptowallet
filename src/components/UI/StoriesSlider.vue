@@ -1,13 +1,16 @@
 <template>
   <div :class="['stories-slider', _hidden, _overlay]">
-    <vue-agile :options="options" @after-change="detectSlideChangeByUser">
+    <vue-agile
+      :options="internalOptions"
+      @after-change="detectSlideChangeByUser"
+    >
       <slot />
     </vue-agile>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed, Ref, ref } from 'vue';
+import { computed, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { ISlider } from '@/types/ISlider';
 
@@ -20,29 +23,39 @@ interface IProps {
 const props = defineProps<IProps>();
 const emit = defineEmits(['after-change', 'change-by-user']);
 
+//styles
 let _hidden = computed<string>(() => (props.isHidden ? '-hidden' : ''));
 let _overlay = computed<string>(() => (props.onOverlay ? '-overlay' : ''));
 
-let slideTimeOut: Ref<number>;
-
-if (
-  typeof props?.options !== 'undefined' &&
-  typeof props?.options?.autoplaySpeed == 'number'
-) {
-  slideTimeOut = ref(props?.options.autoplaySpeed);
+const internalOptions = ref(props.options);
+let slideTimeOut = 0;
+if (internalOptions.value?.autoplaySpeed) {
+  slideTimeOut = internalOptions.value.autoplaySpeed;
 }
 
+// type for record event occur time
 type TEventTime = {
   event: Event;
   occurTime: number;
 };
 
+// buffer with a length of 2 events, for checking the time of occurrence of events
 const afterChangeEvents: TEventTime[] = [];
+
+//api for reload autoplay doesnt exist and i used this hack
+const updateSlideTime = async () => {
+  if (!internalOptions.value) return;
+  internalOptions.value.autoplay = false;
+
+  await setTimeout(() => {
+    if (!internalOptions.value) return;
+    internalOptions.value.autoplay = true;
+  }, 0);
+};
 
 /*After initializing the slider by default, 
 the "after-change" event that occurred in the slider 
 is placed in the "afterChangeEvents" list. */
-
 const detectSlideChangeByUser = (event: Event) => {
   const eventTime: TEventTime = {
     event,
@@ -56,15 +69,15 @@ const detectSlideChangeByUser = (event: Event) => {
 
     const [prevEvent, newEvent] = afterChangeEvents;
 
-    let isNewEventMadeByUser = false;
+    let isMadeByUser = false;
 
     if (newEvent) {
-      isNewEventMadeByUser =
-        newEvent.occurTime < prevEvent.occurTime + slideTimeOut.value;
+      isMadeByUser = newEvent.occurTime < prevEvent.occurTime + slideTimeOut;
     }
 
-    if (newEvent && isNewEventMadeByUser) {
+    if (newEvent && isMadeByUser) {
       emit('change-by-user');
+      updateSlideTime();
       return;
     }
 
@@ -80,8 +93,7 @@ const detectSlideChangeByUser = (event: Event) => {
 
     const orderOfMillisecondError = 100;
     const expectedTimeToAutoChangeSlide = Math.floor(
-      (prevAfterChangeEvent.occurTime + slideTimeOut.value) /
-        orderOfMillisecondError
+      (prevAfterChangeEvent.occurTime + slideTimeOut) / orderOfMillisecondError
     );
     const newChangeTime = Math.floor(
       currAfterChangeEvent.occurTime / orderOfMillisecondError
@@ -95,6 +107,7 @@ const detectSlideChangeByUser = (event: Event) => {
     }
 
     emit('change-by-user');
+    updateSlideTime();
   }
 };
 </script>

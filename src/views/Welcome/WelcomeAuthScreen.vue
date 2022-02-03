@@ -36,12 +36,6 @@ const handleAutoplayChange = () => {
 
 const handleChangeByUser = async () => {
   console.log('Check after change event by user');
-  options.autoplay = false;
-
-  // api for reload autoplay doesnt exist and i used this hack
-  await setTimeout(() => {
-    options.autoplay = true;
-  }, 0);
 };
 </script>
 
