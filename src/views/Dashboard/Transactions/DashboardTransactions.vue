@@ -33,7 +33,10 @@
           class="item slide"
           @click="$router.push('/home/story')"
         >
-          <img :src="item.img">
+          <img
+            class="image"
+            :src="item.img"
+          >
           <p class="name">
             {{ item.name }}
           </p>
@@ -220,7 +223,7 @@ import { VueAgile } from 'vue-agile'
     },
     {
       name: 'Withdraw',
-      img: require('@/assets/icon/transactions/carousel/withdraw.svg')
+      img: require('@/assets/icon/transactions/carousel/send.svg')
     }
   ]
 </script>
@@ -386,6 +389,21 @@ import { VueAgile } from 'vue-agile'
     box-shadow: 0px 2px 24px -12px rgba(0, 0, 0, 0.34);
     border-radius: 13px;
     margin-left: 5px;
+
+    >.image {
+      margin-bottom: 8px;
+
+      &:last-child {
+        transform: rotate(-90deg);
+      }
+    }
+
+    >.name {
+      font-weight: 600;
+      font-size: 12px;
+      line-height: 16px;
+      color: #0C1F3D;
+    }
 
   }
 
