@@ -17,6 +17,8 @@ class ApiService implements IApiService {
      */
     private static _instance: ApiService;
 
+    private store
+    
     baseURL = "";
 
     // keeping in mind making it private and wrap api work in separate services
@@ -27,18 +29,20 @@ class ApiService implements IApiService {
             this.baseURL = BASE_URL;
         }
 
+        this.store = useApiServiceStore()
+
         this.fetch = axios.create({
             baseURL: this.baseURL,
         });
 
         this.fetch.interceptors.request.use((config) => {
-            this.incrReqCount()
+            this.store.incReqCount()
             return config;
         });
 
         this.fetch.interceptors.response.use(
             (_response: AxiosResponse<unknown, unknown>) => {
-                this.decrReqCount()
+                this.store.decResCount()
                 console.debug(_response);
                 return _response;
             },
@@ -61,15 +65,6 @@ class ApiService implements IApiService {
     }
 
     // Public functions
-    incrReqCount() {
-        const store = useApiServiceStore();
-        store.incReqCount();
-    }
-
-    decrReqCount() {
-        const store = useApiServiceStore();
-        store.decResCount();
-    }
 }
 
 export default ApiService.getInstance();
