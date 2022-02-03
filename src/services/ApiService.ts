@@ -37,12 +37,12 @@ class ApiService implements IApiService {
         });
 
         this.fetch.interceptors.response.use(
-            (_response: AxiosResponse<any, any>) => {
+            (_response: AxiosResponse<unknown, unknown>) => {
                 this.decrReqCount()
                 console.debug(_response);
                 return _response;
             },
-            (error: any): Promise<any> => {
+            (error: unknown): Promise<unknown> => {
                 // TODO: #1 Update Auth token if its required
                 return Promise.reject(error);
             }
