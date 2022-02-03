@@ -1,3 +1,4 @@
+import { PROFILE_API_URL } from '@/constants';
 import { TClaimFileList } from '@/types/api';
 import { TSuccessResponse } from '@/types/api';
 import { IApiService } from '@/types/api';
@@ -8,7 +9,7 @@ import { IKycService } from '@/types/api';
 import { IProfileService } from '@/types/api';
 import ApiService from './ApiService';
 
-const URL = process.env.VUE_APP_PROFILE_URL
+const URL = PROFILE_API_URL
 
 class ProfileService implements IProfileService, IKycService {
 

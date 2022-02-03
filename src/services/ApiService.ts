@@ -1,9 +1,10 @@
+import { BASE_API_URL } from './../constants';
 // import { IApiServiceState } from './../stores/apiService';
 import { IApiService } from '@/types/api';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { useApiServiceStore } from '@/stores/apiService';
 //config
-const BASE_URL = process.env.VUE_APP_BASE_API_URL;
+const BASE_URL = BASE_API_URL
 
 class ApiService implements IApiService {
     /**
@@ -18,8 +19,6 @@ class ApiService implements IApiService {
 
     baseURL = "";
 
-    private reqCount = 0;
-    private resCount = 0;
     // keeping in mind making it private and wrap api work in separate services
     public fetch: AxiosInstance;
 
