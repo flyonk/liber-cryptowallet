@@ -1,7 +1,14 @@
 <template name="DashboardVerification">
   <div class="verification">
     <div class="dragndrop">
-      <img src="@/assets/images/dragndrop-bg.png">
+      <img
+        v-if="isVerificationSuccess"
+        src="@/assets/images/verification_success.jpg"
+      >
+      <img
+        v-else
+        src="@/assets/images/dragndrop-bg.png"
+      >
       <div
         v-if="isVerificationSuccess"
         class="main"
@@ -60,6 +67,8 @@ const isVerificationSuccess = ref(true)
   height: 100%;
 
     >.dragndrop {
+      display: flex;
+      flex-direction: column;
       width: 343px;
       height: 345px;
       border-radius: 24px;
