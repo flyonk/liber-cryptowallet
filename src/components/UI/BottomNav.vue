@@ -1,6 +1,6 @@
 <template name="BottomNav">
-  <div class="wrapper">
-    <ul class="navbar">
+  <div class="bottom-nav">
+    <ul class="navbar-list">
       <router-link
         style="text-decoration: none;"
         to="/home"
@@ -56,8 +56,7 @@
         @click="changeTab(3)"
       >
         <img
-          id="center-btn-img"
-          class="icon"
+          class="icon center-image"
           src="@/assets/icon/navbar/send.svg"
           alt="Send"
         >
@@ -130,17 +129,17 @@ function changeTab(tabNum: number) {
 </script>
 
 <style lang="scss" scoped>
-.wrapper {
+.bottom-nav {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 0px 15px rgba(0, 0, 0, 10%);
   width: 100%;
   position: absolute;
   bottom: 0;
 }
 
-.navbar {
+.navbar-list {
   background: white;
   margin-top: auto;
   width: 100%;
@@ -170,7 +169,7 @@ function changeTab(tabNum: number) {
       fill: red;
     }
 
-    #center-btn-img {
+    >.center-image {
       position: relative;
       top: -10px;
     }    

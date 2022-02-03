@@ -22,6 +22,23 @@
           €594.41
         </p>
       </div>
+      <VueAgile
+        class="carousel"
+        :slides-to-show="2"
+        :nav-buttons="false"
+      >
+        <div
+          v-for="(item, index) in carousel"
+          :key="index"
+          class="item slide"
+          @click="$router.push('/home/story')"
+        >
+          <img :src="item.img">
+          <p class="name">
+            {{ item.name }}
+          </p>
+        </div>
+      </vueagile>
       <div class="controls">
         <button class="control-btn">
           <img
@@ -101,40 +118,41 @@
           </div>
         </li>
       </ul>
-    </div>
+      
 
-    <div
-      v-if="activeTab === 2"
-      class="wallet-address"
-    >
-      <img
-        src="@/assets/images/qr-code.png"
-        alt="qr-code"
-        class="qr-code"
+      <div
+        v-if="activeTab === 2"
+        class="wallet-address"
       >
-      <div class="address">
-        <h4 class="title">
-          Wallet Address
-        </h4>
-        <div class="account">
-          <div class="address-number">
-            <p>1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span></p>
+        <img
+          src="@/assets/images/qr-code.png"
+          alt="qr-code"
+          class="qr-code"
+        >
+        <div class="address">
+          <h4 class="title">
+            Wallet Address
+          </h4>
+          <div class="account">
+            <div class="address-number">
+              <p>1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span></p>
+            </div>
+            <img
+              src="@/assets/icon/folders.svg"
+              alt="folders"
+            >
           </div>
-          <img
-            src="@/assets/icon/folders.svg"
-            alt="folders"
-          >
-        </div>
-        <h2 class="blue-title">
-          Generate New Address
-        </h2>
-        <div class="controls">
-          <button class="btn">
-            Save Image
-          </button>
-          <button class="btn">
-            Share Address
-          </button>
+          <h2 class="blue-title">
+            Generate New Address
+          </h2>
+          <div class="controls">
+            <button class="btn">
+              Save Image
+            </button>
+            <button class="btn">
+              Share Address
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -143,6 +161,8 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { VueAgile } from 'vue-agile'
+
   const activeTab = ref(1)
   const transactions = [
     {
@@ -184,19 +204,38 @@ import { ref } from 'vue'
       img: require('@/assets/icon/transactions/exchange.svg')
     }
   ]
+
+  const carousel = [
+    {
+      name: 'Deposit',
+      img: require('@/assets/icon/transactions/carousel/deposit.svg')
+    },
+    {
+      name: 'Send Funds',
+      img: require('@/assets/icon/transactions/carousel/send.svg')
+    },
+    {
+      name: 'Convert',
+      img: require('@/assets/icon/transactions/carousel/convert.svg')
+    },
+    {
+      name: 'Withdraw',
+      img: require('@/assets/icon/transactions/carousel/withdraw.svg')
+    }
+  ]
 </script>
 
 <style lang="scss" scoped>
 .account-transactions {
   background: #FAFAFE;
   height: 85%;
-  padding: 35px 0 0 0;
+  padding: 35px 0 0;
   overflow-x: hidden;
   overflow-y: auto;
   flex-grow: 1;
 
   >.header  {
-    padding: 0 16px 0 16px;
+    padding: 0 16px;
     >.count {
     >.flex {
       >.icon {
@@ -275,6 +314,7 @@ import { ref } from 'vue'
         color: #36416A;
       }
     }
+
     >.transactions {
       max-height: 360px;
       overflow-y: auto;
@@ -293,6 +333,7 @@ import { ref } from 'vue'
 
         >.info {
           width: 100%;
+
           >.flex {
             width: 100%;
             justify-content: space-between;
@@ -331,6 +372,21 @@ import { ref } from 'vue'
         }
       }
     }
+  }
+
+  .carousel {
+    margin-bottom: 24px;
+  }
+
+  .item.slide {
+    width: 104px;
+    height: 104px;
+    padding: 12px;
+    background: #FFFFFF;
+    box-shadow: 0px 2px 24px -12px rgba(0, 0, 0, 0.34);
+    border-radius: 13px;
+    margin-left: 5px;
+
   }
 
   >.wallet-address {
@@ -383,7 +439,7 @@ import { ref } from 'vue'
         line-height: 22px;
         letter-spacing: -0.0043em;
         color: #2862FF;
-        text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
+        text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
         margin-bottom: 43px;
       }
 
@@ -401,7 +457,7 @@ import { ref } from 'vue'
           &:first-child {
             margin-right: 12px;
             color: #2862FF;
-            text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
+            text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
           }
 
           &:last-child {

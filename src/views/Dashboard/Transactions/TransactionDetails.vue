@@ -283,7 +283,7 @@ const transactionStatus = 'complete'
     line-height: 22px;
     letter-spacing: -0.0043em;
     color: #2862FF;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 0.04);
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
   }
 }
 </style>

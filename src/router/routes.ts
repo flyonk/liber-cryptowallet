@@ -129,7 +129,7 @@ const routes: Array<RouteRecordRaw> = [
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/index.vue'
       ),
-    meta: { layout: 'dashboard' },
+    meta: { layout: 'navbar' },
     children: [
       {
         path: '',

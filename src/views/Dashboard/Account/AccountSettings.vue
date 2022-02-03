@@ -186,7 +186,7 @@ const nameInitials = computed(() => {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 60px 16px 50px 16px;
+  padding: 60px 16px 50px;
   flex-grow: 1;
   overflow: auto;
 
@@ -243,8 +243,6 @@ const nameInitials = computed(() => {
       font-weight: 600;
       font-size: 13px;
       line-height: 18px;
-      display: flex;
-      align-items: center;
       letter-spacing: -0.0008em;
       
 

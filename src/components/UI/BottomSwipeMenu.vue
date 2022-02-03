@@ -81,7 +81,7 @@ const { isMenuOpen } = toRefs(props)
   min-height: 10%;
   height: 30%;
   animation: topToBottom ease 1s;
-  padding: 8px 16px 0 16px;
+  padding: 8px 16px 0;
   z-index: 2;
 
   &--close {

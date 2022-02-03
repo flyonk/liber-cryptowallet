@@ -199,7 +199,7 @@ const carousel = [
 
 <style lang="scss" scoped>
 .dashboard {
-  padding: 15px 15px 0 15px;
+  padding: 15px 15px 0;
   background: #FAFAFE;
   overflow: auto;
   flex-grow: 1;
