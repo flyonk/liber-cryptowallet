@@ -1,10 +1,14 @@
+import { IApiService } from './../types/IApiService';
 import ApiService from "./ApiService";
 import { IAuthService } from "@/types/IAuthService";
+import { TSuccessResponse } from "@/types/TSuccessResponse";
+import { TErrorResponse } from "@/types/TErrorResponse";
+import { TSuccessSignIn } from '@/types/TSuccessSignIn';
 
 const URL = process.env.VUE_APP_AUTH_URL
 
 class AuthService implements IAuthService {
-    private _apiServiceInstance: typeof ApiService | undefined;
+    private _apiServiceInstance: IApiService;
 
     private url: string;
 
@@ -15,33 +19,32 @@ class AuthService implements IAuthService {
             this.url = URL;
         }
 
-        if (!ApiService) {
-            this._apiServiceInstance = undefined
-            return
-        }
-
         this._apiServiceInstance = ApiService
     }
 
     //Public functions
-    signIn(data: { phone: string }): void {
-        const target = `${this.url}`
-        this._apiServiceInstance?.fetch.post(target, data)
+    async signIn(data: { phone: string }) {
+        const url = `${this.url}`
+        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
+        return res
     }
 
-    signInProceed(data: { phone: string, otp: string }): void {
-        const target = `${this.url}`
-        this._apiServiceInstance?.fetch.post(target, data)
+    async signInProceed(data: { phone: string, otp: string }) {
+        const url = `${this.url}`
+        const res: TSuccessSignIn | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
+        return res
     }
 
-    logout(data: { access_token: string }): void {
-        const target = `${this.url}/logout`
-        this._apiServiceInstance?.fetch.post(target, data)
+    async logout(data: { access_token: string }) {
+        const url = `${this.url}/logout`
+        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
+        return res
     }
 
-    refresh(data: { access_token: string }): void {
-        const target = `${this.url}/refresh`
-        this._apiServiceInstance?.fetch.post(target, data)
+    async refresh(data: { access_token: string }) {
+        const url = `${this.url}/refresh`
+        const res: TSuccessSignIn | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
+        return res
     }
 }
 
