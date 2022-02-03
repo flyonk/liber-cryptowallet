@@ -1,4 +1,3 @@
-import { IAuthService } from '@/types/api';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
@@ -8,15 +7,7 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 
-// import ApiService from './services/ApiService';
-import AuthService from './services/AuthService';
-
 import '@/assets/styles/index.scss';
-
-//test new features
-const authService: IAuthService = new AuthService();
-authService.signIn({ phone: "test" });
-//
 
 (async () => {
   const app = createApp(App).use(createPinia());
