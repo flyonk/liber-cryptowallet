@@ -24,13 +24,38 @@
       <p class="date">
         2 days ago
       </p>
-      <button class="pdf-btn">
-        <img
-          class="pdf-icon"
-          src="@/assets/icon/file_pdf.svg"
+      <div class="controls">
+        <button
+          v-if="transactionType === 'send'"
+          class="btn btn--pdf"
         >
-        <p>Download Statement</p>
-      </button>
+          <img
+            class="icon"
+            src="@/assets/icon/file_pdf.svg"
+          >
+          <p>Download Statement</p>
+        </button>
+        <button
+          v-if="transactionType === 'payment-link'"
+          class="btn btn--share"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/share.svg"
+          >
+          <p>Share</p>
+        </button>
+        <button
+          v-if="transactionType === 'payment-link'"
+          class="btn btn--cancel"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/close_red.svg"
+          >
+          <p>Cancel</p>
+        </button>
+      </div>
     </div>
     <ul class="main">
       <li class="item">
@@ -102,7 +127,10 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue'
 const transactionStatus = 'complete'
+
+const transactionType = ref('payment-link')
 
 </script>
 
@@ -163,25 +191,45 @@ const transactionStatus = 'complete'
       margin-bottom: 16px;
     }
 
-    >.pdf-btn {
+    >.controls {
+      display: flex;
+      margin-bottom: 40px;
+    
+      >.btn {
       display: flex;
       justify-content: center;
       align-items: center;
-      width: 192px;
-      height: 40px;
-      left: 16px;
-      top: 194px;
-      background: #2862FF;
       border-radius: 8px;
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
+      font-weight: 600;
       color: #FFFFFF;
-      margin-bottom: 40px;
+      background: #2862FF;
+      height: 40px;
+      margin-right: 8px;
 
-      >.pdf-icon {
-        margin-right: 12px;
+      &--pdf {
+        width: 192px;
       }
+
+
+      &--share {
+        width: 97px;
+      }
+
+      &--cancel {
+        width: 104px;
+        background: #FEECEB;
+        color: #F44336;
+
+      }
+      
+
+      >.icon {
+        margin-right: 10px;
+      }
+    }
     }
   }
 
