@@ -14,7 +14,7 @@ export interface IAuthService {
 
 export interface IKycService {
     kycCreateClaim(payload: any): Promise<TClaimFileList | TErrorResponse>
-    kycHook(): void
+    kycHook(payload: any): Promise<TSuccessResponse | TErrorResponse>
     kycGetClaimById(id: number): Promise<TClaimFileList | TErrorResponse>
     kycProceedClaimById(id: number): Promise<TSuccessResponse | TErrorResponse>
     kycDeleteFileById(id: number, fileId: number): Promise<TSuccessResponse | TErrorResponse>
