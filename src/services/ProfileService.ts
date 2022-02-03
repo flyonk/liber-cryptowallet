@@ -1,12 +1,11 @@
-import { TSuccessResponse } from '@/types/TSuccess';
-import { TClaimFileList } from './../types/TClaim';
-import { TSuccessResponse } from '../types/TSuccessResponse';
-import { IApiService } from './../types/IApiService';
-import { TErrorResponse } from './../types/TErrorResponse';
-import { TProfile } from './../types/TProfile';
-import { useAccountStore } from './../stores/account';
-import { IKycService } from './../types/IKycService';
-import { IProfileService } from './../types/IProfileService';
+import { TClaimFileList } from '@/types/api';
+import { TSuccessResponse } from '@/types/api';
+import { IApiService } from '@/types/api';
+import { TErrorResponse } from '@/types/api';
+import { TProfile } from '@/types/api';
+import { useAccountStore } from '@/stores/account';
+import { IKycService } from '@/types/api';
+import { IProfileService } from '@/types/api';
 import ApiService from './ApiService';
 
 const URL = process.env.VUE_APP_PROFILE_URL

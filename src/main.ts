@@ -1,4 +1,4 @@
-import { IAuthService } from './types/IAuthService';
+import { IAuthService } from '@/types/api';
 import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';

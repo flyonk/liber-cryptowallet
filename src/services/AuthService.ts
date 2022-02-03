@@ -1,9 +1,9 @@
-import { IApiService } from './../types/IApiService';
+import { IApiService } from '@/types/api';
 import ApiService from "./ApiService";
-import { IAuthService } from "@/types/IAuthService";
-import { TSuccessResponse } from "@/types/TSuccessResponse";
-import { TErrorResponse } from "@/types/TErrorResponse";
-import { TSuccessSignIn } from '@/types/TSuccessSignIn';
+import { IAuthService } from '@/types/api';
+import { TSuccessResponse } from '@/types/api';
+import { TErrorResponse } from '@/types/api';
+import { TSuccessSignIn } from '@/types/api';
 
 const URL = process.env.VUE_APP_AUTH_URL
 

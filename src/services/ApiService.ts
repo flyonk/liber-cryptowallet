@@ -1,5 +1,5 @@
 // import { IApiServiceState } from './../stores/apiService';
-import { IApiService } from './../types/IApiService';
+import { IApiService } from '@/types/api';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { useApiServiceStore } from '@/stores/apiService';
 //config
