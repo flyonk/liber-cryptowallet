@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
+import DepositeRoutes from './routesDeposite'
 
 // Pages
 import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
@@ -229,6 +230,16 @@ const routes: Array<RouteRecordRaw> = [
     name: 'push-notifications',
     component: () =>
       import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+  },
+
+  // === Deposite btc ===
+  
+  {
+    path: '/deposit',
+    name: 'deposit',
+    component: () =>
+      import('@/views/DepositeCoin/DepositeIndex.vue'),
+    children: DepositeRoutes
   },
 ];
 

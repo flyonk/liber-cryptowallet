@@ -2,25 +2,38 @@
   <div class="page-wrapper">
     <BackHistoryBtn />
 
-    <h1 class="main-title">Step 2. Configure App</h1>
+    <h1 class="main-title">
+      Step 2. Configure App
+    </h1>
 
-    <p class="text-default" style="margin-bottom: 0">
+    <p
+      class="text-default"
+      style="margin-bottom: 0"
+    >
       Scan QR code with the authenticator app or enter the code manually.
     </p>
 
     <div>
-      <canvas ref="canvas" class="qr-code-canvas" />
+      <canvas
+        ref="canvas"
+        class="qr-code-canvas"
+      />
     </div>
 
     <label class="default-input-wrapper">
       <span class="default-input-label">Code</span>
-      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
+      <input
+        v-model="qrCodeValue"
+        class="default-input"
+        type="text"
+        readonly
+      >
       <img
         class="default-input-icon"
         src="@/assets/images/copy-to-clipboard.svg"
         alt="copy"
         @click="copyToClipboard"
-      />
+      >
     </label>
 
     <p class="text-default">
@@ -97,7 +110,7 @@ const copyToClipboard = () => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0d1f3c;
+  color: $color-brand;
   margin-bottom: 20px;
 }
 
@@ -156,7 +169,7 @@ const copyToClipboard = () => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0d1f3c;
+  color: $color-brand;
 
   &:focus {
     border-color: $color-primary;

@@ -2,13 +2,15 @@
   <div class="page-wrapper">
     <BackHistoryBtn />
 
-    <h1 class="main-title">Don’t miss a beat</h1>
+    <h1 class="main-title">
+      Don’t miss a beat
+    </h1>
 
     <div class="page-content">
       <img
         src="@/assets/images/pushnotification-icon.svg"
         alt="Puch notifications"
-      />
+      >
       <p class="text-default">
         Get notified about spending, security, wealth, market movements,
         discounts and deals, so you’re always in the know
@@ -16,10 +18,18 @@
     </div>
   </div>
   <div style="padding: 15px">
-    <button tyte="button" class="btn-default btn-primary">
+    <button
+      tyte="button"
+      class="btn-default btn-primary"
+    >
       Enable push notifications
     </button>
-    <button tyte="button" class="btn-default btn-secondary">Not now</button>
+    <button
+      tyte="button"
+      class="btn-default btn-secondary"
+    >
+      Not now
+    </button>
   </div>
 </template>
 
@@ -52,11 +62,6 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0d1f3c;
-  margin-bottom: 20px;
-}
-
-.btn-default {
   border-radius: 13px;
   text-align: center;
   box-shadow: none;

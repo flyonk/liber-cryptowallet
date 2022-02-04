@@ -1,5 +1,17 @@
 <template>
-  <p-toast />
+  <p-toast position="center">
+    <template #message="slotProps">
+      <div class="toast-content">
+        <div class="icon">
+          <i class="pi pi-check" />
+        </div>
+        <h4 class="title">
+          {{ slotProps.message.summary }}
+        </h4>
+      </div>
+    </template>
+  </p-toast>
+
   <app-layout-switcher>
     <router-view />
   </app-layout-switcher>
