@@ -2,48 +2,36 @@
   <div class="page-wrapper">
     <BackHistoryBtn />
 
-    <h1 class="main-title">
-      Step 2. Configure App
-    </h1>
+    <h1 class="main-title">Step 2. Configure App</h1>
 
-    <p
-      class="text-default"
-      style="margin-bottom: 0;"
-    >
+    <p class="text-default" style="margin-bottom: 0">
       Scan QR code with the authenticator app or enter the code manually.
     </p>
 
     <div>
-      <canvas
-        ref="canvas"
-        class="qr-code-canvas"
-      />
+      <canvas ref="canvas" class="qr-code-canvas" />
     </div>
 
     <label class="default-input-wrapper">
       <span class="default-input-label">Code</span>
-      <input
-        v-model="qrCodeValue"
-        class="default-input"
-        type="text" 
-        readonly
-      >
-      <img 
+      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
+      <img
         class="default-input-icon"
         src="@/assets/images/copy-to-clipboard.svg"
         alt="copy"
         @click="copyToClipboard"
-      >
+      />
     </label>
 
     <p class="text-default">
       Store this backup code somewhere safe – print it, write it down.
     </p>
     <p class="text-default">
-      If you ever lose access to your device, you can use this code to verify you identity.
+      If you ever lose access to your device, you can use this code to verify
+      you identity.
     </p>
   </div>
-  <div style="padding: 15px;">
+  <div style="padding: 15px">
     <button
       tyte="button"
       class="btn-default btn-primary"
@@ -55,33 +43,35 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-import { onMounted, ref } from 'vue'
-import QrCodeWithLogo from "qrcode-with-logos";
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { onMounted, ref } from 'vue';
+import QrCodeWithLogo from 'qrcode-with-logos';
 
-const canvas = ref<HTMLCanvasElement|undefined>()
-let qrCodeValue = ref<string>('')
+const canvas = ref<HTMLCanvasElement | undefined>();
+let qrCodeValue = ref<string>('');
 
 onMounted(() => {
-  qrCodeValue.value = '12345798'
+  qrCodeValue.value = '12345798';
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: qrCodeValue.value,
-    width: 230
-  })
+    width: 230,
+  });
 
-  qrcode.toCanvas()
-})
+  qrcode.toCanvas();
+});
 
 const copyToClipboard = () => {
-  navigator.clipboard.writeText(qrCodeValue.value).then(function() {
-    console.log('Async: Copying to clipboard was successful!')
-  }, function(err) {
-    console.error('Async: Could not copy text: ', err)
-  })
-}
-
+  navigator.clipboard.writeText(qrCodeValue.value).then(
+    function () {
+      console.log('Async: Copying to clipboard was successful!');
+    },
+    function (err) {
+      console.error('Async: Could not copy text: ', err);
+    }
+  );
+};
 </script>
 
 <style lang="scss" scoped>
@@ -107,7 +97,7 @@ const copyToClipboard = () => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: #0d1f3c;
   margin-bottom: 20px;
 }
 
@@ -152,7 +142,7 @@ const copyToClipboard = () => {
 .default-input {
   border: 1px solid transparent;
   outline: none;
-  background: #F7F8FD;
+  background: #f7f8fd;
   border-radius: 12px;
   width: 100%;
   height: 56px;
@@ -166,7 +156,7 @@ const copyToClipboard = () => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: #0d1f3c;
 
   &:focus {
     border-color: $color-primary;

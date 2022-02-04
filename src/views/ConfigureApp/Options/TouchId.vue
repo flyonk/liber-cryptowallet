@@ -2,38 +2,25 @@
   <div class="page-wrapper">
     <BackHistoryBtn />
 
-    <h1 class="main-title">
-      Log in with a Touch ID
-    </h1>
+    <h1 class="main-title">Log in with a Touch ID</h1>
 
     <div class="page-content">
-      <img
-        src="@/assets/images/touchid-icon.svg"
-        alt="Face id"
-      >
+      <img src="@/assets/images/touchid-icon.svg" alt="Face id" />
       <p class="text-default">
         Use Touch ID instead of a passcode to log in. It is more secure.
       </p>
     </div>
   </div>
-  <div style="padding: 15px;">
-    <button
-      tyte="button"
-      class="btn-default btn-primary"
-    >
+  <div style="padding: 15px">
+    <button tyte="button" class="btn-default btn-primary">
       Enable Touch ID
     </button>
-    <button
-      tyte="button"
-      class="btn-default btn-secondary"
-    >
-      Not now
-    </button>
+    <button tyte="button" class="btn-default btn-secondary">Not now</button>
   </div>
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -61,7 +48,7 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: #0d1f3c;
   margin-bottom: 20px;
 }
 

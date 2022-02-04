@@ -2,20 +2,15 @@
   <div class="page-wrapper">
     <BackHistoryBtn />
 
-    <h1 class="main-title">
-      Enter verification code
-    </h1>
+    <h1 class="main-title">Enter verification code</h1>
 
     <p class="text-default">
       Get a verification code from the authenticator app
     </p>
 
-    <input
-      v-model="verificationCode"
-      type="text"
-    >
+    <input v-model="verificationCode" type="text" />
   </div>
-  <div style="padding: 15px;">
+  <div style="padding: 15px">
     <button
       tyte="button"
       class="btn-default btn-primary"
@@ -27,25 +22,27 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-import { useRouter } from 'vue-router'
-import { ref, watch } from 'vue'
-const verificationCode = ref('')
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { useRouter } from 'vue-router';
+import { ref, watch } from 'vue';
+const verificationCode = ref('');
 
-const router = useRouter()
+const router = useRouter();
 
 const pasteFromClipboard = () => {
-  navigator.clipboard.readText().then(function(clipText ) {
-    verificationCode.value = clipText
-  }, function(err) {
-    console.error('Async: Could not read text: ', err)
-  })
-}
-
+  navigator.clipboard.readText().then(
+    function (clipText) {
+      verificationCode.value = clipText;
+    },
+    function (err) {
+      console.error('Async: Could not read text: ', err);
+    }
+  );
+};
 
 /**
  * Fuction to check support faceId or TouchId
- * 
+ *
  * returns the page name corresponding to the supported method
  */
 function getSupportedIdentificationWay() {
@@ -53,19 +50,19 @@ function getSupportedIdentificationWay() {
   // Check logic
 
   // return 'face-id'
-  return 'touch-id'
+  return 'touch-id';
 }
 
 watch(verificationCode, (code) => {
   if (code.length === 6) {
     // @TODO
     // Check code logic
-    const name = getSupportedIdentificationWay()
+    const name = getSupportedIdentificationWay();
     router.push({
-      name
-    })
+      name,
+    });
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -93,7 +90,7 @@ watch(verificationCode, (code) => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: #0d1f3c;
   margin-bottom: 20px;
 }
 

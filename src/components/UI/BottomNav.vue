@@ -80,7 +80,7 @@ function changeTab(tabNum: number) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  box-shadow: 0px 0px 15px rgba(0, 0, 0, 10%);
+  box-shadow: 0 0 15px rgb(0 0 0 / 10%);
   width: 100%;
   position: absolute;
   bottom: 0;

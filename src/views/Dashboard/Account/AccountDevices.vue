@@ -6,10 +6,8 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/account')"
-      >
-      <h1 class="title">
-        Devices
-      </h1>
+      />
+      <h1 class="title">Devices</h1>
       <p class="description">
         These are the devices currently allowed to access your account.
       </p>
@@ -17,117 +15,63 @@
     <div class="main">
       <ul class="list">
         <li class="item">
-          <p class="name name--first">
-            iPhone XR
-          </p>
-          <img
-            src="@/assets/icon/mobile.svg"
-            alt="mobile"
-          >
+          <p class="name name--first">iPhone XR</p>
+          <img src="@/assets/icon/mobile.svg" alt="mobile" />
         </li>
         <li class="item">
-          <p class="name ">
-            Date
-          </p>
-          <p class="description">
-            2022.01.07 13:34:30
-          </p>
+          <p class="name">Date</p>
+          <p class="description">2022.01.07 13:34:30</p>
         </li>
         <li class="item">
-          <p class="name">
-            Location
-          </p>
-          <p class="description">
-            Pavshino Russian Federation
-          </p>
+          <p class="name">Location</p>
+          <p class="description">Pavshino Russian Federation</p>
         </li>
         <li class="item">
-          <p class="name">
-            IP
-          </p>
-          <p class="description">
-            45.234.12.154
-          </p>
+          <p class="name">IP</p>
+          <p class="description">45.234.12.154</p>
         </li>
       </ul>
       <ul class="list">
         <li class="item">
-          <p class="name name--first">
-            Chrome V96.0.4664.93 (Mac OS)
-          </p>
-          <img
-            src="@/assets/icon/monitor.svg"
-            alt="monitor"
-          >
+          <p class="name name--first">Chrome V96.0.4664.93 (Mac OS)</p>
+          <img src="@/assets/icon/monitor.svg" alt="monitor" />
         </li>
         <li class="item">
-          <p class="name ">
-            Date
-          </p>
-          <p class="description">
-            2022.01.07 13:34:30
-          </p>
+          <p class="name">Date</p>
+          <p class="description">2022.01.07 13:34:30</p>
         </li>
         <li class="item">
-          <p class="name">
-            Location
-          </p>
-          <p class="description">
-            Tallin Estonia
-          </p>
+          <p class="name">Location</p>
+          <p class="description">Tallin Estonia</p>
         </li>
         <li class="item">
-          <p class="name">
-            IP
-          </p>
-          <p class="description">
-            45.234.12.154
-          </p>
+          <p class="name">IP</p>
+          <p class="description">45.234.12.154</p>
         </li>
       </ul>
       <ul class="list">
         <li class="item">
-          <p class="name name--first">
-            iPhone XR
-          </p>
-          <img
-            src="@/assets/icon/monitor.svg"
-            alt="monitor"
-          >
+          <p class="name name--first">iPhone XR</p>
+          <img src="@/assets/icon/monitor.svg" alt="monitor" />
         </li>
         <li class="item">
-          <p class="name ">
-            Date
-          </p>
-          <p class="description">
-            2022.01.07 13:34:30
-          </p>
+          <p class="name">Date</p>
+          <p class="description">2022.01.07 13:34:30</p>
         </li>
         <li class="item">
-          <p class="name">
-            Location
-          </p>
-          <p class="description">
-            Tbilisi Georgia
-          </p>
+          <p class="name">Location</p>
+          <p class="description">Tbilisi Georgia</p>
         </li>
         <li class="item">
-          <p class="name">
-            IP
-          </p>
-          <p class="description">
-            45.234.12.154
-          </p>
+          <p class="name">IP</p>
+          <p class="description">45.234.12.154</p>
         </li>
       </ul>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-
-
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .account-devices {
@@ -138,18 +82,18 @@
   flex-grow: 1;
   overflow: auto;
 
-  >.header {
+  > .header {
     display: flex;
     flex-direction: column;
     margin-bottom: 40px;
 
-    >.back {
+    > .back {
       margin-bottom: 20px;
       width: 16px;
       height: 16px;
     }
-    
-    >.title {
+
+    > .title {
       font-weight: 800;
       font-size: 28px;
       line-height: 34px;
@@ -157,19 +101,19 @@
       margin-bottom: 8px;
     }
 
-    >.description {
+    > .description {
       font-size: 17px;
       line-height: 22px;
       letter-spacing: -0.0043em;
     }
   }
 
-  >.main {
-    >.list {
-      border-bottom: 1px solid rgba(175,179,195, 0.3);
+  > .main {
+    > .list {
+      border-bottom: 1px solid rgb(175 179 195 / 30%);
       margin-bottom: 25px;
 
-      >.item {
+      > .item {
         display: flex;
         width: 100%;
         justify-content: space-between;
@@ -179,28 +123,27 @@
           margin-bottom: 20px;
         }
 
-        >.name {
+        > .name {
           font-weight: 500;
           font-size: 16px;
           line-height: 21px;
           letter-spacing: -0.0031em;
-          color: #78809B;
+          color: #78809b;
 
           &--first {
             font-weight: 500;
             font-size: 17px;
             line-height: 22px;
             letter-spacing: -0.0043em;
-            color: #0D1F3C;
+            color: #0d1f3c;
           }
         }
 
-        >.description {
+        > .description {
           font-weight: 500;
         }
       }
     }
   }
-
 }
 </style>

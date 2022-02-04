@@ -1,14 +1,10 @@
 <template>
-  <button
-    type="button"
-    class="back-btn"
-    @click="$router.go(-1)"
-  >
+  <button type="button" class="back-btn" @click="$router.go(-1)">
     <img
       src="@/assets/images/back-arrow.svg"
       alt="Go back"
       class="back-btn-img"
-    >
+    />
   </button>
 </template>
 
@@ -20,7 +16,6 @@
 .back-btn {
   border: none;
   padding: 0;
-
 }
 
 .back-btn-img {

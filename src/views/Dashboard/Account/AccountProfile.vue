@@ -7,7 +7,7 @@
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
           @click="$router.push('/home')"
-        >
+        />
         <h1 class="title">
           {{ accountName }}
         </h1>
@@ -15,10 +15,7 @@
           <p class="account-id">
             My ID: <a class="link">{{ accountID }}</a>
           </p>
-          <img
-            src="@/assets/icon/edit.svg"
-            alt="edit"
-          >
+          <img src="@/assets/icon/edit.svg" alt="edit" />
         </div>
       </div>
       <div class="right">
@@ -26,45 +23,29 @@
       </div>
     </div>
     <div class="main">
-      <img
-        class="qr-code"
-        src="@/assets/images/qr-code.png"
-        alt="qr"
-      >
-      <p class="text">
-        Get paid with
-      </p>
+      <img class="qr-code" src="@/assets/images/qr-code.png" alt="qr" />
+      <p class="text">Get paid with</p>
       <div class="flex">
-        <a class="link">
-          liber.me/abrahamwatson
-        </a>
-        <img
-          src="@/assets/icon/copy.svg"
-          alt="copy"
-        >
+        <a class="link"> liber.me/abrahamwatson </a>
+        <img src="@/assets/icon/copy.svg" alt="copy" />
       </div>
       <div class="controls">
-        <button class="btn">
-          Scan
-        </button>
-        <button class="btn active">
-          My Code
-        </button>
+        <button class="btn">Scan</button>
+        <button class="btn active">My Code</button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
-const accountName = 'Abraham Watson'
-const accountID = '@abrahamwatson'
+import { computed } from 'vue';
+const accountName = 'Abraham Watson';
+const accountID = '@abrahamwatson';
 
 const nameInitials = computed(() => {
-  let parts = accountName.split(' ')
-  return parts[0][0] + parts [1][0]
-})
-
+  let parts = accountName.split(' ');
+  return parts[0][0] + parts[1][0];
+});
 </script>
 
 <style lang="scss" scoped>
@@ -76,17 +57,17 @@ const nameInitials = computed(() => {
   flex-grow: 1;
   overflow: auto;
 
-  >.header {
+  > .header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
 
-    >.left {
-      >.back {
+    > .left {
+      > .back {
         margin-bottom: 20px;
       }
 
-      >.title {
+      > .title {
         font-weight: 800;
         font-size: 28px;
         line-height: 34px;
@@ -94,20 +75,20 @@ const nameInitials = computed(() => {
         margin-bottom: 8px;
       }
 
-      >.account-id {
+      > .account-id {
         font-size: 20px;
         line-height: 25px;
         display: flex;
         align-items: center;
         letter-spacing: -0.0045em;
-        color: #78809B;
+        color: #78809b;
       }
     }
 
-    >.right {
+    > .right {
       height: 56px;
       width: 56px;
-      background: #FFEBB0;
+      background: #ffebb0;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -116,49 +97,49 @@ const nameInitials = computed(() => {
     }
   }
 
-  >.main {
+  > .main {
     padding-top: 46px;
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-grow: 1;
 
-    >.qr-code {
+    > .qr-code {
       margin-bottom: 40px;
     }
 
-    >.text {
+    > .text {
       font-weight: 500;
       font-size: 17px;
       line-height: 22px;
       text-align: center;
       letter-spacing: -0.0043em;
-      color: #78809B;
+      color: #78809b;
     }
 
-    >.controls {
+    > .controls {
       margin-top: auto;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
       height: 40px;
-      background: #EDF0FB;
+      background: #edf0fb;
       border-radius: 8px;
 
-      >.btn {
+      > .btn {
         width: 48%;
         font-size: 16px;
         line-height: 21px;
         letter-spacing: -0.0031em;
-        color: #0D1F3C;
+        color: #0d1f3c;
       }
 
-      >.active {
+      > .active {
         height: 32px;
         left: 171px;
         top: 4px;
-        background: #0D1F3C;
+        background: #0d1f3c;
         border-radius: 6px;
         color: white;
         font-weight: 600;
@@ -172,7 +153,7 @@ const nameInitials = computed(() => {
 }
 
 .link {
-  color: #2862FF;
-  padding: 0px 6px 0 6px;
+  color: #2862ff;
+  padding: 0 6px;
 }
 </style>
