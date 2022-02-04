@@ -45,6 +45,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'dashboard-parent',
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/index.vue'),
+    meta: { layout: 'navbar' },
     children: [
       {
         path: '',
@@ -55,43 +56,103 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: 'accounts',
-        name: 'dashboard-account',
+        path: 'verification',
+        name: 'dashboard-verification',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
+          ),
+      },
+      {
+        path: 'story',
+        name: 'dashboard-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
+          ),
+      },
+    ],
+  },
+
+  // === Account ===
+
+  {
+    path: '/account',
+    name: 'account',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/index.vue'
+      ),
+    meta: { layout: 'navbar' },
+    children: [
+      {
+        path: '',
+        name: 'account-main',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
           ),
       },
       {
-        path: 'accounts/add',
-        name: 'dashboard-account-add',
+        path: 'add',
+        name: 'account-add',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
           ),
       },
       {
-        path: 'transactions',
-        name: 'dashboard-transactions',
+        path: 'profile',
+        name: 'account-profile',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountProfile.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'settings',
+        name: 'account-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountSettings.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'devices',
+        name: 'account-devices',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountDevices.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+    ],
+  },
+  {
+    path: '/transactions',
+    name: 'transactions',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/index.vue'
+      ),
+    meta: { layout: 'navbar' },
+    children: [
+      {
+        path: '',
+        name: 'transactions-main',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
           ),
       },
       {
-        path: 'transactions/details',
-        name: 'dashboard-transactions-details',
+        path: 'details',
+        name: 'transactions-details',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
-          ),
-      },
-      {
-        path: 'verification',
-        name: 'dashboard-verification',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
           ),
       },
     ],

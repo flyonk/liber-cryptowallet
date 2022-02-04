@@ -8,8 +8,17 @@
     />
     <div class="header">
       <h4 class="title">Accounts</h4>
-      <div class="add" @click="$router.push('/home/accounts/add')">+</div>
+      <div class="add" @click="$router.push('/account/add')">+</div>
     </div>
+    <ul class="list">
+      <li class="item" @click="$router.push('/account')">
+        <div class="image-wrap">
+          <img src="@/assets/icon/all-accounts.svg" alt="all" />
+        </div>
+        <p class="name">All Accounts</p>
+        <p class="price">€2.00</p>
+      </li>
+    </ul>
   </div>
 </template>
 
@@ -85,6 +94,43 @@ const { isMenuOpen } = toRefs(props);
       font-size: 25px;
       padding-bottom: 4px;
       z-index: 5;
+    }
+  }
+
+  > .list {
+    display: flex;
+    flex-direction: column;
+
+    > .item {
+      display: flex;
+      align-items: center;
+
+      > .image-wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 48px;
+        height: 48px;
+        background: #edf0fb;
+        margin-right: 12px;
+        border-radius: 8px;
+      }
+
+      > .name {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.0031em;
+      }
+
+      > .price {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        text-align: right;
+        letter-spacing: -0.0031em;
+        margin-left: auto;
+      }
     }
   }
 }

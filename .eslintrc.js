@@ -26,6 +26,12 @@ module.exports = {
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': 'error',
+    'vue/multi-word-component-names': [
+      'error',
+      {
+        ignores: ['default', 'home', 'index'],
+      },
+    ],
   },
 
   plugins: ['vue'],

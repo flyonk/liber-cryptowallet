@@ -1,12 +1,13 @@
 <template>
   <p-toast />
-
-  <router-view />
+  <app-layout-switcher>
+    <router-view />
+  </app-layout-switcher>
 </template>
 
 <script setup lang="ts">
 import PToast from 'primevue/toast';
-
+import AppLayoutSwitcher from './components/Common/AppLayoutSwitcher.vue';
 import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();
