@@ -18,6 +18,22 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'default' },
   },
   {
+    path: '/welcome',
+    name: 'welcome-logo-screen',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeLogoScreen.vue'
+      ),
+  },
+  {
+    path: '/welcome-auth',
+    name: 'welcome-auth-screen',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeAuthScreen.vue'
+      ),
+  },
+  {
     path: '/code',
     name: 'auth-code',
     component: CodeEnter,
