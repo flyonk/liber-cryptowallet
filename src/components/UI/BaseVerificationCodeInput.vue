@@ -1,40 +1,44 @@
 <template>
   <div class="base-verification-code-input">
+    {{ activationCode }}
     <div class="input-container">
       <template
-        v-for="(v, index) in values"
+        v-for="(v, index) in fields"
         :key="`input-${index}`"
       >
         <div class="input-wrapper">
           <input
-            :ref="iRefs[index]"
-            :autofocus="autoFocus && !loading && index === autoFocusIndex"
+            :ref="el => { if (el) inputs[index] = el as HTMLElement }"
+            :autofocus="true"
             :data-id="index"
             :disabled="disabled"
-            :pattern="type === 'number' ? '[0-9]' : null"
+            :pattern="type === 'number' ? '[0-9]' : undefined"
             :required="required"
             :type="type === 'number' ? 'tel' : type"
-            :value="v"
+            :value="activationCode[index]"
             maxlength="1"
-            @focus="onFocus"
-            @input="onValueChange"
-            @keydown="onKeyDown"
+            @input="onChange"
+            @keydown.delete.prevent="onDelete"
           >
         </div>
       </template>
     </div>
+
+    <div class="button-submit">
+      <base-button
+        view="secondary"
+        block
+      >
+        Paste
+      </base-button>
+    </div>
   </div>
 </template>
 
-<script>
-const KEY_CODE = {
-  backspace: 8,
-  left: 37,
-  up: 38,
-  right: 39,
-  down: 40,
-};
-export default {
+<!-- <script lang="ts">
+import { defineComponent } from "vue-demi";
+
+export default defineComponent({
   name: 'CodeInput',
   props: {
     type: {
@@ -79,8 +83,8 @@ export default {
     const { fields, values } = this;
     let vals;
     let autoFocusIndex = 0;
-    if (values && values.length) {
-      vals = [];
+    if (this.values && this.values.length) {
+      vals = [] as number[];
       for (let i = 0; i < fields; i++) {
         vals.push(values[i] || '');
       }
@@ -88,59 +92,16 @@ export default {
     } else {
       vals = Array(fields).fill('');
     }
-    this.iRefs = [];
+    this.iRefs = [] as any[];
     for (let i = 0; i < fields; i++) {
       this.iRefs.push(`input_${i}`);
     }
     this.id = +new Date();
-    return { values: vals, autoFocusIndex };
+    return { values: vals as number[], autoFocusIndex };
   },
   methods: {
-    onFocus(e) {
+    onFocus(e: any) {
       e.target.select(e);
-    },
-    onValueChange(e) {
-      const index = parseInt(e.target.dataset.id);
-      const { type, fields } = this;
-      if (type === 'number') {
-        e.target.value = e.target.value.replace(/[^\d]/gi, '');
-      }
-      // this.handleKeys[index] = false;
-      if (
-        e.target.value === '' ||
-        (type === 'number' && !e.target.validity.valid)
-      ) {
-        return;
-      }
-      let next;
-      const value = e.target.value;
-      let { values } = this;
-      values = Object.assign([], values);
-      if (value.length > 1) {
-        let nextIndex = value.length + index - 1;
-        if (nextIndex >= fields) {
-          nextIndex = fields - 1;
-        }
-        next = this.iRefs[nextIndex];
-        const split = value.split('');
-        split.forEach((item, i) => {
-          const cursor = index + i;
-          if (cursor < fields) {
-            values[cursor] = item;
-          }
-        });
-        this.values = values;
-      } else {
-        next = this.iRefs[index + 1];
-        values[index] = value;
-        this.values = values;
-      }
-      if (next) {
-        const element = this.$refs[next][0];
-        element.focus();
-        element.select();
-      }
-      this.triggerChange(values);
     },
     onKeyDown(e) {
       const index = parseInt(e.target.dataset.id);
@@ -189,15 +150,122 @@ export default {
       const { fields } = this;
       const val = values.join('');
       this.$emit('change', val);
-      if (val.length >= fields ) {
+      if (val.length >= fields) {
         this.$emit('complete', val);
       }
     },
   },
+}
+);
+</script> -->
+
+<script lang="ts" setup>
+import { computed, onBeforeUpdate, Ref, ref } from 'vue';
+
+import { BaseButton } from '@/components/UI';
+
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'number',
+  },
+  fields: {
+    type: Number,
+    default: 6,
+  },
+  fieldWidth: {
+    type: Number,
+    default: 58,
+  },
+  fieldHeight: {
+    type: Number,
+    default: 54,
+  },
+  autoFocus: {
+    type: Boolean,
+    default: true,
+  },
+  disabled: {
+    type: Boolean,
+    default: false,
+  },
+  required: {
+    type: Boolean,
+    default: false,
+  },
+  loading: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const emit = defineEmits(['change', 'complete']);
+
+// const value = ref('');
+
+const inputs = ref([]) as Ref<HTMLElement[]>;
+
+const activationCode = ref([]) as Ref<string[]>;
+
+onBeforeUpdate(() => {
+  inputs.value = []
+})
+
+const focusNextInput = (currentId: number) => {
+  const nextInput = inputs.value[currentId + 1] as HTMLElement | undefined;
+
+  if (nextInput) {
+    nextInput.focus();
+  }
+}
+
+const focusPrevInput = (currentId: number) => {
+  const prevInput = inputs.value[currentId - 1] as HTMLElement | undefined;
+
+  if (prevInput) {
+    prevInput.focus();
+  }
+}
+
+const activationCodeString = computed(() => activationCode.value.join(''))
+
+const onChange = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+
+  const currentId = parseInt((event.target as HTMLInputElement).dataset.id as string);
+
+  activationCode.value[currentId] = value;
+  
+  if (value.length >= 1) {
+    focusNextInput(currentId);
+    
+    if (activationCode.value.filter(code => code).length === props.fields) {
+      emit('complete', activationCodeString.value)
+    }
+  } else if (value.length === 0) {
+      focusPrevInput(currentId);
+    }
 };
+
+const onDelete = (event: Event) => {
+  const currentId = parseInt((event.target as HTMLInputElement).dataset.id as string);
+
+  activationCode.value[currentId] = '';
+
+  focusPrevInput(currentId);
+}
 </script>
 
 <style lang="scss">
+.base-verification-code-input {
+  .button-submit {
+    position: fixed;
+    bottom: 50px;
+    left: 16px;
+    right: 16px;
+  }
+}
+
 .input-container {
   display: flex;
   width: 100%;
