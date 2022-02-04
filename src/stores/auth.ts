@@ -1,16 +1,27 @@
+import { EStepDirection } from './../types/base-component';
 import { defineStore } from 'pinia';
 
 // === Auth Types ===
 
-export interface AuthState {
-  registrationStep: number;
+export interface IAuthSteps {
+  registration: number;
+  login: number;
+  recover: number;
+}
+
+export interface IAuthState {
+  steps: IAuthSteps;
 }
 
 // === Auth Store ===
 
 export const useAuthStore = defineStore('auth', {
-  state: (): AuthState => ({
-    registrationStep: 1,
+  state: (): IAuthState => ({
+    steps: {
+      registration: 0,
+      login: 0,
+      recover: 3,
+    },
   }),
 
   getters: {
@@ -18,8 +29,14 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
-    setStep(step: number) {
-      this.registrationStep = step;
+    setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
+      if (step === EStepDirection.next) {
+        this.steps[scope] = this.steps[scope] + 1;
+      } else if (step === EStepDirection.prev) {
+        this.steps[scope] = this.steps[scope] - 1;
+      } else {
+        this.steps[scope] = step;
+      }
     },
   },
 });

@@ -1,7 +1,10 @@
 <template>
   <div class="base-verification-code-input">
     <div class="input-container">
-      <template v-for="(v, index) in values" :key="`input-${index}`">
+      <template
+        v-for="(v, index) in values"
+        :key="`input-${index}`"
+      >
         <div class="input-wrapper">
           <input
             :ref="iRefs[index]"
@@ -16,7 +19,7 @@
             @focus="onFocus"
             @input="onValueChange"
             @keydown="onKeyDown"
-          />
+          >
         </div>
       </template>
     </div>
@@ -186,7 +189,7 @@ export default {
       const { fields } = this;
       const val = values.join('');
       this.$emit('change', val);
-      if (val.length >= fields) {
+      if (val.length >= fields ) {
         this.$emit('complete', val);
       }
     },
@@ -210,11 +213,11 @@ export default {
       padding: 16px;
       border-radius: 12px;
       border: 1px solid transparent;
-      background: var(--ion-color-light-grey);
+      background: $color-light-grey;
 
       &:focus {
         outline: none;
-        border-color: var(--ion-color-ui-primary-500);
+        border-color: $color-primary-500;
         background: transparent;
       }
     }

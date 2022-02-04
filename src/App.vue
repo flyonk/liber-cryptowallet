@@ -13,7 +13,7 @@
   </p-toast>
 
   <app-layout-switcher>
-    <router-view />
+    <router-view class="router-view" />
   </app-layout-switcher>
 </template>
 
@@ -39,5 +39,9 @@ store.init();
       color: #42b983;
     }
   }
+}
+
+.router-view {
+  touch-action: manipulation;
 }
 </style>

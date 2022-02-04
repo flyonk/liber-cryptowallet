@@ -1,7 +1,10 @@
 <template>
   <div class="base-input">
     <div class="p-float-label">
-      <component :is="currentComponent" v-bind="$attrs" />
+      <component
+        :is="currentComponent"
+        v-bind="$attrs"
+      />
       <label>
         <slot name="label" />
       </label>
@@ -14,6 +17,7 @@ import { computed } from 'vue';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
+import PInputMask from 'primevue/inputmask';
 
 const props = defineProps({
   type: {
@@ -28,6 +32,8 @@ const currentComponent = computed(() => {
       return PInput;
     case 'number':
       return PInputNumber;
+    case 'mask':
+      return PInputMask;
     default:
       return PInput;
   }
@@ -36,7 +42,7 @@ const currentComponent = computed(() => {
 
 <style lang="scss">
 .base-input {
-  background: var(--ion-color-input-background);
+  background: $color-input-bg;
   border: 1px solid transparent;
   border-radius: 12px;
   height: 56px;
@@ -64,14 +70,14 @@ const currentComponent = computed(() => {
 
   &:focus-within {
     background: #fff;
-    border: 1px solid var(--ion-color-ui-primary-500);
+    border: 1px solid $color-primary-500;
   }
 
   .p-inputtext,
   .p-inputnumber {
     background: transparent;
     border: 0;
-    color: var(--ion-color-brand-primary);
+    color: $color-brand-primary;
     height: 100%;
     padding: 0;
     width: 100%;

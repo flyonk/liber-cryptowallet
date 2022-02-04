@@ -4,19 +4,28 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt="" />
+      <img
+        :src="selectedData?.flag"
+        alt=""
+      >
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
+    <BaseBottomSheet
+      v-model:visible="showList"
+      position="bottom"
+    >
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">
+            <div
+              class="cancel-button text--headline"
+              @click="showList = false"
+            >
               Cancel
             </div>
           </div>
@@ -31,7 +40,10 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt="" />
+              <img
+                :src="country.flag"
+                alt=""
+              >
             </div>
             <div class="code col-2">
               {{ country.dialCode }}
@@ -48,16 +60,16 @@
 <script lang="ts" setup>
 import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
 import { getFullList } from '@/services/country-phone';
-import { CountryInformation } from '@/services/country-phone-types';
+import { ICountryInformation } from '@/types/country-phone-types';
 import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
-const list = ref([]) as Ref<Array<CountryInformation>>;
-const selectedData = ref(null) as Ref<CountryInformation | null>;
+const list = ref([]) as Ref<Array<ICountryInformation>>;
+const selectedData = ref(null) as Ref<ICountryInformation | null>;
 const showList = ref(false) as Ref<boolean>;
 const searchQuery = ref('') as Ref<string>;
 
-const filteredList: ComputedRef<Array<CountryInformation>> = computed(() => {
+const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
   if (searchQuery.value) {
     return list.value.filter(({ name }) =>
       name.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -73,11 +85,11 @@ onBeforeMount(async (): Promise<void> => {
   selectedData.value = list.value[0];
 });
 
-function isSelectedCountry(country: CountryInformation): boolean {
-  return selectedData.value?.name === country.name;
+function isSelectedCountry(country: ICountryInformation): boolean {
+  return selectedData.value?.name === country.name
 }
 
-function setSelectedCountry(country: CountryInformation): void {
+function setSelectedCountry(country: ICountryInformation): void {
   selectedData.value = country;
 
   showList.value = false;
@@ -87,7 +99,7 @@ function setSelectedCountry(country: CountryInformation): void {
 <style lang="scss">
 .base-country-phone-input {
   border-radius: 12px;
-  background: var(--ion-color-input-background);
+  background: $color-grey-100;
   width: 95px;
   height: 56px;
   padding: 16px;
@@ -108,7 +120,7 @@ function setSelectedCountry(country: CountryInformation): void {
   padding-top: 16px;
 
   .cancel-button {
-    color: var(--ion-color-ui-primary);
+    color: $color-blue;
     cursor: pointer;
     user-select: none;
     user-select: none;
@@ -126,7 +138,7 @@ function setSelectedCountry(country: CountryInformation): void {
       cursor: pointer;
 
       &.selected {
-        background: var(--ion-color-light-grey-300);
+        background: $color-light-grey-300;
       }
 
       .flag {
@@ -141,7 +153,7 @@ function setSelectedCountry(country: CountryInformation): void {
       }
 
       .code {
-        color: var(--ion-color-dark-grey);
+        color: $color-dark-grey;
       }
     }
   }

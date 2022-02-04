@@ -1,12 +1,28 @@
 <template>
-  <button :class="classes" :disabled="disabled" class="base-button">
-    <i v-if="icon" :class="icon" />
-    <div v-else class="container">
-      <i v-if="iconLeft" :class="iconLeft" />
+  <button
+    :class="classes"
+    :disabled="disabled"
+    class="base-button"
+  >
+    <i
+      v-if="icon"
+      :class="icon"
+    />
+    <div
+      v-else
+      class="container"
+    >
+      <i
+        v-if="iconLeft"
+        :class="iconLeft"
+      />
       <div class="label">
         <slot />
       </div>
-      <i v-if="iconRight" :class="iconRight" />
+      <i
+        v-if="iconRight"
+        :class="iconRight"
+      />
     </div>
   </button>
 </template>
@@ -80,14 +96,14 @@ const classes = computed(() => [
   outline: inherit;
   transition: all 0.5s;
 
-  > .label {
-    font-weight: 600;
-  }
-
   > .container {
     display: flex;
     align-items: center;
     justify-content: center;
+
+    > .label {
+    font-weight: 600;
+  }
   }
 
   &.-block {
@@ -132,7 +148,7 @@ const classes = computed(() => [
     > .container {
       > .label,
       i {
-        color: var(--ion-color-ui-primary-500);
+        color: $color-primary;
       }
     }
 
@@ -141,7 +157,7 @@ const classes = computed(() => [
       > .container {
         > .label,
         i {
-          color: var(--ion-color-brand-2-100) !important;
+          color: $color-brand-2-100 !important;
         }
       }
     }
@@ -151,7 +167,7 @@ const classes = computed(() => [
       > .container {
         > .label,
         i {
-          color: var(--ion-color-ui-primary-400);
+          color: $color-primary-400;
         }
       }
     }
@@ -160,7 +176,7 @@ const classes = computed(() => [
       > .container {
         > .label,
         i {
-          color: var(--ion-color-ui-primary-600);
+          color: $color-primary-600;
         }
       }
     }
@@ -168,34 +184,34 @@ const classes = computed(() => [
 
   &.-ghost {
     background: transparent;
-    border: 2px solid var(--ion-color-ui-primary-500);
+    border: 2px solid $color-primary-500;
 
     > .container {
       > .label,
       i {
-        color: var(--ion-color-ui-primary-500);
+        color: $color-primary-500;
       }
     }
 
     &:disabled,
     &[disabled] {
-      border-color: var(--ion-color-brand-2-100) !important;
+      border-color: $color-brand-2-100 !important;
 
       > .container {
         > .label,
         i {
-          color: var(--ion-color-brand-2-100);
+          color: $color-brand-2-100;
         }
       }
     }
 
     &:hover,
     &:focus {
-      background: var(--ion-color-ui-primary-50);
+      background: $color-primary-50;
     }
 
     &:active {
-      background: var(--ion-color-ui-primary-100);
+      background: $color-primary-100;
     }
   }
 
@@ -204,18 +220,18 @@ const classes = computed(() => [
   }
 
   &.-secondary {
-    background: var(--ion-color-light-grey);
+    background: $color-light-grey;
 
     > .container {
       > .label,
       i {
-        color: var(--ion-color-ui-primary-500);
+        color: $color-primary-500;
       }
     }
 
     &:disabled,
     &[disabled] {
-      background: var(--ion-color-brand-2-100) !important;
+      background: $color-brand-2-100 !important;
 
       > .container {
         > .label,
@@ -227,16 +243,16 @@ const classes = computed(() => [
 
     &:hover,
     &:focus {
-      background: var(--ion-color-ui-primary-100);
+      background: $color-primary-100;
     }
 
     &:active {
-      background: var(--ion-color-ui-primary-100);
+      background: $color-primary-100;
     }
   }
 
   &.-simple {
-    background: var(--ion-color-ui-primary-500);
+    background: $color-primary-500;
 
     > .container {
       > .label,
@@ -247,16 +263,16 @@ const classes = computed(() => [
 
     &:disabled,
     &[disabled] {
-      background: var(--ion-color-grey-500) !important;
+      background: $color-grey !important;
     }
 
     &:hover,
     &:focus {
-      background: var(--ion-color-ui-primary-400);
+      background: $color-primary-400;
     }
 
     &:active {
-      background: var(--ion-color-ui-primary-600);
+      background: $color-primary-600;
     }
   }
 

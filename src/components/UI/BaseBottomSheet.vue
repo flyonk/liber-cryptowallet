@@ -5,12 +5,15 @@
     modal
     position="bottom"
     v-bind="$attrs"
+    dismissable-mask
   >
     <slot />
   </PDialog>
 </template>
-
-<script lang="ts" setup></script>
+// TODO check this https://www.primefaces.org/primevue/showcase/#/sidebar
+<script lang="ts" setup>
+defineEmits(['update:visible']);
+</script>
 
 <style lang="scss">
 .base-bottom-sheet {

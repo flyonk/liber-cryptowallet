@@ -4,9 +4,7 @@
       Enter the 6-digit code
     </TopNavigation>
     <div class="description text--body">
-      To sign up, enter the security code
-      <br>
-      we’ve sent to ********6123
+      Get a verification code from the authenticator app
     </div>
     <div>
       <BaseVerificationCodeInput
@@ -14,27 +12,6 @@
         class="input"
         @complete="onComplete"
       />
-    </div>
-    <div class="footer">
-      <span class="text--footnote font-weight--semibold">
-        <BaseCountdown
-          v-if="showCountdown"
-          @time:up="onTimeIsUp"
-        >
-          <template #countdown="{ minute, second }">
-            Resend code in {{ minute }}:{{ second }}
-          </template>
-        </BaseCountdown>
-        <template v-else>
-          <BaseButton
-            class="resend-button"
-            size="medium"
-            view="flat"
-          >
-            Resend
-          </BaseButton>
-        </template>
-      </span>
     </div>
   </div>
 </template>
@@ -46,10 +23,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { ref, Ref } from 'vue';
 import {
-  BaseButton,
-  BaseCountdown,
   BaseVerificationCodeInput,
   TopNavigation,
 } from '@/components/UI';
@@ -57,18 +31,12 @@ import {
 const emit = defineEmits(['next', 'prev']);
 
 // const number = ref(null) as Ref<number | null>;
-const showCountdown = ref(true) as Ref<boolean>;
-
 function prevStep(): void {
   emit('prev');
 }
 
 function nextStep(): void {
   emit('next');
-}
-
-function onTimeIsUp(): void {
-  showCountdown.value = false;
 }
 
 function onComplete(): void {
