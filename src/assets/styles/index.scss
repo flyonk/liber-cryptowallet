@@ -1,13 +1,18 @@
 // --- Only imports ---
+@import './common/reset';
+
+@import './common/reset';
 
 // Common
 @import './common/variables';
 @import './common/typography';
+@import './common/ui';
 
 // Libraries
 @import 'primeflex/primeflex.css';
+@import 'primevue/resources/themes/saga-blue/theme.css';
 @import 'primevue/resources/primevue.min.css';
-@import './libs/coolicons';
+@import 'primeicons/primeicons.css';
 
 // UI
 @import './theme/index';

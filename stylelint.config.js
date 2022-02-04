@@ -19,9 +19,11 @@ module.exports = {
   // customSyntax: 'scss',
 
   rules: {
+    'selector-class-pattern': null,
     'no-empty-source': null,
     'at-rule-no-unknown': null,
     'scss/at-rule-no-unknown': true,
+    'no-descending-specificity': null,
     'rscss/class-format': [
       true,
       {
