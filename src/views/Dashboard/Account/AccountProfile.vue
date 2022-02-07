@@ -153,7 +153,7 @@ const nameInitials = computed(() => {
 }
 
 .link {
-  color: $color-blue;
+  color: $color-primary;
   padding: 0 6px;
 }
 </style>

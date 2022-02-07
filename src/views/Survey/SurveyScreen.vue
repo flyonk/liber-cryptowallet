@@ -215,7 +215,7 @@ const title = computed(() => {
   }
 
   &.-selected {
-    background-color: $color-blue;
+    background-color: $color-primary;
   }
 
   & > .title {

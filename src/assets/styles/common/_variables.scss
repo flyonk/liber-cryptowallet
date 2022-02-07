@@ -1,7 +1,6 @@
+//common colors
 $color-white: #ffffff;
 $color-black: #000000;
-$color-blue: #2862ff;
-$surface: #faf8f9;
 
 $color-brand-50: #e7e9ec;
 $color-brand-100: #b4bac3;
@@ -100,9 +99,8 @@ $color-yellow-800: #8c6900;
 $color-yellow-900: #6b5000;
 $color-yellow: $color-yellow-500;
 
-$color-primary: $color-blue;
 $color-secondary: $color-grey;
-$color-success: $color-blue;
+$color-success: $color-primary;
 $color-danger: $color-red;
 $color-warning: $color-red;
 $color-info: $color-yellow;

@@ -90,7 +90,7 @@ const currentImage = computed(() => {
         color: $color-dark-grey;
 
         .link {
-            color: $color-blue;
+            color: $color-primary;
         }
     }
 }

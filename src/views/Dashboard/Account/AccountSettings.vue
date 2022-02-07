@@ -167,7 +167,7 @@ const nameInitials = computed(() => {
 
       &--blue {
         width: 143px;
-        background: $color-blue;
+        background: $color-primary;
         color: $color-white;
         margin-right: 8px;
       }
@@ -175,7 +175,7 @@ const nameInitials = computed(() => {
       &--white {
         width: 117px;
         background: $color-light-grey;
-        color: $color-blue;
+        color: $color-primary;
       }
 
       > .icon {
