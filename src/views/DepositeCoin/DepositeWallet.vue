@@ -211,7 +211,7 @@ const updateNetwork = () => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: $color-brand-2-300;
+    color: $color-dark-grey;
   }
 
   & > .content {

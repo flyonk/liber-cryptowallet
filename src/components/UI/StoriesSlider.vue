@@ -149,7 +149,7 @@ const detectSlideChangeByUser = (event: Event) => {
     }
 
     .agile__dot {
-      background-color: $color-brand-2-300;
+      background-color: $color-dark-grey;
       width: 100%;
       height: auto;
       margin-left: 5px;
@@ -166,7 +166,7 @@ const detectSlideChangeByUser = (event: Event) => {
       height: 2px;
       margin: 0;
       cursor: pointer;
-      background-color: $color-brand-2-300;
+      background-color: $color-dark-grey;
       border: none;
       font-size: 0;
       line-height: 0;

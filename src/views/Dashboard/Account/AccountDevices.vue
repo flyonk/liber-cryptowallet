@@ -128,7 +128,7 @@
           font-size: 16px;
           line-height: 21px;
           letter-spacing: -0.0031em;
-          color: $color-brand-2-300;
+          color: $color-dark-grey;
 
           &--first {
             font-weight: 500;

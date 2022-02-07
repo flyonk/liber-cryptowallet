@@ -81,7 +81,7 @@ const nameInitials = computed(() => {
         display: flex;
         align-items: center;
         letter-spacing: -0.0045em;
-        color: $color-brand-2-300;
+        color: $color-dark-grey;
       }
     }
 
@@ -114,7 +114,7 @@ const nameInitials = computed(() => {
       line-height: 22px;
       text-align: center;
       letter-spacing: -0.0043em;
-      color: $color-brand-2-300;
+      color: $color-dark-grey;
     }
 
     > .controls {
