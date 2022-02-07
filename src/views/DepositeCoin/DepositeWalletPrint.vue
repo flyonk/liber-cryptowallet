@@ -71,12 +71,12 @@ onMounted(() => {
   margin: 15px;
   flex-grow: 1;
   overflow: auto;
-  background-color: #0D1F3C;
+  background-color: $color-brand;
   padding: 100px 8px 50px;
 }
 
 .content-wrapper {
-  background-color: #F7F8FD;
+  background-color: $color-light-grey-200;
   padding: 20px;
   border-radius: 20px;
 }
