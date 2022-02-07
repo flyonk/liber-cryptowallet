@@ -1,7 +1,8 @@
-//common colors
+//System colors
 $color-white: #ffffff;
 $color-black: #000000;
 
+//Palette colors
 $color-brand-50: #e7e9ec;
 $color-brand-100: #b4bac3;
 $color-brand-200: #8f98a5;
@@ -12,7 +13,6 @@ $color-brand-600: #0b1c37;
 $color-brand-700: #09162b;
 $color-brand-800: #071121;
 $color-brand-900: #050d19;
-$color-brand: $color-brand-500;
 
 $color-primary-50: #eaefff;
 $color-primary-100: #bcceff;
@@ -24,7 +24,6 @@ $color-primary-600: #2459e8;
 $color-primary-700: #1c46b5;
 $color-primary-800: #16368c;
 $color-primary-900: #11296b;
-$color-primary: $color-primary-500;
 
 $color-brand-2-50: #ebecf0;
 $color-brand-2-100: #c1c4d1;
@@ -36,8 +35,6 @@ $color-brand-2-600: #313b60;
 $color-brand-2-700: #262e4b;
 $color-brand-2-800: #1e243a;
 $color-brand-2-900: #171b2d;
-$color-brand-secondary: $color-brand-2-500;
-$color-dark-grey: $color-brand-2-300;
 
 $color-grey-50: #f7f7f9;
 $color-grey-100: #e6e7ec;
@@ -49,7 +46,6 @@ $color-grey-600: #9fa3b1;
 $color-grey-700: #7c7f8a;
 $color-grey-800: #60626b;
 $color-grey-900: #4a4b52;
-$color-grey: $color-grey-500;
 
 $color-light-grey-50: #fdfeff;
 $color-light-grey-100: #fafafe;
@@ -61,7 +57,6 @@ $color-light-grey-600: #d9dae4;
 $color-light-grey-700: #a9aab2;
 $color-light-grey-800: #83848a;
 $color-light-grey-900: #646569;
-$color-light-grey: $color-light-grey-500;
 
 $color-green-50: #ecf9ee;
 $color-green-100: #c5ebca;
@@ -73,7 +68,6 @@ $color-green-600: #3eaf4d;
 $color-green-700: #30883c;
 $color-green-800: #256a2f;
 $color-green-900: #1d5124;
-$color-green: $color-green-500;
 
 $color-red-50: #feeceb;
 $color-red-100: #fcc5c1;
@@ -85,7 +79,6 @@ $color-red-600: #de3d31;
 $color-red-700: #ad3026;
 $color-red-800: #86251e;
 $color-red-900: #661c17;
-$color-red: $color-red-500;
 
 $color-yellow-50: #fff9e6;
 $color-yellow-100: #ffebb0;
@@ -97,8 +90,21 @@ $color-yellow-600: #e8ad00;
 $color-yellow-700: #b58700;
 $color-yellow-800: #8c6900;
 $color-yellow-900: #6b5000;
-$color-yellow: $color-yellow-500;
 
+//Aliases  
+$color-brand: $color-brand-500;
+$color-primary: $color-primary-500;
+$color-brand-primary: $color-brand-500;
+$color-brand-secondary: $color-brand-2-500;
+$color-dark-grey: $color-brand-2-300;
+$color-grey: $color-grey-500;
+$color-light-grey: $color-light-grey-500;
+$color-green: $color-green-500;
+$color-red: $color-red-500;
+$color-yellow: $color-yellow-500;
+$color-input-bg: $color-grey-100;
+
+//Legacy? (these colors are not used anywhere)
 $color-secondary: $color-grey;
 $color-success: $color-primary;
 $color-danger: $color-red;
@@ -106,10 +112,5 @@ $color-warning: $color-red;
 $color-info: $color-yellow;
 $color-light: $color-white;
 $color-dark: $color-black;
-$color-light-grey: $color-light-grey-500;
-
-$bg-color-primary: $color-grey-100;
 $bg-color-danger: $color-red-100;
-
-$color-input-bg: $color-grey-100;
-$color-brand-primary: $color-brand-500;
+$bg-color-primary: $color-grey-100;
