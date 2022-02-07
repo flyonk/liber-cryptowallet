@@ -155,7 +155,7 @@ const copyToClipboard = () => {
 .default-input {
   border: 1px solid transparent;
   outline: none;
-  background: #f7f8fd;
+  background: $color-light-grey-200;
   border-radius: 12px;
   width: 100%;
   height: 56px;
