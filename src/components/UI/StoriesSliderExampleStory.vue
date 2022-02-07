@@ -106,7 +106,7 @@
     font-style: normal;
   }
   > .footer > .signup {
-    background-color: $color-primary-500;
+    background-color: $color-primary;
     color: $color-white;
     width: 155.5px;
     height: 48px;

@@ -175,7 +175,7 @@ const transactionType = ref('payment-link');
         &--cancel {
           width: 104px;
           background: $color-red-50;
-          color: $color-red-500;
+          color: $color-red;
         }
 
         > .icon {

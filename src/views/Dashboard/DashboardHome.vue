@@ -413,7 +413,7 @@ const carousel = [
     margin-bottom: 32px;
 
     &--btn {
-      background: $color-grey-500;
+      background: $color-grey;
       border-radius: 8px;
       padding: 0 16px 0 12px;
       display: flex;

@@ -87,7 +87,7 @@ const { isMenuOpen } = toRefs(props);
       justify-content: center;
       align-items: center;
       color: $color-white;
-      background: $color-primary-500;
+      background: $color-primary;
       border-radius: 8px;
       width: 40px;
       height: 40px;

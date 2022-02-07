@@ -106,7 +106,7 @@ function changeTab(tabNum: number) {
       text-decoration: none;
 
       &--active {
-        color: $color-primary-500;
+        color: $color-primary;
       }
     }
 
