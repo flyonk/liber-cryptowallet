@@ -134,14 +134,14 @@ const nameInitials = computed(() => {
         display: flex;
         align-items: center;
         letter-spacing: -0.0045em;
-        color: #78809b;
+        color: $color-brand-2-300;
       }
     }
 
     > .right {
       height: 56px;
       width: 56px;
-      background: #ffebb0;
+      background: $color-yellow-100;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -167,15 +167,15 @@ const nameInitials = computed(() => {
 
       &--blue {
         width: 143px;
-        background: #2862ff;
-        color: #fff;
+        background: $color-blue;
+        color: $color-white;
         margin-right: 8px;
       }
 
       &--white {
         width: 117px;
-        background: #edf0fb;
-        color: #2862ff;
+        background: $color-light-grey;
+        color: $color-blue;
       }
 
       > .icon {
@@ -190,7 +190,7 @@ const nameInitials = computed(() => {
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #78809b;
+      color: $color-brand-2-300;
       margin-bottom: 10px;
     }
 
@@ -220,7 +220,7 @@ const nameInitials = computed(() => {
           display: flex;
           align-items: center;
           letter-spacing: -0.0031em;
-          color: #0d1f3c;
+          color: $color-brand-500;
         }
       }
     }
@@ -233,7 +233,7 @@ const nameInitials = computed(() => {
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #78809b;
+      color: $color-brand-2-300;
       margin-bottom: 4px;
 
       &:last-child {

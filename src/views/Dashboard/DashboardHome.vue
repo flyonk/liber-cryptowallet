@@ -205,7 +205,7 @@ const carousel = [
 <style lang="scss" scoped>
 .dashboard {
   padding: 15px 15px 0;
-  background: #fafafe;
+  background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;
 
@@ -220,23 +220,23 @@ const carousel = [
       align-items: center;
       width: 131px;
       height: 31px;
-      background: #ffebb0;
+      background: $color-yellow-100;
       border-radius: 100px;
       white-space: nowrap;
       font-size: 16px;
       line-height: 21px;
       letter-spacing: -0.0031em;
-      color: #8c6900;
+      color: $color-yellow-800;
 
       &--verified {
-        background: #c5ebca;
-        color: #256a2f;
+        background: $color-green-100;
+        color: $color-green-800;
       }
 
       &--failed {
         width: 181px;
-        background: #fcc5c1;
-        color: #ad3026;
+        background: $color-red-100;
+        color: $color-red-700;
       }
     }
   }
@@ -245,7 +245,7 @@ const carousel = [
     margin-bottom: 24px;
 
     > .tab-item {
-      color: #0d1f3c;
+      color: $color-brand-primary;
       border-radius: 8px;
       display: flex;
       justify-content: center;
@@ -255,8 +255,8 @@ const carousel = [
     }
 
     > .active {
-      background: #36416a;
-      color: white;
+      background: $color-brand-secondary;
+      color: $color-white;
     }
   }
 
@@ -270,7 +270,7 @@ const carousel = [
 
     > .circle-wrap {
       border-radius: 50%;
-      background: #edf0fb;
+      background: $color-light-grey;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -307,7 +307,7 @@ const carousel = [
     margin-bottom: 32px;
 
     > .btn {
-      background: #afb3c3;
+      background: $color-grey;
       border-radius: 8px;
       padding: 0 16px 0 12px;
       display: flex;
@@ -316,10 +316,10 @@ const carousel = [
       width: 109px;
       height: 40px;
       margin-right: 8px;
-      color: white;
+      color: $color-white;
 
       &--active {
-        background: #2862ff;
+        background: $color-primary;
       }
 
       &:last-child {
@@ -344,14 +344,14 @@ const carousel = [
     height: 160px;
     border-radius: 16px;
     margin-right: 8px;
-    background: #edf0fb;
+    background: $color-light-grey;
 
     img {
       margin-bottom: 20px;
     }
 
     h4 {
-      color: #2862ff;
+      color: $color-primary;
       font-weight: 800;
       font-size: 10px;
       line-height: 13px;
@@ -359,11 +359,11 @@ const carousel = [
     }
 
     &:nth-child(3) {
-      background: #ecf9ee;
+      background: $color-green-50;
     }
 
     &:last-child {
-      background: #fff9e6;
+      background: $color-yellow-50;
     }
   }
 
@@ -375,7 +375,7 @@ const carousel = [
     display: flex;
 
     &--item {
-      color: #0d1f3c;
+      color: $color-brand;
       border-radius: 8px;
       display: flex;
       justify-content: center;
@@ -384,8 +384,8 @@ const carousel = [
       height: 40px;
 
       &.active {
-        background: #36416a;
-        color: white;
+        background: $color-brand-secondary;
+        color: $color-white;
       }
     }
   }
@@ -400,7 +400,7 @@ const carousel = [
     &--down {
       width: 24px;
       height: 24px;
-      background: #edf0fb;
+      background: $color-light-grey;
       border-radius: 100px;
       display: flex;
       justify-content: center;
@@ -413,7 +413,7 @@ const carousel = [
     margin-bottom: 32px;
 
     &--btn {
-      background: #afb3c3;
+      background: $color-grey-500;
       border-radius: 8px;
       padding: 0 16px 0 12px;
       display: flex;
@@ -422,7 +422,7 @@ const carousel = [
       width: 109px;
       height: 40px;
       margin-right: 8px;
-      color: white;
+      color: $color-white;
 
       &:last-child {
         width: 40px;
@@ -442,14 +442,14 @@ const carousel = [
       height: 160px;
       border-radius: 16px;
       margin-right: 8px;
-      background: #edf0fb;
+      background: $color-light-grey;
 
       img {
         margin-bottom: 20px;
       }
 
       h4 {
-        color: #2862ff;
+        color: $color-primary;
         font-weight: 800;
         font-size: 10px;
         line-height: 13px;
@@ -457,12 +457,12 @@ const carousel = [
       }
 
       &:nth-child(3) {
-        background: #ecf9ee;
+        background: $color-green-50;
       }
 
       &:last-child {
         margin-right: 0;
-        background: #fff9e6;
+        background: $color-yellow-50;
       }
     }
   }

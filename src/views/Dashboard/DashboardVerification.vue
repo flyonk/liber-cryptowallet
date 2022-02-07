@@ -77,7 +77,7 @@ const isVerificationSuccess = ref(true);
         line-height: 22px;
         text-align: center;
         letter-spacing: -0.0043em;
-        color: #0d1f3c;
+        color: $color-brand;
       }
     }
 
@@ -89,15 +89,15 @@ const isVerificationSuccess = ref(true);
         padding: 0 24px;
         width: 343px;
         height: 48px;
-        background: #2862ff;
+        background: $color-primary;
         border-radius: 13px;
-        color: white;
+        color: $color-white;
         font-weight: 600;
         font-size: 17px;
 
         &:last-child {
           background: transparent;
-          color: #2862ff;
+          color: $color-primary;
         }
       }
     }

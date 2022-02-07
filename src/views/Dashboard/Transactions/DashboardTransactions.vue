@@ -6,60 +6,40 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      >
+      />
       <div class="count">
         <div class="flex">
-          <h1 class="title">
-            2.12345678 <span>USDT</span>
-          </h1>
+          <h1 class="title">2.12345678 <span>USDT</span></h1>
           <img
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
             alt="currency"
-          >
+          />
         </div>
-        <p class="subtitle heading-gray-md">
-          €594.41
-        </p>
+        <p class="subtitle heading-gray-md">€594.41</p>
       </div>
-      <VueAgile
-        class="carousel"
-        :slides-to-show="2"
-        :nav-buttons="false"
-      >
+      <VueAgile class="carousel" :slides-to-show="2" :nav-buttons="false">
         <div
           v-for="(item, index) in carousel"
           :key="index"
           class="item slide"
           @click="$router.push('/home/story')"
         >
-          <img
-            class="image"
-            :src="item.img"
-          >
+          <img class="image" :src="item.img" />
           <p class="name">
             {{ item.name }}
           </p>
         </div>
-      </vueagile>
+      </VueAgile>
       <div class="controls">
         <button class="control-btn">
-          <img
-            class="label"
-            src="@/assets/icon/plus.svg"
-          >Deposit
+          <img class="label" src="@/assets/icon/plus.svg" />Deposit
         </button>
         <button class="control-btn">
-          <img
-            class="label"
-            src="@/assets/icon/arrow-right-white.svg"
-          >Send
+          <img class="label" src="@/assets/icon/arrow-right-white.svg" />Send
         </button>
         <button class="control-btn">
-          <img
-            class="label"
-            src="@/assets/icon/repeat.svg"
-          >Exchange
+          <img class="label" src="@/assets/icon/repeat.svg" />Exchange
         </button>
       </div>
       <div class="tabs">
@@ -78,20 +58,14 @@
           Wallet Address
         </div>
       </div>
-      <ul
-        v-if="activeTab === 1"
-        class="transactions"
-      >
+      <ul v-if="activeTab === 1" class="transactions">
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img
-            class="icon"
-            :src="transaction.img"
-          >
+          <img class="icon" :src="transaction.img" />
           <div class="info">
             <div class="flex">
               <h1 class="title">
@@ -111,50 +85,32 @@
               >
                 {{ transaction.status }}
               </p>
-              <p
-                v-else
-                class="second-sum"
-              >
+              <p v-else class="second-sum">
                 {{ transaction.sum }}
               </p>
             </div>
           </div>
         </li>
       </ul>
-      
 
-      <div
-        v-if="activeTab === 2"
-        class="wallet-address"
-      >
-        <img
-          src="@/assets/images/qr-code.png"
-          alt="qr-code"
-          class="qr-code"
-        >
+      <div v-if="activeTab === 2" class="wallet-address">
+        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr-code" />
         <div class="address">
-          <h4 class="title">
-            Wallet Address
-          </h4>
+          <h4 class="title">Wallet Address</h4>
           <div class="account">
             <div class="address-number">
-              <p>1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span></p>
+              <p>
+                1Mtree35df4543sdgErtrryryEe13rr<br />sd21213<span class="bold"
+                  >Opa139z0l</span
+                >
+              </p>
             </div>
-            <img
-              src="@/assets/icon/folders.svg"
-              alt="folders"
-            >
+            <img src="@/assets/icon/folders.svg" alt="folders" />
           </div>
-          <h2 class="blue-title">
-            Generate New Address
-          </h2>
+          <h2 class="blue-title">Generate New Address</h2>
           <div class="controls">
-            <button class="btn">
-              Save Image
-            </button>
-            <button class="btn">
-              Share Address
-            </button>
+            <button class="btn">Save Image</button>
+            <button class="btn">Share Address</button>
           </div>
         </div>
       </div>
@@ -163,81 +119,81 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import { VueAgile } from 'vue-agile'
+import { ref } from 'vue';
+import { VueAgile } from 'vue-agile';
 
-  const activeTab = ref(1)
-  const transactions = [
-    {
-      info: 'Received USDT',
-      from: 'From andrew@gmail.com',
-      sum: '+ 13.55 USDT',
-      status: 'Pending',
-      img: require('@/assets/icon/transactions/received.svg'),
-    },
-      {
-      info: 'Deposit USDT',
-      from: 'From Bitcoin address',
-      sum: '+ 125.00 USDT',
-      img: require('@/assets/icon/transactions/sent.svg')
-    },
-      {
-      info: 'Sent USDT',
-      from: 'To andrew@gmail.com',
-      sum: '- 13.55 USDT',
-      img: require('@/assets/icon/transactions/exchange.svg')
-    },
-    {
-      info: 'Received USDT',
-      from: 'From andrew@gmail.com',
-      sum: '+ 13.55 USDT',
-      status: 'Pending',
-      img: require('@/assets/icon/transactions/received.svg')
-    },
-      {
-      info: 'Deposit USDT',
-      from: 'From Bitcoin address',
-      sum: '+ 125.00 USDT',
-      img: require('@/assets/icon/transactions/sent.svg')
-    },
-      {
-      info: 'Sent USDT',
-      from: 'To andrew@gmail.com',
-      sum: '- 13.55 USDT',
-      img: require('@/assets/icon/transactions/exchange.svg')
-    }
-  ]
+const activeTab = ref(1);
+const transactions = [
+  {
+    info: 'Received USDT',
+    from: 'From andrew@gmail.com',
+    sum: '+ 13.55 USDT',
+    status: 'Pending',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+  {
+    info: 'Deposit USDT',
+    from: 'From Bitcoin address',
+    sum: '+ 125.00 USDT',
+    img: require('@/assets/icon/transactions/sent.svg'),
+  },
+  {
+    info: 'Sent USDT',
+    from: 'To andrew@gmail.com',
+    sum: '- 13.55 USDT',
+    img: require('@/assets/icon/transactions/exchange.svg'),
+  },
+  {
+    info: 'Received USDT',
+    from: 'From andrew@gmail.com',
+    sum: '+ 13.55 USDT',
+    status: 'Pending',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+  {
+    info: 'Deposit USDT',
+    from: 'From Bitcoin address',
+    sum: '+ 125.00 USDT',
+    img: require('@/assets/icon/transactions/sent.svg'),
+  },
+  {
+    info: 'Sent USDT',
+    from: 'To andrew@gmail.com',
+    sum: '- 13.55 USDT',
+    img: require('@/assets/icon/transactions/exchange.svg'),
+  },
+];
 
-  const carousel = [
-    {
-      name: 'Deposit',
-      img: require('@/assets/icon/transactions/carousel/deposit.svg')
-    },
-    {
-      name: 'Send Funds',
-      img: require('@/assets/icon/transactions/carousel/send.svg')
-    },
-    {
-      name: 'Convert',
-      img: require('@/assets/icon/transactions/carousel/convert.svg')
-    },
-    {
-      name: 'Withdraw',
-      img: require('@/assets/icon/transactions/carousel/send.svg')
-    }
-  ]
+const carousel = [
+  {
+    name: 'Deposit',
+    img: require('@/assets/icon/transactions/carousel/deposit.svg'),
+  },
+  {
+    name: 'Send Funds',
+    img: require('@/assets/icon/transactions/carousel/send.svg'),
+  },
+  {
+    name: 'Convert',
+    img: require('@/assets/icon/transactions/carousel/convert.svg'),
+  },
+  {
+    name: 'Withdraw',
+    img: require('@/assets/icon/transactions/carousel/send.svg'),
+  },
+];
 </script>
 
 <style lang="scss" scoped>
 .account-transactions {
-  background: #fafafe;
+  background: $color-light-grey-100;
   height: 85%;
   padding: 35px 0 0;
   overflow-x: hidden;
   overflow-y: auto;
   flex-grow: 1;
 
-  > .header  {
+  > .header {
     padding: 0 16px;
     > .count {
       > .flex {
@@ -279,8 +235,8 @@ import { VueAgile } from 'vue-agile'
         justify-content: center;
         width: 109px;
         height: 40px;
-        background: #2862ff;
-        color: white;
+        background: $color-primary;
+        color: $color-white;
         border-radius: 10px;
 
         > .label {
@@ -295,7 +251,7 @@ import { VueAgile } from 'vue-agile'
       width: 100%;
       padding: 4px;
       border-radius: 8px;
-      background: #edf0fb;
+      background: $color-light-grey;
       margin-bottom: 30px;
 
       > .tab {
@@ -303,17 +259,17 @@ import { VueAgile } from 'vue-agile'
         display: flex;
         justify-content: center;
         align-items: center;
-        color: #78809b;
+        color: $color-dark-grey;
         height: 32px;
-        background: #edf0fb;
+        background: $color-light-grey;
         font-weight: 600;
         font-size: 13px;
         line-height: 18px;
       }
 
       > .active {
-        background: white;
-        color: #36416a;
+        background: $color-white;
+        color: $color-brand-secondary;
       }
     }
 
@@ -351,15 +307,15 @@ import { VueAgile } from 'vue-agile'
               font-size: 13px;
               line-height: 18px;
               letter-spacing: -0.0008em;
-              color: #78809b;
+              color: $color-dark-grey;
             }
 
             > .pending {
-              color: #e8ad00;
+              color: $color-yellow-600;
             }
 
             > .received {
-              color: #3eaf4d;
+              color: $color-green-600;
             }
 
             > .second-sum {
@@ -367,7 +323,7 @@ import { VueAgile } from 'vue-agile'
               line-height: 18px;
               text-align: right;
               letter-spacing: -0.0008em;
-              color: #78809b;
+              color: $color-dark-grey;
             }
           }
         }
@@ -383,12 +339,12 @@ import { VueAgile } from 'vue-agile'
     width: 104px;
     height: 104px;
     padding: 12px;
-    background: #FFFFFF;
+    background: $color-white;
     box-shadow: 0px 2px 24px -12px rgba(0, 0, 0, 0.34);
     border-radius: 13px;
     margin-left: 5px;
 
-    >.image {
+    > .image {
       margin-bottom: 8px;
 
       &:last-child {
@@ -396,16 +352,15 @@ import { VueAgile } from 'vue-agile'
       }
     }
 
-    >.name {
+    > .name {
       font-weight: 600;
       font-size: 12px;
       line-height: 16px;
-      color: #0C1F3D;
+      color: $color-brand;
     }
-
   }
 
-  >.wallet-address {
+  > .wallet-address {
     display: flex;
     height: 370px;
     flex-direction: column;
@@ -418,7 +373,7 @@ import { VueAgile } from 'vue-agile'
 
     > .address {
       width: 100%;
-      background: #fff;
+      background: $color-white;
       box-shadow: 0 0 24px rgb(64 70 105 / 8%);
       padding: 34px 32px 50px;
 
@@ -426,7 +381,7 @@ import { VueAgile } from 'vue-agile'
         font-size: 13px;
         line-height: 18px;
         letter-spacing: -0.0008em;
-        color: #78809b;
+        color: $color-dark-grey;
         margin-bottom: 4px;
       }
 
@@ -440,7 +395,7 @@ import { VueAgile } from 'vue-agile'
             font-size: 16px;
             line-height: 21px;
             letter-spacing: -0.0031em;
-            color: #000;
+            color: $color-black;
 
             > .bold {
               font-weight: bold;
@@ -454,7 +409,7 @@ import { VueAgile } from 'vue-agile'
         font-size: 17px;
         line-height: 22px;
         letter-spacing: -0.0043em;
-        color: #2862FF;
+        color: $color-primary;
         text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
         margin-bottom: 43px;
       }
@@ -465,20 +420,20 @@ import { VueAgile } from 'vue-agile'
         > .btn {
           width: 166px;
           height: 48px;
-          background: #edf0fb;
+          background: $color-light-grey;
           border-radius: 13px;
           font-weight: 600;
           font-size: 17px;
 
           &:first-child {
             margin-right: 12px;
-            color: #2862FF;
+            color: $color-primary;
             text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
           }
 
           &:last-child {
-            background: #2862ff;
-            color: white;
+            background: $color-primary;
+            color: $color-white;
           }
         }
       }

@@ -128,14 +128,14 @@
           font-size: 16px;
           line-height: 21px;
           letter-spacing: -0.0031em;
-          color: #78809b;
+          color: $color-brand-2-300;
 
           &--first {
             font-weight: 500;
             font-size: 17px;
             line-height: 22px;
             letter-spacing: -0.0043em;
-            color: #0d1f3c;
+            color: $color-brand-500;
           }
         }
 
