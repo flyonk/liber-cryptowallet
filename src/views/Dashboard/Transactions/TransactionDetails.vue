@@ -241,7 +241,7 @@ const transactionType = ref('payment-link');
           align-items: center;
           text-align: right;
           letter-spacing: -0.0031em;
-          color: $color-brand;
+          color: $color-brand-primary;
         }
 
         img {

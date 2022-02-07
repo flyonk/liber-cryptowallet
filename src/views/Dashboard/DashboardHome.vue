@@ -375,7 +375,7 @@ const carousel = [
     display: flex;
 
     &--item {
-      color: $color-brand;
+      color: $color-brand-primary;
       border-radius: 8px;
       display: flex;
       justify-content: center;

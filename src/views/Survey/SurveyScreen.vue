@@ -188,7 +188,7 @@ const title = computed(() => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: $color-brand;
+  color: $color-brand-primary;
   margin-bottom: 40px;
 }
 
@@ -224,7 +224,7 @@ const title = computed(() => {
     font-size: 16px;
     line-height: 21px;
     letter-spacing: -0.0031em;
-    color: $color-brand;
+    color: $color-brand-primary;
   }
 
   & > .title.-selected {

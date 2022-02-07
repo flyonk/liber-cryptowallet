@@ -135,7 +135,7 @@
             font-size: 17px;
             line-height: 22px;
             letter-spacing: -0.0043em;
-            color: $color-brand-500;
+            color: $color-brand-primary;
           }
         }
 

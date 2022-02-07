@@ -220,7 +220,7 @@ const nameInitials = computed(() => {
           display: flex;
           align-items: center;
           letter-spacing: -0.0031em;
-          color: $color-brand-500;
+          color: $color-brand-primary;
         }
       }
     }

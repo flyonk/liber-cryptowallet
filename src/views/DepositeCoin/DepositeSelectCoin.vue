@@ -181,7 +181,7 @@ const selectCoin = (coin) => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: $color-brand;
+    color: $color-brand-primary;
     margin-bottom: 16px;
   }
 }

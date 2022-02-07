@@ -77,7 +77,7 @@ const isVerificationSuccess = ref(true);
         line-height: 22px;
         text-align: center;
         letter-spacing: -0.0043em;
-        color: $color-brand;
+        color: $color-brand-primary;
       }
     }
 

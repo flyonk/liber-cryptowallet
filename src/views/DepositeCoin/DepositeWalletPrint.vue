@@ -71,7 +71,7 @@ onMounted(() => {
   margin: 15px;
   flex-grow: 1;
   overflow: auto;
-  background-color: $color-brand;
+  background-color: $color-brand-primary;
   padding: 100px 8px 50px;
 }
 

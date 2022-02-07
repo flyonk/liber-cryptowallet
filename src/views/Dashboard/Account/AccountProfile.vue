@@ -132,14 +132,14 @@ const nameInitials = computed(() => {
         font-size: 16px;
         line-height: 21px;
         letter-spacing: -0.0031em;
-        color: $color-brand-500;
+        color: $color-brand-primary;
       }
 
       > .active {
         height: 32px;
         left: 171px;
         top: 4px;
-        background: $color-brand-500;
+        background: $color-brand-primary;
         border-radius: 6px;
         color: white;
         font-weight: 600;

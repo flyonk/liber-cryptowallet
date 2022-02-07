@@ -356,7 +356,7 @@ const carousel = [
       font-weight: 600;
       font-size: 12px;
       line-height: 16px;
-      color: $color-brand;
+      color: $color-brand-primary;
     }
   }
 

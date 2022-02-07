@@ -286,7 +286,7 @@ const updateNetwork = () => {
   line-height: 18px;
 
   & > .content { 
-    color: $color-brand;
+    color: $color-brand-primary;
     font-weight: 500;
   }
 }
