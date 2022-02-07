@@ -87,7 +87,7 @@ function changeTab(tabNum: number) {
 }
 
 .navbar-list {
-  background: white;
+  background: $color-white;
   margin-top: auto;
   width: 100%;
   height: 65px;
@@ -106,7 +106,7 @@ function changeTab(tabNum: number) {
       text-decoration: none;
 
       &--active {
-        color: #2862ff;
+        color: $color-primary-500;
       }
     }
 
