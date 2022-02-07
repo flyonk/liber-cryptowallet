@@ -3,7 +3,6 @@ $color-black: #000000;
 $color-blue: #2862ff;
 $surface: #faf8f9;
 
-$color-brand: #0d1f3c;
 $color-brand-50: #e7e9ec;
 $color-brand-100: #b4bac3;
 $color-brand-200: #8f98a5;
@@ -14,6 +13,7 @@ $color-brand-600: #0b1c37;
 $color-brand-700: #09162b;
 $color-brand-800: #071121;
 $color-brand-900: #050d19;
+$color-brand: $color-brand-500;
 
 $color-primary-50: #eaefff;
 $color-primary-100: #bcceff;
@@ -62,7 +62,6 @@ $color-light-grey-700: #a9aab2;
 $color-light-grey-800: #83848a;
 $color-light-grey-900: #646569;
 
-$color-green: #44c055;
 $color-green-50: #ecf9ee;
 $color-green-100: #c5ebca;
 $color-green-200: #a9e2b1;
@@ -73,8 +72,8 @@ $color-green-600: #3eaf4d;
 $color-green-700: #30883c;
 $color-green-800: #256a2f;
 $color-green-900: #1d5124;
+$color-green: $color-green-500;
 
-$color-red: #f44336;
 $color-red-50: #feeceb;
 $color-red-100: #fcc5c1;
 $color-red-200: #faa9a3;
@@ -85,8 +84,8 @@ $color-red-600: #de3d31;
 $color-red-700: #ad3026;
 $color-red-800: #86251e;
 $color-red-900: #661c17;
+$color-red: $color-red-500;
 
-$color-yellow: #ffbe00;
 $color-yellow-50: #fff9e6;
 $color-yellow-100: #ffebb0;
 $color-yellow-200: #ffe18a;
@@ -97,6 +96,7 @@ $color-yellow-600: #e8ad00;
 $color-yellow-700: #b58700;
 $color-yellow-800: #8c6900;
 $color-yellow-900: #6b5000;
+$color-yellow: $color-yellow-500;
 
 $color-primary: $color-blue;
 $color-secondary: $color-grey;
