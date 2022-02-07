@@ -177,7 +177,7 @@ const detectSlideChangeByUser = (event: Event) => {
 
     .agile__dot:hover > button,
     .agile__dot--current > button {
-      background-color: #fff;
+      background-color: $color-white;
       border-radius: 2px;
     }
 

@@ -69,7 +69,7 @@ const currentComponent = computed(() => {
   }
 
   &:focus-within {
-    background: #fff;
+    background: $color-white;
     border: 1px solid $color-primary-500;
   }
 

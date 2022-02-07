@@ -236,7 +236,7 @@ const classes = computed(() => [
       > .container {
         > .label,
         i {
-          color: #fff;
+          color: $color-white;
         }
       }
     }
@@ -257,7 +257,7 @@ const classes = computed(() => [
     > .container {
       > .label,
       i {
-        color: #fff;
+        color: $color-white;
       }
     }
 

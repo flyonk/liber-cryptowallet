@@ -113,7 +113,7 @@ function changeTab(tabNum: number) {
     > .svg {
       width: 24px;
       height: 24px;
-      fill: red;
+      fill: $color-red;
     }
 
     > .center-image {
