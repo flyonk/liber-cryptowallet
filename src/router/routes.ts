@@ -232,10 +232,9 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/install',
     name: 'install-app',
-    component: () =>
-      import('@/views/InstallApp/InstallApp.vue'),
+    component: () => import('@/views/InstallApp/InstallApp.vue'),
     meta: {
-      class: '-full-height'
+      classLayout: '-full-height'
     }
   },
 
@@ -245,6 +244,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/config',
     name: 'configure-app',
     component: () => import('@/views/ConfigureApp/ConfigureApp.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/config-verify',

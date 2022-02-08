@@ -45,17 +45,17 @@
     </p>
   </div>
   <div style="padding: 15px">
-    <button
-      tyte="button"
-      class="btn-default btn-primary"
-      @click="$router.push('/config-verify')"
-    >
+    <base-button
+        block
+        @click="$router.push({ name: 'configure-app-verify' })"
+      >
       Continue
-    </button>
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { BaseButton } from '@/components/UI';
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
@@ -114,26 +114,6 @@ const copyToClipboard = () => {
   margin-bottom: 20px;
 }
 
-.btn-default {
-  border-radius: 13px;
-  text-align: center;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  height: 48px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-}
-
-.btn-primary {
-  background-color: $color-primary;
-  color: $color-white;
-}
-
 .qr-code-canvas {
   margin: 0 auto;
   width: 200px;
@@ -143,6 +123,7 @@ const copyToClipboard = () => {
 .default-input-wrapper {
   position: relative;
   display: block;
+  margin-bottom: 20px;
 }
 
 .default-input-label {

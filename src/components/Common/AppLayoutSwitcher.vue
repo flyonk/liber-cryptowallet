@@ -1,5 +1,5 @@
 <template>
-  <component :is="layout" :class="route?.meta?.class">
+  <component :is="layout" :class="route?.meta?.classLayout">
     <slot />
   </component>
 </template>

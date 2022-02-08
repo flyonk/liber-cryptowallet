@@ -8,7 +8,7 @@
       Install an authenticator app on your mobile device. Recommended options:
     </p>
 
-    <p class="auth-item">
+    <p class="auth-item" style="margin-bottom: 15px;">
       <img
         src="@/assets/brands/ga.png"
         alt="Google Authenticator"
@@ -39,11 +39,17 @@
     /></a>
   </div>
   <div style="padding: 15px">
-    <button tyte="button" class="btn-default btn-primary">Continue</button>
+    <base-button
+        block
+        @click="$router.push({ name: 'configure-app' })"
+      >
+      Continue
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
+import { BaseButton } from '@/components/UI';
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 
 </script>
@@ -83,26 +89,6 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 .store-link-img {
   vertical-align: top;
   width: 100%;
-}
-
-.btn-default {
-  border-radius: 13px;
-  text-align: center;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  height: 48px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-}
-
-.btn-primary {
-  background-color: $color-primary;
-  color: $color-white;
 }
 
 .auth-item {
