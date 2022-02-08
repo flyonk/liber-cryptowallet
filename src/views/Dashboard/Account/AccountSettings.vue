@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/account')"
+          @click="$router.push('/home')"
         />
         <h1 class="title">
           {{ accountName }}
@@ -39,7 +39,7 @@
           <img class="icon" src="@/assets/icon/user_circle.svg" />
           <p class="text">Personal details</p>
         </li>
-        <li class="item">
+        <li class="item"  @click="$router.push('/account/all-accounts')">
           <img class="icon" src="@/assets/icon/data.svg" />
           <p class="text">All accounts</p>
         </li>

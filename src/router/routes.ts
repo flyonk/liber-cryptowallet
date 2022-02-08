@@ -123,7 +123,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     children: [
       {
-        path: '',
+        path: 'all-accounts',
         name: 'account-main',
         component: () =>
           import(

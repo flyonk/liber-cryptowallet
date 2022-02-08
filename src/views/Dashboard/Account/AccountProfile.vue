@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/home')"
+          @click="$router.push('/account/settings')"
         />
         <h1 class="title">
           {{ accountName }}
