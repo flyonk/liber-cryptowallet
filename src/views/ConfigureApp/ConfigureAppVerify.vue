@@ -38,6 +38,7 @@ const pasteFromClipboard = () => {
       console.error('Async: Could not read text: ', err);
     }
   );
+  router.push('/home')
 };
 
 /**

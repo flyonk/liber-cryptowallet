@@ -22,8 +22,14 @@
       </div>
     </main>
     <footer class="footer">
-      <button class="login">Log in</button>
-      <button class="signup">Sign up</button>
+      <button 
+        class="login"
+        @click="$router.push('/login')"
+      >Log in</button>
+      <button 
+        class="signup"
+        @click="$router.push('/sign-up')"
+      >Sign up</button>
     </footer>
   </section>
 </template>

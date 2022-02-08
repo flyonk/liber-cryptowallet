@@ -11,13 +11,19 @@
 
 <script setup lang="ts">
 import MainPageLoader from '@/components/UI/MainPageLoader.vue'
-import { ref } from 'vue'
+import router from '@/router';
+import { onMounted, ref } from 'vue'
 
 const loading = ref(true)
 
-setTimeout(() => {
-  loading.value = false
-}, 3333);
+onMounted(() => {
+  setTimeout(() => {
+    loading.value = false
+    setTimeout(() => {
+      router.push('/welcome-auth')
+    }, 1000)
+  }, 3333);
+})
 </script>
 
 <style lang="scss" scoped>
