@@ -28,7 +28,7 @@ defineEmits(['update:modelValue'])
     }
 
     &.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-      background: $color-blue;
+      background: $color-primary;
     }
   }
 

@@ -57,7 +57,7 @@ defineEmits(['update:modelValue']);
       &:hover,
       &:focus {
         border-color: $color-primary;
-        background: #fff;
+        background: $color-white;
       }
     }
 

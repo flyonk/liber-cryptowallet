@@ -1,40 +1,119 @@
-$color-black: #000000;
-$color-blue: #2862ff;
-$color-brand: #0D1F3C;
-$color-grey-100: #edf0fb;
-$color-grey: #afb3c3;
-$color-red-100: #feeceb;
-$color-red: #f44336;
+//System colors
 $color-white: #ffffff;
-$color-yellow: #ffebb0;
-$color-dark-grey: #78809B;
+$color-black: #000000;
 
+//Palette colors
+$color-brand-50: #e7e9ec;
+$color-brand-100: #b4bac3;
+$color-brand-200: #8f98a5;
+$color-brand-300: #5c697c;
+$color-brand-400: #3d4c63;
 $color-brand-500: #0c1f3c;
-
-$color-brand-2-100: #c1c4d1;
-
-$color-light-grey-500: #eef0fb;
-$color-light-grey-300: #f4f5fc;
-
+$color-brand-600: #0b1c37;
+$color-brand-700: #09162b;
+$color-brand-800: #071121;
+$color-brand-900: #050d19;
 
 $color-primary-50: #eaefff;
 $color-primary-100: #bcceff;
+$color-primary-200: #9cb7ff;
+$color-primary-300: #6f96ff;
 $color-primary-400: #5381ff;
 $color-primary-500: #2862ff;
 $color-primary-600: #2459e8;
+$color-primary-700: #1c46b5;
+$color-primary-800: #16368c;
+$color-primary-900: #11296b;
 
-$color-primary: $color-blue;
+$color-brand-2-50: #ebecf0;
+$color-brand-2-100: #c1c4d1;
+$color-brand-2-200: #a3a8ba;
+$color-brand-2-300: #78809b;
+$color-brand-2-400: #5e6788;
+$color-brand-2-500: #36416a;
+$color-brand-2-600: #313b60;
+$color-brand-2-700: #262e4b;
+$color-brand-2-800: #1e243a;
+$color-brand-2-900: #171b2d;
+
+$color-grey-50: #f7f7f9;
+$color-grey-100: #e6e7ec;
+$color-grey-200: #dadce3;
+$color-grey-300: #c9ccd7;
+$color-grey-400: #bfc2cf;
+$color-grey-500: #afb3c3;
+$color-grey-600: #9fa3b1;
+$color-grey-700: #7c7f8a;
+$color-grey-800: #60626b;
+$color-grey-900: #4a4b52;
+
+$color-light-grey-50: #fdfeff;
+$color-light-grey-100: #fafafe;
+$color-light-grey-200: #f7f8fd;
+$color-light-grey-300: #f4f5fc;
+$color-light-grey-400: #f1f3fc;
+$color-light-grey-500: #eef0fb;
+$color-light-grey-600: #d9dae4;
+$color-light-grey-700: #a9aab2;
+$color-light-grey-800: #83848a;
+$color-light-grey-900: #646569;
+
+$surface: #faf8f9;
+
+$color-green-50: #ecf9ee;
+$color-green-100: #c5ebca;
+$color-green-200: #a9e2b1;
+$color-green-300: #82d58d;
+$color-green-400: #69cd77;
+$color-green-500: #44c055;
+$color-green-600: #3eaf4d;
+$color-green-700: #30883c;
+$color-green-800: #256a2f;
+$color-green-900: #1d5124;
+
+$color-red-50: #feeceb;
+$color-red-100: #fcc5c1;
+$color-red-200: #faa9a3;
+$color-red-300: #f88178;
+$color-red-400: #f6695e;
+$color-red-500: #f44336;
+$color-red-600: #de3d31;
+$color-red-700: #ad3026;
+$color-red-800: #86251e;
+$color-red-900: #661c17;
+
+$color-yellow-50: #fff9e6;
+$color-yellow-100: #ffebb0;
+$color-yellow-200: #ffe18a;
+$color-yellow-300: #ffd354;
+$color-yellow-400: #ffcb33;
+$color-yellow-500: #ffbe00;
+$color-yellow-600: #e8ad00;
+$color-yellow-700: #b58700;
+$color-yellow-800: #8c6900;
+$color-yellow-900: #6b5000;
+
+//Palette aliases
+$color-brand-primary: $color-brand-500;
+$color-brand-secondary: $color-brand-2-500;
+$color-dark-grey: $color-brand-2-300;
+$color-grey: $color-grey-500;
+$color-light-grey: $color-light-grey-500;
+$color-primary: $color-primary-500;
+$color-green: $color-green-500;
+$color-red: $color-red-500;
+$color-yellow: $color-yellow-500;
+
+//Programmers aliases
+$color-input-bg: $color-grey-100;
+
+//Legacy? (these colors are not used anywhere)
 $color-secondary: $color-grey;
-$color-success: $color-blue;
+$color-success: $color-primary;
 $color-danger: $color-red;
 $color-warning: $color-red;
 $color-info: $color-yellow;
 $color-light: $color-white;
 $color-dark: $color-black;
-$color-light-grey: $color-light-grey-500;
-
-$bg-color-primary: $color-grey-100;
 $bg-color-danger: $color-red-100;
-
-$color-input-bg: $color-grey-100;
-$color-brand-primary: $color-brand-500;
+$bg-color-primary: $color-grey-100;

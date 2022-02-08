@@ -90,7 +90,7 @@ watch(verificationCode, (code) => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: $color-brand;
+  color: $color-brand-primary;
   margin-bottom: 20px;
 }
 

@@ -154,8 +154,8 @@ const selectCoin = (coin) => {
   border-radius: 12px;
 
   >.search {
-    background: #EDF0FB;
-    color: #78809B;
+    background: $color-light-grey;
+    color: $color-dark-grey;
     width: 100%;
     height: 44px;
     padding-left: 40px;
@@ -181,7 +181,7 @@ const selectCoin = (coin) => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0D1F3C;
+    color: $color-brand-primary;
     margin-bottom: 16px;
   }
 }
