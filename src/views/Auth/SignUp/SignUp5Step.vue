@@ -18,6 +18,7 @@
     <div class="sign-button-wrapper">
       <BaseButton
         block
+        @click="$router.push('/survey')"
       >
         Next
       </BaseButton>

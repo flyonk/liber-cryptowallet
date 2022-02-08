@@ -45,7 +45,11 @@
     /></a>
   </div>
   <div style="padding: 15px">
-    <button tyte="button" class="btn-default btn-primary">Continue</button>
+    <button 
+      tyte="button" 
+      class="btn-default btn-primary"
+      @click="$router.push('/config')"
+      >Continue</button>
   </div>
 </template>
 

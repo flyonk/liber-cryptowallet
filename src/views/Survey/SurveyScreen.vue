@@ -27,6 +27,7 @@
           <label
             class="radio-btn"
             :class="{ '-selected': answer.isSelected }"
+            @click="$router.push('/install')"
           >
             <input
               :id="answer.id"
