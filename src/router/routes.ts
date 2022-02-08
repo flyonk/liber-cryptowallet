@@ -233,7 +233,10 @@ const routes: Array<RouteRecordRaw> = [
     path: '/install',
     name: 'install-app',
     component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
+      import('@/views/InstallApp/InstallApp.vue'),
+    meta: {
+      class: '-full-height'
+    }
   },
 
   // === Configure app ===
