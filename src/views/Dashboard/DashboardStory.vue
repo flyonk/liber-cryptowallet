@@ -75,7 +75,7 @@
 
     > .image {
       padding-left: 10%;
-      margin-bottom: 31px;
+      margin-bottom: 37px;
     }
   }
 

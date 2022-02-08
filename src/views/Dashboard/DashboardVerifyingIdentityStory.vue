@@ -50,8 +50,8 @@
     }
 
     > .image {
-      height: 45px;
-      width: 45px;
+      height: 64px;
+      width: 64px;
     }
   }
 

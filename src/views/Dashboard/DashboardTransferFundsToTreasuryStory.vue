@@ -39,12 +39,12 @@
     > .close-btn {
       height: 24px;
       width: 24px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     > .image {
-      height: 45px;
-      width: 45px;
+      height: 64px;
+      width: 64px;
     }
   }
 
@@ -66,7 +66,7 @@
 
     > .image {
       padding-left: 20%;
-      margin-bottom: 62px;
+      margin-bottom: 53px;
     }
   }
 
