@@ -16,6 +16,7 @@
             :type="type === 'number' ? 'tel' : type"
             :value="v"
             maxlength="1"
+            class="input-item"
             @focus="onFocus"
             @input="onValueChange"
             @keydown="onKeyDown"
@@ -206,26 +207,26 @@ export default {
 .input-container {
   display: flex;
   width: 100%;
+}
 
-  .input-wrapper {
-    &:not(:last-child) {
-      margin-right: 12px;
-    }
+.input-wrapper {
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+}
 
-    input {
-      width: 100%;
-      text-align: center;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      background: $color-light-grey;
+.input-item {
+  width: 100%;
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: $color-light-grey;
 
-      &:focus {
-        outline: none;
-        border-color: $color-primary-500;
-        background: transparent;
-      }
-    }
+  &:focus {
+    outline: none;
+    border-color: $color-primary-500;
+    background: transparent;
   }
 }
 </style>
