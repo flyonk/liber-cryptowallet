@@ -1,7 +1,9 @@
 <template name="DepositeSelectCoin">
   <div class="page-wrapper">
     <div class="page-header">
-      <BackHistoryBtn />
+      <BackHistoryBtn 
+        :path="'/home'"
+      />
 
       <h1 class="main-title">
         Select a coin

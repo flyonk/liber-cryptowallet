@@ -3,7 +3,7 @@
     <div class="header flex mb-4">
       <img
         src="@/assets/images/avatar.png"
-        @click="$router.push('/account/profile')"
+        @click="$router.push('/account/settings')"
       >
       <div
         v-if="VerificationStatus === 'in_progress'"
@@ -75,6 +75,7 @@
         class="btn"
         :class="{ 'btn--active': VerificationStatus === 'verified' }"
         :disabled="VerificationStatus !== 'verified'"
+        @click="$router.push('/deposit')"
       >
         Deposit
       </button>

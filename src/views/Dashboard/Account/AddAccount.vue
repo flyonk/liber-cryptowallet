@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account')"
+        @click="$router.push('/account/all-accounts')"
       >
       <h1 class="title">
         Select a coin

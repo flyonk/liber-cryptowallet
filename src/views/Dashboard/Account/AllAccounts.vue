@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/home')"
+        @click="$router.push('/account/settings')"
       >
       <img
         class="add"
