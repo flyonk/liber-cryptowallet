@@ -2,7 +2,7 @@
   <button
     type="button"
     class="back-btn"
-    @click="path === -1 ? $router.go(path) : $router.push(path)"
+    @click="path === -1 ? $router.go(-1) : $router.push(path)"
   >
     <img
       src="@/assets/images/back-arrow.svg"
@@ -18,7 +18,7 @@ import { toRefs } from 'vue';
 const props = defineProps({
   path: {
     type: [String, Object, Number],
-    default: '-1'
+    default: -1
   }
 })
 
