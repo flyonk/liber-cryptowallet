@@ -996,6 +996,11 @@
     tslib "^2.1.0"
     xml2js "^0.4.23"
 
+"@capacitor/clipboard@^1.0.7":
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/@capacitor/clipboard/-/clipboard-1.0.7.tgz#a88c09be46443660bd07bdb50db3c30fc207ace3"
+  integrity sha512-vYf6wFPdZwhfM2NzT1qo/Yyhjh/czTSZXKvVlPP8DM28QufQzh9llIwqrEao9Jt59zw8fvvmh5nUqxyXqHpLUQ==
+
 "@capacitor/core@^3.3.4":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.3.4.tgz#5a302731d2d7a5461e10c55a6c113602b873d855"
@@ -2820,7 +2825,7 @@ autoprefixer@^10.2.4:
     picocolors "^1.0.0"
     postcss-value-parser "^4.2.0"
 
-axios@^0.25.0:
+axios@*, axios@^0.25.0:
   version "0.25.0"
   resolved "https://registry.yarnpkg.com/axios/-/axios-0.25.0.tgz#349cfbb31331a9b4453190791760a8d35b093e0a"
   integrity sha512-cD8FOb0tRH3uuEe6+evtAbgJtfxr7ly3fQjYcMcuPlgkwVS9xboaVIpcDV+cYQe+yGykgwZCs1pzjntcGa6l5g==
@@ -7698,6 +7703,11 @@ primeflex@^3.1.2:
   version "3.1.2"
   resolved "https://registry.yarnpkg.com/primeflex/-/primeflex-3.1.2.tgz#3d4118d9883fc8d5c35ed56c8c5b2a655ed0fc79"
   integrity sha512-q63sFNk3KPHSoM4EEEgo0MFTJSQhz4PZpJoQnVa8bcju/N7D8koloF9fniXV8UBlKFQzh0DLr5iFZ4c6FFXO4g==
+
+primeicons@^5.0.0:
+  version "5.0.0"
+  resolved "https://registry.yarnpkg.com/primeicons/-/primeicons-5.0.0.tgz#73a0b6028a77c58a9eeb331ad13aaf085e8451ee"
+  integrity sha512-heygWF0X5HFI1otlZE62pp6ye7sZ8om78J9au2BRkg8O7Y8AHTZ9qKMRzchZUHLe8zUAvdi6hZzzm9XxgwIExw==
 
 primevue@^3.10.0:
   version "3.10.0"

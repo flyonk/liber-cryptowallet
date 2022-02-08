@@ -8,14 +8,12 @@
         <div class="input-wrapper">
           <input
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
-            :autofocus="true"
             :data-id="index"
-            :disabled="disabled"
-            :pattern="type === 'number' ? '[0-9]' : undefined"
-            :required="required"
-            :type="type === 'number' ? 'tel' : type"
+            pattern="[0-9]"
+            type="number"
             :value="activationCode[index]"
-            maxlength="2"
+            min="0"
+            max="9"
             @input="onChange"
             @keydown.delete.prevent="onDelete"
           >
@@ -25,8 +23,10 @@
 
     <div class="button-submit">
       <base-button
+        v-if="withPasteButton"
         view="secondary"
         block
+        @click="onPaste"
       >
         Paste
       </base-button>
@@ -34,132 +34,9 @@
   </div>
 </template>
 
-<!-- <script lang="ts">
-import { defineComponent } from "vue-demi";
-
-export default defineComponent({
-  name: 'CodeInput',
-  props: {
-    type: {
-      type: String,
-      default: 'number',
-    },
-    className: String,
-    fields: {
-      type: Number,
-      default: 6,
-    },
-    fieldWidth: {
-      type: Number,
-      default: 58,
-    },
-    fieldHeight: {
-      type: Number,
-      default: 54,
-    },
-    autoFocus: {
-      type: Boolean,
-      default: true,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    title: String,
-    change: Function,
-    complete: Function,
-    loading: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  emits: ['change', 'complete'],
-  data() {
-    const { fields, values } = this;
-    let vals;
-    let autoFocusIndex = 0;
-    if (this.values && this.values.length) {
-      vals = [] as number[];
-      for (let i = 0; i < fields; i++) {
-        vals.push(values[i] || '');
-      }
-      autoFocusIndex = values.length >= fields ? 0 : values.length;
-    } else {
-      vals = Array(fields).fill('');
-    }
-    this.iRefs = [] as any[];
-    for (let i = 0; i < fields; i++) {
-      this.iRefs.push(`input_${i}`);
-    }
-    this.id = +new Date();
-    return { values: vals as number[], autoFocusIndex };
-  },
-  methods: {
-    onFocus(e: any) {
-      e.target.select(e);
-    },
-    onKeyDown(e) {
-      const index = parseInt(e.target.dataset.id);
-      const prevIndex = index - 1;
-      const nextIndex = index + 1;
-      const prev = this.iRefs[prevIndex];
-      const next = this.iRefs[nextIndex];
-      switch (e.keyCode) {
-        case KEY_CODE.backspace: {
-          e.preventDefault();
-          const vals = [...this.values];
-          if (this.values[index]) {
-            vals[index] = '';
-            this.values = vals;
-            this.triggerChange(vals);
-          } else if (prev) {
-            vals[prevIndex] = '';
-            this.$refs[prev][0].focus();
-            this.values = vals;
-            this.triggerChange(vals);
-          }
-          break;
-        }
-        case KEY_CODE.left:
-          e.preventDefault();
-          if (prev) {
-            this.$refs[prev][0].focus();
-          }
-          break;
-        case KEY_CODE.right:
-          e.preventDefault();
-          if (next) {
-            this.$refs[next][0].focus();
-          }
-          break;
-        case KEY_CODE.up:
-        case KEY_CODE.down:
-          e.preventDefault();
-          break;
-        default:
-          // this.handleKeys[index] = true;
-          break;
-      }
-    },
-    triggerChange(values = this.values) {
-      const { fields } = this;
-      const val = values.join('');
-      this.$emit('change', val);
-      if (val.length >= fields) {
-        this.$emit('complete', val);
-      }
-    },
-  },
-}
-);
-</script> -->
-
 <script lang="ts" setup>
 import { computed, onBeforeUpdate, Ref, ref } from 'vue';
+import { Clipboard } from '@capacitor/clipboard';
 
 import { BaseButton } from '@/components/UI';
 
@@ -172,35 +49,13 @@ const props = defineProps({
     type: Number,
     default: 6,
   },
-  fieldWidth: {
-    type: Number,
-    default: 58,
-  },
-  fieldHeight: {
-    type: Number,
-    default: 54,
-  },
-  autoFocus: {
+  withPasteButton: {
     type: Boolean,
-    default: true,
-  },
-  disabled: {
-    type: Boolean,
-    default: false,
-  },
-  required: {
-    type: Boolean,
-    default: false,
-  },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
+    default: true
+  }
 });
 
 const emit = defineEmits(['change', 'complete']);
-
-// const value = ref('');
 
 const inputs = ref([]) as Ref<HTMLElement[]>;
 
@@ -256,6 +111,20 @@ const onDelete = (event: Event) => {
   activationCode.value[currentId] = '';
 
   focusPrevInput(currentId);
+}
+
+const onPaste = async (): Promise<void> => {
+  try {
+    const { value } = await Clipboard.read();
+
+    if (/^\d+$/.test(value)) {
+      const substringValue = value.substr(0, 6)
+      
+      activationCode.value = [...substringValue]
+    }
+  } catch (e) {
+    console.error(e)
+  }
 }
 </script>
 

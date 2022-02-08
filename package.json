@@ -22,6 +22,7 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@capacitor/clipboard": "^1.0.7",
     "@capacitor/core": "^3.3.4",
     "@capacitor/ios": "^3.3.4",
     "@capacitor/push-notifications": "^1.0.9",
