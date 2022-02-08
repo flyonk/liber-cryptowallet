@@ -1,10 +1,10 @@
 <template name="DashboardTransferFundsToTreasuryStory">
   <div class="dashboard-story">
-    <div class="header">
+    <header class="header">
       <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
       <img class="image" src="@/assets/images/euro-coin.svg" alt="story" />
-    </div>
-    <div class="main">
+    </header>
+    <main class="main">
       <h1 class="title">Transfer funds to treasury and earn passive income.</h1>
       <p class="description">
         Using treasure, you can provide liquidity to the platform.
@@ -14,8 +14,10 @@
         platform.
       </p>
       <img class="image" src="@/assets/images/safe.png" alt="safe" />
+    </main>
+    <footer class="footer">
       <button class="btn">Add Liquidity</button>
-    </div>
+    </footer>
   </div>
 </template>
 
@@ -66,7 +68,9 @@
       padding-left: 20%;
       margin-bottom: 62px;
     }
+  }
 
+  > .footer {
     > .btn {
       display: flex;
       flex-direction: column;

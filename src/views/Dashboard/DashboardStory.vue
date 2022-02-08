@@ -1,14 +1,14 @@
 <template name="DashboardStory">
   <div class="dashboard-story">
-    <div class="header">
+    <header class="header">
       <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
         alt="story"
       />
-    </div>
-    <div class="main">
+    </header>
+    <main class="main">
       <h1 class="title">Verify your identity</h1>
       <p class="description">
         We require you to verify your identity before you can use this feature.
@@ -18,8 +18,10 @@
         src="@/assets/images/passport_upload.png"
         alt="upload document"
       />
+    </main>
+    <footer class="footer">
       <button class="btn">Verify identity</button>
-    </div>
+    </footer>
   </div>
 </template>
 
@@ -27,6 +29,8 @@
 
 <style lang="scss" scoped>
 .dashboard-story {
+  display: flex;
+  flex-direction: column;
   height: 100%;
   padding: 32px 24px;
   background: linear-gradient(
@@ -43,16 +47,17 @@
     > .close-btn {
       height: 24px;
       width: 24px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     > .image {
-      height: 45px;
-      width: 45px;
+      height: 64px;
+      width: 64px;
     }
   }
 
   > .main {
+    flex: 1 0 auto;
     > .title {
       font-weight: 800;
       font-size: 28px;
@@ -70,9 +75,11 @@
 
     > .image {
       padding-left: 10%;
-      margin-bottom: 62px;
+      margin-bottom: 31px;
     }
+  }
 
+  > .footer {
     > .btn {
       display: flex;
       flex-direction: column;

@@ -18,8 +18,10 @@
         src="@/assets/images/50-percent-loader.png"
         alt="50% completed"
       />
-      <button class="btn">Got it</button>
     </div>
+    <footer class="footer">
+      <button class="btn">Got it</button>
+    </footer>
   </div>
 </template>
 
@@ -44,7 +46,7 @@
     > .close-btn {
       height: 24px;
       width: 24px;
-      margin-bottom: 15px;
+      margin-bottom: 10px;
     }
 
     > .image {
@@ -73,7 +75,9 @@
       padding-left: 10%;
       margin-bottom: 100px;
     }
+  }
 
+  > .footer {
     > .btn {
       display: flex;
       flex-direction: column;
