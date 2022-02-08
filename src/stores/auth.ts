@@ -18,7 +18,7 @@ export interface IAuthState {
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
-      registration: 0,
+      registration: 1,
       login: 0,
       recover: 0,
     },

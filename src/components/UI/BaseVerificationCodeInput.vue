@@ -1,6 +1,5 @@
 <template>
   <div class="base-verification-code-input">
-    {{ activationCode }}
     <div class="input-container">
       <template
         v-for="(v, index) in fields"
@@ -16,7 +15,7 @@
             :required="required"
             :type="type === 'number' ? 'tel' : type"
             :value="activationCode[index]"
-            maxlength="1"
+            maxlength="2"
             @input="onChange"
             @keydown.delete.prevent="onDelete"
           >
@@ -231,10 +230,14 @@ const activationCodeString = computed(() => activationCode.value.join(''))
 
 const onChange = (event: Event) => {
   const value = (event.target as HTMLInputElement).value;
-
   const currentId = parseInt((event.target as HTMLInputElement).dataset.id as string);
 
-  activationCode.value[currentId] = value;
+
+  if (value.length > 1) {
+    activationCode.value[currentId] = value[value.length - 1];
+  } else {
+    activationCode.value[currentId] = value;
+  }
   
   if (value.length >= 1) {
     focusNextInput(currentId);
