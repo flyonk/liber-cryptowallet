@@ -252,6 +252,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/config-verify',
     name: 'configure-app-verify',
     component: () => import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Configure app options ===
@@ -260,17 +263,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/faceid',
     name: 'face-id',
     component: () => import('@/views/ConfigureApp/Options/FaceId.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/touchid',
     name: 'touch-id',
     component: () => import('@/views/ConfigureApp/Options/TouchId.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/push-notifications',
     name: 'push-notifications',
-    component: () =>
-      import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    component: () => import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Deposite btc ===

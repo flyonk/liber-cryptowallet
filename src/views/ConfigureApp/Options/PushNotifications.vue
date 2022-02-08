@@ -76,6 +76,21 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
   letter-spacing: -0.0043em;
 }
 
+.btn-default {
+  border-radius: 13px;
+  text-align: center;
+  box-shadow: none;
+  outline: none;
+  border: none;
+  height: 48px;
+  width: 100%;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+}
+
 .btn-primary {
   background-color: $color-primary;
   color: $color-white;
