@@ -29,6 +29,11 @@
 .dashboard-story {
   height: 100%;
   padding: 32px 24px;
+  background: linear-gradient(
+    180deg,
+    $color-light-grey 0%,
+    rgba(237, 240, 251, 0) 20%
+  );
 
   > .header {
     display: flex;
@@ -38,8 +43,7 @@
     > .close-btn {
       height: 24px;
       width: 24px;
-      align-self: flex-end;
-      margin-bottom: 5px;
+      margin-bottom: 15px;
     }
 
     > .image {
