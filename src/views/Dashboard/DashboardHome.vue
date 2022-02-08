@@ -1,5 +1,9 @@
 <template name="DashboardHome">
-  <div class="dashboard">
+  <DashboardSkeleton v-if="loading" />
+  <div
+    v-else
+    class="dashboard"
+  >
     <div class="header flex mb-4">
       <img
         src="@/assets/images/avatar.png"
@@ -149,11 +153,17 @@
 <script setup lang="ts">
 import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
 import { VueAgile } from 'vue-agile';
+import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue'
 import { ref } from 'vue';
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
 
 let isMenuOpen = ref(false);
+let loading = ref(true);
+
+setTimeout(() => {
+  loading.value = false
+}, 1500);
 
 function closeMenu() {
   isMenuOpen.value = false;
