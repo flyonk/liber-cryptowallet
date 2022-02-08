@@ -8,24 +8,27 @@
       Get a verification code from the authenticator app
     </p>
 
-    <input v-model="verificationCode" type="text" />
+    <base-verification-code-input 
+      v-model="verificationCode"
+    />
+
   </div>
   <div style="padding: 15px">
-    <button
-      tyte="button"
-      class="btn-default btn-primary"
-      @click="pasteFromClipboard"
-    >
+    <base-button
+        block
+        @click="pasteFromClipboard"
+      >
       Paste
-    </button>
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
-import { useRouter } from 'vue-router';
-import { ref, watch } from 'vue';
-const verificationCode = ref('');
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
+import { BaseButton, BaseVerificationCodeInput } from '@/components/UI'
+import { useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
+const verificationCode = ref('')
 
 const router = useRouter();
 
@@ -92,32 +95,6 @@ watch(verificationCode, (code) => {
   letter-spacing: -0.0043em;
   color: $color-brand;
   margin-bottom: 20px;
-}
-
-.btn-default {
-  border-radius: 13px;
-  text-align: center;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  height: 48px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-}
-
-.btn-primary {
-  background-color: $color-primary;
-  color: $color-white;
-}
-
-.btn-secondary {
-  margin-top: 10px;
-  color: $color-primary;
-  background-color: transparent;
 }
 
 .page-content {
