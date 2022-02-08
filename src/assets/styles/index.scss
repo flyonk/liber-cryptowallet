@@ -1,4 +1,5 @@
 // --- Only imports ---
+@import './common/reset';
 
 @import './common/reset';
 
@@ -9,8 +10,10 @@
 
 // Libraries
 @import 'primeflex/primeflex.css';
+@import 'primevue/resources/themes/saga-blue/theme.css';
 @import 'primevue/resources/primevue.min.css';
-@import './libs/coolicons';
+// @import 'primeicons/primeicons.css';
+@import 'vue-agile/dist/VueAgile.css';
 
 // UI
 @import './theme/index';

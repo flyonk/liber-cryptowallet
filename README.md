@@ -3,7 +3,11 @@
 ## Links
 
 [Kanban Tasks](https://github.com/orgs/cryptowize-tech/projects/2/views/1)
+
+[Screens Tasks](https://github.com/orgs/cryptowize-tech/projects/9/views/1)
+
 [Figma Liber App](https://www.figma.com/file/jiR05eX1dbN6NFNBEUolDa/Liber-App)
+
 [Figma Liber UI Kit](https://www.figma.com/file/03BEDylTZpq3uwoGEaQ6nk/Liber-UI-KIT)
 
 ## Project setup

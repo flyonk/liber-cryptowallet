@@ -5,28 +5,74 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/home/transactions')"
-      />
+        @click="$router.push('/transactions')" 
+      >
       <div class="sum">
-        <div class="title">- 2.12345678<span>USDT</span></div>
+        <div class="title">
+          - 2.12345678<span>USDT</span>
+        </div>
         <div class="arrow-wrap">
-          <img src="@/assets/icon/short_right.svg" alt="right" />
+          <img
+            src="@/assets/icon/short_right.svg"
+            alt="right"
+          >
         </div>
       </div>
-      <h2 class="sendto">To Abraham Watson</h2>
-      <p class="date">2 days ago</p>
-      <button class="pdf-btn">
-        <img class="pdf-icon" src="@/assets/icon/file_pdf.svg" />
-        <p>Download Statement</p>
-      </button>
+      <h2 class="sendto">
+        To Abraham Watson
+      </h2>
+      <p class="date">
+        2 days ago
+      </p>
+      <div class="controls">
+        <button
+          v-if="transactionType === 'send'"
+          class="btn btn--pdf"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/file_pdf.svg"
+          >
+          <p>Download Statement</p>
+        </button>
+        <button
+          v-if="transactionType === 'payment-link'"
+          class="btn btn--share"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/share.svg"
+          >
+          <p>Share</p>
+        </button>
+        <button
+          v-if="transactionType === 'payment-link'"
+          class="btn btn--cancel"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/close_red.svg"
+          >
+          <p>Cancel</p>
+        </button>
+      </div>
     </div>
     <ul class="main">
       <li class="item">
-        <p class="name">Sent without reference</p>
+        <p class="name">
+          Sent without reference
+        </p>
       </li>
       <li class="item">
-        <p class="name">Status</p>
-        <div v-if="transactionStatus === 'pending'" class="status">Pending</div>
+        <p class="name">
+          Status
+        </p>
+        <div
+          v-if="transactionStatus === 'pending'"
+          class="status"
+        >
+          Pending
+        </div>
         <div
           v-if="transactionStatus === 'complete'"
           class="status status--complete"
@@ -41,32 +87,51 @@
         </div>
       </li>
       <li class="item">
-        <p class="name">Payment to</p>
+        <p class="name">
+          Payment to
+        </p>
         <div class="right">
-          <img src="@/assets/icon/green_ok.svg" />
+          <img src="@/assets/icon/green_ok.svg">
           <p>Abraham Watson ∙ USDT</p>
         </div>
       </li>
       <li class="item">
-        <p class="name">Transfer Fee</p>
-        <p class="description">0,12345678 USDT</p>
+        <p class="name">
+          Transfer Fee
+        </p>
+        <p class="description">
+          0,12345678 USDT
+        </p>
       </li>
       <li class="item">
         <div class="inner">
-          <p class="name">Transaction ID</p>
-          <p class="transaction-id">3M8w2knJKsr3jqMatYiyuraxVvZA</p>
+          <p class="name">
+            Transaction ID
+          </p>
+          <p class="transaction-id">
+            3M8w2knJKsr3jqMatYiyuraxVvZA
+          </p>
         </div>
         <div class="inner">
-          <img src="@/assets/icon/folders.svg" alt="folders" />
+          <img
+            src="@/assets/icon/folders.svg"
+            alt="folders"
+          >
         </div>
       </li>
     </ul>
-    <h2 class="open-title">Open in Explorer</h2>
+    <h2 class="open-title">
+      Open in Explorer
+    </h2>
   </div>
 </template>
 
 <script setup lang="ts">
-const transactionStatus = 'complete';
+import { ref } from 'vue'
+const transactionStatus = 'complete'
+
+const transactionType = ref('payment-link')
+
 </script>
 
 <style lang="scss" scoped>
@@ -127,26 +192,45 @@ const transactionStatus = 'complete';
       margin-bottom: 16px;
     }
 
-    > .pdf-btn {
+    >.controls {
+      display: flex;
+      margin-bottom: 40px;
+
+      >.btn {
       display: flex;
       justify-content: center;
       align-items: center;
-      position: absolute;
-      width: 192px;
-      height: 40px;
-      left: 16px;
-      top: 194px;
-      background: #2862ff;
       border-radius: 8px;
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #fff;
-      margin-bottom: 40px;
+      font-weight: 600;
+      color: #FFFFFF;
+      background: #2862FF;
+      height: 40px;
+      margin-right: 8px;
 
-      > .pdf-icon {
-        margin-right: 12px;
+      &--pdf {
+        width: 192px;
       }
+
+
+      &--share {
+        width: 97px;
+      }
+
+      &--cancel {
+        width: 104px;
+        background: #FEECEB;
+        color: #F44336;
+
+      }
+
+
+      >.icon {
+        margin-right: 10px;
+      }
+    }
     }
   }
 
@@ -248,8 +332,8 @@ const transactionStatus = 'complete';
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #2862ff;
-    text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
+    color: #2862FF;
+    text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
   }
 }
 </style>

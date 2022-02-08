@@ -1,8 +1,25 @@
 <template>
-  <router-view class="router-view" />
+  <p-toast position="center">
+    <template #message="slotProps">
+      <div class="toast-content">
+        <div class="icon">
+          <i class="pi pi-check" />
+        </div>
+        <h4 class="title">
+          {{ slotProps.message.summary }}
+        </h4>
+      </div>
+    </template>
+  </p-toast>
+
+  <app-layout-switcher>
+    <router-view class="router-view" />
+  </app-layout-switcher>
 </template>
 
 <script setup lang="ts">
+import PToast from 'primevue/toast';
+import AppLayoutSwitcher from './components/Common/AppLayoutSwitcher.vue';
 import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();

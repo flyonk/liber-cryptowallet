@@ -1,16 +1,22 @@
 <template>
   <div class="page-wrapper">
-    <button class="close-page" @click="closePage">
-      <img src="@/assets/images/close-icon.svg" alt="close page" />
+    <button
+      class="close-page"
+      @click="closePage"
+    >
+      <img
+        src="@/assets/images/close-icon.svg"
+        alt="close page"
+      >
     </button>
 
     <div v-if="dictionary[activeQuestion]">
       <h1 class="main-title">
-        {{ dictionary[activeQuestion].question.body }}
+        {{ title }}
       </h1>
 
       <p class="text-default">
-        We need to know this for regulatory reasons. And also, we are curious!
+        {{ description }}
       </p>
 
       <div>
@@ -20,7 +26,7 @@
         >
           <label
             class="radio-btn"
-            :class="{ 'is-selected': answer.isSelected }"
+            :class="{ '-selected': answer.isSelected }"
           >
             <input
               :id="answer.id"
@@ -29,18 +35,21 @@
               :value="answer.id"
               style="display: none"
               @change="selectAnswer(answer.id)"
-            />
-            <span
-              class="radiobtn-item"
-              :class="{ 'radiobtn-selected': answer.isSelected }"
-              >{{ answer.body }}</span
             >
+            <span
+              class="title"
+              :class="{ '-selected': answer.isSelected }"
+            >{{ answer.body }}</span>
             <img
               v-if="answer.isSelected"
               src="@/assets/images/arrow-white.svg"
               alt="right arrow"
-            />
-            <img v-else src="@/assets/images/arrow.svg" alt="right arrow" />
+            >
+            <img
+              v-else
+              src="@/assets/images/arrow.svg"
+              alt="right arrow"
+            >
           </label>
         </template>
       </div>
@@ -49,7 +58,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue'
+import { useRouter } from 'vue-router'
+
+const router = useRouter()
 
 type dictionaryItem = {
   id: number | string;
@@ -93,9 +105,9 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = () => {
-  console.log('store answere logic here');
-};
+const saveAnswers = (answers:Dictionary) => {
+  return Promise.resolve(answers)
+}
 
 const markAnswerAsSelected = (id: number | string) => {
   dictionary.value[activeQuestion.value].answers = dictionary.value[
@@ -125,19 +137,29 @@ const getSelectedAnswers = () => {
 const selectAnswer = (id: number | string) => {
   const maxValue = dictionary.value.length;
   if (maxValue <= activeQuestion.value + 1) {
-    markAnswerAsSelected(id);
-    const userAnswers = getSelectedAnswers();
-    console.log('select last anser please done', userAnswers);
-    saveAnswers();
-    return;
+    markAnswerAsSelected(id)
+    const userAnswers = getSelectedAnswers()
+    saveAnswers(userAnswers)
+      .then(() => {
+        router.push('/')
+      })
+    return
   }
   markAnswerAsSelected(id);
   activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue);
 };
 
 const closePage = () => {
-  console.log('close this page');
-};
+  console.log('close this page')
+}
+
+const description = computed(() => {
+  return 'We need to know this for regulatory reasons. And also, we are curious!'
+})
+
+const title = computed(() => {
+  return dictionary.value[activeQuestion.value].question.body
+})
 </script>
 
 <style lang="scss" scoped>
@@ -170,15 +192,6 @@ const closePage = () => {
   margin-bottom: 40px;
 }
 
-.radiobtn-item {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 21px;
-  letter-spacing: -0.0031em;
-  color: #0d1f3c;
-}
-
 .radio-btn {
   border: 1px solid #ebecf0;
   padding: 15px 20px;
@@ -200,13 +213,22 @@ const closePage = () => {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
   }
-}
 
-.is-selected {
-  background-color: $color-blue;
-}
+  &.-selected {
+    background-color: $color-blue;
+  }
 
-.radiobtn-selected {
-  color: white;
+  & > .title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.0031em;
+    color: #0D1F3C;
+  }
+
+  & > .title.-selected {
+    color: white;
+  }
 }
 </style>

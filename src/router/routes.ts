@@ -1,4 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
+import DepositeRoutes from './routesDeposite'
 
 // Pages
 import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
@@ -15,6 +16,22 @@ const routes: Array<RouteRecordRaw> = [
     name: 'auth-phone',
     component: PhoneEnter,
     meta: { layout: 'default' },
+  },
+  {
+    path: '/welcome',
+    name: 'welcome-logo-screen',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeLogoScreen.vue'
+      ),
+  },
+  {
+    path: '/welcome-auth',
+    name: 'welcome-auth-screen',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeAuthScreen.vue'
+      ),
   },
   {
     path: '/code',
@@ -65,6 +82,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'dashboard-parent',
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/index.vue'),
+    meta: { layout: 'navbar' },
     children: [
       {
         path: '',
@@ -75,43 +93,103 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: 'accounts',
-        name: 'dashboard-account',
+        path: 'verification',
+        name: 'dashboard-verification',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
+          ),
+      },
+      {
+        path: 'story',
+        name: 'dashboard-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
+          ),
+      },
+    ],
+  },
+
+  // === Account ===
+
+  {
+    path: '/account',
+    name: 'account',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/index.vue'
+      ),
+    meta: { layout: 'navbar' },
+    children: [
+      {
+        path: '',
+        name: 'account-main',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
           ),
       },
       {
-        path: 'accounts/add',
-        name: 'dashboard-account-add',
+        path: 'add',
+        name: 'account-add',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
           ),
       },
       {
-        path: 'transactions',
-        name: 'dashboard-transactions',
+        path: 'profile',
+        name: 'account-profile',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountProfile.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'settings',
+        name: 'account-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountSettings.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'devices',
+        name: 'account-devices',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountDevices.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+    ],
+  },
+  {
+    path: '/transactions',
+    name: 'transactions',
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/index.vue'
+      ),
+    meta: { layout: 'navbar' },
+    children: [
+      {
+        path: '',
+        name: 'transactions-main',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
           ),
       },
       {
-        path: 'transactions/details',
-        name: 'dashboard-transactions-details',
+        path: 'details',
+        name: 'transactions-details',
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
-          ),
-      },
-      {
-        path: 'verification',
-        name: 'dashboard-verification',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
           ),
       },
     ],
@@ -156,6 +234,48 @@ const routes: Array<RouteRecordRaw> = [
     name: 'install-app',
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
+  },
+
+  // === Configure app ===
+
+  {
+    path: '/config',
+    name: 'configure-app',
+    component: () => import('@/views/ConfigureApp/ConfigureApp.vue'),
+  },
+  {
+    path: '/config-verify',
+    name: 'configure-app-verify',
+    component: () => import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
+  },
+
+  // === Configure app options ===
+
+  {
+    path: '/faceid',
+    name: 'face-id',
+    component: () => import('@/views/ConfigureApp/Options/FaceId.vue'),
+  },
+  {
+    path: '/touchid',
+    name: 'touch-id',
+    component: () => import('@/views/ConfigureApp/Options/TouchId.vue'),
+  },
+  {
+    path: '/push-notifications',
+    name: 'push-notifications',
+    component: () =>
+      import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+  },
+
+  // === Deposite btc ===
+  
+  {
+    path: '/deposit',
+    name: 'deposit',
+    component: () =>
+      import('@/views/DepositeCoin/DepositeIndex.vue'),
+    children: DepositeRoutes
   },
 ];
 
