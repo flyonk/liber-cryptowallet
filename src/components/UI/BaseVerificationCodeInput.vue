@@ -36,6 +36,10 @@ const KEY_CODE = {
 };
 export default {
   name: 'CodeInput',
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue'
+  },
   props: {
     type: {
       type: String,
@@ -74,7 +78,7 @@ export default {
       default: false,
     },
   },
-  emits: ['change', 'complete'],
+  emits: ['change', 'complete', 'update:modelValue'],
   data() {
     const { fields, values } = this;
     let vals;
@@ -188,6 +192,7 @@ export default {
     triggerChange(values = this.values) {
       const { fields } = this;
       const val = values.join('');
+      this.$emit('update:modelValue', val)
       this.$emit('change', val);
       if (val.length >= fields ) {
         this.$emit('complete', val);
