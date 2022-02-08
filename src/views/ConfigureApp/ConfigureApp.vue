@@ -59,6 +59,8 @@ import { BaseButton } from '@/components/UI';
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
+import { useToast } from "primevue/usetoast";
+const toast = useToast()
 
 const canvas = ref<HTMLCanvasElement | undefined>();
 let qrCodeValue = ref<string>('');
@@ -78,7 +80,7 @@ onMounted(() => {
 const copyToClipboard = () => {
   navigator.clipboard.writeText(qrCodeValue.value).then(
     function () {
-      console.log('Async: Copying to clipboard was successful!');
+      toast.add({ summary: 'Copying to clipboard was successful!', life: 3000, closable: false})
     },
     function (err) {
       console.error('Async: Could not copy text: ', err);
