@@ -8,10 +8,10 @@
         @click="$router.push('/transactions')"
       >
       <div class="sum">
-        <div class="title">
-          - 2.12345678<span>USDT</span>
+        <div class="sum-title">
+          - 2.12345678<span class="currency">USDT</span>
         </div>
-        <div class="arrow-wrap">
+        <div class="arrow">
           <img
             src="@/assets/icon/short_right.svg"
             alt="right"
@@ -37,7 +37,7 @@
         </button>
         <button
           v-if="transactionType === 'payment-link'"
-          class="btn btn--share"
+          class="btn -share"
         >
           <img
             class="icon"
@@ -47,7 +47,7 @@
         </button>
         <button
           v-if="transactionType === 'payment-link'"
-          class="btn btn--cancel"
+          class="btn btn -cancel"
         >
           <img
             class="icon"
@@ -57,13 +57,13 @@
         </button>
       </div>
     </div>
-    <ul class="main">
-      <li class="item">
+    <ul class="main mb-5">
+      <li class="main-item">
         <p class="name">
           Sent without reference
         </p>
       </li>
-      <li class="item">
+      <li class="main-item">
         <p class="name">
           Status
         </p>
@@ -75,27 +75,32 @@
         </div>
         <div
           v-if="transactionStatus === 'complete'"
-          class="status status--complete"
+          class="status -complete"
         >
           Complete
         </div>
         <div
           v-if="transactionStatus === 'reverted'"
-          class="status status--reverted"
+          class="status -reverted"
         >
           Reverted
         </div>
       </li>
-      <li class="item">
+      <li class="main-item">
         <p class="name">
           Payment to
         </p>
-        <div class="right">
-          <img src="@/assets/icon/green_ok.svg">
-          <p>Abraham Watson ∙ USDT</p>
+        <div class="item-right">
+          <img
+            class="icon"
+            src="@/assets/icon/green_ok.svg"
+          >
+          <p class="name">
+            Abraham Watson ∙ USDT
+          </p>
         </div>
       </li>
-      <li class="item">
+      <li class="main-item">
         <p class="name">
           Transfer Fee
         </p>
@@ -103,12 +108,12 @@
           0,12345678 USDT
         </p>
       </li>
-      <li class="item">
+      <li class="main-item">
         <div class="inner">
           <p class="name">
             Transaction ID
           </p>
-          <p class="transaction-id">
+          <p class="transaction">
             3M8w2knJKsr3jqMatYiyuraxVvZA
           </p>
         </div>
@@ -120,7 +125,7 @@
         </div>
       </li>
     </ul>
-    <h2 class="open-title">
+    <h2 class="explorer">
       Open in Explorer
     </h2>
   </div>
@@ -146,23 +151,7 @@ const transactionType = ref('payment-link');
       justify-content: space-between;
       margin-bottom: 4px;
 
-      > .title {
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-        font-size: 28px;
-        line-height: 34px;
-        letter-spacing: 0.0038em;
-
-        span {
-          font-size: 22px;
-          line-height: 34px;
-          letter-spacing: -0.0026em;
-          padding-left: 8px;
-        }
-      }
-
-      > .arrow-wrap {
+      > .arrow {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -213,11 +202,11 @@ const transactionType = ref('payment-link');
           width: 192px;
         }
 
-        &--share {
+        &.-share {
           width: 97px;
         }
 
-        &--cancel {
+        &.-cancel {
           width: 104px;
           background: $color-red-50;
           color: $color-red;
@@ -230,106 +219,118 @@ const transactionType = ref('payment-link');
     }
   }
 
-  > .main {
-    margin-bottom: 28px;
-
-    > .item {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 53px;
-      border-bottom: 1px solid rgb(175 179 195 / 30%);
-
-      &:first-child {
-        border-top: 1px solid rgb(175 179 195 / 30%);
-      }
-
-      > .name {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 21px;
-        display: flex;
-        align-items: center;
-        letter-spacing: -0.0031em;
-        color: $color-dark-grey;
-      }
-
-      > .status {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 87px;
-        height: 31px;
-        background: $color-yellow-100;
-        border-radius: 100px;
-        color: $color-yellow-800;
-
-        &--complete {
-          background: $color-green-100;
-          color: $color-green-800;
-        }
-
-        &--reverted {
-          background: $color-red-100;
-          color: $color-red-700;
-        }
-      }
-
-      > .right {
-        display: flex;
-
-        p {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 21px;
-          display: flex;
-          align-items: center;
-          text-align: right;
-          letter-spacing: -0.0031em;
-          color: $color-brand-primary;
-        }
-
-        img {
-          margin-right: 9px;
-        }
-      }
-
-      > .description {
-        font-weight: 500;
-        font-size: 16px;
-        line-height: 21px;
-        text-align: right;
-        letter-spacing: -0.0031em;
-      }
-
-      > .inner {
-        > .name {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 21px;
-          display: flex;
-          align-items: center;
-          letter-spacing: -0.0031em;
-          color: $color-dark-grey;
-        }
-
-        > .transaction-id {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 21px;
-          letter-spacing: -0.0031em;
-        }
-      }
-    }
-  }
-
-  > .open-title {
+  > .explorer {
     font-weight: 600;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
     color: $color-primary;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+  }
+}
+
+.sum-title {
+  display: flex;
+  align-items: center;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.0038em;
+
+  >.currency {
+    font-size: 22px;
+    line-height: 34px;
+    letter-spacing: -0.0026em;
+    padding-left: 8px;
+  }
+}
+
+.main-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 53px;
+  border-bottom: 1px solid rgb(175 179 195 / 30%);
+
+  &:first-child {
+    border-top: 1px solid rgb(175 179 195 / 30%);
+  }
+
+  > .name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.0031em;
+    color: $color-dark-grey;
+  }
+
+  > .status {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 87px;
+    height: 31px;
+    background: $color-yellow-100;
+    border-radius: 100px;
+    color: $color-yellow-800;
+
+    &.-complete {
+      background: $color-green-100;
+      color: $color-green-800;
+    }
+
+    &.-reverted {
+      background: $color-red-100;
+      color: $color-red-700;
+    }
+  }
+
+  > .description {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: right;
+    letter-spacing: -0.0031em;
+  }
+
+  > .inner {
+    > .name {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      display: flex;
+      align-items: center;
+      letter-spacing: -0.0031em;
+      color: $color-dark-grey;
+    }
+
+    > .transaction {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 21px;
+      letter-spacing: -0.0031em;
+    }
+  }
+}
+
+.item-right {
+  display: flex;
+
+  >.name {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    display: flex;
+    align-items: center;
+    text-align: right;
+    letter-spacing: -0.0031em;
+    color: $color-brand-primary;
+  }
+
+  >.icon {
+    margin-right: 9px;
   }
 }
 </style>
