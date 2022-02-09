@@ -76,4 +76,69 @@ let isSocialMediaAgreement = ref(true);
 </script>
 
 <style lang="scss">
+.privacy-settings {
+  height: 100%;
+  padding: 60px 16px 0;
+  flex-grow: 1;
+  overflow: auto;
+
+  > .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  > .title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 24px;
+  }
+
+  > .main > .subtitle {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-dark-grey;
+    margin-bottom: 10px;
+  }
+
+  > .main > .section {
+    margin: 17px 0px 17px 0px;
+  }
+
+  > .main > .section > .header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  > .main > .section > .header > .title {
+    font-family: Inter;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+    color: $color-brand-primary;
+  }
+
+  > .main > .section > .description {
+    width: 235px;
+    font-family: Inter;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-dark-grey;
+  }
+
+  > .main > .separator {
+    background: $color-grey;
+    opacity: 0.3;
+  }
+}
 </style>
