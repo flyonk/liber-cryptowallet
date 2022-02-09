@@ -73,11 +73,11 @@
 
     > .image {
       padding-left: 10%;
-      margin-bottom: 100px;
     }
   }
 
   > .footer {
+    margin-top: 105px;
     > .btn {
       display: flex;
       flex-direction: column;
