@@ -34,6 +34,7 @@ watch(route.currentRoute, (val) => {
 
   >.main{
     height: 100%;
+    overflow:scroll;
   }
 }
 </style>
