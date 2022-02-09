@@ -57,7 +57,6 @@
   }
 
   > .main {
-    flex: 1 0 auto;
     > .title {
       font-weight: 800;
       font-size: 28px;
@@ -75,11 +74,11 @@
 
     > .image {
       padding-left: 10%;
-      margin-bottom: 37px;
     }
   }
 
   > .footer {
+    margin-top: 42px;
     > .btn {
       display: flex;
       flex-direction: column;
@@ -87,8 +86,6 @@
       align-items: center;
       width: 343px;
       height: 48px;
-      left: 16px;
-      top: 710px;
       background: $color-primary;
       border-radius: 13px;
       color: $color-white;
