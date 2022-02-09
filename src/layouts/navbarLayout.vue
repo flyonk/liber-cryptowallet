@@ -1,6 +1,6 @@
 <template>
   <div class="navbar-layout layout">
-    <main>
+    <main class="main">
       <slot />
     </main>
     <bottom-nav v-if="showNavBar" />
@@ -31,5 +31,9 @@ watch(route.currentRoute, (val) => {
 .navbar-layout {
   height: 100vh;
   position: relative;
+
+  >.main{
+    height: 100%;
+  }
 }
 </style>
