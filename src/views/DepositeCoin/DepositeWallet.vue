@@ -161,7 +161,7 @@ const updateNetwork = () => {
 .page-wrapper {
   padding: 15px;
   flex-grow: 1;
-  background-color: #F7F8FD;
+  background-color: $color-light-grey-200;
   display: flex;
   flex-direction: column;
 }
@@ -211,7 +211,7 @@ const updateNetwork = () => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #78809B;
+    color: $color-dark-grey;
   }
 
   & > .content {
@@ -256,7 +256,7 @@ const updateNetwork = () => {
 }
 
 .text-default {
-  color: #78809B;
+  color: $color-dark-grey;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
@@ -266,7 +266,7 @@ const updateNetwork = () => {
 
 .wallet-footer {
   padding: 15px;
-  border: 1px solid #EBECF0;
+  border: 1px solid $color-brand-2-50;
   border-radius: 12px;
   margin-top: 20px;
   margin-bottom: 40px;
@@ -286,7 +286,7 @@ const updateNetwork = () => {
   line-height: 18px;
 
   & > .content { 
-    color: $color-brand;
+    color: $color-brand-primary;
     font-weight: 500;
   }
 }

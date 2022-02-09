@@ -157,7 +157,7 @@ const onPaste = async (): Promise<void> => {
 
       &:focus {
         outline: none;
-        border-color: $color-primary-500;
+        border-color: $color-primary;
         background: transparent;
       }
     }

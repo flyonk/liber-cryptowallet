@@ -184,12 +184,12 @@ const classes = computed(() => [
 
   &.-ghost {
     background: transparent;
-    border: 2px solid $color-primary-500;
+    border: 2px solid $color-primary;
 
     > .container {
       > .label,
       i {
-        color: $color-primary-500;
+        color: $color-primary;
       }
     }
 
@@ -225,7 +225,7 @@ const classes = computed(() => [
     > .container {
       > .label,
       i {
-        color: $color-primary-500;
+        color: $color-primary;
       }
     }
 
@@ -236,7 +236,7 @@ const classes = computed(() => [
       > .container {
         > .label,
         i {
-          color: #fff;
+          color: $color-white;
         }
       }
     }
@@ -252,12 +252,12 @@ const classes = computed(() => [
   }
 
   &.-simple {
-    background: $color-primary-500;
+    background: $color-primary;
 
     > .container {
       > .label,
       i {
-        color: #fff;
+        color: $color-white;
       }
     }
 

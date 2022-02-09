@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/account')"
+          @click="$router.push('/home')"
         />
         <h1 class="title">
           {{ accountName }}
@@ -39,7 +39,7 @@
           <img class="icon" src="@/assets/icon/user_circle.svg" />
           <p class="text">Personal details</p>
         </li>
-        <li class="item">
+        <li class="item"  @click="$router.push('/account/all-accounts')">
           <img class="icon" src="@/assets/icon/data.svg" />
           <p class="text">All accounts</p>
         </li>
@@ -134,14 +134,14 @@ const nameInitials = computed(() => {
         display: flex;
         align-items: center;
         letter-spacing: -0.0045em;
-        color: #78809b;
+        color: $color-dark-grey;
       }
     }
 
     > .right {
       height: 56px;
       width: 56px;
-      background: #ffebb0;
+      background: $color-yellow-100;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -167,15 +167,15 @@ const nameInitials = computed(() => {
 
       &--blue {
         width: 143px;
-        background: #2862ff;
-        color: #fff;
+        background: $color-primary;
+        color: $color-white;
         margin-right: 8px;
       }
 
       &--white {
         width: 117px;
-        background: #edf0fb;
-        color: #2862ff;
+        background: $color-light-grey;
+        color: $color-primary;
       }
 
       > .icon {
@@ -190,7 +190,7 @@ const nameInitials = computed(() => {
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #78809b;
+      color: $color-dark-grey;
       margin-bottom: 10px;
     }
 
@@ -220,7 +220,7 @@ const nameInitials = computed(() => {
           display: flex;
           align-items: center;
           letter-spacing: -0.0031em;
-          color: #0d1f3c;
+          color: $color-brand-primary;
         }
       }
     }
@@ -233,7 +233,7 @@ const nameInitials = computed(() => {
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #78809b;
+      color: $color-dark-grey;
       margin-bottom: 4px;
 
       &:last-child {

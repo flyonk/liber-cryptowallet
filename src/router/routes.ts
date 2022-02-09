@@ -2,7 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 import DepositeRoutes from './routesDeposite'
 
 // Pages
-import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
+// import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
@@ -11,14 +11,14 @@ import Restore from '@/views/Auth/Restore/MainRestore.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
+  // {
+  //   path: '/',
+  //   name: 'auth-phone',
+  //   component: PhoneEnter,
+  //   meta: { layout: 'default' },
+  // },
   {
     path: '/',
-    name: 'auth-phone',
-    component: PhoneEnter,
-    meta: { layout: 'default' },
-  },
-  {
-    path: '/welcome',
     name: 'welcome-logo-screen',
     component: () =>
       import(
@@ -123,7 +123,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     children: [
       {
-        path: '',
+        path: 'all-accounts',
         name: 'account-main',
         component: () =>
           import(

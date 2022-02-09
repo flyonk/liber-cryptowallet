@@ -22,8 +22,14 @@
       </div>
     </main>
     <footer class="footer">
-      <button class="login">Log in</button>
-      <button class="signup">Sign up</button>
+      <button 
+        class="login"
+        @click="$router.push('/login')"
+      >Log in</button>
+      <button 
+        class="signup"
+        @click="$router.push('/sign-up')"
+      >Sign up</button>
     </footer>
   </section>
 </template>
@@ -52,7 +58,7 @@
     font-weight: 600;
     font-size: 13px;
     line-height: 18px;
-    color: white;
+    color: $color-white;
     margin-left: 25px;
   }
 
@@ -69,7 +75,7 @@
     font-size: 34px;
     line-height: 41px;
     letter-spacing: 0.004em;
-    color: white;
+    color: $color-white;
     margin-left: 25px;
   }
 
@@ -94,8 +100,8 @@
   }
 
   > .footer > .login {
-    background-color: #fff;
-    color: #000;
+    background-color: $color-white;
+    color: $color-black;
     width: 155.5px;
     height: 48px;
     border-radius: 13px;
@@ -106,8 +112,8 @@
     font-style: normal;
   }
   > .footer > .signup {
-    background-color: $color-ui-primary-500;
-    color: #fff;
+    background-color: $color-primary;
+    color: $color-white;
     width: 155.5px;
     height: 48px;
     border-radius: 13px;

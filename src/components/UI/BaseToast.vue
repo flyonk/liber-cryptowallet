@@ -81,7 +81,7 @@ const currentImage = computed(() => {
         margin-bottom: 24px;
 
         .image {
-            color: red;
+            color: $color-red;
         }
     }
 
@@ -90,7 +90,7 @@ const currentImage = computed(() => {
         color: $color-dark-grey;
 
         .link {
-            color: $color-blue;
+            color: $color-primary;
         }
     }
 }

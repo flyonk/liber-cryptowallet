@@ -78,9 +78,9 @@
       height: 48px;
       left: 16px;
       top: 710px;
-      background: #2862ff;
+      background: $color-primary;
       border-radius: 13px;
-      color: white;
+      color: $color-white;
       font-weight: 600;
       font-size: 17px;
       line-height: 22px;
