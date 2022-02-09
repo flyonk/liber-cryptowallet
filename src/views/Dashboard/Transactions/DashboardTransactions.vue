@@ -9,8 +9,8 @@
       >
       <div class="count">
         <div class="flex">
-          <h1 class="title">
-            2.12345678 <span>USDT</span>
+          <h1 class="title title-currency">
+            2.12345678 <span class="currency">USDT</span>
           </h1>
           <img
             class="icon"
@@ -23,7 +23,7 @@
         </p>
       </div>
       <VueAgile
-        class="carousel"
+        class="carousel-slider"
         :slides-to-show="2"
         :nav-buttons="false"
       >
@@ -46,26 +46,27 @@
         v-if="showControls"
         class="controls"
       >
-        <button class="control-btn">
+        <button class="btn">
           <img
             class="label"
             src="@/assets/icon/plus.svg"
           >Deposit
         </button>
-        <button class="control-btn">
+        <button class="btn">
           <img
             class="label"
             src="@/assets/icon/arrow-right-white.svg"
           >Send
         </button>
-        <button class="control-btn">
+        <button class="btn">
           <img
             class="label"
             src="@/assets/icon/repeat.svg"
           >Exchange
         </button>
       </div>
-      <div class="tabs">
+      
+      <div class="main-tabs">
         <div
           class="tab"
           :class="{ active: activeTab === 1 }"
@@ -116,7 +117,7 @@
               </p>
               <p
                 v-else
-                class="second-sum"
+                class="sum"
               >
                 {{ transaction.sum }}
               </p>
@@ -127,20 +128,20 @@
 
       <div
         v-if="activeTab === 2"
-        class="wallet-address"
+        class="wallet"
       >
         <img
           src="@/assets/images/qr-code.png"
           alt="qr-code"
-          class="qr-code"
+          class="qr"
         >
-        <div class="address">
+        <div class="wallet-address">
           <h4 class="title">
             Wallet Address
           </h4>
           <div class="account">
-            <div class="address-number">
-              <p>
+            <div class="crypto-number">
+              <p class="text">
                 1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span>
               </p>
             </div>
@@ -149,7 +150,7 @@
               alt="folders"
             >
           </div>
-          <h2 class="blue-title">
+          <h2 class="bluetitle">
             Generate New Address
           </h2>
           <div class="controls">
@@ -247,6 +248,7 @@ const carousel = [
 
   > .header {
     padding: 0 16px;
+
     > .count {
       > .flex {
         > .icon {
@@ -260,13 +262,6 @@ const carousel = [
           font-size: 28px;
           line-height: 34px;
           letter-spacing: 0.0038em;
-
-          span {
-            font-weight: 600;
-            font-size: 22px;
-            line-height: 34px;
-            letter-spacing: -0.0026em;
-          }
         }
       }
 
@@ -281,7 +276,7 @@ const carousel = [
       width: 100%;
       margin-bottom: 32px;
 
-      > .control-btn {
+      > .btn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -294,34 +289,6 @@ const carousel = [
         > .label {
           margin-right: 9px;
         }
-      }
-    }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      padding: 4px;
-      border-radius: 8px;
-      background: $color-light-grey;
-      margin-bottom: 30px;
-
-      > .tab {
-        width: 49%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $color-dark-grey;
-        height: 32px;
-        background: $color-light-grey;
-        font-weight: 600;
-        font-size: 13px;
-        line-height: 18px;
-      }
-
-      > .active {
-        background: $color-white;
-        color: $color-brand-secondary;
       }
     }
 
@@ -370,7 +337,7 @@ const carousel = [
               color: $color-green-600;
             }
 
-            > .second-sum {
+            > .sum {
               font-size: 13px;
               line-height: 18px;
               text-align: right;
@@ -383,111 +350,149 @@ const carousel = [
     }
   }
 
-  .carousel {
-    margin-bottom: 24px;
-  }
-
-  .item.slide {
-    width: 104px;
-    height: 104px;
-    padding: 12px;
-    background: $color-white;
-    box-shadow: 0px 2px 24px -12px rgba(0, 0, 0, 0.34);
-    border-radius: 13px;
-    margin-left: 5px;
-
-    > .image {
-      margin-bottom: 8px;
-
-      &:last-child {
-        transform: rotate(-90deg);
-      }
-    }
-
-    > .name {
-      font-weight: 600;
-      font-size: 12px;
-      line-height: 16px;
-      color: $color-brand-primary;
-    }
-  }
-
-  > .wallet-address {
+  > .wallet {
     display: flex;
     height: 370px;
     flex-direction: column;
     align-items: center;
     padding-top: 24px;
 
-    > .qr-code {
+    > .qr {
       margin-bottom: 56px;
     }
+  }
+}
 
-    > .address {
-      width: 100%;
-      background: $color-white;
-      box-shadow: 0 0 24px rgb(64 70 105 / 8%);
-      padding: 34px 32px 50px;
 
-      > .title {
-        font-size: 13px;
-        line-height: 18px;
-        letter-spacing: -0.0008em;
-        color: $color-dark-grey;
-        margin-bottom: 4px;
-      }
+.main-tabs {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 4px;
+  border-radius: 8px;
+  background: $color-light-grey;
+  margin-bottom: 30px;
 
-      > .account {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
+  > .tab {
+    width: 49%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-dark-grey;
+    height: 32px;
+    background: $color-light-grey;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+  }
 
-        > .address-number {
-          p {
-            font-size: 16px;
-            line-height: 21px;
-            letter-spacing: -0.0031em;
-            color: $color-black;
+  > .active {
+    background: $color-white;
+    color: $color-brand-secondary;
+  }
+}
 
-            > .bold {
-              font-weight: bold;
-            }
-          }
-        }
-      }
+.title-currency {
+  & >.currency {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 34px;
+    letter-spacing: -0.0026em;
+  }
+}
 
-      > .blue-title {
-        font-weight: 600;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.0043em;
+.carousel-slider {
+  margin-bottom: 24px;
+}
+
+.item.slide {
+  width: 104px;
+  height: 104px;
+  padding: 12px;
+  background: $color-white;
+  box-shadow: 0 2px 24px -12px rgba(0, 0, 0, 34%);
+  border-radius: 13px;
+  margin-left: 5px;
+
+  > .image {
+    margin-bottom: 8px;
+
+    &:last-child {
+      transform: rotate(-90deg);
+    }
+  }
+
+  > .name {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-brand-primary;
+  }
+}
+
+.crypto-number {
+  >.text {
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.0031em;
+    color: $color-black;
+
+    > .bold {
+      font-weight: bold;
+    }
+  }
+}
+
+.wallet-address {
+  width: 100%;
+  background: $color-white;
+  box-shadow: 0 0 24px rgb(64 70 105 / 8%);
+  padding: 34px 32px 50px;
+
+  > .title {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-dark-grey;
+    margin-bottom: 4px;
+  }
+
+  > .account {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  > .bluetitle {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+    color: $color-primary;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+    margin-bottom: 43px;
+  }
+
+  > .controls {
+    display: flex;
+
+    > .btn {
+      width: 166px;
+      height: 48px;
+      background: $color-light-grey;
+      border-radius: 13px;
+      font-weight: 600;
+      font-size: 17px;
+
+      &:first-child {
+        margin-right: 12px;
         color: $color-primary;
-        text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
-        margin-bottom: 43px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
       }
 
-      > .controls {
-        display: flex;
-
-        > .btn {
-          width: 166px;
-          height: 48px;
-          background: $color-light-grey;
-          border-radius: 13px;
-          font-weight: 600;
-          font-size: 17px;
-
-          &:first-child {
-            margin-right: 12px;
-            color: $color-primary;
-            text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
-          }
-
-          &:last-child {
-            background: $color-primary;
-            color: $color-white;
-          }
-        }
+      &:last-child {
+        background: $color-primary;
+        color: $color-white;
       }
     }
   }
