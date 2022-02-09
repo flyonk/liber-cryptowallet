@@ -39,7 +39,7 @@
           <img class="icon" src="@/assets/icon/user_circle.svg" />
           <p class="text">Personal details</p>
         </li>
-        <li class="item"  @click="$router.push('/account/all-accounts')">
+        <li class="item" @click="$router.push('/account/all-accounts')">
           <img class="icon" src="@/assets/icon/data.svg" />
           <p class="text">All accounts</p>
         </li>
@@ -54,7 +54,7 @@
           <img class="icon" src="@/assets/icon/lock.svg" />
           <p class="text">Change passcode</p>
         </li>
-        <li class="item">
+        <li class="item" @click="$router.push('/account/privacy')">
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">Privacy</p>
         </li>
