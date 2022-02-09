@@ -45,7 +45,7 @@ const props = defineProps({
     type: String,
     default: 'simple',
     validator: (value: string) =>
-      ['simple', 'secondary', 'ghost', 'flat'].includes(value),
+      ['simple', 'secondary', 'ghost', 'flat', 'white'].includes(value),
   },
   disabled: {
     type: Boolean,
@@ -131,6 +131,10 @@ const classes = computed(() => [
   &.-medium {
     border-radius: 8px;
     padding: 11px 16px;
+    width: auto;
+    min-width: 105px;
+    max-width: 125px;
+    max-height: 40px;
 
     > .container {
       > .label {
@@ -249,6 +253,12 @@ const classes = computed(() => [
     &:active {
       background: $color-primary-100;
     }
+  }
+
+  &.-white {
+    background: $color-white;
+    box-shadow: 0px 2px 4px -3px rgba(64, 70, 105, 0.21);
+    border-radius: 8px;
   }
 
   &.-simple {
