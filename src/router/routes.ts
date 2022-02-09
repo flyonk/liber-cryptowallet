@@ -103,6 +103,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'story',
         name: 'dashboard-story',
+        meta: { layout: 'default' },
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
@@ -123,7 +124,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     children: [
       {
-        path: 'all-accounts',
+        path: '',
         name: 'account-main',
         component: () =>
           import(
