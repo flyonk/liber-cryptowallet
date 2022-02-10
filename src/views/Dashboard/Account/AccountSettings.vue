@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/home')"
+          @click="$router.push({ name: 'dashboard-home' })"
         />
         <h1 class="title">
           {{ accountName }}
@@ -31,7 +31,7 @@
     <div class="main">
       <h6 class="subtitle">Profile</h6>
       <ul class="list list--profile">
-        <li class="item" @click="$router.push('/account/profile')">
+        <li class="item" @click="$router.push({ name: 'account-profile' })">
           <img class="icon" src="@/assets/icon/qr-mini.svg" />
           <p class="text">My QR Code and Liber ID</p>
         </li>
@@ -39,7 +39,7 @@
           <img class="icon" src="@/assets/icon/user_circle.svg" />
           <p class="text">Personal details</p>
         </li>
-        <li class="item" @click="$router.push('/account/all-accounts')">
+        <li class="item" @click="$router.push({ name: 'account-main' })">
           <img class="icon" src="@/assets/icon/data.svg" />
           <p class="text">All accounts</p>
         </li>
@@ -54,7 +54,7 @@
           <img class="icon" src="@/assets/icon/lock.svg" />
           <p class="text">Change passcode</p>
         </li>
-        <li class="item" @click="$router.push('/account/privacy')">
+        <li class="item" @click="$router.push({ name: 'privacy-settings' })">
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">Privacy</p>
         </li>
@@ -62,7 +62,7 @@
           <img class="icon" src="@/assets/icon/google.svg" />
           <p class="text">2FA: Google Authenticator</p>
         </li>
-        <li class="item" @click="$router.push('/account/devices')">
+        <li class="item" @click="$router.push({ name: 'privacy-settings' })">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">Devices</p>
         </li>

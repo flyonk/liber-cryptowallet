@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account/settings')"
+        @click="$router.push({ name: 'account-settings' })"
       />
     </header>
     <h1 class="title">Privacy</h1>
@@ -17,9 +17,7 @@
           <BaseSwitch
             class="switch"
             :modelValue="isEmailsAgreement"
-            @update:model-value="
-              isEmailsAgreement = !isEmailsAgreement
-            "
+            @update:model-value="isEmailsAgreement = !isEmailsAgreement"
           />
         </div>
         <div class="description">
@@ -34,9 +32,7 @@
           <BaseSwitch
             class="switch"
             :modelValue="isPushesAgreement"
-            @update:model-value="
-              isPushesAgreement = !isPushesAgreement
-            "
+            @update:model-value="isPushesAgreement = !isPushesAgreement"
           />
         </div>
         <div class="description">
