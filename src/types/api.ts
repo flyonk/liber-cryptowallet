@@ -9,7 +9,7 @@ export interface IAuthService {
     signIn(data: { phone: string }): Promise<TSuccessResponse | TErrorResponse>;
     signInProceed(data: { phone: string, otp: string }): Promise<TSuccessSignIn | TErrorResponse>
     logout(data: { access_token: string }): Promise<TSuccessResponse | TErrorResponse>;
-    refresh(data: { access_token: string }): Promise<TSuccessSignIn | TErrorResponse>;
+    refresh(data: { refresh_token: string }): Promise<TSuccessSignIn | TErrorResponse>;
 }
 
 export interface IKycService {
@@ -23,7 +23,7 @@ export interface IKycService {
 
 export interface IProfileService {
     getProfile(): Promise<TProfile | TErrorResponse>;
-    updateProfile(payload: TProfile): Promise<TProfile | TErrorResponse>;
+    updateProfile(payload: TUpdateProfile): Promise<TProfile | TErrorResponse>;
     updateProfileAvatar(file: File): Promise<TSuccessResponse | TErrorResponse>;
 }
 
