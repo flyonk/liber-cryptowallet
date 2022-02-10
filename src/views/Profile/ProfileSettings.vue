@@ -7,7 +7,7 @@
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
           @click="$router.push('/home')"
-        />
+        >
         <h1 class="title">
           {{ accountName }}
         </h1>
@@ -15,7 +15,10 @@
           <p class="account-id">
             My ID: <a class="link">{{ accountID }}</a>
           </p>
-          <img src="@/assets/icon/edit.svg" alt="edit" />
+          <img
+            src="@/assets/icon/edit.svg"
+            alt="edit"
+          >
         </div>
       </div>
       <div class="right">
@@ -24,68 +27,147 @@
     </div>
     <div class="controls">
       <button class="btn btn--blue">
-        <img class="icon" src="@/assets/icon/user_heart.svg" />Invite Friends
+        <img
+          class="icon"
+          src="@/assets/icon/user_heart.svg"
+        >Invite Friends
       </button>
-      <button class="btn btn--white">Copy Liber ID</button>
+      <button class="btn btn--white">
+        Copy Liber ID
+      </button>
     </div>
     <div class="main">
-      <h6 class="subtitle">Profile</h6>
+      <h6 class="subtitle">
+        Profile
+      </h6>
       <ul class="list list--profile">
-        <li class="item" @click="$router.push('/account/profile')">
-          <img class="icon" src="@/assets/icon/qr-mini.svg" />
-          <p class="text">My QR Code and Liber ID</p>
+        <li
+          class="item"
+          @click="$router.push('/account/profile')"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/qr-mini.svg"
+          >
+          <p class="text">
+            My QR Code and Liber ID
+          </p>
         </li>
         <li class="item">
-          <img class="icon" src="@/assets/icon/user_circle.svg" />
-          <p class="text">Personal details</p>
+          <img
+            class="icon"
+            src="@/assets/icon/user_circle.svg"
+          >
+          <p class="text">
+            Personal details
+          </p>
         </li>
-        <li class="item"  @click="$router.push('/account/all-accounts')">
-          <img class="icon" src="@/assets/icon/data.svg" />
-          <p class="text">All accounts</p>
+        <li
+          class="item"
+          @click="$router.push('/account/all-accounts')"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/data.svg"
+          >
+          <p class="text">
+            All accounts
+          </p>
         </li>
         <li class="item">
-          <img class="icon" src="@/assets/icon/help_circle.svg" />
-          <p class="text">Help</p>
+          <img
+            class="icon"
+            src="@/assets/icon/help_circle.svg"
+          >
+          <p class="text">
+            Help
+          </p>
         </li>
       </ul>
-      <h6 class="subtitle">Security</h6>
+      <h6 class="subtitle">
+        Security
+      </h6>
       <ul class="list security--profile">
         <li class="item">
-          <img class="icon" src="@/assets/icon/lock.svg" />
-          <p class="text">Change passcode</p>
+          <img
+            class="icon"
+            src="@/assets/icon/lock.svg"
+          >
+          <p class="text">
+            Change passcode
+          </p>
         </li>
         <li class="item">
-          <img class="icon" src="@/assets/icon/shield.svg" />
-          <p class="text">Privacy</p>
+          <img
+            class="icon"
+            src="@/assets/icon/shield.svg"
+          >
+          <p class="text">
+            Privacy
+          </p>
         </li>
         <li class="item">
-          <img class="icon" src="@/assets/icon/google.svg" />
-          <p class="text">2FA: Google Authenticator</p>
+          <img
+            class="icon"
+            src="@/assets/icon/google.svg"
+          >
+          <p class="text">
+            2FA: Google Authenticator
+          </p>
         </li>
-        <li class="item" @click="$router.push('/account/devices')">
-          <img class="icon" src="@/assets/icon/devices.svg" />
-          <p class="text">Devices</p>
+        <li
+          class="item"
+          @click="$router.push('/account/devices')"
+        >
+          <img
+            class="icon"
+            src="@/assets/icon/devices.svg"
+          >
+          <p class="text">
+            Devices
+          </p>
         </li>
         <li class="item">
-          <img class="icon" src="@/assets/icon/touchid.svg" />
-          <p class="text">Sign in with Touch ID</p>
+          <img
+            class="icon"
+            src="@/assets/icon/touchid.svg"
+          >
+          <p class="text">
+            Sign in with Touch ID
+          </p>
         </li>
       </ul>
-      <h6 class="subtitle">Label</h6>
+      <h6 class="subtitle">
+        Label
+      </h6>
       <ul class="list label--profile">
         <li class="item">
-          <img class="icon" src="@/assets/icon/circle_close.svg" />
-          <p class="text">Close account</p>
+          <img
+            class="icon"
+            src="@/assets/icon/circle_close.svg"
+          >
+          <p class="text">
+            Close account
+          </p>
         </li>
         <li class="item">
-          <img class="icon" src="@/assets/icon/log_out.svg" />
-          <p class="text">Log out</p>
+          <img
+            class="icon"
+            src="@/assets/icon/log_out.svg"
+          >
+          <p class="text">
+            Log out
+          </p>
         </li>
       </ul>
     </div>
     <div class="footer">
-      <p class="text">Version 1.0</p>
-      <p class="text">Liber Ltd</p>
+      <p class="text">
+        Version 1.0
+      </p>
+      <p class="text">
+        Liber Ltd
+      </p>
     </div>
   </div>
 </template>

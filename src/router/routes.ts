@@ -123,7 +123,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     children: [
       {
-        path: 'all-accounts',
+        path: '',
         name: 'account-main',
         component: () =>
           import(
@@ -137,33 +137,6 @@ const routes: Array<RouteRecordRaw> = [
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
           ),
-      },
-      {
-        path: 'profile',
-        name: 'account-profile',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountProfile.vue'
-          ),
-        meta: { layout: 'default' },
-      },
-      {
-        path: 'settings',
-        name: 'account-settings',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountSettings.vue'
-          ),
-        meta: { layout: 'default' },
-      },
-      {
-        path: 'devices',
-        name: 'account-devices',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountDevices.vue'
-          ),
-        meta: { layout: 'default' },
       },
     ],
   },
@@ -194,14 +167,48 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-  // {
-  //   path: '/account',
-  //   name: 'dashboard-account',
-  //   component: () =>
-  //     import(
-  //       /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
-  //     ),
-  // },
+  // === Profile (Left Navigation Menu) ===
+
+  {
+    path: '/profile',
+    name: 'profile-main-view',
+    component: () =>
+      import(/* webpackChunkName: "dashboard" */ '@/views/Profile/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'profile-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileSettings.vue'
+          ),
+      },
+      {
+        path: 'my-qr-code',
+        name: 'profile-my-qr-code',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileMyQrCode.vue'
+          ),
+      },
+      {
+        path: 'devices',
+        name: 'profile-devices',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDevices.vue'
+          ),
+      },
+      {
+        path: 'edit',
+        name: 'profile-edit',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfilePersonalDetails.vue'
+          ),
+      },
+    ],
+  },
 
   // === KYC ===
 
@@ -269,13 +276,12 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   // === Deposite btc ===
-  
+
   {
     path: '/deposit',
     name: 'deposit',
-    component: () =>
-      import('@/views/DepositeCoin/DepositeIndex.vue'),
-    children: DepositeRoutes
+    component: () => import('@/views/DepositeCoin/DepositeIndex.vue'),
+    children: DepositeRoutes,
   },
 ];
 
