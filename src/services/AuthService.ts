@@ -42,7 +42,7 @@ class AuthService implements IAuthService {
         return res
     }
 
-    async refresh(data: { access_token: string }) {
+    async refresh(data: { refresh_token: string }) {
         const url = `${this.url}/refresh`
         const res: TSuccessSignIn | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
         return res
