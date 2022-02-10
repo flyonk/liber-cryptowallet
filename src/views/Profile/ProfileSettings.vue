@@ -12,7 +12,7 @@
           {{ accountName }}
         </h1>
         <div class="flex">
-          <p class="account-id">
+          <p class="account">
             My ID: <a class="link">{{ accountID }}</a>
           </p>
           <img
@@ -26,13 +26,13 @@
       </div>
     </div>
     <div class="controls">
-      <button class="btn btn--blue">
+      <button class="btn -blue">
         <img
           class="icon"
           src="@/assets/icon/user_heart.svg"
         >Invite Friends
       </button>
-      <button class="btn btn--white">
+      <button class="btn -white">
         Copy Liber ID
       </button>
     </div>
@@ -210,7 +210,7 @@ const nameInitials = computed(() => {
         margin-bottom: 8px;
       }
 
-      > .account-id {
+      > .account {
         font-size: 20px;
         line-height: 25px;
         display: flex;
@@ -247,14 +247,14 @@ const nameInitials = computed(() => {
       line-height: 18px;
       letter-spacing: -0.0008em;
 
-      &--blue {
+      &.-blue {
         width: 143px;
         background: $color-primary;
         color: $color-white;
         margin-right: 8px;
       }
 
-      &--white {
+      &.-white {
         width: 117px;
         background: $color-light-grey;
         color: $color-primary;

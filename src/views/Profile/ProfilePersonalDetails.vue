@@ -108,15 +108,6 @@ import BaseInput from '@/components/UI/BaseInput.vue'
         letter-spacing: 0.0038em;
         margin-bottom: 15px;
       }
-
-      > .account-id {
-        font-size: 20px;
-        line-height: 25px;
-        display: flex;
-        align-items: center;
-        letter-spacing: -0.0045em;
-        color: $color-dark-grey;
-      }
   }
 
   > .subtitle {

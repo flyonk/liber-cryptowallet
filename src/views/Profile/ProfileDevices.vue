@@ -15,7 +15,7 @@
     <div class="main">
       <ul class="list">
         <li class="item">
-          <p class="name name--first">iPhone XR</p>
+          <p class="name -firstt">iPhone XR</p>
           <img src="@/assets/icon/mobile.svg" alt="mobile" />
         </li>
         <li class="item">
@@ -130,7 +130,7 @@
           letter-spacing: -0.0031em;
           color: $color-dark-grey;
 
-          &--first {
+          &.-first {
             font-weight: 500;
             font-size: 17px;
             line-height: 22px;
