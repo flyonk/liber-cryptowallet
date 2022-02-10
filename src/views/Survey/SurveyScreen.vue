@@ -27,6 +27,7 @@
           <label
             class="radio-btn"
             :class="{ '-selected': answer.isSelected }"
+            @click="$router.push('/install')"
           >
             <input
               :id="answer.id"
@@ -188,12 +189,12 @@ const title = computed(() => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0d1f3c;
+  color: $color-brand-primary;
   margin-bottom: 40px;
 }
 
 .radio-btn {
-  border: 1px solid #ebecf0;
+  border: 1px solid $color-brand-2-50;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -215,7 +216,7 @@ const title = computed(() => {
   }
 
   &.-selected {
-    background-color: $color-blue;
+    background-color: $color-primary;
   }
 
   & > .title {
@@ -224,11 +225,11 @@ const title = computed(() => {
     font-size: 16px;
     line-height: 21px;
     letter-spacing: -0.0031em;
-    color: #0D1F3C;
+    color: $color-brand-primary;
   }
 
   & > .title.-selected {
-    color: white;
+    color: $color-white;
   }
 }
 </style>

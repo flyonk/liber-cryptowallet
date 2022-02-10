@@ -69,8 +69,8 @@ const currentComponent = computed(() => {
   }
 
   &:focus-within {
-    background: #fff;
-    border: 1px solid $color-primary-500;
+    background: $color-white;
+    border: 1px solid $color-primary;
   }
 
   .p-inputtext,

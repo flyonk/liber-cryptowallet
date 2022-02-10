@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/home')"
+          @click="$router.push('/account/settings')"
         />
         <h1 class="title">
           {{ accountName }}
@@ -81,14 +81,14 @@ const nameInitials = computed(() => {
         display: flex;
         align-items: center;
         letter-spacing: -0.0045em;
-        color: #78809b;
+        color: $color-dark-grey;
       }
     }
 
     > .right {
       height: 56px;
       width: 56px;
-      background: #ffebb0;
+      background: $color-yellow-100;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -114,7 +114,7 @@ const nameInitials = computed(() => {
       line-height: 22px;
       text-align: center;
       letter-spacing: -0.0043em;
-      color: #78809b;
+      color: $color-dark-grey;
     }
 
     > .controls {
@@ -124,7 +124,7 @@ const nameInitials = computed(() => {
       align-items: center;
       justify-content: center;
       height: 40px;
-      background: #edf0fb;
+      background: $color-light-grey;
       border-radius: 8px;
 
       > .btn {
@@ -132,14 +132,14 @@ const nameInitials = computed(() => {
         font-size: 16px;
         line-height: 21px;
         letter-spacing: -0.0031em;
-        color: #0d1f3c;
+        color: $color-brand-primary;
       }
 
       > .active {
         height: 32px;
         left: 171px;
         top: 4px;
-        background: #0d1f3c;
+        background: $color-brand-primary;
         border-radius: 6px;
         color: white;
         font-weight: 600;
@@ -153,7 +153,7 @@ const nameInitials = computed(() => {
 }
 
 .link {
-  color: #2862ff;
+  color: $color-primary;
   padding: 0 6px;
 }
 </style>

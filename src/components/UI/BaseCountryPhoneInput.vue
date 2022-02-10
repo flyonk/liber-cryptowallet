@@ -120,7 +120,7 @@ function setSelectedCountry(country: ICountryInformation): void {
   padding-top: 16px;
 
   .cancel-button {
-    color: $color-blue;
+    color: $color-primary;
     cursor: pointer;
     user-select: none;
     user-select: none;

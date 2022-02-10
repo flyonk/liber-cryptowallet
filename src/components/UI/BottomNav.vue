@@ -87,7 +87,7 @@ function changeTab(tabNum: number) {
 }
 
 .navbar-list {
-  background: white;
+  background: $color-white;
   margin-top: auto;
   width: 100%;
   height: 65px;
@@ -106,14 +106,14 @@ function changeTab(tabNum: number) {
       text-decoration: none;
 
       &--active {
-        color: #2862ff;
+        color: $color-primary;
       }
     }
 
     > .svg {
       width: 24px;
       height: 24px;
-      fill: red;
+      fill: $color-red;
     }
 
     > .center-image {
