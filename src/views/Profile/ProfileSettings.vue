@@ -53,7 +53,10 @@
             My QR Code and Liber ID
           </p>
         </li>
-        <li class="item">
+        <router-link
+          to="/profile/details/1"
+          class="item"
+        >
           <img
             class="icon"
             src="@/assets/icon/user_circle.svg"
@@ -61,7 +64,7 @@
           <p class="text">
             Personal details
           </p>
-        </li>
+        </router-link>
         <li
           class="item"
           @click="$router.push('/account/all-accounts')"
@@ -74,7 +77,10 @@
             All accounts
           </p>
         </li>
-        <li class="item">
+        <router-link
+          to="/profile/help"
+          class="item"
+        >
           <img
             class="icon"
             src="@/assets/icon/help_circle.svg"
@@ -82,7 +88,7 @@
           <p class="text">
             Help
           </p>
-        </li>
+        </router-link>
       </ul>
       <h6 class="subtitle">
         Security
@@ -115,9 +121,9 @@
             2FA: Google Authenticator
           </p>
         </li>
-        <li
+        <router-link
+          to="/profile/devices"
           class="item"
-          @click="$router.push('/account/devices')"
         >
           <img
             class="icon"
@@ -126,7 +132,7 @@
           <p class="text">
             Devices
           </p>
-        </li>
+        </router-link>
         <li class="item">
           <img
             class="icon"

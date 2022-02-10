@@ -7,7 +7,7 @@
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
           @click="$router.push('/account/settings')"
-        />
+        >
         <h1 class="title">
           {{ accountName }}
         </h1>
@@ -15,7 +15,10 @@
           <p class="key">
             My ID: <a class="link-to">{{ accountID }}</a>
           </p>
-          <img src="@/assets/icon/edit.svg" alt="edit" />
+          <img
+            src="@/assets/icon/edit.svg"
+            alt="edit"
+          >
         </div>
       </div>
       <div class="right">
@@ -23,15 +26,28 @@
       </div>
     </div>
     <div class="main">
-      <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
-      <p class="text">Get paid with</p>
+      <img
+        class="qrcode"
+        src="@/assets/images/qr-code.png"
+        alt="qr"
+      >
+      <p class="text">
+        Get paid with
+      </p>
       <div class="flex">
         <a class="link-to"> liber.me/abrahamwatson </a>
-        <img src="@/assets/icon/copy.svg" alt="copy" />
+        <img
+          src="@/assets/icon/copy.svg"
+          alt="copy"
+        >
       </div>
       <div class="controls">
-        <button class="btn">Scan</button>
-        <button class="btn active">My Code</button>
+        <button class="btn">
+          Scan
+        </button>
+        <button class="btn active">
+          My Code
+        </button>
       </div>
     </div>
   </div>

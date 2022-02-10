@@ -200,11 +200,19 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: 'edit',
+        path: 'help',
+        name: 'profile-help',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileHelpPage.vue'
+          ),
+      },
+      {
+        path: 'details/:id',
         name: 'profile-edit',
         component: () =>
           import(
-            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfilePersonalDetails.vue'
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDetails.vue'
           ),
       },
     ],
