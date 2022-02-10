@@ -45,6 +45,17 @@ export type TProfile = {
     "birthdate": string
 }
 
+export type TUpdateProfile = {
+    "first_name": string
+    "last_name": string,
+    "email": string,
+    "country": string,
+    "street_and_number": string,
+    "optional_address": string,
+    "postal_code": string,
+    "birthdate": string
+}
+
 export type TClaim = {
     "id": number,
     "claim_id": number,
