@@ -31,7 +31,7 @@ class AuthService implements IAuthService {
     }
 
     async signInProceed(data: { phone: string, otp: string }) {
-        const url = `${this.url}`
+        const url = `${this.url}/proceed`
         const res: TSuccessSignIn | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
         return res
     }
