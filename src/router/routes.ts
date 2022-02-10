@@ -1,5 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
-import DepositeRoutes from './routesDeposite'
+import DepositeRoutes from './routesDeposite';
 
 // Pages
 // import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
@@ -206,6 +206,12 @@ const routes: Array<RouteRecordRaw> = [
   // === KYC ===
 
   {
+    path: '/kyc',
+    name: 'kyc-main',
+    component: () =>
+      import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
+  },
+  {
     path: '/kyc/personal',
     name: 'kyc-personal',
     component: () =>
@@ -269,13 +275,12 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   // === Deposite btc ===
-  
+
   {
     path: '/deposit',
     name: 'deposit',
-    component: () =>
-      import('@/views/DepositeCoin/DepositeIndex.vue'),
-    children: DepositeRoutes
+    component: () => import('@/views/DepositeCoin/DepositeIndex.vue'),
+    children: DepositeRoutes,
   },
 ];
 

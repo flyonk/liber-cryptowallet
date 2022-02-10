@@ -18,15 +18,15 @@ import { EStepDirection } from '@/types/base-component';
 const authStore = useAuthStore();
 
 const props = defineProps({
-    scope: {
-        type: String as PropType<keyof IAuthSteps>,
-        required: true,
-    },
+  scope: {
+    type: String as PropType<keyof IAuthSteps>,
+    required: true,
+  },
 
-    components: {
-        type: Array,
-        required: true
-    }
+  components: {
+    type: Array,
+    required: true
+  }
 })
 
 const step = computed(() => authStore.getState.steps[props.scope])
