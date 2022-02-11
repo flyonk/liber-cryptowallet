@@ -39,5 +39,21 @@ const onPrev = () => {
   .description {
     padding: 0 0 40px 0;
   }
+
+  .footer {
+    position: absolute;
+    bottom: 16px;
+    left: 16px;
+    right: 16px;
+    
+    > .text {
+      padding: 0 0 32px 0;
+    }
+
+    .link {
+      text-decoration: none;
+      color: $color-primary;
+    }
+  }
 }
 </style>
