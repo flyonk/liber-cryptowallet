@@ -15,10 +15,10 @@
           <p class="account">
             My ID: <a class="link">{{ accountID }}</a>
           </p>
-          <img
+          <!-- <img
             src="@/assets/icon/edit.svg"
             alt="edit"
-          >
+          > -->
         </div>
       </div>
       <div class="right">
@@ -141,6 +141,10 @@
           <p class="text">
             Sign in with Touch ID
           </p>
+          <InputSwitch
+            v-model="isTouchIdOn"
+            class="switcher"
+          />
         </li>
       </ul>
       <h6 class="subtitle">
@@ -179,9 +183,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { ref, computed } from 'vue';
+import InputSwitch from 'primevue/inputswitch';
+
+
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
+const isTouchIdOn = ref(false);
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');
@@ -309,6 +317,10 @@ const nameInitials = computed(() => {
           align-items: center;
           letter-spacing: -0.0031em;
           color: $color-brand-primary;
+        }
+
+        > .switcher {
+          margin-left: auto;
         }
       }
     }
