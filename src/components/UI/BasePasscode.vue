@@ -1,6 +1,6 @@
 <template>
   <div class="base-passcode">
-    <div class="main-block">
+    <div class="code">
       <div
         v-for="circle in 4"
         :key="circle"
@@ -8,76 +8,81 @@
         :class="{ '-active': passcode.length >= circle }"
       />
     </div>
-    <div class="controllers-block">
-      <div class="buttons-block">
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('1')"
-        >
-          1
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('2')"
-        >
-          2
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('3')"
-        >
-          3
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('4')"
-        >
-          4
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('5')"
-        >
-          5
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('6')"
-        >
-          6
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('7')"
-        >
-          7
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('8')"
-        >
-          8
-        </div>
-        <div
-          class="number-button text--large-title"
-          @click="setNumber('9')"
-        >
-          9
-        </div>
-        <div
-          class=" -zero number-button text--large-title"
-          @click="setNumber('0')"
-        >
-          0
-        </div>
-        <div
-          class="number-button"
-          @click="clear"
-        >
-          clr
-        </div>
+
+    <div class="controls">
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('1')"
+      >
+        1
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('2')"
+      >
+        2
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('3')"
+      >
+        3
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('4')"
+      >
+        4
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('5')"
+      >
+        5
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('6')"
+      >
+        6
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('7')"
+      >
+        7
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('8')"
+      >
+        8
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('9')"
+      >
+        9
+      </div>
+      <div
+        class="number-button"
+      >
+        icon
+      </div>
+      <div
+        class="number-button text--large-title"
+        @click="setNumber('0')"
+      >
+        0
+      </div>
+      <div
+        class="number-button"
+        @click="clear"
+      >
+        clr
       </div>
     </div>
+
   </div>      
 </template>
 
@@ -94,8 +99,6 @@ function setNumber(number: string): void {
 
     if (passcode.value.length === 4) {
       emit('submit', passcode.value)
-
-      // passcode.value = ''
     }
   }
 }
@@ -106,58 +109,48 @@ function clear(): void {
 
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-passcode {
-  width: 100%;
-
-  > .main-block {
+  > .code {
     display: flex;
     width: 100%;
     justify-content: center;
-
-    > .circle-wrapper {
-      width: 16px;
-      height: 16px;
-      background: $color-grey;
-      border-radius: 50%;
-
-      &:not(:last-child) {
-        margin-right: 32px;
-      }
-
-      &.-active {
-        background: $color-primary;
-      }
-    }
   }
 
-  > .controllers-block {
+  > .controls {
     margin-top: 56px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+  }
+}
 
-    .buttons-block {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      justify-items: center;
+.circle-wrapper {
+  width: 16px;
+  height: 16px;
+  background: $color-grey;
+  border-radius: 50%;
 
-      > .number-button {
-        width: 90px;
-        height: 90px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        user-select: none;
-        @extend .text--large-title !optional;
+  &:not(:last-child) {
+    margin-right: 32px;
+  }
 
-        &:active {
-          background-color: $color-primary-50;
-        }
+  &.-active {
+    background: $color-primary;
+  }
+}
 
-        &.-zero {
-          grid-column-start: 2;
-        }
-      }
-    }
+.number-button {
+  width: 90px;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  user-select: none;
+
+  &:active {
+    background-color: $color-primary-50;
   }
 }
 </style>
