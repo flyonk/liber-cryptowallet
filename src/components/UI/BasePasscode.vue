@@ -67,7 +67,10 @@
       <div
         class="number-button"
       >
-        icon
+        <i 
+          :class="identificationIcon"
+          v-if="identificationIcon"
+        />
       </div>
       <div
         class="number-button text--large-title"
@@ -87,8 +90,20 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { getSupportedOptions } from '@/helpers/identification'
 
-const passcode = ref('');
+
+const identificationIcon = ref('')
+const passcode = ref('')
+
+const option = getSupportedOptions()
+
+if (option === 'face-id') {
+  identificationIcon.value = 'ci-happy'
+}
+if (option === 'touch-id') {
+  identificationIcon.value = 'ci-mobile'
+}
 
 /**
  * return stored passcode value
@@ -102,7 +117,7 @@ const storedPassCode = getStoredPasscode()
  * emit true vqlue if passcode is correct
  * emit false value if passcode is wrong
  */
-const emit = defineEmits(['submit']);
+const emit = defineEmits(['submit'])
 
 function setNumber(number: string): void {
   if (passcode.value.length < 4) {
@@ -115,7 +130,7 @@ function setNumber(number: string): void {
 }
 
 function clear(): void {
-  passcode.value = passcode.value.slice(0, -1);
+  passcode.value = passcode.value.slice(0, -1)
 }
 
 </script>

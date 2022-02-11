@@ -2,7 +2,9 @@
   <div class="page-wrapper">
     <BackHistoryBtn />
 
-    <h1 class="main-title">Enter verification code</h1>
+    <h1 class="main-title">
+      Enter verification code
+    </h1>
 
     <p class="text-default">
       Get a verification code from the authenticator app
@@ -11,13 +13,12 @@
     <base-verification-code-input 
       v-model="verificationCode"
     />
-
   </div>
   <div style="padding: 15px">
     <base-button
-        block
-        @click="pasteFromClipboard"
-      >
+      block
+      @click="pasteFromClipboard"
+    >
       Paste
     </base-button>
   </div>
@@ -28,6 +29,7 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 import { BaseButton, BaseVerificationCodeInput } from '@/components/UI'
 import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
+import { getSupportedOptions } from '@/helpers/identification'
 const verificationCode = ref('')
 
 const router = useRouter();
@@ -50,11 +52,15 @@ const pasteFromClipboard = () => {
  * returns the page name corresponding to the supported method
  */
 function getSupportedIdentificationWay() {
-  // @TODO
-  // Check logic
+  const option = getSupportedOptions()
+  if (option === 'face-id') {
+    return 'face-id'
+  }
+  if (option === 'touch-id') {
+    return 'touch-id'
+  }
 
-  // return 'face-id'
-  return 'touch-id';
+  return 'push-notifications';
 }
 
 watch(verificationCode, (code) => {
