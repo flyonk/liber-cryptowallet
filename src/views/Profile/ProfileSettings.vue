@@ -65,9 +65,9 @@
             Personal details
           </p>
         </router-link>
-        <li
+        <router-link
+          to="/account"
           class="item"
-          @click="$router.push('/account/all-accounts')"
         >
           <img
             class="icon"
@@ -76,7 +76,7 @@
           <p class="text">
             All accounts
           </p>
-        </li>
+        </router-link>
         <router-link
           to="/profile/help"
           class="item"
