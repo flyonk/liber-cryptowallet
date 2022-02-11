@@ -68,10 +68,10 @@
         class="number-button"
         @click="showTouchId"
       >
-        <i 
-          :class="identificationIcon"
+        <img
           v-if="identificationIcon"
-        />
+          :src="identificationIcon"
+        >
       </div>
       <div
         class="number-button text--large-title"
@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification'
 
 const showTouchId = () => {
@@ -100,14 +100,17 @@ const showTouchId = () => {
 const identificationIcon = ref('')
 const passcode = ref('')
 
-const option = getSupportedOptions()
+onBeforeMount(async (): Promise<void> => {
+  const option = await getSupportedOptions()
 
-if (option === 'face-id') {
-  identificationIcon.value = 'ci-happy'
-}
-if (option === 'touch-id') {
-  identificationIcon.value = 'ci-mobile'
-}
+  if (option === 'face-id') {
+    identificationIcon.value = require('@/assets/images/face-icon.svg')
+  }
+  if (option === 'touch-id') {
+    identificationIcon.value = require('@/assets/images/touchid-icon.svg')
+  }
+})
+
 
 /**
  * return stored passcode value
