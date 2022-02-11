@@ -82,7 +82,6 @@
         clr
       </div>
     </div>
-
   </div>      
 </template>
 
@@ -91,6 +90,18 @@ import { ref } from 'vue';
 
 const passcode = ref('');
 
+/**
+ * return stored passcode value
+ */
+const getStoredPasscode =  () => {
+  return '1234'
+}
+const storedPassCode = getStoredPasscode()
+
+/**
+ * emit true vqlue if passcode is correct
+ * emit false value if passcode is wrong
+ */
 const emit = defineEmits(['submit']);
 
 function setNumber(number: string): void {
@@ -98,7 +109,7 @@ function setNumber(number: string): void {
     passcode.value = passcode.value + number
 
     if (passcode.value.length === 4) {
-      emit('submit', passcode.value)
+      emit('submit', storedPassCode === passcode.value)
     }
   }
 }

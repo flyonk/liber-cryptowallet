@@ -9,6 +9,7 @@
     class="login-passcode"
     @submit="onSubmit"
   />
+
   <base-toast
     v-model:visible="showErrorToast"
     severity="error"
@@ -41,11 +42,12 @@ const authStore = useAuthStore();
 
 const showErrorToast = ref(false);
 
-function onSubmit(passcode: string): void {
-  console.debug('passcode is ', passcode)
-
-  authStore.setStep(2, 'login');
-  // showErrorToast.value = true;
+function onSubmit(success: boolean): void {
+  if (success) {
+    authStore.setStep(2, 'login');
+  } else {
+    showErrorToast.value = true;
+  }
 } 
 
 function prevStep(): void {
