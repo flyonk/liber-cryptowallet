@@ -66,6 +66,7 @@
       </div>
       <div
         class="number-button"
+        @click="showTouchId"
       >
         <i 
           :class="identificationIcon"
@@ -92,6 +93,9 @@
 import { ref } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification'
 
+const showTouchId = () => {
+  console.log('show touch id')
+}
 
 const identificationIcon = ref('')
 const passcode = ref('')
