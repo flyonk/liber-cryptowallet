@@ -90,8 +90,46 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount } from 'vue';
+import { ref, onBeforeMount, PropType } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification'
+import { EPasscodeActions } from '@/types/base-component'
+
+const props = defineProps({
+  actionType: {
+    type: String as PropType<EPasscodeActions>,
+    default: EPasscodeActions.compare
+  }
+})
+
+/**
+ * return stored passcode value
+ */
+const getStoredPasscode =  () => {
+  return '1234'
+}
+
+function checkPasscode(passcode:string) {
+  const storedPassCode = getStoredPasscode()
+  return storedPassCode === passcode
+}
+
+function setPasscode() {
+  //
+}
+
+function getSubmitFunction(actionType:string) {
+  switch (actionType) {
+    case EPasscodeActions.store:
+      return setPasscode
+    case EPasscodeActions.compare:
+      return checkPasscode
+
+    default:
+      return checkPasscode
+  }
+}
+
+const onSubmit = getSubmitFunction(props.actionType)
 
 const showTouchId = () => {
   console.log('show touch id')
@@ -112,13 +150,6 @@ onBeforeMount(async (): Promise<void> => {
 })
 
 
-/**
- * return stored passcode value
- */
-const getStoredPasscode =  () => {
-  return '1234'
-}
-const storedPassCode = getStoredPasscode()
 
 /**
  * emit true vqlue if passcode is correct
@@ -131,7 +162,7 @@ function setNumber(number: string): void {
     passcode.value = passcode.value + number
 
     if (passcode.value.length === 4) {
-      emit('submit', storedPassCode === passcode.value)
+      emit('submit', onSubmit(passcode.value))
     }
   }
 }

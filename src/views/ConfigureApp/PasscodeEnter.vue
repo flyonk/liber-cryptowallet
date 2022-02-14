@@ -12,13 +12,18 @@
     
     <base-passcode
       class="login-passcode"
+      :actionType="actionType"
       @submit="onSubmit"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref, Ref } from 'vue'
 import { TopNavigation, BasePasscode } from '@/components/UI';
+import { EPasscodeActions } from '@/types/base-component'
+
+const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>
 
 function onSubmit(): void {
   // 
