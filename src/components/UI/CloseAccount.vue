@@ -54,7 +54,7 @@ console.log(path)
 <style lang="scss" scoped>
 .close-account {
   display: flex;
-  padding: 150px 16px 100px 16px;
+  padding: 150px 16px 100px;
   background: $color-white;
   border-radius: 15px 15px 0 0;
   z-index: 2;
@@ -82,7 +82,7 @@ console.log(path)
   }
 
   >.description {
-    padding: 0 20px 0 20px;
+    padding: 0 20px;
     font-size: 17px;
     line-height: 22px;
     text-align: center;
