@@ -166,6 +166,15 @@ const routes: Array<RouteRecordRaw> = [
           ),
         meta: { layout: 'default' },
       },
+      {
+        path: 'privacy',
+        name: 'privacy-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/PrivacySettings.vue'
+          ),
+        meta: { layout: 'default' },
+      },
     ],
   },
   {
@@ -270,7 +279,7 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   // === Deposite btc ===
-  
+
   {
     path: '/deposit',
     name: 'deposit',
