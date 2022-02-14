@@ -4,7 +4,6 @@ import DepositeRoutes from './routesDeposite'
 // Pages
 // import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
-import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
@@ -39,11 +38,12 @@ const routes: Array<RouteRecordRaw> = [
     component: CodeEnter,
     meta: { layout: 'default' },
   },
+
   {
     path: '/passcode',
     name: 'auth-passcode',
-    component: PasscodeEnter,
-    meta: { layout: 'default' },
+    component: () =>
+      import('@/views/ConfigureApp/PasscodeEnter.vue'),
   },
 
   {
