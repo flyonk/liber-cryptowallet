@@ -151,7 +151,10 @@
         Label
       </h6>
       <ul class="list label--profile">
-        <li class="item">
+        <li
+          class="item"
+          @click="showCloseAccount = true"
+        >
           <img
             class="icon"
             src="@/assets/icon/circle_close.svg"
@@ -180,21 +183,32 @@
       </p>
     </div>
   </div>
+  <CloseAccount 
+    :show-menu="showCloseAccount"
+    @close-menu="closeMenu"
+  />
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
+import CloseAccount from '@/components/UI/CloseAccount.vue'
 
 
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
 const isTouchIdOn = ref(false);
+const showCloseAccount = ref(false);
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');
   return parts[0][0] + parts[1][0];
 });
+
+function closeMenu() {
+  showCloseAccount.value = false
+  console.log(showCloseAccount.value)
+}
 </script>
 
 <style lang="scss" scoped>

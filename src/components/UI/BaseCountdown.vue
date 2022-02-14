@@ -1,6 +1,9 @@
 <template>
   <div>
-    <slot name="countdown" v-bind="diff" />
+    <slot
+      name="countdown"
+      v-bind="diff"
+    />
   </div>
 </template>
 
