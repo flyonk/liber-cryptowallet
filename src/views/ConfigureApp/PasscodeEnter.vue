@@ -5,14 +5,12 @@
     </top-navigation>
   </div>
   <div class="page-wrapper">
-
     <p class="text-default">
       Enhance the security of your account by creating a passcode
     </p>
     
     <base-passcode
-      class="login-passcode"
-      :actionType="actionType"
+      :action-type="actionType"
       @submit="onSubmit"
     />
   </div>
@@ -28,7 +26,7 @@ const title = ref('Create passcode')
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>
 
 function onSubmit(): void {
-  // 
+  // to to next page
 } 
 
 function prevStep(): void {
@@ -36,14 +34,12 @@ function prevStep(): void {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .page-wrapper {
   margin: 15px;
   flex-grow: 1;
 }
-.login-passcode {
-  margin-top: 108px;
-}
+
 .text-default {
   font-style: normal;
   font-weight: normal;

@@ -138,13 +138,15 @@ function getSubmitFunction(actionType: string) {
 const onSubmit = getSubmitFunction(props.actionType)
 
 const showTouchId = () => {
-  verifyIdentity()
-    .then(() => {
-      emit('submit', true)      
-    })
-    .catch(() => {
-      emit('submit', false)
-    })
+  if (identificationIcon.value) {
+    verifyIdentity()
+      .then(() => {
+        emit('submit', true)
+      })
+      .catch(() => {
+        emit('submit', false)
+      })
+  }
 }
 
 const identificationIcon = ref('')
