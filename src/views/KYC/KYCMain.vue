@@ -9,25 +9,26 @@
 </template>
 
 <script setup lang="ts">
-import { KYC1Step } from '.';
+import { KYC1Step, KYC2Step } from '.';
 
 import { useKYCStore } from '@/stores/kyc';
 import { computed } from 'vue';
+import { EStepDirection } from '@/types/base-component';
 
-const KYCStore = useKYCStore();
+const kycStore = useKYCStore();
 
-const KYCComponents = [KYC1Step];
+const KYCComponents = [KYC1Step, KYC2Step];
 
 const currentComponent = computed(() => {
-  return KYCComponents[KYCStore.getStep.personal]
+  return KYCComponents[kycStore.getStep.personal]
 })
 
 const onNext = () => {
-  console.debug('asd')
+  kycStore.setStep(EStepDirection.next)
 }
 
 const onPrev = () => {
-  console.debug('asd')
+  kycStore.setStep(EStepDirection.prev)
 }
 </script>
 

@@ -1,9 +1,10 @@
+import { EStepDirection } from './../types/base-component';
 import { defineStore } from 'pinia';
 
 // === KYC Types ===
 
 export interface IKYCStep {
-  personal: 0;
+  personal: number;
 }
 
 export enum EKYCProofType {
@@ -31,10 +32,10 @@ export interface IKYCState {
 
 // === KYC Store ===
 
-export const useKYCStore = defineStore('auth', {
+export const useKYCStore = defineStore('kyc', {
   state: (): IKYCState => ({
     steps: {
-      personal: 0,
+      personal: 1,
     },
 
     proof_type: null,
@@ -51,7 +52,29 @@ export const useKYCStore = defineStore('auth', {
 
   getters: {
     getStep: ({ steps }) => steps,
+
+    getData: ({ data }) => data,
   },
 
-  actions: {},
+  actions: {
+    changeData(key: keyof IKYCFormData, value: string) {
+      this.data[key] = value;
+    },
+
+    setStep(step: number | EStepDirection) {
+      if (step === EStepDirection.next) {
+        this.steps.personal += 1;
+
+        return;
+      }
+
+      if (step === EStepDirection.prev) {
+        this.steps.personal -= 1;
+
+        return;
+      }
+
+      this.steps.personal = step;
+    },
+  },
 });

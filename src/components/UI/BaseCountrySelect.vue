@@ -63,8 +63,22 @@ import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { BaseBottomSheet, BaseSearchInput, BaseInput } from '.';
 
+const props = defineProps({
+  modelValue: {
+    type: String,
+    required: true
+  }
+})
+
+const emit = defineEmits(['update:modelValue'])
+
+const selectedData = computed({
+  get: () => props.modelValue,
+
+  set: (value) => emit('update:modelValue', value)
+})
+
 const list = ref([]) as Ref<Array<ICountryInformation>>;
-const selectedData = ref(null) as Ref<string | null>;
 const showList = ref(false) as Ref<boolean>;
 const searchQuery = ref('') as Ref<string>;
 

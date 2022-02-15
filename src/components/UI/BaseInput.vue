@@ -1,13 +1,25 @@
 <template>
   <div class="base-input">
-    <div class="p-float-label">
-      <component
-        :is="currentComponent"
-        v-bind="$attrs"
-      />
-      <label>
-        <slot name="label" />
-      </label>
+    <div class="input">
+      <div
+        class="p-float-label"
+        :class="{ appendIcon: 'p-input-icon-right' }"
+      >
+        <component
+          :is="currentComponent"
+          v-bind="$attrs"
+        />
+        <label>
+          <slot name="label" />
+        </label>
+        <!-- <i class="ci-search" /> -->
+      </div>
+    </div>
+    <div
+      v-if="$slots.message"
+      class="message text--caption-2"
+    >
+      <slot name="message" />
     </div>
   </div>
 </template>
@@ -23,6 +35,10 @@ const props = defineProps({
   type: {
     type: String,
     default: 'text',
+  },
+  appendIcon: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -42,11 +58,19 @@ const currentComponent = computed(() => {
 
 <style lang="scss">
 .base-input {
+  margin: 0 0 16px 0;
+
+  .input {
   background: $color-input-bg;
   border: 1px solid transparent;
   border-radius: 12px;
   height: 56px;
   padding: 4px 16px;
+
+  .message {
+    height: 24px;
+    width: 100%;
+  }
 
   .p-float-label {
     height: 100%;
@@ -87,6 +111,14 @@ const currentComponent = computed(() => {
       box-shadow: none;
       outline: none;
     }
+  }
+  }
+
+  .message {
+    padding: 8px 16px 0 16px;
+    color: $color-grey;
+    display: flex;
+    align-items: center;
   }
 }
 
