@@ -1,5 +1,9 @@
 import { BiometryType, NativeBiometric } from "capacitor-native-biometric";
 
+export function verifyIdentity() {
+  return NativeBiometric.verifyIdentity()
+}
+
 /**
  * Fuction to check support faceId and TouchId
  *

@@ -86,12 +86,12 @@
         clr
       </div>
     </div>
-  </div>      
+  </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, onBeforeMount, PropType } from 'vue';
-import { getSupportedOptions } from '@/helpers/identification'
+import { getSupportedOptions, verifyIdentity } from '@/helpers/identification'
 import { EPasscodeActions, EStorageKeys } from '@/types/base-component'
 import { Storage } from '@capacitor/storage';
 
@@ -104,18 +104,18 @@ const props = defineProps({
 
 
 const getStoredPasscode = async () => {
-  const { value } = await Storage.get({ 
-    key: EStorageKeys.passcode 
+  const { value } = await Storage.get({
+    key: EStorageKeys.passcode
   })
   return value
 }
 
-async function checkPasscode(passcode:string) {
+async function checkPasscode(passcode: string) {
   const storedPassCode = await getStoredPasscode()
   return storedPassCode === passcode
 }
 
-async function setPasscode(passcode:string) {
+async function setPasscode(passcode: string) {
   await Storage.set({
     key: EStorageKeys.passcode,
     value: passcode,
@@ -123,7 +123,7 @@ async function setPasscode(passcode:string) {
   return passcode
 }
 
-function getSubmitFunction(actionType:string) {
+function getSubmitFunction(actionType: string) {
   switch (actionType) {
     case EPasscodeActions.store:
       return setPasscode
@@ -138,7 +138,13 @@ function getSubmitFunction(actionType:string) {
 const onSubmit = getSubmitFunction(props.actionType)
 
 const showTouchId = () => {
-  console.log('show touch id')
+  verifyIdentity()
+    .then(() => {
+      emit('submit', true)      
+    })
+    .catch(() => {
+      emit('submit', false)
+    })
 }
 
 const identificationIcon = ref('')
@@ -148,10 +154,10 @@ onBeforeMount(async (): Promise<void> => {
   const option = await getSupportedOptions()
 
   if (option === 'face-id') {
-    identificationIcon.value = require('@/assets/images/face-icon.svg')
+    identificationIcon.value = require('@/assets/icon/faceid.svg')
   }
   if (option === 'touch-id') {
-    identificationIcon.value = require('@/assets/images/touchid-icon.svg')
+    identificationIcon.value = require('@/assets/icon/touchid.svg')
   }
 })
 
@@ -169,7 +175,7 @@ function setNumber(number: string): void {
 
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
-        .then((result:any) => {
+        .then((result: any) => {
           emit('submit', result)
         })
         .catch(() => {
