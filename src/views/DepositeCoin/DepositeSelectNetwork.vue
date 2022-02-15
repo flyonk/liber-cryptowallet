@@ -157,12 +157,12 @@ const title = computed(() => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0D1F3C;
+  color: $color-brand-primary;
   margin-bottom: 40px;
 }
 
 .radio-btn {
-  border: 1px solid #EBECF0;
+  border: 1px solid $color-brand-2-50;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -184,7 +184,7 @@ const title = computed(() => {
   }
 
   &.-selected {
-    background-color: $color-blue;
+    background-color: $color-primary;
   }
 
   & > .title {
@@ -193,11 +193,11 @@ const title = computed(() => {
     font-size: 16px;
     line-height: 21px;
     letter-spacing: -0.0031em;
-    color: #0D1F3C;
+    color: $color-brand-primary;
   }
   
   & > .title.-selected {
-    color: white;
+    color: $color-white;
   }
 }
 </style>

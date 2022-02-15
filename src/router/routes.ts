@@ -2,7 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 import DepositeRoutes from './routesDeposite'
 
 // Pages
-import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
+// import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
@@ -11,14 +11,14 @@ import Restore from '@/views/Auth/Restore/MainRestore.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
+  // {
+  //   path: '/',
+  //   name: 'auth-phone',
+  //   component: PhoneEnter,
+  //   meta: { layout: 'default' },
+  // },
   {
     path: '/',
-    name: 'auth-phone',
-    component: PhoneEnter,
-    meta: { layout: 'default' },
-  },
-  {
-    path: '/welcome',
     name: 'welcome-logo-screen',
     component: () =>
       import(
@@ -103,9 +103,26 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'story',
         name: 'dashboard-story',
+        meta: { layout: 'default' },
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
+          ),
+      },
+      {
+        path: 'verifying-identity',
+        name: 'dashboard-verifying-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerifyingIdentityStory.vue'
+          ),
+      },
+      {
+        path: 'transfer-funds-to-treasury',
+        name: 'dashboard-transfer-funds-to-treasury-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardTransferFundsToTreasuryStory.vue'
           ),
       },
     ],
@@ -162,6 +179,15 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountDevices.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'privacy',
+        name: 'privacy-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/PrivacySettings.vue'
           ),
         meta: { layout: 'default' },
       },
@@ -269,7 +295,7 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   // === Deposite btc ===
-  
+
   {
     path: '/deposit',
     name: 'deposit',

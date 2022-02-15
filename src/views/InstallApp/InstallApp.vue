@@ -39,7 +39,11 @@
     /></a>
   </div>
   <div style="padding: 15px">
-    <button tyte="button" class="btn-default btn-primary">Continue</button>
+    <button 
+      tyte="button" 
+      class="btn-default btn-primary"
+      @click="$router.push('/config')"
+      >Continue</button>
   </div>
 </template>
 
@@ -70,7 +74,7 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
-  color: #0d1f3c;
+  color: $color-brand-primary;
   margin-bottom: 40px;
 }
 

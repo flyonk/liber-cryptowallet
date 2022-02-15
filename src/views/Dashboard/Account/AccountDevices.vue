@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account')"
+        @click="$router.push('/account/settings')"
       />
       <h1 class="title">Devices</h1>
       <p class="description">
@@ -128,14 +128,14 @@
           font-size: 16px;
           line-height: 21px;
           letter-spacing: -0.0031em;
-          color: #78809b;
+          color: $color-dark-grey;
 
           &--first {
             font-weight: 500;
             font-size: 17px;
             line-height: 22px;
             letter-spacing: -0.0043em;
-            color: #0d1f3c;
+            color: $color-brand-primary;
           }
         }
 

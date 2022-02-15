@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/home')"
+        @click="$router.push('/account/settings')"
       >
       <img
         class="add"
@@ -108,7 +108,7 @@ const currencies = [
       flex-direction: column;
       margin: 0 7px 7px 0;
       padding: 16px;
-      background: #edf0fb;
+      background: $color-light-grey;
       border-radius: 16px;
       height: 164px;
       width: 164px;
@@ -133,7 +133,7 @@ const currencies = [
         line-height: 18px;
         letter-spacing: -0.0008em;
         margin-bottom: 8px;
-        color: #5c697d;
+        color: $color-brand-300;
       }
 
       > .sum {

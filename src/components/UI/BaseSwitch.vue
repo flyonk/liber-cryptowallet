@@ -2,6 +2,7 @@
   <div class="base-switch">
     <p-switch
       v-bind="$attrs"
+      @click="$emit('update:modelValue', !$attrs.modelValue)"
     />
     <span @click="$emit('update:modelValue', !$attrs.modelValue)">
       <slot />
@@ -10,25 +11,25 @@
 </template>
 
 <script lang="ts" setup>
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue']);
 </script>
 
 <style lang="scss">
 .base-switch {
   display: grid;
   grid-template-columns: 55px 1fr;
-  
+
   .p-inputswitch {
     &.p-focus {
       outline: none !important;
 
       > .p-inputswitch-slider {
-      outline: none !important;
-    }
+        outline: none !important;
+      }
     }
 
     &.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-      background: $color-blue;
+      background: $color-primary;
     }
   }
 
@@ -37,5 +38,4 @@ defineEmits(['update:modelValue'])
     padding-left: 16px;
   }
 }
-
 </style>

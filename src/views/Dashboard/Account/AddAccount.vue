@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account')"
+        @click="$router.push('/account/all-accounts')"
       >
       <h1 class="title">
         Select a coin
@@ -128,7 +128,7 @@
 
 <style lang="scss" scoped>
 .add-account {
-  background: #fafafe;
+  background: $color-light-grey-100;
   height: 100%;
   padding: 35px 16px 0;
   overflow-x: hidden;
@@ -154,7 +154,7 @@
       position: relative;
 
       > .search {
-        background: #edf0fb;
+        background: $color-light-grey;
         border-radius: 12px;
         width: 100%;
         height: 44px;
@@ -164,7 +164,7 @@
         display: flex;
         align-items: center;
         letter-spacing: -0.0031em;
-        color: #78809b;
+        color: $color-dark-grey;
         border: 0;
         outline: none;
       }
@@ -184,7 +184,7 @@
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-      color: #0d1f3c;
+      color: $color-brand-primary;
       margin-bottom: 16px;
     }
 
@@ -207,7 +207,7 @@
           letter-spacing: -0.0043em;
 
           span {
-            color: #afb3c3;
+            color: $color-grey;
             padding-left: 14px;
           }
         }
