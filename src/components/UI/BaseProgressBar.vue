@@ -1,0 +1,39 @@
+<template>
+  <progress-bar
+    :value="value"
+    :show-value="false"
+    class="progress-bar"
+    :style="styles"
+  />
+</template>
+
+<script setup lang="ts">
+import ProgressBar from 'primevue/progressbar';
+import { computed } from 'vue-demi';
+
+const props = defineProps({
+  value: {
+    type: Number,
+    default: 30,
+  },
+  height: {
+    type: String,
+    default: '8'
+  }
+});
+
+const styles = computed(() => ({
+  height: `${props.height}px`
+}))
+</script>
+
+<style lang="scss">
+.progress-bar {
+  &.p-progressbar {
+    background-color: $color-primary-100;
+    .p-progressbar-value {
+      background-color: $color-primary;
+    }
+  }
+}
+</style>

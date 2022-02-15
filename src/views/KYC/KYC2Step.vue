@@ -12,6 +12,12 @@
       </template>
     </base-input>
     <base-input>
+      <template #append>
+        <i
+          v-tooltip="'You have new messages.'"
+          class="ci-help_circle_outline"
+        />
+      </template>
       <template #label>
         Flat, suite, unit, building, floor, etc.
       </template>
@@ -37,13 +43,21 @@
         City
       </template>
     </base-input>
+    <div class="footer">
+      <base-button
+        block
+        @click="$emit('next')"
+      >
+        Continue
+      </base-button>
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseInput } from '@/components/UI';
+import { TopNavigation, BaseInput, BaseButton } from '@/components/UI';
 
-
+defineEmits(['next']);
 </script>
 
 <style scoped>

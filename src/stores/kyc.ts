@@ -35,7 +35,7 @@ export interface IKYCState {
 export const useKYCStore = defineStore('kyc', {
   state: (): IKYCState => ({
     steps: {
-      personal: 1,
+      personal: 2,
     },
 
     proof_type: null,

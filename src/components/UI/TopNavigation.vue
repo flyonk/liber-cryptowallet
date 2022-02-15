@@ -6,6 +6,7 @@
         :class="leftIconName"
         @click="$emit('click:left-icon')"
       />
+      <slot name="top-right" />
     </div>
     <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold">
       <slot />
@@ -32,6 +33,7 @@ defineEmits(['click:left-icon'])
   .top-navigation--controllers {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
 
     .back--icon {

@@ -11,6 +11,8 @@ import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
 import PDialog from 'primevue/dialog';
 import PSwitch from 'primevue/inputswitch';
+import PTooltip from 'primevue/tooltip';
+import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
 
@@ -20,12 +22,15 @@ const app = createApp(App)
   .use(createPinia())
   .use(PrimeVue)
   .use(ToastService)
-  .use(router);
+  .use(router)
+  .use(FloatingVue);
 
 app.component('PInput', PInput);
 app.component('PDialog', PDialog);
 app.component('PInputNumber', PInputNumber);
 app.component('PSwitch', PSwitch);
+
+app.directive('tooltip', PTooltip);
 
 router.isReady().then(() => {
   app.mount('#app');

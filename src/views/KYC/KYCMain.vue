@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { KYC1Step, KYC2Step } from '.';
+import { KYC1Step, KYC2Step, KYC3Step } from '.';
 
 import { useKYCStore } from '@/stores/kyc';
 import { computed } from 'vue';
@@ -17,7 +17,7 @@ import { EStepDirection } from '@/types/base-component';
 
 const kycStore = useKYCStore();
 
-const KYCComponents = [KYC1Step, KYC2Step];
+const KYCComponents = [KYC1Step, KYC2Step, KYC3Step];
 
 const currentComponent = computed(() => {
   return KYCComponents[kycStore.getStep.personal]
