@@ -1,13 +1,13 @@
 <template>
   <div class="auth-page-container">
     <top-navigation @click:left-icon="prevStep">
-      Create passcode
+      {{ title }}
     </top-navigation>
   </div>
   <div class="page-wrapper">
 
     <p class="text-default">
-      Install an authenticator app on your mobile device. Recommended options:
+      Enhance the security of your account by creating a passcode
     </p>
     
     <base-passcode
@@ -22,6 +22,8 @@
 import { ref, Ref } from 'vue'
 import { TopNavigation, BasePasscode } from '@/components/UI';
 import { EPasscodeActions } from '@/types/base-component'
+
+const title = ref('Create passcode')
 
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>
 

@@ -117,7 +117,7 @@ async function checkPasscode(passcode:string) {
 
 async function setPasscode(passcode:string) {
   await Storage.set({
-    key: EStorageKeys.passcode ,
+    key: EStorageKeys.passcode,
     value: passcode,
   })
   return passcode

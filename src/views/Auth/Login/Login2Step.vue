@@ -38,9 +38,9 @@ import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
 
 import { useAuthStore } from '@/stores/auth';
 
-const authStore = useAuthStore();
+const authStore = useAuthStore()
 
-const showErrorToast = ref(false);
+const showErrorToast = ref(false)
 
 function onSubmit(success: boolean): void {
   if (success) {
