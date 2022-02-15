@@ -92,7 +92,8 @@
 <script lang="ts" setup>
 import { ref, onBeforeMount, PropType } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification'
-import { EPasscodeActions } from '@/types/base-component'
+import { EPasscodeActions, EStorageKeys } from '@/types/base-component'
+import { Storage } from '@capacitor/storage';
 
 const props = defineProps({
   actionType: {
@@ -101,20 +102,25 @@ const props = defineProps({
   }
 })
 
-/**
- * return stored passcode value
- */
-const getStoredPasscode =  () => {
-  return '1234'
+
+const getStoredPasscode = async () => {
+  const { value } = await Storage.get({ 
+    key: EStorageKeys.passcode 
+  })
+  return value
 }
 
-function checkPasscode(passcode:string) {
-  const storedPassCode = getStoredPasscode()
+async function checkPasscode(passcode:string) {
+  const storedPassCode = await getStoredPasscode()
   return storedPassCode === passcode
 }
 
-function setPasscode() {
-  //
+async function setPasscode(passcode:string) {
+  await Storage.set({
+    key: EStorageKeys.passcode ,
+    value: passcode,
+  })
+  return passcode
 }
 
 function getSubmitFunction(actionType:string) {
@@ -162,7 +168,13 @@ function setNumber(number: string): void {
     passcode.value = passcode.value + number
 
     if (passcode.value.length === 4) {
-      emit('submit', onSubmit(passcode.value))
+      onSubmit(passcode.value)
+        .then((result:any) => {
+          emit('submit', result)
+        })
+        .catch(() => {
+          emit('submit', false)
+        })
     }
   }
 }

@@ -24,3 +24,7 @@ export enum EPasscodeActions {
   compare = 'compare',
   clear = 'clear'
 }
+
+export enum EStorageKeys {
+  passcode = 'liber-app-passcode',
+}
