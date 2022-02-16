@@ -111,6 +111,9 @@ export interface IProfileService {
     getProfile(): Promise<TProfile | TErrorResponse>;
     updateProfile(payload: TUpdateProfile): Promise<TProfile | TErrorResponse>;
     updateProfileAvatar(file: File): Promise<TSuccessResponse | TErrorResponse>;
+    closeProfile(): Promise<TSuccessResponse | TErrorResponse>;
+    configureApp(): Promise<TConfigureAppData | TErrorResponse>;
+    changeAuthenticator(data: { targetAuthenticator: string }): Promise<TSuccessResponse | TErrorResponse>;
 }
 
 export type TProfile = {
@@ -179,4 +182,9 @@ export type TSuccessResponse = {
 export type TSuccessSignIn = {
     "access_token": string,
     "refresh_token": string
+}
+
+export type TConfigureAppData = {
+    QRCode: File, //.pdf
+    code: string
 }
