@@ -5,7 +5,7 @@ import ApiService from "./ApiService";
 
 const URL = AUTH_API_URL
 
-class RequestForFundsService implements IRequestFundsService {
+class RequestFundsService implements IRequestFundsService {
     private _apiServiceInstance: IApiService;
 
     private url: string;
@@ -51,10 +51,10 @@ class RequestForFundsService implements IRequestFundsService {
     }
 
     async createRequestFunds(id: string, data: TCreateRequestFundsData): Promise<TSuccessResponse | TErrorResponse> {
-        const url = `${this.url}/${id}`
+        const url = `${this.url}`
         const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
         return res
     }
 }
 
-export default RequestForFundsService
+export default RequestFundsService
