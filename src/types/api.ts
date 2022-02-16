@@ -22,12 +22,12 @@ export interface IKycService {
 }
 
 /**
- *   RequestFundsService
+ *   IRequestFundsService
  */
 
 export interface IRequestFundsService {
     downloadStatement(id: string): Promise<TStatement | TErrorResponse>
-    getPaymentLink(id: string): Promise<TPaymentLink | TErrorResponse>
+    getPaymentLink(id: string): Promise<TRequestFundsPaymentLink | TErrorResponse>
     cancelRequestFunds(id: string): Promise<TSuccessResponse | TErrorResponse>
     sendRequestedFunds(id: string): Promise<TSuccessResponse | TErrorResponse>
     declineRequestedFunds(id: string): Promise<TSuccessResponse | TErrorResponse>
@@ -49,10 +49,58 @@ export type TStatement = {
     statement: File
 }
 
-export type TPaymentLink = {
+export type TRequestFundsPaymentLink = {
     id: string
-    paymentLink: string,
+    link: string,
     expire: string
+}
+
+/**
+ *   IContactsService
+ */
+
+export interface IContactsService {
+    getFriends(): Promise<TLiberContacts | TErrorResponse>,
+    createContact(data: TLiberContact): Promise<TSuccessResponse | TErrorResponse>,
+    editContact(id: string, data: TLiberContact): Promise<TSuccessResponse | TErrorResponse>,
+    syncContacts(data: TIPhoneContacts): Promise<TLiberContacts | TErrorResponse>,
+    getInviteLink(): Promise<TInviteLink | TErrorResponse>,
+    getPaymentLink(): Promise<TPaymentLink | TErrorResponse>,
+}
+
+type TCommunicationChannel = {
+    value: string,
+    isPrimary?: boolean
+}
+
+export type TLiberContact = {
+    id: string,
+    name: string,
+    phones: TCommunicationChannel[],
+    emails: TCommunicationChannel[],
+    //isTrusted: boolean //by default false?	
+}
+
+export type TLiberContacts = {
+    contacts: TLiberContact[]
+}
+
+type TIPhoneContact = {
+    name: string,
+    emails: string[],
+    phones: string[]
+}
+
+export type TIPhoneContacts = {
+    contacts: TIPhoneContact[]
+}
+
+export type TInviteLink = {
+    link: string
+}
+
+export type TPaymentLink = {
+    link: string
 }
 
 /**
