@@ -1,4 +1,4 @@
-import { IRequestFundsService, TErrorResponse, TPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from './../types/api';
+import { IRequestFundsService, TErrorResponse, TRequestFundsPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from './../types/api';
 import { AUTH_API_URL } from '../constants';
 import { IApiService } from '@/types/api';
 import ApiService from "./ApiService";
@@ -26,9 +26,9 @@ class RequestFundsService implements IRequestFundsService {
         return res
     }
 
-    async getPaymentLink(id: string): Promise<TPaymentLink | TErrorResponse> {
+    async getPaymentLink(id: string): Promise<TRequestFundsPaymentLink | TErrorResponse> {
         const url = `${this.url}/${id}`
-        const res: TPaymentLink | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
+        const res: TRequestFundsPaymentLink | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
         return res
     }
 
