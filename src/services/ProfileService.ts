@@ -1,4 +1,5 @@
-import { TUpdateProfile } from './../types/api';
+import { TConfigureAppData } from '@/types/api';
+import { TUpdateProfile } from '@/types/api';
 import { PROFILE_API_URL } from '@/constants';
 import { TClaimFileList } from '@/types/api';
 import { TSuccessResponse } from '@/types/api';
@@ -92,6 +93,24 @@ class ProfileService implements IProfileService, IKycService {
         const store = useAccountStore()
         const url = `${this.url}/kyc/claim/${id}/file/${fileId}?access_token=${store.token}`
         const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url)
+        return res
+    }
+
+    async closeProfile(): Promise<TSuccessResponse | TErrorResponse> {
+        const url = `${this.url}/close`
+        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url)
+        return res
+    }
+
+    async configureApp(): Promise<TConfigureAppData | TErrorResponse> {
+        const url = `authenticators/configure`
+        const res: TConfigureAppData | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
+        return res
+    }
+
+    async changeAuthenticator(data: { targetAuthenticator: string }): Promise<TSuccessResponse | TErrorResponse> {
+        const url = `authenticators/change `
+        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
         return res
     }
 }
