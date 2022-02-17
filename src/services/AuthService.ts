@@ -1,4 +1,4 @@
-import { AUTH_API_URL } from './../constants';
+import { AUTH_API_URL } from '@/constants';
 import { IApiService } from '@/types/api';
 import ApiService from "./ApiService";
 import { IAuthService } from '@/types/api';

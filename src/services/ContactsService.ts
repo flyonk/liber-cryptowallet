@@ -1,5 +1,5 @@
-import { IContactsService, TInviteLink, TIPhoneContacts, TLiberContact, TLiberContacts, TPaymentLink } from './../types/api';
-import { AUTH_API_URL } from './../constants';
+import { IContactsService, TInviteLink, TIPhoneContacts, TLiberContact, TLiberContacts, TPaymentLink } from '@/types/api';
+import { AUTH_API_URL } from '@/constants';
 import { IApiService } from '@/types/api';
 import ApiService from "./ApiService";
 import { TSuccessResponse } from '@/types/api';

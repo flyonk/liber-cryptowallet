@@ -1,5 +1,5 @@
-import { IRequestFundsService, TErrorResponse, TRequestFundsPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from './../types/api';
-import { AUTH_API_URL } from '../constants';
+import { IRequestFundsService, TErrorResponse, TRequestFundsPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from '@/types/api';
+import { AUTH_API_URL } from '@/constants';
 import { IApiService } from '@/types/api';
 import ApiService from "./ApiService";
 

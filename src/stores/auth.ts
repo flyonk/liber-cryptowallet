@@ -1,4 +1,4 @@
-import { EStepDirection } from './../types/base-component';
+import { EStepDirection } from '@/types/base-component';
 import { defineStore } from 'pinia';
 
 // === Auth Types ===
