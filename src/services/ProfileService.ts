@@ -1,3 +1,5 @@
+import { IVerificator } from '@/types/api';
+import { TVerification } from '@/types/api';
 import { TConfigureAppData } from '@/types/api';
 import { TUpdateProfile } from '@/types/api';
 import { PROFILE_API_URL } from '@/constants';
@@ -12,7 +14,7 @@ import ApiService from './ApiService';
 
 const URL = PROFILE_API_URL
 
-class ProfileService implements IProfileService, IKycService {
+class ProfileService implements IProfileService, IKycService, IVerificator {
 
     private _apiServiceInstance: IApiService;
 
@@ -102,6 +104,18 @@ class ProfileService implements IProfileService, IKycService {
     async changeAuthenticator(data: { targetAuthenticator: string }): Promise<TSuccessResponse | TErrorResponse> {
         const url = `authenticators/change `
         const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
+        return res
+    }
+
+    async verificationBySMS(data: { otp: string; }): Promise<TVerification | TErrorResponse> {
+        const url = `verification-by-sms`
+        const res: TVerification | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
+        return res
+    }
+
+    async verificationByApp(data: { code: string; }): Promise<TVerification | TErrorResponse> {
+        const url = `verification-by-auth-app`
+        const res: TVerification | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
         return res
     }
 }

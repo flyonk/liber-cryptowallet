@@ -109,11 +109,20 @@ export type TPaymentLink = {
 
 export interface IProfileService {
     getProfile(): Promise<TProfile | TErrorResponse>;
-    updateProfile(payload: TUpdateProfile): Promise<TProfile | TErrorResponse>;
+    updateProfile(data: TUpdateProfile): Promise<TProfile | TErrorResponse>;
     updateProfileAvatar(file: File): Promise<TSuccessResponse | TErrorResponse>;
     closeProfile(): Promise<TSuccessResponse | TErrorResponse>;
     configureApp(): Promise<TConfigureAppData | TErrorResponse>;
     changeAuthenticator(data: { targetAuthenticator: string }): Promise<TSuccessResponse | TErrorResponse>;
+}
+
+export interface IVerificator {
+    verificationBySMS(data: { otp: string }): Promise<TVerification | TErrorResponse>;
+    verificationByApp(data: { code: string }): Promise<TVerification | TErrorResponse>;
+}
+
+export type TVerification = {
+    varification: boolean
 }
 
 export type TProfile = {
