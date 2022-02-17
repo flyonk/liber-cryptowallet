@@ -1,6 +1,5 @@
-import { IRequestFundsService, TErrorResponse, TRequestFundsPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from '@/types/api';
+import { IApiService, IRequestFundsService, TErrorResponse, TRequestFundsPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import { IApiService } from '@/types/api';
 import ApiService from "./ApiService";
 
 const URL = AUTH_API_URL

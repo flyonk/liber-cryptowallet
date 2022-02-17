@@ -1,16 +1,7 @@
-import { IVerificator } from '@/types/api';
-import { TVerification } from '@/types/api';
-import { TConfigureAppData } from '@/types/api';
-import { TUpdateProfile } from '@/types/api';
+
+import { IApiService, IKycService, IProfileService, IVerificator, TClaimFileList, TConfigureAppData, TErrorResponse, TProfile, TSuccessResponse, TUpdateProfile, TVerification } from '@/types/api';
 import { PROFILE_API_URL } from '@/constants';
-import { TClaimFileList } from '@/types/api';
-import { TSuccessResponse } from '@/types/api';
-import { IApiService } from '@/types/api';
-import { TErrorResponse } from '@/types/api';
-import { TProfile } from '@/types/api';
-import { IKycService } from '@/types/api';
-import { IProfileService } from '@/types/api';
-import ApiService from './ApiService';
+import ApiService from '@/services/ApiService';
 
 const URL = PROFILE_API_URL
 

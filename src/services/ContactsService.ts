@@ -1,9 +1,6 @@
-import { IContactsService, TInviteLink, TIPhoneContacts, TLiberContact, TLiberContacts, TPaymentLink } from '@/types/api';
+import { IApiService, IContactsService, TInviteLink, TIPhoneContacts, TLiberContact, TLiberContacts, TPaymentLink, TSuccessResponse, TErrorResponse } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import { IApiService } from '@/types/api';
-import ApiService from "./ApiService";
-import { TSuccessResponse } from '@/types/api';
-import { TErrorResponse } from '@/types/api';
+import ApiService from "@/services/ApiService";
 
 const URL = AUTH_API_URL
 

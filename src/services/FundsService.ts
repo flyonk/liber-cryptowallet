@@ -1,8 +1,6 @@
-import { IFundsService, TCoins, TConvertData, TConvertInfo, TDepositInfo, TErrorResponse, TSuccessResponse } from '@/types/api';
+import { IApiService, IFundsService, TCoins, TConvertData, TConvertInfo, TDepositInfo, TErrorResponse, TSuccessResponse } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import { IApiService } from '@/types/api';
 import ApiService from "@/services/ApiService";
-
 
 const URL = AUTH_API_URL
 
