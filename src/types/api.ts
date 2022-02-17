@@ -204,6 +204,7 @@ export type TConfigureAppData = {
 
 export interface IFundsService {
     getCoins(): Promise<TCoins | TErrorResponse>;
+    getDepositInfo(coinCode: string): Promise<TDepositInfo | TErrorResponse>;
     convertInfo(data: TConvertData): Promise<TConvertInfo | TErrorResponse>;
     convert(data: TConvertData): Promise<TSuccessResponse | TErrorResponse>;
 }
@@ -230,4 +231,15 @@ export type TConvertInfo = {
     transactionFee: string,
     guaranteedRate: string,
     amountToBeTransferred: string
+}
+
+export type TDepositInfo = {
+    QRCode: File,
+    data: {
+        netWork: string,
+        address: string,
+        minimumDeposite: string,
+        expectedArrival: number,
+        expectedUnlock: number
+    }
 }

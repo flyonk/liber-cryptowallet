@@ -1,4 +1,4 @@
-import { IFundsService, TCoins, TConvertData, TConvertInfo, TErrorResponse, TSuccessResponse } from '@/types/api';
+import { IFundsService, TCoins, TConvertData, TConvertInfo, TDepositInfo, TErrorResponse, TSuccessResponse } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
 import { IApiService } from '@/types/api';
 import ApiService from "@/services/ApiService";
@@ -24,6 +24,12 @@ class FundsService implements IFundsService {
     async getCoins(): Promise<TCoins | TErrorResponse> {
         const url = `coins`
         const res: TCoins | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
+        return res
+    }
+
+    async getDepositInfo(coinCode: string): Promise<TDepositInfo | TErrorResponse> {
+        const url = `deposit-info/${coinCode}`
+        const res: TDepositInfo | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
         return res
     }
 
