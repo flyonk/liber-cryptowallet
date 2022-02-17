@@ -16,6 +16,7 @@
             :type="type === 'number' ? 'tel' : type"
             :value="v"
             maxlength="1"
+            class="input-item"
             @focus="onFocus"
             @input="onValueChange"
             @keydown="onKeyDown"
@@ -36,6 +37,10 @@ const KEY_CODE = {
 };
 export default {
   name: 'CodeInput',
+  model: {
+    prop: 'modelValue',
+    event: 'update:modelValue'
+  },
   props: {
     type: {
       type: String,
@@ -74,7 +79,7 @@ export default {
       default: false,
     },
   },
-  emits: ['change', 'complete'],
+  emits: ['change', 'complete', 'update:modelValue'],
   data() {
     const { fields, values } = this;
     let vals;
@@ -188,6 +193,7 @@ export default {
     triggerChange(values = this.values) {
       const { fields } = this;
       const val = values.join('');
+      this.$emit('update:modelValue', val)
       this.$emit('change', val);
       if (val.length >= fields ) {
         this.$emit('complete', val);
@@ -201,26 +207,26 @@ export default {
 .input-container {
   display: flex;
   width: 100%;
+}
 
-  .input-wrapper {
-    &:not(:last-child) {
-      margin-right: 12px;
-    }
+.input-wrapper {
+  &:not(:last-child) {
+    margin-right: 12px;
+  }
+}
 
-    input {
-      width: 100%;
-      text-align: center;
-      padding: 16px;
-      border-radius: 12px;
-      border: 1px solid transparent;
-      background: $color-light-grey;
+.input-item {
+  width: 100%;
+  text-align: center;
+  padding: 16px;
+  border-radius: 12px;
+  border: 1px solid transparent;
+  background: $color-light-grey;
 
-      &:focus {
-        outline: none;
-        border-color: $color-primary;
-        background: transparent;
-      }
-    }
+  &:focus {
+    outline: none;
+    border-color: $color-primary;
+    background: transparent;
   }
 }
 </style>

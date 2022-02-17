@@ -21,6 +21,7 @@
         </div>
       </template>
     </base-toast>
+
     <base-toast
       v-model:visible="showSessionExpiredToast"
       severity="error"
@@ -87,8 +88,12 @@ const showSessionExpiredToast = ref(false)
 
 const state = ref(EState.pending) as Ref<EState>;
 
-const onSubmit = (): void => {
-  emit('next');
+const onSubmit = (success: boolean): void => {
+  if (success) {
+    emit('next')
+  } else {
+    showIncorrectPasswordToast.value = true
+  }
 }
 </script>
 

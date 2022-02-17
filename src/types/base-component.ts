@@ -17,3 +17,14 @@ export enum EState {
   success = 'success',
   error = 'error',
 }
+
+export enum EPasscodeActions {
+  store = 'store',
+  receive = 'receive',
+  compare = 'compare',
+  clear = 'clear'
+}
+
+export enum EStorageKeys {
+  passcode = 'liber-app-passcode',
+}

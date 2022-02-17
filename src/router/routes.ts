@@ -4,7 +4,6 @@ import DepositeRoutes from './routesDeposite'
 // Pages
 // import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
-import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
@@ -39,11 +38,12 @@ const routes: Array<RouteRecordRaw> = [
     component: CodeEnter,
     meta: { layout: 'default' },
   },
+
   {
     path: '/passcode',
     name: 'auth-passcode',
-    component: PasscodeEnter,
-    meta: { layout: 'default' },
+    component: () =>
+      import('@/views/ConfigureApp/PasscodeEnter.vue'),
   },
 
   {
@@ -258,8 +258,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/install',
     name: 'install-app',
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
+    component: () => import('@/views/InstallApp/InstallApp.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Configure app ===
@@ -268,11 +270,17 @@ const routes: Array<RouteRecordRaw> = [
     path: '/config',
     name: 'configure-app',
     component: () => import('@/views/ConfigureApp/ConfigureApp.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/config-verify',
     name: 'configure-app-verify',
     component: () => import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Configure app options ===
@@ -281,17 +289,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/faceid',
     name: 'face-id',
     component: () => import('@/views/ConfigureApp/Options/FaceId.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/touchid',
     name: 'touch-id',
     component: () => import('@/views/ConfigureApp/Options/TouchId.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/push-notifications',
     name: 'push-notifications',
-    component: () =>
-      import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    component: () => import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Deposite btc ===

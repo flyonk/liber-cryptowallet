@@ -1,16 +1,20 @@
 <template>
-  <div class="top-navigation--block">
-    <div class="top-navigation--controllers">
+  <header class="page-header">
+    <button
+      type="button"
+      class="controls"
+      @click="$emit('click:left-icon')"
+    >
       <i
-        class="back--icon"
+        class="icon-header"
         :class="leftIconName"
-        @click="$emit('click:left-icon')"
       />
-    </div>
-    <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold">
+    </button>
+
+    <h1 class="page-title">
       <slot />
-    </div>
-  </div>
+    </h1>
+  </header>
 </template>
 
 <script lang="ts" setup>
@@ -24,21 +28,33 @@ defineProps({
 defineEmits(['click:left-icon'])
 </script>
 
-<style lang="scss">
-.top-navigation--block {
+<style lang="scss" scoped>
+.page-header {
   margin-top: 24px;
   margin-bottom: 8px;
 
-  .top-navigation--controllers {
+  & > .controls {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-
-    .back--icon {
-      width: 24px;
-      height: 24px;
-      font-size: 24px;
-    }
   }
+}
+
+.icon-header {
+  $size: 24px;
+
+  width: $size;
+  height: $size;
+  font-size: $size;
+}
+
+.page-title {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.0038em;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 </style>
