@@ -22,7 +22,7 @@ export interface IKycService {
 }
 
 /**
- *   IRequestFundsService
+ *   RequestFundsService
  */
 
 export interface IRequestFundsService {
@@ -56,7 +56,7 @@ export type TRequestFundsPaymentLink = {
 }
 
 /**
- *   IContactsService
+ *   ContactsService
  */
 
 export interface IContactsService {
@@ -196,4 +196,38 @@ export type TSuccessSignIn = {
 export type TConfigureAppData = {
     QRCode: File, //.pdf
     code: string
+}
+
+/**
+ *   FundsService
+ */
+
+export interface IFundsService {
+    getCoins(): Promise<TCoins | TErrorResponse>;
+    convertInfo(data: TConvertData): Promise<TConvertInfo | TErrorResponse>;
+    convert(data: TConvertData): Promise<TSuccessResponse | TErrorResponse>;
+}
+
+type TCoin = {
+    [key: string]: { //Coin CODE
+        fullname: string,
+        suggested: boolean
+    }
+}
+
+export type TCoins = {
+    coins: TCoin[]
+}
+
+export type TConvertData = {
+    list: [
+        { [key: string]: { fullname: string, amount: string } },
+        { [key: string]: { fullname: string } }
+    ]
+}
+
+export type TConvertInfo = {
+    transactionFee: string,
+    guaranteedRate: string,
+    amountToBeTransferred: string
 }
