@@ -18,9 +18,9 @@
 
   <div style="padding: 15px">
     <base-button
-        block
-        @click="$router.push({ name: 'install-app' })"
-      >
+      block
+      @click="$router.push({ name: 'install-app' })"
+    >
       Continue
     </base-button>
   </div>
@@ -39,7 +39,6 @@ function prevStep(): void {
   margin: 15px;
   flex-grow: 1;
   overflow: auto;
-
   display: flex;
   flex-direction: column;
 }
