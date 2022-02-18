@@ -16,7 +16,7 @@ class ContactsService implements IContactsService {
             this.url = URL;
         }
 
-        this._apiServiceInstance = ApiService
+        this._apiServiceInstance = ApiService.getInstance()
     }
 
     async getFriends() {

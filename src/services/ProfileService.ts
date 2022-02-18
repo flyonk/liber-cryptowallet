@@ -18,7 +18,7 @@ class ProfileService implements IProfileService, IKycService, IVerificator {
             this.url = URL;
         }
 
-        this._apiServiceInstance = ApiService
+        this._apiServiceInstance = ApiService.getInstance()
     }
 
     async getProfile() {

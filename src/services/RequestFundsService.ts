@@ -16,7 +16,7 @@ class RequestFundsService implements IRequestFundsService {
             this.url = URL;
         }
 
-        this._apiServiceInstance = ApiService
+        this._apiServiceInstance = ApiService.getInstance()
     }
 
     async downloadStatement(id: string): Promise<TStatement | TErrorResponse> {

@@ -1,6 +1,6 @@
 import { AUTH_API_URL } from '@/constants';
 import { IApiService } from '@/types/api';
-import ApiService from "./ApiService";
+import ApiService from "@/services/ApiService";
 import { IAuthService } from '@/types/api';
 import { TSuccessResponse } from '@/types/api';
 import { TErrorResponse } from '@/types/api';
@@ -20,7 +20,7 @@ class AuthService implements IAuthService {
             this.url = URL;
         }
 
-        this._apiServiceInstance = ApiService
+        this._apiServiceInstance = ApiService.getInstance()
     }
 
     //Public functions

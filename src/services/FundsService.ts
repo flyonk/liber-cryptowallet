@@ -16,7 +16,7 @@ class FundsService implements IFundsService {
             this.url = URL;
         }
 
-        this._apiServiceInstance = ApiService
+        this._apiServiceInstance = ApiService.getInstance()
     }
 
     async getCoins(): Promise<TCoins | TErrorResponse> {
