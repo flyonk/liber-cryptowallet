@@ -10,24 +10,55 @@
     </p>
     
     <base-passcode
+      v-if="actionType === EPasscodeActions.store"
       :action-type="actionType"
+      @submit="onCreate"
+    />
+
+    <base-passcode
+      v-if="actionType === EPasscodeActions.compare"
       @submit="onSubmit"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref } from 'vue'
+import { ref, Ref, computed } from 'vue'
 import { TopNavigation, BasePasscode } from '@/components/UI';
 import { EPasscodeActions } from '@/types/base-component'
+import { useRouter } from 'vue-router'
 
-const title = ref('Create passcode')
+const router = useRouter()
+
 
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>
 
-function onSubmit(): void {
-  // to to next page
-} 
+const title = computed(() => {
+  switch (actionType.value) {
+    case EPasscodeActions.store:
+      return 'Create passcode'
+    case EPasscodeActions.compare:
+      return 'Confirm passcode'
+  
+    default:
+      return 'Create passcode'
+  }
+})
+
+
+function onCreate(success:boolean): void {
+  if (success) {
+    actionType.value = EPasscodeActions.compare
+  }
+}
+
+function onSubmit(success:boolean): void {
+  if (success) {
+    router.push({ name: 'configure-app' })
+  } else {
+    // wrong passcode
+  }
+}
 
 function prevStep(): void {
   // go to previous step

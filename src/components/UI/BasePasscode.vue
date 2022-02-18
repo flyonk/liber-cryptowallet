@@ -120,7 +120,7 @@ async function setPasscode(passcode: string) {
     key: EStorageKeys.passcode,
     value: passcode,
   })
-  return passcode
+  return true
 }
 
 function getSubmitFunction(actionType: string) {
