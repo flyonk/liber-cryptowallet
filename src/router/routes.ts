@@ -232,6 +232,14 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDetails.vue'
           ),
       },
+      {
+        path: 'privacy',
+        name: 'profile-privacy',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/PrivacySettings.vue'
+          ),
+      },
     ],
   },
 
