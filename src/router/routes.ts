@@ -103,9 +103,26 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'story',
         name: 'dashboard-story',
+        meta: { layout: 'default' },
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
+          ),
+      },
+      {
+        path: 'verifying-identity',
+        name: 'dashboard-verifying-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerifyingIdentityStory.vue'
+          ),
+      },
+      {
+        path: 'transfer-funds-to-treasury',
+        name: 'dashboard-transfer-funds-to-treasury-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardTransferFundsToTreasuryStory.vue'
           ),
       },
     ],
