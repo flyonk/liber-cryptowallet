@@ -253,8 +253,16 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
   },
 
-  // === Install app ===
-
+  
+  // === Configure 2fa ===
+  {
+    path: '/2fa',
+    name: '2fa-app',
+    component: () => import('@/views/ConfigureApp/TwoFA.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
+  },
   {
     path: '/install',
     name: 'install-app',
@@ -263,9 +271,6 @@ const routes: Array<RouteRecordRaw> = [
       classLayout: '-full-height'
     }
   },
-
-  // === Configure app ===
-
   {
     path: '/config',
     name: 'configure-app',

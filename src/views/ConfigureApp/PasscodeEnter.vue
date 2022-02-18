@@ -65,7 +65,7 @@ function onCreate(success:boolean): void {
 
 function onSubmit(success:boolean): void {
   if (success) {
-    router.push({ name: 'configure-app' })
+    router.push({ name: '2fa-app' })
   } else {
     showErrorToast.value = true
   }
