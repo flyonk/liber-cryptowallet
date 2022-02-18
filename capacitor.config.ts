@@ -5,6 +5,11 @@ const config: CapacitorConfig = {
   appName: 'Liber',
   webDir: 'dist',
   bundledWebRuntime: false,
+
+  server: {
+    url: 'http://192.168.0.108:8080/',
+    cleartext: true,
+  },
 };
 
 export default config;

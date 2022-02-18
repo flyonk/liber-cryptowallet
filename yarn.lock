@@ -974,6 +974,13 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
+"@capacitor-community/camera-preview@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/camera-preview/-/camera-preview-2.0.0.tgz#1aecefd7764d635888daf58bf462f2bfb4962692"
+  integrity sha512-W98gRQ+7DPR6h3MqrckhXQ9hFzyfvoJAU22YX7Oh8toYheatqx0pESJT4RXC+wTrJeFAzJIpwktt3nvau+ucsQ==
+  dependencies:
+    "@capacitor/core" latest
+
 "@capacitor/camera@^1.3.0":
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/@capacitor/camera/-/camera-1.3.0.tgz#02d4b7146a9d48841405c793dcbd01b38d8ee4ba"
@@ -1010,6 +1017,13 @@
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.3.4.tgz#5a302731d2d7a5461e10c55a6c113602b873d855"
   integrity sha512-C4IQhSj60cr4OwMrm85r+5QB8WIvoBpvusUntxpJdVmhIzsooMQQ+3sTsXa2Rn+G57/zA2S/VpQsvUKasGwBtA==
+  dependencies:
+    tslib "^2.1.0"
+
+"@capacitor/core@latest":
+  version "3.4.1"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.4.1.tgz#110e59eef7344ddc2d5642fbdc48a79caf0435d7"
+  integrity sha512-BwN925gwXGEVAhnnVAXH57cp+/YW5PhFZloGYaN3Sm8eKcYDNeti38lV9DQ8A/T5PYkJw/+TSu8SsuoEQD0vwQ==
   dependencies:
     tslib "^2.1.0"
 
