@@ -57,17 +57,24 @@ import { TopNavigation, BaseButton } from '@/components/UI';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from "primevue/usetoast";
+import { generateSecret } from "node-2fa"
 const toast = useToast()
 
+const { secret, uri } = generateSecret({
+  name: 'Liber App',
+  account: 'Personal'
+})
+
+console.log('what is fucking secret', secret)
+
+
 const canvas = ref<HTMLCanvasElement | undefined>();
-let qrCodeValue = ref<string>('');
+let qrCodeValue = ref<string>(secret);
 
 onMounted(() => {
-  qrCodeValue.value = '12345798';
-
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
-    content: qrCodeValue.value,
+    content: uri,
     width: 230,
   });
 

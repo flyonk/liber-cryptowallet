@@ -27,4 +27,5 @@ export enum EPasscodeActions {
 
 export enum EStorageKeys {
   passcode = 'liber-app-passcode',
+  twofa = 'liber-app-2fa'
 }
