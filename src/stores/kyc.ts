@@ -27,6 +27,8 @@ export interface IKYCState {
 
   proof_type: EKYCProofType | null;
 
+  completed_percentage: number;
+
   data: IKYCFormData;
 }
 
@@ -35,10 +37,12 @@ export interface IKYCState {
 export const useKYCStore = defineStore('kyc', {
   state: (): IKYCState => ({
     steps: {
-      personal: 2,
+      personal: 3,
     },
 
     proof_type: null,
+
+    completed_percentage: 0.3,
 
     data: {
       citizenship: '',
@@ -53,12 +57,24 @@ export const useKYCStore = defineStore('kyc', {
   getters: {
     getStep: ({ steps }) => steps,
 
+    getProofType: ({ proof_type }) => proof_type,
+
     getData: ({ data }) => data,
+
+    getPercentage: ({ completed_percentage }) => completed_percentage,
   },
 
   actions: {
     changeData(key: keyof IKYCFormData, value: string) {
       this.data[key] = value;
+    },
+
+    setProofType(type: EKYCProofType) {
+      this.proof_type = type;
+    },
+
+    setPercentage(percentage: number) {
+      this.completed_percentage = percentage;
     },
 
     setStep(step: number | EStepDirection) {

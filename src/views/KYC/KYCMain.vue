@@ -9,7 +9,7 @@
 </template>
 
 <script setup lang="ts">
-import { KYC1Step, KYC2Step, KYC3Step } from '.';
+import { KYC1Step, KYC2Step, KYC3Step, KYC4Step } from '.';
 
 import { useKYCStore } from '@/stores/kyc';
 import { computed } from 'vue';
@@ -17,7 +17,7 @@ import { EStepDirection } from '@/types/base-component';
 
 const kycStore = useKYCStore();
 
-const KYCComponents = [KYC1Step, KYC2Step, KYC3Step];
+const KYCComponents = [KYC1Step, KYC2Step, KYC3Step, KYC4Step];
 
 const currentComponent = computed(() => {
   return KYCComponents[kycStore.getStep.personal]
@@ -39,6 +39,9 @@ const onPrev = () => {
 
   .description {
     padding: 0 0 40px 0;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
   }
 
   .footer {

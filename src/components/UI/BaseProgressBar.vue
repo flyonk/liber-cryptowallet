@@ -14,7 +14,7 @@ import { computed } from 'vue-demi';
 const props = defineProps({
   value: {
     type: Number,
-    default: 30,
+    default: 0,
   },
   height: {
     type: String,

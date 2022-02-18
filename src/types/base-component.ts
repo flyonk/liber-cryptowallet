@@ -17,3 +17,9 @@ export enum EState {
   success = 'success',
   error = 'error',
 }
+
+export interface IValueItem {
+  text: string;
+  value: string | number;
+  logo?: string;
+}
