@@ -1,36 +1,35 @@
-<template name="DashboardStory">
+<template name="DashboardVerifyingStory">
   <div class="dashboard-story">
-    <header class="header">
+    <div class="header">
       <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
         alt="story"
       />
-    </header>
-    <main class="main">
-      <h1 class="title">Verify your identity</h1>
+    </div>
+    <div class="main">
+      <h1 class="title">We’re verifying your identity</h1>
       <p class="description">
-        We require you to verify your identity before you can use this feature.
+        We’ll let you know when we have verified your details.
       </p>
       <img
         class="image"
-        src="@/assets/images/passport_upload.png"
-        alt="upload document"
+        src="@/assets/images/50-percent-loader.png"
+        alt="50% completed"
       />
-    </main>
+    </div>
     <footer class="footer">
-      <button class="btn">Verify identity</button>
+      <button class="btn">Got it</button>
     </footer>
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="scss">
+</script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .dashboard-story {
-  display: flex;
-  flex-direction: column;
   height: 100%;
   padding: 32px 24px;
   background: linear-gradient(
@@ -78,7 +77,7 @@
   }
 
   > .footer {
-    margin-top: 42px;
+    margin-top: 105px;
     > .btn {
       display: flex;
       flex-direction: column;
@@ -86,6 +85,8 @@
       align-items: center;
       width: 343px;
       height: 48px;
+      left: 16px;
+      top: 710px;
       background: $color-primary;
       border-radius: 13px;
       color: $color-white;

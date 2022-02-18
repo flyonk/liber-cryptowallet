@@ -1,3 +1,4 @@
+import { TUpdateProfile } from './../types/api';
 import { PROFILE_API_URL } from '@/constants';
 import { TClaimFileList } from '@/types/api';
 import { TSuccessResponse } from '@/types/api';
@@ -34,7 +35,7 @@ class ProfileService implements IProfileService, IKycService {
         return res
     }
 
-    async updateProfile(payload: TProfile) {
+    async updateProfile(payload: TUpdateProfile) {
         const store = useAccountStore()
         const url = `${this.url}?access_token=${store.token}`
         const res: TProfile | TErrorResponse = await this._apiServiceInstance.fetch.patch(url, payload)

@@ -103,9 +103,26 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'story',
         name: 'dashboard-story',
+        meta: { layout: 'default' },
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardStory.vue'
+          ),
+      },
+      {
+        path: 'verifying-identity',
+        name: 'dashboard-verifying-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerifyingIdentityStory.vue'
+          ),
+      },
+      {
+        path: 'transfer-funds-to-treasury',
+        name: 'dashboard-transfer-funds-to-treasury-story',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardTransferFundsToTreasuryStory.vue'
           ),
       },
     ],
@@ -123,7 +140,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     children: [
       {
-        path: 'all-accounts',
+        path: '',
         name: 'account-main',
         component: () =>
           import(
@@ -162,6 +179,15 @@ const routes: Array<RouteRecordRaw> = [
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountDevices.vue'
+          ),
+        meta: { layout: 'default' },
+      },
+      {
+        path: 'privacy',
+        name: 'privacy-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/PrivacySettings.vue'
           ),
         meta: { layout: 'default' },
       },
