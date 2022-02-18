@@ -20,17 +20,28 @@
       @submit="onSubmit"
     />
   </div>
+
+  <base-toast
+    v-model:visible="showErrorToast"
+    severity="error"
+  >
+    <template #description>
+      <div>
+        Your passcode doesn't match. Please, try again!
+      </div>
+    </template>
+  </base-toast>
 </template>
 
 <script lang="ts" setup>
 import { ref, Ref, computed } from 'vue'
-import { TopNavigation, BasePasscode } from '@/components/UI';
+import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
 import { EPasscodeActions } from '@/types/base-component'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-
+const showErrorToast = ref(false)
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>
 
 const title = computed(() => {
@@ -56,7 +67,7 @@ function onSubmit(success:boolean): void {
   if (success) {
     router.push({ name: 'configure-app' })
   } else {
-    // wrong passcode
+    showErrorToast.value = true
   }
 }
 
