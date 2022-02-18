@@ -57,15 +57,14 @@ import { TopNavigation, BaseButton } from '@/components/UI';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from "primevue/usetoast";
-import { generateSecret } from "node-2fa"
+import { use2faStore } from '@/stores/2fa';
+
+const store = use2faStore()
 const toast = useToast()
 
-const { secret, uri } = generateSecret({
-  name: 'Liber App',
-  account: 'Personal'
-})
 
-console.log('what is fucking secret', secret)
+store.generateSecret()
+const { secret, uri } = store
 
 
 const canvas = ref<HTMLCanvasElement | undefined>();

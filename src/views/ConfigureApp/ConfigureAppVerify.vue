@@ -1,10 +1,8 @@
 <template>
   <div class="page-wrapper">
-    <BackHistoryBtn />
-
-    <h1 class="main-title">
+    <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
       Enter verification code
-    </h1>
+    </top-navigation>
 
     <p class="text-default">
       Get a verification code from the authenticator app
@@ -22,15 +20,30 @@
       Paste
     </base-button>
   </div>
+  <base-toast
+    v-model:visible="showErrorToast"
+    severity="error"
+  >
+    <template #description>
+      <div>
+        Your code doesn't match. Please, try again!
+      </div>
+    </template>
+  </base-toast>
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-import { BaseButton, BaseVerificationCodeInput } from '@/components/UI'
+import { TopNavigation, BaseButton, BaseVerificationCodeInput, BaseToast } from '@/components/UI'
 import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
 import { getSupportedOptions } from '@/helpers/identification'
+import { use2faStore } from '@/stores/2fa';
+
+const store = use2faStore()
+store.generateToken()
+
 const verificationCode = ref('')
+const showErrorToast = ref(false)
 
 const router = useRouter();
 
@@ -65,12 +78,16 @@ function getSupportedIdentificationWay() {
 
 watch(verificationCode, (code) => {
   if (code.length === 6) {
-    // @TODO
-    // Check code logic
-    const name = getSupportedIdentificationWay();
-    router.push({
-      name,
-    });
+    const result = store.verify(code)
+
+    if (result?.delta === 0) {
+      const name = getSupportedIdentificationWay();
+      router.push({
+        name,
+      });
+    } else {
+      showErrorToast.value = true
+    }
   }
 });
 </script>
@@ -82,16 +99,6 @@ watch(verificationCode, (code) => {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
 }
 
 .text-default {
