@@ -1,10 +1,8 @@
 <template>
   <div class="page-wrapper">
-    <BackHistoryBtn />
-
-    <h1 class="main-title">
+    <top-navigation @click:left-icon="$router.push({ name: 'install-app' })">
       Step 2. Configure App
-    </h1>
+    </top-navigation>
 
     <p 
       class="text-default" 
@@ -55,8 +53,7 @@
 </template>
 
 <script setup lang="ts">
-import { BaseButton } from '@/components/UI';
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { TopNavigation, BaseButton } from '@/components/UI';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from "primevue/usetoast";
@@ -94,16 +91,6 @@ const copyToClipboard = () => {
   margin: 15px;
   flex-grow: 1;
   overflow: auto;
-}
-
-.main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
 }
 
 .text-default {
