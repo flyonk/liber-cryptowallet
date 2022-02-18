@@ -266,7 +266,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/install',
     name: 'install-app',
-    component: () => import('@/views/InstallApp/InstallApp.vue'),
+    component: () => import('@/views/ConfigureApp/InstallApp.vue'),
     meta: {
       classLayout: '-full-height'
     }
