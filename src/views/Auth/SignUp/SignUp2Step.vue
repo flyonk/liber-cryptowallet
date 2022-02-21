@@ -41,6 +41,7 @@
 
 <script lang="ts" setup>
 import { ref, Ref } from 'vue';
+// import { nextTick } from 'vue';
 import {
   BaseButton,
   BaseCountdown,
@@ -80,7 +81,6 @@ const onComplete = async (data: string) => {
   } catch (err) {
     console.log(err);
   }
-  
   nextStep();
 };
 
@@ -93,6 +93,24 @@ const formatPhone = () => {
     .join('');
 
   return formattedPhone;
+};
+
+const resend = async () => {
+  const phone = authStore.registration.phone;
+
+  /*I thought it would re-render the countdown 
+  timer and start it again, but it doesn't happen. 
+  I don't understand why yet.*/
+
+  // nextTick(() => {
+  //   showCountdown.value = true;
+  // });
+
+  try {
+    await authService.signIn({ phone });
+  } catch (err) {
+    console.log(err);
+  }
 };
 </script>
 
