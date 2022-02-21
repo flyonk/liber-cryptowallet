@@ -44,8 +44,9 @@ const emits = defineEmits(['next']);
 const number = ref<number | null>(null);
 
 onMounted(() => {
-  if (!authStore.registration.phone) return;
-  number.value = +authStore.registration.phone;
+  if (authStore.registration.phone)
+    number.value = +authStore.registration.phone;
+  if (!authStore.registration.dialCode) authStore.registration.dialCode = '+7'; //TODO:Change to the default value taken from the smartphone
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
@@ -55,7 +56,6 @@ const handleSelectCountry = (data: ICountryInformation) => {
 const handleStep = () => {
   if (!number.value) return;
   authStore.registration.phone = String(number.value);
-  authStore.registration.dialCode = "+7"; //TODO:Change to the default value taken from the smartphone
   emits('next');
 };
 </script>

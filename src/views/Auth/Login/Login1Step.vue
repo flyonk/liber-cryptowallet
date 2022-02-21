@@ -39,10 +39,16 @@ import {
 
 import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const authStore = useAuthStore();
 const number = ref<number | null>(null);
+
+onMounted(()=>{
+  if (authStore.login.phone)
+    number.value = +authStore.login.phone;
+  if (!authStore.login.dialCode) authStore.login.dialCode = '+7'; //TODO:Change to the default value taken from the smartphone
+})
 
 const handleSelectCountry = (data: ICountryInformation) => {
   authStore.login.dialCode = data.dialCode;
@@ -50,7 +56,6 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
 const nextStep = () => {
   if (!number.value) return;
-  if (!authStore.login.dialCode) authStore.login.dialCode = '+7'; //TODO:Change to the default value taken from the smartphone
   authStore.login.phone = String(number.value);
   authStore.setStep(1, 'login');
 };
