@@ -9,8 +9,15 @@ export interface IAuthSteps {
   recover: number;
 }
 
+export interface IAuthRegistration {
+  dialCode: string,
+  phone: string,
+  email: string
+}
+
 export interface IAuthState {
   steps: IAuthSteps;
+  registration: IAuthRegistration
 }
 
 // === Auth Store ===
@@ -22,6 +29,11 @@ export const useAuthStore = defineStore('auth', {
       login: 0,
       recover: 3,
     },
+    registration: {
+      dialCode: "",
+      phone: "",
+      email: ""
+    }
   }),
 
   getters: {
