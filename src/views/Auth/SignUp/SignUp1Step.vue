@@ -43,15 +43,24 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
 import BaseInput from '@/components/UI/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
+import { useAuthStore } from '@/stores/auth';
+import { ICountryInformation } from '@/types/country-phone-types';
 
-defineEmits(['next']);
+const authStore = useAuthStore();
 
-const number = ref(null);
+const emits = defineEmits(['next']);
+
+const number = ref<number | null>(null);
+
+onMounted(() => {
+  if (!authStore.registration.phone) return;
+  number.value = +authStore.registration.phone;
+});
 
 </script>
 
