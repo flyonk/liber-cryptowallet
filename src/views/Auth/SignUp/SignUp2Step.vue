@@ -39,12 +39,6 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'SignUp',
-}
-</script>
-
 <script lang="ts" setup>
 import { ref, Ref } from 'vue';
 import {
@@ -59,17 +53,17 @@ const emit = defineEmits(['next', 'prev']);
 // const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
 
-function prevStep(): void {
+const prevStep = () => {
   emit('prev');
-}
+};
 
-function nextStep(): void {
+const nextStep = () => {
   emit('next');
-}
+};
 
-function onTimeIsUp(): void {
+const onTimeIsUp = () => {
   showCountdown.value = false;
-}
+};
 
 function onComplete(): void {
   nextStep();
