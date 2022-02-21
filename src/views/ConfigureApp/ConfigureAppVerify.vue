@@ -64,8 +64,8 @@ const pasteFromClipboard = () => {
  *
  * returns the page name corresponding to the supported method
  */
-function getSupportedIdentificationWay() {
-  const option = getSupportedOptions()
+async function getSupportedIdentificationWay() {
+  const option = await getSupportedOptions()
   if (option === 'face-id') {
     return 'face-id'
   }
@@ -76,12 +76,12 @@ function getSupportedIdentificationWay() {
   return 'push-notifications';
 }
 
-watch(verificationCode, (code) => {
+watch(verificationCode, async (code) => {
   if (code.length === 6) {
     const result = store.verify(code)
 
     if (result?.delta === 0) {
-      const name = getSupportedIdentificationWay();
+      const name = await getSupportedIdentificationWay();
       router.push({
         name,
       });

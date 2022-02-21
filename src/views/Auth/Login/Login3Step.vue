@@ -34,10 +34,14 @@ import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
 import { use2faStore } from '@/stores/2fa';
 import { useAuthStore } from '@/stores/auth';
+import { useAppOptionsStore } from '@/stores/appOptions';
+import { getSupportedOptions } from '@/helpers/identification'
 
 const authStore = useAuthStore()
-
 const store = use2faStore()
+const appOptionsStore = useAppOptionsStore()
+
+appOptionsStore.init()
 store.init()
   .then(() => {
     store.generateToken()
@@ -60,14 +64,21 @@ const pasteFromClipboard = () => {
 }
 
 
-watch(verificationCode, (code) => {
+watch(verificationCode, async (code) => {
   if (code.length === 6) {
     const result = store.verify(code)
 
     if (result?.delta === 0) {
-      router.push({
-        name: 'dashboard-home'
-      });
+      if (appOptionsStore.isItFirstRun) {
+        const name = await getSupportedIdentificationWay();
+        router.push({
+          name,
+        })
+      } else {
+        router.push({
+          name: 'dashboard-home',
+        })
+      }
     } else {
       showErrorToast.value = true
     }
@@ -76,6 +87,18 @@ watch(verificationCode, (code) => {
 
 function prevStep(): void {
   authStore.setStep(0, 'login')
+}
+
+async function getSupportedIdentificationWay() {
+  const option = await getSupportedOptions()
+  if (option === 'face-id') {
+    return 'face-id'
+  }
+  if (option === 'touch-id') {
+    return 'touch-id'
+  }
+
+  return 'push-notifications';
 }
 </script>
 
