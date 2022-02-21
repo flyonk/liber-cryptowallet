@@ -55,6 +55,7 @@ const handleSelectCountry = (data: ICountryInformation) => {
 const handleStep = () => {
   if (!number.value) return;
   authStore.registration.phone = String(number.value);
+  authStore.registration.dialCode = "+7"; //TODO:Change to the default value taken from the smartphone
   emits('next');
 };
 </script>
