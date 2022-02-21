@@ -37,18 +37,20 @@
 import { TopNavigation, BaseButton } from '@/components/UI'
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { EStorageKeys } from '@/types/base-component'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const { setOptions } = useAppOptionsStore()
 
 
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.touchid)
-  // Move to next page
+  router.push({ name: 'push-notifications' })
 }
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.touchid)
-  // Move to next page
+  router.push({ name: 'push-notifications' })
 }
 </script>
 
