@@ -58,7 +58,6 @@ const authStore = useAuthStore();
 
 // const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
-const phone = ref(authStore.registration.phone);
 
 const prevStep = () => {
   emit('prev');
@@ -85,6 +84,16 @@ const onComplete = async (data: string) => {
   nextStep();
 };
 
+const formatPhone = () => {
+  const phone = authStore.registration.phone
+  const formattedPhone = Array.from(phone)
+    .map((e, index) => {
+      return index < phone.length - 4 ? '*' : e;
+    })
+    .join('');
+
+  return formattedPhone;
+};
 </script>
 
 <style lang="scss">
