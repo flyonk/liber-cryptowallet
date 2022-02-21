@@ -62,6 +62,10 @@ onMounted(() => {
   number.value = +authStore.registration.phone;
 });
 
+const handleSelectCountry = (data: ICountryInformation) => {
+  authStore.registration.dialCode = data.dialCode;
+};
+
 </script>
 
 <style scoped></style>
