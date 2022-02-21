@@ -1,15 +1,90 @@
 <template>
-  <div class="auth-page-container">
-    <top-navigation>
+  <div class="page-wrapper">
+    <top-navigation @click:left-icon="prevStep">
       Enter verification code
     </top-navigation>
-    <div class="description text--body">
-      Get a verification code from the authenticator app
-    </div>
-    <base-verification-code-input />
+
+    <base-verification-code-input 
+      v-model="verificationCode"
+    />
   </div>
+  <div style="padding: 15px">
+    <base-button
+      block
+      @click="pasteFromClipboard"
+    >
+      Paste
+    </base-button>
+  </div>
+  <base-toast
+    v-model:visible="showErrorToast"
+    severity="error"
+  >
+    <template #description>
+      <div>
+        Your code doesn't match. Please, try again!
+      </div>
+    </template>
+  </base-toast>
 </template>
 
-<script lang="ts" setup>
-import { TopNavigation, BaseVerificationCodeInput } from '@/components/UI';
+<script setup lang="ts">
+import { TopNavigation, BaseButton, BaseVerificationCodeInput, BaseToast } from '@/components/UI'
+import { useRouter } from 'vue-router'
+import { ref, watch } from 'vue'
+import { use2faStore } from '@/stores/2fa';
+import { useAuthStore } from '@/stores/auth';
+
+const authStore = useAuthStore()
+
+const store = use2faStore()
+store.init()
+  .then(() => {
+    store.generateToken()
+  })
+
+const verificationCode = ref('')
+const showErrorToast = ref(false)
+
+const router = useRouter();
+
+const pasteFromClipboard = () => {
+  navigator.clipboard.readText().then(
+    function (clipText) {
+      verificationCode.value = clipText;
+    },
+    function (err) {
+      console.error('Async: Could not read text: ', err);
+    }
+  )
+}
+
+
+watch(verificationCode, (code) => {
+  if (code.length === 6) {
+    const result = store.verify(code)
+
+    if (result?.delta === 0) {
+      router.push({
+        name: 'dashboard-home'
+      });
+    } else {
+      showErrorToast.value = true
+    }
+  }
+})
+
+function prevStep(): void {
+  authStore.setStep(0, 'login')
+}
 </script>
+
+<style lang="scss" scoped>
+.page-wrapper {
+  margin: 15px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+</style>

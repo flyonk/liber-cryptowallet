@@ -1,11 +1,9 @@
 <template>
-  <div>
-    <component
-      :is="currentComponent"
-      @next="nextStep"
-      @prev="prevStep"
-    />
-  </div>
+  <component
+    :is="currentComponent"
+    @next="nextStep"
+    @prev="prevStep"
+  />
 </template>
 
 <script lang="ts" setup>

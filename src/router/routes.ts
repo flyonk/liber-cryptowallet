@@ -58,7 +58,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'login',
     component: Login,
     meta: {
-      layout: 'default',
+      classLayout: '-full-height',
     },
   },
 
