@@ -110,12 +110,4 @@ watch(verificationCode, (code) => {
   color: $color-brand-primary;
   margin-bottom: 20px;
 }
-
-.page-content {
-  flex-grow: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
 </style>
