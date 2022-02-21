@@ -4,7 +4,7 @@
     <div class="description text--body">
       Get a verification code from the authenticator app
     </div>
-    <base-verification-code-input />
+    <base-verification-code-input @complete="handleCompleteCode($event)" />
   </div>
 </template>
 
@@ -19,4 +19,8 @@ onMounted(async () => {
   const phone = '+7 777 777 77 77';
   await authService.signIn({ phone });
 });
+
+const handleCompleteCode = (code: string) => {
+  console.log(code);
+};
 </script>
