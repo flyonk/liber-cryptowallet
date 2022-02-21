@@ -9,15 +9,19 @@ export interface IAuthSteps {
   recover: number;
 }
 
-export interface IAuthRegistration {
+export interface ICommonPhoneNumber {
   dialCode: string,
   phone: string,
+}
+
+export interface IAuthRegistration extends ICommonPhoneNumber {
   email: string
 }
 
 export interface IAuthState {
   steps: IAuthSteps;
-  registration: IAuthRegistration
+  registration: IAuthRegistration,
+  login: ICommonPhoneNumber
 }
 
 // === Auth Store ===
@@ -33,6 +37,10 @@ export const useAuthStore = defineStore('auth', {
       dialCode: "",
       phone: "",
       email: ""
+    },
+    login: {
+      dialCode: "",
+      phone: ""
     }
   }),
 
