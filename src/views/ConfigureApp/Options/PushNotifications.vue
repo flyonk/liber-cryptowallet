@@ -1,15 +1,14 @@
 <template>
   <div class="page-wrapper">
-    <BackHistoryBtn />
-
-    <h1 class="main-title">
+    <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
       Don’t miss a beat
-    </h1>
+    </top-navigation>
 
     <div class="page-content">
       <img
         src="@/assets/images/pushnotification-icon.svg"
         alt="Puch notifications"
+        class="mb-3"
       >
       <p class="text-default">
         Get notified about spending, security, wealth, market movements,
@@ -18,23 +17,33 @@
     </div>
   </div>
   <div style="padding: 15px">
-    <button
-      tyte="button"
-      class="btn-default btn-primary"
+    <base-button
+      block
+      class="mb-3"
+      @click="onEnable"
     >
       Enable push notifications
-    </button>
-    <button
-      tyte="button"
-      class="btn-default btn-secondary"
+    </base-button>
+    <base-button
+      block
+      view="secondary"
+      @click="onCancel"
     >
       Not now
-    </button>
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { TopNavigation, BaseButton } from '@/components/UI'
+
+const onEnable = (): void => {
+  // enable push notifications
+}
+
+const onCancel = (): void => {
+  // do not enable push notifications
+}
 </script>
 
 <style lang="scss" scoped>
@@ -44,16 +53,6 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-}
-
-.main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
 }
 
 .text-default {
@@ -69,32 +68,6 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
   border: none;
   height: 48px;
   width: 100%;
-}
-
-.btn-default {
-  border-radius: 13px;
-  text-align: center;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  height: 48px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-}
-
-.btn-primary {
-  background-color: $color-primary;
-  color: $color-white;
-}
-
-.btn-secondary {
-  margin-top: 10px;
-  color: $color-primary;
-  background-color: transparent;
 }
 
 .page-content {
