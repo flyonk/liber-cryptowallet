@@ -58,6 +58,7 @@ const authStore = useAuthStore();
 
 // const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
+const phone = ref(authStore.registration.phone);
 
 const prevStep = () => {
   emit('prev');
