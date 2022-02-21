@@ -66,6 +66,11 @@ const handleSelectCountry = (data: ICountryInformation) => {
   authStore.registration.dialCode = data.dialCode;
 };
 
+const handleStep = () => {
+  if (!number.value) return;
+  authStore.registration.phone = String(number.value);
+  emits('next');
+};
 </script>
 
 <style scoped></style>
