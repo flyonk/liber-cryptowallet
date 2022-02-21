@@ -20,7 +20,6 @@ const app = createApp(App)
   .use(createPinia())
   .use(PrimeVue)
   .use(ToastService)
-  .use(router);
 
 app.component('PInput', PInput);
 app.component('PDialog', PDialog);

@@ -1,26 +1,37 @@
 <template>
   <div class="page-wrapper">
-    <BackHistoryBtn />
+    <top-navigation @click:left-icon="$router.push({ name: 'install-app' })">
+      Step 2. Configure App
+    </top-navigation>
 
-    <h1 class="main-title">Step 2. Configure App</h1>
-
-    <p class="text-default" style="margin-bottom: 0">
+    <p 
+      class="text-default" 
+      style="margin-bottom: 0"
+    >
       Scan QR code with the authenticator app or enter the code manually.
     </p>
 
     <div>
-      <canvas ref="canvas" class="qr-code-canvas" />
+      <canvas 
+        ref="canvas" 
+        class="qr-code-canvas" 
+      />
     </div>
 
     <label class="default-input-wrapper">
       <span class="default-input-label">Code</span>
-      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
+      <input 
+        v-model="qrCodeValue" 
+        class="default-input" 
+        type="text" 
+        readonly 
+      >
       <img
         class="default-input-icon"
         src="@/assets/images/copy-to-clipboard.svg"
         alt="copy"
         @click="copyToClipboard"
-      />
+      >
     </label>
 
     <p class="text-default">
@@ -32,30 +43,37 @@
     </p>
   </div>
   <div style="padding: 15px">
-    <button
-      tyte="button"
-      class="btn-default btn-primary"
-      @click="$router.push('/config-verify')"
+    <base-button
+      block
+      @click="$router.push({ name: 'configure-app-verify' })"
     >
       Continue
-    </button>
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { TopNavigation, BaseButton } from '@/components/UI';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
+import { useToast } from "primevue/usetoast";
+import { use2faStore } from '@/stores/2fa';
+
+const store = use2faStore()
+const toast = useToast()
+
+
+store.generateSecret()
+const { secret, uri } = store
+
 
 const canvas = ref<HTMLCanvasElement | undefined>();
-let qrCodeValue = ref<string>('');
+let qrCodeValue = ref<string>(secret);
 
 onMounted(() => {
-  qrCodeValue.value = '12345798';
-
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
-    content: qrCodeValue.value,
+    content: uri,
     width: 230,
   });
 
@@ -65,7 +83,7 @@ onMounted(() => {
 const copyToClipboard = () => {
   navigator.clipboard.writeText(qrCodeValue.value).then(
     function () {
-      console.log('Async: Copying to clipboard was successful!');
+      toast.add({ summary: 'Copying to clipboard was successful!', life: 3000, closable: false})
     },
     function (err) {
       console.error('Async: Could not copy text: ', err);
@@ -81,16 +99,6 @@ const copyToClipboard = () => {
   overflow: auto;
 }
 
-.main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
-
 .text-default {
   font-style: normal;
   font-weight: normal;
@@ -99,26 +107,6 @@ const copyToClipboard = () => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
-}
-
-.btn-default {
-  border-radius: 13px;
-  text-align: center;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  height: 48px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-}
-
-.btn-primary {
-  background-color: $color-primary;
-  color: $color-white;
 }
 
 .qr-code-canvas {
@@ -130,6 +118,7 @@ const copyToClipboard = () => {
 .default-input-wrapper {
   position: relative;
   display: block;
+  margin-bottom: 20px;
 }
 
 .default-input-label {

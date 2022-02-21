@@ -1,54 +1,69 @@
 <template>
   <div class="page-wrapper">
-    <BackHistoryBtn />
-
-    <h1 class="main-title">Step 1. Install App</h1>
+    <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
+      Step 1. Install App
+    </top-navigation>
 
     <p class="text-default">
       Install an authenticator app on your mobile device. Recommended options:
     </p>
 
-    <p class="auth-item">
+    <p 
+      class="auth-item" 
+      style="margin-bottom: 15px;"
+    >
       <img
         src="@/assets/brands/ga.png"
         alt="Google Authenticator"
         class="auth-app-icon"
-      />
+      >
       <span>Google Authenticator</span>
     </p>
-    <p class="auth-item" style="margin-bottom: 50px">
+    <p 
+      class="auth-item" 
+      style="margin-bottom: 50px"
+    >
       <img
         src="@/assets/brands/ma.svg"
         alt="Microsoft Authenticator"
         class="auth-app-icon"
-      />
+      >
       <span>Microsoft Authenticator</span>
     </p>
 
-    <a href="https://apps.apple.com/lb/app" class="store-link"
-      ><img
+    <a 
+      href="https://apps.apple.com/lb/app" 
+      class="store-link"
+    >
+      <img
         class="store-link-img"
         src="@/assets/brands/appstore.png"
         alt="App Store"
-    /></a>
-    <a href="https://play.google.com/store/apps" class="store-link"
-      ><img
+      >
+    </a>
+    <a 
+      href="https://play.google.com/store/apps" 
+      class="store-link"
+    >
+      <img
         class="store-link-img"
         src="@/assets/brands/googleplay.png"
         alt="Google play"
-    /></a>
+      >
+    </a>
   </div>
   <div style="padding: 15px">
-    <button 
-      tyte="button" 
-      class="btn-default btn-primary"
-      @click="$router.push('/config')"
-      >Continue</button>
+    <base-button
+      block
+      @click="$router.push({ name: 'configure-app' })"
+    >
+      Continue
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
+import { TopNavigation, BaseButton } from '@/components/UI'
 
 </script>
 
@@ -56,16 +71,6 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 .page-wrapper {
   margin: 15px;
   flex-grow: 1;
-}
-
-.main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
 }
 
 .text-default {
@@ -87,26 +92,6 @@ import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
 .store-link-img {
   vertical-align: top;
   width: 100%;
-}
-
-.btn-default {
-  border-radius: 13px;
-  text-align: center;
-  box-shadow: none;
-  outline: none;
-  border: none;
-  height: 48px;
-  width: 100%;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-}
-
-.btn-primary {
-  background-color: $color-primary;
-  color: $color-white;
 }
 
 .auth-item {

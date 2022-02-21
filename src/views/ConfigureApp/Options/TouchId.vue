@@ -9,7 +9,7 @@
     <div class="page-content">
       <img
         src="@/assets/images/touchid-icon.svg"
-        alt="Face id"
+        alt="Touch id"
       >
       <p class="text-default">
         Use Touch ID instead of a passcode to log in. It is more secure.
