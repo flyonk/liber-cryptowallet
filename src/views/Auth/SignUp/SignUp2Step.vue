@@ -72,7 +72,8 @@ const onTimeIsUp = () => {
 
 const onComplete = async (data: string) => {
   const otp = data;
-  const phone = authStore.registration.phone;
+  // const phone = authStore.registration.phone;
+  const phone = `${authStore.registration.dialCode}`+'9082359632'; //TODO:Change
 
   try {
     await authService.signInProceed({ phone, otp });
