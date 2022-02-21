@@ -72,9 +72,19 @@ const onTimeIsUp = () => {
   showCountdown.value = false;
 };
 
-function onComplete(): void {
+const onComplete = async (data: string) => {
+  const otp = data;
+  const phone = authStore.registration.phone;
+
+  try {
+    await authService.signInProceed({ phone, otp });
+  } catch (err) {
+    console.log(err);
+  }
+  
   nextStep();
-}
+};
+
 </script>
 
 <style lang="scss">
