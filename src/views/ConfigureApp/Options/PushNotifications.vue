@@ -36,13 +36,20 @@
 
 <script setup lang="ts">
 import { TopNavigation, BaseButton } from '@/components/UI'
+import { useAppOptionsStore } from '@/stores/appOptions';
+import { EStorageKeys } from '@/types/base-component'
+
+const { setOptions } = useAppOptionsStore()
+
 
 const onEnable = (): void => {
-  // enable push notifications
+  setOptions('true', EStorageKeys.notifications)
+  // Move to next page
 }
 
 const onCancel = (): void => {
-  // do not enable push notifications
+  setOptions('', EStorageKeys.notifications)
+  // Move to next page
 }
 </script>
 
