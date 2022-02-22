@@ -80,6 +80,7 @@ watch(verificationCode, async (code) => {
         name: 'dashboard-home',
       })
     }
+    return
   }
   if (code.length === 6) {
     const result = store.verify(code)
