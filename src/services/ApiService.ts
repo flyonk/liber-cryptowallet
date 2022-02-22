@@ -1,5 +1,4 @@
-import { BASE_API_URL } from './../constants';
-// import { IApiServiceState } from './../stores/apiService';
+import { BASE_API_URL } from '@/constants';
 import { IApiService } from '@/types/api';
 import axios, { AxiosInstance, AxiosResponse } from 'axios';
 import { useApiServiceStore } from '@/stores/apiService';
@@ -67,4 +66,4 @@ class ApiService implements IApiService {
     // Public functions
 }
 
-export default ApiService.getInstance();
+export default ApiService;
