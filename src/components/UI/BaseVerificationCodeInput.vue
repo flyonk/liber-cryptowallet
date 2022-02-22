@@ -7,6 +7,7 @@
       >
         <div class="input-wrapper">
           <input
+            class="input-item"
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
             :data-id="index"
             pattern="[0-9]"
@@ -51,11 +52,11 @@ const props = defineProps({
   },
   withPasteButton: {
     type: Boolean,
-    default: true
+    default: false
   }
 });
 
-const emit = defineEmits(['change', 'complete']);
+const emit = defineEmits(['change', 'complete', 'update:modelValue']);
 
 const inputs = ref([]) as Ref<HTMLElement[]>;
 
@@ -98,6 +99,8 @@ const onChange = (event: Event) => {
     focusNextInput(currentId);
     
     if (activationCode.value.filter(code => code).length === props.fields) {
+      console.log('copmlate actions')
+      emit('update:modelValue', activationCodeString.value)
       emit('complete', activationCodeString.value)
     }
   } else if (value.length === 0) {
