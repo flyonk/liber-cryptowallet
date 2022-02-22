@@ -10,13 +10,13 @@ import Restore from '@/views/Auth/Restore/MainRestore.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
-  {
-    path: '/',
-    name: 'auth-phone',
-    component: () =>
-      import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-    meta: { layout: 'default' },
-  },
+  // {
+  //   path: '/',
+  //   name: 'auth-phone',
+  //   component: () =>
+  //     import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
+  //   meta: { layout: 'default' },
+  // },
   {
     path: '/',
     name: 'welcome-logo-screen',
@@ -43,8 +43,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/passcode',
     name: 'auth-passcode',
-    component: () =>
-      import('@/views/ConfigureApp/PasscodeEnter.vue'),
+    component: () => import('@/views/ConfigureApp/PasscodeEnter.vue'),
   },
 
   {
@@ -274,39 +273,38 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
   },
 
-  
   // === Configure 2fa ===
   {
     path: '/2fa',
     name: '2fa-app',
     component: () => import('@/views/ConfigureApp/TwoFA.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
   {
     path: '/install',
     name: 'install-app',
     component: () => import('@/views/ConfigureApp/InstallApp.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
   {
     path: '/config',
     name: 'configure-app',
     component: () => import('@/views/ConfigureApp/ConfigureApp.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
   {
     path: '/config-verify',
     name: 'configure-app-verify',
     component: () => import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
 
   // === Configure app options ===
@@ -316,24 +314,25 @@ const routes: Array<RouteRecordRaw> = [
     name: 'face-id',
     component: () => import('@/views/ConfigureApp/Options/FaceId.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
   {
     path: '/touchid',
     name: 'touch-id',
     component: () => import('@/views/ConfigureApp/Options/TouchId.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
   {
     path: '/push-notifications',
     name: 'push-notifications',
-    component: () => import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    component: () =>
+      import('@/views/ConfigureApp/Options/PushNotifications.vue'),
     meta: {
-      classLayout: '-full-height'
-    }
+      classLayout: '-full-height',
+    },
   },
 
   // === Deposite btc ===

@@ -10,6 +10,7 @@
       mask="99/99/9999"
       slot-char="DD/MM/YYYY"
       placeholder="DD/MM/YYYY"
+      pattern="\d*"
     >
       Date of birth
     </base-input>
