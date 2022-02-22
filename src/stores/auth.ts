@@ -34,18 +34,20 @@ export const useAuthStore = defineStore('auth', {
       recover: 3,
     },
     registration: {
-      dialCode: "",
-      phone: "",
+      dialCode: "+7",
+      phone: "9082359632",
       email: ""
     },
     login: {
-      dialCode: "",
-      phone: ""
+      dialCode: "+7",
+      phone: "9082359632"
     }
   }),
 
   getters: {
     getState: (state) => state,
+    getLoginPhone: (state) => state.login.dialCode + state.login.phone,
+    getRegistrationPhone: (state) => state.registration.dialCode + state.registration.phone
   },
 
   actions: {
