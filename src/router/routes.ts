@@ -11,13 +11,13 @@ import Restore from '@/views/Auth/Restore/MainRestore.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/',
-  //   name: 'auth-phone',
-  //   component: () =>
-  //     import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-  //   meta: { layout: 'default' },
-  // },
+  {
+    path: '/',
+    name: 'auth-phone',
+    component: () =>
+      import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
+    meta: { layout: 'default' },
+  },
   {
     path: '/',
     name: 'welcome-logo-screen',
