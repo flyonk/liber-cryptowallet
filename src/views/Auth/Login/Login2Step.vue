@@ -85,7 +85,7 @@ const onComplete = async (data: string) => {
 };
 
 const formatPhone = () => {
-  const phone = authStore.registration.phone;
+  const phone = authStore.login.phone;
   const formattedPhone = Array.from(phone)
     .map((e, index) => {
       return index < phone.length - 4 ? '*' : e;
