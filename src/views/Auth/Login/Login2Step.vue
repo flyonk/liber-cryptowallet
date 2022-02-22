@@ -82,7 +82,7 @@ const onTimeIsUp = () => {
 
 const onComplete = async (data: string) => {
   const otp = data;
-  const phone = authStore.getLoginPhone; //TODO:Change
+  const phone = authStore.getLoginPhone;
 
   try {
     await authService.signInProceed({ phone, otp });
@@ -94,6 +94,7 @@ const onComplete = async (data: string) => {
 };
 
 const formatPhone = () => {
+  const { dialCode } = authStore.login;
   const phone = authStore.login.phone;
   const formattedPhone = Array.from(phone)
     .map((e, index) => {
@@ -101,7 +102,7 @@ const formatPhone = () => {
     })
     .join('');
 
-  return formattedPhone;
+  return dialCode + formattedPhone;
 };
 
 const resend = async () => {
