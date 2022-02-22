@@ -106,7 +106,7 @@ const formatPhone = () => {
 };
 
 const resend = async () => {
-  const phone = authStore.registration.phone;
+  const phone = authStore.getLoginPhone;
 
   /*I thought it would re-render the countdown 
   timer and start it again, but it doesn't happen. 
