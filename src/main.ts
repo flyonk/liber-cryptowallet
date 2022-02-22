@@ -18,7 +18,6 @@ import '@/assets/styles/index.scss';
 
 const app = createApp(App)
   // App uses
-  .use(router)
   .use(createPinia())
   .use(PrimeVue)
   .use(ToastService)

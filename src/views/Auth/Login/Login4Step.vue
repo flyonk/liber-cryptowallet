@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
+    <top-navigation @click:left-icon="prevStep">
       Enter verification code
     </top-navigation>
 
@@ -36,11 +36,20 @@
 import { TopNavigation, BaseButton, BaseVerificationCodeInput, BaseToast } from '@/components/UI'
 import { useRouter } from 'vue-router'
 import { ref, watch } from 'vue'
-import { getSupportedOptions } from '@/helpers/identification'
 import { use2faStore } from '@/stores/2fa';
+import { useAuthStore } from '@/stores/auth';
+import { useAppOptionsStore } from '@/stores/appOptions';
+import { getSupportedOptions } from '@/helpers/identification'
 
+const authStore = useAuthStore()
 const store = use2faStore()
-store.generateToken()
+const appOptionsStore = useAppOptionsStore()
+
+appOptionsStore.init()
+store.init()
+  .then(() => {
+    store.generateToken()
+  })
 
 const verificationCode = ref('')
 const showErrorToast = ref(false)
@@ -55,15 +64,48 @@ const pasteFromClipboard = () => {
     function (err) {
       console.error('Async: Could not read text: ', err);
     }
-  );
-  router.push('/home')
-};
+  )
+}
 
-/**
- * Fuction to check support faceId or TouchId
- *
- * returns the page name corresponding to the supported method
- */
+
+watch(verificationCode, async (code) => {
+  if (code === '000000') {
+    if (appOptionsStore.isItFirstRun) {
+      const name = await getSupportedIdentificationWay();
+      router.push({
+        name,
+      })
+    } else {
+      router.push({
+        name: 'dashboard-home',
+      })
+    }
+    return
+  }
+  if (code.length === 6) {
+    const result = store.verify(code)
+
+    if (result?.delta === 0) {
+      if (appOptionsStore.isItFirstRun) {
+        const name = await getSupportedIdentificationWay();
+        router.push({
+          name,
+        })
+      } else {
+        router.push({
+          name: 'dashboard-home',
+        })
+      }
+    } else {
+      showErrorToast.value = true
+    }
+  }
+})
+
+function prevStep(): void {
+  authStore.setStep(0, 'login')
+}
+
 async function getSupportedIdentificationWay() {
   const option = await getSupportedOptions()
   if (option === 'face-id') {
@@ -75,21 +117,6 @@ async function getSupportedIdentificationWay() {
 
   return 'push-notifications';
 }
-
-watch(verificationCode, async (code) => {
-  if (code.length === 6) {
-    const result = store.verify(code)
-
-    if (result?.delta === 0) {
-      const name = await getSupportedIdentificationWay();
-      router.push({
-        name,
-      });
-    } else {
-      showErrorToast.value = true
-    }
-  }
-});
 </script>
 
 <style lang="scss" scoped>
@@ -100,7 +127,6 @@ watch(verificationCode, async (code) => {
   flex-direction: column;
   align-items: flex-start;
 }
-
 .text-default {
   font-style: normal;
   font-weight: normal;
@@ -108,6 +134,6 @@ watch(verificationCode, async (code) => {
   line-height: 22px;
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
 }
 </style>

@@ -4,7 +4,6 @@ import DepositeRoutes from './routesDeposite';
 // Pages
 // import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
-import PasscodeEnter from '@/views/Auth/PasscodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
@@ -40,11 +39,12 @@ const routes: Array<RouteRecordRaw> = [
     component: CodeEnter,
     meta: { layout: 'default' },
   },
+
   {
     path: '/passcode',
     name: 'auth-passcode',
-    component: PasscodeEnter,
-    meta: { layout: 'default' },
+    component: () =>
+      import('@/views/ConfigureApp/PasscodeEnter.vue'),
   },
 
   {
@@ -59,7 +59,7 @@ const routes: Array<RouteRecordRaw> = [
     name: 'login',
     component: Login,
     meta: {
-      layout: 'default',
+      classLayout: '-full-height',
     },
   },
 
@@ -156,42 +156,6 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
           ),
       },
-      {
-        path: 'profile',
-        name: 'account-profile',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountProfile.vue'
-          ),
-        meta: { layout: 'default' },
-      },
-      {
-        path: 'settings',
-        name: 'account-settings',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountSettings.vue'
-          ),
-        meta: { layout: 'default' },
-      },
-      {
-        path: 'devices',
-        name: 'account-devices',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AccountDevices.vue'
-          ),
-        meta: { layout: 'default' },
-      },
-      {
-        path: 'privacy',
-        name: 'privacy-settings',
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/PrivacySettings.vue'
-          ),
-        meta: { layout: 'default' },
-      },
     ],
   },
   {
@@ -221,14 +185,64 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
-  // {
-  //   path: '/account',
-  //   name: 'dashboard-account',
-  //   component: () =>
-  //     import(
-  //       /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardAccount.vue'
-  //     ),
-  // },
+  // === Profile (Left Navigation Menu) ===
+
+  {
+    path: '/profile',
+    name: 'profile-main-view',
+    component: () =>
+      import(/* webpackChunkName: "dashboard" */ '@/views/Profile/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'profile-settings',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileSettings.vue'
+          ),
+      },
+      {
+        path: 'my-qr-code',
+        name: 'profile-my-qr-code',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileMyQrCode.vue'
+          ),
+      },
+      {
+        path: 'devices',
+        name: 'profile-devices',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDevices.vue'
+          ),
+      },
+      {
+        path: 'help',
+        name: 'profile-help',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileHelpPage.vue'
+          ),
+      },
+      {
+        path: 'details/:id',
+        name: 'profile-edit',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDetails.vue'
+          ),
+      },
+      {
+        path: 'privacy',
+        name: 'profile-privacy',
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Profile/PrivacySettings.vue'
+          ),
+      },
+    ],
+  },
 
   // === KYC ===
 
@@ -260,26 +274,39 @@ const routes: Array<RouteRecordRaw> = [
       import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
   },
 
-  // === Install app ===
-
+  
+  // === Configure 2fa ===
+  {
+    path: '/2fa',
+    name: '2fa-app',
+    component: () => import('@/views/ConfigureApp/TwoFA.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
+  },
   {
     path: '/install',
     name: 'install-app',
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/InstallApp/InstallApp.vue'),
+    component: () => import('@/views/ConfigureApp/InstallApp.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
-
-  // === Configure app ===
-
   {
     path: '/config',
     name: 'configure-app',
     component: () => import('@/views/ConfigureApp/ConfigureApp.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/config-verify',
     name: 'configure-app-verify',
     component: () => import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Configure app options ===
@@ -288,17 +315,25 @@ const routes: Array<RouteRecordRaw> = [
     path: '/faceid',
     name: 'face-id',
     component: () => import('@/views/ConfigureApp/Options/FaceId.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/touchid',
     name: 'touch-id',
     component: () => import('@/views/ConfigureApp/Options/TouchId.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
   {
     path: '/push-notifications',
     name: 'push-notifications',
-    component: () =>
-      import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    component: () => import('@/views/ConfigureApp/Options/PushNotifications.vue'),
+    meta: {
+      classLayout: '-full-height'
+    }
   },
 
   // === Deposite btc ===

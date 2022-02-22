@@ -58,5 +58,7 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Privacy - Face ID Usage Description</string>
 </dict>
 </plist>

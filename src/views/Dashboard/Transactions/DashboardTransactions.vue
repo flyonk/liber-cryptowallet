@@ -6,43 +6,67 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      />
+      >
       <div class="count">
         <div class="flex">
-          <h1 class="title">2.12345678 <span>USDT</span></h1>
+          <h1 class="title title-currency">
+            2.12345678 <span class="currency">USDT</span>
+          </h1>
           <img
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
             alt="currency"
-          />
+          >
         </div>
-        <p class="subtitle heading-gray-md">€594.41</p>
+        <p class="subtitle heading-gray-md">
+          €594.41
+        </p>
       </div>
-      <VueAgile class="carousel" :slides-to-show="2" :nav-buttons="false">
+      <VueAgile
+        class="carousel-slider"
+        :slides-to-show="2"
+        :nav-buttons="false"
+      >
         <div
           v-for="(item, index) in carousel"
           :key="index"
           class="item slide"
           @click="$router.push('/home/story')"
         >
-          <img class="image" :src="item.img" />
+          <img
+            class="image"
+            :src="item.img"
+          >
           <p class="name">
             {{ item.name }}
           </p>
         </div>
       </VueAgile>
-      <div class="controls">
-        <button class="control-btn">
-          <img class="label" src="@/assets/icon/plus.svg" />Deposit
+      <div
+        v-if="showControls"
+        class="controls"
+      >
+        <button class="btn">
+          <img
+            class="label"
+            src="@/assets/icon/plus.svg"
+          >Deposit
         </button>
-        <button class="control-btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />Send
+        <button class="btn">
+          <img
+            class="label"
+            src="@/assets/icon/arrow-right-white.svg"
+          >Send
         </button>
-        <button class="control-btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />Exchange
+        <button class="btn">
+          <img
+            class="label"
+            src="@/assets/icon/repeat.svg"
+          >Exchange
         </button>
       </div>
-      <div class="tabs">
+      
+      <div class="main-tabs">
         <div
           class="tab"
           :class="{ active: activeTab === 1 }"
@@ -58,14 +82,20 @@
           Wallet Address
         </div>
       </div>
-      <ul v-if="activeTab === 1" class="transactions">
+      <ul
+        v-if="activeTab === 1"
+        class="transactions"
+      >
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img class="icon" :src="transaction.img" />
+          <img
+            class="icon"
+            :src="transaction.img"
+          >
           <div class="info">
             <div class="flex">
               <h1 class="title">
@@ -85,7 +115,10 @@
               >
                 {{ transaction.status }}
               </p>
-              <p v-else class="second-sum">
+              <p
+                v-else
+                class="sum"
+              >
                 {{ transaction.sum }}
               </p>
             </div>
@@ -93,24 +126,40 @@
         </li>
       </ul>
 
-      <div v-if="activeTab === 2" class="wallet-address">
-        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr-code" />
-        <div class="address">
-          <h4 class="title">Wallet Address</h4>
+      <div
+        v-if="activeTab === 2"
+        class="wallet"
+      >
+        <img
+          src="@/assets/images/qr-code.png"
+          alt="qr-code"
+          class="qr"
+        >
+        <div class="wallet-address">
+          <h4 class="title">
+            Wallet Address
+          </h4>
           <div class="account">
-            <div class="address-number">
-              <p>
-                1Mtree35df4543sdgErtrryryEe13rr<br />sd21213<span class="bold"
-                  >Opa139z0l</span
-                >
+            <div class="crypto-number">
+              <p class="text">
+                1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span>
               </p>
             </div>
-            <img src="@/assets/icon/folders.svg" alt="folders" />
+            <img
+              src="@/assets/icon/folders.svg"
+              alt="folders"
+            >
           </div>
-          <h2 class="blue-title">Generate New Address</h2>
+          <h2 class="bluetitle">
+            Generate New Address
+          </h2>
           <div class="controls">
-            <button class="btn">Save Image</button>
-            <button class="btn">Share Address</button>
+            <button class="btn">
+              Save Image
+            </button>
+            <button class="btn">
+              Share Address
+            </button>
           </div>
         </div>
       </div>
@@ -120,7 +169,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+// import BaseButton from '@/components/UI/BaseButton.vue'
 import { VueAgile } from 'vue-agile';
+
+let showControls = ref(false);
+
 
 const activeTab = ref(1);
 const transactions = [
@@ -195,6 +248,7 @@ const carousel = [
 
   > .header {
     padding: 0 16px;
+
     > .count {
       > .flex {
         > .icon {
@@ -208,13 +262,6 @@ const carousel = [
           font-size: 28px;
           line-height: 34px;
           letter-spacing: 0.0038em;
-
-          span {
-            font-weight: 600;
-            font-size: 22px;
-            line-height: 34px;
-            letter-spacing: -0.0026em;
-          }
         }
       }
 
@@ -229,7 +276,7 @@ const carousel = [
       width: 100%;
       margin-bottom: 32px;
 
-      > .control-btn {
+      > .btn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -242,34 +289,6 @@ const carousel = [
         > .label {
           margin-right: 9px;
         }
-      }
-    }
-
-    .tabs {
-      display: flex;
-      justify-content: center;
-      width: 100%;
-      padding: 4px;
-      border-radius: 8px;
-      background: $color-light-grey;
-      margin-bottom: 30px;
-
-      > .tab {
-        width: 49%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        color: $color-dark-grey;
-        height: 32px;
-        background: $color-light-grey;
-        font-weight: 600;
-        font-size: 13px;
-        line-height: 18px;
-      }
-
-      > .active {
-        background: $color-white;
-        color: $color-brand-secondary;
       }
     }
 
@@ -318,7 +337,7 @@ const carousel = [
               color: $color-green-600;
             }
 
-            > .second-sum {
+            > .sum {
               font-size: 13px;
               line-height: 18px;
               text-align: right;
@@ -331,111 +350,149 @@ const carousel = [
     }
   }
 
-  .carousel {
-    margin-bottom: 24px;
-  }
-
-  .item.slide {
-    width: 104px;
-    height: 104px;
-    padding: 12px;
-    background: $color-white;
-    box-shadow: 0px 2px 24px -12px rgba(0, 0, 0, 0.34);
-    border-radius: 13px;
-    margin-left: 5px;
-
-    > .image {
-      margin-bottom: 8px;
-
-      &:last-child {
-        transform: rotate(-90deg);
-      }
-    }
-
-    > .name {
-      font-weight: 600;
-      font-size: 12px;
-      line-height: 16px;
-      color: $color-brand-primary;
-    }
-  }
-
-  > .wallet-address {
+  > .wallet {
     display: flex;
     height: 370px;
     flex-direction: column;
     align-items: center;
     padding-top: 24px;
 
-    > .qr-code {
+    > .qr {
       margin-bottom: 56px;
     }
+  }
+}
 
-    > .address {
-      width: 100%;
-      background: $color-white;
-      box-shadow: 0 0 24px rgb(64 70 105 / 8%);
-      padding: 34px 32px 50px;
 
-      > .title {
-        font-size: 13px;
-        line-height: 18px;
-        letter-spacing: -0.0008em;
-        color: $color-dark-grey;
-        margin-bottom: 4px;
-      }
+.main-tabs {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 4px;
+  border-radius: 8px;
+  background: $color-light-grey;
+  margin-bottom: 30px;
 
-      > .account {
-        display: flex;
-        justify-content: space-between;
-        margin-bottom: 20px;
+  > .tab {
+    width: 49%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $color-dark-grey;
+    height: 32px;
+    background: $color-light-grey;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+  }
 
-        > .address-number {
-          p {
-            font-size: 16px;
-            line-height: 21px;
-            letter-spacing: -0.0031em;
-            color: $color-black;
+  > .active {
+    background: $color-white;
+    color: $color-brand-secondary;
+  }
+}
 
-            > .bold {
-              font-weight: bold;
-            }
-          }
-        }
-      }
+.title-currency {
+  & >.currency {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 34px;
+    letter-spacing: -0.0026em;
+  }
+}
 
-      > .blue-title {
-        font-weight: 600;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.0043em;
+.carousel-slider {
+  margin-bottom: 24px;
+}
+
+.item.slide {
+  width: 104px;
+  height: 104px;
+  padding: 12px;
+  background: $color-white;
+  box-shadow: 0 2px 24px -12px rgba(0, 0, 0, 34%);
+  border-radius: 13px;
+  margin-left: 5px;
+
+  > .image {
+    margin-bottom: 8px;
+
+    &:last-child {
+      transform: rotate(-90deg);
+    }
+  }
+
+  > .name {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-brand-primary;
+  }
+}
+
+.crypto-number {
+  >.text {
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.0031em;
+    color: $color-black;
+
+    > .bold {
+      font-weight: bold;
+    }
+  }
+}
+
+.wallet-address {
+  width: 100%;
+  background: $color-white;
+  box-shadow: 0 0 24px rgb(64 70 105 / 8%);
+  padding: 34px 32px 50px;
+
+  > .title {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-dark-grey;
+    margin-bottom: 4px;
+  }
+
+  > .account {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  > .bluetitle {
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+    color: $color-primary;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+    margin-bottom: 43px;
+  }
+
+  > .controls {
+    display: flex;
+
+    > .btn {
+      width: 166px;
+      height: 48px;
+      background: $color-light-grey;
+      border-radius: 13px;
+      font-weight: 600;
+      font-size: 17px;
+
+      &:first-child {
+        margin-right: 12px;
         color: $color-primary;
-        text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
-        margin-bottom: 43px;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
       }
 
-      > .controls {
-        display: flex;
-
-        > .btn {
-          width: 166px;
-          height: 48px;
-          background: $color-light-grey;
-          border-radius: 13px;
-          font-weight: 600;
-          font-size: 17px;
-
-          &:first-child {
-            margin-right: 12px;
-            color: $color-primary;
-            text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
-          }
-
-          &:last-child {
-            background: $color-primary;
-            color: $color-white;
-          }
-        }
+      &:last-child {
+        background: $color-primary;
+        color: $color-white;
       }
     }
   }

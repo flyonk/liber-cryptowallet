@@ -18,6 +18,21 @@ export enum EState {
   error = 'error',
 }
 
+export enum EPasscodeActions {
+  store = 'store',
+  receive = 'receive',
+  compare = 'compare',
+  clear = 'clear'
+}
+
+export enum EStorageKeys {
+  passcode = 'liber-app-passcode',
+  twofa = 'liber-app-2fa',
+  notifications = 'liber-app-push-notifications',
+  faceid = 'liber-app-face-id',
+  touchid = 'liber-app-touch-id'
+}
+
 export interface IValueItem {
   text: string;
   value: string | number;

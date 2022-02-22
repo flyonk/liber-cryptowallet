@@ -1,60 +1,112 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      Enter passcode
-    </top-navigation>
+    <TopNavigation @click:left-icon="prevStep">
+      Enter the 6-digit code
+    </TopNavigation>
+    <div class="description text--body">
+      To sign up, enter the security code
+      <br />
+      we’ve sent to {{ formatPhone() }}
+    </div>
+    <div>
+      <BaseVerificationCodeInput
+        :loading="false"
+        :withPasteButton="true"
+        class="input"        
+        @complete="onComplete"
+      />
+    </div>
+    <div class="footer">
+      <span class="text--footnote font-weight--semibold">
+        <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
+          <template #countdown="{ minute, second }">
+            Resend code in {{ minute }}:{{ second }}
+          </template>
+        </BaseCountdown>
+        <template v-else>
+          <BaseButton
+            class="resend-button"
+            size="medium"
+            view="flat"
+            @click="resend"
+          >
+            Resend
+          </BaseButton>
+        </template>
+      </span>
+    </div>
   </div>
-  
-  <base-passcode
-    class="login-passcode"
-    @submit="onSubmit"
-  />
-  <base-toast
-    v-model:visible="showErrorToast"
-    severity="error"
-  >
-    <template #description>
-      <div>
-        Invalid password or phone number +7 (764) 432 32-32
-      </div>
-    </template>
-    <template #footer>
-      You do not have an account? 
-      <router-link
-        :to="{ name: 'sign-up' }"
-        class="link"
-      >
-        Registration
-      </router-link>
-    </template>
-  </base-toast>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-
-import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
-
+import { onMounted, ref, Ref } from 'vue';
+// import { nextTick } from 'vue';
+import {
+  BaseButton,
+  BaseCountdown,
+  BaseVerificationCodeInput,
+  TopNavigation,
+} from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
-
+import { IAuthService } from '@/types/api';
+import AuthService from '@/services/AuthService';
+const emit = defineEmits(['next', 'prev']);
+const authService: IAuthService = new AuthService();
 const authStore = useAuthStore();
-
-const showErrorToast = ref(false);
-
-function onSubmit(passcode: string): void {
-  console.debug('passcode is ', passcode)
-
-  authStore.setStep(2, 'login');
-  // showErrorToast.value = true;
-} 
-
-function prevStep(): void {
-  authStore.setStep(0, 'login')
-}
+// const number = ref(null) as Ref<number | null>;
+const showCountdown = ref(true) as Ref<boolean>;
+onMounted(async () => {
+  const phone = authStore.getLoginPhone;
+  try {
+    await authService.signIn({ phone });
+  } catch (err) {
+    console.log(err);
+  }
+});
+const prevStep = () => {
+  emit('prev');
+};
+const nextStep = () => {
+  emit('next');
+};
+const onTimeIsUp = () => {
+  showCountdown.value = false;
+};
+const onComplete = async (data: string) => {
+  const otp = data;
+  const phone = authStore.getLoginPhone;
+  try {
+    await authService.signInProceed({ phone, otp });
+  } catch (err) {
+    console.log(err);
+  }
+  nextStep();
+};
+const formatPhone = () => {
+  const { phone, dialCode } = authStore.login;
+  const formattedPhone = Array.from(phone)
+    .map((e, index) => {
+      return index < phone.length - 4 ? '*' : e;
+    })
+    .join('');
+  return dialCode + formattedPhone;
+};
+const resend = async () => {
+  const phone = authStore.getLoginPhone;
+  showCountdown.value = true;
+  
+  try {
+    await authService.signIn({ phone });
+  } catch (err) {
+    console.log(err);
+  }
+};
 </script>
 
 <style lang="scss">
-.login-passcode {
-  margin-top: 108px;
+.footer {
+  .resend-button {
+    padding: 0;
+  }
 }
 </style>

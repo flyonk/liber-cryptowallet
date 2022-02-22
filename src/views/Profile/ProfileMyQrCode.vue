@@ -6,16 +6,19 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/account/settings')"
-        />
+          @click="$router.push('/profile')"
+        >
         <h1 class="title">
           {{ accountName }}
         </h1>
         <div class="flex">
-          <p class="account-id">
-            My ID: <a class="link">{{ accountID }}</a>
+          <p class="key">
+            My ID: <a class="link-to">{{ accountID }}</a>
           </p>
-          <img src="@/assets/icon/edit.svg" alt="edit" />
+          <img
+            src="@/assets/icon/edit.svg"
+            alt="edit"
+          >
         </div>
       </div>
       <div class="right">
@@ -23,15 +26,28 @@
       </div>
     </div>
     <div class="main">
-      <img class="qr-code" src="@/assets/images/qr-code.png" alt="qr" />
-      <p class="text">Get paid with</p>
+      <img
+        class="qrcode"
+        src="@/assets/images/qr-code.png"
+        alt="qr"
+      >
+      <p class="text">
+        Get paid with
+      </p>
       <div class="flex">
-        <a class="link"> liber.me/abrahamwatson </a>
-        <img src="@/assets/icon/copy.svg" alt="copy" />
+        <a class="link-to"> liber.me/abrahamwatson </a>
+        <img
+          src="@/assets/icon/copy.svg"
+          alt="copy"
+        >
       </div>
       <div class="controls">
-        <button class="btn">Scan</button>
-        <button class="btn active">My Code</button>
+        <button class="btn">
+          Scan
+        </button>
+        <button class="btn active">
+          My Code
+        </button>
       </div>
     </div>
   </div>
@@ -75,7 +91,7 @@ const nameInitials = computed(() => {
         margin-bottom: 8px;
       }
 
-      > .account-id {
+      > .key {
         font-size: 20px;
         line-height: 25px;
         display: flex;
@@ -104,7 +120,7 @@ const nameInitials = computed(() => {
     align-items: center;
     flex-grow: 1;
 
-    > .qr-code {
+    > .qrcode {
       margin-bottom: 40px;
     }
 
@@ -152,7 +168,7 @@ const nameInitials = computed(() => {
   }
 }
 
-.link {
+.link-to {
   color: $color-primary;
   padding: 0 6px;
 }

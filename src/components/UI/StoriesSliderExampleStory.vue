@@ -29,11 +29,15 @@
       <button 
         class="login"
         @click="$router.push('/login')"
-      >Log in</button>
+      >
+        Log in
+      </button>
       <button 
         class="signup"
         @click="$router.push('/sign-up')"
-      >Sign up</button>
+      >
+        Sign up
+      </button>
     </footer>
   </section>
 </template>
