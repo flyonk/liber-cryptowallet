@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref } from 'vue';
+import { onMounted, ref, Ref } from 'vue';
 // import { nextTick } from 'vue';
 import {
   BaseButton,
@@ -55,8 +55,17 @@ const emit = defineEmits(['next', 'prev']);
 const authService: IAuthService = new AuthService();
 const authStore = useAuthStore();
 
-// const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
+
+onMounted(async () => {
+  const phone = authStore.getRegistrationPhone;
+
+  try {
+    await authService.signIn({ phone });
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 const prevStep = () => {
   emit('prev');
@@ -72,8 +81,7 @@ const onTimeIsUp = () => {
 
 const onComplete = async (data: string) => {
   const otp = data;
-  // const phone = authStore.registration.phone;
-  const phone = `${authStore.registration.dialCode}`+'9082359632'; //TODO:Change
+  const phone = authStore.getRegistrationPhone;
 
   try {
     await authService.signInProceed({ phone, otp });
