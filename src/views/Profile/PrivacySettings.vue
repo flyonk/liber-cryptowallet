@@ -5,18 +5,24 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push({ name: 'account-settings' })"
-      />
+        @click="$router.push('/profile')"
+      >
     </header>
-    <h1 class="title">Privacy</h1>
+    <h1 class="title">
+      Privacy
+    </h1>
     <main class="main">
-      <h6 class="subtitle">Marketing</h6>
+      <h6 class="subtitle">
+        Marketing
+      </h6>
       <section class="section">
         <div class="header">
-          <h3 class="title">Marketing emails</h3>
+          <h3 class="title">
+            Marketing emails
+          </h3>
           <BaseSwitch
             class="switch"
-            :modelValue="isEmailsAgreement"
+            :model-value="isEmailsAgreement"
             @update:model-value="isEmailsAgreement = !isEmailsAgreement"
           />
         </div>
@@ -25,13 +31,15 @@
           that may interest me
         </div>
       </section>
-      <hr class="separator" />
+      <hr class="separator">
       <section class="section">
         <div class="header">
-          <h3 class="title">Marketing pushes</h3>
+          <h3 class="title">
+            Marketing pushes
+          </h3>
           <BaseSwitch
             class="switch"
-            :modelValue="isPushesAgreement"
+            :model-value="isPushesAgreement"
             @update:model-value="isPushesAgreement = !isPushesAgreement"
           />
         </div>
@@ -40,13 +48,15 @@
           and offers that may interest me
         </div>
       </section>
-      <hr class="separator" />
+      <hr class="separator">
       <section class="section">
         <div class="header">
-          <h3 class="title">Social media & advertising platforms</h3>
+          <h3 class="title">
+            Social media & advertising platforms
+          </h3>
           <BaseSwitch
             class="switch"
-            :modelValue="isSocialMediaAgreement"
+            :model-value="isSocialMediaAgreement"
             @update:model-value="
               isSocialMediaAgreement = !isSocialMediaAgreement
             "

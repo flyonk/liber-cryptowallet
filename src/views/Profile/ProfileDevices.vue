@@ -5,9 +5,11 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account/settings')"
-      />
-      <h1 class="title">Devices</h1>
+        @click="$router.push('/profile')"
+      >
+      <h1 class="title">
+        Devices
+      </h1>
       <p class="description">
         These are the devices currently allowed to access your account.
       </p>
@@ -15,56 +17,107 @@
     <div class="main">
       <ul class="list">
         <li class="item">
-          <p class="name name--first">iPhone XR</p>
-          <img src="@/assets/icon/mobile.svg" alt="mobile" />
+          <p class="name -firstt">
+            iPhone XR
+          </p>
+          <img
+            src="@/assets/icon/mobile.svg"
+            alt="mobile"
+          >
         </li>
         <li class="item">
-          <p class="name">Date</p>
-          <p class="description">2022.01.07 13:34:30</p>
+          <p class="name">
+            Date
+          </p>
+          <p class="description">
+            2022.01.07 13:34:30
+          </p>
         </li>
         <li class="item">
-          <p class="name">Location</p>
-          <p class="description">Pavshino Russian Federation</p>
+          <p class="name">
+            Location
+          </p>
+          <p class="description">
+            Pavshino Russian Federation
+          </p>
         </li>
         <li class="item">
-          <p class="name">IP</p>
-          <p class="description">45.234.12.154</p>
+          <p class="name">
+            IP
+          </p>
+          <p class="description">
+            45.234.12.154
+          </p>
         </li>
       </ul>
       <ul class="list">
         <li class="item">
-          <p class="name name--first">Chrome V96.0.4664.93 (Mac OS)</p>
-          <img src="@/assets/icon/monitor.svg" alt="monitor" />
+          <p class="name name--first">
+            Chrome V96.0.4664.93 (Mac OS)
+          </p>
+          <img
+            src="@/assets/icon/monitor.svg"
+            alt="monitor"
+          >
         </li>
         <li class="item">
-          <p class="name">Date</p>
-          <p class="description">2022.01.07 13:34:30</p>
+          <p class="name">
+            Date
+          </p>
+          <p class="description">
+            2022.01.07 13:34:30
+          </p>
         </li>
         <li class="item">
-          <p class="name">Location</p>
-          <p class="description">Tallin Estonia</p>
+          <p class="name">
+            Location
+          </p>
+          <p class="description">
+            Tallin Estonia
+          </p>
         </li>
         <li class="item">
-          <p class="name">IP</p>
-          <p class="description">45.234.12.154</p>
+          <p class="name">
+            IP
+          </p>
+          <p class="description">
+            45.234.12.154
+          </p>
         </li>
       </ul>
       <ul class="list">
         <li class="item">
-          <p class="name name--first">iPhone XR</p>
-          <img src="@/assets/icon/monitor.svg" alt="monitor" />
+          <p class="name name--first">
+            iPhone XR
+          </p>
+          <img
+            src="@/assets/icon/monitor.svg"
+            alt="monitor"
+          >
         </li>
         <li class="item">
-          <p class="name">Date</p>
-          <p class="description">2022.01.07 13:34:30</p>
+          <p class="name">
+            Date
+          </p>
+          <p class="description">
+            2022.01.07 13:34:30
+          </p>
         </li>
         <li class="item">
-          <p class="name">Location</p>
-          <p class="description">Tbilisi Georgia</p>
+          <p class="name">
+            Location
+          </p>
+          <p class="description">
+            Tbilisi Georgia
+          </p>
         </li>
         <li class="item">
-          <p class="name">IP</p>
-          <p class="description">45.234.12.154</p>
+          <p class="name">
+            IP
+          </p>
+          <p class="description">
+            45.234.12.154
+          </p>
         </li>
       </ul>
     </div>
@@ -130,7 +183,7 @@
           letter-spacing: -0.0031em;
           color: $color-dark-grey;
 
-          &--first {
+          &.-first {
             font-weight: 500;
             font-size: 17px;
             line-height: 22px;

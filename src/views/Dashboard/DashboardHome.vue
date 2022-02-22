@@ -7,7 +7,7 @@
     <div class="header flex mb-4">
       <img
         src="@/assets/images/avatar.png"
-        @click="$router.push('/account/settings')"
+        @click="$router.push('/profile')"
       >
       <div
         v-if="VerificationStatus === 'in_progress'"
