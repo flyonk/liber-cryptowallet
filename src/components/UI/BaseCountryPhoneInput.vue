@@ -4,28 +4,19 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img
-        :src="selectedData?.flag"
-        alt=""
-      >
+      <img :src="selectedData?.flag" alt="" />
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet
-      v-model:visible="showList"
-      position="bottom"
-    >
+    <BaseBottomSheet v-model:visible="showList" position="bottom">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div
-              class="cancel-button text--headline"
-              @click="showList = false"
-            >
+            <div class="cancel-button text--headline" @click="showList = false">
               Cancel
             </div>
           </div>
@@ -40,10 +31,7 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img
-                :src="country.flag"
-                alt=""
-              >
+              <img :src="country.flag" alt="" />
             </div>
             <div class="code col-2">
               {{ country.dialCode }}
@@ -85,13 +73,15 @@ onBeforeMount(async (): Promise<void> => {
   selectedData.value = list.value[0];
 });
 
+const emits = defineEmits(['selected']);
+
 function isSelectedCountry(country: ICountryInformation): boolean {
-  return selectedData.value?.name === country.name
+  return selectedData.value?.name === country.name;
 }
 
 function setSelectedCountry(country: ICountryInformation): void {
   selectedData.value = country;
-
+  emits('selected', selectedData.value);
   showList.value = false;
 }
 </script>

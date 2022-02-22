@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { IDifference } from '@/types/base-component';
-import { onBeforeMount, ref, Ref } from 'vue';
+import { onBeforeMount, ref, Ref, onBeforeUnmount } from 'vue';
 
 const getDateDiff = (date1: Date, date2: Date): IDifference => {
   const diff = new Date(date2.getTime() - date1.getTime());
@@ -45,6 +45,10 @@ const diff = ref({}) as Ref<IDifference | Record<string, never>>;
 onBeforeMount(() => {
   until.value = new Date(new Date().getTime() + props.countdown * 60000);
   timer.value = setInterval(getDiff, 1000);
+});
+
+onBeforeUnmount(() => {
+  if (timer.value) clearTimeout(timer.value);
 });
 
 function getDiff(): void {

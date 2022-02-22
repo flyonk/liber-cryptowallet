@@ -5,8 +5,8 @@
     </TopNavigation>
     <div class="description text--body">
       To sign up, enter the security code
-      <br>
-      we’ve sent to ********6123
+      <br />
+      we’ve sent to {{ formatPhone() }}
     </div>
     <div>
       <BaseVerificationCodeInput
@@ -17,10 +17,7 @@
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        <BaseCountdown
-          v-if="showCountdown"
-          @time:up="onTimeIsUp"
-        >
+        <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
           <template #countdown="{ minute, second }">
             Resend code in {{ minute }}:{{ second }}
           </template>
@@ -30,6 +27,7 @@
             class="resend-button"
             size="medium"
             view="flat"
+            @click="resend"
           >
             Resend
           </BaseButton>
@@ -39,41 +37,83 @@
   </div>
 </template>
 
-<script lang="ts">
-export default {
-  name: 'SignUp',
-}
-</script>
-
 <script lang="ts" setup>
-import { ref, Ref } from 'vue';
+import { onMounted, ref, Ref } from 'vue';
+// import { nextTick } from 'vue';
 import {
   BaseButton,
   BaseCountdown,
   BaseVerificationCodeInput,
   TopNavigation,
 } from '@/components/UI';
+import { useAuthStore } from '@/stores/auth';
+import { IAuthService } from '@/types/api';
+import AuthService from '@/services/AuthService';
 
 const emit = defineEmits(['next', 'prev']);
 
-// const number = ref(null) as Ref<number | null>;
+const authService: IAuthService = new AuthService();
+const authStore = useAuthStore();
+
 const showCountdown = ref(true) as Ref<boolean>;
 
-function prevStep(): void {
+onMounted(async () => {
+  const phone = authStore.getRegistrationPhone;
+
+  try {
+    await authService.signIn({ phone });
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+const prevStep = () => {
   emit('prev');
-}
+};
 
-function nextStep(): void {
+const nextStep = () => {
   emit('next');
-}
+};
 
-function onTimeIsUp(): void {
+const onTimeIsUp = () => {
   showCountdown.value = false;
-}
+};
 
-function onComplete(): void {
+const onComplete = async (data: string) => {
+  const otp = data;
+  const phone = authStore.getRegistrationPhone;
+
+  try {
+    await authService.signInProceed({ phone, otp });
+  } catch (err) {
+    console.log(err);
+  }
+
   nextStep();
-}
+};
+
+const formatPhone = () => {
+  const { phone, dialCode } = authStore.registration;
+  const formattedPhone = Array.from(phone)
+    .map((e, index) => {
+      return index < phone.length - 4 ? '*' : e;
+    })
+    .join('');
+
+  return dialCode + formattedPhone;
+};
+
+const resend = async () => {
+  const phone = authStore.getRegistrationPhone;
+
+  showCountdown.value = true;
+
+  try {
+    await authService.signIn({ phone });
+  } catch (err) {
+    console.log(err);
+  }
+};
 </script>
 
 <style lang="scss">
