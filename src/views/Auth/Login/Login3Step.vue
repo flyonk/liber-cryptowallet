@@ -39,7 +39,7 @@ const authStore = useAuthStore()
 const showErrorToast = ref(false)
 function onSubmit(success: boolean): void {
   if (success) {
-    authStore.setStep(2, 'login');
+    authStore.setStep(3, 'login');
   } else {
     showErrorToast.value = true;
   }

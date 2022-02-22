@@ -11,7 +11,8 @@
     <div>
       <BaseVerificationCodeInput
         :loading="false"
-        class="input"
+        :withPasteButton="true"
+        class="input"        
         @complete="onComplete"
       />
     </div>
