@@ -93,26 +93,20 @@ const onComplete = async (data: string) => {
 };
 
 const formatPhone = () => {
-  const phone = authStore.registration.phone;
+  const { phone, dialCode } = authStore.registration;
   const formattedPhone = Array.from(phone)
     .map((e, index) => {
       return index < phone.length - 4 ? '*' : e;
     })
     .join('');
 
-  return formattedPhone;
+  return dialCode + formattedPhone;
 };
 
 const resend = async () => {
   const phone = authStore.getRegistrationPhone;
 
-  /*I thought it would re-render the countdown 
-  timer and start it again, but it doesn't happen. 
-  I don't understand why yet.*/
-
-  // nextTick(() => {
-  //   showCountdown.value = true;
-  // });
+  showCountdown.value = true;
 
   try {
     await authService.signIn({ phone });
