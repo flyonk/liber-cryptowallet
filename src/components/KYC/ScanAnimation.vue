@@ -16,7 +16,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   width: 100%;
-  height: 226px;
+  height: 200px;
   display: flex;
   align-items: center;
   justify-content: center;

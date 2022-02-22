@@ -1,17 +1,17 @@
 <template>
   <div>
-    <top-navigation>
+    <top-navigation @click:left-icon="$emit('prev')">
       Home address
     </top-navigation>
     <p class="description">
       By law, we need your home address to open your account
     </p>
-    <base-input>
+    <base-input v-model="form.street">
       <template #label>
         Street and number
       </template>
     </base-input>
-    <base-input>
+    <base-input v-model="form.flat">
       <template #append>
         <i
           v-tooltip="'You have new messages.'"
@@ -26,6 +26,7 @@
       </template>
     </base-input>
     <base-input
+      v-model="form.postal_code"
       type="number"
       :use-grouping="false"
     >
@@ -33,12 +34,12 @@
         Postal code
       </template>
     </base-input>
-    <base-input>
+    <base-input v-model="form.state">
       <template #label>
         State
       </template>
     </base-input>
-    <base-input>
+    <base-input v-model="form.city">
       <template #label>
         City
       </template>
@@ -46,7 +47,7 @@
     <div class="footer">
       <base-button
         block
-        @click="$emit('next')"
+        @click="onContinue"
       >
         Continue
       </base-button>
@@ -55,9 +56,29 @@
 </template>
 
 <script setup lang="ts">
+import { reactive } from 'vue';
+
 import { TopNavigation, BaseInput, BaseButton } from '@/components/UI';
 
-defineEmits(['next']);
+import { useKYCStore } from '@/stores/kyc';
+
+const kycStore = useKYCStore();
+
+const emit = defineEmits(['next', 'prev']);
+
+const form = reactive({
+  street: '',
+  flat: '',
+  postal_code: '',
+  state: '',
+  city: '',
+})
+
+const onContinue = () => {
+  kycStore.setData(form);
+
+  emit('next');
+}
 </script>
 
 <style scoped>

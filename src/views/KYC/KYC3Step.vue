@@ -23,22 +23,15 @@
       :items="items"
       @input="onSelect"
     />
-    <div class="footer">
-      <base-button
-        :disabled="isDisabledNextButton"
-        @click="onNext"
-      >
-        Next step
-      </base-button>
-    </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { TopNavigation, BaseProgressBar, BaseRadioSelect, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseProgressBar, BaseRadioSelect } from '@/components/UI';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
-import { EStepDirection } from '@/types/base-component';
+
+const emit = defineEmits(['next']);
 
 const kycStore = useKYCStore();
 
@@ -60,18 +53,13 @@ const items = ref([
   },
 ]);
 
-const isDisabledNextButton = computed(() => !kycStore.getProofType);
-
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
 const onSelect = (proofType: EKYCProofType): void => {
   kycStore.setProofType(proofType);
-};
 
-const onNext = (): void => {
-  kycStore.setStep(EStepDirection.next);
+  emit('next');
 };
-
 </script>
 
 <style scoped lang="scss">
