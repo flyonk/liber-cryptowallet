@@ -1,26 +1,48 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation> Enter verification code </top-navigation>
-    <div class="description text--body">
-      Get a verification code from the authenticator app
-    </div>
-    <base-verification-code-input @complete="handleCompleteCode($event)" />
+    <top-navigation @click:left-icon="prevStep">
+      Enter passcode
+    </top-navigation>
   </div>
+
+  <base-passcode class="login-passcode" @submit="onSubmit" />
+  <base-toast v-model:visible="showErrorToast" severity="error">
+    <template #description>
+      <div>Invalid password or phone number +7 (764) 432 32-32</div>
+    </template>
+    <template #footer>
+      You do not have an account?
+      <router-link :to="{ name: 'sign-up' }" class="link">
+        Registration
+      </router-link>
+    </template>
+  </base-toast>
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseVerificationCodeInput } from '@/components/UI';
-import AuthService from '@/services/AuthService';
-import { IAuthService } from '@/types/api';
-import { onMounted } from 'vue';
-const authService: IAuthService = new AuthService();
+import { ref } from 'vue';
+import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
+import { useAuthStore } from '@/stores/auth';
 
-onMounted(async () => {
-  const phone = '+7 777 777 77 77';
-  await authService.signIn({ phone });
-});
+const emit = defineEmits(['next'])
 
-const handleCompleteCode = (code: string) => {
-  console.log(code);
-};
+const authStore = useAuthStore();
+
+const showErrorToast = ref(false);
+
+function onSubmit(passcode: string): void {
+  console.debug('passcode is ', passcode);
+  emit('next');
+  // showErrorToast.value = true;
+}
+
+function prevStep(): void {
+  authStore.setStep(0, 'login');
+}
 </script>
+
+<style lang="scss">
+.login-passcode {
+  margin-top: 108px;
+}
+</style>
