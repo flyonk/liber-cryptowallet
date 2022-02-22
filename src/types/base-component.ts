@@ -32,3 +32,9 @@ export enum EStorageKeys {
   faceid = 'liber-app-face-id',
   touchid = 'liber-app-touch-id'
 }
+
+export interface IValueItem {
+  text: string;
+  value: string | number;
+  logo?: string;
+}

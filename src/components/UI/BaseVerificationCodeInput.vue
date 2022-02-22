@@ -2,208 +2,142 @@
   <div class="base-verification-code-input">
     <div class="input-container">
       <template
-        v-for="(v, index) in values"
+        v-for="(v, index) in fields"
         :key="`input-${index}`"
       >
         <div class="input-wrapper">
           <input
-            :ref="iRefs[index]"
-            :autofocus="autoFocus && !loading && index === autoFocusIndex"
+            :ref="el => { if (el) inputs[index] = el as HTMLElement }"
             :data-id="index"
-            :disabled="disabled"
-            :pattern="type === 'number' ? '[0-9]' : null"
-            :required="required"
-            :type="type === 'number' ? 'tel' : type"
-            :value="v"
-            maxlength="1"
-            class="input-item"
-            @focus="onFocus"
-            @input="onValueChange"
-            @keydown="onKeyDown"
+            pattern="[0-9]"
+            type="number"
+            :value="activationCode[index]"
+            min="0"
+            max="9"
+            @input="onChange"
+            @keydown.delete.prevent="onDelete"
           >
         </div>
       </template>
     </div>
+
+    <div class="button-submit">
+      <base-button
+        v-if="withPasteButton"
+        view="secondary"
+        block
+        @click="onPaste"
+      >
+        Paste
+      </base-button>
+    </div>
   </div>
 </template>
 
-<script>
-const KEY_CODE = {
-  backspace: 8,
-  left: 37,
-  up: 38,
-  right: 39,
-  down: 40,
-};
-export default {
-  name: 'CodeInput',
-  model: {
-    prop: 'modelValue',
-    event: 'update:modelValue'
+<script lang="ts" setup>
+import { computed, onBeforeUpdate, Ref, ref } from 'vue';
+import { Clipboard } from '@capacitor/clipboard';
+
+import { BaseButton } from '@/components/UI';
+
+const props = defineProps({
+  type: {
+    type: String,
+    default: 'number',
   },
-  props: {
-    type: {
-      type: String,
-      default: 'number',
-    },
-    className: String,
-    fields: {
-      type: Number,
-      default: 6,
-    },
-    fieldWidth: {
-      type: Number,
-      default: 58,
-    },
-    fieldHeight: {
-      type: Number,
-      default: 54,
-    },
-    autoFocus: {
-      type: Boolean,
-      default: true,
-    },
-    disabled: {
-      type: Boolean,
-      default: false,
-    },
-    required: {
-      type: Boolean,
-      default: false,
-    },
-    title: String,
-    change: Function,
-    complete: Function,
-    loading: {
-      type: Boolean,
-      default: false,
-    },
+  fields: {
+    type: Number,
+    default: 6,
   },
-  emits: ['change', 'complete', 'update:modelValue'],
-  data() {
-    const { fields, values } = this;
-    let vals;
-    let autoFocusIndex = 0;
-    if (values && values.length) {
-      vals = [];
-      for (let i = 0; i < fields; i++) {
-        vals.push(values[i] || '');
-      }
-      autoFocusIndex = values.length >= fields ? 0 : values.length;
-    } else {
-      vals = Array(fields).fill('');
+  withPasteButton: {
+    type: Boolean,
+    default: true
+  }
+});
+
+const emit = defineEmits(['change', 'complete']);
+
+const inputs = ref([]) as Ref<HTMLElement[]>;
+
+const activationCode = ref([]) as Ref<string[]>;
+
+onBeforeUpdate(() => {
+  inputs.value = []
+})
+
+const focusNextInput = (currentId: number) => {
+  const nextInput = inputs.value[currentId + 1] as HTMLElement | undefined;
+
+  if (nextInput) {
+    nextInput.focus();
+  }
+}
+
+const focusPrevInput = (currentId: number) => {
+  const prevInput = inputs.value[currentId - 1] as HTMLElement | undefined;
+
+  if (prevInput) {
+    prevInput.focus();
+  }
+}
+
+const activationCodeString = computed(() => activationCode.value.join(''))
+
+const onChange = (event: Event) => {
+  const value = (event.target as HTMLInputElement).value;
+  const currentId = parseInt((event.target as HTMLInputElement).dataset.id as string);
+
+
+  if (value.length > 1) {
+    activationCode.value[currentId] = value[value.length - 1];
+  } else {
+    activationCode.value[currentId] = value;
+  }
+  
+  if (value.length >= 1) {
+    focusNextInput(currentId);
+    
+    if (activationCode.value.filter(code => code).length === props.fields) {
+      emit('complete', activationCodeString.value)
     }
-    this.iRefs = [];
-    for (let i = 0; i < fields; i++) {
-      this.iRefs.push(`input_${i}`);
+  } else if (value.length === 0) {
+      focusPrevInput(currentId);
     }
-    this.id = +new Date();
-    return { values: vals, autoFocusIndex };
-  },
-  methods: {
-    onFocus(e) {
-      e.target.select(e);
-    },
-    onValueChange(e) {
-      const index = parseInt(e.target.dataset.id);
-      const { type, fields } = this;
-      if (type === 'number') {
-        e.target.value = e.target.value.replace(/[^\d]/gi, '');
-      }
-      // this.handleKeys[index] = false;
-      if (
-        e.target.value === '' ||
-        (type === 'number' && !e.target.validity.valid)
-      ) {
-        return;
-      }
-      let next;
-      const value = e.target.value;
-      let { values } = this;
-      values = Object.assign([], values);
-      if (value.length > 1) {
-        let nextIndex = value.length + index - 1;
-        if (nextIndex >= fields) {
-          nextIndex = fields - 1;
-        }
-        next = this.iRefs[nextIndex];
-        const split = value.split('');
-        split.forEach((item, i) => {
-          const cursor = index + i;
-          if (cursor < fields) {
-            values[cursor] = item;
-          }
-        });
-        this.values = values;
-      } else {
-        next = this.iRefs[index + 1];
-        values[index] = value;
-        this.values = values;
-      }
-      if (next) {
-        const element = this.$refs[next][0];
-        element.focus();
-        element.select();
-      }
-      this.triggerChange(values);
-    },
-    onKeyDown(e) {
-      const index = parseInt(e.target.dataset.id);
-      const prevIndex = index - 1;
-      const nextIndex = index + 1;
-      const prev = this.iRefs[prevIndex];
-      const next = this.iRefs[nextIndex];
-      switch (e.keyCode) {
-        case KEY_CODE.backspace: {
-          e.preventDefault();
-          const vals = [...this.values];
-          if (this.values[index]) {
-            vals[index] = '';
-            this.values = vals;
-            this.triggerChange(vals);
-          } else if (prev) {
-            vals[prevIndex] = '';
-            this.$refs[prev][0].focus();
-            this.values = vals;
-            this.triggerChange(vals);
-          }
-          break;
-        }
-        case KEY_CODE.left:
-          e.preventDefault();
-          if (prev) {
-            this.$refs[prev][0].focus();
-          }
-          break;
-        case KEY_CODE.right:
-          e.preventDefault();
-          if (next) {
-            this.$refs[next][0].focus();
-          }
-          break;
-        case KEY_CODE.up:
-        case KEY_CODE.down:
-          e.preventDefault();
-          break;
-        default:
-          // this.handleKeys[index] = true;
-          break;
-      }
-    },
-    triggerChange(values = this.values) {
-      const { fields } = this;
-      const val = values.join('');
-      this.$emit('update:modelValue', val)
-      this.$emit('change', val);
-      if (val.length >= fields ) {
-        this.$emit('complete', val);
-      }
-    },
-  },
 };
+
+const onDelete = (event: Event) => {
+  const currentId = parseInt((event.target as HTMLInputElement).dataset.id as string);
+
+  activationCode.value[currentId] = '';
+
+  focusPrevInput(currentId);
+}
+
+const onPaste = async (): Promise<void> => {
+  try {
+    const { value } = await Clipboard.read();
+
+    if (/^\d+$/.test(value)) {
+      const substringValue = value.substr(0, 6)
+      
+      activationCode.value = [...substringValue]
+    }
+  } catch (e) {
+    console.error(e)
+  }
+}
 </script>
 
 <style lang="scss">
+.base-verification-code-input {
+  .button-submit {
+    position: fixed;
+    bottom: 50px;
+    left: 16px;
+    right: 16px;
+  }
+}
+
 .input-container {
   display: flex;
   width: 100%;

@@ -20,7 +20,7 @@ export const useAuthStore = defineStore('auth', {
     steps: {
       registration: 0,
       login: 0,
-      recover: 3,
+      recover: 0,
     },
   }),
 

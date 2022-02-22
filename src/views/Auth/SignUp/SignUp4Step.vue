@@ -34,9 +34,3 @@ import { TopNavigation, BaseButton, BaseInput } from '@/components/UI';
 
 defineEmits(['next', 'prev']);
 </script>
-
-<style lang="scss">
-.base-input + .base-input {
-  margin-top: 16px;
-}
-</style>

@@ -10,8 +10,14 @@
         :class="leftIconName"
       />
     </button>
-
     <h1 class="page-title">
+      <!-- <<<<<<< HEAD -->
+
+      <!-- ======= -->
+      <!-- <slot name="top-right" />
+    </div>
+    <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold"> -->
+      <!-- >>>>>>> 1b1a0af314038922eda56a62d379e06019b28a9d -->
       <slot />
     </h1>
   </header>
@@ -36,6 +42,7 @@ defineEmits(['click:left-icon'])
   & > .controls {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     margin-bottom: 20px;
   }
 }

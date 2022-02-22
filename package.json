@@ -22,6 +22,9 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@capacitor-community/camera-preview": "^2.0.0",
+    "@capacitor/camera": "^1.3.0",
+    "@capacitor/clipboard": "^1.0.7",
     "@capacitor/core": "^3.3.4",
     "@capacitor/ios": "^3.3.4",
     "@capacitor/push-notifications": "^1.0.9",
@@ -32,6 +35,7 @@
     "core-js": "^3.6.5",
     "crypto-browserify": "^3.12.0",
     "node-2fa": "^2.0.3",
+    "floating-vue": "^2.0.0-beta.6",
     "pinia": "^2.0.9",
     "primeflex": "^3.1.2",
     "primeicons": "^5.0.0",
@@ -41,7 +45,8 @@
     "stream-browserify": "^3.0.0",
     "vue": "^3.2.22",
     "vue-agile": "^2.0.0",
-    "vue-router": "^4.0.0-0"
+    "vue-router": "^4.0.0-0",
+    "vue3-circle-progress": "^1.0.7"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
