@@ -107,7 +107,7 @@ const getStoredPasscode = async () => {
   const { value } = await Storage.get({
     key: EStorageKeys.passcode
   })
-  return value
+  return value || '0000'
 }
 
 async function checkPasscode(passcode: string) {

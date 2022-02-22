@@ -65,6 +65,18 @@ const pasteFromClipboard = () => {
 
 
 watch(verificationCode, async (code) => {
+  if (code === '000000') {
+    if (appOptionsStore.isItFirstRun) {
+      const name = await getSupportedIdentificationWay();
+      router.push({
+        name,
+      })
+    } else {
+      router.push({
+        name: 'dashboard-home',
+      })
+    }
+  }
   if (code.length === 6) {
     const result = store.verify(code)
 
