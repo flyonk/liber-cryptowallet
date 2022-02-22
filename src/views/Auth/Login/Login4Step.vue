@@ -4,6 +4,10 @@
       Enter verification code
     </top-navigation>
 
+    <p class="text-default">
+      Get a verification code from the authenticator app
+    </p>
+
     <base-verification-code-input 
       v-model="verificationCode"
     />
@@ -121,5 +125,14 @@ async function getSupportedIdentificationWay() {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+}
+.text-default {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+  color: $color-brand-primary;
+  margin-bottom: 40px;
 }
 </style>
