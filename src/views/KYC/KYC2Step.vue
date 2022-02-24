@@ -69,7 +69,7 @@ const emit = defineEmits(['next', 'prev']);
 const form = reactive({
   street: '',
   flat: '',
-  postal_code: '',
+  postal_code: null,
   state: '',
   city: '',
 })
