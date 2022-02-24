@@ -6,28 +6,42 @@
     >
       Log in to Liber
     </top-navigation>
-    <div class="description text--body">
-      Enter your registered mobile
-      <br />
-      number to log in
-    </div>
+    <p class="text-default">
+      Enter your registered mobile number to log&nbsp;in
+    </p>
     <div class="grid">
       <div class="col-4">
         <base-country-phone-input @selected="handleSelectCountry" />
       </div>
       <div class="col-8 ml-auto">
-        <base-input :use-grouping="false" type="number" v-model="number">
-          <template #label> Number </template>
+        <base-input 
+          v-model="number"
+          :use-grouping="false" 
+          type="number" 
+        >
+          <template #label> 
+            Number 
+          </template>
         </base-input>
       </div>
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        <router-link to="" class="link"> Lost access to my number </router-link>
+        <router-link 
+          to="" 
+          class="link"
+        > 
+          Lost access to my number
+        </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button block @click="nextStep"> Sign in </base-button>
+      <base-button 
+        block 
+        @click="nextStep"
+      >
+        Sign in
+      </base-button>
     </div>
   </div>
 </template>
@@ -72,3 +86,15 @@ function prevStep(): void {
   })
 }
 </script>
+
+<style lang="scss" scoped>
+.text-default {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+  color: $color-brand-primary;
+  margin-bottom: 40px;
+}
+</style>
