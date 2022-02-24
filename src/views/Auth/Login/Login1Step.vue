@@ -1,6 +1,9 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation left-icon-name="ci-close_big">
+    <top-navigation
+      left-icon-name="ci-close_big"
+      @click:left-icon="prevStep"
+    >
       Log in to Liber
     </top-navigation>
     <div class="description text--body">
@@ -37,9 +40,11 @@ import {
   BaseButton,
 } from '@/components/UI';
 
-import { useAuthStore } from '@/stores/auth';
-import { ICountryInformation } from '@/types/country-phone-types';
-import { onMounted, ref } from 'vue';
+import { useAuthStore } from '@/stores/auth'
+import { ICountryInformation } from '@/types/country-phone-types'
+import { onMounted, ref } from 'vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const authStore = useAuthStore();
 const number = ref<number | null>(null);
@@ -60,4 +65,10 @@ const nextStep = () => {
   authStore.login.phone = String(number.value);
   authStore.setStep(1, 'login');
 };
+
+function prevStep(): void {
+  router.push({
+    name: 'welcome-auth-screen'
+  })
+}
 </script>
