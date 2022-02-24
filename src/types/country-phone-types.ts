@@ -3,4 +3,5 @@ export interface ICountryInformation {
   dialCode: string;
   isoCode: string;
   flag: string;
+  mask?: string;
 }

@@ -2,7 +2,7 @@
   <div class="base-input">
     <div class="input">
       <div
-        class="p-float-label "
+        class="p-float-label"
         :class="{ 'p-input-icon-right': $slots.append }"
       >
         <slot

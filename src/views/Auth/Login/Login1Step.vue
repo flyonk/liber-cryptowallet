@@ -11,13 +11,18 @@
     </p>
     <div class="grid">
       <div class="col-4">
-        <base-country-phone-input @selected="handleSelectCountry" />
+        <base-country-phone-input 
+          :dialCode="countryDialCode"
+          @ready="handleSelectCountry"
+          @selected="handleSelectCountry"
+        />
       </div>
       <div class="col-8 ml-auto">
         <base-input 
           v-model="number"
           :use-grouping="false" 
-          type="number" 
+          :type="type"
+          :mask="mask"
         >
           <template #label> 
             Number 
@@ -59,24 +64,54 @@ import { ICountryInformation } from '@/types/country-phone-types'
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router'
 const router = useRouter()
-
 const authStore = useAuthStore();
-const number = ref<number | null>(null);
+
+const number = ref('')
+const mask = ref('')
+const countryDialCode = ref('')
+const type = ref('')
 
 onMounted(() => {
   const { phone, dialCode } = authStore.login;
   
-  if (phone) number.value = +authStore.login.phone;
-  if (!dialCode) authStore.login.dialCode = '+7'; //TODO:Change to the default value taken from the smartphone
+  if (phone) {
+    number.value = authStore.login.phone
+  }
+  if (!dialCode) {
+    //TODO:Change to the default value taken from the smartphone
+    authStore.login.dialCode = '+7';
+  }
+  countryDialCode.value = authStore.login.dialCode
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
-  authStore.login.dialCode = data.dialCode;
-};
+  const maskRegEx = new RegExp(/(\(|\)|#|-)*$/)
+
+  // hack for reactive phone mask change
+  type.value = ''
+  setTimeout(() => {
+    // set phone mask
+    if (data.mask) {
+      data.mask
+        .replace(maskRegEx, function (match:any) {
+          mask.value = match.replace(new RegExp(/^\)/), '')
+          return match
+        })
+      mask.value = mask.value.replaceAll('#','9')
+      
+    } else {
+      mask.value = ''
+    }
+  
+    authStore.login.dialCode = data.dialCode;
+    type.value = data.mask ? 'mask' : 'number'
+  }, 0);
+
+}
 
 const nextStep = () => {
   if (!number.value) return;
-  authStore.login.phone = String(number.value);
+  authStore.login.phone = number.value;
   authStore.setStep(1, 'login');
 };
 
