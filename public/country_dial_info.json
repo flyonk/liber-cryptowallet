@@ -1,4 +1,4 @@
-`[
+[
   {
     "name": "Afghanistan",
     "dialCode": "+93",
@@ -213,7 +213,7 @@
     "dialCode": "+55",
     "isoCode": "BR",
     "flag": "https://cdn.kcak11.com/CountryFlags/countries/br.svg",
-    "mask": "+55(##)9####-####"
+    "mask": "+55(##)-####-####"
   },
   {
     "name": "British Indian Ocean Territory",
@@ -1703,4 +1703,4 @@
     "flag": "https://cdn.kcak11.com/CountryFlags/countries/zw.svg",
     "mask": "+263-#-######"
   }
-]`
+]
