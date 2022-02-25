@@ -1,33 +1,18 @@
 <template>
-  <div
-    class="base-country-input flex align-items-center"
-  >
+  <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
-      <base-input
-        v-model="selectedData"
-        @click.self="onClick"
-      >
-        <template #label>
-          Country
-        </template>
+      <base-input v-model="selectedData" @click.self="onClick">
+        <template #label>Country</template>
       </base-input>
     </span>
-    <BaseBottomSheet
-      v-model:visible="showList"
-      position="bottom"
-    >
+    <BaseBottomSheet v-model:visible="showList" position="bottom">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div
-              class="cancel-button text--headline"
-              @click="showList = false"
-            >
-              Cancel
-            </div>
+            <div class="cancel-button text--headline" @click="showList = false">Cancel</div>
           </div>
         </div>
 
@@ -40,17 +25,10 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img
-                :src="country.flag"
-                alt=""
-              >
+              <img :src="country.flag" alt />
             </div>
-            <div class="code col-2">
-              {{ country.isoCode }}
-            </div>
-            <div class="title col-8">
-              {{ country.name }}
-            </div>
+            <div class="code col-2">{{ country.isoCode }}</div>
+            <div class="title col-8">{{ country.name }}</div>
           </div>
         </div>
       </div>
@@ -59,7 +37,8 @@
 </template>
 <script lang="ts" setup>
 import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
-import { getFullList } from '@/services/country-phone';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { getEuropeanList, getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { BaseBottomSheet, BaseSearchInput, BaseInput } from '.';
 
@@ -67,6 +46,10 @@ const props = defineProps({
   modelValue: {
     type: String,
     required: true
+  },
+  onlyEuropean: {
+    type: Boolean,
+    default: () => false
   }
 })
 
@@ -78,11 +61,11 @@ const selectedData = computed({
   set: (value) => emit('update:modelValue', value)
 })
 
-const list = ref([]) as Ref<Array<ICountryInformation>>;
+const list = ref([]) as Ref<ICountryInformation[]>;
 const showList = ref(false) as Ref<boolean>;
 const searchQuery = ref('') as Ref<string>;
 
-const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
+const filteredList: ComputedRef<ICountryInformation[]> = computed(() => {
   if (searchQuery.value) {
     return list.value.filter(({ name }) =>
       name.toLowerCase().includes(searchQuery.value.toLowerCase())
@@ -93,6 +76,10 @@ const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
 });
 
 onBeforeMount(async (): Promise<void> => {
+  if (props.onlyEuropean) {
+    list.value = await getEuropeanList()
+    return
+  }
   list.value = await getFullList();
 });
 
