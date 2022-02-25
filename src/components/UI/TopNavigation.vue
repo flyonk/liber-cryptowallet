@@ -36,7 +36,7 @@ defineEmits(['click:left-icon'])
 
 <style lang="scss" scoped>
 .page-header {
-  margin-top: 24px;
+  margin-top: 30px;
   margin-bottom: 8px;
 
   & > .controls {
@@ -44,6 +44,7 @@ defineEmits(['click:left-icon'])
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
+    background-color: transparent;
   }
 }
 

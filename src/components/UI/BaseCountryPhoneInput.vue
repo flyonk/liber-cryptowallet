@@ -52,6 +52,13 @@ import { ICountryInformation } from '@/types/country-phone-types';
 import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
+const props = defineProps({
+  dialCode: {
+    type: String,
+    default: '+7',
+  },
+});
+
 const list = ref([]) as Ref<Array<ICountryInformation>>;
 const selectedData = ref(null) as Ref<ICountryInformation | null>;
 const showList = ref(false) as Ref<boolean>;
@@ -69,11 +76,15 @@ const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   list.value = await getFullList();
+  const _selectedCode = list.value.filter((item:any) => {
+    return item.dialCode === props.dialCode
+  })
 
-  selectedData.value = list.value[0];
+  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0]
+  emits('ready', selectedData.value);
 });
 
-const emits = defineEmits(['selected']);
+const emits = defineEmits(['selected', 'ready']);
 
 function isSelectedCountry(country: ICountryInformation): boolean {
   return selectedData.value?.name === country.name;

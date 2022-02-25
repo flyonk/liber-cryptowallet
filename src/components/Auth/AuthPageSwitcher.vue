@@ -20,7 +20,6 @@ const props = defineProps({
     type: String as PropType<keyof IAuthSteps>,
     required: true,
   },
-
   components: {
     type: Array,
     required: true
