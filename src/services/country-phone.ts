@@ -5,6 +5,22 @@ export const getFullList = async (): Promise<ICountryInformation[]> => {
   const { data } = await axios.get('/country_dial_info.json');
   return data;
 };
+
+export const getEuropeanList = async (): Promise<ICountryInformation[]> => {
+  const { data } = await axios.get('/country_dial_info.json');
+  const europeanCountries = data.filter(({ isoCode }: ICountryInformation) => {
+    return (
+      EU.includes(isoCode))
+      || (EFTA.includes(isoCode))
+      || (EUCandidate.includes(isoCode))
+      || (potentialEUCandidates.includes(isoCode))
+      || (ENPEast.includes(isoCode))
+      || (ENPSouth.includes(isoCode)
+      )
+  })
+  return europeanCountries;
+};
+
 /**
  * Source: https://ec.europa.eu/eurostat/statistics-explained/index.php?title=Glossary:Country_codes 
  * ! BUT HERE are the wrong codes of some countries: United kingdom and Greece!
