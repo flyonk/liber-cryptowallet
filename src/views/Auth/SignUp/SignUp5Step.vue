@@ -18,7 +18,9 @@
     <div class="sign-button-wrapper">
       <BaseButton
         block
-        @click="$router.push('/survey')"
+        @click="$router.push({
+          name: 'kyc-main'
+        })"
       >
         Next
       </BaseButton>

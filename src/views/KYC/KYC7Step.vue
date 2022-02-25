@@ -20,7 +20,11 @@
       </span>
     </base-progress-circular>
     <div class="footer">
-      <base-button>
+      <base-button
+        @click="$router.push({
+          name: 'survey'
+        })"
+      >
         Continue
       </base-button>
     </div>
@@ -32,7 +36,6 @@ import { ref } from 'vue';
 import { BaseProgressCircular, TopNavigation, BaseButton } from '@/components/UI';
 
 const percent = ref(50);
-
 </script>
 
 <style scoped lang="scss">
