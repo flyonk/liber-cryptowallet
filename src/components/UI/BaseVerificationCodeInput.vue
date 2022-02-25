@@ -7,10 +7,10 @@
       >
         <div class="input-wrapper">
           <input
-            class="input-item"
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
+            class="input-item"
             :data-id="index"
-            pattern="[0-9]"
+            pattern="\d*"
             type="number"
             :value="activationCode[index]"
             min="0"

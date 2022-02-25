@@ -37,6 +37,7 @@
         </BaseInput>
         <BaseInput
           type="text"
+          pattern="\d*"
         >
           <template #label>
             Date of Birth

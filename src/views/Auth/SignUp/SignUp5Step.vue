@@ -12,6 +12,7 @@
       v-model="birth"
       mask="99.99.9999"
       placeholder="dd.mm.yyyy"
+      pattern="\d*"
       type="mask"
       slot-char="dd.mm.yyyy"
     />
