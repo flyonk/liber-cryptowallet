@@ -1,5 +1,8 @@
 <template>
-  <section class="welcome-auth">
+  <section
+    class="welcome-auth"
+    :style="stylePaddings"
+  >
     <div class="slider">
       <stories-slider
         :options="options"
@@ -20,7 +23,10 @@
 <script setup lang="ts">
 import StoriesSlider from '@/components/UI/StoriesSlider.vue';
 import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
+import useSafeAreaPaddings from '@/helpers/safeArea';
 import { ISlider } from '@/types/ISlider';
+
+const { stylePaddings } = useSafeAreaPaddings()
 
 const options: ISlider = {
   autoplay: true,

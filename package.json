@@ -7,6 +7,7 @@
     "format": "yarn prettier && yarn lint:all:fix",
     "ios:open": "npx cap open ios",
     "ios:run": "npx cap run ios",
+    "ios:sync": "npx cap sync",
     "lint-fix": "yarn lint:code:fix && yarn lint:style:fix",
     "lint:all:fix": "yarn lint:style:fix && yarn lint:code:fix",
     "lint:all": "yarn lint:style && yarn lint:code",
