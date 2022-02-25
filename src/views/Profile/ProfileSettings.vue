@@ -94,7 +94,10 @@
         Security
       </h6>
       <ul class="list security--profile">
-        <li class="item">
+        <router-link
+          to="/passcode"
+          class="item"
+        >
           <img
             class="icon"
             src="@/assets/icon/lock.svg"
@@ -102,7 +105,7 @@
           <p class="text">
             Change passcode
           </p>
-        </li>
+        </router-link>
         <li class="item">
           <img
             class="icon"
