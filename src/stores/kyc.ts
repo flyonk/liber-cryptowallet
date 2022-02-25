@@ -23,7 +23,7 @@ export interface IKYCFormData {
   citizenship: string;
   street: string;
   flat: string;
-  postal_code: string;
+  postal_code: string | null;
   state: string;
   city: string;
 }

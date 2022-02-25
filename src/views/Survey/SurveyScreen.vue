@@ -27,7 +27,6 @@
           <label
             class="radio-btn"
             :class="{ '-selected': answer.isSelected }"
-            @click="$router.push('/install')"
           >
             <input
               :id="answer.id"
@@ -106,7 +105,7 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers:Dictionary) => {
+const saveAnswers = (answers:any) => {
   return Promise.resolve(answers)
 }
 
@@ -142,7 +141,9 @@ const selectAnswer = (id: number | string) => {
     const userAnswers = getSelectedAnswers()
     saveAnswers(userAnswers)
       .then(() => {
-        router.push('/')
+        router.push({
+          name: 'auth-passcode'
+        })
       })
     return
   }
