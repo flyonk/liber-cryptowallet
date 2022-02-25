@@ -44,6 +44,7 @@
       <base-button 
         block 
         @click="nextStep"
+        :disabled="!number.length"
       >
         Sign in
       </base-button>
