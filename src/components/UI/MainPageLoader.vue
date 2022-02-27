@@ -17,7 +17,6 @@
   width: 100%;
   display: flex;
   justify-content: center;
-  background: transparent;
   z-index: 1;
 
   >.img {
