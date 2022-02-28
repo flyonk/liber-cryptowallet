@@ -1,5 +1,8 @@
 <template>
-  <div class="welcome-screen">
+  <div
+    class="welcome-screen"
+    :style="stylePaddings"
+  >
     <main-page-loader v-if="loading" />
     <img
       v-else
@@ -11,8 +14,10 @@
 
 <script setup lang="ts">
 import MainPageLoader from '@/components/UI/MainPageLoader.vue'
+import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
 import { onMounted, ref } from 'vue'
+const { stylePaddings } = useSafeAreaPaddings()
 
 const loading = ref(true)
 
