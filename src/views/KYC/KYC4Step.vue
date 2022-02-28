@@ -131,6 +131,7 @@ const onScan = async () => {
 
 <style lang="scss">
 .kyc-4-step {
+  // commit test
 
   .camera {
     width: 100%;
