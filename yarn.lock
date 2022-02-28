@@ -3319,6 +3319,11 @@ capacitor-native-biometric@^3.0.3:
   dependencies:
     "@capacitor/core" "3.0.0"
 
+capacitor-plugin-safe-area@^0.0.3:
+  version "0.0.3"
+  resolved "https://registry.yarnpkg.com/capacitor-plugin-safe-area/-/capacitor-plugin-safe-area-0.0.3.tgz#ca5539390015d80bfdbeb734285f86b9fdd1f706"
+  integrity sha512-AOsUOz56GRb74eu5cOEyCt34zgxNuyQV5XQKmFaHqtemXnycc4zSgivP9mpjf+vAGtHjozeEcCQSQqGBuiZnKQ==
+
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"
   resolved "https://registry.yarnpkg.com/case-sensitive-paths-webpack-plugin/-/case-sensitive-paths-webpack-plugin-2.4.0.tgz#db64066c6422eed2e08cc14b986ca43796dbc6d4"

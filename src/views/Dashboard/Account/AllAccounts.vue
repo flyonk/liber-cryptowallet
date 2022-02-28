@@ -11,7 +11,9 @@
         class="add"
         src="@/assets/icon/circle-add.svg"
         alt="circle-add"
-        @click="$router.push('/account/add')"
+        @click="$router.push({
+          name: 'deposit-coin'
+        })"
       >
     </div>
     <h1 class="title">

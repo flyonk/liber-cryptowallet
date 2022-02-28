@@ -11,7 +11,6 @@
       </div>
     </template>
   </p-toast>
-
   <app-layout-switcher>
     <router-view class="router-view" />
   </app-layout-switcher>
@@ -24,9 +23,10 @@ import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();
 store.init();
+
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .main-nav {
   padding: 30px;
 
