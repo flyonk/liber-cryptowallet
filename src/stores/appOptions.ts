@@ -1,6 +1,21 @@
 import { defineStore } from 'pinia'
 import { Storage } from '@capacitor/storage'
 import { EStorageKeys } from '@/types/base-component'
+import { PushNotifications } from '@capacitor/push-notifications'
+
+const registerNotification = async () => {
+  let permStatus = await PushNotifications.checkPermissions()
+
+  if (permStatus.receive === 'prompt') {
+    permStatus = await PushNotifications.requestPermissions()
+  }
+
+  if (permStatus.receive !== 'granted') {
+    throw new Error('User denied permissions!')
+  }
+
+  await PushNotifications.register()
+}
 
 interface IappOptionsState {
   notifictions: boolean | null,
@@ -8,7 +23,7 @@ interface IappOptionsState {
   touchid: boolean | null
 }
 
-const getStoredOption = async (key:EStorageKeys) => {
+const getStoredOption = async (key: EStorageKeys) => {
   const { value } = await Storage.get({
     key
   })
@@ -16,6 +31,9 @@ const getStoredOption = async (key:EStorageKeys) => {
 }
 
 async function setOptions(value: string, key: EStorageKeys) {
+  if (value && key === EStorageKeys.notifications) {
+    registerNotification()
+  }
   await Storage.set({
     key,
     value
