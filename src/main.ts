@@ -7,6 +7,8 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 
+import { i18n, setLocale } from "./i18n";
+
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
 import PDialog from 'primevue/dialog';
@@ -18,11 +20,14 @@ import '@/assets/styles/index.scss';
 
 const app = createApp(App)
   // App uses
+  .use(i18n)
   .use(createPinia())
   .use(PrimeVue)
   .use(ToastService)
   .use(router)
   .use(FloatingVue);
+
+setLocale();
 
 app.component('PInput', PInput);
 app.component('PDialog', PDialog);

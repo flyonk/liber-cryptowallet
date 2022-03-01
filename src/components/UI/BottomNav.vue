@@ -23,7 +23,7 @@
           class="label"
           :class="{ 'label--active': activeTab === 1 }"
         >
-          Home
+          {{ $t('bottomNav.home') }}
         </p>
       </router-link>
       <router-link

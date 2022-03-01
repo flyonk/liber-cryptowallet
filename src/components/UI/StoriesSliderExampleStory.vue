@@ -14,7 +14,7 @@
     </header>
     <main class="main">
       <h1 class="title">
-        Transfer money around the world with the best fee
+        {{ $t('slider.title') }}
       </h1>
       <div class="imagecontainer">
         <img
@@ -30,13 +30,13 @@
         class="login"
         @click="$router.push('/login')"
       >
-        Log in
+        {{ $t('common.logInCta') }}
       </button>
       <button 
         class="signup"
         @click="$router.push('/sign-up')"
       >
-        Sign up
+        {{ $t('common.signUpCta') }}
       </button>
     </footer>
   </section>

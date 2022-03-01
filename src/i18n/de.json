@@ -1,0 +1,12 @@
+{
+  "common": {
+    "logInCta": "Log in",
+    "signUpCta": "Sign up"
+  },
+  "slider": {
+    "title": "Transfer money around the world with the best fee"
+  },
+  "bottomNav": {
+    "home": "Home"
+  }
+}
