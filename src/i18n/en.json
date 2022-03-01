@@ -7,6 +7,9 @@
     "title": "Transfer money around the world with the best fee"
   },
   "bottomNav": {
-    "home": "Home"
+    "home": "Home",
+    "send": "Send",
+    "recipients": "Recipients",
+    "invite": "Invite"
   }
 }
