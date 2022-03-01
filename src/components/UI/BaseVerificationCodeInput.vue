@@ -144,9 +144,11 @@ const onPaste = async (): Promise<void> => {
 .input-container {
   display: flex;
   width: 100%;
+  justify-content: space-between;
 }
 
 .input-wrapper {
+  flex-grow: 1;
   &:not(:last-child) {
     margin-right: 12px;
   }
