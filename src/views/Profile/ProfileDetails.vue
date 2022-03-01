@@ -22,6 +22,7 @@
       </h1>
       <div class="edit-form">
         <BaseInput
+          v-model="user.name"
           type="text"
         >
           <template #label>
@@ -29,6 +30,7 @@
           </template>
         </BaseInput>
         <BaseInput
+          v-model="user.liberID"
           type="text"
         >
           <template #label>
@@ -36,6 +38,7 @@
           </template>
         </BaseInput>
         <BaseInput
+          v-model="user.date_of_birth"
           type="text"
           pattern="\d*"
         >
@@ -44,24 +47,11 @@
           </template>
         </BaseInput>
         <BaseInput
+          v-model="user.residential_address"
           type="text"
         >
           <template #label>
             Residential Address
-          </template>
-        </BaseInput>
-        <BaseInput
-          type="number"
-        >
-          <template #label>
-            Phone Number
-          </template>
-        </BaseInput>
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Email
           </template>
         </BaseInput>
         <BaseButton class="btn">
@@ -78,6 +68,12 @@ import BaseInput from '@/components/UI/BaseInput.vue'
 import BaseButton from '@/components/UI/BaseButton.vue'
 
 const accountName = 'Abraham Watson';
+const user = {
+  name: '',
+  liberID: '',
+  date_of_birth: '',
+  residential_address: ''
+}
 // const accountID = '@abrahamwatson';
 
 const nameInitials = computed(() => {
