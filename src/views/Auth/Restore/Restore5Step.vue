@@ -1,7 +1,7 @@
 <template>
   <div class="auth-page-container">
     <top-navigation>
-      When were you born?
+      {{ $t('auth.restore.step5Title') }}
     </top-navigation>
     
     <base-input
@@ -12,15 +12,16 @@
       placeholder="DD/MM/YYYY"
       pattern="\d*"
     >
-      Date of birth
+      {{ $t('auth.restore.step5BirthLabel') }}
     </base-input>
 
+    <!-- TODO: make separated component -->
     <div class="sign-button-wrapper">
       <BaseButton
         block
         @click="$emit('next')"
       >
-        Continue
+        {{ $t('common.continueCta') }}
       </BaseButton>
     </div>
   </div>

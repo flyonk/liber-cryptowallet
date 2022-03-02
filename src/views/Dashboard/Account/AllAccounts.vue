@@ -17,7 +17,7 @@
       >
     </div>
     <h1 class="title">
-      All Accounts
+      {{ $t('dashboard.account.allAccounts') }}
     </h1>
     <ul class="currencies">
       <li

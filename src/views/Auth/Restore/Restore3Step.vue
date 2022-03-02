@@ -1,10 +1,10 @@
 <template>
   <div class="auth-page-container">
     <TopNavigation @click:left-icon="prevStep">
-      Enter the 6-digit code
+      {{ $t('auth.restore.step3Title') }}
     </TopNavigation>
     <div class="description text--body">
-      Get a verification code from the authenticator app
+      {{ $t('auth.restore.step3Description') }}
     </div>
     <div>
       <BaseVerificationCodeInput

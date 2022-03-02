@@ -50,19 +50,19 @@
           <img
             class="label"
             src="@/assets/icon/plus.svg"
-          >Deposit
+          >{{ $t('transactions.deposit') }}
         </button>
         <button class="btn">
           <img
             class="label"
             src="@/assets/icon/arrow-right-white.svg"
-          >Send
+          >{{ $t('transactions.send') }}
         </button>
         <button class="btn">
           <img
             class="label"
             src="@/assets/icon/repeat.svg"
-          >Exchange
+          >{{ $t('transactions.exchange') }}
         </button>
       </div>
       
@@ -72,14 +72,14 @@
           :class="{ active: activeTab === 1 }"
           @click="activeTab = 1"
         >
-          History
+          {{ $t('common.history') }}
         </div>
         <div
           class="tab"
           :class="{ active: activeTab === 2 }"
           @click="activeTab = 2"
         >
-          Wallet Address
+          {{ $t('transactions.walletAddress') }}
         </div>
       </div>
       <ul
@@ -137,7 +137,7 @@
         >
         <div class="wallet-address">
           <h4 class="title">
-            Wallet Address
+            {{ $t('transactions.walletAddress') }}
           </h4>
           <div class="account">
             <div class="crypto-number">
@@ -151,14 +151,14 @@
             >
           </div>
           <h2 class="bluetitle">
-            Generate New Address
+            {{ $t('transactions.generateAddress') }}
           </h2>
           <div class="controls">
             <button class="btn">
-              Save Image
+              {{ $t('common.saveImage') }}
             </button>
             <button class="btn">
-              Share Address
+              {{ $t('transactions.shareAddress') }}
             </button>
           </div>
         </div>

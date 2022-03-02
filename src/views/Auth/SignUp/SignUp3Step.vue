@@ -1,16 +1,16 @@
 <template>
   <div class="auth-page-container">
     <top-navigation class="header" @click:left-icon="prevStep">
-      Sign up to Liber
+      {{ $t('auth.signup.step3Title') }}
     </top-navigation>
     <base-input v-model="email">
-      <template #label> Email </template>
+      <template #label> {{ $t('common.email') }} </template>
     </base-input>
     <base-switch v-model="sendNews" class="switch">
-      Keep me up to date with Liber news and offers
+      {{ $t('auth.signup.step3SendNews') }}
     </base-switch>
     <div class="sign-button-wrapper">
-      <base-button @click="nextStep"> Next </base-button>
+      <base-button @click="nextStep"> {{ $t('common.nextStep') }} </base-button>
     </div>
   </div>
 </template>

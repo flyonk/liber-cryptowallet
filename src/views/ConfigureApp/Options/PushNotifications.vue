@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      Don’t miss a beat
+      {{ $t('configureApp.pushNotificationsTitle') }}
     </top-navigation>
 
     <div class="page-content">
@@ -11,8 +11,7 @@
         class="mb-3"
       >
       <p class="text-default">
-        Get notified about spending, security, wealth, market movements,
-        discounts and deals, so you’re always in the know
+        {{ $t('configureApp.pushNotificationsDescription') }}
       </p>
     </div>
   </div>
@@ -22,14 +21,14 @@
       class="mb-3"
       @click="onEnable"
     >
-      Enable push notifications
+      {{ $t('configureApp.enablePushNotifications') }}
     </base-button>
     <base-button
       block
       view="secondary"
       @click="onCancel"
     >
-      Not now
+      {{ $t('common.notNowCta') }}
     </base-button>
   </div>
 </template>

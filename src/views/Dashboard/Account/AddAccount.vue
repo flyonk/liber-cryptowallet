@@ -8,7 +8,7 @@
         @click="$router.push('/account/all-accounts')"
       >
       <h1 class="title">
-        Select a coin
+        {{ $t('common.coinSelect') }}
       </h1>
       <label
         for="searchCoin"
@@ -29,7 +29,7 @@
     </div>
     <div class="main">
       <h4 class="title">
-        Suggested
+        {{ $t('dashboard.account.suggested') }}
       </h4>
       <ul class="coin-list suggested">
         <li class="item">

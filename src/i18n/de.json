@@ -1,7 +1,32 @@
 {
   "common": {
     "logInCta": "Log in",
-    "signUpCta": "Sign up"
+    "signUpCta": "Sign up",
+    "numberLabel": "Number",
+    "continueCta": "Continue",
+    "retryCta": "To retry",
+    "okCta": "Got it",
+    "nextStep": "Next",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneCta": "Phone Enter",
+    "codeCta": "Enter the code",
+    "phoneInput": "Enter phone number",
+    "codeInput": "Enter 6-digit code",
+    "notNowCta": "Not now",
+    "codeLabel": "Code",
+    "pasteCta": "Paste",
+    "googleAuthenticator": "Google Authenticator",
+    "microsoftAuthenticator": "Microsoft Authenticator",
+    "coinSelect": "Select a coin",
+    "saveImage": "Save Image",
+    "history": "History",
+    "cancelCta": "Cancel",
+    "shareCta": "Share",
+    "to": "To",
+    "daysAgo": "days ago",
+    "explorer": "Open in Explorer"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -11,5 +36,99 @@
     "send": "Send",
     "recipients": "Recipients",
     "invite": "Invite"
+  },
+  "auth": {
+    "login": {
+      "step1Title": "Log in to Liber",
+      "step1Description": "Enter your registered mobile number to log in",
+      "step1Label": "Number",
+      "step1LostAccess": "Lost access to my number",
+      "step2Description1": "To sign up, enter the security code",
+      "step2Description2": "we've sent to",
+      "step2ResendTitle": "Resend code in",
+      "step2ResendCta": "Resend",
+      "step3Title": "Enter passcode",
+      "step3InvalidInput": "Invalid password or phone number",
+      "step3FooterTitle": "You do not have an account?",
+      "step3FooterCta": "Registration",
+      "step4Title": "Enter verification code",
+      "step4Description": "Get a verification code from the authenticator app",
+      "step4VerificationError": "Your code doesn't match. Please, try again!"
+    },
+    "restore": {
+      "step1Title": "Your previous number",
+      "step1Description": "The phone number you last logged in with.",
+      "step2Title": "Enter passcode",
+      "step2Description": "The passcode or phone number you entered is incorrect",
+      "step2ExpiredTitle": "Session expired",
+      "step2ExpiredDescription": "Try to restore access again",
+      "step2VerificationTitle": "We're verifying your account",
+      "step2VerificationDescription": "We just need to perform a coupe of security checks to recover your account.",
+      "step2Notification": "Please check back on this device after 06.12.2021",
+      "step3Description": "Get a verification code from the authenticator app",
+      "step4Title": "We need more data",
+      "step4Description": "To keep your account safe, we need to make sure it’s you!",
+      "step5Title": "When were you born?",
+      "step5BirthLabel": "Date of birth"
+    },
+    "signup": {
+      "step1Title": "Enter phone number",
+      "step1Description1": "We will send verification code",
+      "step1Description2": "to this number.",
+      "step1ExistingAcc": "Already have an account?",
+      "step3Title": "Sign up to Liber",
+      "step3SendNews": "Keep me up to date with Liber news and offers",
+      "step4Title": "Name",
+      "step4Description1": "As started on your official ID. We need",
+      "step4Description2": "your name to verify your identity.",
+      "step5Title": "Date of birth"
+    }
+  },
+  "configureApp": {
+    "faceIdTitle": "Log in with a Face ID",
+    "faceIdDescription": "Use Face ID instead of a passcode to log in. It is more secure.",
+    "enableFaceId": "Enable Face ID",
+    "enablePushNotifications": "Enable push notifications",
+    "pushNotificationsTitle": "Don’t miss a beat",
+    "pushNotificationsDescription": "Get notified about spending, security, wealth, market movements, discounts and deals, so you’re always in the know",
+    "touchIdTitle": "Log in with a Touch ID",
+    "touchIdDescription": "Use Touch ID instead of a passcode to log in. It is more secure.",
+    "enableTouchId": "Enable Touch ID",
+    "configTitle": "Step 2. Configure App",
+    "scanQRMessage": "Scan QR code with the authenticator app or enter the code manually.",
+    "backupCodeMessage": "Store this backup code somewhere safe – print it, write it down.",
+    "verifyIdentityMessage": "If you ever lose access to your device, you can use this code to verify you identity.",
+    "invalidCodeMessage": "Your code doesn't match. Please, try again!",
+    "installAppTitle": "Step 1. Install App",
+    "installAppDescription": "Install an authenticator app on your mobile device. Recommended options:",
+    "createPassCode": "Enhance the security of your account by creating a passcode",
+    "invalidPassCode": "Your passcode doesn't match. Please, try again!",
+    "twoFATitle": "Setup Two Factor Authentication",
+    "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure."
+  },
+  "dashboard": {
+    "account": {
+      "suggested": "Suggested",
+      "allAccounts": "All Accounts"
+    }
+  },
+  "status": {
+    "title": "Status",
+    "pending": "Pending",
+    "complete": "Complete"
+  },
+  "transactions": {
+    "id": "Transaction ID",
+    "walletAddress": "Wallet Address",
+    "deposit": "Deposit",
+    "send": "Send",
+    "exchange": "Exchange",
+    "generateAddress": "Generate New Address",
+    "shareAddress": "Share Address",
+    "transferFee": "Transfer Fee",
+    "paymentTo": "Payment to",
+    "reverted": "Reverted",
+    "noReference": "Sent without reference",
+    "downloadState": "Download Statement"
   }
 }

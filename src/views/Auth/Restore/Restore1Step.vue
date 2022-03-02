@@ -1,10 +1,10 @@
 <template>
   <div class="auth-page-container">
     <top-navigation>
-      Your previous number
+      {{ $t('auth.restore.step1Title') }}
     </top-navigation>
     <div class="description text--body">
-      The phone number you last logged in with.
+      {{ $t('auth.restore.step1Description') }}
     </div>
     <div class="grid">
       <div class="col-4">
@@ -16,7 +16,7 @@
           type="number"
         >
           <template #label>
-            Number
+            {{ $t('common.numberLabel') }}
           </template>  
         </base-input>
       </div>
@@ -26,7 +26,7 @@
         block
         @click="$emit('next')"
       >
-        Continue
+        {{ $t('common.continueCta') }}
       </BaseButton>
     </div>
   </div>

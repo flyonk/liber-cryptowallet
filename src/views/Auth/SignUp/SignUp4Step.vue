@@ -1,21 +1,21 @@
 <template>
   <div class="auth-page-container">
     <TopNavigation @click:left-icon="$emit('prev')">
-      Name
+      {{ $t('auth.signup.step4Title') }}
     </TopNavigation>
     <div class="description text--body">
-      As started on your official ID. We need 
+      {{ $t('auth.signup.step4Description1') }}
       <br>
-      your name to verify your identity.
+      {{ $t('auth.signup.step4Description2') }}
     </div>
     <base-input>
       <template #label>
-        First Name
+        {{ $t('common.firstName') }}
       </template>
     </base-input>
     <base-input>
       <template #label>
-        Last Name
+        {{ $t('common.lastName') }}
       </template>
     </base-input>
     <div class="sign-button-wrapper">
@@ -23,7 +23,7 @@
         block
         @click="$emit('next')"
       >
-        Next
+        {{ $t('common.nextStep') }}
       </BaseButton>
     </div>
   </div>

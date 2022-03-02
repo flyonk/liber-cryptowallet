@@ -6,7 +6,7 @@
   </div>
   <div class="page-wrapper">
     <p class="text-default">
-      Enhance the security of your account by creating a passcode
+      {{ $t('configureApp.createPassCode') }}
     </p>
     
     <base-passcode
@@ -27,7 +27,7 @@
   >
     <template #description>
       <div>
-        Your passcode doesn't match. Please, try again!
+        {{ $t('configureApp.invalidPassCode') }}
       </div>
     </template>
   </base-toast>

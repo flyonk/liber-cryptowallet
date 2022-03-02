@@ -1,7 +1,7 @@
 <template>
   <div class="auth-page-container">
     <top-navigation @click:left-icon="prevStep">
-      Enter passcode
+      {{ $t('common.codeInput') }}
     </top-navigation>
   </div>
   
@@ -16,16 +16,16 @@
   >
     <template #description>
       <div>
-        Invalid password or phone number +7 (764) 432 32-32
+        {{ $t('auth.login.step3InvalidInput') }} +7 (764) 432 32-32
       </div>
     </template>
     <template #footer>
-      You do not have an account? 
+      {{ $t('auth.login.step3FooterTitle') }}
       <router-link
         :to="{ name: 'sign-up' }"
         class="link"
       >
-        Registration
+        {{ $t('auth.login.step3FooterCta') }}
       </router-link>
     </template>
   </base-toast>

@@ -2,7 +2,7 @@
   <template v-if="state === EState.pending">
     <div class="auth-page-container">
       <top-navigation @click:left-icon="$emit('prev')">
-        Enter passcode
+        {{ $t('auth.restore.step2Title') }}
       </top-navigation>
     </div>
   
@@ -17,7 +17,7 @@
     >
       <template #description>
         <div>
-          The passcode or phone number you entered is incorrect
+          {{ $t('auth.restore.step2Description') }}
         </div>
       </template>
     </base-toast>
@@ -29,13 +29,13 @@
       <template #description>
         <div class="session-expired-toast">
           <div>
-            Session expired
+            {{ $t('auth.restore.step2ExpiredTitle') }}
           </div>
           <div class="text--body">
-            Try to restore access again
+            {{ $t('auth.restore.step2ExpiredDescription') }}
           </div>
           <base-button>
-            To retry
+            {{ $t('common.retryCta') }}
           </base-button>
         </div>
       </template>
@@ -45,11 +45,11 @@
   <template v-else-if="state === EState.success">
     <div class="auth-page-container">
       <top-navigation @click:left-icon="$emit('prev')">
-        We're verifying your account
+        {{ $t('auth.restore.step2VerificationTitle') }}
       </top-navigation>
       
       <div class="description text--body">
-        We just need to perform a coupe of security checks to recover your account.
+        {{ $t('auth.restore.step2VerificationDescription') }}
       </div>
 
       <div class="notification-wrapper">
@@ -60,14 +60,15 @@
             class="image"
           >
           <div class="text text--body">
-            Please check back on this device after 06.12.2021
+            <!-- TODO: change 06.12.2021 with real date -->
+            {{ $t('auth.restore.step2Notification') }}
           </div>
         </div>
       </div>
 
       <div class="sign-button-wrapper">
         <base-button @click="$emit('next')">
-          Got it
+          {{ $t('common.okCta') }}
         </base-button>
       </div>
     </div>

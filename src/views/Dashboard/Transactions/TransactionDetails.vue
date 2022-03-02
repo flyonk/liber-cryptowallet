@@ -19,10 +19,11 @@
         </div>
       </div>
       <h2 class="sendto">
-        To Abraham Watson
+        {{ $t('common.to') }} Abraham Watson
       </h2>
       <p class="date">
-        2 days ago
+        <!-- TODO: add number depends -->
+        2 {{ $t('common.daysAgo') }}
       </p>
       <div class="controls">
         <button
@@ -33,7 +34,7 @@
             class="icon"
             src="@/assets/icon/file_pdf.svg"
           >
-          <p>Download Statement</p>
+          <p>{{ $t('transactions.downloadState') }}</p>
         </button>
         <button
           v-if="transactionType === 'payment-link'"
@@ -43,7 +44,7 @@
             class="icon"
             src="@/assets/icon/share.svg"
           >
-          <p>Share</p>
+          <p>{{ $t('common.shareCta') }}</p>
         </button>
         <button
           v-if="transactionType === 'payment-link'"
@@ -53,42 +54,42 @@
             class="icon"
             src="@/assets/icon/close_red.svg"
           >
-          <p>Cancel</p>
+          <p>{{ $t('common.cancelCta') }}</p>
         </button>
       </div>
     </div>
     <ul class="main mb-5">
       <li class="main-item">
         <p class="name">
-          Sent without reference
+          {{ $t('transactions.noReference') }}
         </p>
       </li>
       <li class="main-item">
         <p class="name">
-          Status
+          {{ $t('status.title') }}
         </p>
         <div
           v-if="transactionStatus === 'pending'"
           class="status"
         >
-          Pending
+          {{ $t('status.pending') }}
         </div>
         <div
           v-if="transactionStatus === 'complete'"
           class="status -complete"
         >
-          Complete
+          {{ $t('status.complete') }}
         </div>
         <div
           v-if="transactionStatus === 'reverted'"
           class="status -reverted"
         >
-          Reverted
+          {{ $t('transactions.reverted') }}
         </div>
       </li>
       <li class="main-item">
         <p class="name">
-          Payment to
+          {{ $t('transactions.paymentTo') }}
         </p>
         <div class="item-right">
           <img
@@ -102,7 +103,7 @@
       </li>
       <li class="main-item">
         <p class="name">
-          Transfer Fee
+          {{ $t('transactions.transferFee') }}
         </p>
         <p class="description">
           0,12345678 USDT
@@ -111,7 +112,7 @@
       <li class="main-item">
         <div class="inner">
           <p class="name">
-            Transaction ID
+            {{ $t('transactions.id') }}
           </p>
           <p class="transaction">
             3M8w2knJKsr3jqMatYiyuraxVvZA
@@ -126,7 +127,7 @@
       </li>
     </ul>
     <h2 class="explorer">
-      Open in Explorer
+      {{ $t('common.explorer') }}
     </h2>
   </div>
 </template>
