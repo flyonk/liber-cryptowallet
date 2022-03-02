@@ -157,6 +157,9 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Transactions ===
+
   {
     path: '/transactions',
     name: 'transactions',
@@ -184,6 +187,28 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Contacts Flow === 
+
+  {
+    path: '/contacts',
+    name: 'contacts',
+    component: () =>
+      import(
+        /* webpackChunkName: "contacts" */ '@/views/Contacts/index.vue'
+      ),
+      children: [
+        {
+          path: '',
+          name: 'transactions.who-to-pay',
+          component: () =>
+          import(
+            /* webpackChunkName: "contacts" */ '@/views/Contacts/WhoToPay.vue'
+          ),
+        }
+      ]
+  },
+
   // === Profile (Left Navigation Menu) ===
 
   {
