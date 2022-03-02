@@ -88,9 +88,13 @@ const onChange = (event: Event) => {
   const value = (event.target as HTMLInputElement).value;
   const currentId = parseInt((event.target as HTMLInputElement).dataset.id as string);
 
-
   if (value.length > 1) {
-    activationCode.value[currentId] = value[value.length - 1];
+    activationCode.value = activationCode.value.map((item:string, index:number) => {
+      if (index === +currentId) {
+        return value[value.length - 1]
+      }
+      return item
+    })
   } else {
     activationCode.value[currentId] = value;
   }
