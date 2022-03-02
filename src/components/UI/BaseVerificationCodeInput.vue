@@ -1,5 +1,5 @@
 <template>
-  <div class="base-verification-code-input">
+  <div class="verification-input">
     <div class="input-container">
       <template
         v-for="(v, index) in fields"
@@ -22,7 +22,7 @@
       </template>
     </div>
 
-    <div class="button-submit">
+    <div class="submit">
       <base-button
         v-if="withPasteButton"
         view="secondary"
@@ -132,8 +132,9 @@ const onPaste = async (): Promise<void> => {
 </script>
 
 <style lang="scss">
-.base-verification-code-input {
-  .button-submit {
+.verification-input {
+  width: 100%;
+  & > .submit {
     position: fixed;
     bottom: 50px;
     left: 16px;
