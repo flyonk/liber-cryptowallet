@@ -1,3 +1,266 @@
-<template>
-  Hello World
+<template name="who-topay">
+  <div class="who-topay">
+    <div class="header">
+      <img
+        class="back"
+        src="@/assets/icon/arrow-left.svg"
+        alt="arrow-left"
+        @click="$router.push('/profile')"
+      >
+      <div class="flex">
+        <img
+          class="add mr-3"
+          src="@/assets/icon/system_qr.svg"
+          alt="circle-add"
+        >
+        <img
+          class="add"
+          src="@/assets/icon/circle-add.svg"
+          alt="circle-add"
+          @click="$router.push({
+            name: 'deposit-coin'
+          })"
+        >
+      </div>
+    </div>
+    <h1 class="title">
+      Who To Pay
+    </h1>
+    <BaseInput
+      type="text"
+    >
+      <template #label>
+        Name, @id, phone, email
+      </template>
+    </BaseInput>
+    <ul class="contact-tabs flex">
+      <li
+        v-for="tab in contactTabs"
+        :key="tab.id"
+        class="tab-item"
+        :class="{ active: activeTab === tab.id }"
+        @click="activeTab = tab.id"
+      >
+        {{ tab.name }}
+      </li>
+    </ul>
+    <div class="main-list flex">
+      <ul class="contacts-list">
+        <li
+          v-for="(contact, index) in mockContacts"
+          :key="index"
+          class="contact-item"
+        >
+          <div class="initials">
+            {{ getContactInitials(contact.name) }}
+          </div>
+          <div class="user-contact">
+            <p class="name">
+              {{ contact.name }}
+            </p>
+            <p class="phone">
+              {{ contact.phone }}
+            </p>
+          </div>
+        </li>
+      </ul>
+      <ul class="alphabet-list">
+        <li
+          v-for="(symbol, index) in alphabet"
+          :key="index"
+          class="symbol"
+        >
+          {{ symbol }}
+        </li>
+      </ul>
+    </div>
+    <button class="options-button">Payment Options</button>
+  </div>
 </template>
+
+<script setup lang="ts">
+import BaseInput from '@/components/UI/BaseInput.vue'
+import { ref } from 'vue';
+
+let activeTab = ref(1);
+
+function getContactInitials(fio: string) {
+  let parts = fio.split(' ');
+  return parts[0][0] + parts[1][0];
+}
+
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
+const mockContacts = [
+  {
+    name: 'Abraham Watsan',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Alexander Wood',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Ashley Rogers',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Vasya Pupkin',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Petr Schepetin',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Tovarish Stalin',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Super Man',
+    phone: '+1 347 432 32 43'
+  },
+  {
+    name: 'Benjamin Lewis',
+    phone: '+1 347 432 32 43'
+  }
+]
+
+const contactTabs = [
+  {
+    id: 1,
+    name: 'Liber Friends',
+  },
+  {
+    id: 2,
+    name: 'All Contacts',
+  },
+];
+</script>
+
+<style lang="scss" scoped>
+.who-topay {
+  height: 100%;
+  padding: 60px 16px 0;
+  flex-grow: 1;
+  overflow: auto;
+
+  >.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+
+  > .title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 24px;
+  }
+}
+
+.contact-tabs {
+  margin-bottom: 24px;
+
+  > .tab-item {
+    white-space: nowrap;
+    padding: 11px 16px;
+    color: $color-brand-primary;
+    margin-right: 8px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 114px;
+    height: 40px;
+    background: #EDF0FB;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+  }
+
+  > .active {
+    background: $color-brand-secondary;
+    color: $color-white;
+  }
+}
+
+.main-list {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-item {
+  display: flex;
+  margin-bottom: 24px;
+
+  >.initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: $color-yellow-100;
+    width: 40px;
+    height: 40px;
+    color: $color-yellow-700;
+    margin-right: 12px;
+    
+  }
+}
+
+.alphabet-list {
+  >.symbol {
+    font-style: normal;
+    margin-bottom: 3px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: -0.0008em;
+    color: $color-brand-2-300;
+  }
+}
+
+.user-contact {
+  >.name {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+    color: #0D1F3C;
+  }
+
+  >.phone {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-brand-2-300;
+  }
+}
+
+.options-button {
+  width: 327px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  bottom: 5%;
+  background: #EDF0FB;
+  border-radius: 13px;
+  color: $color-primary-500;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+}
+</style>
