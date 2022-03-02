@@ -4,7 +4,6 @@
       Enter passcode
     </top-navigation>
   </div>
-  
   <base-passcode
     class="login-passcode"
     @submit="onSubmit"
@@ -35,8 +34,11 @@
 import { ref } from 'vue';
 import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
+
 const authStore = useAuthStore()
+
 const showErrorToast = ref(false)
+
 function onSubmit(success: boolean): void {
   if (success) {
     authStore.setStep(3, 'login');

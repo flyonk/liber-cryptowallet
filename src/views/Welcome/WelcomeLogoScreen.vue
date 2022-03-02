@@ -16,16 +16,27 @@
 import MainPageLoader from '@/components/UI/MainPageLoader.vue'
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
+import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue'
 const { stylePaddings } = useSafeAreaPaddings()
 
 const loading = ref(true)
 
-onMounted(() => {
+const authStore = useAuthStore();
+
+onMounted( () => {
   setTimeout(() => {
     loading.value = false
-    setTimeout(() => {
-      router.push('/welcome-auth')
+    setTimeout(async () => {
+      await authStore.setToken();
+
+      if (authStore.isLoggedIn) {
+        authStore.setStep(2, 'login');
+
+        router.push({ name: 'login' });
+      } else {
+        router.push('/welcome-auth');
+      }
     }, 1000)
   }, 3333);
 })
