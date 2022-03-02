@@ -77,6 +77,9 @@ const currentComponent = computed(() => {
 
       label {
         left: 0.1rem;
+        top: 9px;
+        left: 0;
+        font-size: 12px;
       }
 
       input:focus ~ label,
