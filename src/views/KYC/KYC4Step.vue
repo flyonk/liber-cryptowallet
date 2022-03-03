@@ -45,6 +45,7 @@ const cameraPreviewOptions: CameraPreviewOptions = {
   parent: 'camera',
   className: 'camera-video',
   position: 'rear',
+  toBack: true,
 } 
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
@@ -84,8 +85,10 @@ onBeforeUnmount(() => {
   stopCamera();
 });
 
-const startCamera = () => {
-  CameraPreview.start(cameraPreviewOptions);
+const startCamera = async () => {
+  await CameraPreview.start(cameraPreviewOptions);
+
+  console.debug(document.querySelector('video'));
 };
 
 const captureCamera = async  () => {
@@ -128,13 +131,14 @@ const onScan = async () => {
 
 <style lang="scss">
 .kyc-4-step {
+  // commit test
+
   .camera {
-    background: transparent !important;
     width: 100%;
     height: 100%;
     max-width: 100%;
     max-height: 100%;
-    
+
     .camera-video {
       height: 100% !important;
       width: 100%;
