@@ -154,7 +154,7 @@ export type TUpdateProfile = {
     "birthdate": string
 }
 
-export type TClaim = {
+export type TClaim = { // wrong body
     "id": number,
     "claim_id": number,
     "type": number,
