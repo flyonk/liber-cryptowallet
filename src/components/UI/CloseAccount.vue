@@ -1,31 +1,14 @@
 <template name="CloseAccount">
-  <div
-    v-if="showMenu"
-    class="close-account"
-  >
-    <img
-      class="logo"
-      src="@/assets/images/liber-logo.png"
-      alt="logo"
-    >
-    <h5 class="title">
-      Hey, wait! Where are you going?
-    </h5>
+  <div v-if="showMenu" class="close-account">
+    <img class="logo" src="@/assets/images/liber-logo.png" alt="logo" />
+    <h5 class="title">Hey, wait! Where are you going?</h5>
     <p class="description">
-      It's free to keep a account, and opening a new one could take some time if you cancel
+      It's free to keep a account, and opening a new one could take some time if
+      you cancel
     </p>
     <div class="control-buttons">
-      <BaseButton
-        class="btn"
-        size="large"
-      >
-        Keep account open
-      </BaseButton>
-      <BaseButton
-        class="btn" 
-        size="large"
-        @click="$emit('closeMenu')"
-      >
+      <BaseButton class="btn" size="large"> Keep account open </BaseButton>
+      <BaseButton class="btn" size="large" @click="$emit('closeMenu')">
         Close account
       </BaseButton>
     </div>
@@ -34,7 +17,7 @@
 
 <script setup lang="ts">
 import { toRefs } from 'vue';
-import BaseButton from '@/components/UI/BaseButton.vue'
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 const props = defineProps({
   showMenu: {
@@ -43,12 +26,10 @@ const props = defineProps({
   },
 });
 
-defineEmits(['closeMenu'])
+defineEmits(['closeMenu']);
 
-const { path } = toRefs(props)
-console.log(path)
-
-
+const { path } = toRefs(props);
+console.log(path);
 </script>
 
 <style lang="scss" scoped>
@@ -66,22 +47,22 @@ console.log(path)
   position: absolute;
   bottom: 0;
 
-  >.logo {
+  > .logo {
     height: 55px;
     margin-bottom: 85px;
   }
 
-  >.title {
+  > .title {
     font-weight: 600;
     font-size: 20px;
     line-height: 25px;
     text-align: center;
     letter-spacing: -0.0045em;
-    color: #0D1F3C;
+    color: #0d1f3c;
     margin-bottom: 15px;
   }
 
-  >.description {
+  > .description {
     padding: 0 20px;
     font-size: 17px;
     line-height: 22px;

@@ -120,6 +120,7 @@ const detectSlideChangeByUser = (event: Event) => {
   &.-hidden {
     display: none;
   }
+
   &.-overlay {
     position: absolute;
     width: 100%;

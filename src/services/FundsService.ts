@@ -1,47 +1,66 @@
-import { IApiService, IFundsService, TCoins, TConvertData, TConvertInfo, TDepositInfo, TErrorResponse, TSuccessResponse } from '@/types/api';
+import {
+  IApiService,
+  IFundsService,
+  TCoins,
+  TConvertData,
+  TConvertInfo,
+  TDepositInfo,
+  TErrorResponse,
+  TSuccessResponse,
+} from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import ApiService from "@/services/ApiService";
+import ApiService from '@/services/ApiService';
 
-const URL = AUTH_API_URL
+const URL = AUTH_API_URL;
 
 class FundsService implements IFundsService {
-    private _apiServiceInstance: IApiService;
+  private _apiServiceInstance: IApiService;
 
-    private url: string;
+  private url: string;
 
-    constructor() {
-        this.url = 'funds'
+  constructor() {
+    this.url = 'funds';
 
-        if (URL) {
-            this.url = URL;
-        }
-
-        this._apiServiceInstance = ApiService.getInstance()
+    if (URL) {
+      this.url = URL;
     }
 
-    async getCoins(): Promise<TCoins | TErrorResponse> {
-        const url = `coins`
-        const res: TCoins | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
-        return res
-    }
+    this._apiServiceInstance = ApiService.getInstance();
+  }
 
-    async getDepositInfo(coinCode: string): Promise<TDepositInfo | TErrorResponse> {
-        const url = `deposit-info/${coinCode}`
-        const res: TDepositInfo | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
-        return res
-    }
+  async getCoins(): Promise<TCoins | TErrorResponse> {
+    const url = `coins`;
+    const res: TCoins | TErrorResponse =
+      await this._apiServiceInstance.fetch.get(url);
+    return res;
+  }
 
-    async convertInfo(data: TConvertData): Promise<TConvertInfo | TErrorResponse> {
-        const url = `${this.url}/convert-info`
-        const res: TConvertInfo | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
-        return res
-    }
+  async getDepositInfo(
+    coinCode: string
+  ): Promise<TDepositInfo | TErrorResponse> {
+    const url = `deposit-info/${coinCode}`;
+    const res: TDepositInfo | TErrorResponse =
+      await this._apiServiceInstance.fetch.get(url);
+    return res;
+  }
 
-    async convert(data: TConvertData): Promise<TSuccessResponse | TErrorResponse> {
-        const url = `${this.url}/convert`
-        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
-        return res
-    }
+  async convertInfo(
+    data: TConvertData
+  ): Promise<TConvertInfo | TErrorResponse> {
+    const url = `${this.url}/convert-info`;
+    const res: TConvertInfo | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url, data);
+    return res;
+  }
+
+  async convert(
+    data: TConvertData
+  ): Promise<TSuccessResponse | TErrorResponse> {
+    const url = `${this.url}/convert`;
+    const res: TSuccessResponse | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url, data);
+    return res;
+  }
 }
 
-export default FundsService
+export default FundsService;

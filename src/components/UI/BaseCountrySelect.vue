@@ -1,31 +1,18 @@
 <template>
-  <div
-    class="base-country-input flex align-items-center"
-  >
+  <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
-      <base-input
-        v-model="selectedData"
-        @click.self="onClick"
-      >
-        <template #label>
-          Country
-        </template>
+      <base-input v-model="selectedData" @click.self="onClick">
+        <template #label> Country </template>
       </base-input>
     </span>
-    <BaseBottomSheet
-      v-model:visible="showList"
-      position="bottom"
-    >
+    <BaseBottomSheet v-model:visible="showList" position="bottom">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div
-              class="cancel-button text--headline"
-              @click="showList = false"
-            >
+            <div class="cancel-button text--headline" @click="showList = false">
               Cancel
             </div>
           </div>
@@ -40,10 +27,7 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img
-                :src="country.flag"
-                alt=""
-              >
+              <img :src="country.flag" alt="" />
             </div>
             <div class="code col-2">
               {{ country.isoCode }}
@@ -66,17 +50,17 @@ import { BaseBottomSheet, BaseSearchInput, BaseInput } from '.';
 const props = defineProps({
   modelValue: {
     type: String,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 const selectedData = computed({
   get: () => props.modelValue,
 
-  set: (value) => emit('update:modelValue', value)
-})
+  set: (value) => emit('update:modelValue', value),
+});
 
 const list = ref([]) as Ref<Array<ICountryInformation>>;
 const showList = ref(false) as Ref<boolean>;
@@ -97,7 +81,7 @@ onBeforeMount(async (): Promise<void> => {
 });
 
 function isSelectedCountry(country: ICountryInformation): boolean {
-  return selectedData.value === country.name
+  return selectedData.value === country.name;
 }
 
 function setSelectedCountry(country: ICountryInformation): void {

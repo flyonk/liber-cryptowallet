@@ -6,67 +6,36 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
       <div class="name-info">
-        <h1 class="title">
-          Edit Profile
-        </h1>
+        <h1 class="title">Edit Profile</h1>
         <div class="initials">
           {{ nameInitials }}
         </div>
       </div>
     </div>
     <div class="personal-information">
-      <h1 class="subtitle">
-        Personal Information
-      </h1>
+      <h1 class="subtitle">Personal Information</h1>
       <div class="edit-form">
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Name
-          </template>
+        <BaseInput type="text">
+          <template #label> Name </template>
         </BaseInput>
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Liber ID
-          </template>
+        <BaseInput type="text">
+          <template #label> Liber ID </template>
         </BaseInput>
-        <BaseInput
-          type="text"
-          pattern="\d*"
-        >
-          <template #label>
-            Date of Birth
-          </template>
+        <BaseInput type="text" pattern="\d*">
+          <template #label> Date of Birth </template>
         </BaseInput>
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Residential Address
-          </template>
+        <BaseInput type="text">
+          <template #label> Residential Address </template>
         </BaseInput>
-        <BaseInput
-          type="number"
-        >
-          <template #label>
-            Phone Number
-          </template>
+        <BaseInput type="number">
+          <template #label> Phone Number </template>
         </BaseInput>
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Email
-          </template>
+        <BaseInput type="text">
+          <template #label> Email </template>
         </BaseInput>
-        <BaseButton class="btn">
-          Verify Identity
-        </BaseButton>
+        <BaseButton class="btn"> Verify Identity </BaseButton>
       </div>
     </div>
   </div>
@@ -74,8 +43,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import BaseInput from '@/components/UI/BaseInput.vue'
-import BaseButton from '@/components/UI/BaseButton.vue'
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 const accountName = 'Abraham Watson';
 // const accountID = '@abrahamwatson';
@@ -84,8 +53,6 @@ const nameInitials = computed(() => {
   let parts = accountName.split(' ');
   return parts[0][0] + parts[1][0];
 });
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -155,7 +122,7 @@ const nameInitials = computed(() => {
   flex-direction: column;
   flex-grow: 1;
 
-  >.btn {
+  > .btn {
     margin-top: auto;
   }
 }

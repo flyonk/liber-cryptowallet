@@ -4,27 +4,16 @@
       Enter passcode
     </top-navigation>
   </div>
-  
-  <base-passcode
-    class="login-passcode"
-    @submit="onSubmit"
-  />
 
-  <base-toast
-    v-model:visible="showErrorToast"
-    severity="error"
-  >
+  <base-passcode class="login-passcode" @submit="onSubmit" />
+
+  <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>
-        Invalid password or phone number +7 (764) 432 32-32
-      </div>
+      <div>Invalid password or phone number +7 (764) 432 32-32</div>
     </template>
     <template #footer>
-      You do not have an account? 
-      <router-link
-        :to="{ name: 'sign-up' }"
-        class="link"
-      >
+      You do not have an account?
+      <router-link :to="{ name: 'sign-up' }" class="link">
         Registration
       </router-link>
     </template>
@@ -35,17 +24,17 @@
 import { ref } from 'vue';
 import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
-const authStore = useAuthStore()
-const showErrorToast = ref(false)
+const authStore = useAuthStore();
+const showErrorToast = ref(false);
 function onSubmit(success: boolean): void {
   if (success) {
     authStore.setStep(3, 'login');
   } else {
     showErrorToast.value = true;
   }
-} 
+}
 function prevStep(): void {
-  authStore.setStep(0, 'login')
+  authStore.setStep(0, 'login');
 }
 </script>
 

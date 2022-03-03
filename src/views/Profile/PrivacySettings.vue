@@ -6,20 +6,14 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
     </header>
-    <h1 class="title">
-      Privacy
-    </h1>
+    <h1 class="title">Privacy</h1>
     <main class="main">
-      <h6 class="subtitle">
-        Marketing
-      </h6>
+      <h6 class="subtitle">Marketing</h6>
       <section class="section">
         <div class="header">
-          <h3 class="title">
-            Marketing emails
-          </h3>
+          <h3 class="title">Marketing emails</h3>
           <BaseSwitch
             class="switch"
             :model-value="isEmailsAgreement"
@@ -31,12 +25,10 @@
           that may interest me
         </div>
       </section>
-      <hr class="separator">
+      <hr class="separator" />
       <section class="section">
         <div class="header">
-          <h3 class="title">
-            Marketing pushes
-          </h3>
+          <h3 class="title">Marketing pushes</h3>
           <BaseSwitch
             class="switch"
             :model-value="isPushesAgreement"
@@ -48,12 +40,10 @@
           and offers that may interest me
         </div>
       </section>
-      <hr class="separator">
+      <hr class="separator" />
       <section class="section">
         <div class="header">
-          <h3 class="title">
-            Social media & advertising platforms
-          </h3>
+          <h3 class="title">Social media & advertising platforms</h3>
           <BaseSwitch
             class="switch"
             :model-value="isSocialMediaAgreement"
@@ -112,7 +102,7 @@ let isSocialMediaAgreement = ref(true);
   }
 
   > .main > .section {
-    margin: 17px 0px 17px 0px;
+    margin: 17px 0;
   }
 
   > .main > .section > .header {
@@ -122,7 +112,7 @@ let isSocialMediaAgreement = ref(true);
   }
 
   > .main > .section > .header > .title {
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 17px;
@@ -133,7 +123,7 @@ let isSocialMediaAgreement = ref(true);
 
   > .main > .section > .description {
     width: 235px;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;

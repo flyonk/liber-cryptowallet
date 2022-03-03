@@ -7,7 +7,7 @@
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
           @click="$router.push('/home')"
-        >
+        />
         <h1 class="title">
           {{ accountName }}
         </h1>
@@ -27,173 +27,78 @@
     </div>
     <div class="controls">
       <button class="btn -blue">
-        <img
-          class="icon"
-          src="@/assets/icon/user_heart.svg"
-        >Invite Friends
+        <img class="icon" src="@/assets/icon/user_heart.svg" />Invite Friends
       </button>
-      <button class="btn -white">
-        Copy Liber ID
-      </button>
+      <button class="btn -white">Copy Liber ID</button>
     </div>
     <div class="main">
-      <h6 class="subtitle">
-        Profile
-      </h6>
+      <h6 class="subtitle">Profile</h6>
       <ul class="list list--profile">
-        <li
-          class="item"
-          @click="$router.push('/account/profile')"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/qr-mini.svg"
-          >
-          <p class="text">
-            My QR Code and Liber ID
-          </p>
+        <li class="item" @click="$router.push('/account/profile')">
+          <img class="icon" src="@/assets/icon/qr-mini.svg" />
+          <p class="text">My QR Code and Liber ID</p>
         </li>
-        <router-link
-          to="/profile/details/1"
-          class="item"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/user_circle.svg"
-          >
-          <p class="text">
-            Personal details
-          </p>
+        <router-link to="/profile/details/1" class="item">
+          <img class="icon" src="@/assets/icon/user_circle.svg" />
+          <p class="text">Personal details</p>
         </router-link>
-        <router-link
-          to="/account"
-          class="item"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/data.svg"
-          >
-          <p class="text">
-            All accounts
-          </p>
+        <router-link to="/account" class="item">
+          <img class="icon" src="@/assets/icon/data.svg" />
+          <p class="text">All accounts</p>
         </router-link>
-        <router-link
-          to="/profile/help"
-          class="item"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/help_circle.svg"
-          >
-          <p class="text">
-            Help
-          </p>
+        <router-link to="/profile/help" class="item">
+          <img class="icon" src="@/assets/icon/help_circle.svg" />
+          <p class="text">Help</p>
         </router-link>
       </ul>
-      <h6 class="subtitle">
-        Security
-      </h6>
+      <h6 class="subtitle">Security</h6>
       <ul class="list security--profile">
         <li class="item">
-          <img
-            class="icon"
-            src="@/assets/icon/lock.svg"
-          >
-          <p class="text">
-            Change passcode
-          </p>
+          <img class="icon" src="@/assets/icon/lock.svg" />
+          <p class="text">Change passcode</p>
         </li>
         <li class="item">
-          <img
-            class="icon"
-            src="@/assets/icon/shield.svg"
-          >
-          <p class="text">
-            Privacy
-          </p>
+          <img class="icon" src="@/assets/icon/shield.svg" />
+          <p class="text">Privacy</p>
         </li>
         <li class="item">
-          <img
-            class="icon"
-            src="@/assets/icon/google.svg"
-          >
-          <p class="text">
-            2FA: Google Authenticator
-          </p>
+          <img class="icon" src="@/assets/icon/google.svg" />
+          <p class="text">2FA: Google Authenticator</p>
         </li>
-        <router-link
-          to="/profile/devices"
-          class="item"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/devices.svg"
-          >
-          <p class="text">
-            Devices
-          </p>
+        <router-link to="/profile/devices" class="item">
+          <img class="icon" src="@/assets/icon/devices.svg" />
+          <p class="text">Devices</p>
         </router-link>
         <li class="item">
-          <img
-            class="icon"
-            src="@/assets/icon/touchid.svg"
-          >
-          <p class="text">
-            Sign in with Touch ID
-          </p>
-          <InputSwitch
-            v-model="isTouchIdOn"
-            class="switcher"
-          />
+          <img class="icon" src="@/assets/icon/touchid.svg" />
+          <p class="text">Sign in with Touch ID</p>
+          <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
       </ul>
-      <h6 class="subtitle">
-        Label
-      </h6>
+      <h6 class="subtitle">Label</h6>
       <ul class="list label--profile">
-        <li
-          class="item"
-          @click="showCloseAccount = true"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/circle_close.svg"
-          >
-          <p class="text">
-            Close account
-          </p>
+        <li class="item" @click="showCloseAccount = true">
+          <img class="icon" src="@/assets/icon/circle_close.svg" />
+          <p class="text">Close account</p>
         </li>
         <li class="item">
-          <img
-            class="icon"
-            src="@/assets/icon/log_out.svg"
-          >
-          <p class="text">
-            Log out
-          </p>
+          <img class="icon" src="@/assets/icon/log_out.svg" />
+          <p class="text">Log out</p>
         </li>
       </ul>
     </div>
     <div class="footer">
-      <p class="text">
-        Version 1.0
-      </p>
-      <p class="text">
-        Liber Ltd
-      </p>
+      <p class="text">Version 1.0</p>
+      <p class="text">Liber Ltd</p>
     </div>
   </div>
-  <CloseAccount 
-    :show-menu="showCloseAccount"
-    @close-menu="closeMenu"
-  />
+  <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
-import CloseAccount from '@/components/UI/CloseAccount.vue'
-
+import CloseAccount from '@/components/UI/CloseAccount.vue';
 
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
@@ -206,8 +111,8 @@ const nameInitials = computed(() => {
 });
 
 function closeMenu() {
-  showCloseAccount.value = false
-  console.log(showCloseAccount.value)
+  showCloseAccount.value = false;
+  console.log(showCloseAccount.value);
 }
 </script>
 

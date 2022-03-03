@@ -5,23 +5,14 @@
         class="p-float-label"
         :class="{ 'p-input-icon-right': $slots.append }"
       >
-        <slot
-          v-if="$slots.append"
-          name="append"
-        />
-        <component
-          :is="currentComponent"
-          v-bind="$attrs"
-        />
+        <slot v-if="$slots.append" name="append" />
+        <component :is="currentComponent" v-bind="$attrs" />
         <label>
           <slot name="label" />
         </label>
       </div>
     </div>
-    <div
-      v-if="$slots.message"
-      class="message text--caption-2"
-    >
+    <div v-if="$slots.message" class="message text--caption-2">
       <slot name="message" />
     </div>
   </div>
@@ -57,7 +48,7 @@ const currentComponent = computed(() => {
 
 <style lang="scss">
 .base-input {
-  margin: 0 0 16px 0;
+  margin: 0 0 16px;
 
   .input {
     background: $color-input-bg;
@@ -128,9 +119,8 @@ const currentComponent = computed(() => {
     }
   }
 
-
   .message {
-    padding: 8px 16px 0 16px;
+    padding: 8px 16px 0;
     color: $color-grey;
     display: flex;
     align-items: center;
@@ -139,12 +129,12 @@ const currentComponent = computed(() => {
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+  appearance: none;
   margin: 0;
 }
 
 /* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+input[type='number'] {
+  appearance: textfield;
 }
 </style>

@@ -1,14 +1,7 @@
 <template>
   <header class="page-header">
-    <button
-      type="button"
-      class="controls"
-      @click="$emit('click:left-icon')"
-    >
-      <i
-        class="icon-header"
-        :class="leftIconName"
-      />
+    <button type="button" class="controls" @click="$emit('click:left-icon')">
+      <i class="icon-header" :class="leftIconName" />
     </button>
     <h1 class="page-title">
       <!-- <<<<<<< HEAD -->
@@ -27,11 +20,11 @@
 defineProps({
   leftIconName: {
     type: String,
-    default: 'ci-short_left'
-  }
-})
+    default: 'ci-short_left',
+  },
+});
 
-defineEmits(['click:left-icon'])
+defineEmits(['click:left-icon']);
 </script>
 
 <style lang="scss" scoped>

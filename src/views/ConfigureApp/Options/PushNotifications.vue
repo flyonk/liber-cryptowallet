@@ -9,7 +9,7 @@
         src="@/assets/images/pushnotification-icon.svg"
         alt="Puch notifications"
         class="mb-3"
-      >
+      />
       <p class="text-default">
         Get notified about spending, security, wealth, market movements,
         discounts and deals, so you’re always in the know
@@ -17,46 +17,37 @@
     </div>
   </div>
   <div style="padding: 15px">
-    <base-button
-      block
-      class="mb-3"
-      @click="onEnable"
-    >
+    <base-button block class="mb-3" @click="onEnable">
       Enable push notifications
     </base-button>
-    <base-button
-      block
-      view="secondary"
-      @click="onCancel"
-    >
+    <base-button block view="secondary" @click="onCancel">
       Not now
     </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI'
+import { TopNavigation, BaseButton } from '@/components/UI';
 import { useAppOptionsStore } from '@/stores/appOptions';
-import { EStorageKeys } from '@/types/base-component'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { EStorageKeys } from '@/types/base-component';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
-const { setOptions } = useAppOptionsStore()
-
+const { setOptions } = useAppOptionsStore();
 
 const onEnable = (): void => {
-  setOptions('true', EStorageKeys.notifications)
+  setOptions('true', EStorageKeys.notifications);
   router.push({
-    name: 'dashboard-home'
-  })
-}
+    name: 'dashboard-home',
+  });
+};
 
 const onCancel = (): void => {
-  setOptions('', EStorageKeys.notifications)
+  setOptions('', EStorageKeys.notifications);
   router.push({
-    name: "dashboard-home"
-  })
-}
+    name: 'dashboard-home',
+  });
+};
 </script>
 
 <style lang="scss" scoped>
