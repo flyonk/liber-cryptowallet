@@ -30,7 +30,7 @@ module.exports = {
         maxDepth: '8',
       },
     ],
-    'rscss/no-descendant-combinator': true,
+    'rscss/no-descendant-combinator': false,
     'declaration-block-no-duplicate-properties': null,
     'declaration-block-no-redundant-longhand-properties': null,
     'selector-pseudo-class-no-unknown': [
