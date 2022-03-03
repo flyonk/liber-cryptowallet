@@ -2,12 +2,8 @@
   <div>
     <top-navigation
       left-icon-name="ci-close_big"
-    >
-      We’re verifying your ID
-    </top-navigation>
-    <p class="description">
-      Your identity is being verified. We will email and sms to you once your verification has completed.
-    </p>
+    >{{ $t('views.kyc.kyc7step.wereVerifyingYourId') }}</top-navigation>
+    <p class="description">{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</p>
     <base-progress-circular
       :percent="percent"
       :size="267"
@@ -24,9 +20,7 @@
         @click="$router.push({
           name: 'survey'
         })"
-      >
-        Continue
-      </base-button>
+      >{{ $t('views.kyc.kyc7step.continue') }}</base-button>
     </div>
   </div>
 </template>

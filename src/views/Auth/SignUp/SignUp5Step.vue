@@ -11,7 +11,7 @@
     <base-input
       v-model="birth"
       mask="99.99.9999"
-      placeholder="dd.mm.yyyy"
+      :placeholder="$t('views.auth.signup.signup5step.ddmmyyyy')"
       pattern="\d*"
       type="mask"
       slot-char="dd.mm.yyyy"

@@ -9,7 +9,7 @@
       type="mask"
       mask="99/99/9999"
       slot-char="DD/MM/YYYY"
-      placeholder="DD/MM/YYYY"
+      :placeholder="$t('views.auth.restore.restore5step.ddmmyyyy')"
       pattern="\d*"
     >
       {{ $t('auth.restore.step5BirthLabel') }}

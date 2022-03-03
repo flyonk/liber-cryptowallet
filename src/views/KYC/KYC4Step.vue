@@ -17,9 +17,7 @@
       />
     </scan-animation>
     <div class="footer">
-      <base-button @click="onScan">
-        Scan now
-      </base-button>
+      <base-button @click="onScan">{{ $t('views.kyc.kyc4step.scanNow') }}</base-button>
     </div>
   </div>
 </template>

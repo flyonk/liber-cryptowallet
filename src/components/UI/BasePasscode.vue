@@ -82,9 +82,7 @@
       <div
         class="number-button"
         @click="clear"
-      >
-        clr
-      </div>
+      >{{ $t('ui.basepasscode.clr') }}</div>
     </div>
   </div>
 </template>

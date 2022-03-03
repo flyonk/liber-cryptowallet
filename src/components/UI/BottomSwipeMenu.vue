@@ -7,7 +7,7 @@
       @touchend="endMove"
     />
     <div class="header">
-      <h4 class="title">Accounts</h4>
+      <h4 class="title">{{ $t('ui.bottomswipemenu.accounts') }}</h4>
       <div class="add" @click="$router.push('/account/add')">+</div>
     </div>
     <ul class="list">
@@ -15,8 +15,8 @@
         <div class="image-wrap">
           <img src="@/assets/icon/all-accounts.svg" alt="all" />
         </div>
-        <p class="name">All Accounts</p>
-        <p class="price">€2.00</p>
+        <p class="name">{{ $t('ui.bottomswipemenu.allAccounts') }}</p>
+        <p class="price">{{ $t('ui.bottomswipemenu.1454') }}</p>
       </li>
     </ul>
   </div>

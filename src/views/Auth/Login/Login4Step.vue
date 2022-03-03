@@ -16,9 +16,7 @@
     <base-button
       block
       @click="pasteFromClipboard"
-    >
-      Paste
-    </base-button>
+    >{{ $t('views.auth.login.login4step.paste') }}</base-button>
   </div>
   <base-toast
     v-model:visible="showErrorToast"

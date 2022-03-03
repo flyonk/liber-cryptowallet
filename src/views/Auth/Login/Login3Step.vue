@@ -15,9 +15,7 @@
     severity="error"
   >
     <template #description>
-      <div>
-        {{ $t('auth.login.step3InvalidInput') }} +7 (764) 432 32-32
-      </div>
+      <div>{{ $t('views.auth.login.login3step.6966', { '1': $t('auth.login.step3InvalidInput') }) }}</div>
     </template>
     <template #footer>
       {{ $t('auth.login.step3FooterTitle') }}

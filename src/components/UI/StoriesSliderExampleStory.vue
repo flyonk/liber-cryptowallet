@@ -1,9 +1,7 @@
 <template>
   <section class="example-story">
     <header class="header">
-      <h1 class="title">
-        Welcome to
-      </h1>
+      <h1 class="title">{{ $t('ui.storiessliderexamplestory.welcomeTo') }}</h1>
       <img
         class="logo"
         src="@/assets/images/full-logo-white.png"

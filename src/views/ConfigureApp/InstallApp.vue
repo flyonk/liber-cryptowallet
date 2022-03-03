@@ -56,9 +56,7 @@
     <base-button
       block
       @click="$router.push({ name: 'configure-app' })"
-    >
-      Continue
-    </base-button>
+    >{{ $t('common.continueCta') }}</base-button>
   </div>
 </template>
 

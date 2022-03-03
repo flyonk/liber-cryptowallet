@@ -1,15 +1,11 @@
 <template>
   <div class="page-wrapper">
     <div class="content-wrapper">
-      <h1 class="main-title">
-        Deposit BTC
-      </h1>
+      <h1 class="main-title">{{ $t('views.depositecoin.depositewalletprint.depositBtc') }}</h1>
 
       <p
         class="text-default"
-      >
-        Send only BTC to this deposit address
-      </p>
+      >{{ $t('views.depositecoin.depositewalletprint.sendOnlyBtc') }}</p>
 
       <div>
         <canvas
@@ -19,25 +15,23 @@
       </div>
 
       <div class="wallet">
-        <h2 class="wallet-title">
-          Wallet Address
-        </h2>
+        <h2 class="wallet-title">{{ $t('views.depositecoin.depositewalletprint.walletAddress') }}</h2>
         <p class="wallet-address">
           {{ wallet }}
         </p>
 
         <div class="wallet-footer">
           <div class="wallet-row">
-            <p>Minimum deposit</p>
-            <p>0.000000001 BTC</p>
+            <p>{{ $t('views.depositecoin.depositewalletprint.minimumDeposit') }}</p>
+            <p>{{ $t('views.depositecoin.depositewalletprint.btc') }}</p>
           </div>
           <div class="wallet-row">
-            <p>Expected arrival</p>
-            <p>1 network confirmation</p>
+            <p>{{ $t('views.depositecoin.depositewalletprint.expectedArrival') }}</p>
+            <p>{{ $t('views.depositecoin.depositewalletprint.networkConfirmation') }}</p>
           </div>
           <div class="wallet-row">
-            <p>Expected unlock</p>
-            <p>2 network confirmations</p>
+            <p>{{ $t('views.depositecoin.depositewalletprint.expectedUnlock') }}</p>
+            <p>{{ $t('views.depositecoin.depositewalletprint.networkConfirmations') }}</p>
           </div>
         </div>
       </div>

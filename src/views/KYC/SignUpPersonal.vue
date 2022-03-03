@@ -1,6 +1,6 @@
 <template>
   <div class="sign-up">
-    <h1>Sign Up - Personal Data</h1>
+    <h1>{{ $t('views.kyc.signuppersonal.signUp') }}</h1>
   </div>
 </template>
 

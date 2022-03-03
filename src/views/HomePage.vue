@@ -4,15 +4,11 @@
       <router-link
         class="link"
         to="/"
-      >
-        Home
-      </router-link> |
+      >{{ $t('views.homepage.home') }}</router-link> |
       <router-link
         class="link"
         to="/about"
-      >
-        About
-      </router-link>
+      >{{ $t('views.homepage.about') }}</router-link>
     </div>
     <img
       alt="Vue logo"
