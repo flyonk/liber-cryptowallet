@@ -1,23 +1,21 @@
-import { ITransaction } from "./Transaction";
+import { TTransaction } from "./Transaction";
 
 export default {
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-    deserialize(input: any): ITransaction {
-        const { id, sum, timestamp, status, type, contragent } = input
+    deserialize(input: any): TTransaction {
+        const { id, sum, timestamp, status, type, contractor } = input
         return {
-            transaction: {
-                id,
-                sum,
-                timestamp,
-                status,
-                type,
-                contrAgent: contragent
-            }
+            id,
+            sum,
+            timestamp,
+            status,
+            type,
+            contractor
         };
     },
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-    requestSerialize(input: ITransaction): any {
-        const { id, sum, timestamp, status, type, contrAgent } = input.transaction
+    requestSerialize(input: TTransaction): any {
+        const { id, sum, timestamp, status, type, contractor } = input
 
         return {
             id,
@@ -25,7 +23,7 @@ export default {
             timestamp,
             status,
             type,
-            contragent: contrAgent
+            contractor
         };
     },
 };

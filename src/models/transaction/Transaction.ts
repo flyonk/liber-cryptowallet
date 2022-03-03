@@ -1,6 +1,4 @@
-export interface ITransaction {
-    transaction: INetTransaction | IRequestFunds
-}
+export type TTransaction = INetTransaction | IRequestFunds
 
 interface INetTransaction {
     id: string,
@@ -8,7 +6,7 @@ interface INetTransaction {
     timestamp: string,
     status: ETransactionStatus,
     type: ETransactionType,
-    contrAgent: {
+    contractor: {
         id: string,
         phone: string,
         email: string,
@@ -22,7 +20,7 @@ interface IRequestFunds {
     timestamp: string,
     status: ERequestFundsStatus,
     type: ERequestFundsType,
-    contrAgent: {
+    contractor: {
         id: string,
         phone: string,
         email: string,
