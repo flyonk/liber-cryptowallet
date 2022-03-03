@@ -188,25 +188,31 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
 
-  // === Contacts Flow === 
+  // === Contacts Flow ===
 
   {
     path: '/contacts',
     name: 'contacts',
     component: () =>
-      import(
-        /* webpackChunkName: "contacts" */ '@/views/Contacts/index.vue'
-      ),
-      children: [
-        {
-          path: '',
-          name: 'transactions.who-to-pay',
-          component: () =>
+      import(/* webpackChunkName: "contacts" */ '@/views/Contacts/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'transactions.who-to-pay',
+        component: () =>
           import(
-            /* webpackChunkName: "contacts" */ '@/views/Contacts/WhoToPay.vue'
+            /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
           ),
-        }
-      ]
+      },
+      {
+        path: 'send/:id',
+        name: 'transactions.send',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-sendto" */ '@/views/Contacts/SendTo.vue'
+          ),
+      },
+    ],
   },
 
   // === Profile (Left Navigation Menu) ===

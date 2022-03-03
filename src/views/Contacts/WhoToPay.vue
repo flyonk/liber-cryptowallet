@@ -54,14 +54,17 @@
           <div class="initials">
             {{ getContactInitials(contact.name) }}
           </div>
-          <div class="user-contact">
+          <router-link
+            :to="`/contacts/send/${index}`"
+            class="user-contact"
+          >
             <p class="name">
               {{ contact.name }}
             </p>
             <p class="phone">
               {{ contact.phone }}
             </p>
-          </div>
+          </router-link>
         </li>
       </ul>
       <ul class="alphabet-list">
@@ -74,7 +77,9 @@
         </li>
       </ul>
     </div>
-    <button class="options-button">Payment Options</button>
+    <button class="options-button">
+      Payment Options
+    </button>
   </div>
 </template>
 
