@@ -1,9 +1,13 @@
-interface ITransaction {
+export interface ITransaction {
+    transaction: INetTransaction | IRequestFunds
+}
+
+interface INetTransaction {
     id: string,
     sum: string,
     timestamp: string,
-    status: string,
-    type: string, // "to", "from", "convert", "deposit", "withdraw"
+    status: ETransactionStatus,
+    type: ETransactionType,
     contrAgent: {
         id: string,
         phone: string,
@@ -12,38 +16,22 @@ interface ITransaction {
     }
 }
 
-export default {
-    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-    deserialize(input: any): ITransaction {
-        return {
-            id: input?.id,
-            sum: input?.sum,
-            timestamp: input?.timestamp,
-            status: input?.status,
-            type: input?.type, // "to", "from", "convert", "deposit", "withdraw"
-            contrAgent: {
-                id: input?.contragent?.id,
-                phone: input?.contragent?.phone,
-                email: input?.contragent?.email,
-                address: input?.contragent?.address
-            }
-        };
-    },
-
-    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-    requestSerialize(input: ITransaction): any {
-        return {
-            id: input.id,
-            sum: input.sum,
-            timestamp: input.timestamp,
-            status: input.status,
-            type: input.type, // "to", "from", "convert", "deposit", "withdraw"
-            contrAgent: {
-                id: input.contrAgent.id,
-                phone: input.contrAgent.phone,
-                email: input.contrAgent.email,
-                address: input.contrAgent.address
-            }
-        };
+interface IRequestFunds {
+    id: string,
+    sum: string,
+    timestamp: string,
+    status: ERequestFundsStatus,
+    type: ERequestFundsType,
+    contrAgent: {
+        id: string,
+        phone: string,
+        email: string,
+        address: string
     }
 }
+
+enum ETransactionType { To, From, Convert, Deposit, Withdraw }
+enum ETransactionStatus { Pending, Completed, Rejected }
+
+enum ERequestFundsType { PaymentLink, Send, Request }
+enum ERequestFundsStatus { Opened, Closed, Declined, Completed }
