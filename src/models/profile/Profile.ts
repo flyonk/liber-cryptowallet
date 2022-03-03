@@ -19,19 +19,19 @@ export default {
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
     deserialize(input: any): IProfile {
         return {
-            status: input?.status,
-            phone: input?.phone,
-            isVerified: input?.isVerified,
-            blockReason: input?.blockReason,
-            firstName: input?.firstName,
-            lastName: input?.lastName,
-            email: input?.email,
-            country: input?.country,
-            streetAndNumber: input?.streetAndNumber,
-            optionalAddress: input?.optionalAddress,
-            postalCode: input?.postalCode,
-            birthDate: input?.birthDate,
-            isSendNews: input?.isSendNews
+            status: input.status,
+            phone: input.phone,
+            isVerified: input.isVerified,
+            blockReason: input.blockReason,
+            firstName: input.firstName,
+            lastName: input.lastName,
+            email: input.email,
+            country: input.country,
+            streetAndNumber: input.streetAndNumber,
+            optionalAddress: input.optionalAddress,
+            postalCode: input.postalCode,
+            birthDate: input.birthDate,
+            isSendNews: input.isSendNews
         };
     },
 
