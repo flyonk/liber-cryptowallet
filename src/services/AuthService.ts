@@ -1,5 +1,6 @@
 import { AUTH_API_URL } from '@/constants';
 import ApiService from '@/services/ApiService';
+import { AxiosResponse } from 'axios';
 import { IApiService } from '@/types/api';
 import { IAuthService } from '@/types/api';
 import { TErrorResponse } from '@/types/api';
@@ -33,7 +34,7 @@ class AuthService implements IAuthService {
 
   async signInProceed(data: { phone: string; otp: string }) {
     const url = `${this.url}/proceed`;
-    const res: TSuccessSignIn | TErrorResponse =
+    const res: AxiosResponse<TSuccessSignIn | TErrorResponse> =
       await this._apiServiceInstance.fetch.post(url, data);
     return res;
   }
