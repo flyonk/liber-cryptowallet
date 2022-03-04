@@ -31,7 +31,7 @@ export default {
             country: input.country,
             street: input?.street_and_number.split(' ')[0],
             homeNum: input?.street_and_number.split(' ')[1],
-            optionalAddress: input.otional_address,
+            optionalAddress: input.optional_address,
             postalCode: input.postal_code,
             birthDate: input.birthdate,
             isSendNews: input.is_send_news,
