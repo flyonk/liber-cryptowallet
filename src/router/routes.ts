@@ -212,6 +212,14 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "contacts-sendto" */ '@/views/Contacts/SendTo.vue'
           ),
       },
+      {
+        path: 'send',
+        name: 'transactions.send.first.time',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/FirstTimeInvite.vue'
+          ),
+      },
     ],
   },
 

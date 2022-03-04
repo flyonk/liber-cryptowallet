@@ -21,17 +21,34 @@
           crypto properties
         </div>
       </div>
-      <div v-else class="main">
-        <h1 class="title">Your verification failed</h1>
+      <div
+        v-else
+        class="main"
+      >
+        <h1 class="title">
+          Your verification failed
+        </h1>
         <div class="description">
           We weren't able to verify your identity. Make sure your information is
           entered correctly.
         </div>
       </div>
       <div class="controls">
-        <button v-if="isVerificationSuccess" class="btn">Deposit</button>
-        <button v-else class="btn">Try Again</button>
-        <button class="btn">Close</button>
+        <button
+          v-if="isVerificationSuccess"
+          class="btn"
+        >
+          Deposit
+        </button>
+        <button
+          v-else
+          class="btn"
+        >
+          Try Again
+        </button>
+        <button class="btn">
+          Close
+        </button>
       </div>
     </div>
   </div>
