@@ -6,7 +6,7 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      >
+      />
       <div class="count">
         <div class="flex">
           <h1 class="title title-currency">
@@ -16,11 +16,9 @@
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
             alt="currency"
-          >
+          />
         </div>
-        <p class="subtitle heading-gray-md">
-          €594.41
-        </p>
+        <p class="subtitle heading-gray-md">€594.41</p>
       </div>
       <VueAgile
         class="carousel-slider"
@@ -33,69 +31,48 @@
           class="item slide"
           @click="$router.push('/home/story')"
         >
-          <img
-            class="image"
-            :src="item.img"
-          >
+          <img class="image" :src="item.img" />
           <p class="name">
             {{ item.name }}
           </p>
         </div>
       </VueAgile>
-      <div
-        v-if="showControls"
-        class="controls"
-      >
+      <div v-if="showControls" class="controls">
         <button class="btn">
-          <img
-            class="label"
-            src="@/assets/icon/plus.svg"
-          >{{ $t('transactions.deposit') }}
+          <img class="label" src="@/assets/icon/plus.svg" />Deposit
         </button>
         <button class="btn">
-          <img
-            class="label"
-            src="@/assets/icon/arrow-right-white.svg"
-          >{{ $t('transactions.send') }}
+          <img class="label" src="@/assets/icon/arrow-right-white.svg" />Send
         </button>
         <button class="btn">
-          <img
-            class="label"
-            src="@/assets/icon/repeat.svg"
-          >{{ $t('transactions.exchange') }}
+          <img class="label" src="@/assets/icon/repeat.svg" />Exchange
         </button>
       </div>
-      
+
       <div class="main-tabs">
         <div
           class="tab"
           :class="{ active: activeTab === 1 }"
           @click="activeTab = 1"
         >
-          {{ $t('common.history') }}
+          History
         </div>
         <div
           class="tab"
           :class="{ active: activeTab === 2 }"
           @click="activeTab = 2"
         >
-          {{ $t('transactions.walletAddress') }}
+          Wallet Address
         </div>
       </div>
-      <ul
-        v-if="activeTab === 1"
-        class="transactions"
-      >
+      <ul v-if="activeTab === 1" class="transactions">
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img
-            class="icon"
-            :src="transaction.img"
-          >
+          <img class="icon" :src="transaction.img" />
           <div class="info">
             <div class="flex">
               <h1 class="title">
@@ -115,10 +92,7 @@
               >
                 {{ transaction.status }}
               </p>
-              <p
-                v-else
-                class="sum"
-              >
+              <p v-else class="sum">
                 {{ transaction.sum }}
               </p>
             </div>
@@ -126,40 +100,24 @@
         </li>
       </ul>
 
-      <div
-        v-if="activeTab === 2"
-        class="wallet"
-      >
-        <img
-          src="@/assets/images/qr-code.png"
-          alt="qr-code"
-          class="qr"
-        >
+      <div v-if="activeTab === 2" class="wallet">
+        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
         <div class="wallet-address">
-          <h4 class="title">
-            {{ $t('transactions.walletAddress') }}
-          </h4>
+          <h4 class="title">Wallet Address</h4>
           <div class="account">
             <div class="crypto-number">
               <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span>
+                1Mtree35df4543sdgErtrryryEe13rr<br />sd21213<span class="bold"
+                  >Opa139z0l</span
+                >
               </p>
             </div>
-            <img
-              src="@/assets/icon/folders.svg"
-              alt="folders"
-            >
+            <img src="@/assets/icon/folders.svg" alt="folders" />
           </div>
-          <h2 class="bluetitle">
-            {{ $t('transactions.generateAddress') }}
-          </h2>
+          <h2 class="bluetitle">Generate New Address</h2>
           <div class="controls">
-            <button class="btn">
-              {{ $t('common.saveImage') }}
-            </button>
-            <button class="btn">
-              {{ $t('transactions.shareAddress') }}
-            </button>
+            <button class="btn">Save Image</button>
+            <button class="btn">Share Address</button>
           </div>
         </div>
       </div>
@@ -173,7 +131,6 @@ import { ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 
 let showControls = ref(false);
-
 
 const activeTab = ref(1);
 const transactions = [
@@ -363,7 +320,6 @@ const carousel = [
   }
 }
 
-
 .main-tabs {
   display: flex;
   justify-content: center;
@@ -393,7 +349,7 @@ const carousel = [
 }
 
 .title-currency {
-  & >.currency {
+  & > .currency {
     font-weight: 600;
     font-size: 22px;
     line-height: 34px;
@@ -410,7 +366,7 @@ const carousel = [
   height: 104px;
   padding: 12px;
   background: $color-white;
-  box-shadow: 0 2px 24px -12px rgba(0, 0, 0, 34%);
+  box-shadow: 0 2px 24px -12px rgb(0 0 0 / 34%);
   border-radius: 13px;
   margin-left: 5px;
 
@@ -431,7 +387,7 @@ const carousel = [
 }
 
 .crypto-number {
-  >.text {
+  > .text {
     font-size: 16px;
     line-height: 21px;
     letter-spacing: -0.0031em;
@@ -469,7 +425,7 @@ const carousel = [
     line-height: 22px;
     letter-spacing: -0.0043em;
     color: $color-primary;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
     margin-bottom: 43px;
   }
 
@@ -487,7 +443,7 @@ const carousel = [
       &:first-child {
         margin-right: 12px;
         color: $color-primary;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+        text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
       }
 
       &:last-child {

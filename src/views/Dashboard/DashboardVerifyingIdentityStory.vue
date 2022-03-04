@@ -25,8 +25,7 @@
   </div>
 </template>
 
-<script setup lang="scss">
-</script>
+<script setup lang="scss"></script>
 
 <style lang="scss">
 .dashboard-story {
@@ -35,7 +34,7 @@
   background: linear-gradient(
     180deg,
     $color-light-grey 0%,
-    rgba(237, 240, 251, 0) 20%
+    rgb(237 240 251 / 0%) 20%
   );
 
   > .header {
@@ -78,6 +77,7 @@
 
   > .footer {
     margin-top: 105px;
+
     > .btn {
       display: flex;
       flex-direction: column;

@@ -1,30 +1,31 @@
 <template>
   <div class="auth-page-container">
     <TopNavigation @click:left-icon="$emit('prev')">
-      {{ $t('auth.signup.step5Title') }}
+      Date of birth
     </TopNavigation>
     <div class="description text--body">
-      {{ $t('auth.signup.step4Description1') }}
-      <br>
-      {{ $t('auth.signup.step4Description2') }}
+      As started on your official ID. We need
+      <br />
+      your name to verify your identity.
     </div>
     <base-input
       v-model="birth"
       mask="99.99.9999"
-      :placeholder="$t('views.auth.signup.signup5step.ddmmyyyy')"
+      placeholder="dd.mm.yyyy"
       pattern="\d*"
       type="mask"
       slot-char="dd.mm.yyyy"
     />
-    <!-- TODO: move to a separated component -->
     <div class="sign-button-wrapper">
       <BaseButton
         block
-        @click="$router.push({
-          name: 'kyc-main'
-        })"
+        @click="
+          $router.push({
+            name: 'kyc-main',
+          })
+        "
       >
-        {{ $t('common.nextStep') }}
+        Next
       </BaseButton>
     </div>
   </div>

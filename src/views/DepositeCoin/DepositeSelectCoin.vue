@@ -1,35 +1,22 @@
 <template name="DepositeSelectCoin">
   <div class="page-wrapper">
     <div class="page-header">
-      <BackHistoryBtn 
-        :path="'/home'"
-      />
+      <BackHistoryBtn :path="'/home'" />
 
-      <h1 class="main-title">
-        Select a coin
-      </h1>
+      <h1 class="main-title">Select a coin</h1>
 
-      <label
-        for="searchCoin"
-        class="input-label"
-      >
-        <img
-          src="@/assets/icon/search.svg"
-          alt="search"
-          class="icon"
-        >
+      <label for="searchCoin" class="input-label">
+        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
           class="search"
           type="text"
           placeholder="Search a coin"
           name="searchCoin"
-        >
+        />
       </label>
     </div>
     <div class="page-main">
-      <h4 class="title">
-        Suggested
-      </h4>
+      <h4 class="title">Suggested</h4>
       <ul class="coin-list suggested">
         <CoinItem
           v-for="item in suggestedCoins"
@@ -40,9 +27,7 @@
           @click="selectCoin(item)"
         />
       </ul>
-      <h4 class="title">
-        All Coins
-      </h4>
+      <h4 class="title">All Coins</h4>
       <ul class="coin-list all-coins">
         <CoinItem
           v-for="item in otherCoins"
@@ -58,75 +43,74 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-import CoinItem from './CoinItem.vue'
-import { useRouter } from 'vue-router'
-import { ref } from 'vue'
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import CoinItem from './CoinItem.vue';
+import { useRouter } from 'vue-router';
+import { ref } from 'vue';
 
-const router = useRouter()
-const coins = ref([])
+const router = useRouter();
+const coins = ref([]);
 
 coins.value = [
   {
     id: 'bitcoin',
     icon: require('@/assets/icon/currencies/btc.svg'),
     fullName: 'Bitcoin',
-    shortName: 'BTC'
+    shortName: 'BTC',
   },
   {
     id: 'ethereum',
     icon: require('@/assets/icon/currencies/eth.svg'),
     fullName: 'ethereum',
-    shortName: 'ETH'
+    shortName: 'ETH',
   },
   {
     id: 'binance',
     icon: require('@/assets/icon/currencies/binance.svg'),
     fullName: 'Binance',
-    shortName: 'BNB'
+    shortName: 'BNB',
   },
   {
     id: 'dash',
     icon: require('@/assets/icon/currencies/dash.svg'),
     fullName: 'Dash',
-    shortName: 'DSH'
+    shortName: 'DSH',
   },
   {
     id: 'xrp',
     icon: require('@/assets/icon/currencies/xrp.svg'),
     fullName: 'Ripple',
-    shortName: 'XRP'
+    shortName: 'XRP',
   },
   {
     id: 'ftn',
     icon: require('@/assets/icon/currencies/fantom.svg'),
     fullName: 'Fantom',
-    shortName: 'FTN'
+    shortName: 'FTN',
   },
   {
     id: 'tron',
     icon: require('@/assets/icon/currencies/tron.svg'),
     fullName: 'Tron',
-    shortName: 'TRX'
+    shortName: 'TRX',
   },
   {
     id: 'graph',
     icon: require('@/assets/icon/currencies/graph.svg'),
     fullName: 'Graph',
-    shortName: 'GRT'
+    shortName: 'GRT',
   },
-]
+];
 
-const suggestedCoins = ref(coins.value.slice(0, 3))
-const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : [])
+const suggestedCoins = ref(coins.value.slice(0, 3));
+const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : []);
 
 const selectCoin = (coin) => {
-  console.log('selected coin', coin)
+  console.log('selected coin', coin);
   router.push({
-    name: 'deposit-network'
-  })
-}
-
+    name: 'deposit-network',
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -155,7 +139,7 @@ const selectCoin = (coin) => {
   overflow: hidden;
   border-radius: 12px;
 
-  >.search {
+  > .search {
     background: $color-light-grey;
     color: $color-dark-grey;
     width: 100%;
@@ -169,7 +153,7 @@ const selectCoin = (coin) => {
     outline: none;
   }
 
-  >.icon {
+  > .icon {
     position: absolute;
     top: 10px;
     left: 10px;
@@ -178,7 +162,7 @@ const selectCoin = (coin) => {
 }
 
 .page-main {
-  >.title {
+  > .title {
     font-weight: 500;
     font-size: 13px;
     line-height: 18px;
@@ -189,7 +173,6 @@ const selectCoin = (coin) => {
 }
 
 .coin-list {
-  margin-bottom: 40px;  
+  margin-bottom: 40px;
 }
-
 </style>

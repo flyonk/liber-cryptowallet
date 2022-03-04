@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="welcome-auth"
-    :style="stylePaddings"
-  >
+  <section class="welcome-auth" :style="stylePaddings">
     <div class="slider">
       <stories-slider
         :options="options"
@@ -26,7 +23,7 @@ import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { ISlider } from '@/types/ISlider';
 
-const { stylePaddings } = useSafeAreaPaddings()
+const { stylePaddings } = useSafeAreaPaddings();
 
 const options: ISlider = {
   autoplay: true,
@@ -52,6 +49,7 @@ const handleChangeByUser = async () => {
   justify-content: flex-start;
   height: 100vh;
   overflow: hidden;
+
   > .slider {
     overflow: scroll;
     height: 100%;

@@ -32,9 +32,9 @@ watch(route.currentRoute, (val) => {
   height: 100vh;
   position: relative;
 
-  >.main{
+  > .main {
     height: 100%;
-    overflow:scroll;
+    overflow: scroll;
   }
 }
 </style>

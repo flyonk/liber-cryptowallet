@@ -1,68 +1,54 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      {{ $t('configureApp.installAppTitle') }}
+      Step 1. Install App
     </top-navigation>
 
     <p class="text-default">
-      {{ $t('configureApp.installAppDescription') }}
+      Install an authenticator app on your mobile device. Recommended options:
     </p>
 
-    <p 
-      class="auth-item" 
-      style="margin-bottom: 15px;"
-    >
+    <p class="auth-item" style="margin-bottom: 15px">
       <img
         src="@/assets/brands/ga.png"
         alt="Google Authenticator"
         class="auth-app-icon"
-      >
-      <span>{{ $t('common.googleAuthenticator') }}</span>
+      />
+      <span>Google Authenticator</span>
     </p>
-    <p 
-      class="auth-item" 
-      style="margin-bottom: 50px"
-    >
+    <p class="auth-item" style="margin-bottom: 50px">
       <img
         src="@/assets/brands/ma.svg"
         alt="Microsoft Authenticator"
         class="auth-app-icon"
-      >
-      <span>{{ $t('common.microsoftAuthenticator') }}</span>
+      />
+      <span>Microsoft Authenticator</span>
     </p>
 
-    <a 
-      href="https://apps.apple.com/lb/app" 
-      class="store-link"
-    >
+    <a href="https://apps.apple.com/lb/app" class="store-link">
       <img
         class="store-link-img"
         src="@/assets/brands/appstore.png"
         alt="App Store"
-      >
+      />
     </a>
-    <a 
-      href="https://play.google.com/store/apps" 
-      class="store-link"
-    >
+    <a href="https://play.google.com/store/apps" class="store-link">
       <img
         class="store-link-img"
         src="@/assets/brands/googleplay.png"
         alt="Google play"
-      >
+      />
     </a>
   </div>
   <div style="padding: 15px">
-    <base-button
-      block
-      @click="$router.push({ name: 'configure-app' })"
-    >{{ $t('common.continueCta') }}</base-button>
+    <base-button block @click="$router.push({ name: 'configure-app' })">
+      Continue
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI'
-
+import { TopNavigation, BaseButton } from '@/components/UI';
 </script>
 
 <style lang="scss" scoped>

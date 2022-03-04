@@ -1,13 +1,7 @@
 <template>
   <div class="page-wrapper">
-    <button
-      class="close-page"
-      @click="closePage"
-    >
-      <img
-        src="@/assets/images/close-icon.svg"
-        alt="close page"
-      >
+    <button class="close-page" @click="closePage">
+      <img src="@/assets/images/close-icon.svg" alt="close page" />
     </button>
 
     <div v-if="dictionary[activeQuestion]">
@@ -24,10 +18,7 @@
           v-for="answer in dictionary[activeQuestion].answers"
           :key="answer.id"
         >
-          <label
-            class="radio-btn"
-            :class="{ '-selected': answer.isSelected }"
-          >
+          <label class="radio-btn" :class="{ '-selected': answer.isSelected }">
             <input
               :id="answer.id"
               type="radio"
@@ -35,21 +26,16 @@
               :value="answer.id"
               style="display: none"
               @change="selectAnswer(answer.id)"
-            >
-            <span
-              class="title"
-              :class="{ '-selected': answer.isSelected }"
-            >{{ answer.body }}</span>
+            />
+            <span class="title" :class="{ '-selected': answer.isSelected }">{{
+              answer.body
+            }}</span>
             <img
               v-if="answer.isSelected"
               src="@/assets/images/arrow-white.svg"
               alt="right arrow"
-            >
-            <img
-              v-else
-              src="@/assets/images/arrow.svg"
-              alt="right arrow"
-            >
+            />
+            <img v-else src="@/assets/images/arrow.svg" alt="right arrow" />
           </label>
         </template>
       </div>
@@ -58,10 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
 type dictionaryItem = {
   id: number | string;
@@ -105,9 +91,9 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers:any) => {
-  return Promise.resolve(answers)
-}
+const saveAnswers = (answers: any) => {
+  return Promise.resolve(answers);
+};
 
 const markAnswerAsSelected = (id: number | string) => {
   dictionary.value[activeQuestion.value].answers = dictionary.value[
@@ -137,31 +123,30 @@ const getSelectedAnswers = () => {
 const selectAnswer = (id: number | string) => {
   const maxValue = dictionary.value.length;
   if (maxValue <= activeQuestion.value + 1) {
-    markAnswerAsSelected(id)
-    const userAnswers = getSelectedAnswers()
-    saveAnswers(userAnswers)
-      .then(() => {
-        router.push({
-          name: 'auth-passcode'
-        })
-      })
-    return
+    markAnswerAsSelected(id);
+    const userAnswers = getSelectedAnswers();
+    saveAnswers(userAnswers).then(() => {
+      router.push({
+        name: 'auth-passcode',
+      });
+    });
+    return;
   }
   markAnswerAsSelected(id);
   activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue);
 };
 
 const closePage = () => {
-  console.log('close this page')
-}
+  console.log('close this page');
+};
 
 const description = computed(() => {
-  return 'We need to know this for regulatory reasons. And also, we are curious!'
-})
+  return 'We need to know this for regulatory reasons. And also, we are curious!';
+});
 
 const title = computed(() => {
-  return dictionary.value[activeQuestion.value].question.body
-})
+  return dictionary.value[activeQuestion.value].question.body;
+});
 </script>
 
 <style lang="scss" scoped>

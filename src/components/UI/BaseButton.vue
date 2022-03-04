@@ -1,28 +1,12 @@
 <template>
-  <button
-    :class="classes"
-    :disabled="disabled"
-    class="base-button"
-  >
-    <i
-      v-if="icon"
-      :class="icon"
-    />
-    <div
-      v-else
-      class="container"
-    >
-      <i
-        v-if="iconLeft"
-        :class="iconLeft"
-      />
+  <button :class="classes" :disabled="disabled" class="base-button">
+    <i v-if="icon" :class="icon" />
+    <div v-else class="container">
+      <i v-if="iconLeft" :class="iconLeft" />
       <div class="label">
         <slot />
       </div>
-      <i
-        v-if="iconRight"
-        :class="iconRight"
-      />
+      <i v-if="iconRight" :class="iconRight" />
     </div>
   </button>
 </template>
@@ -102,8 +86,8 @@ const classes = computed(() => [
     justify-content: center;
 
     > .label {
-    font-weight: 600;
-  }
+      font-weight: 600;
+    }
   }
 
   &.-block {
@@ -257,7 +241,7 @@ const classes = computed(() => [
 
   &.-white {
     background: $color-white;
-    box-shadow: 0px 2px 4px -3px rgba(64, 70, 105, 0.21);
+    box-shadow: 0 2px 4px -3px rgb(64 70 105 / 21%);
     border-radius: 8px;
   }
 

@@ -6,31 +6,27 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
       <img
         class="add"
         src="@/assets/icon/circle-add.svg"
         alt="circle-add"
-        @click="$router.push({
-          name: 'deposit-coin'
-        })"
-      >
+        @click="
+          $router.push({
+            name: 'deposit-coin',
+          })
+        "
+      />
     </div>
-    <h1 class="title">
-      {{ $t('dashboard.account.allAccounts') }}
-    </h1>
+    <h1 class="title">All Accounts</h1>
     <ul class="currencies">
-      <li
-        v-for="(currency, index) in currencies"
-        :key="index"
-        class="item"
-      >
+      <li v-for="(currency, index) in currencies" :key="index" class="item">
         <img
           v-if="currency.img !== ''"
           class="icon"
           :src="currency.img"
           alt=""
-        >
+        />
         <h4 class="title">
           {{ currency.name }}
         </h4>

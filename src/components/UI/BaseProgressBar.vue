@@ -18,19 +18,20 @@ const props = defineProps({
   },
   height: {
     type: String,
-    default: '8'
-  }
+    default: '8',
+  },
 });
 
 const styles = computed(() => ({
-  height: `${props.height}px`
-}))
+  height: `${props.height}px`,
+}));
 </script>
 
 <style lang="scss">
 .progress-bar {
   &.p-progressbar {
     background-color: $color-primary-100;
+
     .p-progressbar-value {
       background-color: $color-primary;
     }

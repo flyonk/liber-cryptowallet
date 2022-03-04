@@ -1,18 +1,9 @@
 <template name="DashboardHome">
   <DashboardSkeleton v-if="loading" />
-  <div
-    v-else
-    class="dashboard"
-  >
+  <div v-else class="dashboard">
     <div class="header flex mb-4">
-      <img
-        src="@/assets/images/avatar.png"
-        @click="$router.push('/profile')"
-      >
-      <div
-        v-if="VerificationStatus === 'in_progress'"
-        class="verification"
-      >
+      <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
+      <div v-if="VerificationStatus === 'in_progress'" class="verification">
         ID Verification
       </div>
       <div
@@ -27,10 +18,7 @@
       >
         ID Verification Failed
       </div>
-      <img
-        src="@/assets/icon/bell.svg"
-        class="ml-auto"
-      >
+      <img src="@/assets/icon/bell.svg" class="ml-auto" />
     </div>
     <ul class="tabs flex">
       <li
@@ -44,33 +32,27 @@
       </li>
     </ul>
     <div class="currencies flex items-center">
-      <h1 class="title">
-        € 0.00
-      </h1>
+      <h1 class="title">€ 0.00</h1>
       <div class="circle-wrap">
         <img
           class="down"
           :class="{ 'down--reverted': isMenuOpen }"
           src="@/assets/icon/arrow-down.svg"
           @click="isMenuOpen = !isMenuOpen"
-        >
+        />
       </div>
       <img
         class="ml-auto"
         src="@/assets/icon/currencies/euro.svg"
         alt="eurounion"
         @click="$router.push('/transactions')"
-      >
+      />
     </div>
-    <h3 class="heading-gray-md mb-4">
-      All Accounts
-    </h3>
+    <h3 class="heading-gray-md mb-4">All Accounts</h3>
     <div class="main">
-      <h1 class="title">
-        Get your first crypto asset
-      </h1>
+      <h1 class="title">Get your first crypto asset</h1>
       <h4 class="description">
-        Your account has no assets. <br>
+        Your account has no assets. <br />
         Deposit your first crypto coins!
       </h4>
     </div>
@@ -100,37 +82,23 @@
     </div>
     <div class="transactions">
       <div class="flex justify-content-between items-center w-full mb-3">
-        <p class="text-dark-gray">
-          Transactions
-        </p>
-        <p class="heading-gray-md">
-          See All
-        </p>
+        <p class="text-dark-gray">Transactions</p>
+        <p class="heading-gray-md">See All</p>
       </div>
       <div class="flex items-center mb-5">
-        <img
-          src="@/assets/icon/clock.svg"
-          class="mr-2"
-        >
-        <p class="text-dark-gray">
-          No Transaction Yet
-        </p>
+        <img src="@/assets/icon/clock.svg" class="mr-2" />
+        <p class="text-dark-gray">No Transaction Yet</p>
       </div>
-      <h4 class="heading-gray-md mb-3">
-        Todo
-      </h4>
+      <h4 class="heading-gray-md mb-3">Todo</h4>
       <div class="carousel">
-        <VueAgile
-          :slides-to-show="2"
-          :nav-buttons="false"
-        >
+        <VueAgile :slides-to-show="2" :nav-buttons="false">
           <div
             v-for="(item, index) in carousel"
             :key="index"
             class="carousel-item slide"
             @click="$router.push('/home/story')"
           >
-            <img :src="item.imgSrc">
+            <img :src="item.imgSrc" />
             <h4
               :class="{
                 'text-green': item.text === 'green',
@@ -144,17 +112,14 @@
         </VueAgile>
       </div>
     </div>
-    <bottom-swipe-menu
-      :is-menu-open="isMenuOpen"
-      @close-menu="closeMenu"
-    />
+    <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
   </div>
 </template>
 
 <script setup lang="ts">
 import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
 import { VueAgile } from 'vue-agile';
-import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue'
+import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
 import { ref } from 'vue';
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
@@ -163,7 +128,7 @@ let isMenuOpen = ref(false);
 let loading = ref(true);
 
 setTimeout(() => {
-  loading.value = false
+  loading.value = false;
 }, 1500);
 
 function closeMenu() {

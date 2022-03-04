@@ -1,5 +1,9 @@
 # Liber iOs Application
 
+## Development processes
+
+### Livereload build
+
 ## Links
 
 [Kanban Tasks](https://github.com/orgs/cryptowize-tech/projects/2/views/1)

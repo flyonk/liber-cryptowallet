@@ -1,28 +1,20 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation>
-      {{ $t('auth.restore.step5Title') }}
-    </top-navigation>
-    
+    <top-navigation> When were you born? </top-navigation>
+
     <base-input
       v-model="birthDate"
       type="mask"
       mask="99/99/9999"
       slot-char="DD/MM/YYYY"
-      :placeholder="$t('views.auth.restore.restore5step.ddmmyyyy')"
+      placeholder="DD/MM/YYYY"
       pattern="\d*"
     >
-      {{ $t('auth.restore.step5BirthLabel') }}
+      Date of birth
     </base-input>
 
-    <!-- TODO: make separated component -->
     <div class="sign-button-wrapper">
-      <BaseButton
-        block
-        @click="$emit('next')"
-      >
-        {{ $t('common.continueCta') }}
-      </BaseButton>
+      <BaseButton block @click="$emit('next')"> Continue </BaseButton>
     </div>
   </div>
 </template>

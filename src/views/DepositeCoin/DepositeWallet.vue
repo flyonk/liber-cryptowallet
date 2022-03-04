@@ -1,98 +1,59 @@
 <template name="">
   <div class="page-wrapper">
-    <BackHistoryBtn :path="({ name: 'deposit-network' })" />
-    
-    <h1 class="main-title">
-      Deposit {{ coin }}
-    </h1>
+    <BackHistoryBtn :path="{ name: 'deposit-network' }" />
+
+    <h1 class="main-title">Deposit {{ coin }}</h1>
 
     <div class="qr-code-container">
-      <canvas
-        ref="canvas"
-        class="qr-code-canvas"
-      />
-      <p
-        class="text-default"
-      >
-        Send only {{ coin }} to this deposit address
-      </p>
+      <canvas ref="canvas" class="qr-code-canvas" />
+      <p class="text-default">Send only {{ coin }} to this deposit address</p>
     </div>
 
     <div class="wallet-block">
       <div class="wallet-info">
         <div class="titled-block">
-          <h2 class="title">
-            Network
-          </h2>
+          <h2 class="title">Network</h2>
           <p class="content">
             {{ network }}
           </p>
         </div>
-        <button
-          class="icon"
-          type="button"
-          @click="updateNetwork"
-        >
-          <img
-            src="@/assets/images/update-icon.svg"
-            alt="Update"
-          >
+        <button class="icon" type="button" @click="updateNetwork">
+          <img src="@/assets/images/update-icon.svg" alt="Update" />
         </button>
       </div>
 
       <div class="wallet-info">
         <div class="titled-block">
-          <h2 class="title">
-            Wallet Address
-          </h2>
+          <h2 class="title">Wallet Address</h2>
           <p class="content">
             {{ wallet }}
           </p>
         </div>
-        <button
-          class="icon"
-          type="button"
-          @click="copyToClipboard"
-        >
-          <img
-            src="@/assets/images/copy-icon.svg"
-            alt="Copy"
-          >
+        <button class="icon" type="button" @click="copyToClipboard">
+          <img src="@/assets/images/copy-icon.svg" alt="Copy" />
         </button>
       </div>
 
       <div class="wallet-footer">
         <div class="row row-footer">
-          <p class="title">
-            Minimum deposit
-          </p>
-          <p class="content">
-            0.000000001 {{ coin }}
-          </p>
+          <p class="title">Minimum deposit</p>
+          <p class="content">0.000000001 {{ coin }}</p>
         </div>
 
         <div class="row row-footer">
-          <p class="title">
-            Expected arrival
-          </p>
-          <p class="content">
-            1 network confirmation
-          </p>
+          <p class="title">Expected arrival</p>
+          <p class="content">1 network confirmation</p>
         </div>
 
         <div class="row row-footer">
-          <p class="title">
-            Expected unlock
-          </p>
-          <p class="content">
-            2 network confirmations
-          </p>
+          <p class="title">Expected unlock</p>
+          <p class="content">2 network confirmations</p>
         </div>
       </div>
 
       <div class="btns-container">
-        <button 
-          type="button" 
+        <button
+          type="button"
           class="btn-default btn-secondary"
           @click="saveImage"
         >
@@ -100,7 +61,7 @@
         </button>
         <button
           class="btn-default btn-primary"
-          type="button" 
+          type="button"
           @click="shareAddress"
         >
           Share Address
@@ -111,50 +72,57 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-import { onMounted, ref } from 'vue'
-import QrCodeWithLogo from "qrcode-with-logos";
-import { useToast } from "primevue/usetoast";
-const toast = useToast()
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { onMounted, ref } from 'vue';
+import QrCodeWithLogo from 'qrcode-with-logos';
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
 
-const canvas = ref<HTMLCanvasElement|undefined>()
-let qrCodeValue = ref<string>('')
+const canvas = ref<HTMLCanvasElement | undefined>();
+let qrCodeValue = ref<string>('');
 
-const coin = ref<string>('Fantom')
-const network = ref<string>('Bitcoin')
-const wallet = ref('1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l')
+const coin = ref<string>('Fantom');
+const network = ref<string>('Bitcoin');
+const wallet = ref('1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l');
 
 onMounted(() => {
-  qrCodeValue.value = wallet.value
+  qrCodeValue.value = wallet.value;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: qrCodeValue.value,
-    width: 180
-  })
+    width: 180,
+  });
 
-  qrcode.toCanvas()
-})
+  qrcode.toCanvas();
+});
 
 const saveImage = () => {
-  console.log('save image')
-}
+  console.log('save image');
+};
 
 const shareAddress = () => {
-  console.log('share address')
-}
+  console.log('share address');
+};
 
 const copyToClipboard = () => {
-  navigator.clipboard.writeText(wallet.value).then(function() {
-    toast.add({ summary: 'Wallet Address Copied!', life: 3000, closable: false})
-  }, function(err) {
-    console.error('Async: Could not copy text: ', err)
-  })
-}
+  navigator.clipboard.writeText(wallet.value).then(
+    function () {
+      toast.add({
+        summary: 'Wallet Address Copied!',
+        life: 3000,
+        closable: false,
+      });
+    },
+    function (err) {
+      console.error('Async: Could not copy text: ', err);
+    }
+  );
+};
 
 const updateNetwork = () => {
-  console.log('update coin network')
-}
+  console.log('update coin network');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -285,10 +253,9 @@ const updateNetwork = () => {
   font-size: 13px;
   line-height: 18px;
 
-  & > .content { 
+  & > .content {
     color: $color-brand-primary;
     font-weight: 500;
   }
 }
-
 </style>

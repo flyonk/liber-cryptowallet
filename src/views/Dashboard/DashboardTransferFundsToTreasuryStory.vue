@@ -29,15 +29,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss">
 .dashboard-story {
   height: 100%;
   padding: 32px 24px;
-
-  background: linear-gradient(180deg, #fff9e6 0%, rgba(255, 249, 230, 0) 20%);
+  background: linear-gradient(180deg, #fff9e6 0%, rgb(255 249 230 / 0%) 20%);
 
   > .header {
     display: flex;
@@ -59,6 +57,7 @@
   > .main {
     display: flex;
     flex-direction: column;
+
     > .title {
       font-weight: 800;
       font-size: 28px;
@@ -72,11 +71,9 @@
       line-height: 22px;
       letter-spacing: -0.0043em;
       margin-bottom: 32px;
-      font-family: Inter;
+      font-family: Inter, sans-serif;
       font-style: normal;
       font-weight: normal;
-      font-size: 17px;
-      line-height: 22px;
       color: $color-brand-primary;
       width: 295px;
     }
@@ -93,7 +90,7 @@
       font-weight: 600;
       font-size: 17px;
       line-height: 22px;
-      font-family: Inter;
+      font-family: Inter, sans-serif;
       font-style: normal;
       letter-spacing: -0.0043em;
     }
@@ -103,6 +100,7 @@
     display: flex;
     justify-content: center;
     margin-top: 20px;
+
     > .btn {
       text-align: center;
       width: 343px;

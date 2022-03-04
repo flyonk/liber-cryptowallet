@@ -1,30 +1,19 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="$emit('prev')">
-      {{ $t('auth.signup.step4Title') }}
-    </TopNavigation>
+    <TopNavigation @click:left-icon="$emit('prev')"> Name </TopNavigation>
     <div class="description text--body">
-      {{ $t('auth.signup.step4Description1') }}
-      <br>
-      {{ $t('auth.signup.step4Description2') }}
+      As started on your official ID. We need
+      <br />
+      your name to verify your identity.
     </div>
     <base-input>
-      <template #label>
-        {{ $t('common.firstName') }}
-      </template>
+      <template #label> First Name </template>
     </base-input>
     <base-input>
-      <template #label>
-        {{ $t('common.lastName') }}
-      </template>
+      <template #label> Last Name </template>
     </base-input>
     <div class="sign-button-wrapper">
-      <BaseButton
-        block
-        @click="$emit('next')"
-      >
-        {{ $t('common.nextStep') }}
-      </BaseButton>
+      <BaseButton block @click="$emit('next')"> Next </BaseButton>
     </div>
   </div>
 </template>

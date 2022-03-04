@@ -20,7 +20,8 @@
     "serve": "vue-cli-service serve",
     "test:e2e": "vue-cli-service test:e2e",
     "test:unit": "vue-cli-service test:unit",
-    "postinstall": "husky install"
+    "postinstall": "husky install",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@capacitor-community/camera-preview": "^2.0.0",
@@ -78,7 +79,7 @@
     "eslint-plugin-sort-keys-fix": "^1.1.2",
     "eslint-plugin-vue": "^8.2.0",
     "husky": "^7.0.4",
-    "lint-staged": "^12.1.4",
+    "lint-staged": "^12.1.7",
     "postcss-html": "^1.3.0",
     "prettier": "^2.5.1",
     "prettier-eslint": "^13.0.0",
@@ -95,24 +96,14 @@
     "typescript": "~4.4.4",
     "vue-jest": "^5.0.0-0"
   },
-  "gitHooks": {
-    "pre-commit": "lint-staged"
-  },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
-      "eslint",
-      "git add"
+      "eslint"
     ],
     "*.{css,vue}": [
-      "stylelint --fix",
-      "git add"
-    ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS",
-      "pre-commit": "lint-staged",
-      "pre-push": "yarn lint"
-    }
+      "stylelint --fix"
+    ],
+    "*.js": "eslint --cache --fix",
+    "*.css": "stylelint --fix"
   }
 }

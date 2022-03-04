@@ -6,129 +6,71 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/transactions')"
-      >
+      />
       <div class="sum">
         <div class="sum-title">
           - 2.12345678<span class="currency">USDT</span>
         </div>
         <div class="arrow">
-          <img
-            src="@/assets/icon/short_right.svg"
-            alt="right"
-          >
+          <img src="@/assets/icon/short_right.svg" alt="right" />
         </div>
       </div>
-      <h2 class="sendto">
-        {{ $t('common.to') }} Abraham Watson
-      </h2>
-      <p class="date">
-        <!-- TODO: add number depends -->
-        2 {{ $t('common.daysAgo') }}
-      </p>
+      <h2 class="sendto">To Abraham Watson</h2>
+      <p class="date">2 days ago</p>
       <div class="controls">
-        <button
-          v-if="transactionType === 'send'"
-          class="btn -pdf"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/file_pdf.svg"
-          >
-          <p>{{ $t('transactions.downloadState') }}</p>
+        <button v-if="transactionType === 'send'" class="btn -pdf">
+          <img class="icon" src="@/assets/icon/file_pdf.svg" />
+          <p>Download Statement</p>
         </button>
-        <button
-          v-if="transactionType === 'payment-link'"
-          class="btn -share"
-        >
-          <img
-            class="icon"
-            src="@/assets/icon/share.svg"
-          >
-          <p>{{ $t('common.shareCta') }}</p>
+        <button v-if="transactionType === 'payment-link'" class="btn -share">
+          <img class="icon" src="@/assets/icon/share.svg" />
+          <p>Share</p>
         </button>
         <button
           v-if="transactionType === 'payment-link'"
           class="btn btn -cancel"
         >
-          <img
-            class="icon"
-            src="@/assets/icon/close_red.svg"
-          >
-          <p>{{ $t('common.cancelCta') }}</p>
+          <img class="icon" src="@/assets/icon/close_red.svg" />
+          <p>Cancel</p>
         </button>
       </div>
     </div>
     <ul class="main mb-5">
       <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.noReference') }}
-        </p>
+        <p class="name">Sent without reference</p>
       </li>
       <li class="main-item">
-        <p class="name">
-          {{ $t('status.title') }}
-        </p>
-        <div
-          v-if="transactionStatus === 'pending'"
-          class="status"
-        >
-          {{ $t('status.pending') }}
+        <p class="name">Status</p>
+        <div v-if="transactionStatus === 'pending'" class="status">Pending</div>
+        <div v-if="transactionStatus === 'complete'" class="status -complete">
+          Complete
         </div>
-        <div
-          v-if="transactionStatus === 'complete'"
-          class="status -complete"
-        >
-          {{ $t('status.complete') }}
-        </div>
-        <div
-          v-if="transactionStatus === 'reverted'"
-          class="status -reverted"
-        >
-          {{ $t('transactions.reverted') }}
+        <div v-if="transactionStatus === 'reverted'" class="status -reverted">
+          Reverted
         </div>
       </li>
       <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.paymentTo') }}
-        </p>
+        <p class="name">Payment to</p>
         <div class="item-right">
-          <img
-            class="icon"
-            src="@/assets/icon/green_ok.svg"
-          >
-          <p class="name">
-            Abraham Watson ∙ USDT
-          </p>
+          <img class="icon" src="@/assets/icon/green_ok.svg" />
+          <p class="name">Abraham Watson ∙ USDT</p>
         </div>
       </li>
       <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">
-          0,12345678 USDT
-        </p>
+        <p class="name">Transfer Fee</p>
+        <p class="description">0,12345678 USDT</p>
       </li>
       <li class="main-item">
         <div class="inner">
-          <p class="name">
-            {{ $t('transactions.id') }}
-          </p>
-          <p class="transaction">
-            3M8w2knJKsr3jqMatYiyuraxVvZA
-          </p>
+          <p class="name">Transaction ID</p>
+          <p class="transaction">3M8w2knJKsr3jqMatYiyuraxVvZA</p>
         </div>
         <div class="inner">
-          <img
-            src="@/assets/icon/folders.svg"
-            alt="folders"
-          >
+          <img src="@/assets/icon/folders.svg" alt="folders" />
         </div>
       </li>
     </ul>
-    <h2 class="explorer">
-      {{ $t('common.explorer') }}
-    </h2>
+    <h2 class="explorer">Open in Explorer</h2>
   </div>
 </template>
 
@@ -226,7 +168,7 @@ const transactionType = ref('payment-link');
     line-height: 22px;
     letter-spacing: -0.0043em;
     color: $color-primary;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   }
 }
 
@@ -238,7 +180,7 @@ const transactionType = ref('payment-link');
   line-height: 34px;
   letter-spacing: 0.0038em;
 
-  >.currency {
+  > .currency {
     font-size: 22px;
     line-height: 34px;
     letter-spacing: -0.0026em;
@@ -319,7 +261,7 @@ const transactionType = ref('payment-link');
 .item-right {
   display: flex;
 
-  >.name {
+  > .name {
     font-weight: 500;
     font-size: 16px;
     line-height: 21px;
@@ -330,7 +272,7 @@ const transactionType = ref('payment-link');
     color: $color-brand-primary;
   }
 
-  >.icon {
+  > .icon {
     margin-right: 9px;
   }
 }

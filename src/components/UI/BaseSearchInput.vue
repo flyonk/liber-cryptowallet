@@ -1,8 +1,5 @@
 <template>
-  <div
-    :class="{ filled: filled }"
-    class="base-search-input"
-  >
+  <div :class="{ filled: filled }" class="base-search-input">
     <span class="p-input-icon-left p-input-icon-right flex align-items-center">
       <i class="ci-search" />
       <PInput
@@ -11,10 +8,7 @@
         v-bind="$attrs"
         @update:model-value="$emit('update:modelValue', $event)"
       />
-      <i
-        class="ci-off_close"
-        @click="$emit('update:modelValue', '')"
-      />
+      <i class="ci-off_close" @click="$emit('update:modelValue', '')" />
     </span>
   </div>
 </template>

@@ -1,28 +1,33 @@
 <template>
   <div class="kyc-6-step">
-    <top-navigation @click:left-icon="$emit('prev')">{{ $t('views.kyc.kyc6step.proofOfResidence') }}</top-navigation>
-    <base-progress-bar
-      class="mb-3"
-      :value="getPercentage"
-    />
-    <p class="description">{{ $t('views.kyc.kyc6step.provideOneOf') }}</p>
-    <ul
-      class="list"
-      type="disc"
-    >
+    <top-navigation @click:left-icon="$emit('prev')">
+      Proof of Residence
+    </top-navigation>
+    <base-progress-bar class="mb-3" :value="getPercentage" />
+    <p class="description">
+      Provide one of the documents with an address and your legal name on it.
+      The document requires an issue date in the last 3 months.
+    </p>
+    <ul class="list" type="disc">
       <li class="item">
-        <div class="disc" />{{ $t('views.kyc.kyc6step.utilityBills') }}</li>
+        <div class="disc" />
+        Utility bills
+      </li>
       <li class="item">
-        <div class="disc" />{{ $t('views.kyc.kyc6step.bankAccountStatement') }}</li>
+        <div class="disc" />
+        Bank Account Statement
+      </li>
       <li class="item">
-        <div class="disc" />{{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}</li>
+        <div class="disc" />
+        Maintenance bills from official companies (usually not more than three
+        months old)
+      </li>
     </ul>
 
     <div class="footer">
-      <base-button
-        class="footer-button"
-        @click="selectPicture"
-      >{{ $t('views.kyc.kyc6step.upload') }}</base-button>
+      <base-button class="footer-button" @click="selectPicture">
+        Upload
+      </base-button>
     </div>
   </div>
 </template>
@@ -46,7 +51,7 @@ const selectPicture = async () => {
   const image = await Camera.getPhoto({
     quality: 90,
     allowEditing: true,
-    resultType: CameraResultType.Uri
+    resultType: CameraResultType.Uri,
   });
 
   console.debug(image);
@@ -59,12 +64,14 @@ const selectPicture = async () => {
 .kyc-6-step {
   .list {
     margin: 0 0 0 8px;
+
     > .item {
       &:not(:first-child) {
-        margin: 24px 0 0 0;
+        margin: 24px 0 0;
       }
+
       display: flex;
-      
+
       > .disc {
         min-width: 9px;
         min-height: 9px;

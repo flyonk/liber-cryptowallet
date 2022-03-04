@@ -1,49 +1,42 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
-      {{ $t('auth.login.step4Title') }}
+      Enter verification code
     </top-navigation>
 
     <p class="text-default">
-      {{ $t('auth.login.step4Description') }}
+      Get a verification code from the authenticator app
     </p>
 
-    <base-verification-code-input 
-      v-model="verificationCode"
-    />
+    <base-verification-code-input v-model="verificationCode" />
   </div>
   <div style="padding: 15px">
-    <base-button
-      block
-      @click="pasteFromClipboard"
-    >
-      {{ $t('common.pasteCta') }}
-    </base-button>
+    <base-button block @click="pasteFromClipboard"> Paste </base-button>
   </div>
-  <base-toast
-    v-model:visible="showErrorToast"
-    severity="error"
-  >
+  <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>
-        {{ $t('configureApp.invalidCodeMessage') }}
-      </div>
+      <div>Your code doesn't match. Please, try again!</div>
     </template>
   </base-toast>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton, BaseVerificationCodeInput, BaseToast } from '@/components/UI'
-import { useRouter } from 'vue-router'
-import { ref, watch } from 'vue'
-import { getSupportedOptions } from '@/helpers/identification'
+import {
+  TopNavigation,
+  BaseButton,
+  BaseVerificationCodeInput,
+  BaseToast,
+} from '@/components/UI';
+import { useRouter } from 'vue-router';
+import { ref, watch } from 'vue';
+import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
 
-const store = use2faStore()
-store.generateToken()
+const store = use2faStore();
+store.generateToken();
 
-const verificationCode = ref('')
-const showErrorToast = ref(false)
+const verificationCode = ref('');
+const showErrorToast = ref(false);
 
 const router = useRouter();
 
@@ -56,7 +49,7 @@ const pasteFromClipboard = () => {
       console.error('Async: Could not read text: ', err);
     }
   );
-  router.push('/home')
+  router.push('/home');
 };
 
 /**
@@ -65,12 +58,12 @@ const pasteFromClipboard = () => {
  * returns the page name corresponding to the supported method
  */
 async function getSupportedIdentificationWay() {
-  const option = await getSupportedOptions()
+  const option = await getSupportedOptions();
   if (option === 'face-id') {
-    return 'face-id'
+    return 'face-id';
   }
   if (option === 'touch-id') {
-    return 'touch-id'
+    return 'touch-id';
   }
 
   return 'push-notifications';
@@ -84,10 +77,10 @@ watch(verificationCode, async (code) => {
       router.push({
         name,
       });
-      return
+      return;
     }
-    // 
-    const result = store.verify(code)
+    //
+    const result = store.verify(code);
 
     if (result?.delta === 0) {
       const name = await getSupportedIdentificationWay();
@@ -95,7 +88,7 @@ watch(verificationCode, async (code) => {
         name,
       });
     } else {
-      showErrorToast.value = true
+      showErrorToast.value = true;
     }
   }
 });

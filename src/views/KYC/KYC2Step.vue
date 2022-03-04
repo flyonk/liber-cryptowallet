@@ -1,9 +1,13 @@
 <template>
   <div>
-    <top-navigation @click:left-icon="$emit('prev')">{{ $t('views.kyc.kyc2step.homeAddress') }}</top-navigation>
-    <p class="description">{{ $t('views.kyc.kyc2step.byLawWe') }}</p>
+    <top-navigation @click:left-icon="$emit('prev')">
+      Home address
+    </top-navigation>
+    <p class="description">
+      By law, we need your home address to open your account
+    </p>
     <base-input v-model="form.street">
-      <template #label>{{ $t('views.kyc.kyc2step.streetAndNumber') }}</template>
+      <template #label> Street and number </template>
     </base-input>
     <base-input v-model="form.flat">
       <template #append>
@@ -12,27 +16,20 @@
           class="ci-help_circle_outline"
         />
       </template>
-      <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
-      <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
+      <template #label> Flat, suite, unit, building, floor, etc. </template>
+      <template #message> Optional </template>
     </base-input>
-    <base-input
-      v-model="form.postal_code"
-      type="number"
-      :use-grouping="false"
-    >
-      <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
+    <base-input v-model="form.postal_code" type="number" :use-grouping="false">
+      <template #label> Postal code </template>
     </base-input>
     <base-input v-model="form.state">
-      <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
+      <template #label> State </template>
     </base-input>
     <base-input v-model="form.city">
-      <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
+      <template #label> City </template>
     </base-input>
     <div class="footer">
-      <base-button
-        block
-        @click="onContinue"
-      >{{ $t('views.kyc.kyc2step.continue') }}</base-button>
+      <base-button block @click="onContinue"> Continue </base-button>
     </div>
   </div>
 </template>
@@ -54,15 +51,13 @@ const form = reactive({
   postal_code: null,
   state: '',
   city: '',
-})
+});
 
 const onContinue = () => {
   kycStore.setData(form);
 
   emit('next');
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

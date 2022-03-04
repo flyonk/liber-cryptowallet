@@ -1,27 +1,22 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="prevStep">
-      {{ $t('configureApp.twoFATitle') }}
+      Setup Two Factor Authentication
     </top-navigation>
 
     <p class="text-default">
-      {{ $t('configureApp.twoFADescription') }}
+      Take these few steps to enable two-factor authentication and make your
+      account more secure.
     </p>
 
     <div class="flex-center">
-      <img
-        src="@/assets/images/2fa-keys.svg"
-        alt="keys"
-      >
+      <img src="@/assets/images/2fa-keys.svg" alt="keys" />
     </div>
   </div>
 
   <div style="padding: 15px">
-    <base-button
-      block
-      @click="$router.push({ name: 'install-app' })"
-    >
-      {{ $t('common.continueCta') }}
+    <base-button block @click="$router.push({ name: 'install-app' })">
+      Continue
     </base-button>
   </div>
 </template>

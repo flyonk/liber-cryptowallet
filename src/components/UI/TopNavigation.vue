@@ -1,16 +1,12 @@
 <template>
   <header class="page-header">
-    <button
-      type="button"
-      class="controls"
-      @click="$emit('click:left-icon')"
-    >
-      <i
-        class="icon-header"
-        :class="leftIconName"
-      />
+    <button type="button" class="controls" @click="$emit('click:left-icon')">
+      <i class="icon-header" :class="leftIconName" />
     </button>
     <h1 class="page-title">
+      <!-- <slot name="top-right" />
+    </div>
+    <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold"> -->
       <slot />
     </h1>
   </header>
@@ -20,11 +16,11 @@
 defineProps({
   leftIconName: {
     type: String,
-    default: 'ci-short_left'
-  }
-})
+    default: 'ci-short_left',
+  },
+});
 
-defineEmits(['click:left-icon'])
+defineEmits(['click:left-icon']);
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +33,7 @@ defineEmits(['click:left-icon'])
     justify-content: space-between;
     align-items: center;
     margin-bottom: 20px;
-    background-color: transparent;
+    background: transparent;
   }
 }
 
