@@ -27,13 +27,14 @@
 <script setup lang="ts">
 import { computed, ref, Ref, onMounted, onBeforeUnmount } from 'vue';
 
-// import { Camera, CameraResultType } from '@capacitor/camera';
 import { CameraPreview, CameraPreviewOptions } from '@capacitor-community/camera-preview';
+import { Device } from '@capacitor/device';
 import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/UI';
 import ScanAnimation from '@/components/KYC/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
 import { useKYCStore, EKYCProofType } from '@/stores/kyc';
+import { cropImage } from '@/helpers/image';
 
 const emit = defineEmits(['next', 'prev']);
 
@@ -87,14 +88,20 @@ onBeforeUnmount(() => {
 
 const startCamera = async () => {
   await CameraPreview.start(cameraPreviewOptions);
-
-  console.debug(document.querySelector('video'));
 };
 
 const captureCamera = async  () => {
   const result = await CameraPreview.capture({ quality: 100 })
 
-  kycStore.setImage(`data:image/jpeg;base64,${result.value}`, scanningSide.value)
+  const { platform } = await Device.getInfo();
+
+  if (platform === 'ios') {
+    cropImage(`data:image/jpeg;base64,${result.value}`, 150, 600, 800, 550).then((cropped_image: string) => {
+      kycStore.setImage(cropped_image, scanningSide.value)
+    });
+  } else {
+    kycStore.setImage(`data:image/jpeg;base64,${result.value}`, scanningSide.value)
+  }
 }
 
 const stopCamera = () => {
