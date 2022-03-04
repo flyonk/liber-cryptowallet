@@ -1,34 +1,28 @@
 <template>
   <div class="kyc-3-step">
-    <top-navigation
-      class="navigation"
-      left-icon-name="ci-close_big"
-    >
+    <top-navigation class="navigation" left-icon-name="ci-close_big">
       <template #top-right>
-        <span class="controller text--headline">
-          Not now
-        </span>
+        <span class="controller text--headline"> Not now </span>
       </template>
-      
+
       Proof of Identity
     </top-navigation>
-    <base-progress-bar
-      class="mb-3"
-      :value="getPercentage"
-    />
+    <base-progress-bar class="mb-3" :value="getPercentage" />
     <p class="description">
-      Your document photo helps us prove your identity. It should match the information you have provided in the previous steps.
+      Your document photo helps us prove your identity. It should match the
+      information you have provided in the previous steps.
     </p>
-    <base-radio-select
-      :items="items"
-      @input="onSelect"
-    />
+    <base-radio-select :items="items" @input="onSelect" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
-import { TopNavigation, BaseProgressBar, BaseRadioSelect } from '@/components/UI';
+import {
+  TopNavigation,
+  BaseProgressBar,
+  BaseRadioSelect,
+} from '@/components/UI';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 
 const emit = defineEmits(['next']);

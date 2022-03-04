@@ -4,18 +4,10 @@
       <img
         v-if="isVerificationSuccess"
         src="@/assets/images/verification_success.jpg"
-      >
-      <img
-        v-else
-        src="@/assets/images/dragndrop-bg.png"
-      >
-      <div
-        v-if="isVerificationSuccess"
-        class="main"
-      >
-        <h1 class="title">
-          Your identity has been verified
-        </h1>
+      />
+      <img v-else src="@/assets/images/dragndrop-bg.png" />
+      <div v-if="isVerificationSuccess" class="main">
+        <h1 class="title">Your identity has been verified</h1>
         <div class="description">
           Success! Your idenity has been verfified. You can deposit you first
           crypto properties
@@ -50,12 +42,12 @@ const isVerificationSuccess = ref(true);
   padding: 100px 10px 60px;
   height: 100%;
 
-    >.dragndrop {
-      display: flex;
-      flex-direction: column;
-      width: 343px;
-      height: 345px;
-      border-radius: 24px;
+  > .dragndrop {
+    display: flex;
+    flex-direction: column;
+    width: 343px;
+    height: 345px;
+    border-radius: 24px;
 
     > .main {
       display: flex;

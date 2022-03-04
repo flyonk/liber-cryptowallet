@@ -1,17 +1,13 @@
 <template>
   <div>
-    <top-navigation
-      left-icon-name="ci-close_big"
-    >
+    <top-navigation left-icon-name="ci-close_big">
       We’re verifying your ID
     </top-navigation>
     <p class="description">
-      Your identity is being verified. We will email and sms to you once your verification has completed.
+      Your identity is being verified. We will email and sms to you once your
+      verification has completed.
     </p>
-    <base-progress-circular
-      :percent="percent"
-      :size="267"
-    >
+    <base-progress-circular :percent="percent" :size="267">
       <span>
         <span class="text">
           {{ percent }}
@@ -21,9 +17,11 @@
     </base-progress-circular>
     <div class="footer">
       <base-button
-        @click="$router.push({
-          name: 'survey'
-        })"
+        @click="
+          $router.push({
+            name: 'survey',
+          })
+        "
       >
         Continue
       </base-button>
@@ -33,7 +31,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { BaseProgressCircular, TopNavigation, BaseButton } from '@/components/UI';
+import {
+  BaseProgressCircular,
+  TopNavigation,
+  BaseButton,
+} from '@/components/UI';
 
 const percent = ref(50);
 </script>

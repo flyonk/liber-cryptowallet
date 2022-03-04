@@ -25,9 +25,24 @@ module.exports = {
     'scss/at-rule-no-unknown': true,
     'no-descending-specificity': null,
     'rscss/class-format': [
-      true,
+      false,
       {
         maxDepth: '8',
+      },
+    ],
+    'rscss/no-descendant-combinator': false,
+    'declaration-block-no-duplicate-properties': null,
+    'declaration-block-no-redundant-longhand-properties': null,
+    'selector-pseudo-class-no-unknown': [
+      true,
+      {
+        ignorePseudoClasses: ['deep'],
+      },
+    ],
+    'keyframes-name-pattern': [
+      '[a-zA-Z]+',
+      {
+        message: 'Expected keyframe name to be camel-case',
       },
     ],
   },

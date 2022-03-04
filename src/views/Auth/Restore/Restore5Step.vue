@@ -1,9 +1,7 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation>
-      When were you born?
-    </top-navigation>
-    
+    <top-navigation> When were you born? </top-navigation>
+
     <base-input
       v-model="birthDate"
       type="mask"
@@ -16,12 +14,7 @@
     </base-input>
 
     <div class="sign-button-wrapper">
-      <BaseButton
-        block
-        @click="$emit('next')"
-      >
-        Continue
-      </BaseButton>
+      <BaseButton block @click="$emit('next')"> Continue </BaseButton>
     </div>
   </div>
 </template>

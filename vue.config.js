@@ -1,4 +1,4 @@
-const webpack = require('webpack');
+import webpack = require('webpack');
 
 module.exports = {
   configureWebpack: {
@@ -18,11 +18,11 @@ module.exports = {
       fallback: {
         // "util": false,
         // "url": false,
-        "stream": require.resolve("stream-browserify"),
+        stream: require.resolve('stream-browserify'),
         // "stream": false,
-        "crypto": require.resolve("crypto-browserify"),
-        "buffer": require.resolve("buffer")
-      }
+        crypto: require.resolve('crypto-browserify'),
+        buffer: require.resolve('buffer'),
+      },
     },
   },
   css: {

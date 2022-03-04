@@ -1,4 +1,4 @@
-import { AxiosInstance, AxiosResponse, AxiosError } from 'axios';
+import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
 
 export interface IApiService {
   baseURL: string;
@@ -20,7 +20,11 @@ export interface IAuthService {
 }
 
 export interface IKycService {
+  //TODO: fix any
+  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   kycCreateClaim(payload: any): Promise<TClaimFileList | TErrorResponse>;
+  //TODO: fix any
+  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   kycHook(payload: any): Promise<TSuccessResponse | TErrorResponse>;
   kycGetClaimById(id: number): Promise<TClaimFileList | TErrorResponse>;
   kycProceedClaimById(id: number): Promise<TSuccessResponse | TErrorResponse>;

@@ -6,57 +6,30 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
       <div class="name-info">
-        <h1 class="title">
-          Edit Profile
-        </h1>
+        <h1 class="title">Edit Profile</h1>
         <div class="initials">
           {{ nameInitials }}
         </div>
       </div>
     </div>
     <div class="personal-information">
-      <h1 class="subtitle">
-        Personal Information
-      </h1>
+      <h1 class="subtitle">Personal Information</h1>
       <div class="edit-form">
-        <BaseInput
-          v-model="user.name"
-          type="text"
-        >
-          <template #label>
-            Name
-          </template>
+        <BaseInput v-model="user.name" type="text">
+          <template #label> Name </template>
         </BaseInput>
-        <BaseInput
-          v-model="user.liberID"
-          type="text"
-        >
-          <template #label>
-            Liber ID
-          </template>
+        <BaseInput v-model="user.liberID" type="text">
+          <template #label> Liber ID </template>
         </BaseInput>
-        <BaseInput
-          v-model="user.date_of_birth"
-          type="text"
-          pattern="\d*"
-        >
-          <template #label>
-            Date of Birth
-          </template>
+        <BaseInput v-model="user.date_of_birth" type="text" pattern="\d*">
+          <template #label> Date of Birth </template>
         </BaseInput>
-        <BaseInput
-          v-model="user.residential_address"
-          type="text"
-        >
-          <template #label>
-            Residential Address
-          </template>
+        <BaseInput v-model="user.residential_address" type="text">
+          <template #label> Residential Address </template>
         </BaseInput>
-        <BaseButton class="btn">
-          Verify Identity
-        </BaseButton>
+        <BaseButton class="btn"> Verify Identity </BaseButton>
       </div>
     </div>
   </div>
@@ -64,24 +37,22 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import BaseInput from '@/components/UI/BaseInput.vue'
-import BaseButton from '@/components/UI/BaseButton.vue'
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 const accountName = 'Abraham Watson';
 const user = {
   name: '',
   liberID: '',
   date_of_birth: '',
-  residential_address: ''
-}
+  residential_address: '',
+};
 // const accountID = '@abrahamwatson';
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');
   return parts[0][0] + parts[1][0];
 });
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -151,7 +122,7 @@ const nameInitials = computed(() => {
   flex-direction: column;
   flex-grow: 1;
 
-  >.btn {
+  > .btn {
     margin-top: auto;
   }
 }

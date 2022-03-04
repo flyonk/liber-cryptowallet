@@ -19,14 +19,11 @@
 <script lang="ts">
 export default {
   name: 'SignUp',
-}
+};
 </script>
 
 <script lang="ts" setup>
-import {
-  BaseVerificationCodeInput,
-  TopNavigation,
-} from '@/components/UI';
+import { BaseVerificationCodeInput, TopNavigation } from '@/components/UI';
 
 const emit = defineEmits(['next', 'prev']);
 

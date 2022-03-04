@@ -2,7 +2,7 @@
   <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
       <base-input v-model="selectedData" @click.self="onClick">
-        <template #label>Country</template>
+        <template #label> Country </template>
       </base-input>
     </span>
     <BaseBottomSheet v-model:visible="showList" position="bottom">
@@ -12,7 +12,9 @@
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">Cancel</div>
+            <div class="cancel-button text--headline" @click="showList = false">
+              Cancel
+            </div>
           </div>
         </div>
 
@@ -25,10 +27,14 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt />
+              <img :src="country.flag" alt="" />
             </div>
-            <div class="code col-2">{{ country.isoCode }}</div>
-            <div class="title col-8">{{ country.name }}</div>
+            <div class="code col-2">
+              {{ country.isoCode }}
+            </div>
+            <div class="title col-8">
+              {{ country.name }}
+            </div>
           </div>
         </div>
       </div>
@@ -45,21 +51,21 @@ import { BaseBottomSheet, BaseSearchInput, BaseInput } from '.';
 const props = defineProps({
   modelValue: {
     type: String,
-    required: true
+    required: true,
   },
   onlyEuropean: {
     type: Boolean,
-    default: () => false
-  }
-})
+    default: () => false,
+  },
+});
 
-const emit = defineEmits(['update:modelValue'])
+const emit = defineEmits(['update:modelValue']);
 
 const selectedData = computed({
   get: () => props.modelValue,
 
-  set: (value) => emit('update:modelValue', value)
-})
+  set: (value) => emit('update:modelValue', value),
+});
 
 const list = ref([]) as Ref<ICountryInformation[]>;
 const showList = ref(false) as Ref<boolean>;
@@ -77,14 +83,14 @@ const filteredList: ComputedRef<ICountryInformation[]> = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   if (props.onlyEuropean) {
-    list.value = await getEuropeanList()
-    return
+    list.value = await getEuropeanList();
+    return;
   }
   list.value = await getFullList();
 });
 
 function isSelectedCountry(country: ICountryInformation): boolean {
-  return selectedData.value === country.name
+  return selectedData.value === country.name;
 }
 
 function setSelectedCountry(country: ICountryInformation): void {

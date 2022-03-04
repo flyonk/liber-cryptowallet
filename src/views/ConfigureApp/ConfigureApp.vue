@@ -4,34 +4,23 @@
       Step 2. Configure App
     </top-navigation>
 
-    <p 
-      class="text-default" 
-      style="margin-bottom: 0"
-    >
+    <p class="text-default" style="margin-bottom: 0">
       Scan QR code with the authenticator app or enter the code manually.
     </p>
 
     <div>
-      <canvas 
-        ref="canvas" 
-        class="qr-code-canvas" 
-      />
+      <canvas ref="canvas" class="qr-code-canvas" />
     </div>
 
     <label class="default-input-wrapper">
       <span class="default-input-label">Code</span>
-      <input 
-        v-model="qrCodeValue" 
-        class="default-input" 
-        type="text" 
-        readonly 
-      >
+      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
       <img
         class="default-input-icon"
         src="@/assets/images/copy-to-clipboard.svg"
         alt="copy"
         @click="copyToClipboard"
-      >
+      />
     </label>
 
     <p class="text-default">
@@ -43,10 +32,7 @@
     </p>
   </div>
   <div style="padding: 15px">
-    <base-button
-      block
-      @click="$router.push({ name: 'configure-app-verify' })"
-    >
+    <base-button block @click="$router.push({ name: 'configure-app-verify' })">
       Continue
     </base-button>
   </div>
@@ -56,16 +42,14 @@
 import { TopNavigation, BaseButton } from '@/components/UI';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
-import { useToast } from "primevue/usetoast";
+import { useToast } from 'primevue/usetoast';
 import { use2faStore } from '@/stores/2fa';
 
-const store = use2faStore()
-const toast = useToast()
+const store = use2faStore();
+const toast = useToast();
 
-
-store.generateSecret()
-const { secret, uri } = store
-
+store.generateSecret();
+const { secret, uri } = store;
 
 const canvas = ref<HTMLCanvasElement | undefined>();
 let qrCodeValue = ref<string>(secret);
@@ -83,7 +67,11 @@ onMounted(() => {
 const copyToClipboard = () => {
   navigator.clipboard.writeText(qrCodeValue.value).then(
     function () {
-      toast.add({ summary: 'Copying to clipboard was successful!', life: 3000, closable: false})
+      toast.add({
+        summary: 'Copying to clipboard was successful!',
+        life: 3000,
+        closable: false,
+      });
     },
     function (err) {
       console.error('Async: Could not copy text: ', err);

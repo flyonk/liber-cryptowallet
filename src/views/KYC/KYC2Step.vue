@@ -7,9 +7,7 @@
       By law, we need your home address to open your account
     </p>
     <base-input v-model="form.street">
-      <template #label>
-        Street and number
-      </template>
+      <template #label> Street and number </template>
     </base-input>
     <base-input v-model="form.flat">
       <template #append>
@@ -18,39 +16,20 @@
           class="ci-help_circle_outline"
         />
       </template>
-      <template #label>
-        Flat, suite, unit, building, floor, etc.
-      </template>
-      <template #message>
-        Optional
-      </template>
+      <template #label> Flat, suite, unit, building, floor, etc. </template>
+      <template #message> Optional </template>
     </base-input>
-    <base-input
-      v-model="form.postal_code"
-      type="number"
-      :use-grouping="false"
-    >
-      <template #label>
-        Postal code
-      </template>
+    <base-input v-model="form.postal_code" type="number" :use-grouping="false">
+      <template #label> Postal code </template>
     </base-input>
     <base-input v-model="form.state">
-      <template #label>
-        State
-      </template>
+      <template #label> State </template>
     </base-input>
     <base-input v-model="form.city">
-      <template #label>
-        City
-      </template>
+      <template #label> City </template>
     </base-input>
     <div class="footer">
-      <base-button
-        block
-        @click="onContinue"
-      >
-        Continue
-      </base-button>
+      <base-button block @click="onContinue"> Continue </base-button>
     </div>
   </div>
 </template>
@@ -72,15 +51,13 @@ const form = reactive({
   postal_code: null,
   state: '',
   city: '',
-})
+});
 
 const onContinue = () => {
   kycStore.setData(form);
 
   emit('next');
-}
+};
 </script>
 
-<style scoped>
-
-</style>
+<style scoped></style>

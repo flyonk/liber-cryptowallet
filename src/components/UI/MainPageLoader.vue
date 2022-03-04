@@ -1,15 +1,10 @@
 <template>
   <div class="main-loader">
-    <img
-      src="@/assets/icon/logomark.svg"
-      class="rotating"
-    >
+    <img src="@/assets/icon/logomark.svg" class="rotating" />
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .main-loader {
@@ -19,7 +14,7 @@
   justify-content: center;
   z-index: 1;
 
-  >.img {
+  > .img {
     width: 140px;
     height: 140px;
   }
@@ -29,10 +24,12 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
 .rotating {
   animation: rotating 1s linear infinite;
 }

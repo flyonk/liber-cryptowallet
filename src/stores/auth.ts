@@ -1,9 +1,9 @@
-import { TSuccessSignIn } from '@/types/api';
-import { TErrorResponse } from './../types/api';
 import AuthService from '@/services/AuthService';
 import { EStepDirection } from '@/types/base-component';
-import { defineStore } from 'pinia';
 import { Storage } from '@capacitor/storage';
+import { TErrorResponse } from './../types/api';
+import { TSuccessSignIn } from '@/types/api';
+import { defineStore } from 'pinia';
 
 // === Auth Types ===
 
@@ -50,7 +50,6 @@ export const useAuthStore = defineStore('auth', {
       dialCode: '+7',
       phone: '9082359632',
     },
-
     token: {
       access_token: null,
       refresh_token: null,

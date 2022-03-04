@@ -6,13 +6,11 @@
   </div>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss">
 .scan-animation {
-  background-image: url('@/assets/images/kyc-camera-border.svg'); 
+  background-image: url('@/assets/images/kyc-camera-border.svg');
   background-repeat: no-repeat;
   background-size: contain;
   width: 98%;
@@ -29,11 +27,11 @@
     height: 100%;
     position: relative;
 
-     img {
-      position: absolute; 
+    img {
+      position: absolute;
       top: 0;
       left: 0;
-      width: 100%; 
+      width: 100%;
       height: 100%;
     }
   }

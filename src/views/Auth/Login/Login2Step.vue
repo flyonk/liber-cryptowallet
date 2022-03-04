@@ -106,7 +106,7 @@ const formatPhone = () => {
 const resend = async () => {
   const phone = authStore.getLoginPhone;
   showCountdown.value = true;
-  
+
   try {
     await authService.signIn({ phone });
   } catch (err) {

@@ -10,7 +10,7 @@
       </template>
     </base-input>
   </span>
-</template> 
+</template>
 
 <script lang="ts" setup>
 import { BaseInput } from '.';
@@ -18,6 +18,4 @@ import { BaseInput } from '.';
 defineEmits(['click']);
 </script>
 
-<style lang="scss">
-  
-</style>
+<style lang="scss"></style>
