@@ -1,5 +1,7 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const webpack = require('webpack');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+process.env.VUE_APP_VERSION = require('./package.json').version;
 
 module.exports = {
   configureWebpack: {

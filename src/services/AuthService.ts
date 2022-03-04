@@ -1,6 +1,6 @@
 import { AUTH_API_URL } from '@/constants';
 import ApiService from '@/services/ApiService';
-import { AxiosResponse } from 'axios';
+// import { AxiosResponse } from 'axios';
 import { IApiService } from '@/types/api';
 import { IAuthService } from '@/types/api';
 import { TErrorResponse } from '@/types/api';
@@ -32,11 +32,14 @@ class AuthService implements IAuthService {
     return res;
   }
 
+  //TODO: fix it
   async signInProceed(data: { phone: string; otp: string }) {
-    const url = `${this.url}/proceed`;
-    const res: AxiosResponse<TSuccessSignIn | TErrorResponse> =
-      await this._apiServiceInstance.fetch.post(url, data);
-    return res;
+    console.log(data);
+    return null;
+    // const url = `${this.url}/proceed`;
+    // const res: AxiosResponse<TSuccessSignIn | TErrorResponse> =
+    //   await this._apiServiceInstance.fetch.post(url, data);
+    // return res;
   }
 
   async logout(data: { access_token: string }) {
