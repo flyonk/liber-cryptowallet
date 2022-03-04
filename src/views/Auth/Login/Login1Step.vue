@@ -1,10 +1,13 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation left-icon-name="ci-close_big" @click:left-icon="prevStep">
-      Log in to Liber
+    <top-navigation
+      left-icon-name="ci-close_big"
+      @click:left-icon="prevStep"
+    >
+      {{ $t('auth.login.step1Title') }}
     </top-navigation>
     <p class="text-default">
-      Enter your registered mobile number to log&nbsp;in
+      {{ $t('auth.login.step1Description') }}
     </p>
     <div class="grid">
       <div class="col-4">
@@ -21,18 +24,29 @@
           :type="type"
           :mask="mask"
         >
-          <template #label> Number </template>
+          <template #label>
+            {{ $t('common.numberLabel') }}
+          </template>
         </base-input>
       </div>
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        <router-link to="" class="link"> Lost access to my number </router-link>
+        <router-link
+          to=""
+          class="link"
+        >
+          {{ $t('auth.login.step1LostAccess') }}
+        </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button block @click="nextStep" :disabled="!number.length">
-        Sign in
+      <base-button
+        block
+        @click="nextStep"
+        :disabled="!number.length"
+      >
+        {{ $t('common.logInCta') }}
       </base-button>
     </div>
   </div>

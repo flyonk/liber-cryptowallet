@@ -1,25 +1,36 @@
 <template>
   <div class="kyc-5-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      Proof of Identity
-    </top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">
-      Have a final check if all data is clearly visible and that it matches the
-      information you have entered in previous steps.
-    </p>
-    <div v-for="(image, side) in getImage" :key="side" class="block">
+    <top-navigation @click:left-icon="$emit('prev')">{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</top-navigation>
+    <base-progress-bar
+      class="mb-3"
+      :value="getPercentage"
+    />
+    <p class="description">{{ $t('views.kyc.kyc5step.haveAFinal') }}</p>
+    <div
+      v-for="(image, side) in getImage"
+      :key="side"
+      class="block"
+    >
       <template v-if="image">
         <div class="title heading-black-lg">
           {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
         </div>
-        <img :src="image" alt="front" class="image" />
-        <base-button view="secondary" block @click="onScanAgain">
-          Scan Again
-        </base-button>
+        <img
+          :src="image"
+          alt="front"
+          class="image"
+        >
+        <base-button
+          view="secondary"
+          block
+          @click="onScanAgain"
+        >{{ $t('views.kyc.kyc5step.scanAgain') }}</base-button>
       </template>
     </div>
-    <base-button class="footer-button" @click="onNext"> Upload </base-button>
+    <base-button
+      class="footer-button"
+      @click="onNext"
+    >{{ $t('views.kyc.kyc5step.upload') }}</base-button>
   </div>
 </template>
 

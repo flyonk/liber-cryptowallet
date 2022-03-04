@@ -2,24 +2,41 @@
   <template v-if="state === EState.pending">
     <div class="auth-page-container">
       <top-navigation @click:left-icon="$emit('prev')">
-        Enter passcode
+        {{ $t('auth.restore.step2Title') }}
       </top-navigation>
     </div>
 
-    <base-passcode class="login-passcode" @submit="onSubmit" />
+    <base-passcode
+      class="login-passcode"
+      @submit="onSubmit"
+    />
 
-    <base-toast v-model:visible="showIncorrectPasswordToast" severity="error">
+    <base-toast
+      v-model:visible="showIncorrectPasswordToast"
+      severity="error"
+    >
       <template #description>
-        <div>The passcode or phone number you entered is incorrect</div>
+        <div>
+          {{ $t('auth.restore.step2Description') }}
+        </div>
       </template>
     </base-toast>
 
-    <base-toast v-model:visible="showSessionExpiredToast" severity="error">
+    <base-toast
+      v-model:visible="showSessionExpiredToast"
+      severity="error"
+    >
       <template #description>
         <div class="session-expired-toast">
-          <div>Session expired</div>
-          <div class="text--body">Try to restore access again</div>
-          <base-button> To retry </base-button>
+          <div>
+            {{ $t('auth.restore.step2ExpiredTitle') }}
+          </div>
+          <div class="text--body">
+            {{ $t('auth.restore.step2ExpiredDescription') }}
+          </div>
+          <base-button>
+            {{ $t('common.retryCta') }}
+          </base-button>
         </div>
       </template>
     </base-toast>
@@ -28,12 +45,11 @@
   <template v-else-if="state === EState.success">
     <div class="auth-page-container">
       <top-navigation @click:left-icon="$emit('prev')">
-        We're verifying your account
+        {{ $t('auth.restore.step2VerificationTitle') }}
       </top-navigation>
 
       <div class="description text--body">
-        We just need to perform a coupe of security checks to recover your
-        account.
+        {{ $t('auth.restore.step2VerificationDescription') }}
       </div>
 
       <div class="notification-wrapper">
@@ -42,15 +58,18 @@
             src="@/assets/images/sapphire-attention.svg"
             alt="attention"
             class="image"
-          />
+          >
           <div class="text text--body">
-            Please check back on this device after 06.12.2021
+            <!-- TODO: change 06.12.2021 with real date -->
+            {{ $t('auth.restore.step2Notification') }}
           </div>
         </div>
       </div>
 
       <div class="sign-button-wrapper">
-        <base-button @click="$emit('next')"> Got it </base-button>
+        <base-button @click="$emit('next')">
+          {{ $t('common.okCta') }}
+        </base-button>
       </div>
     </div>
   </template>

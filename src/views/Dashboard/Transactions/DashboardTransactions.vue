@@ -6,7 +6,7 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      />
+      >
       <div class="count">
         <div class="flex">
           <h1 class="title title-currency">
@@ -16,9 +16,11 @@
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
             alt="currency"
-          />
+          >
         </div>
-        <p class="subtitle heading-gray-md">€594.41</p>
+        <p class="subtitle heading-gray-md">
+          €594.41
+        </p>
       </div>
       <VueAgile
         class="carousel-slider"
@@ -31,21 +33,36 @@
           class="item slide"
           @click="$router.push('/home/story')"
         >
-          <img class="image" :src="item.img" />
+          <img
+            class="image"
+            :src="item.img"
+          >
           <p class="name">
             {{ item.name }}
           </p>
         </div>
       </VueAgile>
-      <div v-if="showControls" class="controls">
+      <div
+        v-if="showControls"
+        class="controls"
+      >
         <button class="btn">
-          <img class="label" src="@/assets/icon/plus.svg" />Deposit
+          <img
+            class="label"
+            src="@/assets/icon/plus.svg"
+          >{{ $t('transactions.deposit') }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />Send
+          <img
+            class="label"
+            src="@/assets/icon/arrow-right-white.svg"
+          >{{ $t('transactions.send') }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />Exchange
+          <img
+            class="label"
+            src="@/assets/icon/repeat.svg"
+          >{{ $t('transactions.exchange') }}
         </button>
       </div>
 
@@ -55,24 +72,30 @@
           :class="{ active: activeTab === 1 }"
           @click="activeTab = 1"
         >
-          History
+          {{ $t('common.history') }}
         </div>
         <div
           class="tab"
           :class="{ active: activeTab === 2 }"
           @click="activeTab = 2"
         >
-          Wallet Address
+          {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-      <ul v-if="activeTab === 1" class="transactions">
+      <ul
+        v-if="activeTab === 1"
+        class="transactions"
+      >
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img class="icon" :src="transaction.img" />
+          <img
+            class="icon"
+            :src="transaction.img"
+          >
           <div class="info">
             <div class="flex">
               <h1 class="title">
@@ -92,7 +115,10 @@
               >
                 {{ transaction.status }}
               </p>
-              <p v-else class="sum">
+              <p
+                v-else
+                class="sum"
+              >
                 {{ transaction.sum }}
               </p>
             </div>
@@ -100,24 +126,40 @@
         </li>
       </ul>
 
-      <div v-if="activeTab === 2" class="wallet">
-        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
+      <div
+        v-if="activeTab === 2"
+        class="wallet"
+      >
+        <img
+          src="@/assets/images/qr-code.png"
+          alt="qr-code"
+          class="qr"
+        >
         <div class="wallet-address">
-          <h4 class="title">Wallet Address</h4>
+          <h4 class="title">
+            {{ $t('transactions.walletAddress') }}
+          </h4>
           <div class="account">
             <div class="crypto-number">
               <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr<br />sd21213<span class="bold"
-                  >Opa139z0l</span
-                >
+                1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span>
               </p>
             </div>
-            <img src="@/assets/icon/folders.svg" alt="folders" />
+            <img
+              src="@/assets/icon/folders.svg"
+              alt="folders"
+            >
           </div>
-          <h2 class="bluetitle">Generate New Address</h2>
+          <h2 class="bluetitle">
+            {{ $t('transactions.generateAddress') }}
+          </h2>
           <div class="controls">
-            <button class="btn">Save Image</button>
-            <button class="btn">Share Address</button>
+            <button class="btn">
+              {{ $t('common.saveImage') }}
+            </button>
+            <button class="btn">
+              {{ $t('transactions.shareAddress') }}
+            </button>
           </div>
         </div>
       </div>

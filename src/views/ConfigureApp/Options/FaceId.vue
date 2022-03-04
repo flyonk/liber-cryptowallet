@@ -1,22 +1,34 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      Log in with a Face ID
+      {{ $t('configureApp.faceIdTitle') }}
     </top-navigation>
 
     <div class="page-content">
-      <img src="@/assets/images/face-icon.svg" alt="Face id" class="mb-3" />
+      <img
+        src="@/assets/images/face-icon.svg"
+        alt="Face id"
+        class="mb-3"
+      >
       <p class="text-default">
-        Use Face ID instead of a passcode to log in. It is more secure.
+        {{ $t('configureApp.faceIdDescription') }}
       </p>
     </div>
   </div>
   <div style="padding: 15px">
-    <base-button block class="mb-3" @click="onEnable">
-      Enable Face ID
+    <base-button
+      block
+      class="mb-3"
+      @click="onEnable"
+    >
+      {{ $t('configureApp.enableFaceId') }}
     </base-button>
-    <base-button block view="secondary" @click="onCancel">
-      Not now
+    <base-button
+      block
+      view="secondary"
+      @click="onCancel"
+    >
+      {{ $t('common.notNowCta') }}
     </base-button>
   </div>
 </template>

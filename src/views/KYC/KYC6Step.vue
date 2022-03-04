@@ -1,33 +1,28 @@
 <template>
   <div class="kyc-6-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      Proof of Residence
-    </top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">
-      Provide one of the documents with an address and your legal name on it.
-      The document requires an issue date in the last 3 months.
-    </p>
-    <ul class="list" type="disc">
+    <top-navigation @click:left-icon="$emit('prev')">{{ $t('views.kyc.kyc6step.proofOfResidence') }}</top-navigation>
+    <base-progress-bar
+      class="mb-3"
+      :value="getPercentage"
+    />
+    <p class="description">{{ $t('views.kyc.kyc6step.provideOneOf') }}</p>
+    <ul
+      class="list"
+      type="disc"
+    >
       <li class="item">
-        <div class="disc" />
-        Utility bills
-      </li>
+        <div class="disc" />{{ $t('views.kyc.kyc6step.utilityBills') }}</li>
       <li class="item">
-        <div class="disc" />
-        Bank Account Statement
-      </li>
+        <div class="disc" />{{ $t('views.kyc.kyc6step.bankAccountStatement') }}</li>
       <li class="item">
-        <div class="disc" />
-        Maintenance bills from official companies (usually not more than three
-        months old)
-      </li>
+        <div class="disc" />{{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}</li>
     </ul>
 
     <div class="footer">
-      <base-button class="footer-button" @click="selectPicture">
-        Upload
-      </base-button>
+      <base-button
+        class="footer-button"
+        @click="selectPicture"
+      >{{ $t('views.kyc.kyc6step.upload') }}</base-button>
     </div>
   </div>
 </template>

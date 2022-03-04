@@ -1,11 +1,11 @@
 <template>
   <div class="auth-page-container">
     <top-navigation @click:left-icon="$emit('prev')">
-      We need more data
+      {{ $t('auth.restore.step4Title') }}
     </top-navigation>
 
     <div class="description text--body">
-      To keep your account safe, we need to make sure it’s you!
+      {{ $t('auth.restore.step4Description') }}
     </div>
 
     <div class="notification-wrapper">
@@ -14,12 +14,14 @@
           src="@/assets/images/lock-icon.svg"
           alt="attention"
           class="image"
-        />
+        >
       </div>
     </div>
 
     <div class="sign-button-wrapper">
-      <base-button @click="$emit('next')"> Continue </base-button>
+      <base-button @click="$emit('next')">
+        {{ $t('common.continueCta') }}
+      </base-button>
     </div>
   </div>
 </template>

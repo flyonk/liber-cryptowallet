@@ -1,21 +1,29 @@
 <template>
   <div class="auth-page-container">
     <top-navigation @click:left-icon="prevStep">
-      Enter passcode
+      {{ $t('common.codeInput') }}
     </top-navigation>
   </div>
-  <base-passcode class="login-passcode" @submit="onSubmit" />
 
-  <base-passcode class="login-passcode" @submit="onSubmit" />
+  <base-passcode
+    class="login-passcode"
+    @submit="onSubmit"
+  />
 
-  <base-toast v-model:visible="showErrorToast" severity="error">
+  <base-toast
+    v-model:visible="showErrorToast"
+    severity="error"
+  >
     <template #description>
-      <div>Invalid password or phone number +7 (764) 432 32-32</div>
+      <div>{{ $t('views.auth.login.login3step.6966', { '1': $t('auth.login.step3InvalidInput') }) }}</div>
     </template>
     <template #footer>
-      You do not have an account?
-      <router-link :to="{ name: 'sign-up' }" class="link">
-        Registration
+      {{ $t('auth.login.step3FooterTitle') }}
+      <router-link
+        :to="{ name: 'sign-up' }"
+        class="link"
+      >
+        {{ $t('auth.login.step3FooterCta') }}
       </router-link>
     </template>
   </base-toast>
