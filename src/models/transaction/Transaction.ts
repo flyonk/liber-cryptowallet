@@ -38,28 +38,35 @@ enum ERequestFundsStatus { Opened, Closed, Declined, Completed }
 export default {
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
     deserialize(input: any): TTransaction {
-        const { id, sum, timestamp, status, type, contractor } = input
-
         return {
-            id,
-            sum,
-            timestamp,
-            status,
-            type,
-            contractor
+            id: input.id,
+            sum: input.sum,
+            timestamp: input.timestamp,
+            status: input.status,
+            type: input.type,
+            contractor: {
+                id: input.contractor.id,
+                phone: input.contractor.phone,
+                email: input.contractor.email,
+                address: input.contractor.address
+            }
         };
     },
+
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
     requestSerialize(input: TTransaction): any {
-        const { id, sum, timestamp, status, type, contractor } = input
-
         return {
-            id,
-            sum,
-            timestamp,
-            status,
-            type,
-            contractor
+            id: input.id,
+            sum: input.sum,
+            timestamp: input.timestamp,
+            status: input.status,
+            type: input.type,
+            contractor: {
+                id: input.contractor.id,
+                phone: input.contractor.phone,
+                email: input.contractor.email,
+                address: input.contractor.address
+            }
         };
     },
 };
