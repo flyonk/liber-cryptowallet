@@ -48,6 +48,7 @@
     "vue": "^3.2.22",
     "vue-agile": "^2.0.0",
     "vue-router": "^4.0.0-0",
+    "vue-waypoint": "^4.2.1",
     "vue3-circle-progress": "^1.0.7"
   },
   "devDependencies": {

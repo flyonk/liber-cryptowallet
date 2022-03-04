@@ -4,25 +4,38 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt="" />
+      <img
+        :src="selectedData?.flag"
+        alt=""
+      >
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
-      <div class="country-select-block">
+    <BaseBottomSheet
+      v-model:visible="showList"
+      position="bottom"
+    >
+      <div
+        class="country-select-block"
+      >
         <div class="grid align-items-center">
           <div class="col-9">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">
+            <div
+              class="cancel-button text--headline"
+              @click="showList = false"
+            >
               Cancel
             </div>
           </div>
         </div>
 
-        <div class="country-list">
+        <div
+          class="country-list"
+        >
           <div
             v-for="(country, index) in filteredList"
             :key="index"
@@ -31,7 +44,10 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt="" />
+              <img
+                :src="country.flag"
+                alt=""
+              >
             </div>
             <div class="code col-2">
               {{ country.dialCode }}
