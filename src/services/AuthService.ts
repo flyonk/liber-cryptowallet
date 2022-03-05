@@ -31,12 +31,13 @@ class AuthService implements IAuthService {
     return res;
   }
 
-  async signInProceed(data: { phone: string; otp: string }) {
-    const url = `${this.url}/proceed`;
-    const res: TSuccessSignIn | TErrorResponse =
-      await this._apiServiceInstance.fetch.post(url, data);
-    return res;
-  }
+  //TODO: fix me
+  // async signInProceed(data: { phone: string; otp: string }) {
+  //   const url = `${this.url}/proceed`;
+  //   const res: TSuccessSignIn | TErrorResponse =
+  //     await this._apiServiceInstance.fetch.post(url, data);
+  //   return res;
+  // }
 
   async logout(data: { access_token: string }) {
     const url = `${this.url}/logout`;

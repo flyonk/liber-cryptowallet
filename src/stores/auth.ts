@@ -1,7 +1,7 @@
-import AuthService from '@/services/AuthService';
+// import AuthService from '@/services/AuthService';
 import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { TErrorResponse } from './../types/api';
+import { TErrorResponse } from '@/types/api';
 import { TSuccessSignIn } from '@/types/api';
 import { defineStore } from 'pinia';
 
@@ -81,11 +81,13 @@ export const useAuthStore = defineStore('auth', {
       otp: string;
     }): Promise<void | TErrorResponse> {
       try {
-        const authService = new AuthService();
-
-        const { data } = await authService.signInProceed(_data);
-
-        this.setToken(data);
+        console.log(_data);
+        //TODO: fix me
+        // const authService = new AuthService();
+        //
+        // const { data } = await authService.signInProceed(_data);
+        //
+        // this.setToken(data);
       } catch (e) {
         return Promise.reject(e);
       }

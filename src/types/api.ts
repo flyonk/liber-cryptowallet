@@ -1,4 +1,5 @@
-import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+// import { AxiosError, AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance } from 'axios';
 
 export interface IApiService {
   baseURL: string;
@@ -7,10 +8,11 @@ export interface IApiService {
 
 export interface IAuthService {
   signIn(data: { phone: string }): Promise<TSuccessResponse | TErrorResponse>;
-  signInProceed(data: {
-    phone: string;
-    otp: string;
-  }): Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>>;
+  //TODO: fix me
+  // signInProceed(data: {
+  //   phone: string;
+  //   otp: string;
+  // }): Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>>;
   logout(data: {
     access_token: string;
   }): Promise<TSuccessResponse | TErrorResponse>;
