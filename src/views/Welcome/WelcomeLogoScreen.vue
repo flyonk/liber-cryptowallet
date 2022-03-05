@@ -27,7 +27,7 @@ onMounted(() => {
     setTimeout(() => {
       router.push('/welcome-auth')
     }, 1000)
-  }, 3333);
+  }, 2000);
 })
 </script>
 
