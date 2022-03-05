@@ -1,6 +1,6 @@
 <template name="AllAccounts">
   <div class="all-accounts">
-    <div class="all-accounts__header">
+    <div class="header">
       <img
         class="back"
         src="@/assets/icon/arrow-left.svg"
@@ -21,21 +21,10 @@
     <h1 class="title">All Accounts</h1>
     <ul class="currencies">
       <li v-for="(currency, index) in currencies" :key="index" class="item">
-        <img
-          v-if="currency.img !== ''"
-          class="icon"
-          :src="currency.img"
-          alt=""
-        />
-        <h4 class="title">
-          {{ currency.name }}
-        </h4>
-        <p class="description">
-          {{ currency.description }}
-        </p>
-        <h5 class="sum">
-          {{ currency.sum }}
-        </h5>
+        <img v-if="currency.img !== ''" class="icon" :src="currency.img" alt />
+        <h4 class="title">{{ currency.name }}</h4>
+        <p class="description">{{ currency.description }}</p>
+        <h5 class="sum">{{ currency.sum }}</h5>
       </li>
     </ul>
   </div>
@@ -83,7 +72,7 @@ const currencies = [
   flex-grow: 1;
   overflow: auto;
 
-  &__header {
+  > .header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
