@@ -13,8 +13,8 @@
   background-image: url('@/assets/images/kyc-camera-border.svg');
   background-repeat: no-repeat;
   background-size: contain;
-  width: 98%;
-  height: 240px;
+  width: 100%;
+  height: 245px;
   display: flex;
   align-items: center;
   justify-content: center;
