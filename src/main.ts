@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
 
-// import '@/plugins/sentry';
+import '@/plugins/sentry';
 
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
@@ -17,36 +17,14 @@ import PTooltip from 'primevue/tooltip';
 import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
-import * as Sentry from '@sentry/vue';
-import { BrowserTracing } from '@sentry/tracing';
 
-const app = createApp(App);
-
-Sentry.init({
-  app,
-  dsn: process.env.VUE_APP_SENTRY_DNS,
-  release: 'CW@' + process.env.VUE_APP_VERSION,
-  integrations: [
-    new BrowserTracing({
-      routingInstrumentation: Sentry.vueRouterInstrumentation(router),
-      tracingOrigins: ['localhost', /^\//],
-    }),
-  ],
-  // Set tracesSampleRate to 1.0 to capture 100%
-  // of transactions for performance monitoring.
-  // We recommend adjusting this value in production
-  tracesSampleRate: 1.0,
-  environment: process.env.NODE_ENV,
-  logErrors: true,
-  attachProps: true,
-});
-
-// App uses
-app.use(createPinia());
-app.use(PrimeVue);
-app.use(ToastService);
-app.use(router);
-app.use(FloatingVue);
+const app = createApp(App)
+  // App uses
+  .use(createPinia())
+  .use(PrimeVue)
+  .use(ToastService)
+  .use(router)
+  .use(FloatingVue);
 
 app.component('PInput', PInput);
 app.component('PDialog', PDialog);

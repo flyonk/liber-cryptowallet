@@ -29,6 +29,7 @@ import { ref } from 'vue';
 import { TopNavigation, BaseCountrySelect, BaseButton } from '@/components/UI';
 import { useKYCStore } from '@/stores/kyc';
 import { captureException } from '@sentry/browser';
+// import * as Sentry from '@sentry/vue';
 
 const kycStore = useKYCStore();
 
@@ -46,7 +47,7 @@ const setCountry = (selectedCountry: string): void => {
 
 //TODO: remove me - sentry test
 function throwError() {
-  captureException(new Error('Sentry Error'));
+  captureException(new Error('New captured error'));
   throw new Error('Sentry Error');
 }
 </script>
