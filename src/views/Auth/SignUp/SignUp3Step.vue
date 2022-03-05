@@ -1,16 +1,16 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation class="header" @click:left-icon="prevStep">
-      Sign up to Liber
-    </top-navigation>
+    <top-navigation class="header-nav" @click:left-icon="prevStep"
+      >Sign up to Liber</top-navigation
+    >
     <base-input v-model="email">
-      <template #label> Email </template>
+      <template #label>Email</template>
     </base-input>
-    <base-switch v-model="sendNews" class="switch">
-      Keep me up to date with Liber news and offers
-    </base-switch>
+    <base-switch v-model="sendNews" class="switch-base"
+      >Keep me up to date with Liber news and offers</base-switch
+    >
     <div class="sign-button-wrapper">
-      <base-button @click="nextStep"> Next </base-button>
+      <base-button @click="nextStep">Next</base-button>
     </div>
   </div>
 </template>
@@ -44,11 +44,11 @@ const nextStep = () => {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.header-nav {
   margin-bottom: 24px;
 }
 
-.switch {
+.switch-base {
   margin-top: 25px;
 }
 </style>

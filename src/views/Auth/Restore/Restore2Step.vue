@@ -1,9 +1,9 @@
 <template>
   <template v-if="state === EState.pending">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="$emit('prev')">
-        Enter passcode
-      </top-navigation>
+      <top-navigation @click:left-icon="$emit('prev')"
+        >Enter passcode</top-navigation
+      >
     </div>
 
     <base-passcode class="login-passcode" @submit="onSubmit" />
@@ -18,8 +18,8 @@
       <template #description>
         <div class="session-expired-toast">
           <div>Session expired</div>
-          <div class="text--body">Try to restore access again</div>
-          <base-button> To retry </base-button>
+          <div class="text">Try to restore access again</div>
+          <base-button>To retry</base-button>
         </div>
       </template>
     </base-toast>
@@ -27,9 +27,9 @@
 
   <template v-else-if="state === EState.success">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="$emit('prev')">
-        We're verifying your account
-      </top-navigation>
+      <top-navigation @click:left-icon="$emit('prev')"
+        >We're verifying your account</top-navigation
+      >
 
       <div class="description text--body">
         We just need to perform a coupe of security checks to recover your
@@ -50,7 +50,7 @@
       </div>
 
       <div class="sign-button-wrapper">
-        <base-button @click="$emit('next')"> Got it </base-button>
+        <base-button @click="$emit('next')">Got it</base-button>
       </div>
     </div>
   </template>
@@ -91,7 +91,7 @@ const onSubmit = (success: boolean): void => {
 }
 
 .session-expired-toast {
-  .text--body {
+  > .text {
     color: $color-dark-grey;
     margin: 4px 0 16px;
   }

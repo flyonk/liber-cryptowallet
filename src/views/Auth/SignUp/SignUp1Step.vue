@@ -1,10 +1,9 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation> Enter phone number </TopNavigation>
+    <TopNavigation>Enter phone number</TopNavigation>
     <div class="description text--body">
       We will send verification code
-      <br />
-      to this number.
+      <br />to this number.
     </div>
     <div class="grid">
       <div class="col-4">
@@ -12,18 +11,18 @@
       </div>
       <div class="col-8 ml-auto">
         <BaseInput v-model="number" :use-grouping="false" type="number">
-          <template #label> Number </template>
+          <template #label>Number</template>
         </BaseInput>
       </div>
     </div>
     <div class="footer">
-      <span class="text--footnote font-weight--semibold">
+      <span class="footnote font-weight--semibold">
         Already have an account?
-        <router-link class="link" :to="{ name: 'login' }"> Log in </router-link>
+        <router-link class="link" :to="{ name: 'login' }">Log in</router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="handleStep"> Sign up </BaseButton>
+      <BaseButton block @click="handleStep">Sign up</BaseButton>
     </div>
   </div>
 </template>

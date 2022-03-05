@@ -9,7 +9,7 @@
     <div class="grid">
       <div class="col-4">
         <base-country-phone-input
-          :dialCode="countryDialCode"
+          :dial-code="countryDialCode"
           @ready="handleSelectCountry"
           @selected="handleSelectCountry"
         />
@@ -26,12 +26,12 @@
       </div>
     </div>
     <div class="footer">
-      <span class="text--footnote font-weight--semibold">
+      <span class="footnote font-weight--semibold">
         <router-link to="" class="link"> Lost access to my number </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button block @click="nextStep" :disabled="!number.length">
+      <base-button block :disabled="!number.length" @click="nextStep">
         Sign in
       </base-button>
     </div>

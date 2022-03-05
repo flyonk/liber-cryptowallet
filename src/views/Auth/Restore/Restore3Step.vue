@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
-      Enter the 6-digit code
-    </TopNavigation>
+    <TopNavigation @click:left-icon="prevStep"
+      >Enter the 6-digit code</TopNavigation
+    >
     <div class="description text--body">
       Get a verification code from the authenticator app
     </div>
@@ -41,10 +41,4 @@ function onComplete(): void {
 }
 </script>
 
-<style lang="scss">
-.footer {
-  .resend-button {
-    padding: 0;
-  }
-}
-</style>
+<style lang="scss"></style>
