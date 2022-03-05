@@ -1,8 +1,8 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
-      Enter verification code
-    </top-navigation>
+    <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })"
+      >Enter verification code</top-navigation
+    >
 
     <p class="text-default">
       Get a verification code from the authenticator app
@@ -11,7 +11,7 @@
     <base-verification-code-input v-model="verificationCode" />
   </div>
   <div style="padding: 15px">
-    <base-button block @click="pasteFromClipboard"> Paste </base-button>
+    <base-button block @click="pasteFromClipboard">Paste</base-button>
   </div>
   <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
@@ -36,7 +36,7 @@ const store = use2faStore();
 store.generateToken();
 
 const verificationCode = ref('');
-const showErrorToast = ref(false);
+const showErrorToast = ref(true);
 
 const router = useRouter();
 
