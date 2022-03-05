@@ -8,7 +8,7 @@
     <base-input v-model="form.flat">
       <template #append>
         <i
-          v-tooltip="'You have new messages.'"
+          v-tooltip="$t('views.kyc.kyc2step.newMessages')"
           class="ci-help_circle_outline"
         />
       </template>

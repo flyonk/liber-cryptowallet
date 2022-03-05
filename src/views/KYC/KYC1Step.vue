@@ -9,7 +9,7 @@
     />
     <div class="footer">
       <p class="heading-dark-gray-md font-weight--semibold text">
-        By pressing Sign up securely, you agree to our
+        {{ $t('views.kyc.kyc1step.byPressingSign') }}
         <a class="link" href="http://">{{ $t('views.kyc.kyc1step.termsAmpConditions') }}</a>{{ $t('views.kyc.kyc1step.and') }}
         <a class="link" href="http://"> Privacy Policy </a>{{ $t('views.kyc.kyc1step.privacyPolicy') }}
       </p>

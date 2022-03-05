@@ -171,46 +171,48 @@
 import { ref } from 'vue';
 // import BaseButton from '@/components/UI/BaseButton.vue'
 import { VueAgile } from 'vue-agile';
+import { useI18n } from 'vue-i18n';
 
 let showControls = ref(false);
+const { tm } = useI18n();
 
 const activeTab = ref(1);
 const transactions = [
   {
-    info: 'Received USDT',
-    from: 'From andrew@gmail.com',
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
     status: 'Pending',
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: 'Deposit USDT',
-    from: 'From Bitcoin address',
+    info: `${tm('transactions.operations.deposit')} USDT`,
+    from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {
-    info: 'Sent USDT',
-    from: 'To andrew@gmail.com',
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.to')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: require('@/assets/icon/transactions/exchange.svg'),
   },
   {
-    info: 'Received USDT',
-    from: 'From andrew@gmail.com',
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
-    status: 'Pending',
+    status: tm('transactions.operations.pending'),
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: 'Deposit USDT',
-    from: 'From Bitcoin address',
+    info: `${tm('transactions.operations.deposit')} USDT`,
+    from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {
-    info: 'Sent USDT',
-    from: 'To andrew@gmail.com',
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: require('@/assets/icon/transactions/exchange.svg'),
   },
@@ -218,19 +220,19 @@ const transactions = [
 
 const carousel = [
   {
-    name: 'Deposit',
+    name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
   },
   {
-    name: 'Send Funds',
+    name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
   {
-    name: 'Convert',
+    name: tm('transactions.carousel.convert'),
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
   },
   {
-    name: 'Withdraw',
+    name: tm('transactions.carousel.withdraw'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
 ];

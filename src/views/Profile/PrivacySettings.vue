@@ -8,42 +8,36 @@
         @click="$router.push('/profile')"
       />
     </header>
-    <h1 class="title">Privacy</h1>
+    <h1 class="title">{{ $t('views.profile.profilePrivacy.privacy') }}</h1>
     <main class="main">
-      <h6 class="subtitle">Marketing</h6>
+      <h6 class="subtitle">{{ $t('views.profile.profilePrivacy.marketing') }}</h6>
       <section class="section">
         <div class="header">
-          <h3 class="title">Marketing emails</h3>
+          <h3 class="title">{{ $t('views.profile.profilePrivacy.marketingEmails') }}</h3>
           <BaseSwitch
             class="switch"
             :model-value="isEmailsAgreement"
             @update:model-value="isEmailsAgreement = !isEmailsAgreement"
           />
         </div>
-        <div class="description">
-          I am happy to receive emails about Liber products, services and offers
-          that may interest me
-        </div>
+        <div class="description">{{ $t('views.profile.profilePrivacy.receiveEmails') }}</div>
       </section>
       <hr class="separator" />
       <section class="section">
         <div class="header">
-          <h3 class="title">Marketing pushes</h3>
+          <h3 class="title">{{ $t('views.profile.profilePrivacy.marketingPushes') }}</h3>
           <BaseSwitch
             class="switch"
             :model-value="isPushesAgreement"
             @update:model-value="isPushesAgreement = !isPushesAgreement"
           />
         </div>
-        <div class="description">
-          I am happy to receive push notifications about Liber product, services
-          and offers that may interest me
-        </div>
+        <div class="description">{{ $t('views.profile.profilePrivacy.receivePushNotifications') }}</div>
       </section>
       <hr class="separator" />
       <section class="section">
         <div class="header">
-          <h3 class="title">Social media & advertising platforms</h3>
+          <h3 class="title">{{ $t('views.profile.profilePrivacy.social') }}</h3>
           <BaseSwitch
             class="switch"
             :model-value="isSocialMediaAgreement"
@@ -52,11 +46,7 @@
             "
           />
         </div>
-        <div class="description">
-          I am happy for Liber to share information, such as my name, emals
-          address and app events witg social media and advertising platforms, to
-          allow Liber to advertise to me and others like me and to conduct
-        </div>
+        <div class="description">{{ $t('views.profile.profilePrivacy.shareInformation') }}</div>
       </section>
     </main>
   </div>

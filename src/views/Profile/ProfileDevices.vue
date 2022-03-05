@@ -7,10 +7,8 @@
         alt="arrow-left"
         @click="$router.push('/profile')"
       />
-      <h1 class="title">Devices</h1>
-      <p class="description">
-        These are the devices currently allowed to access your account.
-      </p>
+      <h1 class="title">{{ $t('views.profile.profileDevices.devices') }}</h1>
+      <p class="description">{{ $t('views.profile.profileDevices.allowedDevices') }}</p>
     </div>
     <div class="main">
       <ul class="list">
@@ -19,15 +17,15 @@
           <img src="@/assets/icon/mobile.svg" alt="mobile" />
         </li>
         <li class="item">
-          <p class="name">Date</p>
+          <p class="name">{{ $t('views.profile.profileDevices.date') }}</p>
           <p class="description">2022.01.07 13:34:30</p>
         </li>
         <li class="item">
-          <p class="name">Location</p>
+          <p class="name">{{ $t('views.profile.profileDevices.location') }}</p>
           <p class="description">Pavshino Russian Federation</p>
         </li>
         <li class="item">
-          <p class="name">IP</p>
+          <p class="name">{{ $t('views.profile.profileDevices.ip') }}</p>
           <p class="description">45.234.12.154</p>
         </li>
       </ul>
@@ -37,15 +35,15 @@
           <img src="@/assets/icon/monitor.svg" alt="monitor" />
         </li>
         <li class="item">
-          <p class="name">Date</p>
+          <p class="name">{{ $t('views.profile.profileDevices.date') }}</p>
           <p class="description">2022.01.07 13:34:30</p>
         </li>
         <li class="item">
-          <p class="name">Location</p>
+          <p class="name">{{ $t('views.profile.profileDevices.location') }}</p>
           <p class="description">Tallin Estonia</p>
         </li>
         <li class="item">
-          <p class="name">IP</p>
+          <p class="name">{{ $t('views.profile.profileDevices.ip') }}</p>
           <p class="description">45.234.12.154</p>
         </li>
       </ul>
@@ -55,15 +53,15 @@
           <img src="@/assets/icon/monitor.svg" alt="monitor" />
         </li>
         <li class="item">
-          <p class="name">Date</p>
+          <p class="name">{{ $t('views.profile.profileDevices.date') }}</p>
           <p class="description">2022.01.07 13:34:30</p>
         </li>
         <li class="item">
-          <p class="name">Location</p>
+          <p class="name">{{ $t('views.profile.profileDevices.location') }}</p>
           <p class="description">Tbilisi Georgia</p>
         </li>
         <li class="item">
-          <p class="name">IP</p>
+          <p class="name">{{ $t('views.profile.profileDevices.ip') }}</p>
           <p class="description">45.234.12.154</p>
         </li>
       </ul>

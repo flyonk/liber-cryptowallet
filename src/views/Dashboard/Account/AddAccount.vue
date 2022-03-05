@@ -11,7 +11,6 @@
         {{ $t('common.coinSelect') }}
       </h1>
       <label
-        for="searchCoin"
         class="input-label"
       >
         <img
@@ -22,14 +21,14 @@
         <input
           class="search"
           type="text"
-          placeholder="Search a coin"
           name="searchCoin"
+          :placeholder="$t('common.searchCoin')"
         >
       </label>
     </div>
     <div class="main">
       <h4 class="title">
-        {{ $t('dashboard.account.suggested') }}
+        {{ $t('views.account.suggested') }}
       </h4>
       <ul class="coin-list suggested">
         <li class="item">
@@ -122,9 +121,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// import { ref } from 'vue'
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .add-account {

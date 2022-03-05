@@ -17,7 +17,7 @@
       >
     </div>
     <h1 class="title">
-      {{ $t('dashboard.account.allAccounts') }}
+      {{ $t('views.account.allAccounts') }}
     </h1>
     <ul class="currencies">
       <li
@@ -46,10 +46,14 @@
 </template>
 
 <script setup lang="ts">
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
+
 const currencies = [
   {
     name: 'EUR',
-    description: 'All Accounts',
+    description: tm('views.account.allAccounts'),
     sum: '€1025.50',
     img: require('@/assets/icon/currencies/euro.svg'),
   },

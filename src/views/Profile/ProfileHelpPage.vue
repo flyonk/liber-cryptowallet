@@ -7,31 +7,33 @@
         alt="arrow-left"
         @click="$router.push('/profile')"
       />
-      <div class="title">Hey Abraham Watson, how can we help you?</div>
+      <div class="title">
+        {{ $t('views.profile.profileHelp.hello') }} Abraham Watson, {{ $t('views.profile.profileHelp.help') }}
+      </div>
       <BaseInput type="string">
-        <template #label> Type your question here </template>
+        <template #label> {{ $t('views.profile.profileHelp.question') }} </template>
       </BaseInput>
     </div>
-    <h6 class="subtitle">Select an issue</h6>
+    <h6 class="subtitle">{{ $t('views.profile.profileHelp.issue') }}</h6>
     <ul class="issues-list">
       <li class="item">
-        <p class="text">Are my cryptocurrencies secure?</p>
+        <p class="text">{{ $t('views.profile.profileHelp.secure') }}</p>
         <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">Why does my address need a destination tag?</p>
+        <p class="text">{{ $t('views.profile.profileHelp.destinationTag') }}</p>
         <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">How does Liber process my data?</p>
+        <p class="text">{{ $t('views.profile.profileHelp.process') }}</p>
         <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">What is Gambling Block?</p>
+        <p class="text">{{ $t('views.profile.profileHelp.gamblingBlock') }}</p>
         <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">Can I still top-up my Liber account in CZK and HUF?</p>
+        <p class="text">{{ $t('views.profile.profileHelp.topUpAccount') }}</p>
         <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
     </ul>

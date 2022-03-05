@@ -11,7 +11,7 @@
       <div id="camera" class="camera" />
     </scan-animation>
     <div class="footer">
-      <base-button @click="onScan"> Scan now </base-button>
+      <base-button @click="onScan"> {{ this.$t('views.kyc.kyc4step.scanNow') }} </base-button>
     </div>
   </div>
 </template>
@@ -29,10 +29,13 @@ import ScanAnimation from '@/components/KYC/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
 import { useKYCStore, EKYCProofType } from '@/stores/kyc';
+import { useI18n } from 'vue-i18n';
 
 const emit = defineEmits(['next', 'prev']);
 
 const kycStore = useKYCStore();
+
+const { tm } = useI18n();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
 
@@ -52,22 +55,19 @@ const isProofTypePassport = computed(
 const scanText = computed(() => {
   if (isProofTypePassport.value) {
     return {
-      title: 'Scan Passport',
-      description:
-        'Place your phone directly on top of passport and take a picture.',
+      title: tm('views.kyc.kyc4step.scanPassport'),
+      description: tm('views.kyc.kyc4step.placePhoneOnTopOfPassport'),
     };
   }
 
   const text = {
     [EDocumentSide.back]: {
-      title: 'Scan Back Side',
-      description:
-        'Place your phone directly on top of your ID back side and take a picture.',
+      title: tm('views.kyc.kyc4step.scanBackSide'),
+      description: tm('views.kyc.kyc4step.placePhoneOnTopOfIDFront'),
     },
     [EDocumentSide.front]: {
-      title: 'Scan Front Side',
-      description:
-        'Place your phone directly on top of your ID front side and take a picture.',
+      title: tm('views.kyc.kyc4step.scanFrontSide'),
+      description: tm('views.kyc.kyc4step.placePhoneOnTopOfIDBack'),
     },
   };
 

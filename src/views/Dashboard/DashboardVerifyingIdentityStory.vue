@@ -9,10 +9,8 @@
       />
     </div>
     <div class="main">
-      <h1 class="title">We’re verifying your identity</h1>
-      <p class="description">
-        We’ll let you know when we have verified your details.
-      </p>
+      <h1 class="title">{{ $t('views.dashboard.verifyingIdentity.verifying') }}</h1>
+      <p class="description">{{ $t('views.dashboard.verifyingIdentity.details') }}</p>
       <img
         class="image"
         src="@/assets/images/50-percent-loader.png"
@@ -20,7 +18,7 @@
       />
     </div>
     <footer class="footer">
-      <button class="btn">Got it</button>
+      <button class="btn">{{ $t('views.dashboard.verifyingIdentity.gotIt') }}</button>
     </footer>
   </div>
 </template>
