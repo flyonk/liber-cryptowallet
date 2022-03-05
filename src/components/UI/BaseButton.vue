@@ -60,8 +60,8 @@ const classes = computed(() => [
   {
     '-block': block,
     '-disabled': disabled,
-    '-with_icon_left': iconLeft,
-    '-with_icon_right': iconRight,
+    '-with-icon-left': iconLeft,
+    '-with-icon-right': iconRight,
     '-only_icon': icon,
   },
   `-${view.value}`,
@@ -284,7 +284,7 @@ const classes = computed(() => [
     padding: 0 !important;
   }
 
-  &.-with_icon_left {
+  &.-with-icon-left {
     > .container {
       > .label {
         margin-left: 13px;
@@ -292,7 +292,7 @@ const classes = computed(() => [
     }
   }
 
-  &.-with_icon_right {
+  &.-with-icon-right {
     > .container {
       > .label {
         margin-right: 13px;
