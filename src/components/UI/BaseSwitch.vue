@@ -19,7 +19,7 @@ defineEmits(['update:modelValue']);
   display: grid;
   grid-template-columns: 55px 1fr;
 
-  .p-inputswitch {
+  > .p-inputswitch {
     &.p-focus {
       outline: none !important;
 

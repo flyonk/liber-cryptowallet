@@ -50,35 +50,37 @@ const currentComponent = computed(() => {
 .base-input {
   margin: 0 0 16px;
 
-  .input {
+  > .input {
     background: $color-input-bg;
     border: 1px solid transparent;
     border-radius: 12px;
     height: 56px;
     padding: 4px 16px;
 
-    .message {
-      height: 24px;
-      width: 100%;
-    }
+    // .message {
+    //   background-color: red;
+    //   height: 24px;
+    //   width: 100%;
+    // }
 
-    .p-float-label {
+    > .p-float-label {
       height: 100%;
       width: 100%;
 
-      label {
+      > .label {
+        background-color: green;
         left: 0.1rem;
         top: 9px;
         left: 0;
         font-size: 12px;
       }
 
-      input:focus ~ label,
-      input.p-filled ~ label,
-      textarea:focus ~ label,
-      textarea.p-filled ~ label,
-      .p-inputwrapper-focus ~ label,
-      .p-inputwrapper-filled ~ label {
+      > input:focus ~ label,
+      > input.p-filled ~ label,
+      > textarea:focus ~ label,
+      > textarea.p-filled ~ label,
+      > .p-inputwrapper-focus ~ label,
+      > .p-inputwrapper-filled ~ label {
         bottom: 50%;
         font-size: 11px;
         line-height: 13px;
@@ -122,7 +124,7 @@ const currentComponent = computed(() => {
     }
   }
 
-  .message {
+  > .message {
     padding: 8px 16px 0;
     color: $color-grey;
     display: flex;
