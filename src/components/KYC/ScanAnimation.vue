@@ -21,19 +21,19 @@
   padding: 21px 24px;
   border-radius: 20px;
   box-shadow: 0 0 0 99999px #fff;
-  
+
   > .inner {
     width: 100%;
     height: 100%;
     position: relative;
+  }
 
-    img {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
+  > .inner > img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
 }
 </style>
