@@ -1,7 +1,7 @@
 <template>
   <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
     <div
-      class="bottom-menu--close"
+      class="close"
       @click="closeMenu"
       @touchmove="startMove"
       @touchend="endMove"
@@ -61,7 +61,7 @@ const { isMenuOpen } = toRefs(props);
   padding: 8px 16px 0;
   z-index: 2;
 
-  &--close {
+  > .close {
     width: 64px;
     height: 5px;
     border-radius: 1px;
