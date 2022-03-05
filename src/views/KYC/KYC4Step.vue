@@ -4,14 +4,12 @@
       {{ scanText.title }}
     </top-navigation>
     <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">
-      {{ scanText.description }}
-    </p>
+    <p class="description">{{ scanText.description }}</p>
     <scan-animation class="p-0">
       <div id="camera" class="camera" />
     </scan-animation>
     <div class="footer">
-      <base-button @click="onScan"> Scan now </base-button>
+      <base-button @click="onScan">Scan now</base-button>
     </div>
   </div>
 </template>
@@ -134,17 +132,20 @@ const onScan = async () => {
 <style lang="scss">
 .kyc-4-step {
   // commit test
+  > .scan-animation {
+    > .inner {
+      > .camera {
+        width: 100%;
+        height: 100%;
+        max-width: 100%;
+        max-height: 100%;
 
-  .camera {
-    width: 100%;
-    height: 100%;
-    max-width: 100%;
-    max-height: 100%;
-
-    .camera-video {
-      height: 100% !important;
-      width: 100%;
-      border-radius: 12px;
+        > .camera-video {
+          height: 100% !important;
+          width: 100%;
+          border-radius: 12px;
+        }
+      }
     }
   }
 }

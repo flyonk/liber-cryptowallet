@@ -2,9 +2,8 @@
   <div class="kyc-3-step">
     <top-navigation class="navigation" left-icon-name="ci-close_big">
       <template #top-right>
-        <span class="controller text--headline"> Not now </span>
+        <span class="controller text--headline">Not now</span>
       </template>
-
       Proof of Identity
     </top-navigation>
     <base-progress-bar class="mb-3" :value="getPercentage" />
@@ -59,9 +58,11 @@ const onSelect = (proofType: EKYCProofType): void => {
 <style scoped lang="scss">
 .kyc-3-step {
   > .navigation {
-    .controller {
-      color: $color-primary;
-      user-select: none;
+    > .page-title {
+      > .controller {
+        color: $color-primary;
+        user-select: none;
+      }
     }
   }
 }

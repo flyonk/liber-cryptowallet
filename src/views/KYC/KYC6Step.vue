@@ -1,8 +1,8 @@
 <template>
   <div class="kyc-6-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      Proof of Residence
-    </top-navigation>
+    <top-navigation @click:left-icon="$emit('prev')"
+      >Proof of Residence</top-navigation
+    >
     <base-progress-bar class="mb-3" :value="getPercentage" />
     <p class="description">
       Provide one of the documents with an address and your legal name on it.
@@ -25,9 +25,9 @@
     </ul>
 
     <div class="footer">
-      <base-button class="footer-button" @click="selectPicture">
-        Upload
-      </base-button>
+      <base-button class="footer-button" @click="selectPicture"
+        >Upload</base-button
+      >
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@ const selectPicture = async () => {
 
 <style lang="scss">
 .kyc-6-step {
-  .list {
+  > .list {
     margin: 0 0 0 8px;
 
     > .item {
