@@ -25,12 +25,14 @@ module.exports = {
     'scss/at-rule-no-unknown': true,
     'no-descending-specificity': null,
     'rscss/class-format': [
-      false,
+      true,
       {
         maxDepth: '8',
+        component: '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+        element: '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
       },
     ],
-    'rscss/no-descendant-combinator': false,
+    'rscss/no-descendant-combinator': true,
     'declaration-block-no-duplicate-properties': null,
     'declaration-block-no-redundant-longhand-properties': null,
     'selector-pseudo-class-no-unknown': [
