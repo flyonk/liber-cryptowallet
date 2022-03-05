@@ -3,7 +3,7 @@ import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
 
-import '@/plugins/sentry';
+import sentry from '@/plugins/sentry';
 
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
@@ -24,7 +24,8 @@ const app = createApp(App)
   .use(PrimeVue)
   .use(ToastService)
   .use(router)
-  .use(FloatingVue);
+  .use(FloatingVue)
+  .use(sentry);
 
 app.component('PInput', PInput);
 app.component('PDialog', PDialog);

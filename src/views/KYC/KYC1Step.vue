@@ -10,8 +10,6 @@
       :only-european="true"
       @update:model-value="setCountry"
     />
-    <!--TODO: remove me - sentry test button-->
-    <base-button block @click="throwError"> Throw error </base-button>
     <div class="footer">
       <p class="heading-dark-gray-md font-weight--semibold text">
         By pressing Sign up securely, you agree to our
@@ -28,8 +26,6 @@
 import { ref } from 'vue';
 import { TopNavigation, BaseCountrySelect, BaseButton } from '@/components/UI';
 import { useKYCStore } from '@/stores/kyc';
-import { captureException } from '@sentry/browser';
-// import * as Sentry from '@sentry/vue';
 
 const kycStore = useKYCStore();
 
@@ -44,10 +40,4 @@ const onSignUp = () => {
 const setCountry = (selectedCountry: string): void => {
   kycStore.changeData('citizenship', selectedCountry);
 };
-
-//TODO: remove me - sentry test
-function throwError() {
-  captureException(new Error('New captured error'));
-  throw new Error('Sentry Error');
-}
 </script>

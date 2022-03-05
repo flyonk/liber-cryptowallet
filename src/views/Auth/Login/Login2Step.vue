@@ -86,7 +86,6 @@ const onComplete = async (data: string) => {
   const phone = authStore.getLoginPhone;
   try {
     await authStore.signInProceed({ phone, otp });
-  
     nextStep();
   } catch (err) {
     console.log(err);
