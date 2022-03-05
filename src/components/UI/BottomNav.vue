@@ -13,7 +13,7 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#home" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 1 }">Home</p>
+        <p class="label" :class="{ '-active': activeTab === 1 }">Home</p>
       </router-link>
       <router-link
         style="text-decoration: none"
@@ -27,9 +27,7 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#account" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 2 }">
-          Account
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 2 }">Account</p>
       </router-link>
       <li class="item" @click="changeTab(3)">
         <img
@@ -37,7 +35,7 @@
           src="@/assets/icon/navbar/send.svg"
           alt="Send"
         />
-        <p class="label" :class="{ 'label--active': activeTab === 3 }">Send</p>
+        <p class="label" :class="{ '-active': activeTab === 3 }">Send</p>
       </li>
       <li class="item" @click="changeTab(4)">
         <svg v-if="activeTab === 4" class="svg">
@@ -46,9 +44,7 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 4 }">
-          Recipients
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 4 }">Recipients</p>
       </li>
       <li class="item" @click="changeTab(5)">
         <svg v-if="activeTab === 5" class="svg">
@@ -57,9 +53,7 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#gift" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 5 }">
-          Invite
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 5 }">Invite</p>
       </li>
     </ul>
   </div>
@@ -105,7 +99,7 @@ function changeTab(tabNum: number) {
     > .label {
       text-decoration: none;
 
-      &--active {
+      &.-active {
         color: $color-primary;
       }
     }
