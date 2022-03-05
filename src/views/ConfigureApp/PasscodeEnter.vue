@@ -8,7 +8,7 @@
     <p class="text-default">
       Enhance the security of your account by creating a passcode
     </p>
-    
+
     <base-passcode
       v-if="actionType === EPasscodeActions.store"
       :action-type="actionType"
@@ -21,53 +21,47 @@
     />
   </div>
 
-  <base-toast
-    v-model:visible="showErrorToast"
-    severity="error"
-  >
+  <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>
-        Your passcode doesn't match. Please, try again!
-      </div>
+      <div>Your passcode doesn't match. Please, try again!</div>
     </template>
   </base-toast>
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, computed } from 'vue'
+import { ref, Ref, computed } from 'vue';
 import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
-import { EPasscodeActions } from '@/types/base-component'
-import { useRouter } from 'vue-router'
+import { EPasscodeActions } from '@/types/base-component';
+import { useRouter } from 'vue-router';
 
-const router = useRouter()
+const router = useRouter();
 
-const showErrorToast = ref(false)
-const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>
+const showErrorToast = ref(false);
+const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;
 
 const title = computed(() => {
   switch (actionType.value) {
     case EPasscodeActions.store:
-      return 'Create passcode'
+      return 'Create passcode';
     case EPasscodeActions.compare:
-      return 'Confirm passcode'
-  
+      return 'Confirm passcode';
+
     default:
-      return 'Create passcode'
+      return 'Create passcode';
   }
-})
+});
 
-
-function onCreate(success:boolean): void {
+function onCreate(success: boolean): void {
   if (success) {
-    actionType.value = EPasscodeActions.compare
+    actionType.value = EPasscodeActions.compare;
   }
 }
 
-function onSubmit(success:boolean): void {
+function onSubmit(success: boolean): void {
   if (success) {
-    router.push({ name: '2fa-app' })
+    router.push({ name: '2fa-app' });
   } else {
-    showErrorToast.value = true
+    showErrorToast.value = true;
   }
 }
 

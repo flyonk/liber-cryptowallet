@@ -4,8 +4,8 @@
       Date of birth
     </TopNavigation>
     <div class="description text--body">
-      As started on your official ID. We need 
-      <br>
+      As started on your official ID. We need
+      <br />
       your name to verify your identity.
     </div>
     <base-input
@@ -19,9 +19,11 @@
     <div class="sign-button-wrapper">
       <BaseButton
         block
-        @click="$router.push({
-          name: 'kyc-main'
-        })"
+        @click="
+          $router.push({
+            name: 'kyc-main',
+          })
+        "
       >
         Next
       </BaseButton>

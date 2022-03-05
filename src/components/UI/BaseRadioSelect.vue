@@ -1,10 +1,6 @@
 <template>
   <div class="base-radio-select">
-    <div
-      v-for="(item, key) in items"
-      :key="key"
-      class="item"
-    >
+    <div v-for="(item, key) in items" :key="key" class="item">
       <label class="radio-button">
         <input
           :id="item.value"
@@ -13,31 +9,28 @@
           name="items"
           style="display: none"
           @change="$emit('input', item.value)"
-        >
+        />
         <div class="label">
-          <img
-            v-if="item.logo"
-            :src="item.logo"
-            :alt="item.text"
-          >
+          <img v-if="item.logo" :src="item.logo" :alt="item.text" />
           <p class="text text--callout font-weight--semibold">
             {{ item.text }}
           </p>
-          <i class="ci-chevron_big_right " />
+          <i class="ci-chevron_big_right" />
         </div>
       </label>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">import { IValueItem } from '@/types/base-component';
+<script setup lang="ts">
+import { IValueItem } from '@/types/base-component';
 import { PropType } from 'vue-demi';
 
 defineProps({
   items: {
     type: Array as PropType<IValueItem[]>,
     required: true,
-  }
+  },
 });
 
 defineEmits(['input']);
@@ -51,6 +44,7 @@ defineEmits(['input']);
   .radio-button {
     display: flex;
     width: 100%;
+
     > .label {
       padding: 16px;
       display: flex;
@@ -64,7 +58,7 @@ defineEmits(['input']);
       > i {
         margin-left: auto;
       }
-    } 
+    }
   }
 
   > .item {

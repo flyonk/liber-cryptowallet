@@ -27,7 +27,7 @@ import { useAuthStore } from '@/stores/auth';
 import { ref } from 'vue-demi';
 
 const emit = defineEmits(['prev', 'next']);
-const authStore = useAuthStore()
+const authStore = useAuthStore();
 
 const sendNews = ref(false);
 
@@ -38,7 +38,7 @@ const prevStep = () => {
 };
 
 const nextStep = () => {
-  authStore.registration.email = email.value
+  authStore.registration.email = email.value;
   emit('next');
 };
 </script>

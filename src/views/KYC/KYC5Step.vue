@@ -3,42 +3,23 @@
     <top-navigation @click:left-icon="$emit('prev')">
       Proof of Identity
     </top-navigation>
-    <base-progress-bar
-      class="mb-3"
-      :value="getPercentage"
-    />
+    <base-progress-bar class="mb-3" :value="getPercentage" />
     <p class="description">
-      Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.
+      Have a final check if all data is clearly visible and that it matches the
+      information you have entered in previous steps.
     </p>
-    <div
-      v-for="(image, side) in getImage"
-      :key="side"
-      class="block"
-    >
+    <div v-for="(image, side) in getImage" :key="side" class="block">
       <template v-if="image">
         <div class="title heading-black-lg">
           {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
         </div>
-        <img
-          :src="image"
-          alt="front"
-          class="image"
-        >
-        <base-button
-          view="secondary"
-          block
-          @click="onScanAgain"
-        >
+        <img :src="image" alt="front" class="image" />
+        <base-button view="secondary" block @click="onScanAgain">
           Scan Again
         </base-button>
       </template>
     </div>
-    <base-button
-      class="footer-button"
-      @click="onNext"
-    >
-      Upload
-    </base-button>
+    <base-button class="footer-button" @click="onNext"> Upload </base-button>
   </div>
 </template>
 

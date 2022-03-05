@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const webpack = require('webpack');
 
 module.exports = {
@@ -18,11 +19,11 @@ module.exports = {
       fallback: {
         // "util": false,
         // "url": false,
-        "stream": require.resolve("stream-browserify"),
+        stream: require.resolve('stream-browserify'),
         // "stream": false,
-        "crypto": require.resolve("crypto-browserify"),
-        "buffer": require.resolve("buffer")
-      }
+        crypto: require.resolve('crypto-browserify'),
+        buffer: require.resolve('buffer'),
+      },
     },
   },
   css: {
