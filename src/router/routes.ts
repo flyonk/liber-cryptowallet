@@ -198,7 +198,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        name: 'transactions.who-to-pay',
+        name: 'contacts.who-to-pay',
         component: () =>
           import(
             /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
@@ -206,7 +206,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'send/:id',
-        name: 'transactions.send',
+        name: 'contacts.send',
         component: () =>
           import(
             /* webpackChunkName: "contacts-sendto" */ '@/views/Contacts/SendTo.vue'
@@ -214,10 +214,18 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'send',
-        name: 'transactions.send.first.time',
+        name: 'contacts.send.first.time',
         component: () =>
           import(
             /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/FirstTimeInvite.vue'
+          ),
+      },
+      {
+        path: 'send_invite',
+        name: 'contacts.send.invite',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendInvite.vue'
           ),
       },
     ],

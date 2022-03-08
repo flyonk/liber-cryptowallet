@@ -43,7 +43,10 @@
         >
         Share link
       </button>
-      <button class="btn">
+      <button
+        class="btn"
+        @click="$router.push('/contacts/send/invite')"
+      >
         <img
           src="@/assets/icon/invite.svg"
           class="icon mr-2"
