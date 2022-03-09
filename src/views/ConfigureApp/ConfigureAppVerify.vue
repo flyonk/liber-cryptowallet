@@ -35,6 +35,9 @@ import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
 
 const store = use2faStore();
 store.generateToken();
@@ -50,7 +53,7 @@ const pasteFromClipboard = () => {
       verificationCode.value = clipText;
     },
     function (err) {
-      console.error('Async: Could not read text: ', err);
+      console.error(`${tm('common.readFailure')} `, err);
     }
   );
   router.push('/home');
