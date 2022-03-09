@@ -308,13 +308,16 @@ const currencies = [
 }
 
 .fees-data {
+  border-left: 1px solid $color-primary-50;
   margin-bottom: 10px;
+  margin-left: 10px;
   width: 100%;
 }
 
 .fees-item {
   display: flex;
   margin-bottom: 10px;
+  margin-left: -10px;
 
   >.circle {
     background: #EAEFFF;
