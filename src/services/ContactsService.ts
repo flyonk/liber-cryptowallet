@@ -10,7 +10,7 @@ import {
   TErrorResponse,
 } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import ApiService from '@/services/ApiService';
+import OldApiService from '@/services/OldApiService';
 
 const URL = AUTH_API_URL;
 
@@ -26,7 +26,7 @@ class ContactsService implements IContactsService {
       this.url = URL;
     }
 
-    this._apiServiceInstance = ApiService.getInstance();
+    this._apiServiceInstance = OldApiService.getInstance();
   }
 
   async getFriends() {

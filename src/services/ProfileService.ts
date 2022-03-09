@@ -12,7 +12,7 @@ import {
   TVerification,
 } from '@/types/api';
 import { PROFILE_API_URL } from '@/constants';
-import ApiService from '@/services/ApiService';
+import OldApiService from '@/services/OldApiService';
 
 const URL = PROFILE_API_URL;
 
@@ -28,7 +28,7 @@ class ProfileService implements IProfileService, IKycService, IVerificator {
       this.url = URL;
     }
 
-    this._apiServiceInstance = ApiService.getInstance();
+    this._apiServiceInstance = OldApiService.getInstance();
   }
 
   async getProfile() {

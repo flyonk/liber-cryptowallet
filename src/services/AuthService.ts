@@ -1,7 +1,7 @@
 import { AxiosError, AxiosResponse } from 'axios';
 
 import { AUTH_API_URL } from '@/constants';
-import ApiService from '@/services/ApiService';
+import OldApiService from '@/services/OldApiService';
 import { IApiService } from '@/types/api';
 import { IAuthService } from '@/types/api';
 import { TErrorResponse } from '@/types/api';
@@ -22,7 +22,7 @@ class AuthService implements IAuthService {
       this.url = URL;
     }
 
-    this._apiServiceInstance = ApiService.getInstance();
+    this._apiServiceInstance = OldApiService.getInstance();
   }
 
   //Public functions

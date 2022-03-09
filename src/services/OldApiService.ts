@@ -5,16 +5,16 @@ import { useApiServiceStore } from '@/stores/apiService';
 //config
 const BASE_URL = BASE_API_URL;
 
-class ApiService implements IApiService {
+class OldApiService implements IApiService {
   /**
-   * ApiService Service Instance
+   * OldApiService Service Instance
    *
    * @private
    * @static
-   * @type {ApiService}
-   * @memberof ApiService
+   * @type {OldApiService}
+   * @memberof OldApiService
    */
-  private static _instance: ApiService;
+  private static _instance: OldApiService;
 
   private store;
 
@@ -56,14 +56,14 @@ class ApiService implements IApiService {
    * Returns Api Service singleton instance
    *
    * @static
-   * @returns {ApiService}
-   * @memberof ApiService
+   * @returns {OldApiService}
+   * @memberof OldApiService
    */
-  static getInstance(): ApiService {
+  static getInstance(): OldApiService {
     return this._instance || (this._instance = new this());
   }
 
   // Public functions
 }
 
-export default ApiService;
+export default OldApiService;

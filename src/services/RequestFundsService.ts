@@ -8,7 +8,7 @@ import {
   TCreateRequestFundsData,
 } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import ApiService from './ApiService';
+import OldApiService from './OldApiService';
 
 const URL = AUTH_API_URL;
 
@@ -24,7 +24,7 @@ class RequestFundsService implements IRequestFundsService {
       this.url = URL;
     }
 
-    this._apiServiceInstance = ApiService.getInstance();
+    this._apiServiceInstance = OldApiService.getInstance();
   }
 
   async downloadStatement(id: string): Promise<TStatement | TErrorResponse> {

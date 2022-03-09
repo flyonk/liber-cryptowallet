@@ -9,7 +9,7 @@ import {
   TSuccessResponse,
 } from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import ApiService from '@/services/ApiService';
+import OldApiService from '@/services/OldApiService';
 
 const URL = AUTH_API_URL;
 
@@ -25,7 +25,7 @@ class FundsService implements IFundsService {
       this.url = URL;
     }
 
-    this._apiServiceInstance = ApiService.getInstance();
+    this._apiServiceInstance = OldApiService.getInstance();
   }
 
   async getCoins(): Promise<TCoins | TErrorResponse> {
