@@ -83,9 +83,10 @@ export const useAuthStore = defineStore('auth', {
       try {
         const authService = new AuthService();
 
-        const { data } = await authService.signInProceed(_data);
+        // FIXME: any type
+        const { data } = (await authService.signInProceed(_data)) as any;
 
-        this.setToken(data);
+        this.setToken(data as TSuccessSignIn);
       } catch (e) {
         return Promise.reject(e);
       }
