@@ -10,6 +10,7 @@
         <BaseCountryPhoneInput @selected="handleSelectCountry" />
       </div>
       <div class="col-8 ml-auto">
+        <!-- TODO: FIX: the mask does not work on this input  -->
         <BaseInput v-model="number" :use-grouping="false" type="number">
           <template #label>Number</template>
         </BaseInput>
