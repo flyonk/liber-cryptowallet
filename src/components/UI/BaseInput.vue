@@ -1,7 +1,10 @@
 <template>
   <div class="base-input">
     <div class="input">
-      <div class="p-float-label" :class="{ 'p-input-icon-right': $slots.append }">
+      <div
+        class="p-float-label"
+        :class="{ 'p-input-icon-right': $slots.append }"
+      >
         <slot v-if="$slots.append" name="append" />
         <component :is="currentComponent" v-bind="$attrs" />
         <label>
@@ -170,7 +173,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type="number"] {
+input[type='number'] {
   appearance: textfield;
 }
 </style>
