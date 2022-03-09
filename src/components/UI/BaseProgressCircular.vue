@@ -394,15 +394,15 @@ watch(
 );
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .vue3-circular-progressbar {
   position: relative;
-}
 
-.vue3-circular-progressbar .current-counter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  > .current-counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>
