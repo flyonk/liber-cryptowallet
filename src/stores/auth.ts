@@ -1,8 +1,7 @@
-import AuthService from '@/services/AuthService';
+import authService from '@/services/authService';
 import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { TErrorResponse } from './../types/api';
-import { TSuccessSignIn } from '@/types/api';
+import { TErrorResponse, TSuccessSignIn } from '@/types/api';
 import { defineStore } from 'pinia';
 
 // === Auth Types ===
@@ -81,9 +80,7 @@ export const useAuthStore = defineStore('auth', {
       otp: string;
     }): Promise<void | TErrorResponse> {
       try {
-        const authService = new AuthService();
-
-        // FIXME: any type
+        // FIXME: should return a model
         const { data } = (await authService.signInProceed(_data)) as any;
 
         this.setToken(data as TSuccessSignIn);

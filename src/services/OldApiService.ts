@@ -5,6 +5,8 @@ import { useApiServiceStore } from '@/stores/apiService';
 //config
 const BASE_URL = BASE_API_URL;
 
+//TODO: ref: create axios interceptors plugin | move errors handling in axios interceptors
+
 class OldApiService implements IApiService {
   /**
    * OldApiService Service Instance

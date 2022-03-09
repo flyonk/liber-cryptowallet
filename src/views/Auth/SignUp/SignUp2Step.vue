@@ -47,12 +47,10 @@ import {
   TopNavigation,
 } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
-import { IAuthService } from '@/types/api';
-import AuthService from '@/services/AuthService';
+import authService from '@/services/authService';
 
 const emit = defineEmits(['next', 'prev']);
 
-const authService: IAuthService = new AuthService();
 const authStore = useAuthStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
