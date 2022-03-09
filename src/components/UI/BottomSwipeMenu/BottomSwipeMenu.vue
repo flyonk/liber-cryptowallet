@@ -10,24 +10,20 @@
       @touchmove="startMove"
       @touchend="endMove"
     />
-    <DashboardHomeMenu
-      v-if="menuType === 'dashboard'"
-      @close-menu="closeMenu"
-    />
-    <CommunicationMenu
-      v-if="menuType === 'communication'"
+    <component
+      :is="currentComponent"
       @close-menu="closeMenu"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs } from 'vue';
+import { ref, toRefs, computed, onUpdated } from 'vue';
 
 import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/CommunicationMenu.vue'
 import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue'
 
-const menu = ref(null);
+const menu = ref();
 
 const props = defineProps({
   menuType: {
@@ -42,15 +38,48 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['closeMenu']);
+
 function closeMenu() {
   emit('closeMenu');
 }
 
 function startMove($event: TouchEvent) {
-  menu.value.style.height = `calc(100% - ${$event.touches[0].pageY}px)`;
+  if (menu?.value) {
+    menu.value.style.height = `calc(100% - ${$event.touches[0].pageY}px)`;
+  }
 }
 
-const { isMenuOpen } = toRefs(props);
+const currentComponent = computed(() => {
+  switch (props.menuType) {
+    case 'dashboard':
+      return DashboardHomeMenu
+    case 'communication':
+      return CommunicationMenu
+    default:
+      return DashboardHomeMenu
+  }
+})
+
+const { isMenuOen } = toRefs(props);
+
+onUpdated(() => {
+  switch (props.menuType) {
+    case 'dashboard':
+      if (menu?.value) {
+        menu.value.style.minHeight = `30%`;
+        menu.value.style.maxHeight = `90%`;
+      }
+      break;
+    case 'communication':
+      if (menu?.value) {
+        menu.value.style.minHeight = `70%`;
+        menu.value.style.maxHeight = `90%`;
+      }
+      break;
+    default:
+      break;
+  }
+})
 </script>
 
 <style lang="scss" scoped>
@@ -75,6 +104,18 @@ const { isMenuOpen } = toRefs(props);
     background: $color-grey;
     margin: 0 auto;
     margin-bottom: 25px;
+  }
+}
+
+@keyframes topToBottom {
+  0% {
+    bottom: -100%;
+    opacity: 0;
+  }
+
+  100% {
+    bottom: 0;
+    opacity: 1;
   }
 }
 </style>

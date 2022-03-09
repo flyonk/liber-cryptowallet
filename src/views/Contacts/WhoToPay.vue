@@ -163,6 +163,7 @@ const contactTabs = [
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
+  position: relative;
 
   >.header {
     display: flex;
