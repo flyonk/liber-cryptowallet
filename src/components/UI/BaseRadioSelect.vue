@@ -1,6 +1,6 @@
 <template>
   <div class="base-radio-select">
-    <div v-for="(item, key) in items" :key="key" class="item">
+    <div v-for="(item, key) in items" :key="key" class="item-div">
       <label class="radio-button">
         <input
           :id="item.value"
@@ -41,27 +41,27 @@ defineEmits(['input']);
   border-radius: 12px;
   border: 1px solid $color-brand-2-50;
 
-  .radio-button {
-    display: flex;
-    width: 100%;
-
-    > .label {
-      padding: 16px;
+  > .item-div {
+    > .radio-button {
       display: flex;
-      align-items: center;
       width: 100%;
 
-      > img {
-        margin-right: 16px;
-      }
+      > .label {
+        padding: 16px;
+        display: flex;
+        align-items: center;
+        width: 100%;
 
-      > i {
-        margin-left: auto;
+        > img {
+          margin-right: 16px;
+        }
+
+        > i {
+          margin-left: auto;
+        }
       }
     }
-  }
 
-  > .item {
     &:not(:last-child) {
       border-bottom: 1px solid $color-brand-2-50;
     }
