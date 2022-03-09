@@ -24,14 +24,18 @@
     </div>
     <div class="main">
       <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
-      <p class="text">Get paid with</p>
+      <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
       <div class="flex">
         <a class="link-to"> liber.me/abrahamwatson </a>
         <img src="@/assets/icon/copy.svg" alt="copy" />
       </div>
       <div class="controls">
-        <button class="btn">Scan</button>
-        <button class="btn active">My Code</button>
+        <button class="btn">
+          {{ $t('views.profile.profileQRCode.scan') }}
+        </button>
+        <button class="btn active">
+          {{ $t('views.profile.profileQRCode.code') }}
+        </button>
       </div>
     </div>
   </div>

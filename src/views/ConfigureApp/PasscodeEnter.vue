@@ -6,7 +6,7 @@
   </div>
   <div class="page-wrapper">
     <p class="text-default">
-      Enhance the security of your account by creating a passcode
+      {{ $t('configureApp.createPassCode') }}
     </p>
 
     <base-passcode
@@ -23,7 +23,9 @@
 
   <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>Your passcode doesn't match. Please, try again!</div>
+      <div>
+        {{ $t('configureApp.invalidPassCode') }}
+      </div>
     </template>
   </base-toast>
 </template>
@@ -33,21 +35,23 @@ import { ref, Ref, computed } from 'vue';
 import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 const router = useRouter();
 
 const showErrorToast = ref(false);
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;
+const { tm } = useI18n();
 
 const title = computed(() => {
   switch (actionType.value) {
     case EPasscodeActions.store:
-      return 'Create passcode';
+      return tm('views.passcodeEnter.createPasscode');
     case EPasscodeActions.compare:
-      return 'Confirm passcode';
+      return tm('views.passcodeEnter.confirmPasscode');
 
     default:
-      return 'Create passcode';
+      return tm('views.passcodeEnter.createPasscode');
   }
 });
 

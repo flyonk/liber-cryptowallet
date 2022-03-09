@@ -7,19 +7,23 @@
         alt="arrow-left"
         @click="$router.push('/account/all-accounts')"
       />
-      <h1 class="title">Select a coin</h1>
-      <label for="searchCoin" class="input-label">
+      <h1 class="title">
+        {{ $t('common.coinSelect') }}
+      </h1>
+      <label class="input-label">
         <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
           class="search"
           type="text"
-          placeholder="Search a coin"
           name="searchCoin"
+          :placeholder="$t('common.searchCoin')"
         />
       </label>
     </div>
     <div class="main">
-      <h4 class="title">Suggested</h4>
+      <h4 class="title">
+        {{ $t('views.account.suggested') }}
+      </h4>
       <ul class="coin-list suggested">
         <li class="item">
           <img class="img" src="@/assets/icon/currencies/btc.svg" alt="" />
@@ -61,9 +65,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// import { ref } from 'vue'
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .add-account {

@@ -1,12 +1,12 @@
 <template>
   <div class="auth-page-container">
     <TopNavigation @click:left-icon="prevStep">
-      Enter the 6-digit code
+      {{ $t('auth.login.step2Title') }}
     </TopNavigation>
     <div class="description text--body">
-      To sign up, enter the security code
+      {{ $t('auth.login.step2Description1') }}
       <br />
-      we’ve sent to {{ formatPhone() }}
+      {{ $t('auth.login.step2Description2') }} {{ formatPhone() }}
     </div>
     <div>
       <BaseVerificationCodeInput
@@ -19,7 +19,7 @@
       <span class="text--footnote font-weight--semibold">
         <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
           <template #countdown="{ minute, second }">
-            Resend code in {{ minute }}:{{ second }}
+            {{ $t('auth.login.step2ResendTitle') }} {{ minute }}:{{ second }}
           </template>
         </BaseCountdown>
         <template v-else>
@@ -29,7 +29,7 @@
             view="flat"
             @click="resend"
           >
-            Resend
+            {{ $t('auth.login.step2ResendCta') }}
           </BaseButton>
         </template>
       </span>

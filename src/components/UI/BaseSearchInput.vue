@@ -3,7 +3,7 @@
     <span class="p-input-icon-left p-input-icon-right flex align-items-center">
       <i class="ci-search" />
       <PInput
-        placeholder="Search"
+        :placeholder="$t('ui.basesearchinput.search')"
         type="text"
         v-bind="$attrs"
         @update:model-value="$emit('update:modelValue', $event)"

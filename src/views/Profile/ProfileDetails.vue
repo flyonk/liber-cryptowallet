@@ -8,28 +8,38 @@
         @click="$router.push('/profile')"
       />
       <div class="name-info">
-        <h1 class="title">Edit Profile</h1>
+        <h1 class="title">{{ $t('views.profile.profileEdit.editProfile') }}</h1>
         <div class="initials">
           {{ nameInitials }}
         </div>
       </div>
     </div>
     <div class="personal-information">
-      <h1 class="subtitle">Personal Information</h1>
+      <h1 class="subtitle">
+        {{ $t('views.profile.profileEdit.personalInfo') }}
+      </h1>
       <div class="edit-form">
         <BaseInput v-model="user.name" type="text">
-          <template #label> Name </template>
+          <template #label>
+            {{ $t('views.profile.profileEdit.name') }}
+          </template>
         </BaseInput>
         <BaseInput v-model="user.liberID" type="text">
-          <template #label> Liber ID </template>
+          <template #label> {{ $t('views.profile.profileEdit.id') }} </template>
         </BaseInput>
         <BaseInput v-model="user.date_of_birth" type="text" pattern="\d*">
-          <template #label> Date of Birth </template>
+          <template #label>
+            {{ $t('views.profile.profileEdit.dateOfBirth') }}
+          </template>
         </BaseInput>
         <BaseInput v-model="user.residential_address" type="text">
-          <template #label> Residential Address </template>
+          <template #label>
+            {{ $t('views.profile.profileEdit.address') }}
+          </template>
         </BaseInput>
-        <BaseButton class="btn"> Verify Identity </BaseButton>
+        <BaseButton class="btn">
+          {{ $t('views.profile.profileEdit.verify') }}
+        </BaseButton>
       </div>
     </div>
   </div>

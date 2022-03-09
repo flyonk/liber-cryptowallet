@@ -1,35 +1,35 @@
 <template>
   <div>
-    <top-navigation @click:left-icon="$emit('prev')">
-      Home address
-    </top-navigation>
-    <p class="description">
-      By law, we need your home address to open your account
-    </p>
+    <top-navigation @click:left-icon="$emit('prev')">{{
+      $t('views.kyc.kyc2step.homeAddress')
+    }}</top-navigation>
+    <p class="description">{{ $t('views.kyc.kyc2step.byLawWe') }}</p>
     <base-input v-model="form.street">
-      <template #label> Street and number </template>
+      <template #label>{{ $t('views.kyc.kyc2step.streetAndNumber') }}</template>
     </base-input>
     <base-input v-model="form.flat">
       <template #append>
         <i
-          v-tooltip="'You have new messages.'"
+          v-tooltip="$t('views.kyc.kyc2step.newMessages')"
           class="ci-help_circle_outline"
         />
       </template>
-      <template #label> Flat, suite, unit, building, floor, etc. </template>
-      <template #message> Optional </template>
+      <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
+      <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
     </base-input>
     <base-input v-model="form.postal_code" type="number" :use-grouping="false">
-      <template #label> Postal code </template>
+      <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
     </base-input>
     <base-input v-model="form.state">
-      <template #label> State </template>
+      <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
     </base-input>
     <base-input v-model="form.city">
-      <template #label> City </template>
+      <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
     </base-input>
     <div class="footer">
-      <base-button block @click="onContinue"> Continue </base-button>
+      <base-button block @click="onContinue">{{
+        $t('views.kyc.kyc2step.continue')
+      }}</base-button>
     </div>
   </div>
 </template>

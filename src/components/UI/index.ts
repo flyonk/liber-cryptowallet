@@ -15,3 +15,4 @@ export { default as BaseSelect } from './BaseSelect.vue';
 export { default as BaseProgressBar } from './BaseProgressBar.vue';
 export { default as BaseRadioSelect } from './BaseRadioSelect.vue';
 export { default as BaseProgressCircular } from './BaseProgressCircular.vue';
+export { default as LanguageSwitcher } from './organisms/LanguageSwitcher.vue';

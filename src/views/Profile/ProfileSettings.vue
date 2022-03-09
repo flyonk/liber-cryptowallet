@@ -27,69 +27,82 @@
     </div>
     <div class="controls">
       <button class="btn -blue">
-        <img class="icon" src="@/assets/icon/user_heart.svg" />Invite Friends
+        <img class="icon" src="@/assets/icon/user_heart.svg" />
+        {{ $t('views.profile.profileSettings.invite') }}
       </button>
-      <button class="btn -white">Copy Liber ID</button>
+      <button class="btn -white">
+        {{ $t('views.profile.profileSettings.copy') }}
+      </button>
     </div>
     <div class="main">
-      <h6 class="subtitle">Profile</h6>
+      <h6 class="subtitle">
+        {{ $t('views.profile.profileSettings.profile') }}
+      </h6>
       <ul class="list list--profile">
         <li class="item" @click="$router.push('/account/profile')">
           <img class="icon" src="@/assets/icon/qr-mini.svg" />
-          <p class="text">My QR Code and Liber ID</p>
+          <p class="text">{{ $t('views.profile.profileSettings.QRCode') }}</p>
         </li>
         <router-link to="/profile/details/1" class="item">
           <img class="icon" src="@/assets/icon/user_circle.svg" />
-          <p class="text">Personal details</p>
+          <p class="text">{{ $t('views.profile.profileSettings.details') }}</p>
         </router-link>
         <router-link to="/account" class="item">
           <img class="icon" src="@/assets/icon/data.svg" />
-          <p class="text">All accounts</p>
+          <p class="text">
+            {{ $t('views.profile.profileSettings.allAccounts') }}
+          </p>
         </router-link>
         <router-link to="/profile/help" class="item">
           <img class="icon" src="@/assets/icon/help_circle.svg" />
-          <p class="text">Help</p>
+          <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
         </router-link>
       </ul>
-      <h6 class="subtitle">Security</h6>
+      <h6 class="subtitle">
+        {{ $t('views.profile.profileSettings.security') }}
+      </h6>
       <ul class="list security--profile">
         <router-link to="/passcode" class="item">
           <img class="icon" src="@/assets/icon/lock.svg" />
-          <p class="text">Change passcode</p>
+          <p class="text">
+            {{ $t('views.profile.profileSettings.changePasscode') }}
+          </p>
         </router-link>
         <li class="item">
           <img class="icon" src="@/assets/icon/shield.svg" />
-          <p class="text">Privacy</p>
+          <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
         <li class="item">
           <img class="icon" src="@/assets/icon/google.svg" />
-          <p class="text">2FA: Google Authenticator</p>
+          <p class="text">
+            {{ $t('views.profile.profileSettings.2FAGoogle') }}
+          </p>
         </li>
         <router-link to="/profile/devices" class="item">
           <img class="icon" src="@/assets/icon/devices.svg" />
-          <p class="text">Devices</p>
+          <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
         <li class="item">
           <img class="icon" src="@/assets/icon/touchid.svg" />
-          <p class="text">Sign in with Touch ID</p>
+          <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
           <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
       </ul>
-      <h6 class="subtitle">Label</h6>
+      <h6 class="subtitle">{{ $t('views.profile.profileSettings.label') }}</h6>
       <ul class="list label--profile">
         <li class="item" @click="showCloseAccount = true">
           <img class="icon" src="@/assets/icon/circle_close.svg" />
-          <p class="text">Close account</p>
+          <p class="text">{{ $t('views.profile.profileSettings.close') }}</p>
         </li>
         <li class="item">
           <img class="icon" src="@/assets/icon/log_out.svg" />
-          <p class="text">Log out</p>
+          <p class="text">{{ $t('views.profile.profileSettings.logOut') }}</p>
         </li>
       </ul>
     </div>
     <div class="footer">
-      <p class="text">Version 1.0</p>
-      <p class="text">Liber Ltd</p>
+      <p class="text">{{ $t('views.profile.profileSettings.version') }}</p>
+      <p class="text">{{ $t('views.profile.profileSettings.copyright') }}</p>
     </div>
   </div>
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />

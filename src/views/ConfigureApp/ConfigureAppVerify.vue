@@ -1,21 +1,25 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
-      Enter verification code
+      {{ $t('auth.login.step4Title') }}
     </top-navigation>
 
     <p class="text-default">
-      Get a verification code from the authenticator app
+      {{ $t('auth.login.step4Description') }}
     </p>
 
     <base-verification-code-input v-model="verificationCode" />
   </div>
   <div style="padding: 15px">
-    <base-button block @click="pasteFromClipboard"> Paste </base-button>
+    <base-button block @click="pasteFromClipboard">
+      {{ $t('common.pasteCta') }}
+    </base-button>
   </div>
   <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>Your code doesn't match. Please, try again!</div>
+      <div>
+        {{ $t('configureApp.invalidCodeMessage') }}
+      </div>
     </template>
   </base-toast>
 </template>

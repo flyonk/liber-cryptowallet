@@ -7,23 +7,27 @@
       />
       <img v-else src="@/assets/images/dragndrop-bg.png" />
       <div v-if="isVerificationSuccess" class="main">
-        <h1 class="title">Your identity has been verified</h1>
+        <h1 class="title">{{ $t('views.dashboard.verification.verified') }}</h1>
         <div class="description">
-          Success! Your idenity has been verfified. You can deposit you first
-          crypto properties
+          {{ $t('views.dashboard.verification.successDescription') }}
         </div>
       </div>
       <div v-else class="main">
-        <h1 class="title">Your verification failed</h1>
+        <h1 class="title">{{ $t('views.dashboard.verification.failed') }}</h1>
         <div class="description">
-          We weren't able to verify your identity. Make sure your information is
-          entered correctly.
+          {{ $t('views.dashboard.verification.failDescription') }}
         </div>
       </div>
       <div class="controls">
-        <button v-if="isVerificationSuccess" class="btn">Deposit</button>
-        <button v-else class="btn">Try Again</button>
-        <button class="btn">Close</button>
+        <button v-if="isVerificationSuccess" class="btn">
+          {{ $t('views.dashboard.verification.deposit') }}
+        </button>
+        <button v-else class="btn">
+          {{ $t('views.dashboard.verification.tryAgain') }}
+        </button>
+        <button class="btn">
+          {{ $t('views.dashboard.verification.close') }}
+        </button>
       </div>
     </div>
   </div>

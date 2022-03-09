@@ -31,6 +31,7 @@ export enum EStorageKeys {
   notifications = 'liber-app-push-notifications',
   faceid = 'liber-app-face-id',
   touchid = 'liber-app-touch-id',
+  language = 'liber-app-language',
 }
 
 export interface IValueItem {

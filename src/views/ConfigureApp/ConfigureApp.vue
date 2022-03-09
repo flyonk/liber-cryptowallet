@@ -1,11 +1,11 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: 'install-app' })">
-      Step 2. Configure App
+      {{ $t('configureApp.configTitle') }}
     </top-navigation>
 
     <p class="text-default" style="margin-bottom: 0">
-      Scan QR code with the authenticator app or enter the code manually.
+      {{ $t('configureApp.scanQRMessage') }}
     </p>
 
     <div>
@@ -13,7 +13,7 @@
     </div>
 
     <label class="default-input-wrapper">
-      <span class="default-input-label">Code</span>
+      <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
       <input v-model="qrCodeValue" class="default-input" type="text" readonly />
       <img
         class="default-input-icon"
@@ -24,16 +24,15 @@
     </label>
 
     <p class="text-default">
-      Store this backup code somewhere safe – print it, write it down.
+      {{ $t('configureApp.backupCodeMessage') }}
     </p>
     <p class="text-default">
-      If you ever lose access to your device, you can use this code to verify
-      you identity.
+      {{ $t('configureApp.verifyIdentityMessage') }}
     </p>
   </div>
   <div style="padding: 15px">
     <base-button block @click="$router.push({ name: 'configure-app-verify' })">
-      Continue
+      {{ $t('common.continueCta') }}
     </base-button>
   </div>
 </template>

@@ -39,13 +39,19 @@
       </VueAgile>
       <div v-if="showControls" class="controls">
         <button class="btn">
-          <img class="label" src="@/assets/icon/plus.svg" />Deposit
+          <img class="label" src="@/assets/icon/plus.svg" />{{
+            $t('transactions.deposit')
+          }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />Send
+          <img class="label" src="@/assets/icon/arrow-right-white.svg" />{{
+            $t('transactions.send')
+          }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />Exchange
+          <img class="label" src="@/assets/icon/repeat.svg" />{{
+            $t('transactions.exchange')
+          }}
         </button>
       </div>
 
@@ -55,14 +61,14 @@
           :class="{ active: activeTab === 1 }"
           @click="activeTab = 1"
         >
-          History
+          {{ $t('common.history') }}
         </div>
         <div
           class="tab"
           :class="{ active: activeTab === 2 }"
           @click="activeTab = 2"
         >
-          Wallet Address
+          {{ $t('transactions.walletAddress') }}
         </div>
       </div>
       <ul v-if="activeTab === 1" class="transactions">
@@ -103,7 +109,9 @@
       <div v-if="activeTab === 2" class="wallet">
         <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
         <div class="wallet-address">
-          <h4 class="title">Wallet Address</h4>
+          <h4 class="title">
+            {{ $t('transactions.walletAddress') }}
+          </h4>
           <div class="account">
             <div class="crypto-number">
               <p class="text">
@@ -114,10 +122,16 @@
             </div>
             <img src="@/assets/icon/folders.svg" alt="folders" />
           </div>
-          <h2 class="bluetitle">Generate New Address</h2>
+          <h2 class="bluetitle">
+            {{ $t('transactions.generateAddress') }}
+          </h2>
           <div class="controls">
-            <button class="btn">Save Image</button>
-            <button class="btn">Share Address</button>
+            <button class="btn">
+              {{ $t('common.saveImage') }}
+            </button>
+            <button class="btn">
+              {{ $t('transactions.shareAddress') }}
+            </button>
           </div>
         </div>
       </div>
@@ -129,46 +143,48 @@
 import { ref } from 'vue';
 // import BaseButton from '@/components/UI/BaseButton.vue'
 import { VueAgile } from 'vue-agile';
+import { useI18n } from 'vue-i18n';
 
 let showControls = ref(false);
+const { tm } = useI18n();
 
 const activeTab = ref(1);
 const transactions = [
   {
-    info: 'Received USDT',
-    from: 'From andrew@gmail.com',
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
     status: 'Pending',
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: 'Deposit USDT',
-    from: 'From Bitcoin address',
+    info: `${tm('transactions.operations.deposit')} USDT`,
+    from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {
-    info: 'Sent USDT',
-    from: 'To andrew@gmail.com',
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.to')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: require('@/assets/icon/transactions/exchange.svg'),
   },
   {
-    info: 'Received USDT',
-    from: 'From andrew@gmail.com',
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
-    status: 'Pending',
+    status: tm('transactions.operations.pending'),
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: 'Deposit USDT',
-    from: 'From Bitcoin address',
+    info: `${tm('transactions.operations.deposit')} USDT`,
+    from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {
-    info: 'Sent USDT',
-    from: 'To andrew@gmail.com',
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: require('@/assets/icon/transactions/exchange.svg'),
   },
@@ -176,19 +192,19 @@ const transactions = [
 
 const carousel = [
   {
-    name: 'Deposit',
+    name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
   },
   {
-    name: 'Send Funds',
+    name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
   {
-    name: 'Convert',
+    name: tm('transactions.carousel.convert'),
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
   },
   {
-    name: 'Withdraw',
+    name: tm('transactions.carousel.withdraw'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
 ];

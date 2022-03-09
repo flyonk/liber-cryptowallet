@@ -1,22 +1,22 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      Log in with a Touch ID
+      {{ $t('configureApp.touchIdTitle') }}
     </top-navigation>
 
     <div class="page-content">
       <img src="@/assets/images/touchid-icon.svg" alt="Touch id" class="mb-3" />
       <p class="text-default">
-        Use Touch ID instead of a passcode to log in. It is more secure.
+        {{ $t('configureApp.touchIdDescription') }}
       </p>
     </div>
   </div>
   <div style="padding: 15px">
     <base-button block class="mb-3" @click="onEnable">
-      Enable Touch ID
+      {{ $t('configureApp.enableTouchId') }}
     </base-button>
     <base-button block view="secondary" @click="onCancel">
-      Not now
+      {{ $t('common.notNowCta') }}
     </base-button>
   </div>
 </template>

@@ -1,7 +1,7 @@
 <template>
   <div class="code-enter">
-    <h1>Enter 6-digit code</h1>
-    <route-link :to="{ name: 'phone-enter' }"> Phone Enter </route-link>
+    <h1>{{ $t('common.codeInput') }}</h1>
+    <route-link :to="{ name: 'phone-enter' }"> {{ $t('common.phoneCta') }} </route-link>
   </div>
 </template>
 

@@ -1,11 +1,11 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      Step 1. Install App
+      {{ $t('configureApp.installAppTitle') }}
     </top-navigation>
 
     <p class="text-default">
-      Install an authenticator app on your mobile device. Recommended options:
+      {{ $t('configureApp.installAppDescription') }}
     </p>
 
     <p class="auth-item" style="margin-bottom: 15px">
@@ -14,7 +14,7 @@
         alt="Google Authenticator"
         class="auth-app-icon"
       />
-      <span>Google Authenticator</span>
+      <span>{{ $t('common.googleAuthenticator') }}</span>
     </p>
     <p class="auth-item" style="margin-bottom: 50px">
       <img
@@ -22,7 +22,7 @@
         alt="Microsoft Authenticator"
         class="auth-app-icon"
       />
-      <span>Microsoft Authenticator</span>
+      <span>{{ $t('common.microsoftAuthenticator') }}</span>
     </p>
 
     <a href="https://apps.apple.com/lb/app" class="store-link">
@@ -41,9 +41,9 @@
     </a>
   </div>
   <div style="padding: 15px">
-    <base-button block @click="$router.push({ name: 'configure-app' })">
-      Continue
-    </base-button>
+    <base-button block @click="$router.push({ name: 'configure-app' })">{{
+      $t('common.continueCta')
+    }}</base-button>
   </div>
 </template>
 

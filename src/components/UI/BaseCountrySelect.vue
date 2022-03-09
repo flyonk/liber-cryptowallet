@@ -2,7 +2,7 @@
   <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
       <base-input v-model="selectedData" @click.self="onClick">
-        <template #label> Country </template>
+        <template #label>{{ $t('ui.basecountryselect.country') }}</template>
       </base-input>
     </span>
     <BaseBottomSheet v-model:visible="showList" position="bottom">
@@ -13,7 +13,7 @@
           </div>
           <div class="col-3 text-right">
             <div class="cancel-button text--headline" @click="showList = false">
-              Cancel
+              {{ $t('ui.basecountryselect.cancel') }}
             </div>
           </div>
         </div>

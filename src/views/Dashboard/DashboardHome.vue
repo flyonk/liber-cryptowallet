@@ -4,19 +4,19 @@
     <div class="header flex mb-4">
       <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
       <div v-if="VerificationStatus === 'in_progress'" class="verification">
-        ID Verification
+        {{ $t('views.dashboard.home.idVerification') }}
       </div>
       <div
         v-if="VerificationStatus === 'verified'"
         class="verification verification--verified"
       >
-        ID Verified
+        {{ $t('views.dashboard.home.idVerified') }}
       </div>
       <div
         v-if="VerificationStatus === 'failed'"
         class="verification verification--failed"
       >
-        ID Verification Failed
+        {{ $t('views.dashboard.home.iDVerificationFailed') }}
       </div>
       <img src="@/assets/icon/bell.svg" class="ml-auto" />
     </div>
@@ -48,12 +48,14 @@
         @click="$router.push('/transactions')"
       />
     </div>
-    <h3 class="heading-gray-md mb-4">All Accounts</h3>
+    <h3 class="heading-gray-md mb-4">
+      {{ $t('views.dashboard.home.allAccounts') }}
+    </h3>
     <div class="main">
-      <h1 class="title">Get your first crypto asset</h1>
+      <h1 class="title">{{ $t('views.dashboard.home.getYourCryptoAsset') }}</h1>
       <h4 class="description">
-        Your account has no assets. <br />
-        Deposit your first crypto coins!
+        {{ $t('views.dashboard.home.noAssets') }} <br />
+        {{ $t('views.dashboard.home.depositFirstCoins') }}
       </h4>
     </div>
     <div class="controls">
@@ -63,14 +65,14 @@
         :disabled="VerificationStatus !== 'verified'"
         @click="$router.push('/deposit')"
       >
-        Deposit
+        {{ $t('views.dashboard.home.deposit') }}
       </button>
       <button
         class="btn"
         :class="{ 'btn--active': VerificationStatus === 'verified' }"
         :disabled="VerificationStatus !== 'verified'"
       >
-        Send
+        {{ $t('views.dashboard.home.send') }}
       </button>
       <button
         class="btn"
@@ -82,14 +84,20 @@
     </div>
     <div class="transactions">
       <div class="flex justify-content-between items-center w-full mb-3">
-        <p class="text-dark-gray">Transactions</p>
-        <p class="heading-gray-md">See All</p>
+        <p class="text-dark-gray">
+          {{ $t('views.dashboard.home.transactions') }}
+        </p>
+        <p class="heading-gray-md">{{ $t('views.dashboard.home.seeAll') }}</p>
       </div>
       <div class="flex items-center mb-5">
         <img src="@/assets/icon/clock.svg" class="mr-2" />
-        <p class="text-dark-gray">No Transaction Yet</p>
+        <p class="text-dark-gray">
+          {{ $t('views.dashboard.home.noTransactions') }}
+        </p>
       </div>
-      <h4 class="heading-gray-md mb-3">Todo</h4>
+      <h4 class="heading-gray-md mb-3">
+        {{ $t('views.dashboard.home.todo') }}
+      </h4>
       <div class="carousel">
         <VueAgile :slides-to-show="2" :nav-buttons="false">
           <div
@@ -121,11 +129,14 @@ import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
 import { VueAgile } from 'vue-agile';
 import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
 import { ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
 
 let isMenuOpen = ref(false);
 let loading = ref(true);
+
+const { tm } = useI18n();
 
 setTimeout(() => {
   loading.value = false;
@@ -138,40 +149,40 @@ function closeMenu() {
 const tabs = [
   {
     id: 1,
-    name: 'Dashboard',
+    name: tm('views.dashboard.home.tabs.dashboard'),
   },
   {
     id: 2,
-    name: 'Treasury',
+    name: tm('views.dashboard.home.tabs.treasury'),
   },
   {
     id: 3,
-    name: 'Loans',
+    name: tm('views.dashboard.home.tabs.loans'),
   },
 ];
 
 const carousel = [
   {
-    status: 'In Progress',
-    description: 'We’re verifying your ID',
+    status: tm('views.dashboard.home.carousel.inProgress'),
+    description: tm('views.dashboard.home.carousel.verifying'),
     imgSrc: require('@/assets/icon/todo/empty-profile.svg'),
     text: 'blue',
   },
   {
-    status: 'Required',
-    description: 'Verify your email address',
+    status: tm('views.dashboard.home.carousel.required'),
+    description: tm('views.dashboard.home.carousel.verify'),
     imgSrc: require('@/assets/icon/todo/mail.svg'),
     text: 'blue',
   },
   {
-    status: 'Recommend',
-    description: 'Get your first crypto property',
+    status: tm('views.dashboard.home.carousel.recommend'),
+    description: tm('views.dashboard.home.carousel.getYourCryptoProperty'),
     imgSrc: require('@/assets/icon/todo/wallet.svg'),
     text: 'green',
   },
   {
     status: '_',
-    description: 'How can we reach you?',
+    description: tm('views.dashboard.home.carousel.reach'),
     imgSrc: require('@/assets/icon/todo/mail.svg'),
     text: 'black',
   },
