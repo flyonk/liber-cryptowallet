@@ -1,3 +1,7 @@
+const allowedComponentNamesRegExp = `(^agile__slides|agile__dot--current|agile__slide|agile__track)`;
+const allowedElementNamesRegExp = `(^agile__list|agile__slide|agile__dots|agile__dot|agile__actions|ci-off_close)`;
+const allowedVariantNamesRegExp = `(^p-focus|p-inputswitch)`;
+
 module.exports = {
   extends: [
     'stylelint-config-standard',
@@ -25,14 +29,15 @@ module.exports = {
     'scss/at-rule-no-unknown': true,
     'no-descending-specificity': null,
     'rscss/class-format': [
-      true,
+      false,
       {
         maxDepth: '8',
-        component: '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
-        element: '^([a-z][a-z0-9]*)(-[a-z0-9]+)*$',
+        component: `${allowedComponentNamesRegExp}|^([a-z][a-z0-9]*)(-[a-z0-9]+)*$`,
+        element: `${allowedElementNamesRegExp}|(^([a-z][a-z0-9]*)(-[a-z0-9]+)*$)`,
+        variant: `${allowedVariantNamesRegExp}|(^(-[a-z0-9]+)(-[a-z0-9]+)*$)`,
       },
     ],
-    'rscss/no-descendant-combinator': true,
+    'rscss/no-descendant-combinator': false,
     'declaration-block-no-duplicate-properties': null,
     'declaration-block-no-redundant-longhand-properties': null,
     'selector-pseudo-class-no-unknown': [
