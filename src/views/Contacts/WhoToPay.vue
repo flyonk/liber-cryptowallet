@@ -50,6 +50,7 @@
           v-for="(contact, index) in mockContacts"
           :key="index"
           class="contact-item"
+          @click="isMenuOpen = !isMenuOpen"
         >
           <div class="initials">
             {{ getContactInitials(contact.name) }}
@@ -80,18 +81,31 @@
     <button class="options-button">
       Payment Options
     </button>
+    <bottom-swipe-menu
+      :is-menu-open="isMenuOpen"
+      menu-type="communication"
+      @close-menu="closeMenu"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
-import BaseInput from '@/components/UI/BaseInput.vue'
 import { ref } from 'vue';
+
+import BaseInput from '@/components/UI/BaseInput.vue'
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue'
+
+let isMenuOpen = ref(false);
 
 let activeTab = ref(1);
 
 function getContactInitials(fio: string) {
   let parts = fio.split(' ');
   return parts[0][0] + parts[1][0];
+}
+
+function closeMenu() {
+  isMenuOpen.value = false;
 }
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'

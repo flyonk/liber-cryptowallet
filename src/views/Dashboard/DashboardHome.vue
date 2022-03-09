@@ -152,7 +152,7 @@
 </template>
 
 <script setup lang="ts">
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
 import { VueAgile } from 'vue-agile';
 import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue'
 import { ref } from 'vue';
