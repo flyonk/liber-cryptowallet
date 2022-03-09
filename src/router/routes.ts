@@ -228,6 +228,14 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendInvite.vue'
           ),
       },
+      {
+        path: 'send_link',
+        name: 'contacts.send.link',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendViaLink.vue'
+          ),
+      },
     ],
   },
 

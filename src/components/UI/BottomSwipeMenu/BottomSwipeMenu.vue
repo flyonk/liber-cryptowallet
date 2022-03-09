@@ -60,7 +60,7 @@ const currentComponent = computed(() => {
   }
 })
 
-const { isMenuOen } = toRefs(props);
+const { isMenuOpen } = toRefs(props);
 
 onUpdated(() => {
   switch (props.menuType) {
@@ -72,7 +72,7 @@ onUpdated(() => {
       break;
     case 'communication':
       if (menu?.value) {
-        menu.value.style.minHeight = `70%`;
+        menu.value.style.minHeight = `60%`;
         menu.value.style.maxHeight = `90%`;
       }
       break;

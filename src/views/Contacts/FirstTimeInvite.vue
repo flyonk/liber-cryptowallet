@@ -36,7 +36,10 @@
       v-if="isAllowAccessToContacts"
       class="invite-controls"
     >
-      <button class="btn">
+      <button
+        class="btn"
+        @click="$router.push('/contacts/send_link')"
+      >
         <img
           src="@/assets/icon/chain.svg"
           class="icon mr-2"
