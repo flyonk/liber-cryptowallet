@@ -1,10 +1,7 @@
 <template>
   <div class="base-input">
     <div class="input">
-      <div
-        class="p-float-label"
-        :class="{ 'p-input-icon-right': $slots.append }"
-      >
+      <div class="p-float-label" :class="{ 'p-input-icon-right': $slots.append }">
         <slot v-if="$slots.append" name="append" />
         <component :is="currentComponent" v-bind="$attrs" />
         <label>
@@ -68,11 +65,11 @@ const currentComponent = computed(() => {
       width: 100%;
 
       > .label {
-        background-color: green;
         left: 0.1rem;
         top: 9px;
         left: 0;
         font-size: 12px;
+        background-color: green;
       }
 
       > input:focus ~ label,
@@ -86,6 +83,40 @@ const currentComponent = computed(() => {
         line-height: 13px;
         top: 10px;
       }
+
+      > .p-inputtext,
+      > .p-inputnumber {
+        background: transparent;
+        border: 0;
+        color: $color-brand-primary;
+        height: 100%;
+        padding: 0;
+        width: 100%;
+
+        &:enabled:focus {
+          border-color: transparent;
+          box-shadow: none;
+          outline: none;
+        }
+      }
+
+      // For BaseInput type="number" case
+      > .p-inputnumber {
+        > .p-inputtext {
+          background: transparent;
+          border: 0;
+          color: $color-brand-primary;
+          height: 100%;
+          padding: 0;
+          width: 100%;
+
+          &:enabled:focus {
+            border-color: transparent;
+            box-shadow: none;
+            outline: none;
+          }
+        }
+      }
     }
 
     &:focus-within {
@@ -94,7 +125,7 @@ const currentComponent = computed(() => {
     }
 
     > .p-input-icon-right {
-      & i {
+      > i {
         margin-top: -0.7rem;
         font-size: 24px;
         position: absolute;
@@ -106,22 +137,22 @@ const currentComponent = computed(() => {
         }
       }
     }
+    //Commented it out for future refactoring by the author of the component
+    // .p-inputtext,
+    // .p-inputnumber {
+    //   background: transparent;
+    //   border: 0;
+    //   color: $color-brand-primary;
+    //   height: 100%;
+    //   padding: 0;
+    //   width: 100%;
 
-    .p-inputtext,
-    .p-inputnumber {
-      background: transparent;
-      border: 0;
-      color: $color-brand-primary;
-      height: 100%;
-      padding: 0;
-      width: 100%;
-
-      &:enabled:focus {
-        border-color: transparent;
-        box-shadow: none;
-        outline: none;
-      }
-    }
+    //   &:enabled:focus {
+    //     border-color: transparent;
+    //     box-shadow: none;
+    //     outline: none;
+    //   }
+    // }
   }
 
   > .message {
@@ -139,7 +170,7 @@ input::-webkit-inner-spin-button {
 }
 
 /* Firefox */
-input[type='number'] {
+input[type="number"] {
   appearance: textfield;
 }
 </style>
