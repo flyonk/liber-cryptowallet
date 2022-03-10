@@ -107,7 +107,8 @@
       "eslint"
     ],
     "*.{css,vue}": [
-      "stylelint --fix"
+      "stylelint --fix",
+      "prettier --write"
     ],
     "*.js": "eslint --cache --fix",
     "*.css": "stylelint --fix"

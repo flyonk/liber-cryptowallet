@@ -1,6 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">{{ $t('common.codeInput') }}</TopNavigation>
+    <TopNavigation @click:left-icon="prevStep">{{
+      $t('common.codeInput')
+    }}</TopNavigation>
     <div class="description text--body">
       {{ $t('auth.login.step2Description1') }}
       <br />
@@ -17,9 +19,11 @@
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
         <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
-          <template
-            #countdown="{ minute, second }"
-          >{{ $t('auth.login.step2ResendTitle') }} {{ minute }}:{{ second }}</template>
+          <template #countdown="{ minute, second }"
+            >{{ $t('auth.login.step2ResendTitle') }} {{ minute }}:{{
+              second
+            }}</template
+          >
         </BaseCountdown>
         <template v-else>
           <BaseButton
@@ -27,7 +31,8 @@
             size="medium"
             view="flat"
             @click="resend"
-          >{{ $t('auth.login.step2ResendCta') }}</BaseButton>
+            >{{ $t('auth.login.step2ResendCta') }}</BaseButton
+          >
         </template>
       </span>
     </div>

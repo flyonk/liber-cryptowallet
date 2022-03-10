@@ -4,7 +4,8 @@
       <h1 class="main-title">$t('views.deposit.wallet.deposit') }} BTC</h1>
 
       <p class="text-default">
-        {{ $t('views.deposit.wallet.sendOnly') }} BTC {{ $t('views.deposit.wallet.address') }}
+        {{ $t('views.deposit.wallet.sendOnly') }} BTC
+        {{ $t('views.deposit.wallet.address') }}
       </p>
 
       <div>
@@ -12,7 +13,9 @@
       </div>
 
       <div class="wallet">
-        <h2 class="wallet-title">{{ $t('views.deposit.wallet.walletAddress') }}</h2>
+        <h2 class="wallet-title">
+          {{ $t('views.deposit.wallet.walletAddress') }}
+        </h2>
         <p class="wallet-address">
           {{ wallet }}
         </p>

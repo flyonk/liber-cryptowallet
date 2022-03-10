@@ -3,7 +3,9 @@
     <div class="page-header">
       <BackHistoryBtn :path="'/home'" />
 
-      <h1 class="main-title">{{ $t('views.deposit.selectCoin.selectCoin') }}</h1>
+      <h1 class="main-title">
+        {{ $t('views.deposit.selectCoin.selectCoin') }}
+      </h1>
 
       <label for="searchCoin" class="input-label">
         <img src="@/assets/icon/search.svg" alt="search" class="icon" />

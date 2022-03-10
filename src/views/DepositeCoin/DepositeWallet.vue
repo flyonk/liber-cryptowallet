@@ -2,12 +2,15 @@
   <div class="page-wrapper">
     <BackHistoryBtn :path="{ name: 'deposit-network' }" />
 
-    <h1 class="main-title">{{ $t('views.deposit.wallet.deposit') }} {{ coin }}</h1>
+    <h1 class="main-title">
+      {{ $t('views.deposit.wallet.deposit') }} {{ coin }}
+    </h1>
 
     <div class="qr-code-container">
       <canvas ref="canvas" class="qr-code-canvas" />
       <p class="text-default">
-        {{ $t('views.deposit.wallet.sendOnly') }} {{ coin }} {{ $t('views.deposit.wallet.address') }}
+        {{ $t('views.deposit.wallet.sendOnly') }} {{ coin }}
+        {{ $t('views.deposit.wallet.address') }}
       </p>
     </div>
 
@@ -44,12 +47,16 @@
 
         <div class="row row-footer">
           <p class="title">{{ $t('views.deposit.wallet.arrival') }}</p>
-          <p class="content">1 {{ $t('views.deposit.wallet.networkConfirmation') }}</p>
+          <p class="content">
+            1 {{ $t('views.deposit.wallet.networkConfirmation') }}
+          </p>
         </div>
 
         <div class="row row-footer">
           <p class="title">{{ $t('views.deposit.wallet.expectedUnlock') }}</p>
-          <p class="content">2 {{ $t('views.deposit.wallet.networkConfirmations') }}</p>
+          <p class="content">
+            2 {{ $t('views.deposit.wallet.networkConfirmations') }}
+          </p>
         </div>
       </div>
 
