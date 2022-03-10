@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ filled: filled }" class="base-search-input">
+  <div :class="{ '-filled': filled }" class="base-search-input">
     <span class="p-input-icon-left p-input-icon-right flex align-items-center">
       <i class="ci-search" />
       <PInput
@@ -35,54 +35,60 @@ defineEmits(['update:modelValue']);
 
 <style lang="scss">
 .base-search-input {
-  .p-inputtext {
-    border-color: transparent;
-    border-radius: 12px;
-    background: $color-input-bg;
-    transition: all 0.5s;
-    width: 100%;
+  > span {
+    > .p-inputtext {
+      border-color: transparent;
+      border-radius: 12px;
+      background: $color-input-bg;
+      transition: all 0.5s;
+      width: 100%;
 
-    &:enabled {
-      &:focus {
-        box-shadow: none;
-        outline: none;
+      &:enabled {
+        &:focus {
+          box-shadow: none;
+          outline: none;
+        }
+
+        &:hover,
+        &:focus {
+          border-color: $color-primary;
+          background: $color-white;
+        }
       }
 
-      &:hover,
-      &:focus {
-        border-color: $color-primary;
-        background: $color-white;
+      &::placeholder {
+        font-size: 16px;
+        line-height: 21px;
+        display: flex;
+        align-items: center;
+        color: $color-dark-grey;
+        letter-spacing: -0.0031em;
       }
     }
 
-    &::placeholder {
-      font-size: 16px;
-      line-height: 21px;
-      display: flex;
-      align-items: center;
-      color: $color-dark-grey;
-      letter-spacing: -0.0031em;
+    > i {
+      font-size: 24px;
+
+      &.ci-search {
+        top: 40%;
+      }
+
+      &.ci-off_close {
+        font-size: 13px;
+        top: 50%;
+        display: none;
+        cursor: pointer;
+      }
     }
   }
 
-  i {
-    font-size: 24px;
-
-    &.ci-search {
-      top: 40%;
-    }
-
-    &.ci-off_close {
-      font-size: 13px;
-      top: 50%;
-      display: none;
-      cursor: pointer;
-    }
-  }
-
-  &.filled {
-    i.ci-off_close {
-      display: block;
+  &.-filled {
+    > span {
+      > i {
+        &.ci-off_close {
+          display: block;
+        }
+      }
     }
   }
 }

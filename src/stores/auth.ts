@@ -6,6 +6,10 @@ import { defineStore } from 'pinia';
 
 // === Auth Types ===
 
+type TSuccessAxiosSignIn = {
+  data: TSuccessSignIn;
+};
+
 export interface IAuthSteps {
   registration: number;
   login: number;
@@ -81,7 +85,9 @@ export const useAuthStore = defineStore('auth', {
     }): Promise<void | TErrorResponse> {
       try {
         // FIXME: should return a model
-        const { data } = (await authService.signInProceed(_data)) as any;
+        const { data } = (await authService.signInProceed(
+          _data
+        )) as TSuccessAxiosSignIn;
 
         this.setToken(data as TSuccessSignIn);
       } catch (e) {

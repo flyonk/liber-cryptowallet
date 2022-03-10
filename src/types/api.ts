@@ -7,10 +7,13 @@ export interface IApiService {
 
 export interface IAuthService {
   signIn(data: { phone: string }): Promise<TSuccessResponse | TErrorResponse>;
+  //TODO: fix me
   signInProceed(data: {
     phone: string;
     otp: string;
-  }): Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>>;
+  }):
+    | Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>>
+    | Promise<null>;
   logout(data: {
     access_token: string;
   }): Promise<TSuccessResponse | TErrorResponse>;
@@ -188,6 +191,7 @@ export type TUpdateProfile = {
 };
 
 export type TClaim = {
+  // wrong body
   id: number;
   claim_id: number;
   type: number;

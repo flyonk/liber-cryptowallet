@@ -25,13 +25,14 @@
         view="secondary"
         block
         @click="onPaste"
-      >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button>
+        >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button
+      >
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUpdate, Ref, ref } from 'vue';
+import { computed, onBeforeUpdate, Ref, ref, getCurrentInstance } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { BaseButton } from '@/components/UI';
@@ -56,6 +57,8 @@ const emit = defineEmits(['change', 'complete', 'update:modelValue']);
 const inputs = ref([]) as Ref<HTMLElement[]>;
 
 const activationCode = ref([]) as Ref<string[]>;
+
+const { proxy } = getCurrentInstance();
 
 onBeforeUpdate(() => {
   inputs.value = [];
@@ -132,6 +135,7 @@ const onPaste = async (): Promise<void> => {
     }
   } catch (e) {
     console.error(e);
+    proxy.$sentry.capture(e, 'BaseVerificationCodeInput', 'onPaste');
   }
 };
 </script>

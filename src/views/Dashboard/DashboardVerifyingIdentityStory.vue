@@ -9,8 +9,12 @@
       />
     </div>
     <div class="main">
-      <h1 class="title">{{ $t('views.dashboard.verifyingIdentity.verifying') }}</h1>
-      <p class="description">{{ $t('views.dashboard.verifyingIdentity.details') }}</p>
+      <h1 class="title">
+        {{ $t('views.dashboard.verifyingIdentity.verifying') }}
+      </h1>
+      <p class="description">
+        {{ $t('views.dashboard.verifyingIdentity.details') }}
+      </p>
       <img
         class="image"
         src="@/assets/images/50-percent-loader.png"
@@ -18,7 +22,9 @@
       />
     </div>
     <footer class="footer">
-      <button class="btn">{{ $t('views.dashboard.verifyingIdentity.gotIt') }}</button>
+      <button class="btn">
+        {{ $t('views.dashboard.verifyingIdentity.gotIt') }}
+      </button>
     </footer>
   </div>
 </template>

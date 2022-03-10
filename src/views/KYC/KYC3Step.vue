@@ -56,9 +56,11 @@ const onSelect = (proofType: EKYCProofType): void => {
 <style scoped lang="scss">
 .kyc-3-step {
   > .navigation {
-    .controller {
-      color: $color-primary;
-      user-select: none;
+    > .page-title {
+      > .controller {
+        color: $color-primary;
+        user-select: none;
+      }
     }
   }
 }

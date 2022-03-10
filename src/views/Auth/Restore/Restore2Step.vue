@@ -102,7 +102,7 @@ const onSubmit = (success: boolean): void => {
 }
 
 .session-expired-toast {
-  .text--body {
+  > .text {
     color: $color-dark-grey;
     margin: 4px 0 16px;
   }
