@@ -1,6 +1,6 @@
 <template name="DashboardHome">
   <DashboardSkeleton v-if="loading" />
-  <div v-else class="dashboard">
+  <div v-else class="dashboard-container">
     <div class="header flex mb-4">
       <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
       <div v-if="VerificationStatus === 'in_progress'" class="verification">
@@ -8,7 +8,7 @@
       </div>
       <div
         v-if="VerificationStatus === 'verified'"
-        class="verification verification--verified"
+        class="verification -verified"
       >
         {{ $t('views.dashboard.home.idVerified') }}
       </div>
@@ -36,7 +36,7 @@
       <div class="circle-wrap">
         <img
           class="down"
-          :class="{ 'down--reverted': isMenuOpen }"
+          :class="{ '-reverted': isMenuOpen }"
           src="@/assets/icon/arrow-down.svg"
           @click="isMenuOpen = !isMenuOpen"
         />
@@ -61,7 +61,7 @@
     <div class="controls">
       <button
         class="btn"
-        :class="{ 'btn--active': VerificationStatus === 'verified' }"
+        :class="{ '-active': VerificationStatus === 'verified' }"
         :disabled="VerificationStatus !== 'verified'"
         @click="$router.push('/deposit')"
       >
@@ -69,14 +69,14 @@
       </button>
       <button
         class="btn"
-        :class="{ 'btn--active': VerificationStatus === 'verified' }"
+        :class="{ '-active': VerificationStatus === 'verified' }"
         :disabled="VerificationStatus !== 'verified'"
       >
         {{ $t('views.dashboard.home.send') }}
       </button>
       <button
         class="btn"
-        :class="{ 'btn--active': VerificationStatus === 'verified' }"
+        :class="{ '-active': VerificationStatus === 'verified' }"
         :disabled="VerificationStatus !== 'verified'"
       >
         ...
@@ -190,7 +190,7 @@ const carousel = [
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
+.dashboard-container {
   padding: 15px 15px 0;
   background: $color-light-grey-100;
   overflow: auto;
@@ -215,12 +215,12 @@ const carousel = [
       letter-spacing: -0.0031em;
       color: $color-yellow-800;
 
-      &--verified {
+      &.-verified {
         background: $color-green-100;
         color: $color-green-800;
       }
 
-      &--failed {
+      &.-failed {
         width: 181px;
         background: $color-red-100;
         color: $color-red-700;
@@ -264,8 +264,10 @@ const carousel = [
       height: 36px;
       width: 36px;
 
-      > .down--reverted {
-        transform: rotate(180deg);
+      > .down {
+        &.-reverted {
+          transform: rotate(180deg);
+        }
       }
     }
   }
@@ -305,7 +307,7 @@ const carousel = [
       margin-right: 8px;
       color: $color-white;
 
-      &--active {
+      &.-active {
         background: $color-primary;
       }
 
@@ -317,141 +319,146 @@ const carousel = [
     }
   }
 
-  .carousel {
-    display: flex;
-    margin-bottom: 20px;
-    position: relative;
-    left: -37px;
-    width: 113%;
-  }
-
-  .carousel-item {
-    width: 160px;
-    padding: 16px;
-    height: 160px;
-    border-radius: 16px;
-    margin-right: 8px;
-    background: $color-light-grey;
-
-    img {
+  > .transactions {
+    > .carousel {
+      display: flex;
       margin-bottom: 20px;
-    }
-
-    h4 {
-      color: $color-primary;
-      font-weight: 800;
-      font-size: 10px;
-      line-height: 13px;
-      margin-bottom: 5px;
-    }
-
-    &:nth-child(3) {
-      background: $color-green-50;
-    }
-
-    &:last-child {
-      background: $color-yellow-50;
+      position: relative;
+      left: -37px;
+      width: 113%;
     }
   }
 
-  &__header {
-    margin-bottom: 16px;
-  }
+  /**
+  I consider it a legacy, but I will keep it
+  */
+  // &__header {
+  //   margin-bottom: 16px;
+  // }
 
-  &__tabs {
-    display: flex;
+  // &__tabs {
+  //   display: flex;
 
-    &--item {
-      color: $color-brand-primary;
-      border-radius: 8px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 101px;
-      height: 40px;
+  //   &--item {
+  //     color: $color-brand-primary;
+  //     border-radius: 8px;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     width: 101px;
+  //     height: 40px;
 
-      &.active {
-        background: $color-brand-secondary;
-        color: $color-white;
-      }
-    }
-  }
+  //     &.active {
+  //       background: $color-brand-secondary;
+  //       color: $color-white;
+  //     }
+  //   }
+  // }
 
-  &__currencies {
-    margin-top: 30px;
+  // &__currencies {
+  //   margin-top: 30px;
 
-    &--wrap {
-      margin: 0 6px 5px 0;
-    }
+  //   &--wrap {
+  //     margin: 0 6px 5px 0;
+  //   }
 
-    &--down {
-      width: 24px;
-      height: 24px;
-      background: $color-light-grey;
-      border-radius: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
+  //   &--down {
+  //     width: 24px;
+  //     height: 24px;
+  //     background: $color-light-grey;
+  //     border-radius: 100px;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //   }
+  // }
 
-  &__controls {
-    display: flex;
-    margin-bottom: 32px;
+  // &__controls {
+  //   display: flex;
+  //   margin-bottom: 32px;
 
-    &--btn {
-      background: $color-grey;
-      border-radius: 8px;
-      padding: 0 16px 0 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 109px;
-      height: 40px;
-      margin-right: 8px;
-      color: $color-white;
+  //   &--btn {
+  //     background: $color-grey;
+  //     border-radius: 8px;
+  //     padding: 0 16px 0 12px;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     width: 109px;
+  //     height: 40px;
+  //     margin-right: 8px;
+  //     color: $color-white;
 
-      &:last-child {
-        width: 40px;
-        height: 40px;
-        margin: 0;
-      }
-    }
-  }
+  //     &:last-child {
+  //       width: 40px;
+  //       height: 40px;
+  //       margin: 0;
+  //     }
+  //   }
+  // }
 
-  &__carousel {
-    display: flex;
+  // &__carousel {
+  //   display: flex;
+  //   margin-bottom: 20px;
+
+  //   &--item {
+  //     width: 160px;
+  //     padding: 16px;
+  //     height: 160px;
+  //     border-radius: 16px;
+  //     margin-right: 8px;
+  //     background: $color-light-grey;
+
+  //     img {
+  //       margin-bottom: 20px;
+  //     }
+
+  //     h4 {
+  //       color: $color-primary;
+  //       font-weight: 800;
+  //       font-size: 10px;
+  //       line-height: 13px;
+  //       margin-bottom: 5px;
+  //     }
+
+  //     &:nth-child(3) {
+  //       background: $color-green-50;
+  //     }
+
+  //     &:last-child {
+  //       margin-right: 0;
+  //       background: $color-yellow-50;
+  //     }
+  //   }
+  // }
+}
+
+.carousel-item {
+  width: 160px;
+  padding: 16px;
+  height: 160px;
+  border-radius: 16px;
+  margin-right: 8px;
+  background: $color-light-grey;
+
+  > img {
     margin-bottom: 20px;
+  }
 
-    &--item {
-      width: 160px;
-      padding: 16px;
-      height: 160px;
-      border-radius: 16px;
-      margin-right: 8px;
-      background: $color-light-grey;
+  > h4 {
+    color: $color-primary;
+    font-weight: 800;
+    font-size: 10px;
+    line-height: 13px;
+    margin-bottom: 5px;
+  }
 
-      img {
-        margin-bottom: 20px;
-      }
+  &:nth-child(3) {
+    background: $color-green-50;
+  }
 
-      h4 {
-        color: $color-primary;
-        font-weight: 800;
-        font-size: 10px;
-        line-height: 13px;
-        margin-bottom: 5px;
-      }
-
-      &:nth-child(3) {
-        background: $color-green-50;
-      }
-
-      &:last-child {
-        margin-right: 0;
-        background: $color-yellow-50;
-      }
-    }
+  &:last-child {
+    background: $color-yellow-50;
   }
 }
 

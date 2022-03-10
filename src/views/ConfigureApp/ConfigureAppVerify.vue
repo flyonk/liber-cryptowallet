@@ -40,7 +40,7 @@ const store = use2faStore();
 store.generateToken();
 
 const verificationCode = ref('');
-const showErrorToast = ref(false);
+const showErrorToast = ref(true);
 
 const router = useRouter();
 

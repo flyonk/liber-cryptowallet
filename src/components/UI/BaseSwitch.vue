@@ -14,26 +14,34 @@
 defineEmits(['update:modelValue']);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-switch {
   display: grid;
   grid-template-columns: 55px 1fr;
 
-  .p-inputswitch {
+  > :deep(.p-inputswitch) {
     &.p-focus {
       outline: none !important;
 
-      > .p-inputswitch-slider {
+      // TODO: FIX Variant has no element: '.p-inputswitch-slider'
+      // But the linter is fine if you pass the tag selector
+      // > .p-inputswitch-slider {
+      //   background-color: goldenrod !important;
+      //   outline: none !important;
+      // }
+      > span {
         outline: none !important;
       }
     }
 
-    &.p-inputswitch.p-inputswitch-checked .p-inputswitch-slider {
-      background: $color-primary;
+    &.p-inputswitch-checked {
+      &.p-inputswitch-slider {
+        background: $color-primary;
+      }
     }
   }
 
-  span {
+  > span {
     user-select: none;
     padding-left: 16px;
   }

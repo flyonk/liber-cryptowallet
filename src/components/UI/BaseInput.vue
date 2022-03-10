@@ -50,39 +50,75 @@ const currentComponent = computed(() => {
 .base-input {
   margin: 0 0 16px;
 
-  .input {
+  > .input {
     background: $color-input-bg;
     border: 1px solid transparent;
     border-radius: 12px;
     height: 56px;
     padding: 4px 16px;
 
-    .message {
-      height: 24px;
-      width: 100%;
-    }
+    // .message {
+    //   background-color: red;
+    //   height: 24px;
+    //   width: 100%;
+    // }
 
-    .p-float-label {
+    > .p-float-label {
       height: 100%;
       width: 100%;
 
-      label {
+      > .label {
         left: 0.1rem;
         top: 9px;
         left: 0;
         font-size: 12px;
+        background-color: green;
       }
 
-      input:focus ~ label,
-      input.p-filled ~ label,
-      textarea:focus ~ label,
-      textarea.p-filled ~ label,
-      .p-inputwrapper-focus ~ label,
-      .p-inputwrapper-filled ~ label {
+      > input:focus ~ label,
+      > input.p-filled ~ label,
+      > textarea:focus ~ label,
+      > textarea.p-filled ~ label,
+      > .p-inputwrapper-focus ~ label,
+      > .p-inputwrapper-filled ~ label {
         bottom: 50%;
         font-size: 11px;
         line-height: 13px;
         top: 10px;
+      }
+
+      > .p-inputtext,
+      > .p-inputnumber {
+        background: transparent;
+        border: 0;
+        color: $color-brand-primary;
+        height: 100%;
+        padding: 0;
+        width: 100%;
+
+        &:enabled:focus {
+          border-color: transparent;
+          box-shadow: none;
+          outline: none;
+        }
+      }
+
+      // For BaseInput type="number" case
+      > .p-inputnumber {
+        > .p-inputtext {
+          background: transparent;
+          border: 0;
+          color: $color-brand-primary;
+          height: 100%;
+          padding: 0;
+          width: 100%;
+
+          &:enabled:focus {
+            border-color: transparent;
+            box-shadow: none;
+            outline: none;
+          }
+        }
       }
     }
 
@@ -92,7 +128,7 @@ const currentComponent = computed(() => {
     }
 
     > .p-input-icon-right {
-      & i {
+      > i {
         margin-top: -0.7rem;
         font-size: 24px;
         position: absolute;
@@ -104,25 +140,25 @@ const currentComponent = computed(() => {
         }
       }
     }
+    //Commented it out for future refactoring by the author of the component
+    // .p-inputtext,
+    // .p-inputnumber {
+    //   background: transparent;
+    //   border: 0;
+    //   color: $color-brand-primary;
+    //   height: 100%;
+    //   padding: 0;
+    //   width: 100%;
 
-    .p-inputtext,
-    .p-inputnumber {
-      background: transparent;
-      border: 0;
-      color: $color-brand-primary;
-      height: 100%;
-      padding: 0;
-      width: 100%;
-
-      &:enabled:focus {
-        border-color: transparent;
-        box-shadow: none;
-        outline: none;
-      }
-    }
+    //   &:enabled:focus {
+    //     border-color: transparent;
+    //     box-shadow: none;
+    //     outline: none;
+    //   }
+    // }
   }
 
-  .message {
+  > .message {
     padding: 8px 16px 0;
     color: $color-grey;
     display: flex;

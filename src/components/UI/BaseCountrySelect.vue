@@ -7,8 +7,8 @@
     </span>
     <BaseBottomSheet v-model:visible="showList" position="bottom">
       <div class="country-select-block">
-        <div class="grid align-items-center">
-          <div class="col-9">
+        <div class="grid align-items-center container">
+          <div class="col-9 searchcontainer">
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
@@ -22,19 +22,15 @@
           <div
             v-for="(country, index) in filteredList"
             :key="index"
-            :class="{ selected: isSelectedCountry(country) }"
+            :class="{ '-selected': isSelectedCountry(country) }"
             class="item grid align-items-center"
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt="" />
+              <img :src="country.flag" alt />
             </div>
-            <div class="code col-2">
-              {{ country.isoCode }}
-            </div>
-            <div class="title col-8">
-              {{ country.name }}
-            </div>
+            <div class="code col-2">{{ country.isoCode }}</div>
+            <div class="title col-8">{{ country.name }}</div>
           </div>
         </div>
       </div>
@@ -112,8 +108,8 @@ function onClick(): void {
   user-select: none;
   cursor: pointer;
 
-  .flag {
-    img {
+  > .flag {
+    > img {
       object-fit: cover;
       border-radius: 50%;
       height: 24px;
@@ -121,7 +117,7 @@ function onClick(): void {
     }
   }
 
-  .p-float-label {
+  > .p-float-label {
     width: 100%;
   }
 }
@@ -129,32 +125,46 @@ function onClick(): void {
 .country-select-block {
   padding-top: 16px;
 
-  .cancel-button {
-    color: $color-primary;
-    cursor: pointer;
-    user-select: none;
-    user-select: none;
-    user-select: none;
-    user-select: none;
+  > .container {
+    > .cancelcontainer {
+      > .cancelbutton {
+        color: $color-primary;
+        cursor: pointer;
+        user-select: none;
+        user-select: none;
+        user-select: none;
+        user-select: none;
+      }
+    }
   }
 
-  .country-list {
+  // .cancel-button {
+  //   background-color: red;
+  //   color: $color-primary;
+  //   cursor: pointer;
+  //   user-select: none;
+  //   user-select: none;
+  //   user-select: none;
+  //   user-select: none;
+  // }
+
+  > .country-list {
     margin-top: 20px;
 
-    .item {
+    > .item {
       border-radius: 8px;
       padding: 12px 16px;
       margin-bottom: 8px;
       cursor: pointer;
 
-      &.selected {
+      &.-selected {
         background: $color-light-grey-300;
       }
 
-      .flag {
+      > .flag {
         padding: 0;
 
-        img {
+        > img {
           object-fit: cover;
           border-radius: 50%;
           height: 40px;
@@ -162,7 +172,7 @@ function onClick(): void {
         }
       }
 
-      .code {
+      > .code {
         color: $color-dark-grey;
       }
     }

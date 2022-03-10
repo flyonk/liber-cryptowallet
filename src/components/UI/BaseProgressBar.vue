@@ -1,10 +1,12 @@
 <template>
-  <progress-bar
-    :value="value"
-    :show-value="false"
-    class="progress-bar"
-    :style="styles"
-  />
+  <div class="progress-bar-container">
+    <progress-bar
+      :value="value"
+      :show-value="false"
+      class="progress-bar"
+      :style="styles"
+    />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -27,12 +29,12 @@ const styles = computed(() => ({
 }));
 </script>
 
-<style lang="scss">
-.progress-bar {
-  &.p-progressbar {
+<style lang="scss" scoped>
+.progress-bar-container {
+  > :deep(.p-progressbar) {
     background-color: $color-primary-100;
 
-    .p-progressbar-value {
+    > .p-progressbar-value {
       background-color: $color-primary;
     }
   }
