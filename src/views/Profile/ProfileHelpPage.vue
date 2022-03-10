@@ -44,7 +44,7 @@
 </template>
 
 <script setup lang="ts">
-import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseInput from '@/components/UI/molecules/base-input/BaseInput.vue';
 </script>
 
 <style lang="scss" scoped>

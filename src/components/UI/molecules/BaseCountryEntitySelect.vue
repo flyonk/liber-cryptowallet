@@ -39,7 +39,7 @@ import { ref, Ref, computed, ComputedRef } from 'vue';
 import { PropType } from 'vue-demi';
 
 import BaseBottomSheet from '@/components/UI/molecules/BaseBottomSheet.vue';
-import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
+import BaseSearchInput from '@/components/UI/atoms/BaseSearchInput.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 

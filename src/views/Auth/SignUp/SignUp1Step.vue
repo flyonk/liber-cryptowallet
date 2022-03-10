@@ -45,7 +45,7 @@
 <script lang="ts" setup>
 import { onMounted, ref } from 'vue';
 import TopNavigation from '@/components/UI/TopNavigation.vue';
-import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseInput from '@/components/UI/molecules/base-input/BaseInput.vue';
 import BaseCountryPhoneInput from '@/components/UI/organisms/BaseCountryPhoneInput.vue';
 import BaseButton from '@/components/UI/molecules/base-button/BaseButton.vue';
 import { useAuthStore } from '@/stores/auth';
