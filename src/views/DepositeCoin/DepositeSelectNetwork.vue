@@ -45,6 +45,10 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
+
 const router = useRouter();
 type dictionaryItem = {
   id: number | string;
@@ -60,24 +64,24 @@ const dictionary = ref([
   {
     question: {
       id: 1,
-      body: 'Main reason for using Liber',
+      body: tm('views.deposit.selectNetwork.question'),
     },
     answers: [
       {
         id: 1,
-        body: 'Spend or save daily',
+        body: tm('views.deposit.selectNetwork.spendOrSave'),
       },
       {
         id: 2,
-        body: 'Spend while travelling',
+        body: tm('views.deposit.selectNetwork.spendWhileTravelling'),
       },
       {
         id: 3,
-        body: 'Send money',
+        body: tm('views.deposit.selectNetwork.sendMoney'),
       },
       {
         id: 4,
-        body: 'Gain exposure to financial assets',
+        body: tm('views.deposit.selectNetwork.gainExposure'),
       },
     ],
   } as Dictionary,
@@ -125,10 +129,10 @@ const selectAnswer = (id: number | string) => {
   activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue);
 };
 const description = computed(() => {
-  return 'Ensure the network you choose to deposit metches the withdrawal network, or assets may be lost';
+  return tm('views.deposit.selectNetwork.ensure');
 });
 const title = computed(() => {
-  return 'Choose Network';
+  return tm('views.deposit.selectNetwork.chooseNetwork');
 });
 </script>
 
