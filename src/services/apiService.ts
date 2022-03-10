@@ -3,33 +3,33 @@ import { BASE_API_URL, API_VERSION } from '@/constants';
 export default {
   auth: {
     signIn(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/auth`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth`;
     },
     signInProceed(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/auth/proceed`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/proceed`;
     },
     refresh(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/auth/refresh`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/refresh`;
     },
     logout(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/auth/logout`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/logout`;
     },
   },
   profile: {
     baseUrl(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/profile`;
+      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile`;
     },
     avatar(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/profile/avatar`;
+      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/avatar`;
     },
     close(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/profile/close`;
+      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/close`;
     },
     kycClaim(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim`;
+      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/kyc/claim`;
     },
     kycHook(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim/hook`;
+      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/kyc/claim/hook`;
     },
   },
   authenticators: {
