@@ -16,7 +16,7 @@ export default {
             id: input.number,
             userId: input.user_id,
             status: input.status,
-            fileList: deserializeFileListAdaptor(input.file_list)
+            fileList: deserializeFileListAdaptor(input.file_list) // -> input.file_list.map(ClaimFile.deserialize)
         };
     },
 
@@ -26,7 +26,7 @@ export default {
             id: input.id,
             user_id: input.userId,
             status: input.status,
-            file_list: requestSerializeFileListAdaptor(input.fileList)
+            file_list: requestSerializeFileListAdaptor(input.fileList) // -> input.fileList.map(ClaimFile.requestSerialize)
         };
     },
 };
