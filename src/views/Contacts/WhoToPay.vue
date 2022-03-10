@@ -108,20 +108,21 @@
         class="btn"
         size="large"
         view="simple"
+        @click="isMenuOpen = !isMenuOpen"
       >
         Add new contact
       </BaseButton>
     </div>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
-      menu-type="communication"
+      :menu-type="getMenuType"
       @close-menu="closeMenu"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 import BaseInput from '@/components/UI/BaseInput.vue'
 import BaseButton from '@/components/UI/BaseButton.vue'
@@ -136,6 +137,16 @@ function getContactInitials(fio: string) {
   let parts = fio.split(' ');
   return parts[0][0] + parts[1][0];
 }
+
+const getMenuType = computed(() => {
+  if (hasFriends.value) {
+    return 'communication'
+  } else {
+    return 'add_contact'
+  }
+})
+
+  
 
 function closeMenu() {
   isMenuOpen.value = false;

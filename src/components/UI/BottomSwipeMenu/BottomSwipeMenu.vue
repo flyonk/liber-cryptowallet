@@ -24,6 +24,7 @@ import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/Commun
 import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue'
 import SurpriseGiftMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SurpriseGiftMenu.vue'
 import SendMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SendMenu.vue'
+import AddContactMenu from '@/components/UI/BottomSwipeMenu/InnerViews/AddContactMenu.vue'
 
 const menu = ref();
 
@@ -61,6 +62,8 @@ const currentComponent = computed(() => {
       return SurpriseGiftMenu
     case 'send':
       return SendMenu
+    case 'add_contact':
+      return AddContactMenu
     default:
       return DashboardHomeMenu
   }
@@ -90,6 +93,11 @@ onUpdated(() => {
       menu.value.style.minHeight = `40vh`;
       menu.value.style.maxHeight = `60vh`;
       break;
+    case 'add_contact':
+      if (!menu.value) return
+      menu.value.style.minHeight = `50%`;
+      menu.value.style.maxHeight = `75%`;
+      break;
   }
 })
 </script>
@@ -101,7 +109,7 @@ onUpdated(() => {
   left: 0;
   width: 100%;
   background: $color-white;
-  border-radius: 32px 32px 0 0;
+  border-radius: 10% 10% 0 0;
   max-height: 90%;
   min-height: 10%;
   height: 30%;
