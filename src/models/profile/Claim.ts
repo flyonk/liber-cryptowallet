@@ -1,21 +1,11 @@
+import ClaimFile, { IClaimFile } from '@/models/profile/ClaimFile'
+
+
 export interface IClaim {
     id: number,
     userId: string,
     status: number,
     fileList: IClaimFile[]
-}
-
-interface IClaimFile {
-    id: number,
-    claimId: number,
-    type: number,
-    name: string,
-    extension: string,
-    link: string,
-    size: number,
-    createdAt: string,
-    updatedAt: string,
-    deletedAt: string
 }
 
 export default {
@@ -44,34 +34,12 @@ export default {
 
 const deserializeFileListAdaptor = (input: any): IClaimFile[] => {
     return input.fileList.map((e: any) => {
-        return {
-            id: e.id,
-            claimId: e.claim_id,
-            type: e.type,
-            name: e.name,
-            extension: e.extension,
-            link: e.link,
-            size: e.size,
-            createdAt: e.created_at,
-            updatedAt: e.updated_at,
-            deletedAt: e.deleted_at
-        }
+        return ClaimFile.deserialize(e)
     })
 }
 
 const requestSerializeFileListAdaptor = (input: IClaimFile[]) => {
     return input.map((e: any) => {
-        return {
-            id: e.id,
-            claim_id: e.claim_id,
-            type: e.type,
-            name: e.name,
-            extension: e.extension,
-            link: e.link,
-            size: e.size,
-            created_at: e.createdAt,
-            updated_at: e.updatedAt,
-            deleted_at: e.deletedAt
-        }
+        return ClaimFile.requestSerialize(e)
     })
 }
