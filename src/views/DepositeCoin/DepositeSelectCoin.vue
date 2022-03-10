@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import BackHistoryBtn from '@/components/UI/atoms/BackHistoryBtn.vue';
 import CoinItem from './CoinItem.vue';
 import { useRouter } from 'vue-router';
 import { ref } from 'vue';

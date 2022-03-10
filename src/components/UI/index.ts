@@ -1,7 +1,7 @@
-export { default as BaseBottomSheet } from './BaseBottomSheet.vue';
-export { default as BaseButton } from './BaseButton.vue';
-export { default as BaseCountdown } from './BaseCountdown.vue';
-export { default as BaseCountryPhoneInput } from './BaseCountryPhoneInput.vue';
+export { default as BaseBottomSheet } from './molecules/BaseBottomSheet.vue';
+export { default as BaseButton } from './molecules/base-button/BaseButton.vue';
+export { default as BaseCountdown } from './molecules/BaseCountdown.vue';
+export { default as BaseCountryPhoneInput } from './organisms/BaseCountryPhoneInput.vue';
 export { default as BaseInput } from './BaseInput.vue';
 export { default as BaseSearchInput } from './BaseSearchInput.vue';
 export { default as BaseVerificationCodeInput } from './BaseVerificationCodeInput.vue';

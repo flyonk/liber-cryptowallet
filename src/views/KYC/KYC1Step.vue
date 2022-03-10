@@ -28,8 +28,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { TopNavigation, BaseCountrySelect, BaseButton } from '@/components/UI';
+
 import { useKYCStore } from '@/stores/kyc';
+
+import { TopNavigation, BaseButton } from '@/components/UI';
+import BaseCountrySelect from '@/components/UI/organisms/BaseCountrySelect.vue';
 
 const kycStore = useKYCStore();
 

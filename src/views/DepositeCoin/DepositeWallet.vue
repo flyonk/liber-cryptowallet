@@ -72,7 +72,7 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import BackHistoryBtn from '@/components/UI/atoms/BackHistoryBtn.vue';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from 'primevue/usetoast';
