@@ -83,7 +83,7 @@ const handleSelectCountry = (data: ICountryInformation) => {
   setTimeout(() => {
     // set phone mask
     if (data.mask) {
-      data.mask.replace(maskRegEx, function (match: any) {
+      data.mask.replace(maskRegEx, function (match: string) {
         mask.value = match.replace(new RegExp(/^\)/), '');
         return match;
       });

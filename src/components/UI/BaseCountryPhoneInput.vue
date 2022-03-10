@@ -76,7 +76,7 @@ const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   list.value = await getFullList();
-  const _selectedCode = list.value.filter((item: any) => {
+  const _selectedCode = list.value.filter((item: ICountryInformation) => {
     return item.dialCode === props.dialCode;
   });
 

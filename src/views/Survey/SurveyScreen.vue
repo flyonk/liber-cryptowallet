@@ -49,6 +49,11 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 
+type TAnswerItem = {
+  question: string | number;
+  answer: string;
+};
+
 type dictionaryItem = {
   id: number | string;
   body: string;
@@ -91,7 +96,7 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers: any) => {
+const saveAnswers = (answers: TAnswerItem[]) => {
   return Promise.resolve(answers);
 };
 
