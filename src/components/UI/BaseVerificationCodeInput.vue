@@ -25,7 +25,8 @@
         view="secondary"
         block
         @click="onPaste"
-      >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button>
+        >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button
+      >
     </div>
   </div>
 </template>

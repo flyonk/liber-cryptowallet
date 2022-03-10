@@ -168,6 +168,7 @@ const props = defineProps({
   },
   onViewport: {
     type: Function,
+    default: () => ({}),
   },
   class: {
     type: String,

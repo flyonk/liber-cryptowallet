@@ -14,7 +14,9 @@
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">{{ $t('ui.basecountryphoneinput.cancel') }}</div>
+            <div class="cancel-button text--headline" @click="showList = false">
+              {{ $t('ui.basecountryphoneinput.cancel') }}
+            </div>
           </div>
         </div>
 
@@ -68,7 +70,7 @@ const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   list.value = await getFullList();
-  const _selectedCode = list.value.filter((item: any) => {
+  const _selectedCode = list.value.filter((item: ICountryInformation) => {
     return item.dialCode === props.dialCode;
   });
 
