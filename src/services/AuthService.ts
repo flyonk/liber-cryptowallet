@@ -7,7 +7,6 @@ import { IAuthService } from '@/types/api';
 import { TErrorResponse } from '@/types/api';
 import { TSuccessResponse } from '@/types/api';
 import { TSuccessSignIn } from '@/types/api';
-import { AxiosResponse } from 'axios';
 
 const URL = AUTH_API_URL;
 
