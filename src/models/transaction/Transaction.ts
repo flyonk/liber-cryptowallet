@@ -40,15 +40,15 @@ export default {
     deserialize(input: any): TTransaction {
         return {
             id: input.id,
-            sum: input.sum,
-            timestamp: input.timestamp,
+            sum: input.sum || '',
+            timestamp: input.timestamp || '',
             status: input.status,
             type: input.type,
             contractor: {
                 id: input.contractor.id,
-                phone: input.contractor.phone,
-                email: input.contractor.email,
-                address: input.contractor.address
+                phone: input.contractor.phone || '',
+                email: input.contractor.email || '',
+                address: input.contractor.address || ''
             }
         };
     },

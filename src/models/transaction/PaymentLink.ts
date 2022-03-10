@@ -9,8 +9,8 @@ export default {
     deserialize(input: any): IPaymentLink {
         return {
             id: input.id,
-            link: input.link,
-            expire: input.expire
+            link: input.link || '',
+            expire: input.expire || ''
         };
     },
 

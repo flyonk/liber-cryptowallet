@@ -15,7 +15,7 @@ export default {
     deserialize(input: any): ILiberContact {
         return {
             id: input.id,
-            name: input.name,
+            name: input.name || '',
             phones: deserializeCommunicationInfoAdaptor(input.phones),
             emails: deserializeCommunicationInfoAdaptor(input.emails),
         };

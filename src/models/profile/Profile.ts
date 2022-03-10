@@ -1,11 +1,12 @@
 export interface IProfile {
+    id: string;
     status?: number;
-    phone?: string;
-    isVerified?: false;
+    phone: string;
+    isVerified?: boolean;
     blockReason?: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
+    firstName: string;
+    lastName: string;
+    email: string;
     country?: string;
     street?: string;
     homeNum?: string;
@@ -19,22 +20,22 @@ export interface IProfile {
 export default {
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
     deserialize(input: any): IProfile {
-
         return {
-            status: input.status,
-            phone: input.phone,
-            isVerified: input.is_verified,
-            blockReason: input.block_reason,
-            firstName: input.first_name,
-            lastName: input.last_name,
-            email: input.email,
-            country: input.country,
-            street: input?.street_and_number.split(' ')[0],
-            homeNum: input?.street_and_number.split(' ')[1],
-            optionalAddress: input.optional_address,
-            postalCode: input.postal_code,
-            birthDate: input.birthdate,
-            isSendNews: input.is_send_news,
+            id: input.id,
+            status: input.status || 0,
+            phone: input.phone || '',
+            isVerified: input.is_verified || false,
+            blockReason: input.block_reason || '',
+            firstName: input.first_name || '',
+            lastName: input.last_name || '',
+            email: input.email || '',
+            country: input.country || '',
+            street: input?.street_and_number.split(' ')[0] || '',
+            homeNum: input?.street_and_number.split(' ')[1] || '',
+            optionalAddress: input.optional_address || '',
+            postalCode: input.postal_code || '',
+            birthDate: input.birthdate || '',
+            isSendNews: input.is_send_news || false, // by default undefined
         };
     },
 
