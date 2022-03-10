@@ -380,5 +380,9 @@
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
       }
     }
+  },
+  "errors": {
+    "requestTimeout": "Request timeout",
+    "serviceUnavailable": "Service unavailable"
   }
 }
