@@ -1,14 +1,11 @@
 import authService from '@/services/authService';
 import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { TErrorResponse, TSuccessSignIn } from '@/types/api';
+import { ISuccessSignIn } from '@/models/auth/successSignIn';
+
 import { defineStore } from 'pinia';
 
 // === Auth Types ===
-
-type TSuccessAxiosSignIn = {
-  data: TSuccessSignIn;
-};
 
 export interface IAuthSteps {
   registration: number;
@@ -29,6 +26,7 @@ export interface IAuthState {
   steps: IAuthSteps;
   registration: IAuthRegistration;
   login: ICommonPhoneNumber;
+  //TODO: refactor me
   token: {
     access_token: string | null;
     refresh_token: string | null;
@@ -79,37 +77,28 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async signInProceed(_data: {
-      phone: string;
-      otp: string;
-    }): Promise<void | TErrorResponse> {
-      try {
-        // FIXME: should return a model
-        const { data } = (await authService.signInProceed(
-          _data
-        )) as TSuccessAxiosSignIn;
+    async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
+      const data = await authService.signInProceed(_data);
 
-        this.setToken(data as TSuccessSignIn);
-      } catch (e) {
-        return Promise.reject(e);
-      }
+      this.setToken(data);
     },
 
-    async setToken(data = null as TSuccessSignIn | null): Promise<void> {
+    async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
         await Promise.all([
           Storage.set({
             key: 'access_token',
-            value: data.access_token,
+            value: data.token,
           }),
           Storage.set({
             key: 'refresh_token',
-            value: data.refresh_token,
+            value: data.refreshToken,
           }),
         ]);
 
         this.token = { ...this.token, ...data };
       } else {
+        //TODO: refactor me
         const { value: access_token } = await Storage.get({
           key: 'access_token',
         });

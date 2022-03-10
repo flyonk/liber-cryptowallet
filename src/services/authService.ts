@@ -1,9 +1,8 @@
-import axios, { AxiosError, AxiosResponse } from 'axios';
+import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import { TErrorResponse, TSuccessResponse, TSuccessSignIn } from '@/types/api';
-
-//TODO: deserialize api responses - every method should return mapped model
+import { TErrorResponse, TSuccessResponse } from '@/types/api';
+import dataMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 
 export default {
   async signIn(data: {
@@ -15,8 +14,9 @@ export default {
   async signInProceed(data: {
     phone: string;
     otp: string;
-  }): Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>> {
-    return await axios.post(apiService.auth.signInProceed(), data);
+  }): Promise<ISuccessSignIn> {
+    const res = await axios.post(apiService.auth.signInProceed(), data);
+    return dataMapper.deserialize(res);
   },
 
   async logout(data: {
@@ -25,9 +25,8 @@ export default {
     return await axios.post(apiService.auth.logout(), data);
   },
 
-  async refresh(data: {
-    refresh_token: string;
-  }): Promise<TSuccessSignIn | TErrorResponse> {
-    return await axios.post(apiService.auth.refresh(), data);
+  async refresh(data: { refresh_token: string }): Promise<ISuccessSignIn> {
+    const res = await axios.post(apiService.auth.refresh(), data);
+    return dataMapper.deserialize(res);
   },
 };
