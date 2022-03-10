@@ -12,7 +12,7 @@
   </div>
   <div style="padding: 15px">
     <base-button block @click="pasteFromClipboard">{{
-      $t('views.auth.login.login4step.paste')
+      $t('common.pasteCta')
     }}</base-button>
   </div>
   <base-toast v-model:visible="showErrorToast" severity="error">

@@ -1,7 +1,7 @@
 <template>
   <div class="auth-page-container">
     <top-navigation @click:left-icon="prevStep">
-      {{ $t('common.codeInput') }}
+      {{ $t('auth.login.step3Title') }}
     </top-navigation>
   </div>
 
