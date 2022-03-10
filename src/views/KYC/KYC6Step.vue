@@ -58,7 +58,7 @@ const selectPicture = async () => {
 
 <style lang="scss">
 .kyc-6-step {
-  .list {
+  > .list {
     margin: 0 0 0 8px;
 
     > .item {

@@ -33,6 +33,12 @@ module.exports = {
         ignores: ['default', 'home', 'index'],
       },
     ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
+      },
+    ],
   },
 
   plugins: ['vue'],

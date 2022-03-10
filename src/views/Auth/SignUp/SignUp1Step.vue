@@ -3,7 +3,7 @@
     <TopNavigation> {{ $t('auth.signup.step1Title') }} </TopNavigation>
     <div class="description text--body">
       {{ $t('auth.signup.step1Description1') }}
-      <br>
+      <br />
       {{ $t('auth.signup.step1Description2') }}
     </div>
     <div class="grid">
@@ -11,11 +11,7 @@
         <BaseCountryPhoneInput @selected="handleSelectCountry" />
       </div>
       <div class="col-8 ml-auto">
-        <BaseInput
-          v-model="number"
-          :use-grouping="false"
-          type="number"
-        >
+        <BaseInput v-model="number" :use-grouping="false" type="number">
           <template #label>
             {{ $t('common.numberLabel') }}
           </template>
@@ -25,17 +21,13 @@
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
         {{ $t('auth.signup.step1ExistingAcc') }}
-        <router-link
-          class="link"
-          :to="{ name: 'login' }"
-        > {{ $t('common.logInCta') }} </router-link>
+        <router-link class="link" :to="{ name: 'login' }">
+          {{ $t('common.logInCta') }}
+        </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton
-        block
-        @click="handleStep"
-      >
+      <BaseButton block @click="handleStep">
         {{ $t('common.signUpCta') }}
       </BaseButton>
     </div>

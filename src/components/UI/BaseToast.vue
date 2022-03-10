@@ -65,23 +65,23 @@ const currentImage = computed(() => {
       border-radius: 24px;
       margin: 8px auto 0;
     }
-  }
 
-  .image-block {
-    margin-top: 42px;
-    margin-bottom: 24px;
+    > .image-block {
+      margin-top: 42px;
+      margin-bottom: 24px;
 
-    .image {
-      color: $color-red;
+      > .image {
+        color: $color-red;
+      }
     }
-  }
 
-  .footer {
-    margin-top: 42px;
-    color: $color-dark-grey;
+    > .footer {
+      margin-top: 42px;
+      color: $color-dark-grey;
 
-    .link {
-      color: $color-primary;
+      > .link {
+        color: $color-primary;
+      }
     }
   }
 }

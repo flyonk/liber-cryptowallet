@@ -1,8 +1,6 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
-      {{ $t('common.codeInput') }}
-    </TopNavigation>
+    <TopNavigation @click:left-icon="prevStep">{{ $t('common.codeInput') }}</TopNavigation>
     <div class="description text--body">
       {{ $t('auth.loginstep2Description') }} {{ formatPhone() }}
     </div>
@@ -17,9 +15,9 @@
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
         <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
-          <template #countdown="{ minute, second }">
-            {{ $t('auth.login.step2ResendTitle') }} {{ minute }}:{{ second }}
-          </template>
+          <template
+            #countdown="{ minute, second }"
+          >{{ $t('auth.login.step2ResendTitle') }} {{ minute }}:{{ second }}</template>
         </BaseCountdown>
         <template v-else>
           <BaseButton
@@ -27,9 +25,7 @@
             size="medium"
             view="flat"
             @click="resend"
-          >
-            {{ $t('auth.login.step2ResendCta') }}
-          </BaseButton>
+          >{{ $t('auth.login.step2ResendCta') }}</BaseButton>
         </template>
       </span>
     </div>
@@ -111,9 +107,13 @@ const resend = async () => {
 </script>
 
 <style lang="scss">
-.footer {
-  .resend-button {
-    padding: 0;
+.auth-page-container {
+  > .footer {
+    > span {
+      > .resend-button {
+        padding: 0;
+      }
+    }
   }
 }
 </style>

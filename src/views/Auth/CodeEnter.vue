@@ -1,7 +1,9 @@
 <template>
   <div class="code-enter">
     <h1>{{ $t('common.codeInput') }}</h1>
-    <route-link :to="{ name: 'phone-enter' }"> {{ $t('common.phoneCta') }} </route-link>
+    <route-link :to="{ name: 'phone-enter' }">
+      {{ $t('common.phoneCta') }}
+    </route-link>
   </div>
 </template>
 

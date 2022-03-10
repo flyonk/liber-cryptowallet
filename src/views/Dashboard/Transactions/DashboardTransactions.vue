@@ -10,7 +10,8 @@
       <div class="count">
         <div class="flex">
           <h1 class="title title-currency">
-            2.12345678 <span class="currency">USDT</span>
+            2.12345678
+            <span class="currency">USDT</span>
           </h1>
           <img
             class="icon"
@@ -28,13 +29,11 @@
         <div
           v-for="(item, index) in carousel"
           :key="index"
-          class="item slide"
+          class="item-slide"
           @click="$router.push('/home/story')"
         >
           <img class="image" :src="item.img" />
-          <p class="name">
-            {{ item.name }}
-          </p>
+          <p class="name">{{ item.name }}</p>
         </div>
       </VueAgile>
       <div v-if="showControls" class="controls">
@@ -81,26 +80,20 @@
           <img class="icon" :src="transaction.img" />
           <div class="info">
             <div class="flex">
-              <h1 class="title">
-                {{ transaction.info }}
-              </h1>
+              <h1 class="title">{{ transaction.info }}</h1>
               <p :class="{ received: transaction.sum.startsWith('+') }">
                 {{ transaction.sum }}
               </p>
             </div>
             <div class="flex">
-              <div class="subtitle">
-                {{ transaction.from }}
-              </div>
+              <div class="subtitle">{{ transaction.from }}</div>
               <p
                 v-if="transaction.status"
                 :class="{ pending: transaction.status === 'Pending' }"
               >
                 {{ transaction.status }}
               </p>
-              <p v-else class="sum">
-                {{ transaction.sum }}
-              </p>
+              <p v-else class="sum">{{ transaction.sum }}</p>
             </div>
           </div>
         </li>
@@ -115,9 +108,9 @@
           <div class="account">
             <div class="crypto-number">
               <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr<br />sd21213<span class="bold"
-                  >Opa139z0l</span
-                >
+                1Mtree35df4543sdgErtrryryEe13rr
+                <br />sd21213
+                <span class="bold">Opa139z0l</span>
               </p>
             </div>
             <img src="@/assets/icon/folders.svg" alt="folders" />
@@ -377,7 +370,7 @@ const carousel = [
   margin-bottom: 24px;
 }
 
-.item.slide {
+.item-slide {
   width: 104px;
   height: 104px;
   padding: 12px;
