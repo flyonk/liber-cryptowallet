@@ -33,6 +33,7 @@ class AuthService implements IAuthService {
     return res;
   }
 
+  //TODO: fix it
   async signInProceed(data: { phone: string; otp: string }) {
     const url = `${this.url}/proceed`;
     const res: AxiosResponse<TSuccessSignIn | TErrorResponse> =

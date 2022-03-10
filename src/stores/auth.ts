@@ -1,7 +1,7 @@
 import AuthService from '@/services/AuthService';
 import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { TErrorResponse } from './../types/api';
+import { TErrorResponse } from '@/types/api';
 import { TSuccessSignIn } from '@/types/api';
 import { defineStore } from 'pinia';
 
@@ -81,6 +81,8 @@ export const useAuthStore = defineStore('auth', {
       otp: string;
     }): Promise<void | TErrorResponse> {
       try {
+        //TODO: fix it
+        console.log(_data); // remove hack
         const authService = new AuthService();
 
         // FIXME: any type
