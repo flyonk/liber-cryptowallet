@@ -46,18 +46,18 @@ const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope);
     right: 16px;
   }
 
-  .footer {
+  > .footer {
     margin-top: 0.5rem;
-  }
 
-  .text--footnote {
-    color: $color-dark-grey;
+    > .footnote {
+      color: $color-dark-grey;
 
-    .link {
-      user-select: none;
-      cursor: pointer;
-      text-decoration: none;
-      color: $color-primary;
+      > .link {
+        user-select: none;
+        cursor: pointer;
+        text-decoration: none;
+        color: $color-primary;
+      }
     }
   }
 }

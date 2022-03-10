@@ -46,8 +46,16 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
 
 const router = useRouter();
+
+type TAnswerItem = {
+  question: string | number;
+  answer: string;
+};
 
 type dictionaryItem = {
   id: number | string;
@@ -65,24 +73,24 @@ const dictionary = ref([
   {
     question: {
       id: 1,
-      body: 'Main reason for using Liber',
+      body: tm('views.survey.question'),
     },
     answers: [
       {
         id: 1,
-        body: 'Spend or save daily',
+        body: tm('views.survey.spendOrSave'),
       },
       {
         id: 2,
-        body: 'Spend while travelling',
+        body: tm('views.survey.spendWhileTravelling'),
       },
       {
         id: 3,
-        body: 'Send money',
+        body: tm('views.survey.sendMoney'),
       },
       {
         id: 4,
-        body: 'Gain exposure to financial assets',
+        body: tm('views.survey.gainExposure'),
       },
     ],
   } as Dictionary,
@@ -91,7 +99,7 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers: any) => {
+const saveAnswers = (answers: TAnswerItem[]) => {
   return Promise.resolve(answers);
 };
 

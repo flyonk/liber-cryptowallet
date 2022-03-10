@@ -41,10 +41,4 @@ function onComplete(): void {
 }
 </script>
 
-<style lang="scss">
-.footer {
-  .resend-button {
-    padding: 0;
-  }
-}
-</style>
+<style lang="scss"></style>

@@ -43,6 +43,9 @@ import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from 'primevue/usetoast';
 import { use2faStore } from '@/stores/2fa';
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
 
 const store = use2faStore();
 const toast = useToast();
@@ -67,13 +70,13 @@ const copyToClipboard = () => {
   navigator.clipboard.writeText(qrCodeValue.value).then(
     function () {
       toast.add({
-        summary: 'Copying to clipboard was successful!',
+        summary: tm('common.copySuccess'),
         life: 3000,
         closable: false,
       });
     },
     function (err) {
-      console.error('Async: Could not copy text: ', err);
+      console.error(`${tm('common.copyFailure')} `, err);
     }
   );
 };

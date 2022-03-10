@@ -44,11 +44,11 @@ const nextStep = () => {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.header-nav {
   margin-bottom: 24px;
 }
 
-.switch {
+.switch-base {
   margin-top: 25px;
 }
 </style>

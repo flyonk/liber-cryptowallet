@@ -9,7 +9,7 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 
-import { i18n, setLocale } from "./i18n";
+import { i18n, setLocale } from './i18n';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
