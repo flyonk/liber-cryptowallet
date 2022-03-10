@@ -1,5 +1,4 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
-
 import apiService from '@/services/apiService';
 import { i18n } from '@/i18n';
 
