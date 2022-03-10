@@ -8,7 +8,7 @@
       src="@/assets/images/back-arrow.svg"
       alt="Go back"
       class="back-btn-img"
-    >
+    />
   </button>
 </template>
 
@@ -18,11 +18,11 @@ import { toRefs } from 'vue';
 const props = defineProps({
   path: {
     type: [String, Object, Number],
-    default: -1
-  }
-})
+    default: -1,
+  },
+});
 
-const { path } = toRefs(props)
+const { path } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>

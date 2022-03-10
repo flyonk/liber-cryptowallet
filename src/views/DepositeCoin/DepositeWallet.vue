@@ -1,109 +1,72 @@
 <template name="">
   <div class="page-wrapper">
-    <BackHistoryBtn :path="({ name: 'deposit-network' })" />
-    
-    <h1 class="main-title">
-      Deposit {{ coin }}
-    </h1>
+    <BackHistoryBtn :path="{ name: 'deposit-network' }" />
+
+    <h1 class="main-title">{{ $t('views.deposit.wallet.deposit') }} {{ coin }}</h1>
 
     <div class="qr-code-container">
-      <canvas
-        ref="canvas"
-        class="qr-code-canvas"
-      />
-      <p
-        class="text-default"
-      >
-        Send only {{ coin }} to this deposit address
+      <canvas ref="canvas" class="qr-code-canvas" />
+      <p class="text-default">
+        {{ $t('views.deposit.wallet.sendOnly') }} {{ coin }} {{ $t('views.deposit.wallet.address') }}
       </p>
     </div>
 
     <div class="wallet-block">
       <div class="wallet-info">
         <div class="titled-block">
-          <h2 class="title">
-            Network
-          </h2>
+          <h2 class="title">{{ $t('views.deposit.wallet.network') }}</h2>
           <p class="content">
             {{ network }}
           </p>
         </div>
-        <button
-          class="icon"
-          type="button"
-          @click="updateNetwork"
-        >
-          <img
-            src="@/assets/images/update-icon.svg"
-            alt="Update"
-          >
+        <button class="icon" type="button" @click="updateNetwork">
+          <img src="@/assets/images/update-icon.svg" alt="Update" />
         </button>
       </div>
 
       <div class="wallet-info">
         <div class="titled-block">
-          <h2 class="title">
-            Wallet Address
-          </h2>
+          <h2 class="title">{{ $t('views.deposit.wallet.walletAddress') }}</h2>
           <p class="content">
             {{ wallet }}
           </p>
         </div>
-        <button
-          class="icon"
-          type="button"
-          @click="copyToClipboard"
-        >
-          <img
-            src="@/assets/images/copy-icon.svg"
-            alt="Copy"
-          >
+        <button class="icon" type="button" @click="copyToClipboard">
+          <img src="@/assets/images/copy-icon.svg" alt="Copy" />
         </button>
       </div>
 
       <div class="wallet-footer">
         <div class="row row-footer">
-          <p class="title">
-            Minimum deposit
-          </p>
-          <p class="content">
-            0.000000001 {{ coin }}
-          </p>
+          <p class="title">{{ $t('views.deposit.wallet.minimumDeposit') }}</p>
+          <p class="content">0.000000001 {{ coin }}</p>
         </div>
 
         <div class="row row-footer">
-          <p class="title">
-            Expected arrival
-          </p>
-          <p class="content">
-            1 network confirmation
-          </p>
+          <p class="title">{{ $t('views.deposit.wallet.arrival') }}</p>
+          <p class="content">1 {{ $t('views.deposit.wallet.networkConfirmation') }}</p>
         </div>
 
         <div class="row row-footer">
-          <p class="title">
-            Expected unlock
-          </p>
-          <p class="content">
-            2 network confirmations
-          </p>
+          <p class="title">{{ $t('views.deposit.wallet.expectedUnlock') }}</p>
+          <p class="content">2 {{ $t('views.deposit.wallet.networkConfirmations') }}</p>
         </div>
       </div>
 
       <div class="btns-container">
-        <button 
-          type="button" 
+        <button
+          type="button"
           class="btn-default btn-secondary"
           @click="saveImage"
         >
-          Save Image
+          {{ $t('views.deposit.wallet.saveImage') }}
         </button>
         <button
           class="btn-default btn-primary"
-          type="button" 
+          type="button"
           @click="shareAddress"
         >
-          Share Address
+          {{ $t('views.deposit.wallet.shareAddress') }}
         </button>
       </div>
     </div>
@@ -111,50 +74,60 @@
 </template>
 
 <script setup lang="ts">
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-import { onMounted, ref } from 'vue'
-import QrCodeWithLogo from "qrcode-with-logos";
-import { useToast } from "primevue/usetoast";
-const toast = useToast()
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { onMounted, ref } from 'vue';
+import QrCodeWithLogo from 'qrcode-with-logos';
+import { useToast } from 'primevue/usetoast';
+const toast = useToast();
+import { useI18n } from 'vue-i18n';
 
-const canvas = ref<HTMLCanvasElement|undefined>()
-let qrCodeValue = ref<string>('')
+const { tm } = useI18n();
 
-const coin = ref<string>('Fantom')
-const network = ref<string>('Bitcoin')
-const wallet = ref('1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l')
+const canvas = ref<HTMLCanvasElement | undefined>();
+let qrCodeValue = ref<string>('');
+
+const coin = ref<string>('Fantom');
+const network = ref<string>('Bitcoin');
+const wallet = ref('1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l');
 
 onMounted(() => {
-  qrCodeValue.value = wallet.value
+  qrCodeValue.value = wallet.value;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: qrCodeValue.value,
-    width: 180
-  })
+    width: 180,
+  });
 
-  qrcode.toCanvas()
-})
+  qrcode.toCanvas();
+});
 
 const saveImage = () => {
-  console.log('save image')
-}
+  console.log(tm('views.deposit.wallet.saveImage'));
+};
 
 const shareAddress = () => {
-  console.log('share address')
-}
+  console.log(tm('views.deposit.wallet.shareAddress'));
+};
 
 const copyToClipboard = () => {
-  navigator.clipboard.writeText(wallet.value).then(function() {
-    toast.add({ summary: 'Wallet Address Copied!', life: 3000, closable: false})
-  }, function(err) {
-    console.error('Async: Could not copy text: ', err)
-  })
-}
+  navigator.clipboard.writeText(wallet.value).then(
+    function () {
+      toast.add({
+        summary: tm('views.deposit.wallet.copySuccess'),
+        life: 3000,
+        closable: false,
+      });
+    },
+    function (err) {
+      console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
+    }
+  );
+};
 
 const updateNetwork = () => {
-  console.log('update coin network')
-}
+  console.log(tm('views.deposit.wallet.updateCoinNetwork'));
+};
 </script>
 
 <style lang="scss" scoped>
@@ -285,10 +258,9 @@ const updateNetwork = () => {
   font-size: 13px;
   line-height: 18px;
 
-  & > .content { 
+  & > .content {
     color: $color-brand-primary;
     font-weight: 500;
   }
 }
-
 </style>

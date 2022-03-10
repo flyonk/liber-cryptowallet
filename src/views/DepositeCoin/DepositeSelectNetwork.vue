@@ -1,6 +1,6 @@
 <template name="DepositeWallet">
   <div class="page-wrapper">
-    <BackHistoryBtn :path="({ name: 'deposit-coin' })" />
+    <BackHistoryBtn :path="{ name: 'deposit-coin' }" />
 
     <div v-if="dictionary[activeQuestion]">
       <h1 class="main-title">
@@ -10,38 +10,30 @@
       <p class="text-default">
         {{ description }}
       </p>
-      
+
       <div>
         <template
-          v-for="answer in dictionary[activeQuestion].answers" 
+          v-for="answer in dictionary[activeQuestion].answers"
           :key="answer.id"
         >
-          <label
-            class="radio-btn"
-            :class="{ '-selected': answer.isSelected }"
-          >
-            <input 
-              :id="answer.id" 
-              type="radio" 
-              name="surveyAnswer" 
-              :value="answer.id" 
+          <label class="radio-btn" :class="{ '-selected': answer.isSelected }">
+            <input
+              :id="answer.id"
+              type="radio"
+              name="surveyAnswer"
+              :value="answer.id"
               style="display: none"
               @change="selectAnswer(answer.id)"
-            >
-            <span
-              class="title"
-              :class="{ '-selected': answer.isSelected }"
-            >{{ answer.body }}</span>
+            />
+            <span class="title" :class="{ '-selected': answer.isSelected }">{{
+              answer.body
+            }}</span>
             <img
               v-if="answer.isSelected"
               src="@/assets/images/arrow-white.svg"
               alt="right arrow"
-            >
-            <img
-              v-else
-              src="@/assets/images/arrow.svg"
-              alt="right arrow"
-            >
+            />
+            <img v-else src="@/assets/images/arrow.svg" alt="right arrow" />
           </label>
         </template>
       </div>
@@ -50,90 +42,98 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue'
-const router = useRouter()
+import { ref, computed } from 'vue';
+import { useRouter } from 'vue-router';
+import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
+
+const router = useRouter();
 type dictionaryItem = {
-  id: number | string
-  body: string
-  isSelected?: boolean
-}
+  id: number | string;
+  body: string;
+  isSelected?: boolean;
+};
 type Dictionary = {
   question: dictionaryItem;
-  answers: dictionaryItem[]
-}
-let activeQuestion = ref(0)
+  answers: dictionaryItem[];
+};
+let activeQuestion = ref(0);
 const dictionary = ref([
   {
     question: {
       id: 1,
-      body: 'Main reason for using Liber'
+      body: tm('views.deposit.selectNetwork.question'),
     },
     answers: [
       {
         id: 1,
-        body: 'Spend or save daily'
+        body: tm('views.deposit.selectNetwork.spendOrSave'),
       },
       {
         id: 2,
-        body: 'Spend while travelling'
+        body: tm('views.deposit.selectNetwork.spendWhileTravelling'),
       },
       {
         id: 3,
-        body: 'Send money'
+        body: tm('views.deposit.selectNetwork.sendMoney'),
       },
       {
         id: 4,
-        body: 'Gain exposure to financial assets'
-      }
-    ]
-  } as Dictionary
-])
+        body: tm('views.deposit.selectNetwork.gainExposure'),
+      },
+    ],
+  } as Dictionary,
+]);
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers:Dictionary) => {
-  return Promise.resolve(answers)
-}
+const saveAnswers = (answers: Dictionary) => {
+  return Promise.resolve(answers);
+};
 const markAnswerAsSelected = (id: number | string) => {
-  dictionary.value[activeQuestion.value].answers = dictionary.value[activeQuestion.value].answers.map((item) => {
+  dictionary.value[activeQuestion.value].answers = dictionary.value[
+    activeQuestion.value
+  ].answers.map((item) => {
     if (item.id === id) {
-      item.isSelected = true
+      item.isSelected = true;
     } else {
-      item.isSelected = false
+      item.isSelected = false;
     }
-    return item
-  })
-}
+    return item;
+  });
+};
 const getSelectedAnswers = () => {
-  return dictionary.value.map(item => {
+  return dictionary.value.map((item) => {
     return {
       question: item.question.id,
-      answer: item.answers.filter((a) => a.isSelected).map(a => a.id).join(', ')
-    }
-  })
-}
+      answer: item.answers
+        .filter((a) => a.isSelected)
+        .map((a) => a.id)
+        .join(', '),
+    };
+  });
+};
 const selectAnswer = (id: number | string) => {
-  const maxValue = dictionary.value.length
+  const maxValue = dictionary.value.length;
   if (maxValue <= activeQuestion.value + 1) {
-    markAnswerAsSelected(id)
-    const userAnswers = getSelectedAnswers()
-    saveAnswers(userAnswers)
-      .then(() => {
-        router.push({name: 'deposit-add'})
-      })
-    return
+    markAnswerAsSelected(id);
+    const userAnswers = getSelectedAnswers();
+    saveAnswers(userAnswers).then(() => {
+      router.push({ name: 'deposit-add' });
+    });
+    return;
   }
-  markAnswerAsSelected(id)
-  activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue)
-}
+  markAnswerAsSelected(id);
+  activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue);
+};
 const description = computed(() => {
-  return 'Ensure the network you choose to deposit metches the withdrawal network, or assets may be lost'
-})
+  return tm('views.deposit.selectNetwork.ensure');
+});
 const title = computed(() => {
-  return 'Choose Network'
-})
+  return tm('views.deposit.selectNetwork.chooseNetwork');
+});
 </script>
 
 <style lang="scss" scoped>
@@ -195,7 +195,7 @@ const title = computed(() => {
     letter-spacing: -0.0031em;
     color: $color-brand-primary;
   }
-  
+
   & > .title.-selected {
     color: $color-white;
   }

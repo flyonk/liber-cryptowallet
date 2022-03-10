@@ -1,49 +1,49 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
-      Enter verification code
+      {{ $t('auth.login.step4Title') }}
     </top-navigation>
 
     <p class="text-default">
-      Get a verification code from the authenticator app
+      {{ $t('auth.login.step4Description') }}
     </p>
 
-    <base-verification-code-input 
-      v-model="verificationCode"
-    />
+    <base-verification-code-input v-model="verificationCode" />
   </div>
   <div style="padding: 15px">
-    <base-button
-      block
-      @click="pasteFromClipboard"
-    >
-      Paste
+    <base-button block @click="pasteFromClipboard">
+      {{ $t('common.pasteCta') }}
     </base-button>
   </div>
-  <base-toast
-    v-model:visible="showErrorToast"
-    severity="error"
-  >
+  <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
       <div>
-        Your code doesn't match. Please, try again!
+        {{ $t('configureApp.invalidCodeMessage') }}
       </div>
     </template>
   </base-toast>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton, BaseVerificationCodeInput, BaseToast } from '@/components/UI'
-import { useRouter } from 'vue-router'
-import { ref, watch } from 'vue'
-import { getSupportedOptions } from '@/helpers/identification'
+import {
+  TopNavigation,
+  BaseButton,
+  BaseVerificationCodeInput,
+  BaseToast,
+} from '@/components/UI';
+import { useRouter } from 'vue-router';
+import { ref, watch } from 'vue';
+import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
+import { useI18n } from 'vue-i18n';
 
-const store = use2faStore()
-store.generateToken()
+const { tm } = useI18n();
 
-const verificationCode = ref('')
-const showErrorToast = ref(false)
+const store = use2faStore();
+store.generateToken();
+
+const verificationCode = ref('');
+const showErrorToast = ref(true);
 
 const router = useRouter();
 
@@ -53,10 +53,10 @@ const pasteFromClipboard = () => {
       verificationCode.value = clipText;
     },
     function (err) {
-      console.error('Async: Could not read text: ', err);
+      console.error(`${tm('common.readFailure')} `, err);
     }
   );
-  router.push('/home')
+  router.push('/home');
 };
 
 /**
@@ -65,12 +65,12 @@ const pasteFromClipboard = () => {
  * returns the page name corresponding to the supported method
  */
 async function getSupportedIdentificationWay() {
-  const option = await getSupportedOptions()
+  const option = await getSupportedOptions();
   if (option === 'face-id') {
-    return 'face-id'
+    return 'face-id';
   }
   if (option === 'touch-id') {
-    return 'touch-id'
+    return 'touch-id';
   }
 
   return 'push-notifications';
@@ -84,10 +84,10 @@ watch(verificationCode, async (code) => {
       router.push({
         name,
       });
-      return
+      return;
     }
-    // 
-    const result = store.verify(code)
+    //
+    const result = store.verify(code);
 
     if (result?.delta === 0) {
       const name = await getSupportedIdentificationWay();
@@ -95,7 +95,7 @@ watch(verificationCode, async (code) => {
         name,
       });
     } else {
-      showErrorToast.value = true
+      showErrorToast.value = true;
     }
   }
 });

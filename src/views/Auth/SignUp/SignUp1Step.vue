@@ -1,10 +1,10 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation> Enter phone number </TopNavigation>
+    <TopNavigation> {{ $t('auth.signup.step1Title') }} </TopNavigation>
     <div class="description text--body">
-      We will send verification code
+      {{ $t('auth.signup.step1Description1') }}
       <br />
-      to this number.
+      {{ $t('auth.signup.step1Description2') }}
     </div>
     <div class="grid">
       <div class="col-4">
@@ -12,18 +12,24 @@
       </div>
       <div class="col-8 ml-auto">
         <BaseInput v-model="number" :use-grouping="false" type="number">
-          <template #label> Number </template>
+          <template #label>
+            {{ $t('common.numberLabel') }}
+          </template>
         </BaseInput>
       </div>
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        Already have an account?
-        <router-link class="link" :to="{ name: 'login' }"> Log in </router-link>
+        {{ $t('auth.signup.step1ExistingAcc') }}
+        <router-link class="link" :to="{ name: 'login' }">
+          {{ $t('common.logInCta') }}
+        </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="handleStep"> Sign up </BaseButton>
+      <BaseButton block @click="handleStep">
+        {{ $t('common.signUpCta') }}
+      </BaseButton>
     </div>
   </div>
 </template>

@@ -120,6 +120,7 @@ const detectSlideChangeByUser = (event: Event) => {
   &.-hidden {
     display: none;
   }
+
   &.-overlay {
     position: absolute;
     width: 100%;
@@ -128,61 +129,60 @@ const detectSlideChangeByUser = (event: Event) => {
     left: 0;
   }
 
-  :deep(.agile) {
+  > :deep(.agile) {
     display: flex;
     flex-direction: column-reverse;
     height: 100%;
 
-    .agile__list,
+    > .agile__list,
     .agile__slides,
     .agile__slide,
     .agile__track {
       height: 100%;
     }
 
-    .agile__slide {
+    > .agile__slide {
       overflow: scroll;
     }
 
-    .agile__dots {
-      width: 100%;
-    }
-
-    .agile__dot {
-      background-color: $color-dark-grey;
-      width: 100%;
-      height: auto;
-      margin-left: 5px;
-      border-radius: 2px;
-    }
-
-    .agile__dot:first-child {
-      margin-left: 0;
-    }
-
-    .agile__dot > button {
-      display: block;
-      width: 100%;
-      height: 2px;
-      margin: 0;
-      cursor: pointer;
-      background-color: $color-dark-grey;
-      border: none;
-      font-size: 0;
-      line-height: 0;
-      padding: 0;
-      transition-duration: 0.3s;
-      border-radius: 2px;
-    }
-
-    .agile__dot:hover > button,
-    .agile__dot--current > button {
-      background-color: $color-white;
-      border-radius: 2px;
-    }
-
-    .agile__actions {
+    > .agile__actions {
       background-color: $color-brand-2-800;
+
+      > .agile__dots {
+        width: 100%;
+
+        > .agile__dot {
+          background-color: $color-dark-grey;
+          width: 100%;
+          height: auto;
+          margin-left: 5px;
+          border-radius: 2px;
+        }
+
+        > .agile__dot:first-child {
+          margin-left: 0;
+        }
+
+        > .agile__dot > button {
+          display: block;
+          width: 100%;
+          height: 2px;
+          margin: 0;
+          cursor: pointer;
+          background-color: $color-dark-grey;
+          border: none;
+          font-size: 0;
+          line-height: 0;
+          padding: 0;
+          transition-duration: 0.3s;
+          border-radius: 2px;
+        }
+
+        > .agile__dot--current > button {
+          background-color: $color-white;
+          border-radius: 2px;
+        }
+      }
     }
   }
 }

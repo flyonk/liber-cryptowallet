@@ -6,19 +6,17 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
     </header>
-    <h1 class="title">
-      Privacy
-    </h1>
+    <h1 class="title">{{ $t('views.profile.profilePrivacy.privacy') }}</h1>
     <main class="main">
       <h6 class="subtitle">
-        Marketing
+        {{ $t('views.profile.profilePrivacy.marketing') }}
       </h6>
       <section class="section">
         <div class="header">
           <h3 class="title">
-            Marketing emails
+            {{ $t('views.profile.profilePrivacy.marketingEmails') }}
           </h3>
           <BaseSwitch
             class="switch"
@@ -27,15 +25,14 @@
           />
         </div>
         <div class="description">
-          I am happy to receive emails about Liber products, services and offers
-          that may interest me
+          {{ $t('views.profile.profilePrivacy.receiveEmails') }}
         </div>
       </section>
-      <hr class="separator">
+      <hr class="separator" />
       <section class="section">
         <div class="header">
           <h3 class="title">
-            Marketing pushes
+            {{ $t('views.profile.profilePrivacy.marketingPushes') }}
           </h3>
           <BaseSwitch
             class="switch"
@@ -44,16 +41,13 @@
           />
         </div>
         <div class="description">
-          I am happy to receive push notifications about Liber product, services
-          and offers that may interest me
+          {{ $t('views.profile.profilePrivacy.receivePushNotifications') }}
         </div>
       </section>
-      <hr class="separator">
+      <hr class="separator" />
       <section class="section">
         <div class="header">
-          <h3 class="title">
-            Social media & advertising platforms
-          </h3>
+          <h3 class="title">{{ $t('views.profile.profilePrivacy.social') }}</h3>
           <BaseSwitch
             class="switch"
             :model-value="isSocialMediaAgreement"
@@ -63,9 +57,7 @@
           />
         </div>
         <div class="description">
-          I am happy for Liber to share information, such as my name, emals
-          address and app events witg social media and advertising platforms, to
-          allow Liber to advertise to me and others like me and to conduct
+          {{ $t('views.profile.profilePrivacy.shareInformation') }}
         </div>
       </section>
     </main>
@@ -112,7 +104,7 @@ let isSocialMediaAgreement = ref(true);
   }
 
   > .main > .section {
-    margin: 17px 0px 17px 0px;
+    margin: 17px 0;
   }
 
   > .main > .section > .header {
@@ -122,7 +114,7 @@ let isSocialMediaAgreement = ref(true);
   }
 
   > .main > .section > .header > .title {
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: 500;
     font-size: 17px;
@@ -133,7 +125,7 @@ let isSocialMediaAgreement = ref(true);
 
   > .main > .section > .description {
     width: 235px;
-    font-family: Inter;
+    font-family: Inter, sans-serif;
     font-style: normal;
     font-weight: normal;
     font-size: 13px;

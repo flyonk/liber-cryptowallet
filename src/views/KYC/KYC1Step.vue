@@ -1,37 +1,27 @@
 <template>
   <div>
-    <top-navigation>
-      Country of residence
-    </top-navigation>
-    <p class="description">
-      The terms and services which apply to you, will depend on your country of residence
-    </p>
+    <top-navigation>{{
+      $t('views.kyc.kyc1step.countryOfResidence')
+    }}</top-navigation>
+    <p class="description">{{ $t('views.kyc.kyc1step.theTermsAnd') }}</p>
     <base-country-select
       v-model="country"
+      :only-european="true"
       @update:model-value="setCountry"
     />
     <div class="footer">
       <p class="heading-dark-gray-md font-weight--semibold text">
-        By pressing Sign up securely, you agree to our 
-        <a
-          class="link"
-          href="http://"
-        >
-          Terms &amp; Conditions
-        </a> and
-        <a
-          class="link"
-          href="http://"
-        >
-          Privacy Policy
-        </a>. Your data will be securely encrypted with TLS
+        {{ $t('views.kyc.kyc1step.byPressingSign') }}
+        <a class="link" href="http://">{{
+          $t('views.kyc.kyc1step.termsAmpConditions')
+        }}</a
+        >{{ $t('views.kyc.kyc1step.and') }}
+        <a class="link" href="http://"> Privacy Policy </a
+        >{{ $t('views.kyc.kyc1step.privacyPolicy') }}
       </p>
-      <base-button
-        block
-        @click="onSignUp"
-      >
-        Sign up securely
-      </base-button>
+      <base-button block @click="onSignUp">{{
+        $t('views.kyc.kyc1step.signUpSecurely')
+      }}</base-button>
     </div>
   </div>
 </template>
@@ -52,6 +42,6 @@ const onSignUp = () => {
 };
 
 const setCountry = (selectedCountry: string): void => {
-  kycStore.changeData('citizenship', selectedCountry)
+  kycStore.changeData('citizenship', selectedCountry);
 };
 </script>

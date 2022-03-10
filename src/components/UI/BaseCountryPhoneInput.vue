@@ -4,11 +4,9 @@
     @click="showList = true"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt="" />
+      <img :src="selectedData?.flag" alt />
     </div>
-    <div class="code ml-2 mb-1">
-      {{ selectedData?.dialCode }}
-    </div>
+    <div class="code ml-2 mb-1">{{ selectedData?.dialCode }}</div>
     <BaseBottomSheet v-model:visible="showList" position="bottom">
       <div class="country-select-block">
         <div class="grid align-items-center">
@@ -17,7 +15,7 @@
           </div>
           <div class="col-3 text-right">
             <div class="cancel-button text--headline" @click="showList = false">
-              Cancel
+              {{ $t('ui.basecountryphoneinput.cancel') }}
             </div>
           </div>
         </div>
@@ -26,19 +24,15 @@
           <div
             v-for="(country, index) in filteredList"
             :key="index"
-            :class="{ selected: isSelectedCountry(country) }"
+            :class="{ '-selected': isSelectedCountry(country) }"
             class="item grid align-items-center"
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt="" />
+              <img :src="country.flag" alt />
             </div>
-            <div class="code col-2">
-              {{ country.dialCode }}
-            </div>
-            <div class="title col-8">
-              {{ country.name }}
-            </div>
+            <div class="code col-2">{{ country.dialCode }}</div>
+            <div class="title col-8">{{ country.name }}</div>
           </div>
         </div>
       </div>
@@ -76,11 +70,11 @@ const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   list.value = await getFullList();
-  const _selectedCode = list.value.filter((item:any) => {
-    return item.dialCode === props.dialCode
-  })
+  const _selectedCode = list.value.filter((item: ICountryInformation) => {
+    return item.dialCode === props.dialCode;
+  });
 
-  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0]
+  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0];
   emits('ready', selectedData.value);
 });
 
@@ -107,8 +101,8 @@ function setSelectedCountry(country: ICountryInformation): void {
   user-select: none;
   cursor: pointer;
 
-  .flag {
-    img {
+  > .flag {
+    > img {
       object-fit: cover;
       border-radius: 50%;
       height: 24px;
@@ -120,7 +114,7 @@ function setSelectedCountry(country: ICountryInformation): void {
 .country-select-block {
   padding-top: 16px;
 
-  .cancel-button {
+  > .cancel {
     color: $color-primary;
     cursor: pointer;
     user-select: none;
@@ -129,23 +123,23 @@ function setSelectedCountry(country: ICountryInformation): void {
     user-select: none;
   }
 
-  .country-list {
+  > .country-list {
     margin-top: 20px;
 
-    .item {
+    > .item {
       border-radius: 8px;
       padding: 12px 16px;
       margin-bottom: 8px;
       cursor: pointer;
 
-      &.selected {
+      &.-selected {
         background: $color-light-grey-300;
       }
 
-      .flag {
+      > .flag {
         padding: 0;
 
-        img {
+        > img {
           object-fit: cover;
           border-radius: 50%;
           height: 40px;
@@ -153,7 +147,7 @@ function setSelectedCountry(country: ICountryInformation): void {
         }
       }
 
-      .code {
+      > .code {
         color: $color-dark-grey;
       }
     }
