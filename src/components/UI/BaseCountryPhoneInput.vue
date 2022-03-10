@@ -1,7 +1,7 @@
 <template>
   <div
     class="base-country-phone-input flex align-items-center"
-    @click="showList = true"
+    @click.capture="onClickInput"
   >
     <div class="flag">
       <img
@@ -12,9 +12,10 @@
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet
-      v-model:visible="showList"
-      position="bottom"
+
+    <BaseBottomSheetV
+      v-if="showList"
+      @close="onBottomSheetClose"
     >
       <div
         class="country-select-block"
@@ -58,14 +59,14 @@
           </div>
         </div>
       </div>
-    </BaseBottomSheet>
+    </BaseBottomSheetV>
   </div>
 </template>
 <script lang="ts" setup>
 import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
-import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
+import BaseBottomSheetV from '@/components/UI/BaseBottomSheetV.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
 const props = defineProps({
@@ -111,9 +112,29 @@ function setSelectedCountry(country: ICountryInformation): void {
   emits('selected', selectedData.value);
   showList.value = false;
 }
+
+function onBottomSheetClose (): void {
+  console.debug('close bottom sheet');
+}
+
+function onClickInput() {
+  showList.value = true;
+}
 </script>
 
 <style lang="scss">
+.bbet {
+  padding: 8px;
+  background-color: #efebe1;
+  display: flex;
+  flex-direction: column;
+}
+.bsettings {
+  padding: 8px;
+  background-color: wheat;
+  display: flex;
+  flex-direction: column;
+}
 .base-country-phone-input {
   border-radius: 12px;
   background: $color-grey-100;

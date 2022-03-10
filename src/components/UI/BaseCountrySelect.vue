@@ -13,8 +13,7 @@
       </base-input>
     </span>
     <BaseBottomSheet
-      v-model:visible="showList"
-      position="bottom"
+      v-if="showList"
     >
       <div class="country-select-block">
         <div class="grid align-items-center">

@@ -12,7 +12,7 @@
     <div class="grid">
       <div class="col-4">
         <base-country-phone-input 
-          :dialCode="countryDialCode"
+          :dial-code="countryDialCode"
           @ready="handleSelectCountry"
           @selected="handleSelectCountry"
         />
@@ -43,8 +43,8 @@
     <div class="sign-button-wrapper">
       <base-button 
         block 
-        @click="nextStep"
         :disabled="!number.length"
+        @click="nextStep"
       >
         Sign in
       </base-button>

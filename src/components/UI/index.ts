@@ -1,4 +1,4 @@
-export { default as BaseBottomSheet } from './BaseBottomSheet.vue';
+export { default as BaseBottomSheet } from './BaseBottomSheetV.vue';
 export { default as BaseButton } from './BaseButton.vue';
 export { default as BaseCountdown } from './BaseCountdown.vue';
 export { default as BaseCountryPhoneInput } from './BaseCountryPhoneInput.vue';
