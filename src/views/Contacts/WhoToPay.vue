@@ -33,7 +33,9 @@
         Name, @id, phone, email
       </template>
     </BaseInput>
-    <ul class="contact-tabs flex">
+    <ul
+      class="contact-tabs flex"
+    >
       <li
         v-for="tab in contactTabs"
         :key="tab.id"
@@ -44,7 +46,10 @@
         {{ tab.name }}
       </li>
     </ul>
-    <div class="main-list flex">
+    <div
+      v-if="hasFriends"
+      class="main-list flex"
+    >
       <ul class="contacts-list">
         <li
           v-for="(contact, index) in mockContacts"
@@ -78,9 +83,35 @@
         </li>
       </ul>
     </div>
-    <button class="options-button">
+    <button
+      v-if="hasFriends"
+      class="options-button"
+    >
       Payment Options
     </button>
+    <div
+      v-if="!hasFriends"
+      class="empty-list"
+    >
+      <img
+        class="image"
+        src="@/assets/images/empty_profile.png"
+        alt="empty profile"
+      >
+      <h1 class="title">
+        Friends list is empty
+      </h1>
+      <p class="description">
+        I this list, you can find contact with which you make transactions. Add contact to make the first transfer.
+      </p>
+      <BaseButton
+        class="btn"
+        size="large"
+        view="simple"
+      >
+        Add new contact
+      </BaseButton>
+    </div>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
       menu-type="communication"
@@ -93,9 +124,11 @@
 import { ref } from 'vue';
 
 import BaseInput from '@/components/UI/BaseInput.vue'
+import BaseButton from '@/components/UI/BaseButton.vue'
 import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue'
 
 let isMenuOpen = ref(false);
+let hasFriends = ref(false);
 
 let activeTab = ref(1);
 
@@ -159,7 +192,9 @@ const contactTabs = [
 
 <style lang="scss" scoped>
 .who-topay {
-  height: 100%;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
@@ -282,5 +317,39 @@ const contactTabs = [
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
+}
+
+.empty-list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-grow: 1;
+  padding-bottom: 10%;
+  width: 100%;
+  
+  >.image {
+    margin-bottom: 24px;
+  }
+
+  >.title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    text-align: center;
+    letter-spacing: -0.0045em;
+    margin-bottom: 8px;
+  }
+
+  >.description {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: -0.0031em;
+  }
+
+  >.btn {
+    margin-top: auto;
+  }
 }
 </style>
