@@ -64,11 +64,6 @@ function closeMenu() {
   emit('closeMenu');
 }
 
-// function startMove($event: TouchEvent) {
-//   menu.value.style.height = `calc(100% - ${$event.touches[0].pageY}px)`;
-// }
-
-// const { isMenuOpen } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>

@@ -83,7 +83,7 @@
     </button>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
-      menu-type="surprise"
+      menu-type="communication"
       @close-menu="closeMenu"
     />
   </div>

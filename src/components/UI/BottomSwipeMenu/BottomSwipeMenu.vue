@@ -23,6 +23,7 @@ import { ref, toRefs, computed, onUpdated } from 'vue';
 import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/CommunicationMenu.vue'
 import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue'
 import SurpriseGiftMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SurpriseGiftMenu.vue'
+import SendMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SendMenu.vue'
 
 const menu = ref();
 
@@ -58,6 +59,8 @@ const currentComponent = computed(() => {
       return CommunicationMenu
     case 'surprise':
       return SurpriseGiftMenu
+    case 'send':
+      return SendMenu
     default:
       return DashboardHomeMenu
   }
@@ -82,7 +85,10 @@ onUpdated(() => {
       menu.value.style.minHeight = `80%`;
       menu.value.style.maxHeight = `90%`;
       break;
-    default:
+    case 'send':
+      if (!menu.value) return
+      menu.value.style.minHeight = `40vh`;
+      menu.value.style.maxHeight = `60vh`;
       break;
   }
 })

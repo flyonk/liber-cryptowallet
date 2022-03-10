@@ -114,16 +114,30 @@
         </p>
       </li>
     </ul>
+    <bottom-swipe-menu
+      :is-menu-open="isMenuOpen"
+      menu-type="send"
+      @close-menu="closeMenu"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue'
+
 const activeTab = ref(1);
+
+let isMenuOpen = ref(false);
 
 function changeTab(tabNum: number) {
   activeTab.value = tabNum;
+  if (tabNum === 3) isMenuOpen.value = true
+}
+
+function closeMenu() {
+  isMenuOpen.value = false;
 }
 </script>
 
