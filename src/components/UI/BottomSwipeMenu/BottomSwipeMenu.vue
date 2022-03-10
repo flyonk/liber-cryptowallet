@@ -22,6 +22,7 @@ import { ref, toRefs, computed, onUpdated } from 'vue';
 
 import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/CommunicationMenu.vue'
 import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue'
+import SurpriseGiftMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SurpriseGiftMenu.vue'
 
 const menu = ref();
 
@@ -55,6 +56,8 @@ const currentComponent = computed(() => {
       return DashboardHomeMenu
     case 'communication':
       return CommunicationMenu
+    case 'surprise':
+      return SurpriseGiftMenu
     default:
       return DashboardHomeMenu
   }
@@ -65,16 +68,19 @@ const { isMenuOpen } = toRefs(props);
 onUpdated(() => {
   switch (props.menuType) {
     case 'dashboard':
-      if (menu?.value) {
-        menu.value.style.minHeight = `30%`;
-        menu.value.style.maxHeight = `90%`;
-      }
+      if (!menu.value) return
+      menu.value.style.minHeight = `30%`;
+      menu.value.style.maxHeight = `90%`;
       break;
     case 'communication':
-      if (menu?.value) {
-        menu.value.style.minHeight = `60%`;
-        menu.value.style.maxHeight = `90%`;
-      }
+      if (!menu.value) return
+      menu.value.style.minHeight = `70%`;
+      menu.value.style.maxHeight = `90%`;
+      break;
+    case 'surprise':
+      if (!menu.value) return
+      menu.value.style.minHeight = `80%`;
+      menu.value.style.maxHeight = `90%`;
       break;
     default:
       break;

@@ -73,6 +73,7 @@ function closeMenu() {
 
 <style lang="scss" scoped>
 .communication-menu {
+  bottom: 0;
   display: flex;
   flex-direction: column;
   width: 100%;
