@@ -16,7 +16,9 @@
             <BaseSearchInput v-model="searchQuery" />
           </div>
           <div class="col-3 text-right">
-            <div class="cancel-button text--headline" @click="showList = false">{{ $t('ui.basecountryphoneinput.cancel') }}</div>
+            <div class="cancel-button text--headline" @click="showList = false">
+              {{ $t('ui.basecountryphoneinput.cancel') }}
+            </div>
           </div>
         </div>
 

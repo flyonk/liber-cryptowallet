@@ -5,7 +5,9 @@
       <img class="image" src="@/assets/images/euro-coin.svg" alt="story" />
     </header>
     <main class="main">
-      <h1 class="title">{{ $t('views.dashboard.transferFundsToTreasury.transfer') }}</h1>
+      <h1 class="title">
+        {{ $t('views.dashboard.transferFundsToTreasury.transfer') }}
+      </h1>
       <div class="description">
         <p>{{ $t('views.dashboard.transferFundsToTreasury.provide') }}</p>
         <br />
@@ -18,10 +20,14 @@
         width="200"
         height="200"
       />
-      <div class="label">{{ $t('views.dashboard.transferFundsToTreasury.noAgain') }}</div>
+      <div class="label">
+        {{ $t('views.dashboard.transferFundsToTreasury.noAgain') }}
+      </div>
     </main>
     <footer class="footer">
-      <button class="btn">{{ $t('views.dashboard.transferFundsToTreasury.liquidity') }}</button>
+      <button class="btn">
+        {{ $t('views.dashboard.transferFundsToTreasury.liquidity') }}
+      </button>
     </footer>
   </div>
 </template>
