@@ -190,18 +190,18 @@ export type TUpdateProfile = {
   birthdate: string;
 };
 
-
-export type TClaim = { // wrong body
-    "id": number,
-    "claim_id": number,
-    "type": number,
-    "name": string,
-    "extension": string,
-    "link": string,
-    "created_at": string,
-    "updated_at": string,
-    "deleted_at": string
-}
+export type TClaim = {
+  // wrong body
+  id: number;
+  claim_id: number;
+  type: number;
+  name: string;
+  extension: string;
+  link: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at: string;
+};
 
 export type TClaimFileList = {
   file_list: TClaim[];
