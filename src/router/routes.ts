@@ -12,13 +12,6 @@ import Restore from '@/views/Auth/Restore/MainRestore.vue';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'auth-phone',
-    component: () =>
-      import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-    meta: { layout: 'default' },
-  },
-  {
-    path: '/',
     name: 'welcome-logo-screen',
     component: () =>
       import(
