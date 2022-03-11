@@ -18,7 +18,7 @@
           </div>
           <div class="col-3 text-right">
             <div class="cancel-button text--headline" @click="showList = false">
-              Cancel
+              {{ $t('ui.basecountryphoneinput.cancel') }}
             </div>
           </div>
         </div>
