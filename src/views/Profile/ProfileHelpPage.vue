@@ -11,7 +11,7 @@
         {{ $t('views.profile.profileHelp.hello') }} Abraham Watson,
         {{ $t('views.profile.profileHelp.help') }}
       </div>
-      <BaseInput type="string">
+      <BaseInput v-model="value" type="text">
         <template #label>
           {{ $t('views.profile.profileHelp.question') }}
         </template>
@@ -45,6 +45,8 @@
 
 <script setup lang="ts">
 import BaseInput from '@/components/UI/BaseInput.vue';
+import { ref } from 'vue';
+const value = ref('');
 </script>
 
 <style lang="scss" scoped>
