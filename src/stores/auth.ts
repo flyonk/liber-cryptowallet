@@ -28,8 +28,8 @@ export interface IAuthState {
   login: ICommonPhoneNumber;
   //TODO: refactor me
   token: {
-    access_token: string | null;
-    refresh_token: string | null;
+    token: string | null;
+    refreshToken: string | null;
   };
 }
 
@@ -52,8 +52,8 @@ export const useAuthStore = defineStore('auth', {
       phone: '9082359632',
     },
     token: {
-      access_token: null,
-      refresh_token: null,
+      token: null,
+      refreshToken: null,
     },
   }),
 
@@ -63,7 +63,7 @@ export const useAuthStore = defineStore('auth', {
     getRegistrationPhone: (state) =>
       state.registration.dialCode + state.registration.phone,
     getToken: ({ token }) => token,
-    isLoggedIn: ({ token }) => !!token.access_token && !!token.refresh_token,
+    isLoggedIn: ({ token }) => !!token.token && !!token.refreshToken,
   },
 
   actions: {
@@ -98,15 +98,14 @@ export const useAuthStore = defineStore('auth', {
 
         this.token = { ...this.token, ...data };
       } else {
-        //TODO: refactor me
-        const { value: access_token } = await Storage.get({
+        const { value: token } = await Storage.get({
           key: 'access_token',
         });
-        const { value: refresh_token } = await Storage.get({
+        const { value: refreshToken } = await Storage.get({
           key: 'refresh_token',
         });
 
-        this.token = { ...this.token, access_token, refresh_token };
+        this.token = { ...this.token, token, refreshToken };
       }
     },
   },
