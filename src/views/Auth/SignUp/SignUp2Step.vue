@@ -1,12 +1,10 @@
 <template>
   <div class="auth-page-container">
     <TopNavigation @click:left-icon="prevStep">{{
-      $t('auth.login.step2Title')
+      $t('common.codeInput')
     }}</TopNavigation>
     <div class="description text--body">
-      {{ $t('auth.login.step2Description1') }}
-      <br />
-      {{ $t('auth.login.step2Description2') }} {{ formatPhone() }}
+      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}
     </div>
     <div>
       <BaseVerificationCodeInput
