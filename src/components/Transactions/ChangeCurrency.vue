@@ -161,20 +161,18 @@ function changeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name
     currentSendFromCurrency.img = currencies[index].img
-    console.log('ale', currentSendFromCurrency)
   }
 
   if (type === 'to') {
     currentSendToCurrency.name.value = currencies[index].name
     currentSendToCurrency.img = currencies[index].img
-    console.log('ale', currentSendToCurrency)
   }
 
   isSelectListOpen.value = false
 }
 
 function sendTransaction() {
-  console.log('JDEM API')
+  console.log('WAITING FOR API')
 }
 
 const currencies = [

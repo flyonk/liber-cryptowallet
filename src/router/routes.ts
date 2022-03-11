@@ -229,6 +229,14 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
+        path: 'add',
+        name: 'contacts.add.new.contact',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/AddNewContact.vue'
+          ),
+      },
+      {
         path: 'send_link',
         name: 'contacts.send.link',
         component: () =>
