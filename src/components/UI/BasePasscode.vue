@@ -43,7 +43,9 @@
       <div class="number-button text--large-title" @click="setNumber('0')">
         0
       </div>
-      <div class="number-button" @click="clear">clr</div>
+      <div class="number-button" @click="clear">
+        <img src="@/assets/icon/clear-button.svg" />
+      </div>
     </div>
   </div>
 </template>
