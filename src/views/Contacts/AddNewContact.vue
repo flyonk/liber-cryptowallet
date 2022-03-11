@@ -21,6 +21,7 @@
       >
         <BaseInput
           v-model="newContacts[index].name.value"
+          autofocus
           type="text"
         >
           <template #label>

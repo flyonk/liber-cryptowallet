@@ -48,7 +48,10 @@
         </p>
       </div>
     </li>
-    <li class="menu-item">
+    <router-link
+      to="/contacts/add"
+      class="menu-item"
+    >
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/add_contact.svg"
@@ -62,7 +65,7 @@
           Add a contact using phone or email
         </p>
       </div>
-    </li>
+    </router-link>
   </ul>
 </template>
 
