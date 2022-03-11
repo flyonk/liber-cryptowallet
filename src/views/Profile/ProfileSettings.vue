@@ -6,24 +6,21 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push('/home')"
+          @click="$router.push({ name: 'dashboard-home' })"
         />
-        <h1 class="title">
-          {{ accountName }}
-        </h1>
+        <h1 class="title">{{ accountName }}</h1>
         <div class="flex">
           <p class="account">
-            My ID: <a class="link">{{ accountID }}</a>
+            My ID:
+            <a class="link">{{ accountID }}</a>
           </p>
           <!-- <img
             src="@/assets/icon/edit.svg"
             alt="edit"
-          > -->
+          >-->
         </div>
       </div>
-      <div class="right">
-        {{ nameInitials }}
-      </div>
+      <div class="right">{{ nameInitials }}</div>
     </div>
     <div class="controls">
       <button class="btn -blue">
@@ -39,7 +36,7 @@
         {{ $t('views.profile.profileSettings.profile') }}
       </h6>
       <ul class="list list--profile">
-        <li class="item" @click="$router.push('/account/profile')">
+        <li class="item" @click="$router.push({ name: 'profile-my-qr-code' })">
           <img class="icon" src="@/assets/icon/qr-mini.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.QRCode') }}</p>
         </li>
@@ -68,7 +65,7 @@
             {{ $t('views.profile.profileSettings.changePasscode') }}
           </p>
         </router-link>
-        <li class="item">
+        <li class="item" @click="$router.push({ name: 'profile-privacy' })">
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
@@ -88,7 +85,7 @@
           <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
       </ul>
-      <h6 class="subtitle">{{ $t('views.profile.profileSettings.label') }}</h6>
+      <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
       <ul class="list label--profile">
         <li class="item" @click="showCloseAccount = true">
           <img class="icon" src="@/assets/icon/circle_close.svg" />
