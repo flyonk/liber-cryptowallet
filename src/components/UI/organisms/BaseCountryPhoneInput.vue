@@ -21,9 +21,13 @@
 </template>
 <script lang="ts" setup>
 import { ref, Ref, onBeforeMount } from 'vue';
+
 import { getFullList } from '@/services/country-phone';
+
+import BaseCountryEntitySelect from '@/components/UI/organisms/BaseCountryEntitySelect.vue';
+
 import { ICountryInformation } from '@/types/country-phone-types';
-import BaseCountryEntitySelect from '@/components/UI/molecules/BaseCountryEntitySelect.vue';
+
 
 const props = defineProps({
   dialCode: {

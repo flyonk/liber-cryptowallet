@@ -18,8 +18,8 @@
 </template>
 
 <script setup lang="ts">
-import StoriesSlider from '@/components/UI/StoriesSlider.vue';
-import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
+import StoriesSlider from '@/components/UI/molecules/StoriesSlider.vue';
+import StoriesSliderExampleStory from '@/components/UI/organisms/StoriesSliderExampleStory.vue';
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { ISlider } from '@/types/ISlider';
 

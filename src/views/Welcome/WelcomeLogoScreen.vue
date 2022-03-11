@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import MainPageLoader from '@/components/UI/MainPageLoader.vue';
+import MainPageLoader from '@/components/UI/atoms/MainPageLoader.vue';
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';

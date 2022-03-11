@@ -1,15 +1,14 @@
 <template name="CloseAccount">
   <div v-if="showMenu" class="close-account">
     <img class="logo" src="@/assets/images/liber-logo.png" alt="logo" />
-    <h5 class="title">Hey, wait! Where are you going?</h5>
+    <h5 class="title">{{ $t('views.profile.profileSettings.preventClosingAccount') }}</h5>
     <p class="description">
-      It's free to keep a account, and opening a new one could take some time if
-      you cancel
+      {{ $t('views.profile.profileSettings.freeToKeep') }}
     </p>
     <div class="control-buttons">
-      <BaseButton class="btn" size="large"> Keep account open </BaseButton>
+      <BaseButton class="btn" size="large"> {{ $t('views.profile.profileSettings.keepOpen') }} </BaseButton>
       <BaseButton class="btn" size="large" @click="$emit('closeMenu')">
-        Close account
+        {{ $t('views.profile.profileSettings.close') }}
       </BaseButton>
     </div>
   </div>

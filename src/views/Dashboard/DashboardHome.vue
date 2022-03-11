@@ -125,9 +125,9 @@
 </template>
 
 <script setup lang="ts">
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
+import BottomSwipeMenu from '@/components/UI/organisms/BottomSwipeMenu.vue';
 import { VueAgile } from 'vue-agile';
-import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
+import DashboardSkeleton from '@/components/UI/organisms/DashboardSkeleton.vue';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 let activeTab = ref(1);
