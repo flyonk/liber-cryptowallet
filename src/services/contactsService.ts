@@ -1,46 +1,46 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
-import {
-  TInviteLink,
-  TIPhoneContacts,
-  TLiberContact,
-  TLiberContacts,
-  TPaymentLink,
-  TErrorResponse,
-  TSuccessResponse,
-} from '@/types/api';
 
-//TODO: deserialize api responses - every method should return mapped model
+import contactsMapper, { ILiberContact } from '@/models/recipient/liberContact';
+import IPhoneContactMapper, {
+  IIPhoneContact,
+} from '@/models/recipient/iPhoneContact';
+
+import { TInviteLink, TPaymentLink, TSuccessResponse } from '@/types/api';
 
 export default {
-  async getFriends(): Promise<TLiberContacts | TErrorResponse> {
-    return await axios.get(apiService.recipients.contacts());
+  async getFriends(): Promise<ILiberContact[]> {
+    const res = await axios.get(apiService.recipients.contacts());
+    return res.data.map(contactsMapper.deserialize);
   },
 
-  async createContact(
-    data: TLiberContact
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(apiService.recipients.contacts(), data);
+  async createContact(data: ILiberContact): Promise<TSuccessResponse> {
+    const res = await axios.post(
+      apiService.recipients.contacts(),
+      contactsMapper.requestSerialize(data)
+    );
+    return res.data;
   },
 
   async editContact(
     id: string,
-    data: TLiberContact
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.put(`${apiService.recipients.contacts()}/${id}`, data);
+    data: Partial<ILiberContact>
+  ): Promise<TSuccessResponse> {
+    return (await axios.put(`${apiService.recipients.contacts()}/${id}`, data))
+      .data;
   },
 
-  async syncContacts(
-    data: TIPhoneContacts
-  ): Promise<TLiberContacts | TErrorResponse> {
-    return await axios.post(apiService.recipients.sync(), data);
+  async syncContacts(data: IIPhoneContact[]): Promise<ILiberContact[]> {
+    const contactsToSync = data.map(IPhoneContactMapper.requestSerialize);
+    const res = await axios.post(apiService.recipients.sync(), contactsToSync);
+    return res.data.map(contactsMapper.deserialize);
   },
 
-  async getInviteLink(): Promise<TInviteLink | TErrorResponse> {
-    return await axios.get(apiService.recipients.invite());
+  async getInviteLink(): Promise<TInviteLink> {
+    return (await axios.get(apiService.recipients.invite())).data;
   },
 
-  async getPaymentLink(): Promise<TPaymentLink | TErrorResponse> {
-    return await axios.get(apiService.recipients.payment());
+  async getPaymentLink(): Promise<TPaymentLink> {
+    return (await axios.get(apiService.recipients.payment())).data;
   },
 };

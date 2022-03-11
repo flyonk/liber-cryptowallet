@@ -1,18 +1,18 @@
 export interface IAvatar {
-  link: string;
+  url: string;
 }
 
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any): IAvatar {
     return {
-      link: input.link || '',
+      url: input.avatar || '',
     };
   },
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   requestSerialize(input: IAvatar): any {
     return {
-      link: input.link,
+      avatar: input.url,
     };
   },
 };

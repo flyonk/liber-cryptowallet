@@ -21,12 +21,15 @@ export default {
     };
   },
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: ILiberContact): any {
+  requestSerialize(input: Partial<ILiberContact>): any {
     return {
-      id: input.id,
       name: input.name,
-      phones: requestSerializeCommunicationInfoAdaptor(input.phones),
-      emails: requestSerializeCommunicationInfoAdaptor(input.emails),
+      phones: input.phones
+        ? requestSerializeCommunicationInfoAdaptor(input.phones)
+        : undefined,
+      emails: input.emails
+        ? requestSerializeCommunicationInfoAdaptor(input.emails)
+        : undefined,
     };
   },
 };

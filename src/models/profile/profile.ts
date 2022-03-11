@@ -39,7 +39,7 @@ export default {
   },
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IProfile): any {
+  requestSerialize(input: Partial<IProfile>): any {
     return {
       status: input.status,
       phone: input.phone,

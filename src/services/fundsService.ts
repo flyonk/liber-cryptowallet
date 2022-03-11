@@ -1,36 +1,33 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
-import {
-  TCoins,
-  TConvertData,
-  TConvertInfo,
-  TDepositInfo,
-  TErrorResponse,
-  TSuccessResponse,
-} from '@/types/api';
 
-//TODO: deserialize api responses - every method should return mapped model
+import DepositMapper, { IDepositInfo } from '@/models/funds/deposit';
+import ConvertInfoMapper, {
+  IConvertInfo,
+  TConvertData,
+} from '@/models/funds/convertInfo';
+
+import { TCoins, TSuccessResponse } from '@/types/api';
 
 export default {
-  async getCoins(): Promise<TCoins | TErrorResponse> {
+  //TODO: clarify this type with nested objects
+  async getCoins(): Promise<TCoins> {
     return await axios.get(apiService.funds.coins());
   },
 
-  async getDepositInfo(
-    coinCode: string
-  ): Promise<TDepositInfo | TErrorResponse> {
-    return await axios.get(`${apiService.funds.depositInfo()}/${coinCode}`);
+  async getDepositInfo(coinCode: string): Promise<IDepositInfo> {
+    const res = await axios.get(
+      `${apiService.funds.depositInfo()}/${coinCode}`
+    );
+    return DepositMapper.deserialize(res.data);
   },
 
-  async convertInfo(
-    data: TConvertData
-  ): Promise<TConvertInfo | TErrorResponse> {
-    return await axios.post(apiService.funds.convertInfo(), data);
+  async convertInfo(data: TConvertData): Promise<IConvertInfo> {
+    const res = await axios.post(apiService.funds.convertInfo(), data);
+    return ConvertInfoMapper.deserialize(res.data);
   },
 
-  async convert(
-    data: TConvertData
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(apiService.funds.convert(), data);
+  async convert(data: TConvertData): Promise<TSuccessResponse> {
+    return (await axios.post(apiService.funds.convert(), data)).data;
   },
 };

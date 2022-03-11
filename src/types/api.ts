@@ -158,7 +158,7 @@ export interface IVerificator {
 }
 
 export type TVerification = {
-  varification: boolean;
+  verification: boolean;
 };
 
 export type TProfile = {
@@ -247,6 +247,7 @@ export interface IFundsService {
 }
 
 type TCoin = {
+  //TODO: WHY??? nested objects
   [key: string]: {
     //Coin CODE
     fullname: string;
@@ -259,10 +260,7 @@ export type TCoins = {
 };
 
 export type TConvertData = {
-  list: [
-    { [key: string]: { fullname: string; amount: string } },
-    { [key: string]: { fullname: string } }
-  ];
+  list: Record<string, { fullname: string; amount?: string }>;
 };
 
 export type TConvertInfo = {

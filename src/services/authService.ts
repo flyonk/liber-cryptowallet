@@ -1,14 +1,12 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import { TErrorResponse, TSuccessResponse } from '@/types/api';
-import dataMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
+import SignInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
+import { TSuccessResponse } from '@/types/api';
 
 export default {
-  async signIn(data: {
-    phone: string;
-  }): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(apiService.auth.signIn(), data);
+  async signIn(data: { phone: string }): Promise<TSuccessResponse> {
+    return (await axios.post(apiService.auth.signIn(), data)).data;
   },
 
   async signInProceed(data: {
@@ -16,17 +14,15 @@ export default {
     otp: string;
   }): Promise<ISuccessSignIn> {
     const res = await axios.post(apiService.auth.signInProceed(), data);
-    return dataMapper.deserialize(res);
+    return SignInMapper.deserialize(res.data);
   },
 
-  async logout(data: {
-    access_token: string;
-  }): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(apiService.auth.logout(), data);
+  async logout(data: { access_token: string }): Promise<TSuccessResponse> {
+    return (await axios.post(apiService.auth.logout(), data)).data;
   },
 
   async refresh(data: { refresh_token: string }): Promise<ISuccessSignIn> {
     const res = await axios.post(apiService.auth.refresh(), data);
-    return dataMapper.deserialize(res);
+    return SignInMapper.deserialize(res.data);
   },
 };
