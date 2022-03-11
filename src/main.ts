@@ -3,13 +3,12 @@ import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
 
-import sentry from '@/plugins/sentry';
-
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
-
 import { i18n, setLocale } from './i18n';
+import sentry from '@/plugins/sentry';
+import axiosInterceptor from '@/plugins/axiosInterceptor';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
@@ -19,6 +18,8 @@ import PTooltip from 'primevue/tooltip';
 import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
+
+axiosInterceptor();
 
 const app = createApp(App)
   // App uses

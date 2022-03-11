@@ -43,6 +43,7 @@
         {{ $t('auth.restore.step2VerificationDescription') }}
       </div>
 
+      <!-- TODO: make a reusable component -->
       <div class="notification-wrapper">
         <div class="description">
           <img
