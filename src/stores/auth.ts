@@ -26,7 +26,6 @@ export interface IAuthState {
   steps: IAuthSteps;
   registration: IAuthRegistration;
   login: ICommonPhoneNumber;
-  //TODO: refactor me
   token: {
     token: string | null;
     refreshToken: string | null;
