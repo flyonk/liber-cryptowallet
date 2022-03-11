@@ -20,15 +20,56 @@
       </div>
     </div>
     <div class="sendto-main">
-      <ChangeCurrency />
+      <change-currency @send-transaction="sendTransaction" />
     </div>
   </div>
+  <base-toast
+    v-model:visible="showPopup"
+    :severity="'attention'"
+  >
+    <template #description>
+      <div class="popup-description">
+        <h1 class="title">
+          Do you know and trust this payee?
+        </h1>
+        <p class="description">
+          If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment
+        </p>
+      </div>
+    </template>
+    <template #footer>
+      <div class="popup-footer">
+        <BaseButton
+          class="btn mb-3"
+          size="large"
+          @click="showPopup = false"
+        >
+          No, go back
+        </BaseButton>
+        <BaseButton
+          class="btn"
+          size="large"
+          view="secondary"
+        >
+          Yes, continue
+        </BaseButton>
+      </div>
+    </template>
+  </base-toast>
 </template>
 
 <script setup lang="ts">
 import ChangeCurrency from '@/components/Transactions/ChangeCurrency.vue'
+import { BaseToast } from '@/components/UI'
+import BaseButton from '@/components/UI/BaseButton.vue'
 // import BaseInput from '@/components/UI/BaseInput.vue'
-// import { ref } from 'vue';
+import { ref } from 'vue';
+
+const showPopup = ref(false)
+
+function sendTransaction() {
+  showPopup.value = true
+}
 
 
 </script>
@@ -82,6 +123,29 @@ import ChangeCurrency from '@/components/Transactions/ChangeCurrency.vue'
     height: 40px;
     color: $color-yellow-700;
     margin-right: 12px;   
+  }
+}
+
+.popup-description {
+  margin-bottom: 65px;
+
+  >.title {
+    font-weight: 600;
+    font-size: 22px;
+    line-height: 34px;
+    text-align: center;
+    letter-spacing: -0.0026em;
+    color: #0D1F3C;
+    margin-bottom: 8px;
+  }
+
+  >.description {
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: -0.0043em;
+    color: $color-brand-2-300;
   }
 }
 </style>

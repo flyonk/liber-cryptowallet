@@ -7,6 +7,7 @@
           type="number"
           class="input"
           autofocus
+          @blur="onBlur"
         >
         <div class="select">
           <div
@@ -85,6 +86,7 @@
         <input
           type="number"
           class="input"
+          @blur="onBlur"
         >
         <div class="select select-to">
           <div
@@ -126,7 +128,7 @@
       class="send-button"
       size="large"
       view="simple"
-      @click="sendTransaction"
+      @click="$emit('send-transaction')"
     >
       Send
     </BaseButton>
@@ -154,7 +156,6 @@ function showCryptoList(listId: number) {
   isSelectListOpen.value = !isSelectListOpen.value
   currentOpenedSelectId.value = null
   currentOpenedSelectId.value = listId
-  console.log(listId, currencies, isSelectListOpen.value)
 }
 
 function changeCurrentCurrency(index: number, type: string) {
@@ -171,9 +172,12 @@ function changeCurrentCurrency(index: number, type: string) {
   isSelectListOpen.value = false
 }
 
-function sendTransaction() {
-  console.log('WAITING FOR API')
-}
+defineEmits(['send-transaction']);
+
+// function sendTransaction() {
+//   console.log('test send transc')
+//   $emit('send')
+// }
 
 const currencies = [
   {
@@ -193,6 +197,14 @@ const currencies = [
     img: require('@/assets/icon/currencies/xrp.svg'),
   },
 ];
+
+const onBlur = (event: any) => {
+  const newElem = event.relatedTarget?.nodeName
+  const elem = event.target
+  if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
+    elem.focus()
+  }
+}
 </script>
 
 <style lang="scss" scoped>

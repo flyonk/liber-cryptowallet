@@ -69,18 +69,18 @@ import { ref } from 'vue';
 import BaseInput from '@/components/UI/BaseInput.vue'
 import BaseButton from '@/components/UI/BaseButton.vue'
 
-const newContacts = [
+const newContacts = ref([
   {
-    name: ref(''),
-    email: ref('')
+    name: '',
+    email: ''
   }
-]
+])
 
 function addExtraContact() {
-  newContacts.push(
+  newContacts.value.push(
     {
-      name: ref(''),
-      email: ref('')
+      name: '',
+      email: ''
     }
   )
   console.log(newContacts)
@@ -88,8 +88,8 @@ function addExtraContact() {
 
 function isBtnDisabled() {
   let result = true
-  newContacts.forEach(i => {
-    if (i.name.value === '' || i.email.value === '') result = false
+  newContacts.value.forEach(i => {
+    if (i.name === '' || i.email === '') result = false
     return i
   })
   return result

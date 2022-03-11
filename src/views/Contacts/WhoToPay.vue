@@ -129,7 +129,7 @@ import BaseButton from '@/components/UI/BaseButton.vue'
 import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue'
 
 let isMenuOpen = ref(false);
-let hasFriends = ref(false);
+let hasFriends = ref(true);
 
 let activeTab = ref(1);
 

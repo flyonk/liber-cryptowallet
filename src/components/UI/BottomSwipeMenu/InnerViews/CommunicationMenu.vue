@@ -19,7 +19,7 @@
             +49 30 901820
           </h3>
         </div>
-        <input type="radio">
+        <radio-button />
       </li>
       <li class="communication-item">
         <div class="send-method">
@@ -30,7 +30,7 @@
             flyonk@cryptowize.tech
           </h3>
         </div>
-        <input type="radio">
+        <radio-button />
       </li>
       <li class="communication-item">
         <div class="send-method">
@@ -41,7 +41,7 @@
             +49 35 931820
           </h3>
         </div>
-        <input type="radio">
+        <radio-button />
       </li>
     </ul>
     <BaseButton
@@ -57,6 +57,7 @@
 // import { ref } from 'vue';
 
 import BaseButton from '@/components/UI/BaseButton.vue'
+import RadioButton from 'primevue/radiobutton';
 
 
 const emit = defineEmits(['closeMenu']);

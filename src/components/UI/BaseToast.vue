@@ -50,10 +50,13 @@ const currentImage = computed(() => {
   switch(props.severity) {
     case 'error':
 			return require('@/assets/images/sapphire-error.svg')
+    case 'attention':
+			return require('@/assets/images/attention.svg')
     default: ''
       return require('@/assets/images/sapphire-error.svg')
     }
 })
+
 </script>
 
 <style lang="scss">
