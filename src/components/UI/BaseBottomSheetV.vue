@@ -120,6 +120,12 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
   const diff = (initialTouchY.value as number) - touchY;
 
   if ((wrapper.value?.scrollTop as number) <= 0) {
+    if (isOpened.value === false) {
+      emit('close');
+
+      return;
+    }
+
     initialTouchY.value = (e as TouchEvent).changedTouches[0].clientY;
 
     top.value = initialTopPosition.value;
@@ -166,7 +172,7 @@ const onLastTransitionEnd = () => {
   box-shadow: 0 0 0 99999px rgba(0, 0, 0, 50%);
   /* stylelint-enable color-function-notation */
   box-sizing: border-box;
-  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
 
   & > .header {
     border-radius: inherit;

@@ -5,7 +5,7 @@
         <template #label>{{ $t('ui.basecountryselect.country') }}</template>
       </base-input>
     </span>
-    <BaseBottomSheet v-if="showList">
+    <BaseBottomSheet v-if="showList" @close="showList = false">
       <div class="country-select-block">
         <div class="grid align-items-center container">
           <div class="col-9 searchcontainer">

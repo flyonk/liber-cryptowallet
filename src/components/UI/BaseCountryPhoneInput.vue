@@ -10,7 +10,7 @@
       {{ selectedData?.dialCode }}
     </div>
 
-    <BaseBottomSheetV v-if="showList" @close="onBottomSheetClose">
+    <BaseBottomSheetV v-if="showList" @close="showList = false">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
