@@ -13,7 +13,7 @@
     </div>
   </div>
 
-  <div style="padding: 15px">
+  <div style="padding: 15px; padding-bottom: 50px">
     <base-button block @click="$router.push({ name: 'install-app' })">
       {{ $t('common.continueCta') }}
     </base-button>
