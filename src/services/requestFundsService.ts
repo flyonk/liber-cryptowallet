@@ -1,56 +1,56 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
+
+import PaymentLinkMapper, {
+  IPaymentLink,
+} from '@/models/transaction/paymentLink';
 import {
   TCreateRequestFundsData,
-  TErrorResponse,
-  TRequestFundsPaymentLink,
   TStatement,
   TSuccessResponse,
 } from '@/types/api';
 
-//TODO: deserialize api responses - every method should return mapped model
-
 export default {
-  async downloadStatement(id: string): Promise<TStatement | TErrorResponse> {
-    return await axios.post(
-      `${apiService.transactions.requestFunds()}/${id}/statement`
-    );
+  async downloadStatement(id: string): Promise<TStatement> {
+    return (
+      await axios.post(
+        `${apiService.transactions.requestFunds()}/${id}/statement`
+      )
+    ).data;
   },
 
-  async getPaymentLink(
-    id: string
-  ): Promise<TRequestFundsPaymentLink | TErrorResponse> {
-    return await axios.get(`${apiService.transactions.requestFunds()}/${id}`);
+  async getPaymentLink(id: string): Promise<IPaymentLink> {
+    const res = await axios.get(
+      `${apiService.transactions.requestFunds()}/${id}`
+    );
+    return PaymentLinkMapper.deserialize(res.data);
   },
 
-  async cancelRequestFunds(
-    id: string
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(
-      `${apiService.transactions.requestFunds()}/${id}/cancel`
-    );
+  async cancelRequestFunds(id: string): Promise<TSuccessResponse> {
+    return (
+      await axios.post(`${apiService.transactions.requestFunds()}/${id}/cancel`)
+    ).data;
   },
 
-  async sendRequestedFunds(
-    id: string
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(
-      `${apiService.transactions.requestFunds()}/${id}/send`
-    );
+  async sendRequestedFunds(id: string): Promise<TSuccessResponse> {
+    return (
+      await axios.post(`${apiService.transactions.requestFunds()}/${id}/send`)
+    ).data;
   },
 
-  async declineRequestedFunds(
-    id: string
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(
-      `${apiService.transactions.requestFunds()}/${id}/decline`
-    );
+  async declineRequestedFunds(id: string): Promise<TSuccessResponse> {
+    return (
+      await axios.post(
+        `${apiService.transactions.requestFunds()}/${id}/decline`
+      )
+    ).data;
   },
 
   async createRequestFunds(
     id: string,
     data: TCreateRequestFundsData
-  ): Promise<TSuccessResponse | TErrorResponse> {
-    return await axios.post(apiService.transactions.requestFunds(), data);
+  ): Promise<TSuccessResponse> {
+    return (await axios.post(apiService.transactions.requestFunds(), data))
+      .data;
   },
 };
