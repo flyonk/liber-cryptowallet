@@ -1,59 +1,84 @@
-import { IApiService, IRequestFundsService, TErrorResponse, TRequestFundsPaymentLink, TStatement, TSuccessResponse, TCreateRequestFundsData } from '@/types/api';
+import {
+  IApiService,
+  IRequestFundsService,
+  TErrorResponse,
+  TRequestFundsPaymentLink,
+  TStatement,
+  TSuccessResponse,
+  TCreateRequestFundsData,
+} from '@/types/api';
 import { AUTH_API_URL } from '@/constants';
-import ApiService from "./ApiService";
+import ApiService from './ApiService';
 
-const URL = AUTH_API_URL
+const URL = AUTH_API_URL;
 
 class RequestFundsService implements IRequestFundsService {
-    private _apiServiceInstance: IApiService;
+  private _apiServiceInstance: IApiService;
 
-    private url: string;
+  private url: string;
 
-    constructor() {
-        this.url = 'request-funds'
+  constructor() {
+    this.url = 'request-funds';
 
-        if (URL) {
-            this.url = URL;
-        }
-
-        this._apiServiceInstance = ApiService.getInstance()
+    if (URL) {
+      this.url = URL;
     }
 
-    async downloadStatement(id: string): Promise<TStatement | TErrorResponse> {
-        const url = `${this.url}/${id}/statement`
-        const res: TStatement | TErrorResponse = await this._apiServiceInstance.fetch.post(url)
-        return res
-    }
+    this._apiServiceInstance = ApiService.getInstance();
+  }
 
-    async getPaymentLink(id: string): Promise<TRequestFundsPaymentLink | TErrorResponse> {
-        const url = `${this.url}/${id}`
-        const res: TRequestFundsPaymentLink | TErrorResponse = await this._apiServiceInstance.fetch.get(url)
-        return res
-    }
+  async downloadStatement(id: string): Promise<TStatement | TErrorResponse> {
+    const url = `${this.url}/${id}/statement`;
+    const res: TStatement | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url);
+    return res;
+  }
 
-    async cancelRequestFunds(id: string): Promise<TSuccessResponse | TErrorResponse> {
-        const url = `${this.url}/${id}/cancel`
-        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url)
-        return res
-    }
+  async getPaymentLink(
+    id: string
+  ): Promise<TRequestFundsPaymentLink | TErrorResponse> {
+    const url = `${this.url}/${id}`;
+    const res: TRequestFundsPaymentLink | TErrorResponse =
+      await this._apiServiceInstance.fetch.get(url);
+    return res;
+  }
 
-    async sendRequestedFunds(id: string): Promise<TSuccessResponse | TErrorResponse> {
-        const url = `${this.url}/${id}/send`
-        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url)
-        return res
-    }
+  async cancelRequestFunds(
+    id: string
+  ): Promise<TSuccessResponse | TErrorResponse> {
+    const url = `${this.url}/${id}/cancel`;
+    const res: TSuccessResponse | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url);
+    return res;
+  }
 
-    async declineRequestedFunds(id: string): Promise<TSuccessResponse | TErrorResponse> {
-        const url = `${this.url}/${id}/decline`
-        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url)
-        return res
-    }
+  async sendRequestedFunds(
+    id: string
+  ): Promise<TSuccessResponse | TErrorResponse> {
+    const url = `${this.url}/${id}/send`;
+    const res: TSuccessResponse | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url);
+    return res;
+  }
 
-    async createRequestFunds(id: string, data: TCreateRequestFundsData): Promise<TSuccessResponse | TErrorResponse> {
-        const url = `${this.url}`
-        const res: TSuccessResponse | TErrorResponse = await this._apiServiceInstance.fetch.post(url, data)
-        return res
-    }
+  async declineRequestedFunds(
+    id: string
+  ): Promise<TSuccessResponse | TErrorResponse> {
+    const url = `${this.url}/${id}/decline`;
+    const res: TSuccessResponse | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url);
+    return res;
+  }
+
+  async createRequestFunds(
+    id: string,
+    data: TCreateRequestFundsData
+  ): Promise<TSuccessResponse | TErrorResponse> {
+    const url = `${this.url}`;
+    const res: TSuccessResponse | TErrorResponse =
+      await this._apiServiceInstance.fetch.post(url, data);
+    return res;
+  }
 }
 
-export default RequestFundsService
+export default RequestFundsService;

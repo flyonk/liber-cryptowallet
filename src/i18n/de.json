@@ -1,0 +1,383 @@
+{
+  "common": {
+    "logInCta": "Log in",
+    "signUpCta": "Sign up",
+    "numberLabel": "Number",
+    "continueCta": "Continue",
+    "retryCta": "To retry",
+    "okCta": "Got it",
+    "nextStep": "Next",
+    "email": "Email",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "phoneCta": "Phone Enter",
+    "codeCta": "Enter the code",
+    "phoneInput": "Enter phone number",
+    "codeInput": "Enter 6-digit code",
+    "notNowCta": "Not now",
+    "codeLabel": "Code",
+    "pasteCta": "Paste",
+    "googleAuthenticator": "Google Authenticator",
+    "microsoftAuthenticator": "Microsoft Authenticator",
+    "coinSelect": "Select a coin",
+    "searchCoin": "Search a coin",
+    "saveImage": "Save Image",
+    "history": "History",
+    "cancelCta": "Cancel",
+    "shareCta": "Share",
+    "to": "To",
+    "from": "From",
+    "daysAgo": "days ago",
+    "explorer": "Open in Explorer"
+  },
+  "slider": {
+    "title": "Transfer money around the world with the best fee"
+  },
+  "bottomNav": {
+    "home": "Home",
+    "send": "Send",
+    "recipients": "Recipients",
+    "invite": "Invite"
+  },
+  "auth": {
+    "login": {
+      "step1Title": "Log in to Liber",
+      "step1Description": "Enter your registered mobile number to log in",
+      "step1Label": "Number",
+      "step1LostAccess": "Lost access to my number",
+      "step2Description": "To sign up, enter the security code we've sent to",
+      "step2ResendTitle": "Resend code in",
+      "step2ResendCta": "Resend",
+      "step3Title": "Enter passcode",
+      "step3InvalidInput": "Invalid password or phone number",
+      "step3FooterTitle": "You do not have an account?",
+      "step3FooterCta": "Registration",
+      "step4Title": "Enter verification code",
+      "step4Description": "Get a verification code from the authenticator app",
+      "step4VerificationError": "Your code doesn't match. Please, try again!"
+    },
+    "restore": {
+      "step1Title": "Your previous number",
+      "step1Description": "The phone number you last logged in with.",
+      "step2Title": "Enter passcode",
+      "step2Description": "The passcode or phone number you entered is incorrect",
+      "step2ExpiredTitle": "Session expired",
+      "step2ExpiredDescription": "Try to restore access again",
+      "step2VerificationTitle": "We're verifying your account",
+      "step2VerificationDescription": "We just need to perform a coupe of security checks to recover your account.",
+      "step2Notification": "Please check back on this device after 06.12.2021",
+      "step3Description": "Get a verification code from the authenticator app",
+      "step4Title": "We need more data",
+      "step4Description": "To keep your account safe, we need to make sure it’s you!",
+      "step5Title": "When were you born?",
+      "step5BirthLabel": "Date of birth"
+    },
+    "signup": {
+      "step1Title": "Enter phone number",
+      "step1Description1": "We will send verification code",
+      "step1Description2": "to this number.",
+      "step1ExistingAcc": "Already have an account?",
+      "step3Title": "Sign up to Liber",
+      "step3SendNews": "Keep me up to date with Liber news and offers",
+      "step4Title": "Name",
+      "step4Description1": "As started on your official ID. We need",
+      "step4Description2": "your name to verify your identity.",
+      "step5Title": "Date of birth"
+    }
+  },
+  "configureApp": {
+    "faceIdTitle": "Log in with a Face ID",
+    "faceIdDescription": "Use Face ID instead of a passcode to log in. It is more secure.",
+    "enableFaceId": "Enable Face ID",
+    "enablePushNotifications": "Enable push notifications",
+    "pushNotificationsTitle": "Don’t miss a beat",
+    "pushNotificationsDescription": "Get notified about spending, security, wealth, market movements, discounts and deals, so you’re always in the know",
+    "touchIdTitle": "Log in with a Touch ID",
+    "touchIdDescription": "Use Touch ID instead of a passcode to log in. It is more secure.",
+    "enableTouchId": "Enable Touch ID",
+    "configTitle": "Step 2. Configure App",
+    "scanQRMessage": "Scan QR code with the authenticator app or enter the code manually.",
+    "backupCodeMessage": "Store this backup code somewhere safe – print it, write it down.",
+    "verifyIdentityMessage": "If you ever lose access to your device, you can use this code to verify you identity.",
+    "invalidCodeMessage": "Your code doesn't match. Please, try again!",
+    "installAppTitle": "Step 1. Install App",
+    "installAppDescription": "Install an authenticator app on your mobile device. Recommended options:",
+    "createPassCode": "Enhance the security of your account by creating a passcode",
+    "invalidPassCode": "Your passcode doesn't match. Please, try again!",
+    "twoFATitle": "Setup Two Factor Authentication",
+    "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure."
+  },
+  "status": {
+    "title": "Status",
+    "pending": "Pending",
+    "complete": "Complete"
+  },
+  "transactions": {
+    "id": "Transaction ID",
+    "walletAddress": "Wallet Address",
+    "deposit": "Deposit",
+    "send": "Send",
+    "exchange": "Exchange",
+    "generateAddress": "Generate New Address",
+    "shareAddress": "Share Address",
+    "transferFee": "Transfer Fee",
+    "paymentTo": "Payment to",
+    "reverted": "Reverted",
+    "noReference": "Sent without reference",
+    "downloadState": "Download Statement",
+    "operations": {
+      "received": "Received",
+      "pending": "Pending",
+      "deposit": "Deposit",
+      "sent": "Sent"
+    },
+    "carousel": {
+      "deposit": "Deposit",
+      "sendFunds": "Send Funds",
+      "convert": "Convert",
+      "withdraw": "Withdraw"
+    }
+  },
+  "ui": {
+    "basecountryphoneinput": {
+      "cancel": "Cancel"
+    },
+    "basecountryselect": {
+      "country": "Country",
+      "cancel": "Cancel"
+    },
+    "basepasscode": {
+      "clr": "clr"
+    },
+    "basesearchinput": {
+      "search": "Search"
+    },
+    "baseverificationcodeinput": {
+      "paste": "Paste"
+    },
+    "bottomswipemenu": {
+      "1454": "€2.00",
+      "accounts": "Accounts",
+      "allAccounts": "All Accounts"
+    },
+    "storiessliderexamplestory": {
+      "welcomeTo": "Welcome to"
+    }
+  },
+  "views": {
+    "aboutpage": {
+      "home": "Home",
+      "about": "About",
+      "thisIsAn": "This is an about page"
+    },
+    "homepage": {
+      "home": "Home",
+      "about": "About"
+    },
+    "depositecoin": {
+      "depositewalletprint": {
+        "depositBtc": "Deposit BTC",
+        "sendOnlyBtc": "Send only BTC to this deposit address",
+        "walletAddress": "Wallet Address",
+        "minimumDeposit": "Minimum deposit",
+        "btc": "0.000000001 BTC",
+        "expectedArrival": "Expected arrival",
+        "networkConfirmation": "1 network confirmation",
+        "expectedUnlock": "Expected unlock",
+        "networkConfirmations": "2 network confirmations"
+      }
+    },
+    "kyc": {
+      "kyc1step": {
+        "countryOfResidence": "Country of residence",
+        "theTermsAnd": "The terms and services which apply to you, will depend on your country of residence",
+        "byPressingSign": "By pressing Sign up securely, you agree to our",
+        "termsAmpConditions": "Terms & Conditions",
+        "and": "and",
+        "privacyPolicy": "Privacy Policy",
+        "yourData": ". Your data will be securely encrypted with TLS",
+        "signUpSecurely": "Sign up securely"
+      },
+      "kyc2step": {
+        "homeAddress": "Home address",
+        "byLawWe": "By law, we need your home address to open your account",
+        "streetAndNumber": "Street and number",
+        "flatSuiteUnit": "Flat, suite, unit, building, floor, etc.",
+        "optional": "Optional",
+        "postalCode": "Postal code",
+        "state": "State",
+        "city": "City",
+        "continue": "Continue",
+        "newMessages": "You have new messages."
+      },
+      "kyc3step": {
+        "notNow": "Not now",
+        "proofOfIdentity": "Proof of Identity",
+        "yourDocumentPhoto": "Your document photo helps us prove your identity. It should match the information you have provided in the previous steps."
+      },
+      "kyc4step": {
+        "scanNow": "Scan now",
+        "scanPassport": "Scan Passport",
+        "placePhoneOnTopOfPassport": "Place your phone directly on top of passport and take a picture.",
+        "scanBackSide": "Scan Back Side",
+        "placePhoneOnTopOfIDFront": "Place your phone directly on top of your ID back side and take a picture.",
+        "scanFrontSide": "Scan Front Side",
+        "placePhoneOnTopOfIDBack": "Place your phone directly on top of your ID front side and take a picture."
+      },
+      "kyc5step": {
+        "proofOfIdentity": "Proof of Identity",
+        "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
+        "scanAgain": "Scan Again",
+        "upload": "Upload"
+      },
+      "kyc6step": {
+        "proofOfResidence": "Proof of Residence",
+        "provideOneOf": "Provide one of the documents with an address and your legal name on it. The document requires an issue date in the last 3 months.",
+        "utilityBills": "Utility bills",
+        "bankAccountStatement": "Bank Account Statement",
+        "maintenanceBillsFrom": "Maintenance bills from official companies (usually not more than three months old)",
+        "upload": "Upload"
+      },
+      "kyc7step": {
+        "wereVerifyingYourId": "We’re verifying your ID",
+        "yourIdentityIs": "Your identity is being verified. We will email and sms to you once your verification has completed.",
+        "continue": "Continue"
+      },
+      "signuppersonal": {
+        "signUp": "Sign Up - Personal Data"
+      },
+      "signupdocuments": {
+        "signUp": "Sign Up - Documents"
+      }
+    },
+    "passcodeEnter": {
+      "createPasscode": "Create passcode",
+      "confirmPasscode": "Confirm passcode"
+    },
+    "dashboard": {
+      "home": {
+        "idVerification": "ID Verification",
+        "idVerified": "ID Verified",
+        "iDVerificationFailed": "ID Verification Failed",
+        "allAccounts": "All Accounts",
+        "getYourCryptoAsset": "Get your first crypto asset",
+        "noAssets": "Your account has no assets.",
+        "depositFirstCoins": "Deposit your first crypto coins!",
+        "deposit": "Deposit",
+        "send": "Send",
+        "transactions": "Transactions",
+        "seeAll": "See All",
+        "noTransactions": "No Transaction Yet",
+        "todo": "Todo",
+        "tabs": {
+          "dashboard": "Dashboard",
+          "treasury": "Treasury",
+          "loans": "Loans"
+        },
+        "carousel": {
+          "inProgress": "In Progress",
+          "verifying": "We’re verifying your ID",
+          "required": "Required",
+          "verify": "Verify your email address",
+          "recommend": "Recommend",
+          "getYourCryptoProperty": "Get your first crypto property",
+          "reach": "How can we reach you?"
+        }
+      },
+      "verification": {
+        "verified": "Your identity has been verified",
+        "successDescription": "Success! Your idenity has been verfified. You can deposit you first crypto properties",
+        "failed": "Your verification failed",
+        "failDescription": "We weren't able to verify your identity. Make sure your information is entered correctly.",
+        "deposit": "Deposit",
+        "tryAgain": "Try Again",
+        "close": "Close"
+      },
+      "story": {
+        "verifyYourIdentity": "Verify your identity",
+        "requirement": "We require you to verify your identity before you can use this feature.",
+        "verifyIdentity": "Verify identity"
+      },
+      "verifyingIdentity": {
+        "verifying": "We’re verifying your identity",
+        "details": "We’ll let you know when we have verified your details.",
+        "gotIt": "Got it"
+      },
+      "transferFundsToTreasury": {
+        "transfer": "Transfer funds to treasury and earn passive income.",
+        "provide": "Using treasure, you can provide liquidity to the platform.",
+        "fees": "In return you will be rewarded with fees generated by users on that platform.",
+        "noAgain": "Don't show me again",
+        "liquidity": "Add Liquidity"
+      }
+    },
+    "account": {
+      "suggested": "Suggested",
+      "allAccounts": "All Accounts"
+    },
+    "profile": {
+      "profileSettings": {
+        "invite": "Invite Friends",
+        "copy": "Copy Liber ID",
+        "profile": "Profile",
+        "QRCode": "My QR Code and Liber ID",
+        "details": "Personal details",
+        "allAccounts": "All accounts",
+        "help": "Help",
+        "security": "Security",
+        "changePasscode": "Change passcode",
+        "privacy": "Privacy",
+        "2FAGoogle": "2FA: Google Authenticator",
+        "devices": "Devices",
+        "signIn": "Sign in with Touch ID",
+        "label": "Label",
+        "close": "Close account",
+        "logOut": "Log out",
+        "version": "Version",
+        "copyright": "Liber Ltd"
+      },
+      "profileQRCode": {
+        "getPaid": "Get paid with",
+        "scan": "Scan",
+        "code": "My Code"
+      },
+      "profileDevices": {
+        "devices": "Devices",
+        "allowedDevices": "These are the devices currently allowed to access your account.",
+        "date": "Date",
+        "location": "Location",
+        "ip": "IP"
+      },
+      "profileHelp": {
+        "hello": "Hey",
+        "help": "how can we help you?",
+        "question": "Type your question here",
+        "issue": "Select an issue",
+        "secure": "Are my cryptocurrencies secure?",
+        "destinationTag": "Why does my address need a destination tag?",
+        "process": "How does Liber process my data?",
+        "gamblingBlock": "What is Gambling Block?",
+        "topUpAccount": "Can I still top-up my Liber account in CZK and HUF?"
+      },
+      "profileEdit": {
+        "editProfile": "Edit Profile",
+        "personalInfo": "Personal Information",
+        "name": "Name",
+        "id": "Liber ID",
+        "dateOfBirth": "Date of Birth",
+        "address": "Residential Address",
+        "verify": "Verify Identity"
+      },
+      "profilePrivacy": {
+        "privacy": "Privacy",
+        "marketing": "Marketing",
+        "marketingEmails": "Marketing emails",
+        "receiveEmails": "I am happy to receive emails about Liber products, services and offers that may interest me",
+        "marketingPushes": "Marketing pushes",
+        "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
+        "social": "Social media & advertising platforms",
+        "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      }
+    }
+  }
+}

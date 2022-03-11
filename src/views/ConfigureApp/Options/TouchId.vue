@@ -1,57 +1,44 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      Log in with a Touch ID
+      {{ $t('configureApp.touchIdTitle') }}
     </top-navigation>
 
     <div class="page-content">
-      <img
-        src="@/assets/images/touchid-icon.svg"
-        alt="Touch id"
-        class="mb-3"
-      >
+      <img src="@/assets/images/touchid-icon.svg" alt="Touch id" class="mb-3" />
       <p class="text-default">
-        Use Touch ID instead of a passcode to log in. It is more secure.
+        {{ $t('configureApp.touchIdDescription') }}
       </p>
     </div>
   </div>
   <div style="padding: 15px">
-    <base-button
-      block
-      class="mb-3"
-      @click="onEnable"
-    >
-      Enable Touch ID
+    <base-button block class="mb-3" @click="onEnable">
+      {{ $t('configureApp.enableTouchId') }}
     </base-button>
-    <base-button
-      block
-      view="secondary"
-      @click="onCancel"
-    >
-      Not now
+    <base-button block view="secondary" @click="onCancel">
+      {{ $t('common.notNowCta') }}
     </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI'
+import { TopNavigation, BaseButton } from '@/components/UI';
 import { useAppOptionsStore } from '@/stores/appOptions';
-import { EStorageKeys } from '@/types/base-component'
-import { useRouter } from 'vue-router'
-const router = useRouter()
+import { EStorageKeys } from '@/types/base-component';
+import { useRouter } from 'vue-router';
+const router = useRouter();
 
-const { setOptions } = useAppOptionsStore()
-
+const { setOptions } = useAppOptionsStore();
 
 const onEnable = (): void => {
-  setOptions('true', EStorageKeys.touchid)
-  router.push({ name: 'push-notifications' })
-}
+  setOptions('true', EStorageKeys.touchid);
+  router.push({ name: 'push-notifications' });
+};
 
 const onCancel = (): void => {
-  setOptions('', EStorageKeys.touchid)
-  router.push({ name: 'push-notifications' })
-}
+  setOptions('', EStorageKeys.touchid);
+  router.push({ name: 'push-notifications' });
+};
 </script>
 
 <style lang="scss" scoped>

@@ -1,14 +1,7 @@
 <template>
-  <div
-    ref="elem"
-    v-bind="wrapAttr"
-    class="vue3-circular-progressbar"
-  >
+  <div ref="elem" v-bind="wrapAttr" class="vue3-circular-progressbar">
     <svg v-bind="svgAttr">
-      <linearGradient
-        v-if="isGradient"
-        v-bind="gradientAttr"
-      >
+      <linearGradient v-if="isGradient" v-bind="gradientAttr">
         <stop v-bind="gradientStartAttr" />
         <stop v-bind="gradientStopAttr" />
       </linearGradient>
@@ -16,88 +9,42 @@
       <circle v-bind="circleFgAttr" />
 
       <template v-if="isShadow">
-        <filter
-          v-if="shadow.inset === false"
-          v-bind="shadowAttr"
-        >
+        <filter v-if="shadow.inset === false" v-bind="shadowAttr">
           <feDropShadow v-bind="feShadowAttr" />
         </filter>
-        <filter
-          v-else
-          v-bind="shadowAttr"
-        >
-          <feOffset
-            :dx="feShadowAttr.dx"
-            :dy="feShadowAttr.dy"
-          />
+        <filter v-else v-bind="shadowAttr">
+          <feOffset :dx="feShadowAttr.dx" :dy="feShadowAttr.dy" />
           <feGaussianBlur :stdDeviation="feShadowAttr.stdDeviation" />
-          <feComposite
-            operator="out"
-            in="SourceGraphic"
-            result="inverse"
-          />
+          <feComposite operator="out" in="SourceGraphic" result="inverse" />
           <feFlood
             :flood-color="feShadowAttr.floodColor"
             :flood-opacity="feShadowAttr.floodOpacity"
             result="color"
           />
-          <feComposite
-            operator="in"
-            in="color"
-            in2="inverse"
-            result="shadow"
-          />
-          <feComposite
-            operator="over"
-            in="shadow"
-            in2="SourceGraphic"
-          />
+          <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+          <feComposite operator="over" in="shadow" in2="SourceGraphic" />
         </filter>
       </template>
 
       <template v-if="bgShadow">
-        <filter
-          v-if="bgShadow.inset === false"
-          v-bind="bgShadowAttr"
-        >
+        <filter v-if="bgShadow.inset === false" v-bind="bgShadowAttr">
           <feDropShadow v-bind="feBgShadowAttr" />
         </filter>
-        <filter
-          v-else
-          v-bind="bgShadowAttr"
-        >
-          <feOffset
-            :dx="feBgShadowAttr.dx"
-            :dy="feBgShadowAttr.dy"
-          />
+        <filter v-else v-bind="bgShadowAttr">
+          <feOffset :dx="feBgShadowAttr.dx" :dy="feBgShadowAttr.dy" />
           <feGaussianBlur :stdDeviation="feBgShadowAttr.stdDeviation" />
-          <feComposite
-            operator="out"
-            in="SourceGraphic"
-            result="inverse"
-          />
+          <feComposite operator="out" in="SourceGraphic" result="inverse" />
           <feFlood
             :floodColor="feBgShadowAttr.floodColor"
             :floodOpacity="feBgShadowAttr.floodOpacity"
             result="color"
           />
-          <feComposite
-            operator="in"
-            in="color"
-            in2="inverse"
-            result="shadow"
-          />
-          <feComposite
-            operator="over"
-            in="shadow"
-            in2="SourceGraphic"
-          />
+          <feComposite operator="in" in="color" in2="inverse" result="shadow" />
+          <feComposite operator="over" in="shadow" in2="SourceGraphic" />
         </filter>
       </template>
     </svg>
-    <span
-      class="current-counter"
-    >
+    <span class="current-counter">
       <slot />
     </span>
   </div>
@@ -105,17 +52,17 @@
 
 <script lang="ts">
 export default {
-name: "CircleProgress",
+  name: 'CircleProgress',
 };
 </script>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onBeforeUnmount, watch } from "vue";
+import { computed, ref, onMounted, onBeforeUnmount, watch } from 'vue';
 
 const GRADIENT = {
   angle: 0,
-  startColor: "#ff0000",
-  stopColor: "#ffff00"
+  startColor: '#ff0000',
+  stopColor: '#ffff00',
 };
 
 const SHADOW = {
@@ -124,7 +71,7 @@ const SHADOW = {
   horizontal: 0,
   blur: 10,
   opacity: 0.5,
-  color: "#000000"
+  color: '#000000',
 };
 
 const BG_SHADOW = {
@@ -133,121 +80,118 @@ const BG_SHADOW = {
   horizontal: 0,
   blur: 3,
   opacity: 0.4,
-  color: "#000000"
+  color: '#000000',
 };
 
 const props = defineProps({
-    size: {
-      type: Number,
-      default: 180
-    },
-    borderWidth: {
-      type: Number,
-      default: 10
-    },
-    borderBgWidth: {
-      type: Number,
-      default: 10
-    },
-    fillColor: {
-      type: String,
-      default: "#288feb"
-    },
-    emptyColor: {
-      type: String,
-      default: "#EBECF0"
-    },
-    background: {
-      type: String,
-      default: "none"
-    },
-    className: {
-      type: String,
-      default: ""
-    },
-    percent: {
-      type: Number,
-      default: 50
-    },
-    transition: {
-      type: Number,
-      default: 400
-    },
-    isGradient: {
-      type: Boolean,
-      default: true
-    },
-    gradient: {
-      type: Object,
-      default: () => ({
-        angle: 90,
-        startColor: "#2862FF",
-        stopColor: "#1C46B5"
-      }),
-    },
-    isShadow: {
-      type: Boolean,
-      default: false
-    },
-    shadow: {
-      type: Object,
-      default: () => ({
-        inset: false,
-        vertical: 10,
-        horizontal: 0,
-        blur: 10,
-        opacity: 0.5,
-        color: "#000000"
-      })
-    },
-    isBgShadow: {
-      type: Boolean,
-      default: false
-    },
-    bgShadow: {
-      type: Object,
-      default: () => ({
-        inset: true,
-        vertical: 3,
-        horizontal: 0,
-        blur: 3,
-        opacity: 0.4,
-        color: "#000000"
-      })
-    },
-    viewport: {
-      type: Boolean,
-      default: false
-    },
-    onViewport: {
-      type: Function,
-    },
-    class: {
-      type: String,
-      default: ""
-    },
-    showPercent: {
-      type: Boolean,
-      default: false
-    }
-  });
+  size: {
+    type: Number,
+    default: 180,
+  },
+  borderWidth: {
+    type: Number,
+    default: 10,
+  },
+  borderBgWidth: {
+    type: Number,
+    default: 10,
+  },
+  fillColor: {
+    type: String,
+    default: '#288feb',
+  },
+  emptyColor: {
+    type: String,
+    default: '#EBECF0',
+  },
+  background: {
+    type: String,
+    default: 'none',
+  },
+  className: {
+    type: String,
+    default: '',
+  },
+  percent: {
+    type: Number,
+    default: 50,
+  },
+  transition: {
+    type: Number,
+    default: 400,
+  },
+  isGradient: {
+    type: Boolean,
+    default: true,
+  },
+  gradient: {
+    type: Object,
+    default: () => ({
+      angle: 90,
+      startColor: '#2862FF',
+      stopColor: '#1C46B5',
+    }),
+  },
+  isShadow: {
+    type: Boolean,
+    default: false,
+  },
+  shadow: {
+    type: Object,
+    default: () => ({
+      inset: false,
+      vertical: 10,
+      horizontal: 0,
+      blur: 10,
+      opacity: 0.5,
+      color: '#000000',
+    }),
+  },
+  isBgShadow: {
+    type: Boolean,
+    default: false,
+  },
+  bgShadow: {
+    type: Object,
+    default: () => ({
+      inset: true,
+      vertical: 3,
+      horizontal: 0,
+      blur: 3,
+      opacity: 0.4,
+      color: '#000000',
+    }),
+  },
+  viewport: {
+    type: Boolean,
+    default: false,
+  },
+  onViewport: {
+    type: Function,
+    default: () => ({}),
+  },
+  class: {
+    type: String,
+    default: '',
+  },
+  showPercent: {
+    type: Boolean,
+    default: false,
+  },
+});
 
-function uuid(prefix = "", suffix = "") {
+function uuid(prefix = '', suffix = '') {
   return (
     prefix +
-    Math.random()
-      .toString(36)
-      .substring(2, 8) +
-    Math.random()
-      .toString(36)
-      .substring(2, 8) +
+    Math.random().toString(36).substring(2, 8) +
+    Math.random().toString(36).substring(2, 8) +
     suffix
   );
 }
 
-const uid1 = uuid("grd_");
-const uid2 = uuid("shd1_");
-const uid3 = uuid("shd2_");
+const uid1 = uuid('grd_');
+const uid2 = uuid('shd1_');
+const uid3 = uuid('shd2_');
 const elem = ref(null);
 const currentPercent = ref(0);
 
@@ -275,23 +219,23 @@ const circumference = 2 * Math.PI * circleRadiusFg();
 const offset = ref(2 * Math.PI * circleRadiusFg());
 
 const wrapStyle = {
-  height: "100%",
-  width: "100%",
-  position: "relative"
+  height: '100%',
+  width: '100%',
+  position: 'relative',
 };
 
 const wrapAttr = {
   class: props.class,
-  style: wrapStyle
+  style: wrapStyle,
 };
 
 const svgAttr = {
   style: {
-    transform: "rotate(-90deg)",
-    overflow: "visible"
+    transform: 'rotate(-90deg)',
+    overflow: 'visible',
   },
-  xmlns: "http://www.w3.org/2000/svg",
-  viewBox: `${props.size / 2} ${props.size / 2} ${props.size} ${props.size}`
+  xmlns: 'http://www.w3.org/2000/svg',
+  viewBox: `${props.size / 2} ${props.size / 2} ${props.size} ${props.size}`,
 };
 
 const circleBgAttr = {
@@ -299,52 +243,52 @@ const circleBgAttr = {
   cy: props.size,
   r: circleRadiusBg(),
   stroke: props.emptyColor,
-  "stroke-width": props.borderBgWidth,
+  'stroke-width': props.borderBgWidth,
   fill: props.background,
-  ...(props.isBgShadow && { filter: `url(#${uid3})` })
+  ...(props.isBgShadow && { filter: `url(#${uid3})` }),
 };
 
 const circleFgAttr = computed(() => ({
   cx: props.size,
   cy: props.size,
   r: circleRadiusFg(),
-  fill: "none",
-  "stroke-width": props.borderWidth,
-  "stroke-dasharray": circumference,
-  "stroke-dashoffset": offset.value,
+  fill: 'none',
+  'stroke-width': props.borderWidth,
+  'stroke-dasharray': circumference,
+  'stroke-dashoffset': offset.value,
   stroke: props.isGradient ? `url(#${uid1})` : props.fillColor,
   ...(props.isShadow && { filter: `url(#${uid2})` }),
   ...(props.transition && {
-    style: { transition: `stroke-dashoffset ${props.transition}ms` }
-  })
+    style: { transition: `stroke-dashoffset ${props.transition}ms` },
+  }),
 }));
 
 const gradientAttr = {
   id: uid1,
-  x1: "0%",
-  y1: "0%",
-  x2: "0%",
-  y2: "100%",
-  gradientTransform: `rotate(${gradient.angle}, .5, .5)`
+  x1: '0%',
+  y1: '0%',
+  x2: '0%',
+  y2: '100%',
+  gradientTransform: `rotate(${gradient.angle}, .5, .5)`,
 };
 
 const gradientStartAttr = {
   offset: 0,
-  "stop-color": gradient.startColor
+  'stop-color': gradient.startColor,
 };
 
 const gradientStopAttr = {
   offset: 100,
-  "stop-color": gradient.stopColor
+  'stop-color': gradient.stopColor,
 };
 
 // shadow
 const shadowAttr = {
   id: uid2,
-  width: "500%",
-  height: "500%",
-  x: "-250%",
-  y: "-250%"
+  width: '500%',
+  height: '500%',
+  x: '-250%',
+  y: '-250%',
 };
 
 const feShadowAttr = {
@@ -352,15 +296,15 @@ const feShadowAttr = {
   dy: shadow.horizontal,
   stdDeviation: shadow.blur,
   floodColor: shadow.color,
-  floodOpacity: shadow.opacity
+  floodOpacity: shadow.opacity,
 };
 
 const bgShadowAttr = {
   id: uid3,
-  width: "500%",
-  height: "500%",
-  x: "-250%",
-  y: "-250%"
+  width: '500%',
+  height: '500%',
+  x: '-250%',
+  y: '-250%',
 };
 
 const feBgShadowAttr = {
@@ -368,7 +312,7 @@ const feBgShadowAttr = {
   dy: bgShadow.horizontal,
   stdDeviation: bgShadow.blur,
   floodColor: bgShadow.color,
-  floodOpacity: bgShadow.opacity
+  floodOpacity: bgShadow.opacity,
 };
 
 /**
@@ -383,8 +327,7 @@ function inViewport(el: HTMLElement) {
     rect.left >= 0 &&
     rect.bottom <=
       (window.innerHeight || document.documentElement.clientHeight) &&
-    rect.right <=
-      (window.innerWidth || document.documentElement.clientWidth)
+    rect.right <= (window.innerWidth || document.documentElement.clientWidth)
   );
 }
 
@@ -419,13 +362,13 @@ function placeOffset() {
   if (!props.viewport) {
     updatePercent();
   } else {
-    window.addEventListener("scroll", placeOffset);
+    window.addEventListener('scroll', placeOffset);
     if (elem.value && inViewport(elem.value)) {
-      window.removeEventListener("scroll", placeOffset);
+      window.removeEventListener('scroll', placeOffset);
       if (props.viewport) {
         updatePercent();
       }
-      if (props.onViewport && typeof props.onViewport === "function") {
+      if (props.onViewport && typeof props.onViewport === 'function') {
         props.onViewport();
       }
     }
@@ -441,7 +384,7 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", placeOffset);
+  window.removeEventListener('scroll', placeOffset);
 });
 
 watch(
@@ -452,14 +395,15 @@ watch(
 );
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 .vue3-circular-progressbar {
   position: relative;
-}
-.vue3-circular-progressbar .current-counter {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+
+  > .current-counter {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 }
 </style>

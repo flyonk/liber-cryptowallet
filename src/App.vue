@@ -23,7 +23,6 @@ import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();
 store.init();
-
 </script>
 
 <style lang="scss">

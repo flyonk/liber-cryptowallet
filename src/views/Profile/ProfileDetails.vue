@@ -6,11 +6,9 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
       <div class="name-info">
-        <h1 class="title">
-          Edit Profile
-        </h1>
+        <h1 class="title">{{ $t('views.profile.profileEdit.editProfile') }}</h1>
         <div class="initials">
           {{ nameInitials }}
         </div>
@@ -18,54 +16,29 @@
     </div>
     <div class="personal-information">
       <h1 class="subtitle">
-        Personal Information
+        {{ $t('views.profile.profileEdit.personalInfo') }}
       </h1>
       <div class="edit-form">
-        <BaseInput
-          type="text"
-        >
+        <BaseInput v-model="user.name" type="text">
           <template #label>
-            Name
+            {{ $t('views.profile.profileEdit.name') }}
           </template>
         </BaseInput>
-        <BaseInput
-          type="text"
-        >
+        <BaseInput v-model="user.liberID" type="text">
+          <template #label> {{ $t('views.profile.profileEdit.id') }} </template>
+        </BaseInput>
+        <BaseInput v-model="user.date_of_birth" type="text" pattern="\d*">
           <template #label>
-            Liber ID
+            {{ $t('views.profile.profileEdit.dateOfBirth') }}
           </template>
         </BaseInput>
-        <BaseInput
-          type="text"
-          pattern="\d*"
-        >
+        <BaseInput v-model="user.residential_address" type="text">
           <template #label>
-            Date of Birth
-          </template>
-        </BaseInput>
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Residential Address
-          </template>
-        </BaseInput>
-        <BaseInput
-          type="number"
-        >
-          <template #label>
-            Phone Number
-          </template>
-        </BaseInput>
-        <BaseInput
-          type="text"
-        >
-          <template #label>
-            Email
+            {{ $t('views.profile.profileEdit.address') }}
           </template>
         </BaseInput>
         <BaseButton class="btn">
-          Verify Identity
+          {{ $t('views.profile.profileEdit.verify') }}
         </BaseButton>
       </div>
     </div>
@@ -74,18 +47,22 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import BaseInput from '@/components/UI/BaseInput.vue'
-import BaseButton from '@/components/UI/BaseButton.vue'
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 const accountName = 'Abraham Watson';
+const user = {
+  name: '',
+  liberID: '',
+  date_of_birth: '',
+  residential_address: '',
+};
 // const accountID = '@abrahamwatson';
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');
   return parts[0][0] + parts[1][0];
 });
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -155,7 +132,7 @@ const nameInitials = computed(() => {
   flex-direction: column;
   flex-grow: 1;
 
-  >.btn {
+  > .btn {
     margin-top: auto;
   }
 }
