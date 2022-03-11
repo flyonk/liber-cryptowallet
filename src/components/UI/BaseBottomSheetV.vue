@@ -177,7 +177,7 @@ const onLastTransitionEnd = () => {
     & > .indicator {
       width: 64px;
       height: 5px;
-      left: calc(0.5 - 64px / 2 - 0.5px);
+      left: calc(50% - 64px / 2 - 0.5px);
       top: 8px;
       background: #afb3c3;
       border-radius: 24px;
