@@ -1,32 +1,37 @@
 <template>
   <div class="page-wrapper">
     <div class="content-wrapper">
-      <h1 class="main-title">Deposit BTC</h1>
+      <h1 class="main-title">$t('views.deposit.wallet.deposit') }} BTC</h1>
 
-      <p class="text-default">Send only BTC to this deposit address</p>
+      <p class="text-default">
+        {{ $t('views.deposit.wallet.sendOnly') }} BTC
+        {{ $t('views.deposit.wallet.address') }}
+      </p>
 
       <div>
         <canvas ref="canvas" class="qr-code-canvas" />
       </div>
 
       <div class="wallet">
-        <h2 class="wallet-title">Wallet Address</h2>
+        <h2 class="wallet-title">
+          {{ $t('views.deposit.wallet.walletAddress') }}
+        </h2>
         <p class="wallet-address">
           {{ wallet }}
         </p>
 
         <div class="wallet-footer">
           <div class="wallet-row">
-            <p>Minimum deposit</p>
+            <p>{{ $t('views.deposit.wallet.minimumDeposit') }}</p>
             <p>0.000000001 BTC</p>
           </div>
           <div class="wallet-row">
-            <p>Expected arrival</p>
-            <p>1 network confirmation</p>
+            <p>{{ $t('views.deposit.wallet.arrival') }}</p>
+            <p>1 {{ $t('views.deposit.wallet.networkConfirmation') }}</p>
           </div>
           <div class="wallet-row">
-            <p>Expected unlock</p>
-            <p>2 network confirmations</p>
+            <p>{{ $t('views.deposit.wallet.expectedUnlock') }}</p>
+            <p>2 {{ $t('views.deposit.wallet.networkConfirmations') }}</p>
           </div>
         </div>
       </div>

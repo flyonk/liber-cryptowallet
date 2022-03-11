@@ -1,4 +1,5 @@
 import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
+import SentryUtil from '@/helpers/sentryUtil';
 
 export function verifyIdentity() {
   return NativeBiometric.verifyIdentity();
@@ -21,7 +22,12 @@ export async function getSupportedOptions() {
     }
     return '';
   } catch (error) {
-    console.log('error to define native biometrics');
+    SentryUtil.capture(
+      error,
+      'identification',
+      'getSupportedOptions',
+      'error to define native biometrics'
+    );
     return '';
   }
 }

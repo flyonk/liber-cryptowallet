@@ -1,5 +1,9 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const webpack = require('webpack');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const SentryWebpackPlugin = require('@sentry/webpack-plugin');
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+process.env.VUE_APP_VERSION = require('./package.json').version;
 
 module.exports = {
   configureWebpack: {
@@ -9,6 +13,10 @@ module.exports = {
       // https://stackoverflow.com/questions/68707553/uncaught-referenceerror-buffer-is-not-defined
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
+      }),
+      new SentryWebpackPlugin({
+        include: './dist',
+        ignore: ['node_modules', 'vue.config.js'],
       }),
       // new webpack.ProvidePlugin({
       //   process: 'process/browser',
