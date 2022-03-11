@@ -38,7 +38,9 @@
         9
       </div>
       <div class="number-button" @click="showTouchId">
-        <img v-if="identificationIcon" :src="identificationIcon" />
+        <template v-if="props.showTouchFaceid">
+          <img v-if="identificationIcon" :src="identificationIcon" />
+        </template>
       </div>
       <div class="number-button text--large-title" @click="setNumber('0')">
         0
@@ -58,6 +60,10 @@ const props = defineProps({
   actionType: {
     type: String as PropType<EPasscodeActions>,
     default: EPasscodeActions.compare,
+  },
+  showTouchFaceid: {
+    type: Boolean,
+    default: true,
   },
 });
 
