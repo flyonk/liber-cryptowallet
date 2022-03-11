@@ -1,7 +1,12 @@
 <template name="DashboardStory">
   <div class="dashboard-story">
     <header class="header">
-      <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
+      <img
+        class="close-btn"
+        src="@/assets/icon/close_big.svg"
+        alt="close"
+        @click="$router.push({ name: 'dashboard-home' })"
+      />
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
@@ -80,7 +85,7 @@
   }
 
   > .footer {
-    margin-top: 42px;
+    margin-top: 100px;
 
     > .btn {
       display: flex;

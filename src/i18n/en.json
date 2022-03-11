@@ -335,6 +335,7 @@
         "devices": "Devices",
         "signIn": "Sign in with Touch ID",
         "label": "Label",
+        "system": "System",
         "close": "Close account",
         "logOut": "Log out",
         "version": "Version",
