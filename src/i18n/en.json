@@ -424,5 +424,9 @@
         "updateCoinNetwork": "update coin network"
       }
     }
+  },
+  "errors": {
+    "requestTimeout": "Request timeout",
+    "serviceUnavailable": "Service unavailable"
   }
 }

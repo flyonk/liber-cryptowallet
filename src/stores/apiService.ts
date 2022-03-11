@@ -1,12 +1,12 @@
 import { defineStore } from 'pinia';
 
-// === ApiService Types ===
+// === OldApiService Types ===
 
 export interface IApiServiceState {
   reqCount: number;
 }
 
-// === ApiService Store ===
+// === OldApiService Store ===
 
 export const useApiServiceStore = defineStore('apiService', {
   state: (): IApiServiceState => ({
