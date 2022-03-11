@@ -1,6 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation> {{ $t('auth.signup.step1Title') }} </TopNavigation>
+    <TopNavigation @click:left-icon="prevStep">
+      {{ $t('auth.signup.step1Title') }}
+    </TopNavigation>
     <div class="description text--body">
       {{ $t('auth.signup.step1Description1') }}
       <br />
@@ -21,7 +23,7 @@
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
         {{ $t('auth.signup.step1ExistingAcc') }}
-        <router-link class="link" :to="{ name: 'login' }">
+        <router-link :to="{ name: 'login' }" class="link">
           {{ $t('common.logInCta') }}
         </router-link>
       </span>
@@ -42,6 +44,9 @@ import BaseCountryPhoneInput from '@/components/UI/BaseCountryPhoneInput.vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
 import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
 
 const authStore = useAuthStore();
 
@@ -63,6 +68,12 @@ const handleStep = () => {
   if (!number.value) return;
   authStore.registration.phone = String(number.value);
   emits('next');
+};
+
+const prevStep = () => {
+  router.push({
+    name: 'welcome-auth-screen',
+  });
 };
 </script>
 

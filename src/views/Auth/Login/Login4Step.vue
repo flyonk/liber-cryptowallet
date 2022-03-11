@@ -24,12 +24,12 @@
   </base-toast>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
-  TopNavigation,
   BaseButton,
-  BaseVerificationCodeInput,
   BaseToast,
+  BaseVerificationCodeInput,
+  TopNavigation,
 } from '@/components/UI';
 import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
@@ -102,7 +102,7 @@ watch(verificationCode, async (code) => {
 });
 
 function prevStep(): void {
-  authStore.setStep(0, 'login');
+  authStore.setStep(2, 'login');
 }
 
 async function getSupportedIdentificationWay() {

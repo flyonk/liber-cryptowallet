@@ -31,8 +31,8 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, computed } from 'vue';
-import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
+import { computed, Ref, ref } from 'vue';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -70,7 +70,7 @@ function onSubmit(success: boolean): void {
 }
 
 function prevStep(): void {
-  // go to previous step
+  router.push({ name: 'survey' });
 }
 </script>
 

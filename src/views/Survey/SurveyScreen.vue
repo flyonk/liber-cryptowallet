@@ -1,41 +1,37 @@
 <template>
   <div class="page-wrapper">
-    <button class="close-page" @click="closePage">
-      <img src="@/assets/images/close-icon.svg" alt="close page" />
-    </button>
+    <top-navigation left-icon-name="ci-close_big" @click:left-icon="closePage">
+      {{ title }}
+    </top-navigation>
+
+    <p class="text-default">
+      {{ description }}
+    </p>
 
     <div v-if="dictionary[activeQuestion]">
-      <h1 class="main-title">
-        {{ title }}
-      </h1>
-
-      <p class="text-default">
-        {{ description }}
-      </p>
-
       <div>
         <template
           v-for="answer in dictionary[activeQuestion].answers"
           :key="answer.id"
         >
-          <label class="radio-btn" :class="{ '-selected': answer.isSelected }">
+          <label :class="{ '-selected': answer.isSelected }" class="radio-btn">
             <input
               :id="answer.id"
-              type="radio"
-              name="surveyAnswer"
               :value="answer.id"
+              name="surveyAnswer"
               style="display: none"
+              type="radio"
               @change="selectAnswer(answer.id)"
             />
-            <span class="title" :class="{ '-selected': answer.isSelected }">{{
+            <span :class="{ '-selected': answer.isSelected }" class="title">{{
               answer.body
             }}</span>
             <img
               v-if="answer.isSelected"
-              src="@/assets/images/arrow-white.svg"
               alt="right arrow"
+              src="@/assets/images/arrow-white.svg"
             />
-            <img v-else src="@/assets/images/arrow.svg" alt="right arrow" />
+            <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
           </label>
         </template>
       </div>
@@ -43,8 +39,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue';
+<script lang="ts" setup>
+import { TopNavigation } from '@/components/UI';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -107,11 +104,7 @@ const markAnswerAsSelected = (id: number | string) => {
   dictionary.value[activeQuestion.value].answers = dictionary.value[
     activeQuestion.value
   ].answers.map((item) => {
-    if (item.id === id) {
-      item.isSelected = true;
-    } else {
-      item.isSelected = false;
-    }
+    item.isSelected = item.id === id;
     return item;
   });
 };
@@ -145,7 +138,9 @@ const selectAnswer = (id: number | string) => {
 };
 
 const closePage = () => {
-  console.log('close this page');
+  router.push({
+    name: 'auth-passcode',
+  });
 };
 
 const description = computed(() => {
