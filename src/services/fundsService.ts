@@ -6,13 +6,14 @@ import ConvertInfoMapper, {
   IConvertInfo,
   TConvertData,
 } from '@/models/funds/convertInfo';
+import CoinMapper, { ICoin } from '@/models/funds/coin';
 
-import { TCoins, TSuccessResponse } from '@/types/api';
+import { TSuccessResponse } from '@/types/api';
 
 export default {
-  //TODO: clarify this type with nested objects
-  async getCoins(): Promise<TCoins> {
-    return await axios.get(apiService.funds.coins());
+  async getCoins(): Promise<ICoin[]> {
+    const res = await axios.get(apiService.funds.coins());
+    return res.data.map(CoinMapper.deserialize);
   },
 
   async getDepositInfo(coinCode: string): Promise<IDepositInfo> {
@@ -23,6 +24,7 @@ export default {
   },
 
   async convertInfo(data: TConvertData): Promise<IConvertInfo> {
+    //TODO: discuss with backend TConvertData
     const res = await axios.post(apiService.funds.convertInfo(), data);
     return ConvertInfoMapper.deserialize(res.data);
   },
