@@ -45,8 +45,7 @@
       "step1Description": "Enter your registered mobile number to log in",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
-      "step2Description1": "To sign up, enter the security code",
-      "step2Description2": "we've sent to",
+      "step2Description": "To sign up, enter the security code we've sent to",
       "step2ResendTitle": "Resend code in",
       "step2ResendCta": "Resend",
       "step3Title": "Enter passcode",
@@ -83,7 +82,8 @@
       "step4Title": "Name",
       "step4Description1": "As started on your official ID. We need",
       "step4Description2": "your name to verify your identity.",
-      "step5Title": "Date of birth"
+      "step5Title": "Date of birth",
+      "ddmmyyyy": "dd.mm.yyyy"
     }
   },
   "configureApp": {

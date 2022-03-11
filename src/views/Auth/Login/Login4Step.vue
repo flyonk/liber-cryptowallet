@@ -12,7 +12,7 @@
   </div>
   <div style="padding: 15px">
     <base-button block @click="pasteFromClipboard">{{
-      $t('views.auth.login.login4step.paste')
+      $t('common.pasteCta')
     }}</base-button>
   </div>
   <base-toast v-model:visible="showErrorToast" severity="error">
@@ -64,6 +64,9 @@ const pasteFromClipboard = () => {
 };
 
 watch(verificationCode, async (code) => {
+  // @TEMPRORY CHECK
+  // @TODO
+  // Remove later
   if (code === '000000') {
     if (appOptionsStore.isItFirstRun) {
       const name = await getSupportedIdentificationWay();
@@ -77,6 +80,7 @@ watch(verificationCode, async (code) => {
     }
     return;
   }
+  // End of remove part
   if (code.length === 6) {
     const result = store.verify(code);
 
