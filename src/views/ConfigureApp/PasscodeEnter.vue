@@ -1,13 +1,11 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      {{ title }}
-    </top-navigation>
+    <top-navigation @click:left-icon="$router.back()">{{
+      title
+    }}</top-navigation>
   </div>
   <div class="page-wrapper">
-    <p class="text-default">
-      {{ $t('configureApp.createPassCode') }}
-    </p>
+    <p class="text-default">{{ $t('configureApp.createPassCode') }}</p>
 
     <base-passcode
       v-if="actionType === EPasscodeActions.store"
@@ -23,9 +21,7 @@
 
   <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>
-        {{ $t('configureApp.invalidPassCode') }}
-      </div>
+      <div>{{ $t('configureApp.invalidPassCode') }}</div>
     </template>
   </base-toast>
 </template>
@@ -69,6 +65,7 @@ function onSubmit(success: boolean): void {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function prevStep(): void {
   // go to previous step
 }
