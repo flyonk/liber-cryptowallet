@@ -7,10 +7,10 @@
       you cancel
     </p>
     <div class="control-buttons">
-      <BaseButton class="btn" size="large"> Keep account open </BaseButton>
-      <BaseButton class="btn" size="large" @click="$emit('closeMenu')">
+      <BaseButton class="keepopen" size="large">Keep account open</BaseButton>
+      <button class="close" size="large" @click="$emit('closeMenu')">
         Close account
-      </BaseButton>
+      </button>
     </div>
   </div>
 </template>
@@ -58,7 +58,7 @@ console.log(path);
     line-height: 25px;
     text-align: center;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-primary;
     margin-bottom: 15px;
   }
 
@@ -70,12 +70,19 @@ console.log(path);
     letter-spacing: -0.0043em;
     color: $color-brand-2-300;
   }
-}
 
-.control-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
+  > .control-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+
+    > .close {
+      margin-top: 8px;
+      height: 48px;
+      color: $color-primary;
+      background: none;
+    }
+  }
 }
 </style>
