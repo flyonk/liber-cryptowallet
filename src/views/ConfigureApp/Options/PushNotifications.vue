@@ -17,7 +17,7 @@
       </p>
     </div>
   </div>
-  <div style="padding: 15px">
+  <div style="padding: 15px; padding-bottom: 50px">
     <base-button block class="mb-3" @click="onEnable">
       {{ $t('configureApp.enablePushNotifications') }}
     </base-button>

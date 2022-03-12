@@ -11,10 +11,12 @@
       v-if="actionType === EPasscodeActions.store"
       :action-type="actionType"
       @submit="onCreate"
+      :showTouchFaceid="false"
     />
 
     <base-passcode
       v-if="actionType === EPasscodeActions.compare"
+      :showTouchFaceid="false"
       @submit="onSubmit"
     />
   </div>
