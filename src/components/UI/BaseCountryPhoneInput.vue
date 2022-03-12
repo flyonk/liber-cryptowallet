@@ -1,13 +1,16 @@
 <template>
   <div
     class="base-country-phone-input flex align-items-center"
-    @click="showList = true"
+    @click.capture="onClickInput"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt />
+      <img :src="selectedData?.flag" alt="" />
     </div>
-    <div class="code ml-2 mb-1">{{ selectedData?.dialCode }}</div>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
+    <div class="code ml-2 mb-1">
+      {{ selectedData?.dialCode }}
+    </div>
+
+    <BaseBottomSheetV v-if="showList" @close="showList = false">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
@@ -15,7 +18,7 @@
           </div>
           <div class="col-3 text-right">
             <div class="cancel-button text--headline" @click="showList = false">
-              {{ $t('ui.basecountryphoneinput.cancel') }}
+              Cancel
             </div>
           </div>
         </div>
@@ -29,21 +32,21 @@
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
-              <img :src="country.flag" alt />
+              <img :src="country.flag" alt="" />
             </div>
             <div class="code col-2">{{ country.dialCode }}</div>
             <div class="title col-8">{{ country.name }}</div>
           </div>
         </div>
       </div>
-    </BaseBottomSheet>
+    </BaseBottomSheetV>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
+import { computed, ComputedRef, onBeforeMount, Ref, ref } from 'vue';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
-import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
+import BaseBottomSheetV from '@/components/UI/BaseBottomSheetV.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
 const props = defineProps({
@@ -89,9 +92,27 @@ function setSelectedCountry(country: ICountryInformation): void {
   emits('selected', selectedData.value);
   showList.value = false;
 }
+
+function onClickInput() {
+  showList.value = true;
+}
 </script>
 
 <style lang="scss">
+.bbet {
+  padding: 8px;
+  background-color: #efebe1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bsettings {
+  padding: 8px;
+  background-color: wheat;
+  display: flex;
+  flex-direction: column;
+}
+
 .base-country-phone-input {
   border-radius: 12px;
   background: $color-grey-100;
@@ -117,9 +138,6 @@ function setSelectedCountry(country: ICountryInformation): void {
   > .cancel {
     color: $color-primary;
     cursor: pointer;
-    user-select: none;
-    user-select: none;
-    user-select: none;
     user-select: none;
   }
 

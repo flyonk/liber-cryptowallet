@@ -2,6 +2,7 @@
 	"appId": "liber.cryptowize.tech",
 	"appName": "Liber",
 	"webDir": "dist",
+
 	"bundledWebRuntime": false,
 	"server": {
 		"url": "http://192.168.1.35:8081/",
