@@ -6,7 +6,7 @@
         :class="{ 'p-input-icon-right': $slots.append }"
       >
         <slot v-if="$slots.append" name="append" />
-        <component :is="currentComponent" v-bind="$attrs" />
+        <component :is="currentComponent" v-bind="$attrs" :type="type" />
         <label>
           <slot name="label" />
         </label>
@@ -34,6 +34,8 @@ const props = defineProps({
 
 const currentComponent = computed(() => {
   switch (props.type) {
+    case 'email':
+      return PInput;
     case 'text':
       return PInput;
     case 'number':
@@ -43,6 +45,9 @@ const currentComponent = computed(() => {
     default:
       return PInput;
   }
+});
+const type = computed(() => {
+  return props.type;
 });
 </script>
 
