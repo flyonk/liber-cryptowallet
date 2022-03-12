@@ -246,12 +246,6 @@
         "wereVerifyingYourId": "We’re verifying your ID",
         "yourIdentityIs": "Your identity is being verified. We will email and sms to you once your verification has completed.",
         "continue": "Continue"
-      },
-      "signuppersonal": {
-        "signUp": "Sign Up - Personal Data"
-      },
-      "signupdocuments": {
-        "signUp": "Sign Up - Documents"
       }
     },
     "passcodeEnter": {
