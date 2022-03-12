@@ -5,11 +5,9 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account/all-accounts')"
+        @click="$router.back()"
       />
-      <h1 class="title">
-        {{ $t('common.coinSelect') }}
-      </h1>
+      <h1 class="title">{{ $t('common.coinSelect') }}</h1>
       <label class="input-label">
         <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
@@ -21,9 +19,7 @@
       </label>
     </div>
     <div class="main">
-      <h4 class="title">
-        {{ $t('views.account.suggested') }}
-      </h4>
+      <h4 class="title">{{ $t('views.account.suggested') }}</h4>
       <ul class="coin-list suggested">
         <li class="item">
           <img class="img" src="@/assets/icon/currencies/btc.svg" alt />

@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/profile')"
+        @click="$router.back()"
       />
       <img
         class="add"
@@ -18,9 +18,7 @@
         "
       />
     </div>
-    <h1 class="title">
-      {{ $t('views.account.allAccounts') }}
-    </h1>
+    <h1 class="title">{{ $t('views.account.allAccounts') }}</h1>
     <ul class="currencies">
       <li v-for="(currency, index) in currencies" :key="index" class="item">
         <img v-if="currency.img !== ''" class="icon" :src="currency.img" alt />
