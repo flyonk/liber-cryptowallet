@@ -1,137 +1,152 @@
 <template name="DashboardHome">
-  <DashboardSkeleton v-if="loading" />
-  <div v-else class="dashboard-container">
-    <div class="header flex mb-4">
-      <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
-      <div v-if="VerificationStatus === 'in_progress'" class="verification">
-        {{ $t('views.dashboard.home.idVerification') }}
-      </div>
-      <div
-        v-if="VerificationStatus === 'verified'"
-        class="verification -verified"
-      >
-        {{ $t('views.dashboard.home.idVerified') }}
-      </div>
-      <div
-        v-if="VerificationStatus === 'failed'"
-        class="verification verification--failed"
-      >
-        {{ $t('views.dashboard.home.iDVerificationFailed') }}
-      </div>
-      <img src="@/assets/icon/bell.svg" class="ml-auto" />
-    </div>
-    <ul class="tabs flex">
-      <li
-        v-for="tab in tabs"
-        :key="tab.id"
-        class="tab-item"
-        :class="{ active: activeTab === tab.id }"
-        @click="activeTab = tab.id"
-      >
-        {{ tab.name }}
-      </li>
-    </ul>
-    <div class="currencies flex items-center">
-      <h1 class="title">€ 0.00</h1>
-      <div class="circle-wrap">
+  <div :style="stylePaddings">
+    <DashboardSkeleton v-if="loading" />
+    <div v-else class="dashboard-container">
+      <div class="header flex mb-4">
         <img
-          class="down"
-          :class="{ '-reverted': isMenuOpen }"
-          src="@/assets/icon/arrow-down.svg"
-          @click="isMenuOpen = !isMenuOpen"
+          src="@/assets/images/avatar.png"
+          @click="$router.push('/profile')"
+        />
+        <div v-if="VerificationStatus === 'in_progress'" class="verification">
+          {{ $t('views.dashboard.home.idVerification') }}
+        </div>
+        <div
+          v-if="VerificationStatus === 'verified'"
+          class="verification -verified"
+        >
+          {{ $t('views.dashboard.home.idVerified') }}
+        </div>
+        <div
+          v-if="VerificationStatus === 'failed'"
+          class="verification verification--failed"
+        >
+          {{ $t('views.dashboard.home.iDVerificationFailed') }}
+        </div>
+        <img src="@/assets/icon/bell.svg" class="ml-auto" />
+      </div>
+      <ul class="tabs flex">
+        <li
+          v-for="tab in tabs"
+          :key="tab.id"
+          class="tab-item"
+          :class="{ active: activeTab === tab.id }"
+          @click="activeTab = tab.id"
+        >
+          {{ tab.name }}
+        </li>
+      </ul>
+      <div class="currencies flex items-center">
+        <h1 class="title">€ 0.00</h1>
+        <div class="circle-wrap">
+          <img
+            class="down"
+            :class="{ '-reverted': isMenuOpen }"
+            src="@/assets/icon/arrow-down.svg"
+            @click="isMenuOpen = !isMenuOpen"
+          />
+        </div>
+        <img
+          class="ml-auto"
+          src="@/assets/icon/currencies/euro.svg"
+          alt="eurounion"
+          @click="$router.push('/transactions')"
         />
       </div>
-      <img
-        class="ml-auto"
-        src="@/assets/icon/currencies/euro.svg"
-        alt="eurounion"
-        @click="$router.push('/transactions')"
-      />
-    </div>
-    <h3 class="heading-gray-md mb-4">
-      {{ $t('views.dashboard.home.allAccounts') }}
-    </h3>
-    <div class="main">
-      <h1 class="title">{{ $t('views.dashboard.home.getYourCryptoAsset') }}</h1>
-      <h4 class="description">
-        {{ $t('views.dashboard.home.noAssets') }} <br />
-        {{ $t('views.dashboard.home.depositFirstCoins') }}
-      </h4>
-    </div>
-    <div class="controls">
-      <button
-        class="btn"
-        :class="{ '-active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-        @click="$router.push('/deposit')"
-      >
-        {{ $t('views.dashboard.home.deposit') }}
-      </button>
-      <button
-        class="btn"
-        :class="{ '-active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-      >
-        {{ $t('views.dashboard.home.send') }}
-      </button>
-      <button
-        class="btn"
-        :class="{ '-active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-      >
-        ...
-      </button>
-    </div>
-    <div class="transactions">
-      <div class="flex justify-content-between items-center w-full mb-3">
-        <p class="text-dark-gray">
-          {{ $t('views.dashboard.home.transactions') }}
-        </p>
-        <p class="heading-gray-md">{{ $t('views.dashboard.home.seeAll') }}</p>
+      <h3 class="heading-gray-md mb-4">
+        {{ $t('views.dashboard.home.allAccounts') }}
+      </h3>
+      <div class="main">
+        <h1 class="title">
+          {{ $t('views.dashboard.home.getYourCryptoAsset') }}
+        </h1>
+        <h4 class="description">
+          {{ $t('views.dashboard.home.noAssets') }} <br />
+          {{ $t('views.dashboard.home.depositFirstCoins') }}
+        </h4>
       </div>
-      <div class="flex items-center mb-5">
-        <img src="@/assets/icon/clock.svg" class="mr-2" />
-        <p class="text-dark-gray">
-          {{ $t('views.dashboard.home.noTransactions') }}
-        </p>
+      <div class="controls">
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+          @click="$router.push('/deposit')"
+        >
+          {{ $t('views.dashboard.home.deposit') }}
+        </button>
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+        >
+          {{ $t('views.dashboard.home.send') }}
+        </button>
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+        >
+          ...
+        </button>
       </div>
-      <h4 class="heading-gray-md mb-3">
-        {{ $t('views.dashboard.home.todo') }}
-      </h4>
-      <div class="carousel">
-        <VueAgile :slides-to-show="2" :nav-buttons="false">
-          <div
-            v-for="(item, index) in carousel"
-            :key="index"
-            class="carousel-item slide"
-            @click="$router.push('/home/story')"
-          >
-            <img :src="item.imgSrc" />
-            <h4
-              :class="{
-                'text-green': item.text === 'green',
-                'text-black': item.text === 'black',
-              }"
+      <div class="transactions">
+        <div class="flex justify-content-between items-center w-full mb-3">
+          <p class="text-dark-gray">
+            {{ $t('views.dashboard.home.transactions') }}
+          </p>
+          <p class="heading-gray-md">
+            {{ $t('views.dashboard.home.seeAll') }}
+          </p>
+        </div>
+        <div class="flex items-center mb-5">
+          <img src="@/assets/icon/clock.svg" class="mr-2" />
+          <p class="text-dark-gray">
+            {{ $t('views.dashboard.home.noTransactions') }}
+          </p>
+        </div>
+        <h4 class="heading-gray-md mb-3">
+          {{ $t('views.dashboard.home.todo') }}
+        </h4>
+        <div class="carousel">
+          <VueAgile :slides-to-show="2" :nav-buttons="false">
+            <div
+              v-for="(item, index) in carousel"
+              :key="index"
+              class="carousel-item slide"
+              @click="$router.push('/home/story')"
             >
-              {{ item.status }}
-            </h4>
-            <p>{{ item.description }}</p>
-          </div>
-        </VueAgile>
+              <img :src="item.imgSrc" />
+              <h4
+                :class="{
+                  'text-green': item.text === 'green',
+                  'text-black': item.text === 'black',
+                }"
+              >
+                {{ item.status }}
+              </h4>
+              <p>{{ item.description }}</p>
+            </div>
+          </VueAgile>
+        </div>
       </div>
+      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
     </div>
-    <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
   </div>
 </template>
 
 <script setup lang="ts">
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
-import { VueAgile } from 'vue-agile';
-import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
 import { ref } from 'vue';
+import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
+
+import useSafeAreaPaddings from '@/helpers/safeArea';
+
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
+import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
+
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
+
+const { stylePaddings } = useSafeAreaPaddings();
 
 let isMenuOpen = ref(false);
 let loading = ref(true);
@@ -191,7 +206,7 @@ const carousel = [
 
 <style lang="scss" scoped>
 .dashboard-container {
-  padding: 15px 15px 0;
+  padding: 0 15px;
   background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;
