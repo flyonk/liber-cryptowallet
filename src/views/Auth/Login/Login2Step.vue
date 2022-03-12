@@ -4,7 +4,7 @@
       $t('common.codeInput')
     }}</TopNavigation>
     <div class="description text--body">
-      {{ $t('auth.loginstep2Description') }} {{ formatPhone() }}
+      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}
     </div>
     <div>
       <BaseVerificationCodeInput
