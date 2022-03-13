@@ -394,10 +394,10 @@
       },
       "selectNetwork": {
         "question": "Main reason for using Liber",
-        "spendOrSave": "Spend or save daily",
-        "spendWhileTravelling": "Spend while travelling",
-        "sendMoney": "Send money",
-        "gainExposure": "Gain exposure to financial assets",
+        "spendOrSave": "BNB Smart Chain (BEP20)",
+        "spendWhileTravelling": "BNB Beacon Chain (BEP2)",
+        "sendMoney": "Bitcoin",
+        "gainExposure": "Ethereum (ERC20)",
         "ensure": "Ensure the network you choose to deposit metches the withdrawal network, or assets may be lost",
         "chooseNetwork": "Choose Network"
       },

@@ -45,10 +45,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
 import CoinItem from './CoinItem.vue';
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
 
 const router = useRouter();
 const coins = ref([]);
