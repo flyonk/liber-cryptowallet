@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { Storage } from '@capacitor/storage';
 import { EStorageKeys } from '@/types/base-component';
-import { generateToken, verifyToken, generateSecret } from 'node-2fa';
+import { generateSecret, generateToken, verifyToken } from 'node-2fa';
 
 interface I2faState {
   secret: string;
@@ -53,8 +53,7 @@ export const use2faStore = defineStore('2fa', {
       setSecret(secret);
     },
     async init() {
-      const secret = await getSecret();
-      this.secret = secret;
+      this.secret = await getSecret();
     },
   },
 });

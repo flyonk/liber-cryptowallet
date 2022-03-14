@@ -1020,6 +1020,13 @@
   dependencies:
     tslib "^2.1.0"
 
+"@capacitor/core@^3.0.0":
+  version "3.4.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.4.3.tgz#3cf343b7035f1f6f9b73854dfb828600cd8a5e07"
+  integrity sha512-drfu0IiDMyeJtL4QALQgNFqdgN19DZJkbKh945eXyK44Sk2YkFXUs7Ewq1ZlVI30QF79mHGuM13oZeki0gv5Tw==
+  dependencies:
+    tslib "^2.1.0"
+
 "@capacitor/core@^3.3.4":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.3.4.tgz#5a302731d2d7a5461e10c55a6c113602b873d855"
@@ -3507,6 +3514,13 @@ capacitor-plugin-safe-area@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/capacitor-plugin-safe-area/-/capacitor-plugin-safe-area-0.0.3.tgz#ca5539390015d80bfdbeb734285f86b9fdd1f706"
   integrity sha512-AOsUOz56GRb74eu5cOEyCt34zgxNuyQV5XQKmFaHqtemXnycc4zSgivP9mpjf+vAGtHjozeEcCQSQqGBuiZnKQ==
+
+capacitor-secure-storage-plugin@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/capacitor-secure-storage-plugin/-/capacitor-secure-storage-plugin-0.6.2.tgz#6044222607f0469d30ebf3cfd6a72723e1480d2b"
+  integrity sha512-f05BLb98TG5qqxN8FvTOLPNvtoebdZyrWAueoyw25Xip7nJBkFqrGxZtcFDMONi4DZRz/z9DMz1Bw8F/8fPAJA==
+  dependencies:
+    "@capacitor/core" "^3.0.0"
 
 case-sensitive-paths-webpack-plugin@^2.3.0:
   version "2.4.0"

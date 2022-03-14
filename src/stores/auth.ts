@@ -5,6 +5,8 @@ import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
 import { defineStore } from 'pinia';
 
+import { EStorageKeys } from '@/types/base-component';
+
 // === Auth Types ===
 
 export interface IAuthSteps {
@@ -76,6 +78,11 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    async signIn(_data: { phone: string }): Promise<void> {
+      await authService.signIn(_data);
+      this.setPhone();
+    },
+
     async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
       const data = await authService.signInProceed(_data);
 
@@ -86,11 +93,11 @@ export const useAuthStore = defineStore('auth', {
       if (data) {
         await Promise.all([
           Storage.set({
-            key: 'access_token',
+            key: EStorageKeys.token,
             value: data.token,
           }),
           Storage.set({
-            key: 'refresh_token',
+            key: EStorageKeys.refreshToken,
             value: data.refreshToken,
           }),
         ]);
@@ -98,14 +105,25 @@ export const useAuthStore = defineStore('auth', {
         this.token = { ...this.token, ...data };
       } else {
         const { value: token } = await Storage.get({
-          key: 'access_token',
+          key: EStorageKeys.token,
         });
         const { value: refreshToken } = await Storage.get({
-          key: 'refresh_token',
+          key: EStorageKeys.refreshToken,
         });
 
         this.token = { ...this.token, token, refreshToken };
       }
+    },
+
+    async checkAuthorizedUser(): Promise<boolean> {
+      return !!(await Storage.get({ key: EStorageKeys.token })).value;
+    },
+
+    async setPhone(): Promise<void> {
+      await Storage.set({
+        key: EStorageKeys.phone,
+        value: JSON.stringify(this.login),
+      });
     },
   },
 });
