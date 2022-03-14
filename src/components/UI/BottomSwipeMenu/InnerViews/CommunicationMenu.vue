@@ -99,7 +99,7 @@ function closeMenu() {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0 16px 0;
+  padding: 16px 0;
   border-bottom: 1px solid $color-grey-500;
 }
 

@@ -39,7 +39,7 @@
       <li
         v-for="tab in contactTabs"
         :key="tab.id"
-        class="tab-item"
+        class="item"
         :class="{ active: activeTab === tab.id }"
         @click="activeTab = tab.id"
       >
@@ -229,7 +229,7 @@ const contactTabs = [
 .contact-tabs {
   margin-bottom: 24px;
 
-  > .tab-item {
+  > .item {
     white-space: nowrap;
     padding: 11px 16px;
     color: $color-brand-primary;

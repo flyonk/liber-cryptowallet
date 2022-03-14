@@ -63,13 +63,13 @@ const currentImage = computed(() => {
 
 <style lang="scss">
 .base-toast {
-    margin: 0 16px 16px 16px;
+    margin: 0 16px 16px;
     width: 100%;
     border-radius: 32px !important;
     text-align: center;
 
     > .p-dialog-content {
-        padding:0 10px 10px 10px;
+        padding:0 10px 10px;
         border-radius: inherit;
 
         > .close-wrapper {
@@ -77,7 +77,7 @@ const currentImage = computed(() => {
             height: 5px;
             background: $color-grey;
             border-radius: 24px;
-            margin: 8px auto 0 auto;
+            margin: 8px auto 0;
         }
     }
     
