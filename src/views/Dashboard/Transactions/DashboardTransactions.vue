@@ -146,14 +146,14 @@ const transactions = [
   {
     info: `${tm('transactions.operations.received')} USDT`,
     from: `${tm('common.from')} andrew@gmail.com`,
-    sum: '+ 13.55 USDT',
+    sum: '+ 0.0001 BTC',
     status: 'Pending',
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: `${tm('transactions.operations.deposit')} USDT`,
+    info: `${tm('transactions.operations.deposit')} BTC`,
     from: `${tm('common.from')} Bitcoin address`,
-    sum: '+ 125.00 USDT',
+    sum: '+ 0.0001 BTC',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {

@@ -244,18 +244,6 @@ const routes: Array<RouteRecordRaw> = [
     component: () =>
       import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
   },
-  {
-    path: '/kyc/personal',
-    name: 'kyc-personal',
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpPersonal.vue'),
-  },
-  {
-    path: '/kyc/documents',
-    name: 'kyc-documents',
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
-  },
 
   // === Survey ===
 
