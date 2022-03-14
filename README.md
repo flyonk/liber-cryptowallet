@@ -14,6 +14,8 @@
 
 [Figma Liber UI Kit](https://www.figma.com/file/03BEDylTZpq3uwoGEaQ6nk/Liber-UI-KIT)
 
+[Swagger API Scheme (require Liber VPN)](https://auth.middleware.dev.k8s.domain/swagger-ui/)
+
 [Sentry](http://172.31.27.249:9000/)
 
 ## Project setup
