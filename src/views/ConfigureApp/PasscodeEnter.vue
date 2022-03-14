@@ -1,38 +1,36 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      {{ title }}
-    </top-navigation>
+    <top-navigation @click:left-icon="$router.back()">{{
+      title
+    }}</top-navigation>
   </div>
   <div class="page-wrapper">
-    <p class="text-default">
-      {{ $t('configureApp.createPassCode') }}
-    </p>
+    <p class="text-default">{{ $t('configureApp.createPassCode') }}</p>
 
     <base-passcode
       v-if="actionType === EPasscodeActions.store"
       :action-type="actionType"
       @submit="onCreate"
+      :showTouchFaceid="false"
     />
 
     <base-passcode
       v-if="actionType === EPasscodeActions.compare"
+      :showTouchFaceid="false"
       @submit="onSubmit"
     />
   </div>
 
   <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
-      <div>
-        {{ $t('configureApp.invalidPassCode') }}
-      </div>
+      <div>{{ $t('configureApp.invalidPassCode') }}</div>
     </template>
   </base-toast>
 </template>
 
 <script lang="ts" setup>
-import { ref, Ref, computed } from 'vue';
-import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
+import { computed, Ref, ref } from 'vue';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -69,8 +67,9 @@ function onSubmit(success: boolean): void {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function prevStep(): void {
-  // go to previous step
+  router.push({ name: 'survey' });
 }
 </script>
 

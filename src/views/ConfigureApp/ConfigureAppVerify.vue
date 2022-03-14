@@ -10,7 +10,7 @@
 
     <base-verification-code-input v-model="verificationCode" />
   </div>
-  <div style="padding: 15px">
+  <div style="padding: 15px; padding-bottom: 50px">
     <base-button block @click="pasteFromClipboard">
       {{ $t('common.pasteCta') }}
     </base-button>
@@ -43,7 +43,7 @@ const store = use2faStore();
 store.generateToken();
 
 const verificationCode = ref('');
-const showErrorToast = ref(true);
+const showErrorToast = ref(false);
 
 const router = useRouter();
 

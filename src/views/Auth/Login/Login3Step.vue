@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();
@@ -42,7 +42,7 @@ function onSubmit(success: boolean): void {
   }
 }
 function prevStep(): void {
-  authStore.setStep(0, 'login');
+  authStore.setStep(1, 'login');
 }
 </script>
 

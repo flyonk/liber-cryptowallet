@@ -5,7 +5,7 @@
         <template #label>{{ $t('ui.basecountryselect.country') }}</template>
       </base-input>
     </span>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
+    <BaseBottomSheet v-if="showList" @close="showList = false">
       <div class="country-select-block">
         <div class="grid align-items-center container">
           <div class="col-9 searchcontainer">
@@ -38,11 +38,11 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
+import { computed, ComputedRef, onBeforeMount, Ref, ref } from 'vue';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getEuropeanList, getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { BaseBottomSheet, BaseSearchInput, BaseInput } from '.';
+import { BaseBottomSheet, BaseInput, BaseSearchInput } from '.';
 
 const props = defineProps({
   modelValue: {
@@ -130,9 +130,6 @@ function onClick(): void {
       > .cancelbutton {
         color: $color-primary;
         cursor: pointer;
-        user-select: none;
-        user-select: none;
-        user-select: none;
         user-select: none;
       }
     }

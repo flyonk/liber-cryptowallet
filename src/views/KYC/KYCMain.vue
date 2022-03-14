@@ -59,7 +59,7 @@ const onPrev = () => {
 
     > .footer {
       position: absolute;
-      bottom: 16px;
+      bottom: 50px;
       left: 16px;
       right: 16px;
 

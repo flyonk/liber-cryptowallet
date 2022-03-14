@@ -1,139 +1,185 @@
 <template name="DashboardHome">
-  <DashboardSkeleton v-if="loading" />
-  <div v-else class="dashboard-container">
-    <div class="header flex mb-4">
-      <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
-      <div v-if="VerificationStatus === 'in_progress'" class="verification">
-        {{ $t('views.dashboard.home.idVerification') }}
-      </div>
-      <div
-        v-if="VerificationStatus === 'verified'"
-        class="verification -verified"
-      >
-        {{ $t('views.dashboard.home.idVerified') }}
-      </div>
-      <div
-        v-if="VerificationStatus === 'failed'"
-        class="verification verification--failed"
-      >
-        {{ $t('views.dashboard.home.iDVerificationFailed') }}
-      </div>
-      <img src="@/assets/icon/bell.svg" class="ml-auto" />
-    </div>
-    <ul class="tabs flex">
-      <li
-        v-for="tab in tabs"
-        :key="tab.id"
-        class="tab-item"
-        :class="{ active: activeTab === tab.id }"
-        @click="activeTab = tab.id"
-      >
-        {{ tab.name }}
-      </li>
-    </ul>
-    <div class="currencies flex items-center">
-      <h1 class="title">€ 0.00</h1>
-      <div class="circle-wrap">
+  <div :style="stylePaddings">
+    <DashboardSkeleton v-if="loading" />
+    <div v-else class="dashboard-container">
+      <div class="header flex mb-4">
         <img
-          class="down"
-          :class="{ '-reverted': isMenuOpen }"
-          src="@/assets/icon/arrow-down.svg"
-          @click="isMenuOpen = !isMenuOpen"
+          src="@/assets/images/avatar.png"
+          @click="$router.push('/profile')"
+        />
+        <div v-if="VerificationStatus === 'in_progress'" class="verification">
+          {{ $t('views.dashboard.home.idVerification') }}
+        </div>
+        <div
+          v-if="VerificationStatus === 'verified'"
+          class="verification -verified"
+        >
+          {{ $t('views.dashboard.home.idVerified') }}
+        </div>
+        <div
+          v-if="VerificationStatus === 'failed'"
+          class="verification verification--failed"
+        >
+          {{ $t('views.dashboard.home.iDVerificationFailed') }}
+        </div>
+        <img src="@/assets/icon/bell.svg" class="ml-auto" />
+      </div>
+      <ul class="tabs flex">
+        <li
+          v-for="tab in tabs"
+          :key="tab.id"
+          class="tab-item"
+          :class="{ active: activeTab === tab.id }"
+          @click="activeTab = tab.id"
+        >
+          {{ tab.name }}
+        </li>
+      </ul>
+      <div class="currencies flex items-center">
+        <h1 class="title">€ 0.00</h1>
+        <div class="circle-wrap">
+          <img
+            class="down"
+            :class="{ '-reverted': isMenuOpen }"
+            src="@/assets/icon/arrow-down.svg"
+            @click="isMenuOpen = !isMenuOpen"
+          />
+        </div>
+        <img
+          class="ml-auto"
+          src="@/assets/icon/currencies/euro.svg"
+          alt="eurounion"
+          @click="$router.push('/transactions')"
         />
       </div>
-      <img
-        class="ml-auto"
-        src="@/assets/icon/currencies/euro.svg"
-        alt="eurounion"
-        @click="$router.push('/transactions')"
-      />
-    </div>
-    <h3 class="heading-gray-md mb-4">
-      {{ $t('views.dashboard.home.allAccounts') }}
-    </h3>
-    <div class="main">
-      <h1 class="title">{{ $t('views.dashboard.home.getYourCryptoAsset') }}</h1>
-      <h4 class="description">
-        {{ $t('views.dashboard.home.noAssets') }} <br />
-        {{ $t('views.dashboard.home.depositFirstCoins') }}
-      </h4>
-    </div>
-    <div class="controls">
-      <button
-        class="btn"
-        :class="{ '-active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-        @click="$router.push('/deposit')"
-      >
-        {{ $t('views.dashboard.home.deposit') }}
-      </button>
-      <button
-        class="btn"
-        :class="{ '-active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-      >
-        {{ $t('views.dashboard.home.send') }}
-      </button>
-      <button
-        class="btn"
-        :class="{ '-active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-      >
-        ...
-      </button>
-    </div>
-    <div class="transactions">
-      <div class="flex justify-content-between items-center w-full mb-3">
-        <p class="text-dark-gray">
-          {{ $t('views.dashboard.home.transactions') }}
-        </p>
-        <p class="heading-gray-md">{{ $t('views.dashboard.home.seeAll') }}</p>
+      <h3 class="heading-gray-md mb-4">
+        {{ $t('views.dashboard.home.allAccounts') }}
+      </h3>
+      <div class="main">
+        <h1 class="title">
+          {{ $t('views.dashboard.home.getYourCryptoAsset') }}
+        </h1>
+        <h4 class="description">
+          {{ $t('views.dashboard.home.noAssets') }} <br />
+          {{ $t('views.dashboard.home.depositFirstCoins') }}
+        </h4>
       </div>
-      <div class="flex items-center mb-5">
-        <img src="@/assets/icon/clock.svg" class="mr-2" />
-        <p class="text-dark-gray">
-          {{ $t('views.dashboard.home.noTransactions') }}
-        </p>
+      <div class="controls">
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+          @click="$router.push('/deposit')"
+        >
+          {{ $t('views.dashboard.home.deposit') }}
+        </button>
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+        >
+          {{ $t('views.dashboard.home.send') }}
+        </button>
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+        >
+          ...
+        </button>
       </div>
-      <h4 class="heading-gray-md mb-3">
-        {{ $t('views.dashboard.home.todo') }}
-      </h4>
-      <div class="carousel">
-        <VueAgile :slides-to-show="2" :nav-buttons="false">
-          <div
-            v-for="(item, index) in carousel"
-            :key="index"
-            class="carousel-item slide"
-            @click="$router.push('/home/story')"
-          >
-            <img :src="item.imgSrc" />
-            <h4
-              :class="{
-                'text-green': item.text === 'green',
-                'text-black': item.text === 'black',
-              }"
+      <div class="transactions">
+        <div class="flex justify-content-between items-center w-full mb-3">
+          <p class="text-dark-gray">
+            {{ $t('views.dashboard.home.transactions') }}
+          </p>
+          <p class="heading-gray-md">
+            {{ $t('views.dashboard.home.seeAll') }}
+          </p>
+        </div>
+        <div class="flex items-center mb-5">
+          <ul v-if="hasTransactions" class="transactions">
+            <li
+              v-for="(transaction, index) in transactions"
+              :key="index"
+              class="item"
+              @click="$router.push('/transactions/details')"
             >
-              {{ item.status }}
-            </h4>
-            <p>{{ item.description }}</p>
-          </div>
-        </VueAgile>
+              <img class="icon" :src="transaction.img" />
+              <div class="info">
+                <div class="flex">
+                  <h1 class="title">{{ transaction.info }}</h1>
+                  <p :class="{ received: transaction.sum.startsWith('+') }">
+                    {{ transaction.sum }}
+                  </p>
+                </div>
+                <div class="flex">
+                  <div class="subtitle">{{ transaction.from }}</div>
+                  <p
+                    v-if="transaction.status"
+                    :class="{ pending: transaction.status === 'Pending' }"
+                  >
+                    {{ transaction.status }}
+                  </p>
+                  <p v-else class="sum">{{ transaction.sum }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <template v-else>
+            <img src="@/assets/icon/clock.svg" class="mr-2" />
+            <p class="text-dark-gray">
+              {{ $t('views.dashboard.home.noTransactions') }}
+            </p>
+          </template>
+        </div>
+        <h4 class="heading-gray-md mb-3">
+          {{ $t('views.dashboard.home.todo') }}
+        </h4>
+        <div class="carousel">
+          <VueAgile :slides-to-show="2" :nav-buttons="false">
+            <div
+              v-for="(item, index) in carousel"
+              :key="index"
+              class="carousel-item slide"
+              @click="$router.push('/home/story')"
+            >
+              <img :src="item.imgSrc" />
+              <h4
+                :class="{
+                  'text-green': item.text === 'green',
+                  'text-black': item.text === 'black',
+                }"
+              >
+                {{ item.status }}
+              </h4>
+              <p>{{ item.description }}</p>
+            </div>
+          </VueAgile>
+        </div>
       </div>
+      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
     </div>
-    <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
   </div>
 </template>
 
 <script setup lang="ts">
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
+import { computed, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
-import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+import useSafeAreaPaddings from '@/helpers/safeArea';
+
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
+import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
+
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
 
+const { stylePaddings } = useSafeAreaPaddings();
+
 let isMenuOpen = ref(false);
+// TODO: check if there is a data in store
 let loading = ref(true);
 
 const { tm } = useI18n();
@@ -187,11 +233,23 @@ const carousel = [
     text: 'black',
   },
 ];
+
+const transactions = ref([
+  {
+    info: `${tm('transactions.operations.received')} BTC`,
+    from: `${tm('common.from')} test@cryptowize.tech`,
+    sum: '+ 0.0001 BTC',
+    status: 'Completed',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+]);
+
+const hasTransactions = computed(() => transactions.value.length > 0);
 </script>
 
 <style lang="scss" scoped>
 .dashboard-container {
-  padding: 15px 15px 0;
+  padding: 0 15px;
   background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;
@@ -319,6 +377,7 @@ const carousel = [
     }
   }
 
+  // TODO: extract to component
   > .transactions {
     > .carousel {
       display: flex;
@@ -326,6 +385,62 @@ const carousel = [
       position: relative;
       left: -37px;
       width: 113%;
+    }
+
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 100%;
+
+    > .item {
+      display: flex;
+      width: 100%;
+      margin-bottom: 24px;
+
+      > .icon {
+        margin-right: 12px;
+        width: 40px;
+        height: 40px;
+      }
+
+      > .info {
+        width: 100%;
+
+        > .flex {
+          width: 100%;
+          justify-content: space-between;
+
+          > .title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: -0.0031em;
+          }
+
+          > .subtitle {
+            font-size: 13px;
+            line-height: 18px;
+            letter-spacing: -0.0008em;
+            color: $color-dark-grey;
+          }
+
+          > .pending {
+            color: $color-yellow-600;
+          }
+
+          > .received {
+            color: $color-green-600;
+          }
+
+          > .sum {
+            font-size: 13px;
+            line-height: 18px;
+            text-align: right;
+            letter-spacing: -0.0008em;
+            color: $color-dark-grey;
+          }
+        }
+      }
     }
   }
 

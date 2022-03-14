@@ -63,3 +63,9 @@
 <script setup lang="ts">
 import Skeleton from 'primevue/skeleton';
 </script>
+
+<style lang="scss" scoped>
+.dashboard {
+  padding: 0 15px;
+}
+</style>

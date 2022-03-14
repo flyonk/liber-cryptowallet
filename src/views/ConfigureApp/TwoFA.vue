@@ -9,22 +9,27 @@
     </p>
 
     <div class="flex-center">
-      <img src="@/assets/images/2fa-keys.svg" alt="keys" />
+      <img alt="keys" src="@/assets/images/2fa-keys.svg" />
     </div>
   </div>
 
-  <div style="padding: 15px">
+  <div style="padding: 15px; padding-bottom: 50px">
     <base-button block @click="$router.push({ name: 'install-app' })">
       {{ $t('common.continueCta') }}
     </base-button>
   </div>
 </template>
 
-<script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI';
+<script lang="ts" setup>
+import { useRouter } from 'vue-router';
+import { BaseButton, TopNavigation } from '@/components/UI';
+
+const router = useRouter();
 
 function prevStep(): void {
-  // go to previous step
+  router.push({
+    name: 'auth-passcode',
+  });
 }
 </script>
 
