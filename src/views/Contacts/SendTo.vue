@@ -24,6 +24,7 @@
     </div>
   </div>
   <base-toast
+    v-if="popupStatus === 'attention'"
     v-model:visible="showPopup"
     :severity="'attention'"
   >
@@ -56,6 +57,20 @@
       </div>
     </template>
   </base-toast>
+  <base-toast
+    v-if="popupStatus === 'confirmation'"
+    v-model:visible="showPopup"
+    :severity="'confirmation'"
+    @click="showPopup = false"
+  >
+    <template #description>
+      <div class="popup-description">
+        <p class="description">
+          $1 will be sent once Andrey Verbitsky (andrey@gmail.com) accepts the payment
+        </p>
+      </div>
+    </template>
+  </base-toast>
 </template>
 
 <script setup lang="ts">
@@ -66,6 +81,7 @@ import BaseButton from '@/components/UI/BaseButton.vue'
 import { ref } from 'vue';
 
 const showPopup = ref(false)
+const popupStatus = ref('confirmation')
 
 function sendTransaction() {
   showPopup.value = true
