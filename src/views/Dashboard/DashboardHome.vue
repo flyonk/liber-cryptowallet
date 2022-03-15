@@ -109,24 +109,37 @@
               @click="$router.push('/transactions/details')"
             >
               <div class="image">
-                <img class="icon" :src="transaction.img" />
+                <img
+                  v-if="transaction.type === 'Deposit'"
+                  class="icon"
+                  src="@/assets/icon/transactions/received.svg"
+                />
+                <img
+                  v-else-if="transaction.type === 'Send'"
+                  class="icon"
+                  src="@/assets/icon/transactions/sent.svg"
+                />
+                <!-- <img class="icon" :src="transaction.img" /> -->
               </div>
               <div class="info">
                 <div class="flex">
-                  <h1 class="title">{{ transaction.info }}</h1>
-                  <p :class="{ received: transaction.sum.startsWith('+') }">
+                  <h1 class="title">test</h1>
+                  <p class="title">{{ transaction.amount }}</p>
+                  <!-- <h1 class="title">{{ transaction.info }}</h1> -->
+                  <!-- <p :class="{ received: transaction.sum.startsWith('+') }">
                     {{ transaction.sum }}
-                  </p>
+                  </p> -->
                 </div>
                 <div class="flex">
-                  <div class="subtitle">{{ transaction.from }}</div>
+                  <!-- <div class="subtitle">{{ transaction.from }}</div> -->
+                  <div class="subtitle">transaction from</div>
                   <p
                     v-if="transaction.status"
                     :class="{ pending: transaction.status === 'Pending' }"
                   >
                     {{ transaction.status }}
                   </p>
-                  <p v-else class="sum">{{ transaction.sum }}</p>
+                  <p v-else class="sum">{{ transaction.amount }}</p>
                 </div>
               </div>
             </li>
@@ -169,7 +182,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
@@ -177,6 +190,37 @@ import useSafeAreaPaddings from '@/helpers/safeArea';
 
 import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
+import transactionService from '@/services/transactionService';
+import {
+  ERequestFundsStatus,
+  ETransactionStatus,
+  TTransaction,
+} from '@/models/transaction/transaction';
+
+let transactions: any = ref([]);
+
+onMounted(async () => {
+  transactions.value = await transactionService.getUserTransaction();
+  transactions.value = transactions.value.map(
+    (
+      e: TTransaction
+    ): {
+      info: string;
+      from: string;
+      sum: string;
+      status: ETransactionStatus | ERequestFundsStatus;
+      img: string;
+    } => {
+      return {
+        info: `${tm('transactions.operations.received')} BTC`,
+        from: 'email@example.com',
+        sum: e.amount,
+        status: e.status,
+        img: '',
+      };
+    }
+  );
+});
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
@@ -239,29 +283,29 @@ const carousel = [
   },
 ];
 
-const transactions = ref([
-  {
-    info: `${tm('transactions.operations.received')} BTC`,
-    from: `${tm('common.from')} test@cryptowize.tech`,
-    sum: '+ 0.0001 BTC',
-    status: 'Completed',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.received')} BTC`,
-    from: `${tm('common.from')} test@cryptowize.tech`,
-    sum: '+ 0.0001 BTC',
-    status: 'Completed',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.received')} BTC`,
-    from: `${tm('common.from')} test@cryptowize.tech`,
-    sum: '+ 0.0001 BTC',
-    status: 'Completed',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-]);
+// const transactions = ref([
+//   {
+//     info: `${tm('transactions.operations.received')} BTC`,
+//     from: `${tm('common.from')} test@cryptowize.tech`,
+//     sum: '+ 0.0001 BTC',
+//     status: 'Completed',
+//     img: require('@/assets/icon/transactions/received.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.received')} BTC`,
+//     from: `${tm('common.from')} test@cryptowize.tech`,
+//     sum: '+ 0.0001 BTC',
+//     status: 'Completed',
+//     img: require('@/assets/icon/transactions/received.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.received')} BTC`,
+//     from: `${tm('common.from')} test@cryptowize.tech`,
+//     sum: '+ 0.0001 BTC',
+//     status: 'Completed',
+//     img: require('@/assets/icon/transactions/received.svg'),
+//   },
+// ]);
 
 const hasTransactions = computed(() => transactions.value.length > 0);
 </script>
