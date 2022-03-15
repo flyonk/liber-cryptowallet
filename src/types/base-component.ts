@@ -28,6 +28,7 @@ export enum EPasscodeActions {
 export enum EStorageKeys {
   passcode = 'liber-app-passcode',
   twofa = 'liber-app-2fa',
+  twofaDate = '2fa-date',
   notifications = 'liber-app-push-notifications',
   faceid = 'liber-app-face-id',
   touchid = 'liber-app-touch-id',

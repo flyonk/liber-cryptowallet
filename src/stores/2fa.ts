@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { Storage } from '@capacitor/storage';
 import { EStorageKeys } from '@/types/base-component';
 import { generateSecret, generateToken, verifyToken } from 'node-2fa';
+import { checkExpiration } from '@/helpers/2fa';
 
 interface I2faState {
   secret: string;
@@ -38,9 +39,11 @@ export const use2faStore = defineStore('2fa', {
     generateToken() {
       generateToken(this.secret);
     },
+
     verify(token: string) {
       return verifyToken(this.secret, token);
     },
+
     generateSecret() {
       const { secret, uri } = generateSecret({
         name: 'Liber App',
@@ -52,6 +55,21 @@ export const use2faStore = defineStore('2fa', {
 
       setSecret(secret);
     },
+
+    async setTwofaDate(): Promise<void> {
+      await Storage.set({
+        key: EStorageKeys.twofaDate,
+        value: String(Date.now()),
+      });
+    },
+
+    async checkTwofaExpire(): Promise<boolean> {
+      const timestamp = Number(
+        (await Storage.get({ key: EStorageKeys.twofaDate })).value
+      );
+      return checkExpiration(timestamp, 14);
+    },
+
     async init() {
       this.secret = await getSecret();
     },
