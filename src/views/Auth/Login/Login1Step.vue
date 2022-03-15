@@ -17,9 +17,9 @@
       <div class="col-8 ml-auto">
         <base-input
           v-model="number"
-          :use-grouping="false"
-          :type="type"
           :mask="mask"
+          :type="type"
+          :use-grouping="false"
         >
           <template #label>
             {{ $t('common.numberLabel') }}
@@ -29,31 +29,34 @@
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        <router-link to="" class="link">
+        <router-link class="link" to="">
           {{ $t('auth.login.step1LostAccess') }}
         </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button block :disabled="!number.length" @click="nextStep">
+      <base-button :disabled="!number.length" block @click="nextStep">
         {{ $t('common.logInCta') }}
       </base-button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { Storage } from '@capacitor/storage';
+
 import {
-  TopNavigation,
+  BaseButton,
   BaseCountryPhoneInput,
   BaseInput,
-  BaseButton,
+  TopNavigation,
 } from '@/components/UI';
 
 import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -62,12 +65,18 @@ const mask = ref('');
 const countryDialCode = ref('');
 const type = ref('');
 
-onMounted(() => {
-  const { phone, dialCode } = authStore.login;
+onMounted(async () => {
+  const [{ value: dialCode }, { value: phone }] = await Promise.all([
+    Storage.get({ key: 'dialCode' }),
+    Storage.get({ key: 'phone' }),
+  ]);
 
   if (phone) {
-    number.value = authStore.login.phone;
+    authStore.login.phone = phone as unknown as string;
   }
+
+  number.value = authStore.login.phone;
+
   if (!dialCode) {
     //TODO:Change to the default value taken from the smartphone
     authStore.login.dialCode = '+7';
@@ -97,9 +106,21 @@ const handleSelectCountry = (data: ICountryInformation) => {
   }, 0);
 };
 
-const nextStep = () => {
+const nextStep = async () => {
   if (!number.value) return;
   authStore.login.phone = number.value;
+
+  await Promise.all([
+    Storage.set({
+      key: 'dialCode',
+      value: authStore.login.dialCode,
+    }),
+    Storage.set({
+      key: 'phone',
+      value: authStore.login.phone,
+    }),
+  ]);
+
   authStore.setStep(1, 'login');
 };
 
