@@ -7,10 +7,13 @@ export interface IApiService {
 
 export interface IAuthService {
   signIn(data: { phone: string }): Promise<TSuccessResponse | TErrorResponse>;
+  //TODO: fix me
   signInProceed(data: {
     phone: string;
     otp: string;
-  }): Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>>;
+  }):
+    | Promise<AxiosResponse<TSuccessSignIn> | AxiosError<TErrorResponse>>
+    | Promise<null>;
   logout(data: {
     access_token: string;
   }): Promise<TSuccessResponse | TErrorResponse>;
@@ -155,7 +158,7 @@ export interface IVerificator {
 }
 
 export type TVerification = {
-  varification: boolean;
+  verification: boolean;
 };
 
 export type TProfile = {
@@ -188,6 +191,7 @@ export type TUpdateProfile = {
 };
 
 export type TClaim = {
+  // wrong body
   id: number;
   claim_id: number;
   type: number;
@@ -243,6 +247,7 @@ export interface IFundsService {
 }
 
 type TCoin = {
+  //TODO: WHY??? nested objects
   [key: string]: {
     //Coin CODE
     fullname: string;
@@ -255,10 +260,7 @@ export type TCoins = {
 };
 
 export type TConvertData = {
-  list: [
-    { [key: string]: { fullname: string; amount: string } },
-    { [key: string]: { fullname: string } }
-  ];
+  list: Record<string, { fullname: string; amount?: string }>;
 };
 
 export type TConvertInfo = {

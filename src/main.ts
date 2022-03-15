@@ -6,8 +6,9 @@ import './registerServiceWorker';
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
-
-import { i18n, setLocale } from "./i18n";
+import { i18n, setLocale } from './i18n';
+import sentry from '@/plugins/sentry';
+import axiosInterceptor from '@/plugins/axiosInterceptor';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
@@ -18,6 +19,8 @@ import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
 
+axiosInterceptor();
+
 const app = createApp(App)
   // App uses
   .use(i18n)
@@ -25,7 +28,8 @@ const app = createApp(App)
   .use(PrimeVue)
   .use(ToastService)
   .use(router)
-  .use(FloatingVue);
+  .use(FloatingVue)
+  .use(sentry);
 
 setLocale();
 

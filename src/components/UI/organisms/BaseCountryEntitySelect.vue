@@ -1,44 +1,44 @@
 <template>
-<BaseBottomSheet :visible="showList" position="bottom">
-  <div class="country-select-block">
-    <div class="grid align-items-center">
-      <div class="col-9">
-        <BaseSearchInput v-model="searchQuery" />
-      </div>
-      <div class="col-3 text-right">
-        <div class="cancel-button text--headline" @click="close">
-          {{ $t('ui.basecountryselect.cancel') }}
+  <BaseBottomSheetV v-if="showList" position="bottom">
+    <div class="country-select-block">
+      <div class="grid align-items-center">
+        <div class="col-9">
+          <BaseSearchInput v-model="searchQuery" />
+        </div>
+        <div class="col-3 text-right">
+          <div class="cancel-button text--headline" @click="close">
+            {{ $t('ui.basecountryselect.cancel') }}
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="country-list">
-      <div
+      <div class="country-list">
+        <div
           v-for="(country, index) in filteredList"
           :key="index"
           :class="{ selected: isSelectedCountry(country) }"
           class="item grid align-items-center"
           @click="setSelectedCountry(country)"
-      >
-        <div class="flag col-2">
-          <img :src="country.flag" alt="" />
-        </div>
-        <div class="code col-2">
-          {{ country[entity] }}
-        </div>
-        <div class="title col-8">
-          {{ country.name }}
+        >
+          <div class="flag col-2">
+            <img :src="country.flag" alt="" />
+          </div>
+          <div class="code col-2">
+            {{ country[entity] }}
+          </div>
+          <div class="title col-8">
+            {{ country.name }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</BaseBottomSheet>
+  </BaseBottomSheetV>
 </template>
 <script lang="ts" setup>
 import { ref, Ref, computed, ComputedRef } from 'vue';
 import { PropType } from 'vue-demi';
 
-import BaseBottomSheet from '@/components/UI/molecules/BaseBottomSheet.vue';
+import BaseBottomSheetV from '@/components/UI/molecules/BaseBottomSheetV.vue';
 import BaseSearchInput from '@/components/UI/atoms/BaseSearchInput.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
@@ -50,16 +50,16 @@ const props = defineProps({
   },
   list: {
     type: Array as PropType<ICountryInformation[]>,
-    default: () => ([])
+    default: () => [],
   },
   showList: {
     type: Boolean,
-    default: false
+    default: false,
   },
   selectedData: {
     type: Object as PropType<ICountryInformation | null>,
-    default: null
-  }
+    default: null,
+  },
 });
 
 const emit = defineEmits(['close', 'selected']);
@@ -69,7 +69,7 @@ const searchQuery = ref('') as Ref<string>;
 const filteredList: ComputedRef<ICountryInformation[]> = computed(() => {
   if (searchQuery.value) {
     return props.list.filter(({ name }) =>
-        name.toLowerCase().includes(searchQuery.value.toLowerCase())
+      name.toLowerCase().includes(searchQuery.value.toLowerCase())
     );
   }
 
@@ -84,7 +84,7 @@ function setSelectedCountry(country: ICountryInformation): void {
   emit('selected', country);
 }
 
-function close () {
+function close() {
   emit('close');
 }
 </script>

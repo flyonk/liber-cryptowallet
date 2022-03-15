@@ -1,21 +1,26 @@
 <template name="CloseAccount">
   <div v-if="showMenu" class="close-account">
     <img class="logo" src="@/assets/images/liber-logo.png" alt="logo" />
-    <h5 class="title">{{ $t('views.profile.profileSettings.preventClosingAccount') }}</h5>
+    <h5 class="title">
+      {{ $t('views.profile.profileSettings.preventClosingAccount') }}
+    </h5>
     <p class="description">
       {{ $t('views.profile.profileSettings.freeToKeep') }}
     </p>
     <div class="control-buttons">
-      <BaseButton class="btn" size="large"> {{ $t('views.profile.profileSettings.keepOpen') }} </BaseButton>
-      <BaseButton class="btn" size="large" @click="$emit('closeMenu')">
-        {{ $t('views.profile.profileSettings.close') }}
+      <BaseButton class="keepopen" size="large">
+        {{ $t('views.profile.profileSettings.keepOpen') }}
       </BaseButton>
+      <button class="close" size="large" @click="$emit('closeMenu')">
+        {{ $t('views.profile.profileSettings.close') }}
+      </button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
 import { toRefs } from 'vue';
+
 import BaseButton from '@/components/UI/molecules/base-button/BaseButton.vue';
 
 const props = defineProps({
@@ -57,7 +62,7 @@ console.log(path);
     line-height: 25px;
     text-align: center;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-primary;
     margin-bottom: 15px;
   }
 
@@ -69,12 +74,19 @@ console.log(path);
     letter-spacing: -0.0043em;
     color: $color-brand-2-300;
   }
-}
 
-.control-buttons {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: auto;
+  > .control-buttons {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-top: auto;
+
+    > .close {
+      margin-top: 8px;
+      height: 48px;
+      color: $color-primary;
+      background: none;
+    }
+  }
 }
 </style>

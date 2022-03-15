@@ -2,7 +2,7 @@ export enum SizeBaseButton {
   Large = 'large',
   Medium = 'medium',
   Small = 'small',
-  xSmall = 'x-small'
+  xSmall = 'x-small',
 }
 
 export enum ViewBaseButton {
@@ -10,5 +10,5 @@ export enum ViewBaseButton {
   Secondary = 'secondary',
   Ghost = 'ghost',
   Flat = 'flat',
-  White = 'white'
+  White = 'white',
 }

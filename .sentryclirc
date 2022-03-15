@@ -1,0 +1,7 @@
+[auth]
+token="772d1586cb0041ecaed4a539e49502d8244e355f9fa141eb907dc7e8bac0b753"
+
+[defaults]
+url=http://172.31.27.249:9000
+org="sentry"
+project="internal"

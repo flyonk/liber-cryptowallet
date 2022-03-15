@@ -28,7 +28,6 @@ import BaseCountryEntitySelect from '@/components/UI/organisms/BaseCountryEntity
 
 import { ICountryInformation } from '@/types/country-phone-types';
 
-
 const props = defineProps({
   dialCode: {
     type: String,
@@ -58,10 +57,10 @@ function setSelectedCountry(country: ICountryInformation): void {
   emits('selected', selectedData.value);
 }
 
-function openSelect () {
+function openSelect() {
   showList.value = true;
 }
-function closeSelect () {
+function closeSelect() {
   showList.value = false;
 }
 </script>

@@ -1,8 +1,8 @@
-import AuthService from '@/services/AuthService';
+import authService from '@/services/authService';
 import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { TErrorResponse } from './../types/api';
-import { TSuccessSignIn } from '@/types/api';
+import { ISuccessSignIn } from '@/models/auth/successSignIn';
+
 import { defineStore } from 'pinia';
 
 // === Auth Types ===
@@ -27,8 +27,8 @@ export interface IAuthState {
   registration: IAuthRegistration;
   login: ICommonPhoneNumber;
   token: {
-    access_token: string | null;
-    refresh_token: string | null;
+    token: string | null;
+    refreshToken: string | null;
   };
 }
 
@@ -51,8 +51,8 @@ export const useAuthStore = defineStore('auth', {
       phone: '9082359632',
     },
     token: {
-      access_token: null,
-      refresh_token: null,
+      token: null,
+      refreshToken: null,
     },
   }),
 
@@ -62,7 +62,7 @@ export const useAuthStore = defineStore('auth', {
     getRegistrationPhone: (state) =>
       state.registration.dialCode + state.registration.phone,
     getToken: ({ token }) => token,
-    isLoggedIn: ({ token }) => !!token.access_token && !!token.refresh_token,
+    isLoggedIn: ({ token }) => !!token.token && !!token.refreshToken,
   },
 
   actions: {
@@ -76,45 +76,35 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async signInProceed(_data: {
-      phone: string;
-      otp: string;
-    }): Promise<void | TErrorResponse> {
-      try {
-        const authService = new AuthService();
+    async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
+      const data = await authService.signInProceed(_data);
 
-        // FIXME: any type
-        const { data } = (await authService.signInProceed(_data)) as any;
-
-        this.setToken(data as TSuccessSignIn);
-      } catch (e) {
-        return Promise.reject(e);
-      }
+      this.setToken(data);
     },
 
-    async setToken(data = null as TSuccessSignIn | null): Promise<void> {
+    async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
         await Promise.all([
           Storage.set({
             key: 'access_token',
-            value: data.access_token,
+            value: data.token,
           }),
           Storage.set({
             key: 'refresh_token',
-            value: data.refresh_token,
+            value: data.refreshToken,
           }),
         ]);
 
         this.token = { ...this.token, ...data };
       } else {
-        const { value: access_token } = await Storage.get({
+        const { value: token } = await Storage.get({
           key: 'access_token',
         });
-        const { value: refresh_token } = await Storage.get({
+        const { value: refreshToken } = await Storage.get({
           key: 'refresh_token',
         });
 
-        this.token = { ...this.token, access_token, refresh_token };
+        this.token = { ...this.token, token, refreshToken };
       }
     },
   },

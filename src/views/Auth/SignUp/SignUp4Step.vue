@@ -8,12 +8,12 @@
       <br />
       {{ $t('auth.signup.step4Description2') }}
     </div>
-    <base-input>
+    <base-input v-model="firstname">
       <template #label>
         {{ $t('common.firstName') }}
       </template>
     </base-input>
-    <base-input>
+    <base-input v-model="lastname">
       <template #label>
         {{ $t('common.lastName') }}
       </template>
@@ -27,7 +27,12 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue-demi';
+
 import { TopNavigation, BaseButton, BaseInput } from '@/components/UI';
 
 defineEmits(['next', 'prev']);
+
+const firstname = ref('');
+const lastname = ref('');
 </script>

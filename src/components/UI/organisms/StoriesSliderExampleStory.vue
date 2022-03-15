@@ -13,17 +13,16 @@
     <main class="main">
       <h1 class="title">{{ props.baseTitle }}</h1>
       <div class="imagecontainer">
-        <img
-          class="image"
-          width="330"
-          height="330"
-          :src="props.baseImg"
-        />
+        <img class="image" width="330" height="330" :src="props.baseImg" />
       </div>
     </main>
     <footer class="footer">
-      <button class="login" @click="$router.push({ name: props.loginRoute })">{{ props.loginTitle }}</button>
-      <button class="signup" @click="$router.push( { name: props.signUpRoute })">{{ props.signUpTitle }}</button>
+      <button class="login" @click="$router.push({ name: props.loginRoute })">
+        {{ props.loginTitle }}
+      </button>
+      <button class="signup" @click="$router.push({ name: props.signUpRoute })">
+        {{ props.signUpTitle }}
+      </button>
     </footer>
   </section>
 </template>
@@ -36,36 +35,36 @@ import { Route } from '@/router/types';
 const props = defineProps({
   headerTitle: {
     type: String,
-    default: ''
+    default: '',
   },
   baseTitle: {
     type: String,
-    default: ''
+    default: '',
   },
   loginTitle: {
     type: String,
-    default: ''
+    default: '',
   },
   signUpTitle: {
     type: String,
-    default: ''
+    default: '',
   },
   logoImg: {
     type: String,
-    required: true
+    required: true,
   },
   baseImg: {
     type: String,
-    required: true
+    required: true,
   },
   loginRoute: {
     type: String as PropType<Route>,
-    required: true
+    required: true,
   },
   signUpRoute: {
     type: String as PropType<Route>,
-    required: true
-  }
+    required: true,
+  },
 });
 </script>
 

@@ -10,9 +10,9 @@
 
     <base-verification-code-input v-model="verificationCode" />
   </div>
-  <div style="padding: 15px">
+  <div style="padding: 15px; padding-bottom: 50px">
     <base-button block @click="pasteFromClipboard">{{
-      $t('views.auth.login.login4step.paste')
+      $t('common.pasteCta')
     }}</base-button>
   </div>
   <base-toast v-model:visible="showErrorToast" severity="error">
@@ -24,12 +24,12 @@
   </base-toast>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import {
-  TopNavigation,
   BaseButton,
-  BaseVerificationCodeInput,
   BaseToast,
+  BaseVerificationCodeInput,
+  TopNavigation,
 } from '@/components/UI';
 import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
@@ -64,6 +64,9 @@ const pasteFromClipboard = () => {
 };
 
 watch(verificationCode, async (code) => {
+  // @TEMPRORY CHECK
+  // @TODO
+  // Remove later
   if (code === '000000') {
     if (appOptionsStore.isItFirstRun) {
       const name = await getSupportedIdentificationWay();
@@ -77,6 +80,7 @@ watch(verificationCode, async (code) => {
     }
     return;
   }
+  // End of remove part
   if (code.length === 6) {
     const result = store.verify(code);
 
@@ -98,7 +102,7 @@ watch(verificationCode, async (code) => {
 });
 
 function prevStep(): void {
-  authStore.setStep(0, 'login');
+  authStore.setStep(2, 'login');
 }
 
 async function getSupportedIdentificationWay() {

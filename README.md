@@ -14,6 +14,10 @@
 
 [Figma Liber UI Kit](https://www.figma.com/file/03BEDylTZpq3uwoGEaQ6nk/Liber-UI-KIT)
 
+[Swagger API Scheme (require Liber VPN)](https://auth.middleware.dev.k8s.domain/swagger-ui/)
+
+[Sentry](http://172.31.27.249:9000/)
+
 ## Project setup
 
 ```
@@ -60,11 +64,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 The components structure of UI project is based on [Atomic design](https://atomicdesign.bradfrost.com/)
 
-##Rules
+## Rules
 
 Basic rules for categorizing components.
 
-###Atoms
+### Atoms
 
 path: *src/components/atoms*
 - Smallest undividable components
@@ -72,7 +76,7 @@ path: *src/components/atoms*
 - They can have variations
 - They have 1 folder level
 
-###Molecules
+### Molecules
 
 path: *src/components/molecules*
 - They are a combination of atoms and molecules
@@ -81,7 +85,7 @@ path: *src/components/molecules*
 - They have slots
 - They have 1 folder level
 
-###Organisms
+### Organisms
 
 path: *src/components/organisms*
 - They are a combination of atoms and molecules and organisms
@@ -91,7 +95,7 @@ path: *src/components/organisms*
 - They have slots
 - They have 1 folder level
 
-###Templates
+### Templates
 
 path: *src/components/templates*
 - They are the combination of atoms, molecules, and organisms
@@ -100,7 +104,7 @@ path: *src/components/templates*
 - They **contain business logic**
 - They have 2 folder level
 
-###Pages
+### Pages
 
 path: *src/components/pages*
 - They are specific instances of components

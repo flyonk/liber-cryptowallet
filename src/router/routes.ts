@@ -13,13 +13,6 @@ import { Route } from '@/router/types';
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: Route.AuthPhone,
-    component: () =>
-      import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-    meta: { layout: 'default' },
-  },
-  {
-    path: '/',
     name: Route.WelcomeLogoScreen,
     component: () =>
       import(
@@ -158,6 +151,9 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Transactions ===
+
   {
     path: '/transactions',
     name: Route.Transactions,
@@ -185,6 +181,66 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Contacts Flow ===
+
+  {
+    path: '/contacts',
+    name: 'contacts',
+    component: () =>
+      import(/* webpackChunkName: "contacts" */ '@/views/Contacts/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'contacts.who-to-pay',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
+          ),
+      },
+      {
+        path: 'send/:id',
+        name: 'contacts.send',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-sendto" */ '@/views/Contacts/SendTo.vue'
+          ),
+      },
+      {
+        path: 'send',
+        name: 'contacts.send.first.time',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/FirstTimeInvite.vue'
+          ),
+      },
+      {
+        path: 'send_invite',
+        name: 'contacts.send.invite',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendInvite.vue'
+          ),
+      },
+      {
+        path: 'add',
+        name: 'contacts.add.new.contact',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/AddNewContact.vue'
+          ),
+      },
+      {
+        path: 'send_link',
+        name: 'contacts.send.link',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendViaLink.vue'
+          ),
+      },
+    ],
+  },
+
   // === Profile (Left Navigation Menu) ===
 
   {
@@ -251,18 +307,6 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.KYCMain,
     component: () =>
       import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-  },
-  {
-    path: '/kyc/personal',
-    name: Route.KYCPersonal,
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpPersonal.vue'),
-  },
-  {
-    path: '/kyc/documents',
-    name: Route.KYCDocuments,
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
 
   // === Survey ===

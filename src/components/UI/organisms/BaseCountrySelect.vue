@@ -6,12 +6,12 @@
       </BaseInput>
     </span>
     <BaseCountryEntitySelect
-        entity="isoCode"
-        :list="list"
-        :selected-data="selectedData"
-        :show-list="showList"
-        @close="closeSelect"
-        @selected="setSelectedCountry"
+      entity="isoCode"
+      :list="list"
+      :selected-data="selectedData"
+      :show-list="showList"
+      @close="closeSelect"
+      @selected="setSelectedCountry"
     />
   </div>
 </template>
@@ -62,10 +62,10 @@ function setSelectedCountry(country: ICountryInformation): void {
   showList.value = false;
 }
 
-function openSelect (): void {
+function openSelect(): void {
   showList.value = true;
 }
-function closeSelect (): void {
+function closeSelect(): void {
   showList.value = false;
 }
 </script>

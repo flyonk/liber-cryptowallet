@@ -3,20 +3,22 @@
     <div class="page-header">
       <BackHistoryBtn :path="'/home'" />
 
-      <h1 class="main-title">Select a coin</h1>
+      <h1 class="main-title">
+        {{ $t('views.deposit.selectCoin.selectCoin') }}
+      </h1>
 
       <label for="searchCoin" class="input-label">
         <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
           class="search"
           type="text"
-          placeholder="Search a coin"
           name="searchCoin"
+          :placeholder="$t('views.deposit.selectCoin.searchCoin')"
         />
       </label>
     </div>
     <div class="page-main">
-      <h4 class="title">Suggested</h4>
+      <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>
       <ul class="coin-list suggested">
         <CoinItem
           v-for="item in suggestedCoins"
@@ -27,7 +29,7 @@
           @click="selectCoin(item)"
         />
       </ul>
-      <h4 class="title">All Coins</h4>
+      <h4 class="title">{{ $t('views.deposit.selectCoin.allCoins') }}</h4>
       <ul class="coin-list all-coins">
         <CoinItem
           v-for="item in otherCoins"
@@ -43,10 +45,11 @@
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import BackHistoryBtn from '@/components/UI/atoms/BackHistoryBtn.vue';
 import CoinItem from './CoinItem.vue';
-import { useRouter } from 'vue-router';
-import { ref } from 'vue';
 
 const router = useRouter();
 const coins = ref([]);

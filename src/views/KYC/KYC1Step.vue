@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top-navigation>{{
+    <top-navigation left-icon-name="ci-close_big" @click:left-icon="prevStep">{{
       $t('views.kyc.kyc1step.countryOfResidence')
     }}</top-navigation>
     <p class="description">{{ $t('views.kyc.kyc1step.theTermsAnd') }}</p>
@@ -26,13 +26,16 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue';
 
 import { useKYCStore } from '@/stores/kyc';
+import { useRouter } from 'vue-router';
 
 import { TopNavigation, BaseButton } from '@/components/UI';
 import BaseCountrySelect from '@/components/UI/organisms/BaseCountrySelect.vue';
+
+const router = useRouter();
 
 const kycStore = useKYCStore();
 
@@ -46,5 +49,11 @@ const onSignUp = () => {
 
 const setCountry = (selectedCountry: string): void => {
   kycStore.changeData('citizenship', selectedCountry);
+};
+
+const prevStep = (): void => {
+  router.push({
+    name: 'survey',
+  });
 };
 </script>

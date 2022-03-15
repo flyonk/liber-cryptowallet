@@ -1,12 +1,10 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
-      {{ $t('common.codeInput') }}
-    </TopNavigation>
+    <TopNavigation @click:left-icon="prevStep">{{
+      $t('common.codeInput')
+    }}</TopNavigation>
     <div class="description text--body">
-      {{ $t('auth.login.step2Description1') }}
-      <br />
-      {{ $t('auth.login.step2Description2') }} {{ formatPhone() }}
+      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}
     </div>
     <div>
       <BaseVerificationCodeInput
@@ -20,7 +18,8 @@
       <span class="text--footnote font-weight--semibold">
         <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
           <template #countdown="{ minute, second }">
-            {{ $t('auth.login.step2ResendTitle') }} {{ minute }}:{{ second }}
+            {{ $t('auth.login.step2ResendTitle') }}
+            {{ minute }}:{{ second }}
           </template>
         </BaseCountdown>
         <template v-else>
@@ -48,11 +47,9 @@ import {
   TopNavigation,
 } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
-import { IAuthService } from '@/types/api';
-import AuthService from '@/services/AuthService';
+import authService from '@/services/authService';
 
 const emit = defineEmits(['next', 'prev']);
-const authService: IAuthService = new AuthService();
 const authStore = useAuthStore();
 // const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
@@ -113,9 +110,13 @@ const resend = async () => {
 </script>
 
 <style lang="scss">
-.footer {
-  .resend-button {
-    padding: 0;
+.auth-page-container {
+  > .footer {
+    > span {
+      > .resend-button {
+        padding: 0;
+      }
+    }
   }
 }
 </style>

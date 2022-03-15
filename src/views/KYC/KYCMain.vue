@@ -49,26 +49,28 @@ const onPrev = () => {
 .kyc-main {
   padding: 0 16px;
 
-  .description {
-    padding: 0 0 40px;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-  }
-
-  .footer {
-    position: absolute;
-    bottom: 16px;
-    left: 16px;
-    right: 16px;
-
-    > .text {
-      padding: 0 0 32px;
+  > div {
+    > .description {
+      padding: 0 0 40px;
+      font-size: 17px;
+      line-height: 22px;
+      letter-spacing: -0.0043em;
     }
 
-    .link {
-      text-decoration: none;
-      color: $color-primary;
+    > .footer {
+      position: absolute;
+      bottom: 50px;
+      left: 16px;
+      right: 16px;
+
+      > .text {
+        padding: 0 0 32px;
+
+        > .link {
+          text-decoration: none;
+          color: $color-primary;
+        }
+      }
     }
   }
 }

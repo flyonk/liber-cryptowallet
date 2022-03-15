@@ -11,20 +11,24 @@
 
     <div class="controls">
       <div
-          v-for="item in 9"
-          :key="item"
-          class="number-button text--large-title"
-          @click="setNumber(item.toString())"
+        v-for="item in 9"
+        :key="item"
+        class="number-button text--large-title"
+        @click="setNumber(item.toString())"
       >
         {{ item }}
       </div>
       <div class="number-button" @click="showTouchId">
-        <img v-if="identificationIcon" :src="identificationIcon" />
+        <template v-if="props.showTouchFaceid">
+          <img v-if="identificationIcon" :src="identificationIcon" />
+        </template>
       </div>
       <div class="number-button text--large-title" @click="setNumber('0')">
         0
       </div>
-      <div class="number-button" @click="clear">clr</div>
+      <div class="number-button" @click="clear">
+        <img src="@/assets/icon/clear-button.svg" />
+      </div>
     </div>
   </div>
 </template>
@@ -39,6 +43,10 @@ const props = defineProps({
   actionType: {
     type: String as PropType<EPasscodeActions>,
     default: EPasscodeActions.compare,
+  },
+  showTouchFaceid: {
+    type: Boolean,
+    default: true,
   },
 });
 

@@ -13,7 +13,9 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#home" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 1 }">{{ $t('bottomNav.home') }}</p>
+        <p class="label" :class="{ '-active': activeTab === 1 }">
+          {{ $t('bottomNav.home') }}
+        </p>
       </router-link>
       <router-link
         style="text-decoration: none"
@@ -27,7 +29,9 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#account" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 2 }">{{ $t('bottomNav.account') }}</p>
+        <p class="label" :class="{ '-active': activeTab === 2 }">
+          {{ $t('bottomNav.account') }}
+        </p>
       </router-link>
       <li class="item" @click="changeTab(3)">
         <img
@@ -35,7 +39,9 @@
           src="@/assets/icon/navbar/send.svg"
           alt="Send"
         />
-        <p class="label" :class="{ 'label--active': activeTab === 3 }">{{ $t('bottomNav.send') }}</p>
+        <p class="label" :class="{ '-active': activeTab === 3 }">
+          {{ $t('bottomNav.send') }}
+        </p>
       </li>
       <li class="item" @click="changeTab(4)">
         <svg v-if="activeTab === 4" class="svg">
@@ -44,7 +50,9 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 4 }">{{ $t('bottomNav.recipients') }}</p>
+        <p class="label" :class="{ '-active': activeTab === 4 }">
+          {{ $t('bottomNav.recipients') }}
+        </p>
       </li>
       <li class="item" @click="changeTab(5)">
         <svg v-if="activeTab === 5" class="svg">
@@ -53,19 +61,35 @@
         <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#gift" />
         </svg>
-        <p class="label" :class="{ 'label--active': activeTab === 5 }">{{ $t('bottomNav.invite') }}</p>
+        <p class="label" :class="{ '-active': activeTab === 5 }">
+          {{ $t('bottomNav.invite') }}
+        </p>
       </li>
     </ul>
+    <bottom-swipe-menu
+      :is-menu-open="isMenuOpen"
+      menu-type="send"
+      @close-menu="closeMenu"
+    />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
+
 const activeTab = ref(1);
+
+let isMenuOpen = ref(false);
 
 function changeTab(tabNum: number) {
   activeTab.value = tabNum;
+  if (tabNum === 3) isMenuOpen.value = true;
+}
+
+function closeMenu() {
+  isMenuOpen.value = false;
 }
 </script>
 
@@ -99,7 +123,7 @@ function changeTab(tabNum: number) {
     > .label {
       text-decoration: none;
 
-      &--active {
+      &.-active {
         color: $color-primary;
       }
     }

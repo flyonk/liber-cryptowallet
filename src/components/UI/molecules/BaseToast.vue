@@ -40,8 +40,11 @@ const currentImage = computed(() => {
   switch (props.severity) {
     case 'error':
       return require('@/assets/images/sapphire-error.svg');
+    case 'confirmation':
+      return require('@/assets/images/confirmation.svg');
+    case 'attention':
+      return require('@/assets/images/attention.svg');
     default:
-      '';
       return require('@/assets/images/sapphire-error.svg');
   }
 });
@@ -65,23 +68,23 @@ const currentImage = computed(() => {
       border-radius: 24px;
       margin: 8px auto 0;
     }
-  }
 
-  .image-block {
-    margin-top: 42px;
-    margin-bottom: 24px;
+    > .image-block {
+      margin-top: 42px;
+      margin-bottom: 24px;
 
-    .image {
-      color: $color-red;
+      > .image {
+        color: $color-red;
+      }
     }
-  }
 
-  .footer {
-    margin-top: 42px;
-    color: $color-dark-grey;
+    > .footer {
+      margin-top: 42px;
+      color: $color-dark-grey;
 
-    .link {
-      color: $color-primary;
+      > .link {
+        color: $color-primary;
+      }
     }
   }
 }

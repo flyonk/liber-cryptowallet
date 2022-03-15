@@ -8,7 +8,7 @@ export const getFullList = async (): Promise<ICountryInformation[]> => {
 
 export const getEuropeanList = async (): Promise<ICountryInformation[]> => {
   const { data } = await axios.get('/country_dial_info.json');
-  const europeanCountries = data.filter(({ isoCode }: ICountryInformation) => {
+  return data.filter(({ isoCode }: ICountryInformation) => {
     return (
       EU.includes(isoCode) ||
       EFTA.includes(isoCode) ||
@@ -18,7 +18,6 @@ export const getEuropeanList = async (): Promise<ICountryInformation[]> => {
       ENPSouth.includes(isoCode)
     );
   });
-  return europeanCountries;
 };
 
 /**

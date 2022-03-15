@@ -43,6 +43,7 @@
         {{ $t('auth.restore.step2VerificationDescription') }}
       </div>
 
+      <!-- TODO: make a reusable component -->
       <div class="notification-wrapper">
         <div class="description">
           <img
@@ -101,7 +102,7 @@ const onSubmit = (success: boolean): void => {
 }
 
 .session-expired-toast {
-  .text--body {
+  > .text {
     color: $color-dark-grey;
     margin: 4px 0 16px;
   }

@@ -5,11 +5,9 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account/all-accounts')"
+        @click="$router.back()"
       />
-      <h1 class="title">
-        {{ $t('common.coinSelect') }}
-      </h1>
+      <h1 class="title">{{ $t('common.coinSelect') }}</h1>
       <label class="input-label">
         <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
@@ -21,44 +19,66 @@
       </label>
     </div>
     <div class="main">
-      <h4 class="title">
-        {{ $t('views.account.suggested') }}
-      </h4>
+      <h4 class="title">{{ $t('views.account.suggested') }}</h4>
       <ul class="coin-list suggested">
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/btc.svg" alt="" />
-          <p class="name">Bitcoin <span>BTC</span></p>
+          <img class="img" src="@/assets/icon/currencies/btc.svg" alt />
+          <p class="name">
+            Bitcoin
+            <span>BTC</span>
+          </p>
         </li>
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/eth.svg" alt="" />
-          <p class="name">Ethereum <span>ETH</span></p>
+          <img class="img" src="@/assets/icon/currencies/eth.svg" alt />
+          <p class="name">
+            Ethereum
+            <span>ETH</span>
+          </p>
         </li>
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/binance.svg" alt="" />
-          <p class="name">Binance <span>BNB</span></p>
+          <img class="img" src="@/assets/icon/currencies/binance.svg" alt />
+          <p class="name">
+            Binance
+            <span>BNB</span>
+          </p>
         </li>
       </ul>
       <h4 class="title">All Coins</h4>
       <ul class="coin-list all-coins">
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/dash.svg" alt="" />
-          <p class="name">Dash <span>DSH</span></p>
+          <img class="img" src="@/assets/icon/currencies/dash.svg" alt />
+          <p class="name">
+            Dash
+            <span>DSH</span>
+          </p>
         </li>
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/xrp.svg" alt="" />
-          <p class="name">Ripple <span>XRP</span></p>
+          <img class="img" src="@/assets/icon/currencies/xrp.svg" alt />
+          <p class="name">
+            Ripple
+            <span>XRP</span>
+          </p>
         </li>
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/fantom.svg" alt="" />
-          <p class="name">Fantom <span>FTN</span></p>
+          <img class="img" src="@/assets/icon/currencies/fantom.svg" alt />
+          <p class="name">
+            Fantom
+            <span>FTN</span>
+          </p>
         </li>
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/tron.svg" alt="" />
-          <p class="name">Tron <span>TRX</span></p>
+          <img class="img" src="@/assets/icon/currencies/tron.svg" alt />
+          <p class="name">
+            Tron
+            <span>TRX</span>
+          </p>
         </li>
         <li class="item">
-          <img class="img" src="@/assets/icon/currencies/graph.svg" alt="" />
-          <p class="name">Graph <span>GRT</span></p>
+          <img class="img" src="@/assets/icon/currencies/graph.svg" alt />
+          <p class="name">
+            Graph
+            <span>GRT</span>
+          </p>
         </li>
       </ul>
     </div>
@@ -147,7 +167,7 @@
           line-height: 22px;
           letter-spacing: -0.0043em;
 
-          span {
+          > span {
             color: $color-grey;
             padding-left: 14px;
           }

@@ -3,7 +3,7 @@
     <top-navigation class="header" @click:left-icon="prevStep">
       {{ $t('auth.signup.step3Title') }}
     </top-navigation>
-    <base-input v-model="email">
+    <base-input v-model="email" type="email">
       <template #label> {{ $t('common.email') }} </template>
     </base-input>
     <base-switch v-model="sendNews" class="switch">
@@ -16,15 +16,16 @@
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue-demi';
+
+import { useAuthStore } from '@/stores/auth';
+
 import {
   TopNavigation,
   BaseInput,
   BaseSwitch,
   BaseButton,
 } from '@/components/UI';
-import { useAuthStore } from '@/stores/auth';
-
-import { ref } from 'vue-demi';
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();
@@ -44,11 +45,11 @@ const nextStep = () => {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.header-nav {
   margin-bottom: 24px;
 }
 
-.switch {
+.switch-base {
   margin-top: 25px;
 }
 </style>

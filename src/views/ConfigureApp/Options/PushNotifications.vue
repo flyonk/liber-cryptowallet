@@ -1,21 +1,23 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
+    <top-navigation
+      @click:left-icon="$router.push({ name: 'configure-app-verify' })"
+    >
       {{ $t('configureApp.pushNotificationsTitle') }}
     </top-navigation>
 
     <div class="page-content">
       <img
-        src="@/assets/images/pushnotification-icon.svg"
         alt="Puch notifications"
         class="mb-3"
+        src="@/assets/images/pushnotification-icon.svg"
       />
       <p class="text-default">
         {{ $t('configureApp.pushNotificationsDescription') }}
       </p>
     </div>
   </div>
-  <div style="padding: 15px">
+  <div style="padding: 15px; padding-bottom: 50px">
     <base-button block class="mb-3" @click="onEnable">
       {{ $t('configureApp.enablePushNotifications') }}
     </base-button>
@@ -25,11 +27,12 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI';
+<script lang="ts" setup>
+import { BaseButton, TopNavigation } from '@/components/UI';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { EStorageKeys } from '@/types/base-component';
 import { useRouter } from 'vue-router';
+
 const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();

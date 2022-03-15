@@ -1,139 +1,185 @@
 <template name="DashboardHome">
-  <DashboardSkeleton v-if="loading" />
-  <div v-else class="dashboard">
-    <div class="header flex mb-4">
-      <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
-      <div v-if="VerificationStatus === 'in_progress'" class="verification">
-        {{ $t('views.dashboard.home.idVerification') }}
-      </div>
-      <div
-        v-if="VerificationStatus === 'verified'"
-        class="verification verification--verified"
-      >
-        {{ $t('views.dashboard.home.idVerified') }}
-      </div>
-      <div
-        v-if="VerificationStatus === 'failed'"
-        class="verification verification--failed"
-      >
-        {{ $t('views.dashboard.home.iDVerificationFailed') }}
-      </div>
-      <img src="@/assets/icon/bell.svg" class="ml-auto" />
-    </div>
-    <ul class="tabs flex">
-      <li
-        v-for="tab in tabs"
-        :key="tab.id"
-        class="tab-item"
-        :class="{ active: activeTab === tab.id }"
-        @click="activeTab = tab.id"
-      >
-        {{ tab.name }}
-      </li>
-    </ul>
-    <div class="currencies flex items-center">
-      <h1 class="title">€ 0.00</h1>
-      <div class="circle-wrap">
+  <div :style="stylePaddings">
+    <DashboardSkeleton v-if="loading" />
+    <div v-else class="dashboard-container">
+      <div class="header flex mb-4">
         <img
-          class="down"
-          :class="{ 'down--reverted': isMenuOpen }"
-          src="@/assets/icon/arrow-down.svg"
-          @click="isMenuOpen = !isMenuOpen"
+          src="@/assets/images/avatar.png"
+          @click="$router.push('/profile')"
+        />
+        <div v-if="VerificationStatus === 'in_progress'" class="verification">
+          {{ $t('views.dashboard.home.idVerification') }}
+        </div>
+        <div
+          v-if="VerificationStatus === 'verified'"
+          class="verification -verified"
+        >
+          {{ $t('views.dashboard.home.idVerified') }}
+        </div>
+        <div
+          v-if="VerificationStatus === 'failed'"
+          class="verification verification--failed"
+        >
+          {{ $t('views.dashboard.home.iDVerificationFailed') }}
+        </div>
+        <img src="@/assets/icon/bell.svg" class="ml-auto" />
+      </div>
+      <ul class="tabs flex">
+        <li
+          v-for="tab in tabs"
+          :key="tab.id"
+          class="tab-item"
+          :class="{ active: activeTab === tab.id }"
+          @click="activeTab = tab.id"
+        >
+          {{ tab.name }}
+        </li>
+      </ul>
+      <div class="currencies flex items-center">
+        <h1 class="title">€ 0.00</h1>
+        <div class="circle-wrap">
+          <img
+            class="down"
+            :class="{ '-reverted': isMenuOpen }"
+            src="@/assets/icon/arrow-down.svg"
+            @click="isMenuOpen = !isMenuOpen"
+          />
+        </div>
+        <img
+          class="ml-auto"
+          src="@/assets/icon/currencies/euro.svg"
+          alt="eurounion"
+          @click="$router.push('/transactions')"
         />
       </div>
-      <img
-        class="ml-auto"
-        src="@/assets/icon/currencies/euro.svg"
-        alt="eurounion"
-        @click="$router.push('/transactions')"
-      />
-    </div>
-    <h3 class="heading-gray-md mb-4">
-      {{ $t('views.dashboard.home.allAccounts') }}
-    </h3>
-    <div class="main">
-      <h1 class="title">{{ $t('views.dashboard.home.getYourCryptoAsset') }}</h1>
-      <h4 class="description">
-        {{ $t('views.dashboard.home.noAssets') }} <br />
-        {{ $t('views.dashboard.home.depositFirstCoins') }}
-      </h4>
-    </div>
-    <div class="controls">
-      <button
-        class="btn"
-        :class="{ 'btn--active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-        @click="$router.push('/deposit')"
-      >
-        {{ $t('views.dashboard.home.deposit') }}
-      </button>
-      <button
-        class="btn"
-        :class="{ 'btn--active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-      >
-        {{ $t('views.dashboard.home.send') }}
-      </button>
-      <button
-        class="btn"
-        :class="{ 'btn--active': VerificationStatus === 'verified' }"
-        :disabled="VerificationStatus !== 'verified'"
-      >
-        ...
-      </button>
-    </div>
-    <div class="transactions">
-      <div class="flex justify-content-between items-center w-full mb-3">
-        <p class="text-dark-gray">
-          {{ $t('views.dashboard.home.transactions') }}
-        </p>
-        <p class="heading-gray-md">{{ $t('views.dashboard.home.seeAll') }}</p>
+      <h3 class="heading-gray-md mb-4">
+        {{ $t('views.dashboard.home.allAccounts') }}
+      </h3>
+      <div class="main">
+        <h1 class="title">
+          {{ $t('views.dashboard.home.getYourCryptoAsset') }}
+        </h1>
+        <h4 class="description">
+          {{ $t('views.dashboard.home.noAssets') }} <br />
+          {{ $t('views.dashboard.home.depositFirstCoins') }}
+        </h4>
       </div>
-      <div class="flex items-center mb-5">
-        <img src="@/assets/icon/clock.svg" class="mr-2" />
-        <p class="text-dark-gray">
-          {{ $t('views.dashboard.home.noTransactions') }}
-        </p>
+      <div class="controls">
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+          @click="$router.push('/deposit')"
+        >
+          {{ $t('views.dashboard.home.deposit') }}
+        </button>
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+        >
+          {{ $t('views.dashboard.home.send') }}
+        </button>
+        <button
+          class="btn"
+          :class="{ '-active': VerificationStatus === 'verified' }"
+          :disabled="VerificationStatus !== 'verified'"
+        >
+          ...
+        </button>
       </div>
-      <h4 class="heading-gray-md mb-3">
-        {{ $t('views.dashboard.home.todo') }}
-      </h4>
-      <div class="carousel">
-        <VueAgile :slides-to-show="2" :nav-buttons="false">
-          <div
-            v-for="(item, index) in carousel"
-            :key="index"
-            class="carousel-item slide"
-            @click="$router.push('/home/story')"
-          >
-            <img :src="item.imgSrc" />
-            <h4
-              :class="{
-                'text-green': item.text === 'green',
-                'text-black': item.text === 'black',
-              }"
+      <div class="transactions">
+        <div class="flex justify-content-between items-center w-full mb-3">
+          <p class="text-dark-gray">
+            {{ $t('views.dashboard.home.transactions') }}
+          </p>
+          <p class="heading-gray-md">
+            {{ $t('views.dashboard.home.seeAll') }}
+          </p>
+        </div>
+        <div class="flex items-center mb-5">
+          <ul v-if="hasTransactions" class="transactions">
+            <li
+              v-for="(transaction, index) in transactions"
+              :key="index"
+              class="item"
+              @click="$router.push('/transactions/details')"
             >
-              {{ item.status }}
-            </h4>
-            <p>{{ item.description }}</p>
-          </div>
-        </VueAgile>
+              <img class="icon" :src="transaction.img" />
+              <div class="info">
+                <div class="flex">
+                  <h1 class="title">{{ transaction.info }}</h1>
+                  <p :class="{ received: transaction.sum.startsWith('+') }">
+                    {{ transaction.sum }}
+                  </p>
+                </div>
+                <div class="flex">
+                  <div class="subtitle">{{ transaction.from }}</div>
+                  <p
+                    v-if="transaction.status"
+                    :class="{ pending: transaction.status === 'Pending' }"
+                  >
+                    {{ transaction.status }}
+                  </p>
+                  <p v-else class="sum">{{ transaction.sum }}</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+          <template v-else>
+            <img src="@/assets/icon/clock.svg" class="mr-2" />
+            <p class="text-dark-gray">
+              {{ $t('views.dashboard.home.noTransactions') }}
+            </p>
+          </template>
+        </div>
+        <h4 class="heading-gray-md mb-3">
+          {{ $t('views.dashboard.home.todo') }}
+        </h4>
+        <div class="carousel">
+          <VueAgile :slides-to-show="2" :nav-buttons="false">
+            <div
+              v-for="(item, index) in carousel"
+              :key="index"
+              class="carousel-item slide"
+              @click="$router.push('/home/story')"
+            >
+              <img :src="item.imgSrc" />
+              <h4
+                :class="{
+                  'text-green': item.text === 'green',
+                  'text-black': item.text === 'black',
+                }"
+              >
+                {{ item.status }}
+              </h4>
+              <p>{{ item.description }}</p>
+            </div>
+          </VueAgile>
+        </div>
       </div>
+      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
     </div>
-    <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
   </div>
 </template>
 
 <script setup lang="ts">
-import BottomSwipeMenu from '@/components/UI/organisms/BottomSwipeMenu.vue';
+import { computed, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
-import DashboardSkeleton from '@/components/UI/organisms/DashboardSkeleton.vue';
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+import useSafeAreaPaddings from '@/helpers/safeArea';
+
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
+import DashboardSkeleton from '@/components/UI/organisms/DashboardSkeleton.vue';
+
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
 
+const { stylePaddings } = useSafeAreaPaddings();
+
 let isMenuOpen = ref(false);
+// TODO: check if there is a data in store
 let loading = ref(true);
 
 const { tm } = useI18n();
@@ -187,11 +233,23 @@ const carousel = [
     text: 'black',
   },
 ];
+
+const transactions = ref([
+  {
+    info: `${tm('transactions.operations.received')} BTC`,
+    from: `${tm('common.from')} test@cryptowize.tech`,
+    sum: '+ 0.0001 BTC',
+    status: 'Completed',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+]);
+
+const hasTransactions = computed(() => transactions.value.length > 0);
 </script>
 
 <style lang="scss" scoped>
-.dashboard {
-  padding: 15px 15px 0;
+.dashboard-container {
+  padding: 0 15px;
   background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;
@@ -215,12 +273,12 @@ const carousel = [
       letter-spacing: -0.0031em;
       color: $color-yellow-800;
 
-      &--verified {
+      &.-verified {
         background: $color-green-100;
         color: $color-green-800;
       }
 
-      &--failed {
+      &.-failed {
         width: 181px;
         background: $color-red-100;
         color: $color-red-700;
@@ -264,8 +322,10 @@ const carousel = [
       height: 36px;
       width: 36px;
 
-      > .down--reverted {
-        transform: rotate(180deg);
+      > .down {
+        &.-reverted {
+          transform: rotate(180deg);
+        }
       }
     }
   }
@@ -305,7 +365,7 @@ const carousel = [
       margin-right: 8px;
       color: $color-white;
 
-      &--active {
+      &.-active {
         background: $color-primary;
       }
 
@@ -317,141 +377,203 @@ const carousel = [
     }
   }
 
-  .carousel {
-    display: flex;
-    margin-bottom: 20px;
-    position: relative;
-    left: -37px;
-    width: 113%;
-  }
-
-  .carousel-item {
-    width: 160px;
-    padding: 16px;
-    height: 160px;
-    border-radius: 16px;
-    margin-right: 8px;
-    background: $color-light-grey;
-
-    img {
+  // TODO: extract to component
+  > .transactions {
+    > .carousel {
+      display: flex;
       margin-bottom: 20px;
+      position: relative;
+      left: -37px;
+      width: 113%;
     }
 
-    h4 {
-      color: $color-primary;
-      font-weight: 800;
-      font-size: 10px;
-      line-height: 13px;
-      margin-bottom: 5px;
-    }
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 100%;
 
-    &:nth-child(3) {
-      background: $color-green-50;
-    }
-
-    &:last-child {
-      background: $color-yellow-50;
-    }
-  }
-
-  &__header {
-    margin-bottom: 16px;
-  }
-
-  &__tabs {
-    display: flex;
-
-    &--item {
-      color: $color-brand-primary;
-      border-radius: 8px;
+    > .item {
       display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 101px;
-      height: 40px;
+      width: 100%;
+      margin-bottom: 24px;
 
-      &.active {
-        background: $color-brand-secondary;
-        color: $color-white;
-      }
-    }
-  }
-
-  &__currencies {
-    margin-top: 30px;
-
-    &--wrap {
-      margin: 0 6px 5px 0;
-    }
-
-    &--down {
-      width: 24px;
-      height: 24px;
-      background: $color-light-grey;
-      border-radius: 100px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-  }
-
-  &__controls {
-    display: flex;
-    margin-bottom: 32px;
-
-    &--btn {
-      background: $color-grey;
-      border-radius: 8px;
-      padding: 0 16px 0 12px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 109px;
-      height: 40px;
-      margin-right: 8px;
-      color: $color-white;
-
-      &:last-child {
+      > .icon {
+        margin-right: 12px;
         width: 40px;
         height: 40px;
-        margin: 0;
+      }
+
+      > .info {
+        width: 100%;
+
+        > .flex {
+          width: 100%;
+          justify-content: space-between;
+
+          > .title {
+            font-weight: 500;
+            font-size: 16px;
+            line-height: 21px;
+            letter-spacing: -0.0031em;
+          }
+
+          > .subtitle {
+            font-size: 13px;
+            line-height: 18px;
+            letter-spacing: -0.0008em;
+            color: $color-dark-grey;
+          }
+
+          > .pending {
+            color: $color-yellow-600;
+          }
+
+          > .received {
+            color: $color-green-600;
+          }
+
+          > .sum {
+            font-size: 13px;
+            line-height: 18px;
+            text-align: right;
+            letter-spacing: -0.0008em;
+            color: $color-dark-grey;
+          }
+        }
       }
     }
   }
 
-  &__carousel {
-    display: flex;
+  /**
+  I consider it a legacy, but I will keep it
+  */
+  // &__header {
+  //   margin-bottom: 16px;
+  // }
+
+  // &__tabs {
+  //   display: flex;
+
+  //   &--item {
+  //     color: $color-brand-primary;
+  //     border-radius: 8px;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     width: 101px;
+  //     height: 40px;
+
+  //     &.active {
+  //       background: $color-brand-secondary;
+  //       color: $color-white;
+  //     }
+  //   }
+  // }
+
+  // &__currencies {
+  //   margin-top: 30px;
+
+  //   &--wrap {
+  //     margin: 0 6px 5px 0;
+  //   }
+
+  //   &--down {
+  //     width: 24px;
+  //     height: 24px;
+  //     background: $color-light-grey;
+  //     border-radius: 100px;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //   }
+  // }
+
+  // &__controls {
+  //   display: flex;
+  //   margin-bottom: 32px;
+
+  //   &--btn {
+  //     background: $color-grey;
+  //     border-radius: 8px;
+  //     padding: 0 16px 0 12px;
+  //     display: flex;
+  //     justify-content: center;
+  //     align-items: center;
+  //     width: 109px;
+  //     height: 40px;
+  //     margin-right: 8px;
+  //     color: $color-white;
+
+  //     &:last-child {
+  //       width: 40px;
+  //       height: 40px;
+  //       margin: 0;
+  //     }
+  //   }
+  // }
+
+  // &__carousel {
+  //   display: flex;
+  //   margin-bottom: 20px;
+
+  //   &--item {
+  //     width: 160px;
+  //     padding: 16px;
+  //     height: 160px;
+  //     border-radius: 16px;
+  //     margin-right: 8px;
+  //     background: $color-light-grey;
+
+  //     img {
+  //       margin-bottom: 20px;
+  //     }
+
+  //     h4 {
+  //       color: $color-primary;
+  //       font-weight: 800;
+  //       font-size: 10px;
+  //       line-height: 13px;
+  //       margin-bottom: 5px;
+  //     }
+
+  //     &:nth-child(3) {
+  //       background: $color-green-50;
+  //     }
+
+  //     &:last-child {
+  //       margin-right: 0;
+  //       background: $color-yellow-50;
+  //     }
+  //   }
+  // }
+}
+
+.carousel-item {
+  width: 160px;
+  padding: 16px;
+  height: 160px;
+  border-radius: 16px;
+  margin-right: 8px;
+  background: $color-light-grey;
+
+  > img {
     margin-bottom: 20px;
+  }
 
-    &--item {
-      width: 160px;
-      padding: 16px;
-      height: 160px;
-      border-radius: 16px;
-      margin-right: 8px;
-      background: $color-light-grey;
+  > h4 {
+    color: $color-primary;
+    font-weight: 800;
+    font-size: 10px;
+    line-height: 13px;
+    margin-bottom: 5px;
+  }
 
-      img {
-        margin-bottom: 20px;
-      }
+  &:nth-child(3) {
+    background: $color-green-50;
+  }
 
-      h4 {
-        color: $color-primary;
-        font-weight: 800;
-        font-size: 10px;
-        line-height: 13px;
-        margin-bottom: 5px;
-      }
-
-      &:nth-child(3) {
-        background: $color-green-50;
-      }
-
-      &:last-child {
-        margin-right: 0;
-        background: $color-yellow-50;
-      }
-    }
+  &:last-child {
+    background: $color-yellow-50;
   }
 }
 

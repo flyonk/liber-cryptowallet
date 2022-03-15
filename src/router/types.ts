@@ -46,5 +46,5 @@ export enum Route {
   TouchId = 'touch-id',
   PushNotifications = 'push-notifications',
 
-  Deposit = 'deposit'
+  Deposit = 'deposit',
 }
