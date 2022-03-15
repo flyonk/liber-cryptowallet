@@ -80,5 +80,8 @@ export default {
     requestFunds(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/request-funds`;
     },
+    userTransactions(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+    },
   },
 };
