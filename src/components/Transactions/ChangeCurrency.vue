@@ -47,7 +47,7 @@
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
         <p class="label">Ashley will get</p>
-        <input type="number" class="input" @blur="onBlur" />
+        <input type="number" class="input mb-2" @blur="onBlur" />
         <div class="select select-to">
           <div class="select-option flex" @click="showCryptoList(2)">
             <img class="icon" :src="currentSendToCurrency.img" />
@@ -70,14 +70,33 @@
           </ul>
         </div>
       </label>
+      <BaseCountdown v-if="showCountdown" seconds="30" @time:up="onTimeIsUp">
+        <template #countdown="{ minute, second }">
+          <p class="clock-wrapper">
+            {{ $t('auth.login.step2ResendTitle') }}
+            {{ minute }}:{{ second }}
+          </p>
+        </template>
+      </BaseCountdown>
     </div>
     <BaseButton
+      v-if="currentButton === 'send'"
       class="send-button"
       size="large"
       view="simple"
-      @click="$emit('send-transaction')"
+      @click="sendTransaction"
     >
       Send
+    </BaseButton>
+    <BaseButton
+      v-else
+      class="send-button"
+      size="large"
+      view="simple"
+      :disabled="disableRefreshBtn"
+      @click="currentButton = 'send'"
+    >
+      Refresh
     </BaseButton>
   </div>
 </template>
@@ -85,6 +104,10 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
+
+import { BaseCountdown } from '@/components/UI';
+
+const showCountdown = ref(false);
 
 const currentSendFromCurrency = {
   name: ref('BTC'),
@@ -98,6 +121,8 @@ const currentSendToCurrency = {
 
 let isSelectListOpen = ref(false);
 let currentOpenedSelectId = ref(1);
+let currentButton = ref('send');
+let disableRefreshBtn = ref(true);
 
 function showCryptoList(listId: number) {
   isSelectListOpen.value = !isSelectListOpen.value;
@@ -119,12 +144,7 @@ function changeCurrentCurrency(index: number, type: string) {
   isSelectListOpen.value = false;
 }
 
-defineEmits(['send-transaction']);
-
-// function sendTransaction() {
-//   console.log('test send transc')
-//   $emit('send')
-// }
+const emit = defineEmits(['send-transaction']);
 
 const currencies = [
   {
@@ -151,6 +171,17 @@ const onBlur = (event: any) => {
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
     elem.focus();
   }
+};
+
+const onTimeIsUp = () => {
+  showCountdown.value = false;
+  disableRefreshBtn.value = false;
+  emit('send-transaction');
+};
+
+const sendTransaction = () => {
+  currentButton.value = 'refresh';
+  showCountdown.value = true;
 };
 </script>
 
@@ -307,5 +338,12 @@ const onBlur = (event: any) => {
     align-items: center;
     color: $color-brand-2-300;
   }
+}
+
+.clock-wrapper {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: $color-red-500;
 }
 </style>
