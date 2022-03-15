@@ -81,13 +81,14 @@
 </template>
 
 <script lang="ts" setup>
-import { check, share } from '@/helpers/nativeShare';
-
-import { TopNavigation } from '@/components/UI';
 import { onMounted, ref } from 'vue';
-import QrCodeWithLogo from 'qrcode-with-logos';
+
+import { check, share } from '@/helpers/nativeShare';
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
+
+import { TopNavigation } from '@/components/UI';
+import QrCodeWithLogo from 'qrcode-with-logos';
 
 const toast = useToast();
 

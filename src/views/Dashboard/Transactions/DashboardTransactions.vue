@@ -2,9 +2,9 @@
   <div class="account-transactions">
     <div class="header">
       <img
+        alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
         @click="$router.push('/home')"
       />
       <div class="count">
@@ -14,17 +14,17 @@
             <span class="currency">USDT</span>
           </h1>
           <img
+            alt="currency"
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
-            alt="currency"
           />
         </div>
         <p class="subtitle heading-gray-md">€594.41</p>
       </div>
       <VueAgile
-        class="carousel-slider"
-        :slides-to-show="2"
         :nav-buttons="false"
+        :slides-to-show="2"
+        class="carousel-slider"
       >
         <div
           v-for="(item, index) in carousel"
@@ -32,7 +32,7 @@
           class="item-slide"
           @click="$router.push('/home/story')"
         >
-          <img class="image" :src="item.img" />
+          <img :src="item.img" class="image" />
           <p class="name">{{ item.name }}</p>
         </div>
       </VueAgile>
@@ -56,15 +56,15 @@
 
       <div class="main-tabs">
         <div
-          class="tab"
           :class="{ active: activeTab === 1 }"
+          class="tab"
           @click="activeTab = 1"
         >
           {{ $t('common.history') }}
         </div>
         <div
-          class="tab"
           :class="{ active: activeTab === 2 }"
+          class="tab"
           @click="activeTab = 2"
         >
           {{ $t('transactions.walletAddress') }}
@@ -77,7 +77,7 @@
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img class="icon" :src="transaction.img" />
+          <img :src="transaction.img" class="icon" />
           <div class="info">
             <div class="flex">
               <h1 class="title">{{ transaction.info }}</h1>
@@ -100,7 +100,7 @@
       </ul>
 
       <div v-if="activeTab === 2" class="wallet">
-        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
+        <img alt="qr-code" class="qr" src="@/assets/images/qr-code.png" />
         <div class="wallet-address">
           <h4 class="title">
             {{ $t('transactions.walletAddress') }}
@@ -108,12 +108,12 @@
           <div class="account">
             <div class="crypto-number">
               <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr
+                {{ wallet }}
                 <br />sd21213
                 <span class="bold">Opa139z0l</span>
               </p>
             </div>
-            <img src="@/assets/icon/folders.svg" alt="folders" />
+            <img alt="folders" src="@/assets/icon/folders.svg" />
           </div>
           <h2 class="bluetitle">
             {{ $t('transactions.generateAddress') }}
@@ -122,7 +122,7 @@
             <button class="btn">
               {{ $t('common.saveImage') }}
             </button>
-            <button class="btn">
+            <button class="btn" @click="shareAddress">
               {{ $t('transactions.shareAddress') }}
             </button>
           </div>
@@ -132,14 +132,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue';
-// import BaseButton from '@/components/UI/BaseButton.vue'
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
+import { useToast } from 'primevue/usetoast';
+
+import { check, share } from '@/helpers/nativeShare';
+
+const toast = useToast();
 
 let showControls = ref(false);
 const { tm } = useI18n();
+
+const wallet = ref('1Mtree35df4543sdgErtrryryEe13rr');
 
 const activeTab = ref(1);
 const transactions = [
@@ -201,6 +207,25 @@ const carousel = [
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
 ];
+
+const shareAddress = async () => {
+  const canShare = await check();
+
+  if (!canShare) {
+    return toast.add({
+      severity: 'error',
+      summary: tm('views.deposit.wallet.deviceIsNotSupportedToShare') as string,
+      life: 3000,
+      closable: false,
+    });
+  }
+
+  await share({
+    title: 'Share address',
+    text: wallet.value,
+    dialogTitle: 'Share address',
+  });
+};
 </script>
 
 <style lang="scss" scoped>
