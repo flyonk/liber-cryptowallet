@@ -16,20 +16,20 @@
 </template>
 
 <script setup lang="ts">
-import { toRefs } from 'vue';
+// import { toRefs } from 'vue';
 import BaseButton from '@/components/UI/BaseButton.vue';
 
-const props = defineProps({
-  showMenu: {
-    type: Boolean,
-    default: false,
-  },
-});
+// const props = defineProps({
+//   showMenu: {
+//     type: Boolean,
+//     default: false,
+//   },
+// });
 
 defineEmits(['closeMenu']);
 
-const { path } = toRefs(props);
-console.log(path);
+// const { path } = toRefs(props);
+// console.log(path);
 </script>
 
 <style lang="scss" scoped>

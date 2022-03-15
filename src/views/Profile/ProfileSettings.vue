@@ -109,14 +109,26 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
+
+import { useProfileStore } from '@/stores/profile';
+
 import CloseAccount from '@/components/UI/CloseAccount.vue';
 
+const profileStore = useProfileStore();
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
 const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
+
+/**
+ * Lifecycles
+ */
+
+onMounted(async () => {
+  if (!profileStore.getUser.id) profileStore.init();
+});
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');

@@ -1,8 +1,10 @@
 import { defineStore } from 'pinia';
-import { Storage } from '@capacitor/storage';
-import { EStorageKeys } from '@/types/base-component';
 import { generateSecret, generateToken, verifyToken } from 'node-2fa';
+import { Storage } from '@capacitor/storage';
+
 import { checkExpiration } from '@/helpers/2fa';
+
+import { EStorageKeys } from '@/types/storage';
 
 interface I2faState {
   secret: string;

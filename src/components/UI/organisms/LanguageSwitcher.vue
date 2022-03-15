@@ -10,7 +10,8 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { Storage } from '@capacitor/storage';
-import { EStorageKeys } from '@/types/base-component';
+
+import { EStorageKeys } from '@/types/storage';
 
 const { locale, availableLocales } = useI18n({ useScope: 'global' });
 

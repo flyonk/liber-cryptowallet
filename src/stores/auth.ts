@@ -5,7 +5,7 @@ import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
 import { defineStore } from 'pinia';
 
-import { EStorageKeys } from '@/types/base-component';
+import { EStorageKeys } from '@/types/storage';
 
 // === Auth Types ===
 
