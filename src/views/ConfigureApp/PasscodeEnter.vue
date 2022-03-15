@@ -10,13 +10,13 @@
     <base-passcode
       v-if="actionType === EPasscodeActions.store"
       :action-type="actionType"
+      :show-touch-faceid="false"
       @submit="onCreate"
-      :showTouchFaceid="false"
     />
 
     <base-passcode
       v-if="actionType === EPasscodeActions.compare"
-      :showTouchFaceid="false"
+      :show-touch-faceid="false"
       @submit="onSubmit"
     />
   </div>

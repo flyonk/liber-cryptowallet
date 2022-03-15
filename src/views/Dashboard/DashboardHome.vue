@@ -170,7 +170,7 @@ import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
 
 let activeTab = ref(1);

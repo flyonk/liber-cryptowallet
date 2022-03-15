@@ -150,6 +150,9 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Transactions ===
+
   {
     path: '/transactions',
     name: 'transactions',
@@ -177,6 +180,66 @@ const routes: Array<RouteRecordRaw> = [
       },
     ],
   },
+
+  // === Contacts Flow ===
+
+  {
+    path: '/contacts',
+    name: 'contacts',
+    component: () =>
+      import(/* webpackChunkName: "contacts" */ '@/views/Contacts/index.vue'),
+    children: [
+      {
+        path: '',
+        name: 'contacts.who-to-pay',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
+          ),
+      },
+      {
+        path: 'send/:id',
+        name: 'contacts.send',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-sendto" */ '@/views/Contacts/SendTo.vue'
+          ),
+      },
+      {
+        path: 'send',
+        name: 'contacts.send.first.time',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/FirstTimeInvite.vue'
+          ),
+      },
+      {
+        path: 'send_invite',
+        name: 'contacts.send.invite',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendInvite.vue'
+          ),
+      },
+      {
+        path: 'add',
+        name: 'contacts.add.new.contact',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/AddNewContact.vue'
+          ),
+      },
+      {
+        path: 'send_link',
+        name: 'contacts.send.link',
+        component: () =>
+          import(
+            /* webpackChunkName: "contacts-send-first" */ '@/views/Contacts/SendViaLink.vue'
+          ),
+      },
+    ],
+  },
+
   // === Profile (Left Navigation Menu) ===
 
   {
