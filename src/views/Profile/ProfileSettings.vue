@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left">
         <img
+          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
-          alt="arrow-left"
           @click="$router.push({ name: 'dashboard-home' })"
         />
         <h1 class="title">{{ accountName }}</h1>
@@ -78,7 +78,7 @@
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
         </li>
-        <router-link to="/profile/devices" class="item">
+        <router-link class="item" to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
@@ -94,7 +94,7 @@
           <img class="icon" src="@/assets/icon/circle_close.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.close') }}</p>
         </li>
-        <li class="item">
+        <li class="item" @click="onLogout">
           <img class="icon" src="@/assets/icon/log_out.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.logOut') }}</p>
         </li>
@@ -108,10 +108,15 @@
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue';
+<script lang="ts" setup>
+import { computed, ref } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
 import CloseAccount from '@/components/UI/CloseAccount.vue';
+import { Storage } from '@capacitor/storage';
+import { useRouter } from 'vue-router';
+import authService from '@/services/authService';
+
+const route = useRouter();
 
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
@@ -126,6 +131,32 @@ const nameInitials = computed(() => {
 function closeMenu() {
   showCloseAccount.value = false;
   console.log(showCloseAccount.value);
+}
+
+async function onLogout() {
+  const [{ value: dialCode }, { value: phone }, { value: access_token }] =
+    await Promise.all([
+      Storage.get({ key: 'dialCode' }),
+      Storage.get({ key: 'phone' }),
+      Storage.get({ key: 'access_token' }),
+    ]);
+
+  await route.push({ name: 'welcome-logo-screen' });
+
+  authService.logout({ access_token: access_token as string });
+
+  await Storage.clear();
+
+  await Promise.all([
+    Storage.set({
+      key: 'dialCode',
+      value: dialCode as string,
+    }),
+    Storage.set({
+      key: 'phone',
+      value: phone as string,
+    }),
+  ]);
 }
 </script>
 
