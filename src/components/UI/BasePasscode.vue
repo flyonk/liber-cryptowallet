@@ -10,80 +10,43 @@
     </div>
 
     <div class="controls">
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('1')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('1')">
         1
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('2')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('2')">
         2
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('3')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('3')">
         3
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('4')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('4')">
         4
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('5')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('5')">
         5
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('6')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('6')">
         6
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('7')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('7')">
         7
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('8')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('8')">
         8
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('9')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('9')">
         9
       </div>
-      <div
-        class="number-button"
-        @click="showTouchId"
-      >
-        <img
-          v-if="identificationIcon"
-          :src="identificationIcon"
-        >
+      <div class="number-button" @click="showTouchId">
+        <template v-if="props.showTouchFaceid">
+          <img v-if="identificationIcon" :src="identificationIcon" />
+        </template>
       </div>
-      <div
-        class="number-button text--large-title"
-        @click="setNumber('0')"
-      >
+      <div class="number-button text--large-title" @click="setNumber('0')">
         0
       </div>
-      <div
-        class="number-button"
-        @click="clear"
-      >
-        clr
+      <div class="number-button" @click="clear">
+        <img src="@/assets/icon/clear-button.svg" />
       </div>
     </div>
   </div>
@@ -91,105 +54,106 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount, PropType } from 'vue';
-import { getSupportedOptions, verifyIdentity } from '@/helpers/identification'
-import { EPasscodeActions, EStorageKeys } from '@/types/base-component'
+import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
+import { EPasscodeActions, EStorageKeys } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
 
 const props = defineProps({
   actionType: {
     type: String as PropType<EPasscodeActions>,
-    default: EPasscodeActions.compare
-  }
-})
-
+    default: EPasscodeActions.compare,
+  },
+  showTouchFaceid: {
+    type: Boolean,
+    default: true,
+  },
+});
 
 const getStoredPasscode = async () => {
   const { value } = await Storage.get({
-    key: EStorageKeys.passcode
-  })
-  return value || '0000'
-}
+    key: EStorageKeys.passcode,
+  });
+  return value || '0000';
+};
 
 async function checkPasscode(passcode: string) {
-  const storedPassCode = await getStoredPasscode()
-  return storedPassCode === passcode
+  const storedPassCode = await getStoredPasscode();
+  return storedPassCode === passcode;
 }
 
 async function setPasscode(passcode: string) {
   await Storage.set({
     key: EStorageKeys.passcode,
     value: passcode,
-  })
-  return true
+  });
+  return true;
 }
 
 function getSubmitFunction(actionType: string) {
   switch (actionType) {
     case EPasscodeActions.store:
-      return setPasscode
+      return setPasscode;
     case EPasscodeActions.compare:
-      return checkPasscode
+      return checkPasscode;
 
     default:
-      return checkPasscode
+      return checkPasscode;
   }
 }
 
-const onSubmit = getSubmitFunction(props.actionType)
+const onSubmit = getSubmitFunction(props.actionType);
 
 const showTouchId = () => {
   if (identificationIcon.value) {
     verifyIdentity()
       .then(() => {
-        emit('submit', true)
+        emit('submit', true);
       })
       .catch(() => {
-        emit('submit', false)
-      })
+        emit('submit', false);
+      });
   }
-}
+};
 
-const identificationIcon = ref('')
-const passcode = ref('')
+const identificationIcon = ref('');
+const passcode = ref('');
 
 onBeforeMount(async (): Promise<void> => {
-  const option = await getSupportedOptions()
+  const option = await getSupportedOptions();
 
   if (option === 'face-id') {
-    identificationIcon.value = require('@/assets/icon/faceid.svg')
+    identificationIcon.value = require('@/assets/icon/faceid.svg');
   }
   if (option === 'touch-id') {
-    identificationIcon.value = require('@/assets/icon/touchid.svg')
+    identificationIcon.value = require('@/assets/icon/touchid.svg');
   }
-})
-
+});
 
 /**
  * emit true vqlue if passcode is correct
  * emit false value if passcode is wrong
  */
-const emit = defineEmits(['submit'])
+const emit = defineEmits(['submit']);
 
 function setNumber(number: string): void {
   if (passcode.value.length < 4) {
-    passcode.value = passcode.value + number
+    passcode.value = passcode.value + number;
 
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
         .then((result: boolean) => {
-          emit('submit', result)
+          emit('submit', result);
         })
         .catch(() => {
-          emit('submit', false)
-        })
+          emit('submit', false);
+        });
     }
   }
 }
 
 function clear(): void {
-  passcode.value = passcode.value.slice(0, -1)
+  passcode.value = passcode.value.slice(0, -1);
 }
-
 </script>
 
 <style lang="scss" scoped>

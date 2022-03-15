@@ -1,7 +1,12 @@
 <template name="DashboardStory">
   <div class="dashboard-story">
     <header class="header">
-      <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
+      <img
+        class="close-btn"
+        src="@/assets/icon/close_big.svg"
+        alt="close"
+        @click="$router.push({ name: 'dashboard-home' })"
+      />
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
@@ -9,10 +14,10 @@
       />
     </header>
     <main class="main">
-      <h1 class="title">Verify your identity</h1>
-      <p class="description">
-        We require you to verify your identity before you can use this feature.
-      </p>
+      <h1 class="title">
+        {{ $t('views.dashboard.story.verifyYourIdentity') }}
+      </h1>
+      <p class="description">{{ $t('views.dashboard.story.requirement') }}</p>
       <img
         class="image"
         src="@/assets/images/passport_upload.png"
@@ -20,7 +25,9 @@
       />
     </main>
     <footer class="footer">
-      <button class="btn">Verify identity</button>
+      <button class="btn">
+        {{ $t('views.dashboard.story.verifyIdentity') }}
+      </button>
     </footer>
   </div>
 </template>
@@ -36,7 +43,7 @@
   background: linear-gradient(
     180deg,
     $color-light-grey 0%,
-    rgba(237, 240, 251, 0) 20%
+    rgb(237 240 251 / 0%) 20%
   );
 
   > .header {
@@ -78,7 +85,8 @@
   }
 
   > .footer {
-    margin-top: 42px;
+    margin-top: 100px;
+
     > .btn {
       display: flex;
       flex-direction: column;

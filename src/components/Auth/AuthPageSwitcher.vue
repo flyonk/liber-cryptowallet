@@ -1,9 +1,5 @@
 <template>
-  <component
-    :is="currentComponent"
-    @next="nextStep"
-    @prev="prevStep"
-  />
+  <component :is="currentComponent" @next="nextStep" @prev="prevStep" />
 </template>
 
 <script lang="ts" setup>
@@ -22,17 +18,17 @@ const props = defineProps({
   },
   components: {
     type: Array,
-    required: true
-  }
-})
+    required: true,
+  },
+});
 
-const step = computed(() => authStore.getState.steps[props.scope])
+const step = computed(() => authStore.getState.steps[props.scope]);
 
-const currentComponent = computed(() => props.components[step.value])
+const currentComponent = computed(() => props.components[step.value]);
 
-const nextStep = () => authStore.setStep(EStepDirection.next, props.scope)
+const nextStep = () => authStore.setStep(EStepDirection.next, props.scope);
 
-const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
+const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope);
 </script>
 
 <style lang="scss">
@@ -40,7 +36,7 @@ const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
   padding: 0 16px;
 
   > .description {
-    padding: 0 0 24px 0;
+    padding: 0 0 24px;
   }
 
   > .sign-button-wrapper {
@@ -50,19 +46,19 @@ const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope)
     right: 16px;
   }
 
-  .footer {
+  > .footer {
     margin-top: 0.5rem;
-  }
 
-  .text--footnote {
+    > .footnote {
       color: $color-dark-grey;
 
-      .link {
+      > .link {
         user-select: none;
         cursor: pointer;
         text-decoration: none;
         color: $color-primary;
       }
     }
+  }
 }
 </style>

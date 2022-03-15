@@ -7,24 +7,13 @@
         class="item"
         @click="changeTab(1)"
       >
-        <svg
-          v-if="activeTab === 1"
-          class="svg"
-        >
+        <svg v-if="activeTab === 1" class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#home-active" />
         </svg>
-        <svg
-          v-else
-          class="svg"
-        >
+        <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#home" />
         </svg>
-        <p
-          class="label"
-          :class="{ 'label--active': activeTab === 1 }"
-        >
-          Home
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 1 }">Home</p>
       </router-link>
       <router-link
         style="text-decoration: none"
@@ -32,86 +21,39 @@
         class="item"
         @click="changeTab(2)"
       >
-        <svg
-          v-if="activeTab === 2"
-          class="svg"
-        >
+        <svg v-if="activeTab === 2" class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#account-active" />
         </svg>
-        <svg
-          v-else
-          class="svg"
-        >
+        <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#account" />
         </svg>
-        <p
-          class="label"
-          :class="{ 'label--active': activeTab === 2 }"
-        >
-          Account
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 2 }">Account</p>
       </router-link>
-      <li
-        class="item"
-        @click="changeTab(3)"
-      >
+      <li class="item" @click="changeTab(3)">
         <img
           class="icon center-image"
           src="@/assets/icon/navbar/send.svg"
           alt="Send"
-        >
-        <p
-          class="label"
-          :class="{ 'label--active': activeTab === 3 }"
-        >
-          Send
-        </p>
+        />
+        <p class="label" :class="{ '-active': activeTab === 3 }">Send</p>
       </li>
-      <li
-        class="item"
-        @click="changeTab(4)"
-      >
-        <svg
-          v-if="activeTab === 4"
-          class="svg"
-        >
+      <li class="item" @click="changeTab(4)">
+        <svg v-if="activeTab === 4" class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients-active" />
         </svg>
-        <svg
-          v-else
-          class="svg"
-        >
+        <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients" />
         </svg>
-        <p
-          class="label"
-          :class="{ 'label--active': activeTab === 4 }"
-        >
-          Recipients
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 4 }">Recipients</p>
       </li>
-      <li
-        class="item"
-        @click="changeTab(5)"
-      >
-        <svg
-          v-if="activeTab === 5"
-          class="svg"
-        >
+      <li class="item" @click="changeTab(5)">
+        <svg v-if="activeTab === 5" class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#gift-active" />
         </svg>
-        <svg
-          v-else
-          class="svg"
-        >
+        <svg v-else class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#gift" />
         </svg>
-        <p
-          class="label"
-          :class="{ 'label--active': activeTab === 5 }"
-        >
-          Invite
-        </p>
+        <p class="label" :class="{ '-active': activeTab === 5 }">Invite</p>
       </li>
     </ul>
     <bottom-swipe-menu
@@ -125,7 +67,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue'
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
 
 const activeTab = ref(1);
 
@@ -133,7 +75,7 @@ let isMenuOpen = ref(false);
 
 function changeTab(tabNum: number) {
   activeTab.value = tabNum;
-  if (tabNum === 3) isMenuOpen.value = true
+  if (tabNum === 3) isMenuOpen.value = true;
 }
 
 function closeMenu() {
@@ -171,7 +113,7 @@ function closeMenu() {
     > .label {
       text-decoration: none;
 
-      &--active {
+      &.-active {
         color: $color-primary;
       }
     }

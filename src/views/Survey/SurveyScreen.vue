@@ -1,55 +1,37 @@
 <template>
   <div class="page-wrapper">
-    <button
-      class="close-page"
-      @click="closePage"
-    >
-      <img
-        src="@/assets/images/close-icon.svg"
-        alt="close page"
-      >
-    </button>
+    <top-navigation left-icon-name="ci-close_big" @click:left-icon="closePage">
+      {{ title }}
+    </top-navigation>
+
+    <p class="text-default">
+      {{ description }}
+    </p>
 
     <div v-if="dictionary[activeQuestion]">
-      <h1 class="main-title">
-        {{ title }}
-      </h1>
-
-      <p class="text-default">
-        {{ description }}
-      </p>
-
       <div>
         <template
           v-for="answer in dictionary[activeQuestion].answers"
           :key="answer.id"
         >
-          <label
-            class="radio-btn"
-            :class="{ '-selected': answer.isSelected }"
-          >
+          <label :class="{ '-selected': answer.isSelected }" class="radio-btn">
             <input
               :id="answer.id"
-              type="radio"
-              name="surveyAnswer"
               :value="answer.id"
+              name="surveyAnswer"
               style="display: none"
+              type="radio"
               @change="selectAnswer(answer.id)"
-            >
-            <span
-              class="title"
-              :class="{ '-selected': answer.isSelected }"
-            >{{ answer.body }}</span>
+            />
+            <span :class="{ '-selected': answer.isSelected }" class="title">{{
+              answer.body
+            }}</span>
             <img
               v-if="answer.isSelected"
+              alt="right arrow"
               src="@/assets/images/arrow-white.svg"
-              alt="right arrow"
-            >
-            <img
-              v-else
-              src="@/assets/images/arrow.svg"
-              alt="right arrow"
-            >
+            />
+            <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
           </label>
         </template>
       </div>
@@ -57,11 +39,20 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRouter } from 'vue-router'
+<script lang="ts" setup>
+import { TopNavigation } from '@/components/UI';
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
-const router = useRouter()
+const { tm } = useI18n();
+
+const router = useRouter();
+
+type TAnswerItem = {
+  question: string | number;
+  answer: string;
+};
 
 type dictionaryItem = {
   id: number | string;
@@ -79,24 +70,24 @@ const dictionary = ref([
   {
     question: {
       id: 1,
-      body: 'Main reason for using Liber',
+      body: tm('views.survey.question'),
     },
     answers: [
       {
         id: 1,
-        body: 'Spend or save daily',
+        body: tm('views.survey.spendOrSave'),
       },
       {
         id: 2,
-        body: 'Spend while travelling',
+        body: tm('views.survey.spendWhileTravelling'),
       },
       {
         id: 3,
-        body: 'Send money',
+        body: tm('views.survey.sendMoney'),
       },
       {
         id: 4,
-        body: 'Gain exposure to financial assets',
+        body: tm('views.survey.gainExposure'),
       },
     ],
   } as Dictionary,
@@ -105,19 +96,15 @@ const dictionary = ref([
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers:any) => {
-  return Promise.resolve(answers)
-}
+const saveAnswers = (answers: TAnswerItem[]) => {
+  return Promise.resolve(answers);
+};
 
 const markAnswerAsSelected = (id: number | string) => {
   dictionary.value[activeQuestion.value].answers = dictionary.value[
     activeQuestion.value
   ].answers.map((item) => {
-    if (item.id === id) {
-      item.isSelected = true;
-    } else {
-      item.isSelected = false;
-    }
+    item.isSelected = item.id === id;
     return item;
   });
 };
@@ -137,31 +124,32 @@ const getSelectedAnswers = () => {
 const selectAnswer = (id: number | string) => {
   const maxValue = dictionary.value.length;
   if (maxValue <= activeQuestion.value + 1) {
-    markAnswerAsSelected(id)
-    const userAnswers = getSelectedAnswers()
-    saveAnswers(userAnswers)
-      .then(() => {
-        router.push({
-          name: 'auth-passcode'
-        })
-      })
-    return
+    markAnswerAsSelected(id);
+    const userAnswers = getSelectedAnswers();
+    saveAnswers(userAnswers).then(() => {
+      router.push({
+        name: 'auth-passcode',
+      });
+    });
+    return;
   }
   markAnswerAsSelected(id);
   activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue);
 };
 
 const closePage = () => {
-  console.log('close this page')
-}
+  router.push({
+    name: 'auth-passcode',
+  });
+};
 
 const description = computed(() => {
-  return 'We need to know this for regulatory reasons. And also, we are curious!'
-})
+  return 'We need to know this for regulatory reasons. And also, we are curious!';
+});
 
 const title = computed(() => {
-  return dictionary.value[activeQuestion.value].question.body
-})
+  return dictionary.value[activeQuestion.value].question.body;
+});
 </script>
 
 <style lang="scss" scoped>

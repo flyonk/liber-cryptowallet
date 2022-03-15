@@ -1,36 +1,38 @@
 <template>
   <div class="auth-page-container">
     <TopNavigation @click:left-icon="$emit('prev')">
-      Name
+      {{ $t('auth.signup.step4Title') }}
     </TopNavigation>
     <div class="description text--body">
-      As started on your official ID. We need 
-      <br>
-      your name to verify your identity.
+      {{ $t('auth.signup.step4Description1') }}
+      <br />
+      {{ $t('auth.signup.step4Description2') }}
     </div>
-    <base-input>
+    <base-input v-model="firstname">
       <template #label>
-        First Name
+        {{ $t('common.firstName') }}
       </template>
     </base-input>
-    <base-input>
+    <base-input v-model="lastname">
       <template #label>
-        Last Name
+        {{ $t('common.lastName') }}
       </template>
     </base-input>
     <div class="sign-button-wrapper">
-      <BaseButton
-        block
-        @click="$emit('next')"
-      >
-        Next
+      <BaseButton block @click="$emit('next')">
+        {{ $t('common.nextStep') }}
       </BaseButton>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue-demi';
+
 import { TopNavigation, BaseButton, BaseInput } from '@/components/UI';
 
 defineEmits(['next', 'prev']);
+
+const firstname = ref('');
+const lastname = ref('');
 </script>

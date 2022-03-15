@@ -1,70 +1,55 @@
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
-      Step 1. Install App
+      {{ $t('configureApp.installAppTitle') }}
     </top-navigation>
 
     <p class="text-default">
-      Install an authenticator app on your mobile device. Recommended options:
+      {{ $t('configureApp.installAppDescription') }}
     </p>
 
-    <p 
-      class="auth-item" 
-      style="margin-bottom: 15px;"
-    >
+    <p class="auth-item" style="margin-bottom: 15px">
       <img
         src="@/assets/brands/ga.png"
         alt="Google Authenticator"
         class="auth-app-icon"
-      >
-      <span>Google Authenticator</span>
+      />
+      <span>{{ $t('common.googleAuthenticator') }}</span>
     </p>
-    <p 
-      class="auth-item" 
-      style="margin-bottom: 50px"
-    >
+    <p class="auth-item" style="margin-bottom: 50px">
       <img
         src="@/assets/brands/ma.svg"
         alt="Microsoft Authenticator"
         class="auth-app-icon"
-      >
-      <span>Microsoft Authenticator</span>
+      />
+      <span>{{ $t('common.microsoftAuthenticator') }}</span>
     </p>
 
-    <a 
-      href="https://apps.apple.com/lb/app" 
-      class="store-link"
-    >
+    <a href="https://apps.apple.com/lb/app" class="store-link">
       <img
         class="store-link-img"
         src="@/assets/brands/appstore.png"
         alt="App Store"
-      >
+      />
     </a>
-    <a 
-      href="https://play.google.com/store/apps" 
-      class="store-link"
-    >
+    <a href="https://play.google.com/store/apps" class="store-link">
       <img
         class="store-link-img"
         src="@/assets/brands/googleplay.png"
         alt="Google play"
-      >
+      />
     </a>
   </div>
-  <div style="padding: 15px">
-    <base-button
-      block
-      @click="$router.push({ name: 'configure-app' })"
-    >
-      Continue
-    </base-button>
+
+  <div style="padding: 15px; padding-bottom: 50px">
+    <base-button block @click="$router.push({ name: 'configure-app' })">{{
+      $t('common.continueCta')
+    }}</base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI'
-
+import { TopNavigation, BaseButton } from '@/components/UI';
 </script>
 
 <style lang="scss" scoped>

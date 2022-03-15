@@ -1,4 +1,4 @@
-export { default as BaseBottomSheet } from './BaseBottomSheet.vue';
+export { default as BaseBottomSheet } from './BaseBottomSheetV.vue';
 export { default as BaseButton } from './BaseButton.vue';
 export { default as BaseCountdown } from './BaseCountdown.vue';
 export { default as BaseCountryPhoneInput } from './BaseCountryPhoneInput.vue';
@@ -15,3 +15,4 @@ export { default as BaseSelect } from './BaseSelect.vue';
 export { default as BaseProgressBar } from './BaseProgressBar.vue';
 export { default as BaseRadioSelect } from './BaseRadioSelect.vue';
 export { default as BaseProgressCircular } from './BaseProgressCircular.vue';
+export { default as LanguageSwitcher } from './organisms/LanguageSwitcher.vue';

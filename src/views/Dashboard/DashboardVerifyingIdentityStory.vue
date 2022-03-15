@@ -9,9 +9,11 @@
       />
     </div>
     <div class="main">
-      <h1 class="title">We’re verifying your identity</h1>
+      <h1 class="title">
+        {{ $t('views.dashboard.verifyingIdentity.verifying') }}
+      </h1>
       <p class="description">
-        We’ll let you know when we have verified your details.
+        {{ $t('views.dashboard.verifyingIdentity.details') }}
       </p>
       <img
         class="image"
@@ -20,13 +22,14 @@
       />
     </div>
     <footer class="footer">
-      <button class="btn">Got it</button>
+      <button class="btn">
+        {{ $t('views.dashboard.verifyingIdentity.gotIt') }}
+      </button>
     </footer>
   </div>
 </template>
 
-<script setup lang="scss">
-</script>
+<script setup lang="scss"></script>
 
 <style lang="scss">
 .dashboard-story {
@@ -35,7 +38,7 @@
   background: linear-gradient(
     180deg,
     $color-light-grey 0%,
-    rgba(237, 240, 251, 0) 20%
+    rgb(237 240 251 / 0%) 20%
   );
 
   > .header {
@@ -78,6 +81,7 @@
 
   > .footer {
     margin-top: 105px;
+
     > .btn {
       display: flex;
       flex-direction: column;

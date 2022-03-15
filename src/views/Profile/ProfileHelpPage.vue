@@ -6,83 +6,47 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
       <div class="title">
-        Hey Abraham Watson,
-        how can we help you?
+        {{ $t('views.profile.profileHelp.hello') }} Abraham Watson,
+        {{ $t('views.profile.profileHelp.help') }}
       </div>
-      <BaseInput type="string">
+      <BaseInput v-model="value" type="text">
         <template #label>
-          Type your question here
+          {{ $t('views.profile.profileHelp.question') }}
         </template>
       </BaseInput>
     </div>
-    <h6 class="subtitle">
-      Select an issue
-    </h6>
+    <h6 class="subtitle">{{ $t('views.profile.profileHelp.issue') }}</h6>
     <ul class="issues-list">
-      <li
-        class="item"
-      >
-        <p class="text">
-          Are my cryptocurrencies secure?
-        </p>
-        <img
-          class="right"
-          src="@/assets/icon/arrow-right.svg"
-          alt="right"
-        >
+      <li class="item">
+        <p class="text">{{ $t('views.profile.profileHelp.secure') }}</p>
+        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">
-          Why does my address need a destination tag?
-        </p>
-        <img
-          class="right"
-          src="@/assets/icon/arrow-right.svg"
-          alt="right"
-        >
-      </li>
-      <li
-        class="item"
-      >
-        <p class="text">
-          How does Liber process my data?
-        </p>
-        <img
-          class="right"
-          src="@/assets/icon/arrow-right.svg"
-          alt="right"
-        >
+        <p class="text">{{ $t('views.profile.profileHelp.destinationTag') }}</p>
+        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">
-          What is Gambling Block?
-        </p>
-        <img
-          class="right"
-          src="@/assets/icon/arrow-right.svg"
-          alt="right"
-        >
+        <p class="text">{{ $t('views.profile.profileHelp.process') }}</p>
+        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
       <li class="item">
-        <p class="text">
-          Can I still top-up my Liber account in CZK and HUF?
-        </p>
-        <img
-          class="right"
-          src="@/assets/icon/arrow-right.svg"
-          alt="right"
-        >
+        <p class="text">{{ $t('views.profile.profileHelp.gamblingBlock') }}</p>
+        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
+      </li>
+      <li class="item">
+        <p class="text">{{ $t('views.profile.profileHelp.topUpAccount') }}</p>
+        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
       </li>
     </ul>
   </div>
 </template>
 
 <script setup lang="ts">
-import BaseInput from '@/components/UI/BaseInput.vue'
-
-
+import BaseInput from '@/components/UI/BaseInput.vue';
+import { ref } from 'vue';
+const value = ref('');
 </script>
 
 <style lang="scss" scoped>
@@ -97,17 +61,17 @@ import BaseInput from '@/components/UI/BaseInput.vue'
   > .header {
     margin-bottom: 40px;
 
-      > .back {
-        margin-bottom: 20px;
-      }
+    > .back {
+      margin-bottom: 20px;
+    }
 
-      > .title {
-        font-weight: 800;
-        font-size: 28px;
-        line-height: 34px;
-        letter-spacing: 0.0038em;
-        margin-bottom: 15px;
-      }
+    > .title {
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: 0.0038em;
+      margin-bottom: 15px;
+    }
   }
 
   > .subtitle {
@@ -124,7 +88,7 @@ import BaseInput from '@/components/UI/BaseInput.vue'
   display: flex;
   flex-direction: column;
   margin-bottom: 24px;
-  border: 1px solid #EBECF0;
+  border: 1px solid #ebecf0;
   border-radius: 15px;
 
   > .item {
@@ -132,7 +96,7 @@ import BaseInput from '@/components/UI/BaseInput.vue'
     display: flex;
     justify-content: space-between;
     height: 72px;
-    border-bottom: 1px solid #EBECF0;
+    border-bottom: 1px solid #ebecf0;
 
     &:last-child {
       border-bottom: 0;

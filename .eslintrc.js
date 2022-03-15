@@ -11,7 +11,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:vue/vue3-recommended',
     '@vue/typescript/recommended',
-    'prettier',
+    '@vue/prettier',
+    '@vue/prettier/@typescript-eslint',
   ],
 
   parserOptions: {
@@ -24,12 +25,18 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'vue/no-deprecated-slot-attribute': 'off',
     'vue/script-setup-uses-vars': 'error',
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/no-unused-vars': 'error',
+    '@typescript-eslint/no-explicit-any': ['warn'],
+    '@typescript-eslint/no-unused-vars': ['error'],
     'vue/multi-word-component-names': [
       'error',
       {
         ignores: ['default', 'home', 'index'],
+      },
+    ],
+    'prettier/prettier': [
+      'error',
+      {
+        endOfLine: 'auto',
       },
     ],
   },

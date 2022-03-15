@@ -5,116 +5,79 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/account/all-accounts')"
-      >
-      <h1 class="title">
-        Select a coin
-      </h1>
-      <label
-        for="searchCoin"
-        class="input-label"
-      >
-        <img
-          src="@/assets/icon/search.svg"
-          alt="search"
-          class="icon"
-        >
+        @click="$router.back()"
+      />
+      <h1 class="title">{{ $t('common.coinSelect') }}</h1>
+      <label class="input-label">
+        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
         <input
           class="search"
           type="text"
-          placeholder="Search a coin"
           name="searchCoin"
-        >
+          :placeholder="$t('common.searchCoin')"
+        />
       </label>
     </div>
     <div class="main">
-      <h4 class="title">
-        Suggested
-      </h4>
+      <h4 class="title">{{ $t('views.account.suggested') }}</h4>
       <ul class="coin-list suggested">
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/btc.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/btc.svg" alt />
           <p class="name">
-            Bitcoin <span>BTC</span>
+            Bitcoin
+            <span>BTC</span>
           </p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/eth.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/eth.svg" alt />
           <p class="name">
-            Ethereum <span>ETH</span>
+            Ethereum
+            <span>ETH</span>
           </p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/binance.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/binance.svg" alt />
           <p class="name">
-            Binance <span>BNB</span>
+            Binance
+            <span>BNB</span>
           </p>
         </li>
       </ul>
-      <h4 class="title">
-        All Coins
-      </h4>
+      <h4 class="title">All Coins</h4>
       <ul class="coin-list all-coins">
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/dash.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/dash.svg" alt />
           <p class="name">
-            Dash <span>DSH</span>
+            Dash
+            <span>DSH</span>
           </p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/xrp.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/xrp.svg" alt />
           <p class="name">
-            Ripple <span>XRP</span>
+            Ripple
+            <span>XRP</span>
           </p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/fantom.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/fantom.svg" alt />
           <p class="name">
-            Fantom <span>FTN</span>
+            Fantom
+            <span>FTN</span>
           </p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/tron.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/tron.svg" alt />
           <p class="name">
-            Tron <span>TRX</span>
+            Tron
+            <span>TRX</span>
           </p>
         </li>
         <li class="item">
-          <img
-            class="img"
-            src="@/assets/icon/currencies/graph.svg"
-            alt=""
-          >
+          <img class="img" src="@/assets/icon/currencies/graph.svg" alt />
           <p class="name">
-            Graph <span>GRT</span>
+            Graph
+            <span>GRT</span>
           </p>
         </li>
       </ul>
@@ -122,9 +85,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// import { ref } from 'vue'
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .add-account {
@@ -206,7 +167,7 @@
           line-height: 22px;
           letter-spacing: -0.0043em;
 
-          span {
+          > span {
             color: $color-grey;
             padding-left: 14px;
           }

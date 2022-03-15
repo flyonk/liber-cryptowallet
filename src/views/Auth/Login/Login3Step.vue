@@ -1,31 +1,26 @@
 <template>
   <div class="auth-page-container">
     <top-navigation @click:left-icon="prevStep">
-      Enter passcode
+      {{ $t('auth.login.step3Title') }}
     </top-navigation>
   </div>
-  
-  <base-passcode
-    class="login-passcode"
-    @submit="onSubmit"
-  />
 
-  <base-toast
-    v-model:visible="showErrorToast"
-    severity="error"
-  >
+  <base-passcode class="login-passcode" @submit="onSubmit" />
+
+  <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
       <div>
-        Invalid password or phone number +7 (764) 432 32-32
+        {{
+          $t('views.auth.login.login3step.6966', {
+            '1': $t('auth.login.step3InvalidInput'),
+          })
+        }}
       </div>
     </template>
     <template #footer>
-      You do not have an account? 
-      <router-link
-        :to="{ name: 'sign-up' }"
-        class="link"
-      >
-        Registration
+      {{ $t('auth.login.step3FooterTitle') }}
+      <router-link :to="{ name: 'sign-up' }" class="link">
+        {{ $t('auth.login.step3FooterCta') }}
       </router-link>
     </template>
   </base-toast>
@@ -33,19 +28,21 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { TopNavigation, BasePasscode, BaseToast } from '@/components/UI';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
-const authStore = useAuthStore()
-const showErrorToast = ref(false)
+
+const authStore = useAuthStore();
+const showErrorToast = ref(false);
+
 function onSubmit(success: boolean): void {
   if (success) {
     authStore.setStep(3, 'login');
   } else {
     showErrorToast.value = true;
   }
-} 
+}
 function prevStep(): void {
-  authStore.setStep(0, 'login')
+  authStore.setStep(1, 'login');
 }
 </script>
 

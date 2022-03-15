@@ -10,13 +10,6 @@ import Restore from '@/views/Auth/Restore/MainRestore.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
-  // {
-  //   path: '/',
-  //   name: 'auth-phone',
-  //   component: () =>
-  //     import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-  //   meta: { layout: 'default' },
-  // },
   {
     path: '/',
     name: 'welcome-logo-screen',
@@ -313,18 +306,6 @@ const routes: Array<RouteRecordRaw> = [
     name: 'kyc-main',
     component: () =>
       import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
-  },
-  {
-    path: '/kyc/personal',
-    name: 'kyc-personal',
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpPersonal.vue'),
-  },
-  {
-    path: '/kyc/documents',
-    name: 'kyc-documents',
-    component: () =>
-      import(/* webpackChunkName: "kyc" */ '@/views/KYC/SignUpDocuments.vue'),
   },
 
   // === Survey ===

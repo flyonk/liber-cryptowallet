@@ -1,18 +1,16 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
-      Enter the 6-digit code
-    </TopNavigation>
+    <TopNavigation @click:left-icon="prevStep">{{
+      $t('common.codeInput')
+    }}</TopNavigation>
     <div class="description text--body">
-      To sign up, enter the security code
-      <br />
-      we’ve sent to {{ formatPhone() }}
+      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}
     </div>
     <div>
       <BaseVerificationCodeInput
         :loading="false"
-        :withPasteButton="true"
-        class="input"        
+        :with-paste-button="true"
+        class="input"
         @complete="onComplete"
       />
     </div>
@@ -20,7 +18,8 @@
       <span class="text--footnote font-weight--semibold">
         <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
           <template #countdown="{ minute, second }">
-            Resend code in {{ minute }}:{{ second }}
+            {{ $t('auth.login.step2ResendTitle') }}
+            {{ minute }}:{{ second }}
           </template>
         </BaseCountdown>
         <template v-else>
@@ -30,7 +29,7 @@
             view="flat"
             @click="resend"
           >
-            Resend
+            {{ $t('auth.login.step2ResendCta') }}
           </BaseButton>
         </template>
       </span>
@@ -48,13 +47,13 @@ import {
   TopNavigation,
 } from '@/components/UI';
 import { useAuthStore } from '@/stores/auth';
-import { IAuthService } from '@/types/api';
-import AuthService from '@/services/AuthService';
+import authService from '@/services/authService';
+
 const emit = defineEmits(['next', 'prev']);
-const authService: IAuthService = new AuthService();
 const authStore = useAuthStore();
 // const number = ref(null) as Ref<number | null>;
 const showCountdown = ref(true) as Ref<boolean>;
+
 onMounted(async () => {
   const phone = authStore.getLoginPhone;
   try {
@@ -63,25 +62,31 @@ onMounted(async () => {
     console.log(err);
   }
 });
+
 const prevStep = () => {
   emit('prev');
 };
+
 const nextStep = () => {
   emit('next');
 };
+
 const onTimeIsUp = () => {
   showCountdown.value = false;
 };
+
 const onComplete = async (data: string) => {
   const otp = data;
   const phone = authStore.getLoginPhone;
   try {
-    await authService.signInProceed({ phone, otp });
+    await authStore.signInProceed({ phone, otp });
+
+    nextStep();
   } catch (err) {
     console.log(err);
   }
-  nextStep();
 };
+
 const formatPhone = () => {
   const { phone, dialCode } = authStore.login;
   const formattedPhone = Array.from(phone)
@@ -91,10 +96,11 @@ const formatPhone = () => {
     .join('');
   return dialCode + formattedPhone;
 };
+
 const resend = async () => {
   const phone = authStore.getLoginPhone;
   showCountdown.value = true;
-  
+
   try {
     await authService.signIn({ phone });
   } catch (err) {
@@ -104,9 +110,13 @@ const resend = async () => {
 </script>
 
 <style lang="scss">
-.footer {
-  .resend-button {
-    padding: 0;
+.auth-page-container {
+  > .footer {
+    > span {
+      > .resend-button {
+        padding: 0;
+      }
+    }
   }
 }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div
     class="base-country-phone-input flex align-items-center"
-    @click="showList = true"
+    @click.capture="onClickInput"
   >
     <div class="flag">
       <img :src="selectedData?.flag" alt="" />
@@ -9,7 +9,8 @@
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
     </div>
-    <BaseBottomSheet v-model:visible="showList" position="bottom">
+
+    <BaseBottomSheetV v-if="showList" @close="showList = false">
       <div class="country-select-block">
         <div class="grid align-items-center">
           <div class="col-9">
@@ -17,7 +18,7 @@
           </div>
           <div class="col-3 text-right">
             <div class="cancel-button text--headline" @click="showList = false">
-              Cancel
+              {{ $t('ui.basecountryphoneinput.cancel') }}
             </div>
           </div>
         </div>
@@ -26,30 +27,26 @@
           <div
             v-for="(country, index) in filteredList"
             :key="index"
-            :class="{ selected: isSelectedCountry(country) }"
+            :class="{ '-selected': isSelectedCountry(country) }"
             class="item grid align-items-center"
             @click="setSelectedCountry(country)"
           >
             <div class="flag col-2">
               <img :src="country.flag" alt="" />
             </div>
-            <div class="code col-2">
-              {{ country.dialCode }}
-            </div>
-            <div class="title col-8">
-              {{ country.name }}
-            </div>
+            <div class="code col-2">{{ country.dialCode }}</div>
+            <div class="title col-8">{{ country.name }}</div>
           </div>
         </div>
       </div>
-    </BaseBottomSheet>
+    </BaseBottomSheetV>
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef, onBeforeMount } from 'vue';
+import { computed, ComputedRef, onBeforeMount, Ref, ref } from 'vue';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
-import BaseBottomSheet from '@/components/UI/BaseBottomSheet.vue';
+import BaseBottomSheetV from '@/components/UI/BaseBottomSheetV.vue';
 import BaseSearchInput from '@/components/UI/BaseSearchInput.vue';
 
 const props = defineProps({
@@ -76,11 +73,11 @@ const filteredList: ComputedRef<Array<ICountryInformation>> = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   list.value = await getFullList();
-  const _selectedCode = list.value.filter((item:any) => {
-    return item.dialCode === props.dialCode
-  })
+  const _selectedCode = list.value.filter((item: ICountryInformation) => {
+    return item.dialCode === props.dialCode;
+  });
 
-  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0]
+  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0];
   emits('ready', selectedData.value);
 });
 
@@ -95,9 +92,27 @@ function setSelectedCountry(country: ICountryInformation): void {
   emits('selected', selectedData.value);
   showList.value = false;
 }
+
+function onClickInput() {
+  showList.value = true;
+}
 </script>
 
 <style lang="scss">
+.bbet {
+  padding: 8px;
+  background-color: #efebe1;
+  display: flex;
+  flex-direction: column;
+}
+
+.bsettings {
+  padding: 8px;
+  background-color: wheat;
+  display: flex;
+  flex-direction: column;
+}
+
 .base-country-phone-input {
   border-radius: 12px;
   background: $color-grey-100;
@@ -107,8 +122,8 @@ function setSelectedCountry(country: ICountryInformation): void {
   user-select: none;
   cursor: pointer;
 
-  .flag {
-    img {
+  > .flag {
+    > img {
       object-fit: cover;
       border-radius: 50%;
       height: 24px;
@@ -120,32 +135,29 @@ function setSelectedCountry(country: ICountryInformation): void {
 .country-select-block {
   padding-top: 16px;
 
-  .cancel-button {
+  > .cancel {
     color: $color-primary;
     cursor: pointer;
     user-select: none;
-    user-select: none;
-    user-select: none;
-    user-select: none;
   }
 
-  .country-list {
+  > .country-list {
     margin-top: 20px;
 
-    .item {
+    > .item {
       border-radius: 8px;
       padding: 12px 16px;
       margin-bottom: 8px;
       cursor: pointer;
 
-      &.selected {
+      &.-selected {
         background: $color-light-grey-300;
       }
 
-      .flag {
+      > .flag {
         padding: 0;
 
-        img {
+        > img {
           object-fit: cover;
           border-radius: 50%;
           height: 40px;
@@ -153,7 +165,7 @@ function setSelectedCountry(country: ICountryInformation): void {
         }
       }
 
-      .code {
+      > .code {
         color: $color-dark-grey;
       }
     }

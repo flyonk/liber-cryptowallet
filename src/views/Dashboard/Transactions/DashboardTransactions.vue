@@ -6,21 +6,20 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/home')"
-      >
+      />
       <div class="count">
         <div class="flex">
           <h1 class="title title-currency">
-            2.12345678 <span class="currency">USDT</span>
+            2.12345678
+            <span class="currency">USDT</span>
           </h1>
           <img
             class="icon"
             src="@/assets/icon/currencies/tether.svg"
             alt="currency"
-          >
+          />
         </div>
-        <p class="subtitle heading-gray-md">
-          €594.41
-        </p>
+        <p class="subtitle heading-gray-md">€594.41</p>
       </div>
       <VueAgile
         class="carousel-slider"
@@ -30,135 +29,101 @@
         <div
           v-for="(item, index) in carousel"
           :key="index"
-          class="item slide"
+          class="item-slide"
           @click="$router.push('/home/story')"
         >
-          <img
-            class="image"
-            :src="item.img"
-          >
-          <p class="name">
-            {{ item.name }}
-          </p>
+          <img class="image" :src="item.img" />
+          <p class="name">{{ item.name }}</p>
         </div>
       </VueAgile>
-      <div
-        v-if="showControls"
-        class="controls"
-      >
+      <div v-if="showControls" class="controls">
         <button class="btn">
-          <img
-            class="label"
-            src="@/assets/icon/plus.svg"
-          >Deposit
+          <img class="label" src="@/assets/icon/plus.svg" />{{
+            $t('transactions.deposit')
+          }}
         </button>
         <button class="btn">
-          <img
-            class="label"
-            src="@/assets/icon/arrow-right-white.svg"
-          >Send
+          <img class="label" src="@/assets/icon/arrow-right-white.svg" />{{
+            $t('transactions.send')
+          }}
         </button>
         <button class="btn">
-          <img
-            class="label"
-            src="@/assets/icon/repeat.svg"
-          >Exchange
+          <img class="label" src="@/assets/icon/repeat.svg" />{{
+            $t('transactions.exchange')
+          }}
         </button>
       </div>
-      
+
       <div class="main-tabs">
         <div
           class="tab"
           :class="{ active: activeTab === 1 }"
           @click="activeTab = 1"
         >
-          History
+          {{ $t('common.history') }}
         </div>
         <div
           class="tab"
           :class="{ active: activeTab === 2 }"
           @click="activeTab = 2"
         >
-          Wallet Address
+          {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-      <ul
-        v-if="activeTab === 1"
-        class="transactions"
-      >
+      <ul v-if="activeTab === 1" class="transactions">
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img
-            class="icon"
-            :src="transaction.img"
-          >
+          <img class="icon" :src="transaction.img" />
           <div class="info">
             <div class="flex">
-              <h1 class="title">
-                {{ transaction.info }}
-              </h1>
+              <h1 class="title">{{ transaction.info }}</h1>
               <p :class="{ received: transaction.sum.startsWith('+') }">
                 {{ transaction.sum }}
               </p>
             </div>
             <div class="flex">
-              <div class="subtitle">
-                {{ transaction.from }}
-              </div>
+              <div class="subtitle">{{ transaction.from }}</div>
               <p
                 v-if="transaction.status"
                 :class="{ pending: transaction.status === 'Pending' }"
               >
                 {{ transaction.status }}
               </p>
-              <p
-                v-else
-                class="sum"
-              >
-                {{ transaction.sum }}
-              </p>
+              <p v-else class="sum">{{ transaction.sum }}</p>
             </div>
           </div>
         </li>
       </ul>
 
-      <div
-        v-if="activeTab === 2"
-        class="wallet"
-      >
-        <img
-          src="@/assets/images/qr-code.png"
-          alt="qr-code"
-          class="qr"
-        >
+      <div v-if="activeTab === 2" class="wallet">
+        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
         <div class="wallet-address">
           <h4 class="title">
-            Wallet Address
+            {{ $t('transactions.walletAddress') }}
           </h4>
           <div class="account">
             <div class="crypto-number">
               <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr<br>sd21213<span class="bold">Opa139z0l</span>
+                1Mtree35df4543sdgErtrryryEe13rr
+                <br />sd21213
+                <span class="bold">Opa139z0l</span>
               </p>
             </div>
-            <img
-              src="@/assets/icon/folders.svg"
-              alt="folders"
-            >
+            <img src="@/assets/icon/folders.svg" alt="folders" />
           </div>
           <h2 class="bluetitle">
-            Generate New Address
+            {{ $t('transactions.generateAddress') }}
           </h2>
           <div class="controls">
             <button class="btn">
-              Save Image
+              {{ $t('common.saveImage') }}
             </button>
             <button class="btn">
-              Share Address
+              {{ $t('transactions.shareAddress') }}
             </button>
           </div>
         </div>
@@ -171,47 +136,48 @@
 import { ref } from 'vue';
 // import BaseButton from '@/components/UI/BaseButton.vue'
 import { VueAgile } from 'vue-agile';
+import { useI18n } from 'vue-i18n';
 
 let showControls = ref(false);
-
+const { tm } = useI18n();
 
 const activeTab = ref(1);
 const transactions = [
   {
-    info: 'Received USDT',
-    from: 'From andrew@gmail.com',
-    sum: '+ 13.55 USDT',
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
+    sum: '+ 0.0001 BTC',
     status: 'Pending',
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: 'Deposit USDT',
-    from: 'From Bitcoin address',
-    sum: '+ 125.00 USDT',
+    info: `${tm('transactions.operations.deposit')} BTC`,
+    from: `${tm('common.from')} Bitcoin address`,
+    sum: '+ 0.0001 BTC',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {
-    info: 'Sent USDT',
-    from: 'To andrew@gmail.com',
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.to')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: require('@/assets/icon/transactions/exchange.svg'),
   },
   {
-    info: 'Received USDT',
-    from: 'From andrew@gmail.com',
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
-    status: 'Pending',
+    status: tm('transactions.operations.pending'),
     img: require('@/assets/icon/transactions/received.svg'),
   },
   {
-    info: 'Deposit USDT',
-    from: 'From Bitcoin address',
+    info: `${tm('transactions.operations.deposit')} USDT`,
+    from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
     img: require('@/assets/icon/transactions/sent.svg'),
   },
   {
-    info: 'Sent USDT',
-    from: 'To andrew@gmail.com',
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: require('@/assets/icon/transactions/exchange.svg'),
   },
@@ -219,19 +185,19 @@ const transactions = [
 
 const carousel = [
   {
-    name: 'Deposit',
+    name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
   },
   {
-    name: 'Send Funds',
+    name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
   {
-    name: 'Convert',
+    name: tm('transactions.carousel.convert'),
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
   },
   {
-    name: 'Withdraw',
+    name: tm('transactions.carousel.withdraw'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
   },
 ];
@@ -363,7 +329,6 @@ const carousel = [
   }
 }
 
-
 .main-tabs {
   display: flex;
   justify-content: center;
@@ -393,7 +358,7 @@ const carousel = [
 }
 
 .title-currency {
-  & >.currency {
+  & > .currency {
     font-weight: 600;
     font-size: 22px;
     line-height: 34px;
@@ -405,12 +370,12 @@ const carousel = [
   margin-bottom: 24px;
 }
 
-.item.slide {
+.item-slide {
   width: 104px;
   height: 104px;
   padding: 12px;
   background: $color-white;
-  box-shadow: 0 2px 24px -12px rgba(0, 0, 0, 34%);
+  box-shadow: 0 2px 24px -12px rgb(0 0 0 / 34%);
   border-radius: 13px;
   margin-left: 5px;
 
@@ -431,7 +396,7 @@ const carousel = [
 }
 
 .crypto-number {
-  >.text {
+  > .text {
     font-size: 16px;
     line-height: 21px;
     letter-spacing: -0.0031em;
@@ -469,7 +434,7 @@ const carousel = [
     line-height: 22px;
     letter-spacing: -0.0043em;
     color: $color-primary;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+    text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
     margin-bottom: 43px;
   }
 
@@ -487,7 +452,7 @@ const carousel = [
       &:first-child {
         margin-right: 12px;
         color: $color-primary;
-        text-shadow: 0 1px 2px rgba(0, 0, 0, 4%);
+        text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
       }
 
       &:last-child {
