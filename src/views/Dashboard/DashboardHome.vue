@@ -107,7 +107,10 @@
               class="item"
               @click="$router.push('/transactions/details')"
             >
-              <img class="icon" :src="transaction.img" />
+              <div class="image">
+                <img class="icon" :src="transaction.img" />
+                <div class="badge" />
+              </div>
               <div class="info">
                 <div class="flex">
                   <h1 class="title">{{ transaction.info }}</h1>
@@ -237,6 +240,13 @@ const carousel = [
 ];
 
 const transactions = ref([
+  {
+    info: `${tm('transactions.operations.received')} BTC`,
+    from: `${tm('common.from')} test@cryptowize.tech`,
+    sum: '+ 0.0001 BTC',
+    status: 'Completed',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
   {
     info: `${tm('transactions.operations.received')} BTC`,
     from: `${tm('common.from')} test@cryptowize.tech`,
@@ -410,10 +420,24 @@ const hasTransactions = computed(() => transactions.value.length > 0);
           width: 100%;
           margin-bottom: 24px;
 
-          > .icon {
-            margin-right: 12px;
-            width: 40px;
-            height: 40px;
+          > .image {
+            position: relative;
+
+            > .icon {
+              margin-right: 12px;
+              width: 40px;
+              height: 40px;
+            }
+
+            > .badge {
+              position: absolute;
+              right: 13px;
+              bottom: 3px;
+              border-radius: 50%;
+              width: 12px;
+              height: 12px;
+              background-color: blue;
+            }
           }
 
           > .info {
