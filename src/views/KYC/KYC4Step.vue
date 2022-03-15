@@ -3,7 +3,7 @@
     <top-navigation @click:left-icon="$emit('prev')">
       {{ scanText.title }}
     </top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
+    <base-progress-bar :value="getPercentage" class="mb-3" />
     <p class="description">{{ scanText.description }}</p>
     <scan-animation class="p-0">
       <div id="camera" class="camera" />
@@ -16,22 +16,21 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { computed, ref, Ref, onMounted, onBeforeUnmount } from 'vue';
-
-// import { Camera, CameraResultType } from '@capacitor/camera';
+<script lang="ts" setup>
+import { computed, onBeforeUnmount, onMounted, ref, Ref } from 'vue';
 import {
   CameraPreview,
   CameraPreviewOptions,
 } from '@capacitor-community/camera-preview';
 import { Device } from '@capacitor/device';
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/UI';
+import { useI18n } from 'vue-i18n';
+
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { cropImage } from '@/helpers/image';
+
+import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/UI';
 import ScanAnimation from '@/components/KYC/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
-
-import { useKYCStore, EKYCProofType } from '@/stores/kyc';
-import { cropImage } from '@/helpers/image';
-import { useI18n } from 'vue-i18n';
 
 const emit = defineEmits(['next', 'prev']);
 
@@ -149,7 +148,6 @@ const onScan = async () => {
 
 <style lang="scss">
 .kyc-4-step {
-  // commit test
   > .scan-animation {
     > .inner {
       > .camera {
