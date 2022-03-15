@@ -110,15 +110,6 @@
             >
               <div class="image">
                 <img class="icon" :src="transaction.img" />
-                <div class="badge">
-                  <img
-                    class="icon"
-                    src="@/assets/images/time-badge.svg"
-                    width="12"
-                    height="12"
-                    style="color: white"
-                  />
-                </div>
               </div>
               <div class="info">
                 <div class="flex">
@@ -261,41 +252,13 @@ const transactions = ref([
     from: `${tm('common.from')} test@cryptowize.tech`,
     sum: '+ 0.0001 BTC',
     status: 'Completed',
-    img: require('@/assets/icon/currencies/xrp.svg'),
+    img: require('@/assets/icon/transactions/received.svg'),
   },
   {
     info: `${tm('transactions.operations.received')} BTC`,
     from: `${tm('common.from')} test@cryptowize.tech`,
     sum: '+ 0.0001 BTC',
     status: 'Completed',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-]);
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const updatedTransactions = ref([
-  {
-    type: `Buy`, //or 'Sell'
-    coin: `BTC`,
-    timestamp: `12.12.2021`,
-    fiatChanging: '100',
-    status: 'Pending',
-    img: require('@/assets/icon/currencies/xrp.svg'),
-  },
-  {
-    type: `Buy`, //or 'Selling'
-    coin: `BTC`,
-    timestamp: `12.12.2021`,
-    fiatChanging: '100',
-    status: 'Pending',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-  {
-    type: `Buy`, //or 'Selling'
-    coin: `BTC`,
-    timestamp: `12.12.2021`,
-    fiatChanging: '100',
-    status: 'Pending',
     img: require('@/assets/icon/transactions/received.svg'),
   },
 ]);
@@ -367,6 +330,13 @@ const hasTransactions = computed(() => transactions.value.length > 0);
 
     > .title {
       margin-right: 8px;
+      font-family: Inter, sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: 0.0038em;
+      color: $color-black;
     }
 
     > .circle-wrap {
