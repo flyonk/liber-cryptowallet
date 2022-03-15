@@ -88,17 +88,19 @@
           ...
         </button>
       </div>
-      <div class="transactions">
-        <div class="flex justify-content-between items-center w-full mb-3">
-          <p class="text-dark-gray">
+      <div class="transactions-container">
+        <div
+          class="header flex justify-content-between items-center w-full mb-3"
+        >
+          <p class="title text-dark-gray">
             {{ $t('views.dashboard.home.transactions') }}
           </p>
-          <p class="heading-gray-md">
+          <p class="button heading-gray-md">
             {{ $t('views.dashboard.home.seeAll') }}
           </p>
         </div>
-        <div class="flex items-center mb-5">
-          <ul v-if="hasTransactions" class="transactions">
+        <div class="transactions flex items-center mb-5">
+          <ul v-if="hasTransactions" class="list">
             <li
               v-for="(transaction, index) in transactions"
               :key="index"
@@ -242,6 +244,13 @@ const transactions = ref([
     status: 'Completed',
     img: require('@/assets/icon/transactions/received.svg'),
   },
+  {
+    info: `${tm('transactions.operations.received')} BTC`,
+    from: `${tm('common.from')} test@cryptowize.tech`,
+    sum: '+ 0.0001 BTC',
+    status: 'Completed',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
 ]);
 
 const hasTransactions = computed(() => transactions.value.length > 0);
@@ -378,7 +387,7 @@ const hasTransactions = computed(() => transactions.value.length > 0);
   }
 
   // TODO: extract to component
-  > .transactions {
+  > .transactions-container {
     > .carousel {
       display: flex;
       margin-bottom: 20px;
@@ -392,52 +401,58 @@ const hasTransactions = computed(() => transactions.value.length > 0);
     padding-right: 10px;
     width: 100%;
 
-    > .item {
-      display: flex;
-      width: 100%;
-      margin-bottom: 24px;
-
-      > .icon {
-        margin-right: 12px;
-        width: 40px;
-        height: 40px;
-      }
-
-      > .info {
+    > .transactions {
+      > .list {
         width: 100%;
 
-        > .flex {
+        > .item {
+          display: flex;
           width: 100%;
-          justify-content: space-between;
+          margin-bottom: 24px;
 
-          > .title {
-            font-weight: 500;
-            font-size: 16px;
-            line-height: 21px;
-            letter-spacing: -0.0031em;
+          > .icon {
+            margin-right: 12px;
+            width: 40px;
+            height: 40px;
           }
 
-          > .subtitle {
-            font-size: 13px;
-            line-height: 18px;
-            letter-spacing: -0.0008em;
-            color: $color-dark-grey;
-          }
+          > .info {
+            width: 100%;
 
-          > .pending {
-            color: $color-yellow-600;
-          }
+            > .flex {
+              width: 100%;
+              justify-content: space-between;
 
-          > .received {
-            color: $color-green-600;
-          }
+              > .title {
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 21px;
+                letter-spacing: -0.0031em;
+              }
 
-          > .sum {
-            font-size: 13px;
-            line-height: 18px;
-            text-align: right;
-            letter-spacing: -0.0008em;
-            color: $color-dark-grey;
+              > .subtitle {
+                font-size: 13px;
+                line-height: 18px;
+                letter-spacing: -0.0008em;
+                color: $color-dark-grey;
+              }
+
+              > .pending {
+                color: $color-yellow-600;
+              }
+
+              > .received {
+                color: $color-green-600;
+              }
+
+              > .sum {
+                font-size: 13px;
+                line-height: 18px;
+                text-align: right;
+                letter-spacing: -0.0008em;
+                color: $color-dark-grey;
+              }
+            }
           }
         }
       }
