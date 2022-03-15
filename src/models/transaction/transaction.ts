@@ -2,51 +2,55 @@ export type TTransaction = INetTransaction | IRequestFunds;
 
 interface INetTransaction {
   id: string;
-  sum: string;
+  txid: string;
+  amount: string;
   timestamp: string;
   status: ETransactionStatus;
   type: ETransactionType;
+  code: string;
   contractor: {
-    id: string;
+    id?: string;
     phone: string;
-    email: string;
-    address: string;
+    email?: string;
+    address?: string;
   };
 }
 
 interface IRequestFunds {
   id: string;
-  sum: string;
+  amount: string;
   timestamp: string;
   status: ERequestFundsStatus;
   type: ERequestFundsType;
+  code: string;
   contractor: {
-    id: string;
+    id?: string;
     phone: string;
-    email: string;
-    address: string;
+    email?: string;
+    address?: string;
   };
 }
 
-enum ETransactionType {
-  To,
-  From,
-  Convert,
-  Deposit,
-  Withdraw,
-}
-enum ETransactionStatus {
-  Pending,
-  Completed,
-  Rejected,
+export enum ETransactionType {
+  Convert = 'Convert',
+  Deposit = 'Deposit',
+  Received = 'Received',
+  Send = 'Send',
 }
 
-enum ERequestFundsType {
+export enum ETransactionStatus {
+  Pending = 'Pending',
+  Completed = 'Completed',
+  Failed = 'Failed',
+}
+
+export enum ERequestFundsType {
   PaymentLink,
   Send,
   Request,
 }
-enum ERequestFundsStatus {
+
+export enum ERequestFundsStatus {
   Opened,
   Closed,
   Declined,
@@ -58,9 +62,10 @@ export default {
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
-      sum: input.sum || '',
+      amount: input.amount || '',
       timestamp: input.timestamp || '',
       status: input.status,
+      code: input.code || '',
       type: input.type,
       contractor: {
         id: input.contractor.id,
@@ -75,7 +80,7 @@ export default {
   requestSerialize(input: TTransaction): any {
     return {
       id: input.id,
-      sum: input.sum,
+      amount: input.amount,
       timestamp: input.timestamp,
       status: input.status,
       type: input.type,
