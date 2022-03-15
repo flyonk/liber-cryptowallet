@@ -6,17 +6,11 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/contacts')"
-      >
-      <h1
-        class="title"
-      >
-        Send Invite
-      </h1>
+      />
+      <h1 class="title">Send Invite</h1>
       <p class="userinfo">
-        liber.com/@abrahamwatson-xa.. <img
-          src="@/assets/icon/copy.svg"
-          class="ml-auto"
-        >
+        liber.com/@abrahamwatson-xa..
+        <img src="@/assets/icon/copy.svg" class="ml-auto" />
       </p>
     </div>
     <ul class="invite-list">
@@ -25,39 +19,19 @@
         :key="index"
         class="invite-item"
       >
-        <BaseInput
-          v-model="newContacts[index].name.value"
-          type="text"
-        >
-          <template #label>
-            Name
-          </template>
+        <BaseInput v-model="newContacts[index].name.value" type="text">
+          <template #label> Name </template>
         </BaseInput>
-        <BaseInput
-          v-model="newContacts[index].email.value"
-          type="text"
-        >
-          <template #label>
-            Email
-          </template>
+        <BaseInput v-model="newContacts[index].email.value" type="text">
+          <template #label> Email </template>
         </BaseInput>
-        <p
-          class="add"
-          @click="addExtraContact"
-        >
-          <img
-            src="@/assets/icon/blue_plus.svg"
-            class="mr-2"
-          >
+        <p class="add" @click="addExtraContact">
+          <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
           Additional phone or email
         </p>
       </li>
     </ul>
-    <BaseButton
-      class="btn"
-      size="large"
-      :disabled="isBtnDisabled"
-    >
+    <BaseButton class="btn" size="large" :disabled="isBtnDisabled">
       Sent
     </BaseButton>
   </div>
@@ -66,36 +40,32 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BaseInput from '@/components/UI/BaseInput.vue'
-import BaseButton from '@/components/UI/BaseButton.vue'
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
 const newContacts = ref([
   {
     name: '',
-    email: ''
-  }
-])
+    email: '',
+  },
+]);
 
 function addExtraContact() {
-  newContacts.value.push(
-    {
-      name: '',
-      email: ''
-    }
-  )
-  console.log(newContacts)
+  newContacts.value.push({
+    name: '',
+    email: '',
+  });
+  console.log(newContacts);
 }
 
 function isBtnDisabled() {
-  let result = true
-  newContacts.value.forEach(i => {
-    if (i.name === '' || i.email === '') result = false
-    return i
-  })
-  return result
+  let result = true;
+  newContacts.value.forEach((i) => {
+    if (i.name === '' || i.email === '') result = false;
+    return i;
+  });
+  return result;
 }
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -109,7 +79,7 @@ function isBtnDisabled() {
 .invite-header {
   margin-bottom: 40px;
 
-  >.userinfo {
+  > .userinfo {
     font-weight: 600;
     font-size: 17px;
     line-height: 22px;
@@ -119,13 +89,13 @@ function isBtnDisabled() {
     color: $color-primary-500;
   }
 
-  >.back {
+  > .back {
     width: 20;
     height: 20;
     margin-bottom: 20px;
   }
 
-  >.title {
+  > .title {
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;
@@ -139,7 +109,7 @@ function isBtnDisabled() {
 }
 
 .invite-item {
-  >.add {
+  > .add {
     display: flex;
     align-items: center;
     font-weight: 600;

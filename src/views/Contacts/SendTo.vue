@@ -6,18 +6,12 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
-      <h4 class="username">
-        @AshleyRogers
-      </h4>
+      />
+      <h4 class="username">@AshleyRogers</h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">
-        Ashley Rogers
-      </h1>
-      <div class="initials">
-        AR
-      </div>
+      <h1 class="title">Ashley Rogers</h1>
+      <div class="initials">AR</div>
     </div>
     <div class="sendto-main">
       <change-currency @send-transaction="sendTransaction" />
@@ -30,28 +24,20 @@
   >
     <template #description>
       <div class="popup-description">
-        <h1 class="title">
-          Do you know and trust this payee?
-        </h1>
+        <h1 class="title">Do you know and trust this payee?</h1>
         <p class="description">
-          If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment
+          If you're unsure, don't pay them, as we may not be able to help you
+          get your money back. Remember, fraudsters can impersonate others, and
+          we will never ask you to make a payment
         </p>
       </div>
     </template>
     <template #footer>
       <div class="popup-footer">
-        <BaseButton
-          class="btn mb-3"
-          size="large"
-          @click="showPopup = false"
-        >
+        <BaseButton class="btn mb-3" size="large" @click="showPopup = false">
           No, go back
         </BaseButton>
-        <BaseButton
-          class="btn"
-          size="large"
-          view="secondary"
-        >
+        <BaseButton class="btn" size="large" view="secondary">
           Yes, continue
         </BaseButton>
       </div>
@@ -66,7 +52,8 @@
     <template #description>
       <div class="popup-description">
         <p class="description">
-          $1 will be sent once Andrey Verbitsky (andrey@gmail.com) accepts the payment
+          $1 will be sent once Andrey Verbitsky (andrey@gmail.com) accepts the
+          payment
         </p>
       </div>
     </template>
@@ -74,20 +61,18 @@
 </template>
 
 <script setup lang="ts">
-import ChangeCurrency from '@/components/Transactions/ChangeCurrency.vue'
-import { BaseToast } from '@/components/UI'
-import BaseButton from '@/components/UI/BaseButton.vue'
+import ChangeCurrency from '@/components/Transactions/ChangeCurrency.vue';
+import { BaseToast } from '@/components/UI';
+import BaseButton from '@/components/UI/BaseButton.vue';
 // import BaseInput from '@/components/UI/BaseInput.vue'
 import { ref } from 'vue';
 
-const showPopup = ref(false)
-const popupStatus = ref('confirmation')
+const showPopup = ref(false);
+const popupStatus = ref('confirmation');
 
 function sendTransaction() {
-  showPopup.value = true
+  showPopup.value = true;
 }
-
-
 </script>
 
 <style lang="scss" scoped>
@@ -103,12 +88,12 @@ function sendTransaction() {
   align-items: center;
   margin-bottom: 20px;
 
-  >.back {
+  > .back {
     width: 20;
     height: 20;
   }
 
-  >.username {
+  > .username {
     font-weight: 600;
     font-size: 13px;
     line-height: 21px;
@@ -129,7 +114,7 @@ function sendTransaction() {
     letter-spacing: 0.0038em;
   }
 
-  >.initials {
+  > .initials {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,24 +123,24 @@ function sendTransaction() {
     width: 40px;
     height: 40px;
     color: $color-yellow-700;
-    margin-right: 12px;   
+    margin-right: 12px;
   }
 }
 
 .popup-description {
   margin-bottom: 65px;
 
-  >.title {
+  > .title {
     font-weight: 600;
     font-size: 22px;
     line-height: 34px;
     text-align: center;
     letter-spacing: -0.0026em;
-    color: #0D1F3C;
+    color: #0d1f3c;
     margin-bottom: 8px;
   }
 
-  >.description {
+  > .description {
     font-weight: 400;
     font-size: 17px;
     line-height: 22px;

@@ -1,32 +1,15 @@
 <template>
   <div class="menu-header">
-    <h4 class="title">
-      Accounts
-    </h4>
-    <div
-      class="add"
-      @click="$router.push('/account/add')"
-    >
-      +
-    </div>
+    <h4 class="title">Accounts</h4>
+    <div class="add" @click="$router.push('/account/add')">+</div>
   </div>
   <ul class="menu-list">
-    <li
-      class="item"
-      @click="$router.push('/account')"
-    >
+    <li class="item" @click="$router.push('/account')">
       <div class="image-wrap">
-        <img
-          src="@/assets/icon/all-accounts.svg"
-          alt="all"
-        >
+        <img src="@/assets/icon/all-accounts.svg" alt="all" />
       </div>
-      <p class="name">
-        All Accounts
-      </p>
-      <p class="price">
-        €2.00
-      </p>
+      <p class="name">All Accounts</p>
+      <p class="price">€2.00</p>
     </li>
   </ul>
 </template>

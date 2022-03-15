@@ -3,26 +3,12 @@
     <div class="input-wrapper mb-2 relative m-0">
       <label class="change-from">
         <p class="label">You send exactly</p>
-        <input
-          type="number"
-          class="input"
-          autofocus
-          @blur="onBlur"
-        >
+        <input type="number" class="input" autofocus @blur="onBlur" />
         <div class="select">
-          <div
-            class="select-option flex"
-            @click="showCryptoList(1)"
-          >
-            <img
-              class="icon"
-              :src="currentSendFromCurrency.img"
-            >
+          <div class="select-option flex" @click="showCryptoList(1)">
+            <img class="icon" :src="currentSendFromCurrency.img" />
             <p class="name">{{ currentSendFromCurrency.name.value }}</p>
-            <img
-              src="@/assets/icon/arrow-down.svg"
-              alt="list"
-            >
+            <img src="@/assets/icon/arrow-down.svg" alt="list" />
           </div>
           <ul
             v-if="isSelectListOpen && currentOpenedSelectId === 1"
@@ -34,11 +20,7 @@
               class="options-item"
               @click="changeCurrentCurrency(index, 'from')"
             >
-              <img
-                class="icon"
-                :src="currency.img"
-                alt=""
-              >
+              <img class="icon" :src="currency.img" alt="" />
               <p class="currency">{{ currency.name }}</p>
             </li>
           </ul>
@@ -47,61 +29,30 @@
     </div>
     <ul class="fees-data">
       <li class="fees-item">
-        <div class="circle">
-          -
-        </div>
-        <p class="sum">
-          0.12345678 BTC
-        </p>
-        <p class="name">
-          Transfer Fee
-        </p>
+        <div class="circle">-</div>
+        <p class="sum">0.12345678 BTC</p>
+        <p class="name">Transfer Fee</p>
       </li>
       <li class="fees-item">
-        <div class="circle">
-          =
-        </div>
-        <p class="sum">
-          0.19811656 BTC
-        </p>
-        <p class="name">
-          Amount we’ll covert
-        </p>
+        <div class="circle">=</div>
+        <p class="sum">0.19811656 BTC</p>
+        <p class="name">Amount we’ll covert</p>
       </li>
       <li class="fees-item">
-        <div class="circle">
-          x
-        </div>
-        <p class="sum">
-          0.19811656 USD
-        </p>
-        <p class="name">
-          Guaranteed rate (100h)
-        </p>
+        <div class="circle">x</div>
+        <p class="sum">0.19811656 USD</p>
+        <p class="name">Guaranteed rate (100h)</p>
       </li>
     </ul>
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
         <p class="label">Ashley will get</p>
-        <input
-          type="number"
-          class="input"
-          @blur="onBlur"
-        >
+        <input type="number" class="input" @blur="onBlur" />
         <div class="select select-to">
-          <div
-            class="select-option flex"
-            @click="showCryptoList(2)"
-          >
-            <img
-              class="icon"
-              :src="currentSendToCurrency.img"
-            >
+          <div class="select-option flex" @click="showCryptoList(2)">
+            <img class="icon" :src="currentSendToCurrency.img" />
             <p class="name">{{ currentSendToCurrency.name.value }}</p>
-            <img
-              src="@/assets/icon/arrow-down.svg"
-              alt="list"
-            >
+            <img src="@/assets/icon/arrow-down.svg" alt="list" />
           </div>
           <ul
             v-if="isSelectListOpen && currentOpenedSelectId === 2"
@@ -113,11 +64,7 @@
               class="options-item"
               @click="changeCurrentCurrency(index, 'to')"
             >
-              <img
-                class="icon"
-                :src="currency.img"
-                alt=""
-              >
+              <img class="icon" :src="currency.img" alt="" />
               <p class="currency">{{ currency.name }}</p>
             </li>
           </ul>
@@ -136,40 +83,40 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
-import BaseButton from '@/components/UI/BaseButton.vue'
+import { ref } from 'vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
 
-const currentSendFromCurrency = { 
+const currentSendFromCurrency = {
   name: ref('BTC'),
-  img: require('@/assets/icon/currencies/btc.svg')
-}
+  img: require('@/assets/icon/currencies/btc.svg'),
+};
 
-const currentSendToCurrency = { 
+const currentSendToCurrency = {
   name: ref('BTC'),
-  img: require('@/assets/icon/currencies/btc.svg')
-}
+  img: require('@/assets/icon/currencies/btc.svg'),
+};
 
-let isSelectListOpen = ref(false)
-let currentOpenedSelectId = ref(1)
+let isSelectListOpen = ref(false);
+let currentOpenedSelectId = ref(1);
 
 function showCryptoList(listId: number) {
-  isSelectListOpen.value = !isSelectListOpen.value
-  currentOpenedSelectId.value = null
-  currentOpenedSelectId.value = listId
+  isSelectListOpen.value = !isSelectListOpen.value;
+  currentOpenedSelectId.value = null;
+  currentOpenedSelectId.value = listId;
 }
 
 function changeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
-    currentSendFromCurrency.name.value = currencies[index].name
-    currentSendFromCurrency.img = currencies[index].img
+    currentSendFromCurrency.name.value = currencies[index].name;
+    currentSendFromCurrency.img = currencies[index].img;
   }
 
   if (type === 'to') {
-    currentSendToCurrency.name.value = currencies[index].name
-    currentSendToCurrency.img = currencies[index].img
+    currentSendToCurrency.name.value = currencies[index].name;
+    currentSendToCurrency.img = currencies[index].img;
   }
 
-  isSelectListOpen.value = false
+  isSelectListOpen.value = false;
 }
 
 defineEmits(['send-transaction']);
@@ -199,12 +146,12 @@ const currencies = [
 ];
 
 const onBlur = (event: any) => {
-  const newElem = event.relatedTarget?.nodeName
-  const elem = event.target
+  const newElem = event.relatedTarget?.nodeName;
+  const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    elem.focus()
+    elem.focus();
   }
-}
+};
 </script>
 
 <style lang="scss" scoped>
@@ -212,9 +159,8 @@ const onBlur = (event: any) => {
   width: 100%;
 }
 
-
 .change-from {
-  >.label {
+  > .label {
     position: absolute;
     left: 17px;
     top: 6px;
@@ -222,10 +168,10 @@ const onBlur = (event: any) => {
     font-size: 12px;
     line-height: 16px;
     display: flex;
-    color: #78809B;
+    color: #78809b;
   }
 
-  >.input {
+  > .input {
     width: 100%;
     height: 72px;
     border: 1px solid $color-primary-100;
@@ -237,20 +183,20 @@ const onBlur = (event: any) => {
     font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.0045em;
-    color: #0D1F3C;
+    color: #0d1f3c;
 
     &:focus {
       border: 1px solid $color-primary-500;
     }
   }
 
-  >.select {
+  > .select {
     position: absolute;
     right: 4px;
     top: 4px;
     width: 114px;
     height: 64px;
-    background: #EDF0FB;
+    background: #edf0fb;
     border-radius: 13px;
     border: 0;
   }
@@ -263,18 +209,18 @@ const onBlur = (event: any) => {
   width: 100%;
   height: 100%;
 
-  >.icon {
+  > .icon {
     width: 24px;
     height: 24px;
     margin-right: 4px;
   }
 
-  >.name {
+  > .name {
     font-weight: 600;
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0D1F3C;
+    color: #0d1f3c;
     margin-right: 18px;
   }
 }
@@ -284,7 +230,7 @@ const onBlur = (event: any) => {
   top: 70px;
   width: 100%;
   right: 0;
-  background: #EDF0FB;
+  background: #edf0fb;
   border-radius: 13px;
   padding: 10px 18px;
   z-index: 2;
@@ -301,18 +247,18 @@ const onBlur = (event: any) => {
     margin-bottom: 0;
   }
 
-  >.icon {
+  > .icon {
     width: 24px;
     height: 24px;
     margin-right: 4px;
   }
 
-  >.currency {
+  > .currency {
     font-weight: 600;
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0D1F3C;
+    color: #0d1f3c;
     margin-right: 18px;
   }
 }
@@ -329,8 +275,8 @@ const onBlur = (event: any) => {
   margin-bottom: 10px;
   margin-left: -10px;
 
-  >.circle {
-    background: #EAEFFF;
+  > .circle {
+    background: #eaefff;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -343,17 +289,17 @@ const onBlur = (event: any) => {
     font-size: 14px;
   }
 
-  >.sum {
+  > .sum {
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
     display: flex;
     align-items: center;
-    color: #0D1F3C;
+    color: #0d1f3c;
     margin-right: 8px;
   }
 
-  >.name {
+  > .name {
     font-weight: normal;
     font-size: 12px;
     line-height: 16px;

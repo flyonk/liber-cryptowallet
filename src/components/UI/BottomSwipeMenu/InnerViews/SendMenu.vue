@@ -1,54 +1,41 @@
 <template>
   <ul class="send-menu">
-    <router-link
-      :to="'/contacts'"
-      class="menu-item"
-    >
+    <router-link :to="'/contacts'" class="menu-item">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/send_funds.svg"
         alt="send"
-      >
-      <p class="text">
-        Send Funds
-      </p>
+      />
+      <p class="text">Send Funds</p>
     </router-link>
     <li class="menu-item">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/convert_funds.svg"
         alt="send"
-      >
-      <p class="text">
-        Convert Funds
-      </p>
+      />
+      <p class="text">Convert Funds</p>
     </li>
     <li class="menu-item">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/ask_for_funds.svg"
         alt="send"
-      >
-      <p class="text">
-        Ask for Funds
-      </p>
+      />
+      <p class="text">Ask for Funds</p>
     </li>
     <li class="menu-item">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/borrow_funds.svg"
         alt="send"
-      >
-      <p class="text">
-        Borrow Coin
-      </p>
+      />
+      <p class="text">Borrow Coin</p>
     </li>
   </ul>
 </template>
 
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <style lang="scss" scoped>
 .send-menu {
@@ -64,11 +51,11 @@
   align-items: center;
   margin-bottom: 30px;
 
-  >.icon {
+  > .icon {
     margin-right: 20px;
   }
 
-  >.text {
+  > .text {
     font-weight: 500;
     font-size: 16px;
     line-height: 21px;
@@ -76,5 +63,4 @@
     color: $color-black;
   }
 }
-
 </style>

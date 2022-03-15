@@ -6,36 +6,30 @@
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
         @click="$router.push('/profile')"
-      >
+      />
       <div class="flex">
         <img
           class="add mr-3"
           src="@/assets/icon/system_qr.svg"
           alt="circle-add"
-        >
+        />
         <img
           class="add"
           src="@/assets/icon/circle-add.svg"
           alt="circle-add"
-          @click="$router.push({
-            name: 'deposit-coin'
-          })"
-        >
+          @click="
+            $router.push({
+              name: 'deposit-coin',
+            })
+          "
+        />
       </div>
     </div>
-    <h1 class="title">
-      Who To Pay
-    </h1>
-    <BaseInput
-      type="text"
-    >
-      <template #label>
-        Name, @id, phone, email
-      </template>
+    <h1 class="title">Who To Pay</h1>
+    <BaseInput type="text">
+      <template #label> Name, @id, phone, email </template>
     </BaseInput>
-    <ul
-      class="contact-tabs flex"
-    >
+    <ul class="contact-tabs flex">
       <li
         v-for="tab in contactTabs"
         :key="tab.id"
@@ -46,10 +40,7 @@
         {{ tab.name }}
       </li>
     </ul>
-    <div
-      v-if="hasFriends"
-      class="main-list flex"
-    >
+    <div v-if="hasFriends" class="main-list flex">
       <ul class="contacts-list">
         <li
           v-for="(contact, index) in mockContacts"
@@ -60,10 +51,7 @@
           <div class="initials">
             {{ getContactInitials(contact.name) }}
           </div>
-          <router-link
-            :to="`/contacts/send/${index}`"
-            class="user-contact"
-          >
+          <router-link :to="`/contacts/send/${index}`" class="user-contact">
             <p class="name">
               {{ contact.name }}
             </p>
@@ -74,35 +62,22 @@
         </li>
       </ul>
       <ul class="alphabet-list">
-        <li
-          v-for="(symbol, index) in alphabet"
-          :key="index"
-          class="symbol"
-        >
+        <li v-for="(symbol, index) in alphabet" :key="index" class="symbol">
           {{ symbol }}
         </li>
       </ul>
     </div>
-    <button
-      v-if="hasFriends"
-      class="options-button"
-    >
-      Payment Options
-    </button>
-    <div
-      v-if="!hasFriends"
-      class="empty-list"
-    >
+    <button v-if="hasFriends" class="options-button">Payment Options</button>
+    <div v-if="!hasFriends" class="empty-list">
       <img
         class="image"
         src="@/assets/images/empty_profile.png"
         alt="empty profile"
-      >
-      <h1 class="title">
-        Friends list is empty
-      </h1>
+      />
+      <h1 class="title">Friends list is empty</h1>
       <p class="description">
-        I this list, you can find contact with which you make transactions. Add contact to make the first transfer.
+        I this list, you can find contact with which you make transactions. Add
+        contact to make the first transfer.
       </p>
       <BaseButton
         class="btn"
@@ -124,9 +99,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import BaseInput from '@/components/UI/BaseInput.vue'
-import BaseButton from '@/components/UI/BaseButton.vue'
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue'
+import BaseInput from '@/components/UI/BaseInput.vue';
+import BaseButton from '@/components/UI/BaseButton.vue';
+import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
 
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);
@@ -140,54 +115,52 @@ function getContactInitials(fio: string) {
 
 const getMenuType = computed(() => {
   if (hasFriends.value) {
-    return 'communication'
+    return 'communication';
   } else {
-    return 'add_contact'
+    return 'add_contact';
   }
-})
-
-  
+});
 
 function closeMenu() {
   isMenuOpen.value = false;
 }
 
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const mockContacts = [
   {
     name: 'Abraham Watsan',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Alexander Wood',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Ashley Rogers',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Vasya Pupkin',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Petr Schepetin',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Tovarish Stalin',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Super Man',
-    phone: '+1 347 432 32 43'
+    phone: '+1 347 432 32 43',
   },
   {
     name: 'Benjamin Lewis',
-    phone: '+1 347 432 32 43'
-  }
-]
+    phone: '+1 347 432 32 43',
+  },
+];
 
 const contactTabs = [
   {
@@ -211,7 +184,7 @@ const contactTabs = [
   overflow: auto;
   position: relative;
 
-  >.header {
+  > .header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
@@ -240,7 +213,7 @@ const contactTabs = [
     align-items: center;
     min-width: 114px;
     height: 40px;
-    background: #EDF0FB;
+    background: #edf0fb;
     font-weight: 600;
     font-size: 13px;
     line-height: 18px;
@@ -269,7 +242,7 @@ const contactTabs = [
   display: flex;
   margin-bottom: 24px;
 
-  >.initials {
+  > .initials {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -279,12 +252,11 @@ const contactTabs = [
     height: 40px;
     color: $color-yellow-700;
     margin-right: 12px;
-    
   }
 }
 
 .alphabet-list {
-  >.symbol {
+  > .symbol {
     font-style: normal;
     margin-bottom: 3px;
     font-weight: 500;
@@ -297,15 +269,15 @@ const contactTabs = [
 }
 
 .user-contact {
-  >.name {
+  > .name {
     font-weight: 500;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #0D1F3C;
+    color: #0d1f3c;
   }
 
-  >.phone {
+  > .phone {
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
@@ -321,7 +293,7 @@ const contactTabs = [
   justify-content: center;
   position: fixed;
   bottom: 5%;
-  background: #EDF0FB;
+  background: #edf0fb;
   border-radius: 13px;
   color: $color-primary-500;
   font-weight: 600;
@@ -337,12 +309,12 @@ const contactTabs = [
   flex-grow: 1;
   padding-bottom: 10%;
   width: 100%;
-  
-  >.image {
+
+  > .image {
     margin-bottom: 24px;
   }
 
-  >.title {
+  > .title {
     font-weight: 600;
     font-size: 20px;
     line-height: 25px;
@@ -351,7 +323,7 @@ const contactTabs = [
     margin-bottom: 8px;
   }
 
-  >.description {
+  > .description {
     font-weight: 400;
     font-size: 16px;
     line-height: 21px;
@@ -359,7 +331,7 @@ const contactTabs = [
     letter-spacing: -0.0031em;
   }
 
-  >.btn {
+  > .btn {
     margin-top: auto;
   }
 }

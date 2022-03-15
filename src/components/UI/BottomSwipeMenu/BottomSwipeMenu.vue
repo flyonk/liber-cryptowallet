@@ -1,30 +1,23 @@
 <template>
-  <div
-    v-if="isMenuOpen"
-    ref="menu"
-    class="bottom-menu"
-  >
+  <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
     <div
-      class="bottom-menu--close"
+      class="bottom-menu -close"
       @click="closeMenu"
       @touchmove="startMove"
       @touchend="endMove"
     />
-    <component
-      :is="currentComponent"
-      @close-menu="closeMenu"
-    />
+    <component :is="currentComponent" @close-menu="closeMenu" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref, toRefs, computed, onUpdated } from 'vue';
 
-import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/CommunicationMenu.vue'
-import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue'
-import SurpriseGiftMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SurpriseGiftMenu.vue'
-import SendMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SendMenu.vue'
-import AddContactMenu from '@/components/UI/BottomSwipeMenu/InnerViews/AddContactMenu.vue'
+import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/CommunicationMenu.vue';
+import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue';
+import SurpriseGiftMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SurpriseGiftMenu.vue';
+import SendMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SendMenu.vue';
+import AddContactMenu from '@/components/UI/BottomSwipeMenu/InnerViews/AddContactMenu.vue';
 
 const menu = ref();
 
@@ -32,7 +25,7 @@ const props = defineProps({
   menuType: {
     type: String,
     required: true,
-    default: 'dashboard'
+    default: 'dashboard',
   },
   isMenuOpen: {
     type: Boolean,
@@ -55,51 +48,51 @@ function startMove($event: TouchEvent) {
 const currentComponent = computed(() => {
   switch (props.menuType) {
     case 'dashboard':
-      return DashboardHomeMenu
+      return DashboardHomeMenu;
     case 'communication':
-      return CommunicationMenu
+      return CommunicationMenu;
     case 'surprise':
-      return SurpriseGiftMenu
+      return SurpriseGiftMenu;
     case 'send':
-      return SendMenu
+      return SendMenu;
     case 'add_contact':
-      return AddContactMenu
+      return AddContactMenu;
     default:
-      return DashboardHomeMenu
+      return DashboardHomeMenu;
   }
-})
+});
 
 const { isMenuOpen } = toRefs(props);
 
 onUpdated(() => {
   switch (props.menuType) {
     case 'dashboard':
-      if (!menu.value) return
+      if (!menu.value) return;
       menu.value.style.minHeight = `30%`;
       menu.value.style.maxHeight = `90%`;
       break;
     case 'communication':
-      if (!menu.value) return
+      if (!menu.value) return;
       menu.value.style.minHeight = `70%`;
       menu.value.style.maxHeight = `90%`;
       break;
     case 'surprise':
-      if (!menu.value) return
+      if (!menu.value) return;
       menu.value.style.minHeight = `80%`;
       menu.value.style.maxHeight = `90%`;
       break;
     case 'send':
-      if (!menu.value) return
+      if (!menu.value) return;
       menu.value.style.minHeight = `40vh`;
       menu.value.style.maxHeight = `60vh`;
       break;
     case 'add_contact':
-      if (!menu.value) return
+      if (!menu.value) return;
       menu.value.style.minHeight = `50%`;
       menu.value.style.maxHeight = `75%`;
       break;
   }
-})
+});
 </script>
 
 <style lang="scss" scoped>
@@ -117,7 +110,7 @@ onUpdated(() => {
   padding: 8px 16px 0;
   z-index: 2;
 
-  &--close {
+  &.-close {
     width: 64px;
     height: 5px;
     border-radius: 1px;

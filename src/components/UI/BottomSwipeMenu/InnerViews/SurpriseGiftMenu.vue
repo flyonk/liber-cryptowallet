@@ -1,73 +1,40 @@
 <template>
   <div class="surprise-menu">
-    <p
-      class="cancel"
-      @click="closeMenu"
-    >
-      Cancel
-    </p>
-    <h2 class="title">
-      I’ve got little surprise for you 🎁
-    </h2>
-    <BaseInput
-      type="text"
-    >
-      <template #label>
-        To
-      </template>
+    <p class="cancel" @click="closeMenu">Cancel</p>
+    <h2 class="title">I’ve got little surprise for you 🎁</h2>
+    <BaseInput type="text">
+      <template #label> To </template>
     </BaseInput>
-    <BaseInput
-      type="text"
-    >
-      <template #label>
-        Cc
-      </template>
+    <BaseInput type="text">
+      <template #label> Cc </template>
     </BaseInput>
-    <BaseInput
-      type="text"
-    >
-      <template #label>
-        Bcc
-      </template>
+    <BaseInput type="text">
+      <template #label> Bcc </template>
     </BaseInput>
-    <BaseInput
-      v-model="Subject"
-      type="text"
-    >
-      <template #label>
-        Subject
-      </template>
+    <BaseInput v-model="Subject" type="text">
+      <template #label> Subject </template>
     </BaseInput>
     <p class="description">
-      Hey managing your money would be so much easier if you had Liber. Sign up with my link
-      https://cryptowize.com/referral/abraham
+      Hey managing your money would be so much easier if you had Liber. Sign up
+      with my link https://cryptowize.com/referral/abraham
     </p>
-    <p class="sent">
-      Sent from my iPhone
-    </p>
-    <BaseButton
-      class="btn mt-auto"
-      size="large"
-    >
-      Send
-    </BaseButton>
+    <p class="sent">Sent from my iPhone</p>
+    <BaseButton class="btn mt-auto" size="large"> Send </BaseButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BaseButton from '@/components/UI/BaseButton.vue'
-import BaseInput from '@/components/UI/BaseInput.vue'
+import BaseButton from '@/components/UI/BaseButton.vue';
+import BaseInput from '@/components/UI/BaseInput.vue';
 
-const Subject = ref('I’ve got little surprise for you 🎁')
-
+const Subject = ref('I’ve got little surprise for you 🎁');
 
 const emit = defineEmits(['closeMenu']);
 function closeMenu() {
   emit('closeMenu');
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -79,16 +46,16 @@ function closeMenu() {
   height: 100%;
   padding-bottom: 50px;
 
-  >.cancel {
+  > .cancel {
     font-weight: 600;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #2862FF;
+    color: #2862ff;
     margin-bottom: 24px;
   }
 
-  >.title {
+  > .title {
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;
@@ -97,14 +64,13 @@ function closeMenu() {
     margin-bottom: 28px;
   }
 
-  >.description {
+  > .description {
     font-weight: 400;
     font-size: 16px;
     line-height: 21px;
     letter-spacing: -0.0031em;
-    color: #0D1F3C;
+    color: #0d1f3c;
     margin-bottom: 18px;
   }
 }
-
 </style>

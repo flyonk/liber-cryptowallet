@@ -6,93 +6,45 @@
         src="@/assets/icon/close.svg"
         alt="arrow-left"
         @click="$router.push('/contacts')"
-      >
-      <h1
-        v-if="isAllowAccessToContacts"
-        class="title"
-      >
-        Invite Friends
-      </h1>
-      <h1
-        v-else
-        class="title"
-      >
-        Find youd friends
-      </h1>
-      <p
-        v-if="isAllowAccessToContacts"
-        class="description"
-      >
+      />
+      <h1 v-if="isAllowAccessToContacts" class="title">Invite Friends</h1>
+      <h1 v-else class="title">Find youd friends</h1>
+      <p v-if="isAllowAccessToContacts" class="description">
         Invite a friend and share the Liber experience with them
       </p>
-      <p
-        v-else
-        class="description"
-      >
-        Send and request money from your friends more easily, split bills and much more.
+      <p v-else class="description">
+        Send and request money from your friends more easily, split bills and
+        much more.
       </p>
     </div>
-    <div
-      v-if="isAllowAccessToContacts"
-      class="invite-controls"
-    >
-      <button
-        class="btn"
-        @click="$router.push('/contacts/send_link')"
-      >
-        <img
-          src="@/assets/icon/chain.svg"
-          class="icon mr-2"
-        >
+    <div v-if="isAllowAccessToContacts" class="invite-controls">
+      <button class="btn" @click="$router.push('/contacts/send_link')">
+        <img src="@/assets/icon/chain.svg" class="icon mr-2" />
         Share link
       </button>
-      <button
-        class="btn"
-        @click="$router.push('/contacts/send/invite')"
-      >
-        <img
-          src="@/assets/icon/invite.svg"
-          class="icon mr-2"
-        >
+      <button class="btn" @click="$router.push('/contacts/send/invite')">
+        <img src="@/assets/icon/invite.svg" class="icon mr-2" />
         Invite by phone or email
       </button>
     </div>
-    <div
-      v-if="isAllowAccessToContacts"
-      class="invite-main"
-    >
-      <img
-        class="dragndrop"
-        src="@/assets/images/dragndrop-bg.png"
-      >
-      <h2 class="title">
-        Enable contacts permission
-      </h2>
+    <div v-if="isAllowAccessToContacts" class="invite-main">
+      <img class="dragndrop" src="@/assets/images/dragndrop-bg.png" />
+      <h2 class="title">Enable contacts permission</h2>
       <p class="description">
-        Quickly invite friends from your <br> contacts list
+        Quickly invite friends from your <br />
+        contacts list
       </p>
-      <a
-        class="link"
-        @click="isAllowAccessToContacts = false"
-      >Allow access to contacts</a>
+      <a class="link" @click="isAllowAccessToContacts = false"
+        >Allow access to contacts</a
+      >
     </div>
-    <div
-      v-else
-      class="invite-main"
-    >
-      <img
-        class="dragndrop"
-        src="@/assets/images/dragndrop-bg.png"
-      >
+    <div v-else class="invite-main">
+      <img class="dragndrop" src="@/assets/images/dragndrop-bg.png" />
       <p class="annotation">
-        You can hide yourself from being visible to your CryptoWize friends at any time through your
-        privacy settings.
+        You can hide yourself from being visible to your CryptoWize friends at
+        any time through your privacy settings.
       </p>
-      <BaseButton
-        class="btn mb-2"
-        size="large"
-        view="simple"
-      >
+      <BaseButton class="btn mb-2" size="large" view="simple">
         Allow access to contacts
       </BaseButton>
       <BaseButton
@@ -108,12 +60,10 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from '@/components/UI/BaseButton.vue'
+import BaseButton from '@/components/UI/BaseButton.vue';
 import { ref } from 'vue';
 
-const isAllowAccessToContacts = ref(false)
-
-
+const isAllowAccessToContacts = ref(false);
 </script>
 
 <style lang="scss" scoped>
@@ -127,13 +77,13 @@ const isAllowAccessToContacts = ref(false)
 .invite-header {
   margin-bottom: 20px;
 
-  >.back {
+  > .back {
     width: 20;
     height: 20;
     margin-bottom: 21px;
   }
 
-  >.title {
+  > .title {
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;
@@ -142,22 +92,22 @@ const isAllowAccessToContacts = ref(false)
     margin-bottom: 8px;
   }
 
-  >.description {
+  > .description {
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #0D1F3C;
+    color: #0d1f3c;
   }
 }
 
 .invite-controls {
   display: flex;
 
-  >.btn {
+  > .btn {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2862FF;
+    background: #2862ff;
     border-radius: 8px;
     color: $color-white;
     font-weight: 600;
@@ -181,12 +131,12 @@ const isAllowAccessToContacts = ref(false)
   justify-content: center;
   padding-top: 60px;
 
-  >.dragndrop {
+  > .dragndrop {
     max-height: 315px;
     margin-bottom: 24px;
   }
 
-  >.title {
+  > .title {
     font-weight: 600;
     font-size: 20px;
     line-height: 25px;
@@ -196,7 +146,7 @@ const isAllowAccessToContacts = ref(false)
     margin-bottom: 8px;
   }
 
-  >.description {
+  > .description {
     font-size: 16px;
     line-height: 21px;
     text-align: center;
@@ -204,16 +154,16 @@ const isAllowAccessToContacts = ref(false)
     margin-bottom: 20px;
   }
 
-  >.link {
+  > .link {
     font-weight: 600;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #2862FF;
-    text-shadow: 0px 1px 2px rgba(0, 0, 0, 4%);
+    color: #2862ff;
+    text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   }
 
-  >.annotation {
+  > .annotation {
     font-size: 13px;
     line-height: 18px;
     text-align: center;
