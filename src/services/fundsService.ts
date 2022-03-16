@@ -1,8 +1,8 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import DepositMapper, { IDepositInfo } from '@/models/funds/deposit';
-import ConvertInfoMapper, {
+import depositMapper, { IDepositInfo } from '@/models/funds/deposit';
+import convertInfoMapper, {
   IConvertInfo,
   TConvertData,
 } from '@/models/funds/convertInfo';
@@ -20,13 +20,13 @@ export default {
     const res = await axios.get(
       `${apiService.funds.depositInfo()}/${coinCode}`
     );
-    return DepositMapper.deserialize(res.data);
+    return depositMapper.deserialize(res.data);
   },
 
   async convertInfo(data: TConvertData): Promise<IConvertInfo> {
     //TODO: discuss with backend TConvertData
     const res = await axios.post(apiService.funds.convertInfo(), data);
-    return ConvertInfoMapper.deserialize(res.data);
+    return convertInfoMapper.deserialize(res.data);
   },
 
   async convert(data: TConvertData): Promise<TSuccessResponse> {

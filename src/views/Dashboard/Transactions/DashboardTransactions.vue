@@ -133,54 +133,75 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, getCurrentInstance, computed } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
+
+import { useTransactionStore } from '@/stores/transaction';
 
 let showControls = ref(false);
 const { tm } = useI18n();
 
+const tStore = useTransactionStore();
+
 const activeTab = ref(1);
-const transactions = [
-  {
-    info: `${tm('transactions.operations.received')} USDT`,
-    from: `${tm('common.from')} andrew@gmail.com`,
-    sum: '+ 0.0001 BTC',
-    status: 'Pending',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.deposit')} BTC`,
-    from: `${tm('common.from')} Bitcoin address`,
-    sum: '+ 0.0001 BTC',
-    img: require('@/assets/icon/transactions/sent.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.sent')} USDT`,
-    from: `${tm('common.to')} andrew@gmail.com`,
-    sum: '- 13.55 USDT',
-    img: require('@/assets/icon/transactions/exchange.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.received')} USDT`,
-    from: `${tm('common.from')} andrew@gmail.com`,
-    sum: '+ 13.55 USDT',
-    status: tm('transactions.operations.pending'),
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.deposit')} USDT`,
-    from: `${tm('common.from')} Bitcoin address`,
-    sum: '+ 125.00 USDT',
-    img: require('@/assets/icon/transactions/sent.svg'),
-  },
-  {
-    info: `${tm('transactions.operations.sent')} USDT`,
-    from: `${tm('common.from')} andrew@gmail.com`,
-    sum: '- 13.55 USDT',
-    img: require('@/assets/icon/transactions/exchange.svg'),
-  },
-];
+
+const { proxy } = getCurrentInstance();
+
+/**
+ * Lifecycle
+ */
+
+onMounted(async () => {
+  try {
+    await tStore.init();
+  } catch (err) {
+    proxy.$sentry.capture(err, 'DashboardTransactions', 'getTransactionList');
+  }
+});
+
+const transactions = computed(() => tStore.getTransactionList);
+
+// const transactions = [
+//   {
+//     info: `${tm('transactions.operations.received')} USDT`,
+//     from: `${tm('common.from')} andrew@gmail.com`,
+//     sum: '+ 0.0001 BTC',
+//     status: 'Pending',
+//     img: require('@/assets/icon/transactions/received.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.deposit')} BTC`,
+//     from: `${tm('common.from')} Bitcoin address`,
+//     sum: '+ 0.0001 BTC',
+//     img: require('@/assets/icon/transactions/sent.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.sent')} USDT`,
+//     from: `${tm('common.to')} andrew@gmail.com`,
+//     sum: '- 13.55 USDT',
+//     img: require('@/assets/icon/transactions/exchange.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.received')} USDT`,
+//     from: `${tm('common.from')} andrew@gmail.com`,
+//     sum: '+ 13.55 USDT',
+//     status: tm('transactions.operations.pending'),
+//     img: require('@/assets/icon/transactions/received.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.deposit')} USDT`,
+//     from: `${tm('common.from')} Bitcoin address`,
+//     sum: '+ 125.00 USDT',
+//     img: require('@/assets/icon/transactions/sent.svg'),
+//   },
+//   {
+//     info: `${tm('transactions.operations.sent')} USDT`,
+//     from: `${tm('common.from')} andrew@gmail.com`,
+//     sum: '- 13.55 USDT',
+//     img: require('@/assets/icon/transactions/exchange.svg'),
+//   },
+// ];
 
 const carousel = [
   {

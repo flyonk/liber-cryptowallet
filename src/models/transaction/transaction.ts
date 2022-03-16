@@ -1,6 +1,6 @@
 export type TTransaction = INetTransaction | IRequestFunds;
 
-interface INetTransaction {
+export interface INetTransaction {
   id: string;
   sum: string;
   timestamp: string;
@@ -14,7 +14,7 @@ interface INetTransaction {
   };
 }
 
-interface IRequestFunds {
+export interface IRequestFunds {
   id: string;
   sum: string;
   timestamp: string;
@@ -63,7 +63,7 @@ export default {
       status: input.status,
       type: input.type,
       contractor: {
-        id: input.contractor.id,
+        id: input.contractor.id || '',
         phone: input.contractor.phone || '',
         email: input.contractor.email || '',
         address: input.contractor.address || '',

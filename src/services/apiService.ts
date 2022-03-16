@@ -77,8 +77,11 @@ export default {
     },
   },
   transactions: {
+    transactionsList(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+    },
     requestFunds(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/request-funds`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/request-funds`;
     },
   },
 };
