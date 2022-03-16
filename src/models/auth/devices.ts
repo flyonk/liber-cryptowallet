@@ -1,14 +1,8 @@
-export enum EAgentType {
-  ios = 'ios',
-  windows = 'windows',
-  mac = 'mac',
-  linux = 'linux',
-  android = 'android',
-}
+export type TAgentType = 'ios' | 'windows' | 'mac' | 'linux' | 'android';
 
 export interface IUserDevice {
   id: string;
-  agent_type: EAgentType;
+  agent_type: TAgentType;
   device_name: string;
   logged_at: string;
   ip: string;
