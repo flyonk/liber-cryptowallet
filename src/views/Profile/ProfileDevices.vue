@@ -1,6 +1,6 @@
 <template name="AccountDevices">
   <div class="account-devices">
-    <top-navigation>
+    <top-navigation @click:left-icon="$router.push('/profile')">
       {{ $t('views.profile.profileDevices.devices') }}
     </top-navigation>
 
