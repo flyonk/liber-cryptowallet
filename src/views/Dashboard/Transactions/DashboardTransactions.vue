@@ -77,10 +77,13 @@
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img class="icon" :src="transaction.img" />
+          <img class="icon" :src="transaction.icon" />
           <div class="info">
             <div class="flex">
-              <h1 class="title">{{ transaction.info }}</h1>
+              <h1 class="title">
+                {{ $t(`transactions.operations.${transaction.type}`) }}
+                {{ transaction.code }}
+              </h1>
               <p :class="{ received: transaction.sum.startsWith('+') }">
                 {{ transaction.sum }}
               </p>
@@ -91,9 +94,11 @@
                 v-if="transaction.status"
                 :class="{ pending: transaction.status === 'Pending' }"
               >
-                {{ transaction.status }}
+                {{ $t(`transactions.status.${transaction.status}`) }}
               </p>
-              <p v-else class="sum">{{ transaction.sum }}</p>
+              <p v-else class="sum">
+                {{ transaction.sum }} {{ transaction.code }}
+              </p>
             </div>
           </div>
         </li>
@@ -161,7 +166,7 @@ onMounted(async () => {
 });
 
 const transactions = computed(() => tStore.getTransactionList);
-
+// console.log(transactionsX);
 // const transactions = [
 //   {
 //     info: `${tm('transactions.operations.received')} USDT`,

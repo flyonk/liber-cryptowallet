@@ -9,6 +9,7 @@ import transactionMapper, {
 
 export default {
   async getTransactionList(): Promise<INetTransaction[]> {
+    //TODO: implement pagination
     const res = await axios.get(apiService.transactions.transactionsList());
     return res.data.list.map(transactionMapper.deserialize);
   },
