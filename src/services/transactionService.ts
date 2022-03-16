@@ -32,7 +32,7 @@ export default {
         txid: 'string',
         amount: '1000',
         timestamp: '1647339981', //15.03.22
-        status: ETransactionStatus.Completed,
+        status: ETransactionStatus.Finished,
         type: ETransactionType.Send,
         code: 'BTC',
         contractor: {
@@ -45,7 +45,7 @@ export default {
         txid: 'string',
         amount: '1000',
         timestamp: '1647339981', //15.03.22
-        status: ETransactionStatus.Completed,
+        status: ETransactionStatus.Finished,
         type: ETransactionType.Received,
         code: 'ETH',
         contractor: {

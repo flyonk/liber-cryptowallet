@@ -197,15 +197,17 @@ onMounted(async () => {
   transactions.value = transactions.value.map(_getTransactionDataByType);
 });
 
-const _getTransactionDataByType = (
-  transaction: TTransaction
-): {
+type TTypedTransaction = {
   info: string;
   contractor: string;
   sum: string;
   status: ETransactionStatus | ERequestFundsStatus;
   img: string;
-} => {
+};
+
+const _getTransactionDataByType = (
+  transaction: TTransaction
+): TTypedTransaction => {
   if (transaction.type === ETransactionType.Deposit)
     return {
       info: `${tm('transactions.operations.deposit')} ${transaction.code}`,
