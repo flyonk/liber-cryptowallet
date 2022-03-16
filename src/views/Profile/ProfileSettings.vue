@@ -109,7 +109,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, getCurrentInstance } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
 
 import { useProfileStore } from '@/stores/profile';
@@ -122,12 +122,19 @@ const accountID = '@abrahamwatson';
 const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
 
+const { proxy } = getCurrentInstance();
+
 /**
  * Lifecycles
  */
 
 onMounted(async () => {
-  if (!profileStore.getUser.id) profileStore.init();
+  if (!profileStore.getUser.id)
+    try {
+      await profileStore.init();
+    } catch (err) {
+      proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
+    }
 });
 
 const nameInitials = computed(() => {
