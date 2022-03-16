@@ -32,8 +32,8 @@ import { ref } from 'vue';
 import { useKYCStore } from '@/stores/kyc';
 import { useRouter } from 'vue-router';
 
-import { TopNavigation, BaseButton } from '@/components/UI';
-import BaseCountrySelect from '@/components/UI/organisms/BaseCountrySelect.vue';
+import { TopNavigation, BaseButton } from '@/components/ui';
+import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
 
 const router = useRouter();
 

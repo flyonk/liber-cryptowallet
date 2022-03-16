@@ -28,7 +28,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import { useAuthStore } from '@/stores/auth';
 
 const authStore = useAuthStore();

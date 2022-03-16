@@ -65,7 +65,7 @@
 </template>
 
 <script setup lang="ts">
-import { BaseSwitch } from '@/components/UI';
+import { BaseSwitch } from '@/components/ui';
 import { ref } from 'vue';
 
 let isEmailsAgreement = ref(true);

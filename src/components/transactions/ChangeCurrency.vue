@@ -84,7 +84,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { BaseButton } from '@/components/UI';
+import { BaseButton } from '@/components/ui';
 
 const currentSendFromCurrency = {
   name: ref('BTC'),

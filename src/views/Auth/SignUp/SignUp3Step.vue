@@ -25,7 +25,7 @@ import {
   BaseInput,
   BaseSwitch,
   BaseButton,
-} from '@/components/UI';
+} from '@/components/ui';
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();

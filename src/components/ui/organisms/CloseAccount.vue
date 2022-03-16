@@ -21,7 +21,7 @@
 <script setup lang="ts">
 import { toRefs } from 'vue';
 
-import BaseButton from '@/components/UI/molecules/base-button/BaseButton.vue';
+import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
 
 const props = defineProps({
   showMenu: {

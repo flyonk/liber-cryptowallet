@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseButton, BaseInput } from '@/components/UI';
+import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
 import { ref } from 'vue-demi';
 
 const birth = ref('');

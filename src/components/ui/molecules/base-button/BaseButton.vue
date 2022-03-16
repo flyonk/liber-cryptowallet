@@ -17,7 +17,7 @@ import { computed, toRefs } from 'vue';
 import {
   SizeBaseButton,
   ViewBaseButton,
-} from '@/components/UI/molecules/base-button/types';
+} from '@/components/ui/molecules/base-button/types';
 
 const props = defineProps({
   block: {

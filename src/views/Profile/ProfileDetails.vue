@@ -47,8 +47,8 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-import BaseInput from '@/components/UI/molecules/base-input/BaseInput.vue';
-import BaseButton from '@/components/UI/molecules/base-button/BaseButton.vue';
+import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
+import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
 
 const accountName = 'Abraham Watson';
 const user = {

@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import AuthPageSwitcher from '@/components/UI/organisms/auth/AuthPageSwitcher.vue';
+import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
 import { Login1Step, Login2Step, Login3Step, Login4Step } from '.';
 import { computed } from 'vue-demi';
 

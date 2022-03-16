@@ -77,7 +77,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
+import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 const activeTab = ref(1);
 

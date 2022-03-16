@@ -29,7 +29,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue-demi';
 
-import { TopNavigation, BaseButton, BaseInput } from '@/components/UI';
+import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
 
 defineEmits(['next', 'prev']);
 

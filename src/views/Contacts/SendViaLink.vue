@@ -23,7 +23,7 @@
 </template>
 
 <script setup lang="ts">
-import { BaseInput, BaseButton } from '@/components/UI';
+import { BaseInput, BaseButton } from '@/components/ui';
 </script>
 
 <style lang="scss" scoped>

@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { computed, Ref, ref } from 'vue';
-import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';

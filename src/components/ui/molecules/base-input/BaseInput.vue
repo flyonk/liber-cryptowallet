@@ -25,7 +25,7 @@ import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
 import PInputMask from 'primevue/inputmask';
 
-import { TypeBaseInput } from '@/components/UI/molecules/base-input/types';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 const props = defineProps({
   type: {

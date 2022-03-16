@@ -17,10 +17,10 @@
       </div>
     </main>
     <footer class="footer">
-      <button class="login" @click="$router.push({ name: props.loginRoute })">
+      <button class="login" @click="$emit('login')">
         {{ props.loginTitle }}
       </button>
-      <button class="signup" @click="$router.push({ name: props.signUpRoute })">
+      <button class="signup" @click="$emit('signup')">
         {{ props.signUpTitle }}
       </button>
     </footer>
@@ -28,9 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue-demi';
-
-import { Route } from '@/router/types';
+defineEmits(['login', 'signup']);
 
 const props = defineProps({
   headerTitle: {
@@ -55,14 +53,6 @@ const props = defineProps({
   },
   baseImg: {
     type: String,
-    required: true,
-  },
-  loginRoute: {
-    type: String as PropType<Route>,
-    required: true,
-  },
-  signUpRoute: {
-    type: String as PropType<Route>,
     required: true,
   },
 });

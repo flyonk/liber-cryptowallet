@@ -21,8 +21,8 @@ import { ref, Ref, computed, onBeforeMount } from 'vue';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getEuropeanList, getFullList } from '@/services/country-phone';
 
-import BaseInput from '@/components/UI/molecules/base-input/BaseInput.vue';
-import BaseCountryEntitySelect from '@/components/UI/organisms/BaseCountryEntitySelect.vue';
+import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
+import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 

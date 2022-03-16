@@ -46,7 +46,7 @@ import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
-import BackHistoryBtn from '@/components/UI/atoms/BackHistoryBtn.vue';
+import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 
 const { tm } = useI18n();
 

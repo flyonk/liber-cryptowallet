@@ -32,7 +32,7 @@ import {
   BaseCountryPhoneInput,
   BaseInput,
   BaseButton,
-} from '@/components/UI';
+} from '@/components/ui';
 
 defineEmits(['next', 'prev']);
 </script>

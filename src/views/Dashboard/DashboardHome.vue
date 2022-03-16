@@ -170,8 +170,8 @@ import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
-import DashboardSkeleton from '@/components/UI/organisms/DashboardSkeleton.vue';
+import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');

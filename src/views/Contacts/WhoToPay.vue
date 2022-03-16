@@ -99,8 +99,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import { BaseInput, BaseButton } from '@/components/UI';
-import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu/BottomSwipeMenu.vue';
+import { BaseInput, BaseButton } from '@/components/ui';
+import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);

@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 import { EStepDirection } from '@/types/base-component';

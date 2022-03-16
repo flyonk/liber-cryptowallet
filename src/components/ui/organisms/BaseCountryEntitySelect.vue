@@ -38,8 +38,8 @@
 import { ref, Ref, computed, ComputedRef } from 'vue';
 import { PropType } from 'vue-demi';
 
-import BaseBottomSheetV from '@/components/UI/molecules/BaseBottomSheetV.vue';
-import BaseSearchInput from '@/components/UI/atoms/BaseSearchInput.vue';
+import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
+import BaseSearchInput from '@/components/ui/atoms/BaseSearchInput.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 

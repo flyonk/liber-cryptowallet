@@ -24,7 +24,7 @@ import { ref, Ref, onBeforeMount } from 'vue';
 
 import { getFullList } from '@/services/country-phone';
 
-import BaseCountryEntitySelect from '@/components/UI/organisms/BaseCountryEntitySelect.vue';
+import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 

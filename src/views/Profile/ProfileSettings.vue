@@ -111,7 +111,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
-import CloseAccount from '@/components/UI/organisms/CloseAccount.vue';
+import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';

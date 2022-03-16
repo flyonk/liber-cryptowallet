@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BaseInput from '@/components/UI/molecules/base-input/BaseInput.vue';
+import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 
 const value = ref('');
 </script>
