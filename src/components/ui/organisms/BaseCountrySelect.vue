@@ -78,8 +78,8 @@ function closeSelect(): void {
   user-select: none;
   cursor: pointer;
 
-  .flag {
-    img {
+  > .flag {
+    > img {
       object-fit: cover;
       border-radius: 50%;
       height: 24px;
@@ -87,7 +87,7 @@ function closeSelect(): void {
     }
   }
 
-  .p-float-label {
+  > .p-float-label {
     width: 100%;
   }
 }

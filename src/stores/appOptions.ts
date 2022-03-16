@@ -1,7 +1,8 @@
-import { EStorageKeys } from '@/types/base-component';
 import { PushNotifications } from '@capacitor/push-notifications';
 import { Storage } from '@capacitor/storage';
 import { defineStore } from 'pinia';
+
+import { EStorageKeys } from '@/types/storage';
 
 interface IappOptionsState {
   notifictions: boolean | null;

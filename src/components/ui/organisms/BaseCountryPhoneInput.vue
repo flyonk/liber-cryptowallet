@@ -75,8 +75,8 @@ function closeSelect() {
   user-select: none;
   cursor: pointer;
 
-  .flag {
-    img {
+  > .flag {
+    > img {
       object-fit: cover;
       border-radius: 50%;
       height: 24px;

@@ -16,7 +16,7 @@
         <div
           v-for="(country, index) in filteredList"
           :key="index"
-          :class="{ selected: isSelectedCountry(country) }"
+          :class="{ '-selected': isSelectedCountry(country) }"
           class="item grid align-items-center"
           @click="setSelectedCountry(country)"
         >
@@ -93,32 +93,29 @@ function close() {
 .country-select-block {
   padding-top: 16px;
 
-  .cancel-button {
+  > .cancel-button {
     color: $color-primary;
     cursor: pointer;
     user-select: none;
-    user-select: none;
-    user-select: none;
-    user-select: none;
   }
 
-  .country-list {
+  > .country-list {
     margin-top: 20px;
 
-    .item {
+    > .item {
       border-radius: 8px;
       padding: 12px 16px;
       margin-bottom: 8px;
       cursor: pointer;
 
-      &.selected {
+      &.-selected {
         background: $color-light-grey-300;
       }
 
-      .flag {
+      > .flag {
         padding: 0;
 
-        img {
+        > img {
           object-fit: cover;
           border-radius: 50%;
           height: 40px;
@@ -126,7 +123,7 @@ function close() {
         }
       }
 
-      .code {
+      > .code {
         color: $color-dark-grey;
       }
     }

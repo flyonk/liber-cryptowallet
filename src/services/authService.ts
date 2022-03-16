@@ -1,7 +1,7 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import SignInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
+import signInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
 
 export default {
@@ -14,7 +14,7 @@ export default {
     otp: string;
   }): Promise<ISuccessSignIn> {
     const res = await axios.post(apiService.auth.signInProceed(), data);
-    return SignInMapper.deserialize(res.data);
+    return signInMapper.deserialize(res.data);
   },
 
   async logout(data: { access_token: string }): Promise<TSuccessResponse> {
@@ -23,6 +23,6 @@ export default {
 
   async refresh(data: { refresh_token: string }): Promise<ISuccessSignIn> {
     const res = await axios.post(apiService.auth.refresh(), data);
-    return SignInMapper.deserialize(res.data);
+    return signInMapper.deserialize(res.data);
   },
 };

@@ -62,7 +62,10 @@ const mask = ref('');
 const countryDialCode = ref('');
 const type = ref('');
 
-onMounted(() => {
+onMounted(async () => {
+  //Check if user is authorized
+  if (await authStore.checkAuthorizedUser()) authStore.setStep(2, 'login');
+
   const { phone, dialCode } = authStore.login;
 
   if (phone) {

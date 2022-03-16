@@ -22,10 +22,13 @@
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/ui';
-import { useAppOptionsStore } from '@/stores/appOptions';
-import { EStorageKeys } from '@/types/base-component';
 import { useRouter } from 'vue-router';
+import { useAppOptionsStore } from '@/stores/appOptions';
+
+import { TopNavigation, BaseButton } from '@/components/ui';
+
+import { EStorageKeys } from '@/types/storage';
+
 const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
