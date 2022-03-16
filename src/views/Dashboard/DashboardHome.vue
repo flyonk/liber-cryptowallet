@@ -453,6 +453,16 @@ const hasTransactions = computed(() => transactions.value.length > 0);
 
   // TODO: extract to component
   > .transactions-container {
+    > .header {
+      > .button {
+        font-weight: 550;
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: -0.0008em;
+        color: $color-primary;
+      }
+    }
+
     > .carousel {
       display: flex;
       margin-bottom: 20px;
