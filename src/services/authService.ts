@@ -3,6 +3,7 @@ import apiService from '@/services/apiService';
 
 import SignInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
+import DevicesMapper, { IUserDevice } from '@/models/auth/devices';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
@@ -24,5 +25,11 @@ export default {
   async refresh(data: { refresh_token: string }): Promise<ISuccessSignIn> {
     const res = await axios.post(apiService.auth.refresh(), data);
     return SignInMapper.deserialize(res.data);
+  },
+
+  async devices(): Promise<IUserDevice[]> {
+    const res = await axios.get(apiService.auth.devices());
+
+    return DevicesMapper.deserialize(res.data);
   },
 };
