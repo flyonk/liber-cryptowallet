@@ -134,7 +134,6 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-// import BaseButton from '@/components/UI/BaseButton.vue'
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 

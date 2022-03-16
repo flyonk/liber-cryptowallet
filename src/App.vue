@@ -18,7 +18,7 @@
 
 <script setup lang="ts">
 import PToast from 'primevue/toast';
-import AppLayoutSwitcher from './components/Common/AppLayoutSwitcher.vue';
+import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 import { useAccountStore } from './stores/account';
 
 const store = useAccountStore();

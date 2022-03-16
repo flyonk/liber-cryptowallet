@@ -38,7 +38,7 @@
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseButton } from '@/components/ui';
 import { onMounted, ref } from 'vue';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from 'primevue/usetoast';

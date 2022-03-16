@@ -25,7 +25,7 @@
 import { useRouter } from 'vue-router';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { TopNavigation, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseButton } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 

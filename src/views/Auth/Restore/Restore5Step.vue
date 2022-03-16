@@ -26,7 +26,7 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { TopNavigation, BaseInput, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseInput, BaseButton } from '@/components/ui';
 
 defineEmits(['next', 'prev']);
 

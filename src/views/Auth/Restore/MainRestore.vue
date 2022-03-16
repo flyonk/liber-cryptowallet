@@ -3,7 +3,7 @@
 </template>
 
 <script lang="ts" setup>
-import AuthPageSwitcher from '@/components/Auth/AuthPageSwitcher.vue';
+import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
 import {
   Restore1Step,
   Restore2Step,

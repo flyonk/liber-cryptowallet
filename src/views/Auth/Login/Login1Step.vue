@@ -48,7 +48,7 @@ import {
   BaseCountryPhoneInput,
   BaseInput,
   BaseButton,
-} from '@/components/UI';
+} from '@/components/ui';
 
 import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';

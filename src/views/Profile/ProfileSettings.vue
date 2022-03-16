@@ -114,7 +114,7 @@ import InputSwitch from 'primevue/inputswitch';
 
 import { useProfileStore } from '@/stores/profile';
 
-import CloseAccount from '@/components/UI/CloseAccount.vue';
+import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 
 const profileStore = useProfileStore();
 const accountName = 'Abraham Watson';

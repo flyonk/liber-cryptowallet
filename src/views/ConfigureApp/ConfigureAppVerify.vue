@@ -32,7 +32,7 @@ import {
   BaseButton,
   BaseVerificationCodeInput,
   BaseToast,
-} from '@/components/UI';
+} from '@/components/ui';
 import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification';

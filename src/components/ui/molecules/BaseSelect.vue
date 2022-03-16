@@ -1,8 +1,4 @@
 <template>
-  <!-- <div class="p-float-label">
-    <input type="text">
-    <label />
-  </div> -->
   <span class="p-float-label">
     <base-input @click.self="$emit('click')">
       <template #label>
@@ -13,7 +9,7 @@
 </template>
 
 <script lang="ts" setup>
-import { BaseInput } from '.';
+import { BaseInput } from '../index';
 
 defineEmits(['click']);
 </script>
