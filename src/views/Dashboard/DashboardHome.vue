@@ -100,7 +100,7 @@
             {{ $t('views.dashboard.home.seeAll') }}
           </p>
         </div>
-        <div class="transactions flex items-center mb-5">
+        <!-- <div class="transactions flex items-center mb-5">
           <ul v-if="hasTransactions" class="list">
             <li
               v-for="(transaction, index) in transactions"
@@ -141,7 +141,8 @@
               {{ $t('views.dashboard.home.noTransactions') }}
             </p>
           </template>
-        </div>
+        </div> -->
+        <transaction-list />
         <h4 class="heading-gray-md mb-3">
           {{ $t('views.dashboard.home.todo') }}
         </h4>
@@ -173,7 +174,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
@@ -181,76 +182,7 @@ import useSafeAreaPaddings from '@/helpers/safeArea';
 
 import BottomSwipeMenu from '@/components/UI/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/UI/DashboardSkeleton.vue';
-import transactionService from '@/services/transactionService';
-import {
-  ERequestFundsStatus,
-  ETransactionStatus,
-  ETransactionType,
-  TTransaction,
-} from '@/models/transaction/transaction';
-
-let transactions: any = ref([]);
-
-onMounted(async () => {
-  transactions.value = await transactionService.getUserTransaction();
-
-  transactions.value = transactions.value.map(_getTransactionDataByType);
-});
-
-type TTypedTransaction = {
-  info: string;
-  contractor: string;
-  sum: string;
-  status: ETransactionStatus | ERequestFundsStatus;
-  img: string;
-};
-
-const _getTransactionDataByType = (
-  transaction: TTransaction
-): TTypedTransaction => {
-  if (transaction.type === ETransactionType.Deposit)
-    return {
-      info: `${tm('transactions.operations.deposit')} ${transaction.code}`,
-      contractor: `From Bitcoin address`, //TODO: resolve it
-      sum: `+ ${transaction.amount} ${transaction.code}`,
-      status: transaction.status,
-      img: require('@/assets/icon/transactions/deposit.svg'),
-    };
-
-  if (transaction.type === ETransactionType.Received)
-    return {
-      info: `${tm('transactions.operations.received')} ${transaction.code}`,
-      contractor: `From ${
-        transaction.contractor.email
-          ? transaction.contractor.email
-          : transaction.contractor.phone
-      }`, //TODO: fix it only by email
-      sum: `+ ${transaction.amount} ${transaction.code}`,
-      status: transaction.status,
-      img: require('@/assets/icon/transactions/received.svg'),
-    };
-
-  if (transaction.type === ETransactionType.Send)
-    return {
-      info: `${tm('transactions.operations.sent')} ${transaction.code}`,
-      contractor: `To ${
-        transaction.contractor.email
-          ? transaction.contractor.email
-          : transaction.contractor.phone
-      }`, //TODO: fix it only by email
-      sum: `- ${transaction.amount} ${transaction.code}`,
-      status: transaction.status,
-      img: require('@/assets/icon/transactions/sent.svg'),
-    };
-
-  return {
-    info: '',
-    contractor: '',
-    sum: '',
-    status: ETransactionStatus.Pending,
-    img: '',
-  };
-};
+import TransactionList from '@/components/UI/organisms/TransactionList.vue';
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
@@ -312,8 +244,6 @@ const carousel = [
     text: 'black',
   },
 ];
-
-const hasTransactions = computed(() => transactions.value.length > 0);
 </script>
 
 <style lang="scss" scoped>
@@ -453,8 +383,12 @@ const hasTransactions = computed(() => transactions.value.length > 0);
     }
   }
 
-  // TODO: extract to component
   > .transactions-container {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 10px;
+    width: 100%;
+
     > .header {
       > .button {
         font-weight: 550;
@@ -464,198 +398,7 @@ const hasTransactions = computed(() => transactions.value.length > 0);
         color: $color-primary;
       }
     }
-
-    > .carousel {
-      display: flex;
-      margin-bottom: 20px;
-      position: relative;
-      left: -37px;
-      width: 113%;
-    }
-
-    max-height: 360px;
-    overflow-y: auto;
-    padding-right: 10px;
-    width: 100%;
-
-    > .transactions {
-      > .list {
-        width: 100%;
-
-        > .item {
-          display: flex;
-          width: 100%;
-          margin-bottom: 24px;
-
-          > .image {
-            position: relative;
-
-            > .icon {
-              margin-right: 12px;
-              width: 40px;
-              height: 40px;
-            }
-
-            > .badge {
-              position: absolute;
-              right: 13px;
-              bottom: 3px;
-              // border-radius: 50%;
-              width: 10px;
-              height: 10px;
-              display: flex;
-            }
-          }
-
-          > .info {
-            width: 100%;
-
-            > .flex {
-              width: 100%;
-              justify-content: space-between;
-
-              > .title {
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 21px;
-                letter-spacing: -0.0031em;
-              }
-
-              > .subtitle {
-                font-size: 13px;
-                line-height: 18px;
-                letter-spacing: -0.0008em;
-                color: $color-dark-grey;
-              }
-
-              > .pending {
-                color: $color-yellow-600;
-                font-style: normal;
-                font-size: 13px;
-                line-height: 18px;
-                text-align: right;
-                letter-spacing: -0.0008em;
-              }
-
-              > .sum {
-                font-weight: 500;
-                font-size: 16px;
-                line-height: 21px;
-                letter-spacing: -0.0031em;
-
-                &.-received {
-                  color: $color-green-600;
-                }
-              }
-            }
-          }
-        }
-      }
-    }
   }
-
-  /**
-  I consider it a legacy, but I will keep it
-  */
-  // &__header {
-  //   margin-bottom: 16px;
-  // }
-
-  // &__tabs {
-  //   display: flex;
-
-  //   &--item {
-  //     color: $color-brand-primary;
-  //     border-radius: 8px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //     width: 101px;
-  //     height: 40px;
-
-  //     &.active {
-  //       background: $color-brand-secondary;
-  //       color: $color-white;
-  //     }
-  //   }
-  // }
-
-  // &__currencies {
-  //   margin-top: 30px;
-
-  //   &--wrap {
-  //     margin: 0 6px 5px 0;
-  //   }
-
-  //   &--down {
-  //     width: 24px;
-  //     height: 24px;
-  //     background: $color-light-grey;
-  //     border-radius: 100px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //   }
-  // }
-
-  // &__controls {
-  //   display: flex;
-  //   margin-bottom: 32px;
-
-  //   &--btn {
-  //     background: $color-grey;
-  //     border-radius: 8px;
-  //     padding: 0 16px 0 12px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //     width: 109px;
-  //     height: 40px;
-  //     margin-right: 8px;
-  //     color: $color-white;
-
-  //     &:last-child {
-  //       width: 40px;
-  //       height: 40px;
-  //       margin: 0;
-  //     }
-  //   }
-  // }
-
-  // &__carousel {
-  //   display: flex;
-  //   margin-bottom: 20px;
-
-  //   &--item {
-  //     width: 160px;
-  //     padding: 16px;
-  //     height: 160px;
-  //     border-radius: 16px;
-  //     margin-right: 8px;
-  //     background: $color-light-grey;
-
-  //     img {
-  //       margin-bottom: 20px;
-  //     }
-
-  //     h4 {
-  //       color: $color-primary;
-  //       font-weight: 800;
-  //       font-size: 10px;
-  //       line-height: 13px;
-  //       margin-bottom: 5px;
-  //     }
-
-  //     &:nth-child(3) {
-  //       background: $color-green-50;
-  //     }
-
-  //     &:last-child {
-  //       margin-right: 0;
-  //       background: $color-yellow-50;
-  //     }
-  //   }
-  // }
 }
 
 .carousel-item {
