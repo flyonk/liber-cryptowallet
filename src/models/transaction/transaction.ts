@@ -36,18 +36,19 @@ export enum ETransactionType {
   Deposit = 'Deposit',
   Received = 'Received',
   Send = 'Send',
+  Transfer = 'Transfer',
 }
 
 export enum ETransactionStatus {
   Pending = 'Pending',
-  Completed = 'Completed',
+  Finished = 'Finished',
   Failed = 'Failed',
 }
 
 export enum ERequestFundsType {
-  PaymentLink,
-  Send,
-  Request,
+  PaymentLink = 'PaymentLink',
+  Send = 'Send',
+  Request = 'Request',
 }
 
 export enum ERequestFundsStatus {
