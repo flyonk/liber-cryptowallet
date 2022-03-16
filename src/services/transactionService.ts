@@ -24,18 +24,33 @@ export default {
         code: 'BTC',
         contractor: {
           phone: '+71234567890',
+          email: 'test@example.com',
         },
       },
       {
         id: 'string',
         txid: 'string',
         amount: '1000',
-        timestamp: 'string',
-        status: ETransactionStatus.Pending,
+        timestamp: '1647339981', //15.03.22
+        status: ETransactionStatus.Completed,
         type: ETransactionType.Send,
         code: 'BTC',
         contractor: {
-          phone: 'test',
+          phone: '+71234567890',
+          email: 'test@example.com',
+        },
+      },
+      {
+        id: 'string',
+        txid: 'string',
+        amount: '1000',
+        timestamp: '1647339981', //15.03.22
+        status: ETransactionStatus.Completed,
+        type: ETransactionType.Received,
+        code: 'ETH',
+        contractor: {
+          phone: '+71234567890',
+          email: 'test@example.com',
         },
       },
     ]);
