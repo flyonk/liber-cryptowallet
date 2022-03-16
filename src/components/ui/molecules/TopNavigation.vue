@@ -4,9 +4,6 @@
       <i class="icon-header" :class="leftIconName" />
     </button>
     <h1 class="page-title">
-      <!-- <slot name="top-right" />
-    </div>
-    <div class="sign-up--title-wrapper text--title-1 font-weight--extra-bold"> -->
       <slot />
     </h1>
   </header>

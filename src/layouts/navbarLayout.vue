@@ -8,7 +8,7 @@
 </template>
 
 <script setup lang="ts">
-import BottomNav from '@/components/UI/BottomNav.vue';
+import BottomNav from '@/components/ui/organisms/BottomNav.vue';
 import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 const route = useRouter();

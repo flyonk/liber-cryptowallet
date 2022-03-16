@@ -26,8 +26,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BaseButton from '@/components/UI/BaseButton.vue';
-import BaseInput from '@/components/UI/BaseInput.vue';
+import { BaseButton, BaseInput } from '@/components/ui';
 
 const Subject = ref('I’ve got little surprise for you 🎁');
 

@@ -10,32 +10,13 @@
     </div>
 
     <div class="controls">
-      <div class="number-button text--large-title" @click="setNumber('1')">
-        1
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('2')">
-        2
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('3')">
-        3
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('4')">
-        4
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('5')">
-        5
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('6')">
-        6
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('7')">
-        7
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('8')">
-        8
-      </div>
-      <div class="number-button text--large-title" @click="setNumber('9')">
-        9
+      <div
+        v-for="item in 9"
+        :key="item"
+        class="number-button text--large-title"
+        @click="setNumber(item.toString())"
+      >
+        {{ item }}
       </div>
       <div class="number-button" @click="showTouchId">
         <template v-if="props.showTouchFaceid">

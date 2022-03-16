@@ -37,7 +37,7 @@
 <script setup lang="ts">
 import { reactive } from 'vue';
 
-import { TopNavigation, BaseInput, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseInput, BaseButton } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 

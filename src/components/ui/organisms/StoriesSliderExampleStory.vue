@@ -1,34 +1,62 @@
 <template>
   <section class="example-story">
     <header class="header">
-      <h1 class="title">Welcome to</h1>
+      <h1 class="title">{{ props.headerTitle }}</h1>
       <img
         class="logo"
-        src="@/assets/images/full-logo-white.png"
         alt="logo"
         width="90"
         height="32"
+        :src="props.logoImg"
       />
     </header>
     <main class="main">
-      <h1 class="title">Transfer money around the world with the best fee</h1>
+      <h1 class="title">{{ props.baseTitle }}</h1>
       <div class="imagecontainer">
-        <img
-          class="image"
-          src="@/assets/images/example-story-money-image.png"
-          width="330"
-          height="330"
-        />
+        <img class="image" width="330" height="330" :src="props.baseImg" />
       </div>
     </main>
     <footer class="footer">
-      <button class="login" @click="$router.push('/login')">Log in</button>
-      <button class="signup" @click="$router.push('/sign-up')">Sign up</button>
+      <button class="login" @click="$emit('login')">
+        {{ props.loginTitle }}
+      </button>
+      <button class="signup" @click="$emit('signup')">
+        {{ props.signUpTitle }}
+      </button>
     </footer>
   </section>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+defineEmits(['login', 'signup']);
+
+const props = defineProps({
+  headerTitle: {
+    type: String,
+    default: '',
+  },
+  baseTitle: {
+    type: String,
+    default: '',
+  },
+  loginTitle: {
+    type: String,
+    default: '',
+  },
+  signUpTitle: {
+    type: String,
+    default: '',
+  },
+  logoImg: {
+    type: String,
+    required: true,
+  },
+  baseImg: {
+    type: String,
+    required: true,
+  },
+});
+</script>
 
 <style lang="scss" scoped>
 .example-story {

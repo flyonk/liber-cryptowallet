@@ -29,7 +29,7 @@ import {
   BaseProgressCircular,
   TopNavigation,
   BaseButton,
-} from '@/components/UI';
+} from '@/components/ui';
 
 const percent = ref(50);
 </script>

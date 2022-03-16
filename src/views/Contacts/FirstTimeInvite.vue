@@ -60,8 +60,9 @@
 </template>
 
 <script setup lang="ts">
-import BaseButton from '@/components/UI/BaseButton.vue';
 import { ref } from 'vue';
+
+import { BaseButton } from '@/components/ui';
 
 const isAllowAccessToContacts = ref(false);
 </script>
