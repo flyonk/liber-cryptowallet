@@ -164,11 +164,12 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
+import { useAccountStore } from '@/stores/account';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
@@ -182,7 +183,20 @@ let isMenuOpen = ref(false);
 // TODO: check if there is a data in store
 let loading = ref(true);
 
+const accountStore = useAccountStore();
+const accounts = computed(() => accountStore.getAccounts);
+const totalBalance = computed(() => accountStore.getTotalBalance);
+console.log(accounts, totalBalance);
+
 const { tm } = useI18n();
+
+/**
+ * Lifecycle
+ */
+onMounted(() => {
+  accountStore.getAccountList();
+  accountStore.getAccountBalance();
+});
 
 setTimeout(() => {
   loading.value = false;
