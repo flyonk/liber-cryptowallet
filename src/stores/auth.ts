@@ -107,5 +107,9 @@ export const useAuthStore = defineStore('auth', {
         this.token = { ...this.token, token, refreshToken };
       }
     },
+
+    async getDevices() {
+      return await authService.devices();
+    },
   },
 });

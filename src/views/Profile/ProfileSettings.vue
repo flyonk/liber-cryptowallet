@@ -111,7 +111,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import InputSwitch from 'primevue/inputswitch';
-import CloseAccount from '@/components/UI/CloseAccount.vue';
+import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import { Storage } from '@capacitor/storage';
 import { useRouter } from 'vue-router';
 import authService from '@/services/authService';

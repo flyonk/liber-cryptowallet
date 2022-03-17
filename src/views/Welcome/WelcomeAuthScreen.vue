@@ -8,20 +8,29 @@
         @after-change="handleAutoplayChange"
         @change-by-user="handleChangeByUser"
       >
-        <stories-slider-example-story />
-        <stories-slider-example-story />
-        <stories-slider-example-story />
-        <stories-slider-example-story />
+        <stories-slider-example-story
+          v-for="item in 4"
+          :key="item"
+          :base-img="require('@/assets/images/example-story-money-image.png')"
+          :logo-img="require('@/assets/images/full-logo-white.png')"
+          :header-title="$t('auth.signup.welcomeAuth.title')"
+          :base-title="$t('auth.signup.welcomeAuth.transfer')"
+          :login-title="$t('auth.signup.welcomeAuth.login')"
+          :sign-up-title="$t('auth.signup.welcomeAuth.signUp')"
+          @login="$router.push({ name: Route.Login })"
+          @signup="$router.push({ name: Route.SignUp })"
+        />
       </stories-slider>
     </div>
   </section>
 </template>
 
 <script setup lang="ts">
-import StoriesSlider from '@/components/UI/StoriesSlider.vue';
-import StoriesSliderExampleStory from '@/components/UI/StoriesSliderExampleStory.vue';
+import StoriesSlider from '@/components/ui/molecules/StoriesSlider.vue';
+import StoriesSliderExampleStory from '@/components/ui/organisms/StoriesSliderExampleStory.vue';
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { ISlider } from '@/types/ISlider';
+import { Route } from '@/router/types';
 
 const { stylePaddings } = useSafeAreaPaddings();
 
