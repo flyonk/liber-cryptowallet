@@ -23,10 +23,7 @@
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue';
-
-import BaseInput from '@/components/UI/BaseInput.vue';
-import BaseButton from '@/components/UI/BaseButton.vue';
+import { BaseInput, BaseButton } from '@/components/ui';
 </script>
 
 <style lang="scss" scoped>

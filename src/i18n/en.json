@@ -35,6 +35,7 @@
   },
   "bottomNav": {
     "home": "Home",
+    "account": "Account",
     "send": "Send",
     "recipients": "Recipients",
     "invite": "Invite"
@@ -83,7 +84,13 @@
       "step4Description1": "As started on your official ID. We need",
       "step4Description2": "your name to verify your identity.",
       "step5Title": "Date of birth",
-      "ddmmyyyy": "dd.mm.yyyy"
+      "ddmmyyyy": "dd.mm.yyyy",
+      "welcomeAuth": {
+        "title": "Welcome to",
+        "transfer": "Transfer money around the world with the best fee",
+        "login": "Log in",
+        "signUp": "Sign up"
+      }
     }
   },
   "configureApp": {
@@ -333,7 +340,10 @@
         "close": "Close account",
         "logOut": "Log out",
         "version": "Version",
-        "copyright": "Liber Ltd"
+        "copyright": "Liber Ltd",
+        "preventClosingAccount": "Hey, wait! Where are you going?",
+        "freeToKeep": "It's free to keep a account, and opening a new one could take some time if you cancel",
+        "keepOpen": "Keep account open"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",

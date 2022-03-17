@@ -33,7 +33,7 @@ import { computed } from 'vue';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
 
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 

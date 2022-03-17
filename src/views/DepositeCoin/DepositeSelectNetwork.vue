@@ -44,8 +44,9 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
 import { useI18n } from 'vue-i18n';
+
+import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 
 const { tm } = useI18n();
 

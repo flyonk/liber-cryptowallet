@@ -46,17 +46,18 @@
 </template>
 
 <script lang="ts" setup>
+import { useAuthStore } from '@/stores/auth';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
 import {
   TopNavigation,
   BaseCountryPhoneInput,
   BaseInput,
   BaseButton,
-} from '@/components/UI';
+} from '@/components/ui';
 
-import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const router = useRouter();
 

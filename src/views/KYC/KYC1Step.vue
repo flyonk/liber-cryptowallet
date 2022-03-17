@@ -28,9 +28,12 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { BaseButton, BaseCountrySelect, TopNavigation } from '@/components/UI';
+
 import { useKYCStore } from '@/stores/kyc';
 import { useRouter } from 'vue-router';
+
+import { TopNavigation, BaseButton } from '@/components/ui';
+import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
 
 const router = useRouter();
 

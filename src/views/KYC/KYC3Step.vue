@@ -19,7 +19,7 @@ import {
   TopNavigation,
   BaseProgressBar,
   BaseRadioSelect,
-} from '@/components/UI';
+} from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 
 const emit = defineEmits(['next']);

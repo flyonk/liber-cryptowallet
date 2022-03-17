@@ -27,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseButton } from '@/components/ui';
 
 defineEmits(['next', 'prev']);
 </script>

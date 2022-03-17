@@ -61,11 +61,10 @@
 </template>
 
 <script setup lang="ts">
-import ChangeCurrency from '@/components/Transactions/ChangeCurrency.vue';
-import { BaseToast } from '@/components/UI';
-import BaseButton from '@/components/UI/BaseButton.vue';
-// import BaseInput from '@/components/UI/BaseInput.vue'
 import { ref } from 'vue';
+
+import ChangeCurrency from '@/components/transactions/ChangeCurrency.vue';
+import { BaseToast, BaseButton } from '@/components/ui';
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');

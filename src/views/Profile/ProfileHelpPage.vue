@@ -44,8 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import BaseInput from '@/components/UI/BaseInput.vue';
 import { ref } from 'vue';
+
+import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
+
 const value = ref('');
 </script>
 

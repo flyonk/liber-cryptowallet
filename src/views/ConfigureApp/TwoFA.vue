@@ -22,7 +22,7 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { BaseButton, TopNavigation } from '@/components/UI';
+import { BaseButton, TopNavigation } from '@/components/ui';
 
 const router = useRouter();
 

@@ -13,11 +13,11 @@
 <script setup lang="ts">
 import { ref, toRefs, computed, onUpdated } from 'vue';
 
-import CommunicationMenu from '@/components/UI/BottomSwipeMenu/InnerViews/CommunicationMenu.vue';
-import DashboardHomeMenu from '@/components/UI/BottomSwipeMenu/InnerViews/DashboardHomeMenu.vue';
-import SurpriseGiftMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SurpriseGiftMenu.vue';
-import SendMenu from '@/components/UI/BottomSwipeMenu/InnerViews/SendMenu.vue';
-import AddContactMenu from '@/components/UI/BottomSwipeMenu/InnerViews/AddContactMenu.vue';
+import CommunicationMenu from '@/components/ui/bottom-swipe-menu/inner-views/CommunicationMenu.vue';
+import DashboardHomeMenu from '@/components/ui/bottom-swipe-menu/inner-views/DashboardHomeMenu.vue';
+import SurpriseGiftMenu from '@/components/ui/bottom-swipe-menu/inner-views/SurpriseGiftMenu.vue';
+import SendMenu from '@/components/ui/bottom-swipe-menu/inner-views/SendMenu.vue';
+import AddContactMenu from '@/components/ui/bottom-swipe-menu/inner-views/AddContactMenu.vue';
 
 const menu = ref();
 

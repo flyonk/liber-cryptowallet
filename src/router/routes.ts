@@ -7,12 +7,13 @@ import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
+import { Route } from '@/router/types';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/',
-    name: 'welcome-logo-screen',
+    name: Route.WelcomeLogoScreen,
     component: () =>
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeLogoScreen.vue'
@@ -20,7 +21,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/welcome-auth',
-    name: 'welcome-auth-screen',
+    name: Route.WelcomeAuthScreen,
     component: () =>
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Welcome/WelcomeAuthScreen.vue'
@@ -28,27 +29,27 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/code',
-    name: 'auth-code',
+    name: Route.AuthCode,
     component: CodeEnter,
     meta: { layout: 'default' },
   },
 
   {
     path: '/passcode',
-    name: 'auth-passcode',
+    name: Route.AuthPasscode,
     component: () => import('@/views/ConfigureApp/PasscodeEnter.vue'),
   },
 
   {
     path: '/sign-up',
-    name: 'sign-up',
+    name: Route.SignUp,
     component: SignUp,
     meta: { layout: 'default' },
   },
 
   {
     path: '/login',
-    name: 'login',
+    name: Route.Login,
     component: Login,
     meta: {
       classLayout: '-full-height',
@@ -57,7 +58,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/restore',
-    name: 'restore',
+    name: Route.Restore,
     component: Restore,
     meta: {
       layout: 'default',
@@ -72,14 +73,14 @@ const routes: Array<RouteRecordRaw> = [
   // TODO: Refactor to make it more flat without nesting
   {
     path: '/home',
-    name: 'dashboard-parent',
+    name: Route.DashboardParent,
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/views/Dashboard/index.vue'),
     meta: { layout: 'navbar' },
     children: [
       {
         path: '',
-        name: 'dashboard-home',
+        name: Route.DashboardHome,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardHome.vue'
@@ -87,7 +88,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'verification',
-        name: 'dashboard-verification',
+        name: Route.DashboardVerification,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerification.vue'
@@ -95,7 +96,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'story',
-        name: 'dashboard-story',
+        name: Route.DashboardStory,
         meta: { layout: 'default' },
         component: () =>
           import(
@@ -104,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'verifying-identity',
-        name: 'dashboard-verifying-story',
+        name: Route.DashboardVerifyingStory,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardVerifyingIdentityStory.vue'
@@ -112,7 +113,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'transfer-funds-to-treasury',
-        name: 'dashboard-transfer-funds-to-treasury-story',
+        name: Route.DashboardTransferFundsToTreasuryStory,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/DashboardTransferFundsToTreasuryStory.vue'
@@ -125,7 +126,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/account',
-    name: 'account',
+    name: Route.Account,
     component: () =>
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/index.vue'
@@ -134,7 +135,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        name: 'account-main',
+        name: Route.AccountMain,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AllAccounts.vue'
@@ -142,7 +143,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'add',
-        name: 'account-add',
+        name: Route.AccountAdd,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Account/AddAccount.vue'
@@ -155,7 +156,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/transactions',
-    name: 'transactions',
+    name: Route.Transactions,
     component: () =>
       import(
         /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/index.vue'
@@ -164,7 +165,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        name: 'transactions-main',
+        name: Route.TransactionsMain,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
@@ -172,7 +173,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'details',
-        name: 'transactions-details',
+        name: Route.TransactionsDetails,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/TransactionDetails.vue'
@@ -244,13 +245,13 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/profile',
-    name: 'profile-main-view',
+    name: Route.ProfileMainView,
     component: () =>
       import(/* webpackChunkName: "dashboard" */ '@/views/Profile/index.vue'),
     children: [
       {
         path: '',
-        name: 'profile-settings',
+        name: Route.ProfileSettings,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileSettings.vue'
@@ -258,7 +259,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'my-qr-code',
-        name: 'profile-my-qr-code',
+        name: Route.ProfileMyQrCode,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileMyQrCode.vue'
@@ -266,7 +267,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'devices',
-        name: 'profile-devices',
+        name: Route.ProfileDevices,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDevices.vue'
@@ -274,7 +275,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'help',
-        name: 'profile-help',
+        name: Route.ProfileHelp,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileHelpPage.vue'
@@ -282,7 +283,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'details/:id',
-        name: 'profile-edit',
+        name: Route.ProfileEdit,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Profile/ProfileDetails.vue'
@@ -290,7 +291,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'privacy',
-        name: 'profile-privacy',
+        name: Route.ProfilePrivacy,
         component: () =>
           import(
             /* webpackChunkName: "dashboard" */ '@/views/Profile/PrivacySettings.vue'
@@ -303,7 +304,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/kyc',
-    name: 'kyc-main',
+    name: Route.KYCMain,
     component: () =>
       import(/* webpackChunkName: "kyc-main" */ '@/views/KYC/KYCMain.vue'),
   },
@@ -312,7 +313,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/survey',
-    name: 'survey',
+    name: Route.Survey,
     component: () =>
       import(/* webpackChunkName: "kyc" */ '@/views/Survey/SurveyScreen.vue'),
   },
@@ -320,7 +321,7 @@ const routes: Array<RouteRecordRaw> = [
   // === Configure 2fa ===
   {
     path: '/2fa',
-    name: '2fa-app',
+    name: Route.TwoFAApp,
     component: () => import('@/views/ConfigureApp/TwoFA.vue'),
     meta: {
       classLayout: '-full-height',
@@ -328,7 +329,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/install',
-    name: 'install-app',
+    name: Route.InstallApp,
     component: () => import('@/views/ConfigureApp/InstallApp.vue'),
     meta: {
       classLayout: '-full-height',
@@ -336,7 +337,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/config',
-    name: 'configure-app',
+    name: Route.ConfigureApp,
     component: () => import('@/views/ConfigureApp/ConfigureApp.vue'),
     meta: {
       classLayout: '-full-height',
@@ -344,7 +345,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/config-verify',
-    name: 'configure-app-verify',
+    name: Route.ConfigureAppVerify,
     component: () => import('@/views/ConfigureApp/ConfigureAppVerify.vue'),
     meta: {
       classLayout: '-full-height',
@@ -355,7 +356,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/faceid',
-    name: 'face-id',
+    name: Route.FaceId,
     component: () => import('@/views/ConfigureApp/Options/FaceId.vue'),
     meta: {
       classLayout: '-full-height',
@@ -363,7 +364,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/touchid',
-    name: 'touch-id',
+    name: Route.TouchId,
     component: () => import('@/views/ConfigureApp/Options/TouchId.vue'),
     meta: {
       classLayout: '-full-height',
@@ -371,7 +372,7 @@ const routes: Array<RouteRecordRaw> = [
   },
   {
     path: '/push-notifications',
-    name: 'push-notifications',
+    name: Route.PushNotifications,
     component: () =>
       import('@/views/ConfigureApp/Options/PushNotifications.vue'),
     meta: {
@@ -383,7 +384,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/deposit',
-    name: 'deposit',
+    name: Route.Deposit,
     component: () => import('@/views/DepositeCoin/DepositeIndex.vue'),
     children: DepositeRoutes,
   },

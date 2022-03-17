@@ -20,15 +20,18 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue';
-
+import { PropType } from 'vue-demi';
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
 import PInputMask from 'primevue/inputmask';
 
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+
 const props = defineProps({
   type: {
-    type: String,
-    default: 'text',
+    type: String as PropType<TypeBaseInput>,
+    default: TypeBaseInput.Text,
+    validator: (value) => Object.values(TypeBaseInput).includes(value),
   },
 });
 
