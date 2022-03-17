@@ -1,14 +1,11 @@
 <template>
   <div class="kyc-main">
-    <keep-alive>
-      <component :is="currentComponent" @next="onNext" @prev="onPrev" />
-    </keep-alive>
+    <AuthPageSwitcher :components="components" scope="kyc" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { useKYCStore } from '@/stores/kyc';
-import { computed, watch } from 'vue';
+import { computed } from 'vue';
 
 import {
   KYC1Step,
@@ -19,17 +16,9 @@ import {
   KYC6Step,
   KYC7Step,
 } from '.';
+import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
 
-import { useRoute, useRouter } from 'vue-router';
-
-import { EStepDirection } from '@/types/base-component';
-
-const kycStore = useKYCStore();
-
-const route = useRoute();
-const router = useRouter();
-
-const KYCComponents = [
+const components = computed(() => [
   KYC1Step,
   KYC2Step,
   KYC3Step,
@@ -37,56 +26,7 @@ const KYCComponents = [
   KYC5Step,
   KYC6Step,
   KYC7Step,
-];
-
-watch(
-  () => route.query.step,
-  async (step) => {
-    if (step) {
-      kycStore.setStep(+step);
-      return;
-    }
-
-    kycStore.setStep(0);
-  }
-);
-
-const currentComponent = computed(() => {
-  return KYCComponents[kycStore.getStep.personal];
-});
-
-const onNext = () => {
-  kycStore.setStep(EStepDirection.next);
-
-  router.push({
-    path: router.currentRoute.value.path,
-    query: {
-      step: kycStore.getStep.personal,
-    },
-  });
-};
-
-const onPrev = () => {
-  kycStore.setStep(EStepDirection.prev);
-
-  if (kycStore.getStep.personal) {
-    router.push({
-      path: router.currentRoute.value.path,
-      query: {
-        step: kycStore.getStep.personal,
-      },
-    });
-  } else {
-    router.push({
-      path: router.currentRoute.value.path,
-    });
-  }
-};
-
-kycStore.setStep(0);
-router.replace({
-  path: router.currentRoute.value.path,
-});
+]);
 </script>
 
 <style lang="scss">

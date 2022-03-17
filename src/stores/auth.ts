@@ -11,6 +11,7 @@ export interface IAuthSteps {
   registration: number;
   login: number;
   recover: number;
+  kyc: number;
 }
 
 export interface ICommonPhoneNumber {
@@ -40,6 +41,7 @@ export const useAuthStore = defineStore('auth', {
       registration: 0,
       login: 0,
       recover: 0,
+      kyc: 0,
     },
     registration: {
       dialCode: '+7',
