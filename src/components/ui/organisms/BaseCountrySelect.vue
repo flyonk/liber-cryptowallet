@@ -70,7 +70,7 @@ function closeSelect(): void {
 }
 </script>
 
-<style lang="scss" scopedyarn>
+<style lang="scss" scoped>
 .base-country-input {
   border-radius: 12px;
   width: 100%;

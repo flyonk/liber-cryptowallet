@@ -1,4 +1,4 @@
-import { BASE_API_URL, API_VERSION } from '@/constants';
+import { API_VERSION, BASE_API_URL } from '@/constants';
 
 export default {
   auth: {
@@ -14,22 +14,25 @@ export default {
     logout(): string {
       return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/logout`;
     },
+    devices(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/devices`;
+    },
   },
   profile: {
     baseUrl(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile`;
     },
     avatar(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/avatar`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/avatar`;
     },
     close(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/close`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/close`;
     },
     kycClaim(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/kyc/claim`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/kyc/claim`;
     },
     kycHook(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/kyc/claim/hook`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/kyc/claim/hook`;
     },
   },
   authenticators: {

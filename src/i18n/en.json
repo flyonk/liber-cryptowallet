@@ -426,7 +426,8 @@
         "shareAddress": "Share Address",
         "copySuccess": "Wallet Address Copied!",
         "copyFailure": "Async: Could not copy text:",
-        "updateCoinNetwork": "update coin network"
+        "updateCoinNetwork": "update coin network",
+        "deviceIsNotSupportedToShare": "Device is not support native share"
       }
     }
   },

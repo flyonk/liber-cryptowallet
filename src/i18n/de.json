@@ -106,7 +106,10 @@
     "createPassCode": "Enhance the security of your account by creating a passcode",
     "invalidPassCode": "Your passcode doesn't match. Please, try again!",
     "twoFATitle": "Setup Two Factor Authentication",
-    "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure."
+    "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure.",
+    "copySuccess": "Copying to clipboard was successful!",
+    "copyFailure": "Async: Could not copy text:",
+    "readFailure": "Async: Could not read text:"
   },
   "status": {
     "title": "Status",
@@ -326,6 +329,7 @@
         "devices": "Devices",
         "signIn": "Sign in with Touch ID",
         "label": "Label",
+        "system": "System",
         "close": "Close account",
         "logOut": "Log out",
         "version": "Version",
@@ -372,6 +376,48 @@
         "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      }
+    },
+    "survey": {
+      "question": "Main reason for using Liber",
+      "spendOrSave": "Spend or save daily",
+      "spendWhileTravelling": "Spend while travelling",
+      "sendMoney": "Send money",
+      "gainExposure": "Gain exposure to financial assets"
+    },
+    "deposit": {
+      "selectCoin": {
+        "selectCoin": "Select a coin",
+        "searchCoin": "Search a coin",
+        "suggested": "Suggested",
+        "allCoins": "All Coins"
+      },
+      "selectNetwork": {
+        "question": "Main reason for using Liber",
+        "spendOrSave": "BNB Smart Chain (BEP20)",
+        "spendWhileTravelling": "BNB Beacon Chain (BEP2)",
+        "sendMoney": "Bitcoin",
+        "gainExposure": "Ethereum (ERC20)",
+        "ensure": "Ensure the network you choose to deposit metches the withdrawal network, or assets may be lost",
+        "chooseNetwork": "Choose Network"
+      },
+      "wallet": {
+        "deposit": "Deposit",
+        "sendOnly": "Send only",
+        "address": "to this deposit address",
+        "network": "Network",
+        "walletAddress": "Wallet Address",
+        "minimumDeposit": "Minimum deposit",
+        "arrival": "Expected arrival",
+        "networkConfirmation": "network confirmation",
+        "expectedUnlock": "Expected unlock",
+        "networkConfirmations": "network confirmations",
+        "saveImage": "Save Image",
+        "shareAddress": "Share Address",
+        "copySuccess": "Wallet Address Copied!",
+        "copyFailure": "Async: Could not copy text:",
+        "updateCoinNetwork": "update coin network",
+        "deviceIsNotSupportedToShare": "Device is not support native share"
       }
     }
   },
