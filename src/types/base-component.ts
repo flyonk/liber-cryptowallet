@@ -25,15 +25,6 @@ export enum EPasscodeActions {
   clear = 'clear',
 }
 
-export enum EStorageKeys {
-  passcode = 'liber-app-passcode',
-  twofa = 'liber-app-2fa',
-  notifications = 'liber-app-push-notifications',
-  faceid = 'liber-app-face-id',
-  touchid = 'liber-app-touch-id',
-  language = 'liber-app-language',
-}
-
 export interface IValueItem {
   text: string;
   value: string | number;

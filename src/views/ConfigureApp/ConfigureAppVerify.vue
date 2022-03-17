@@ -1,5 +1,7 @@
 <template>
+  <!--TODO: move this component to atomic design templates (used in login flow and configure-app flow) -->
   <div class="page-wrapper">
+    <!--TODO: move to molecule component-->
     <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
       {{ $t('auth.login.step4Title') }}
     </top-navigation>
@@ -56,6 +58,7 @@ const pasteFromClipboard = () => {
       console.error(`${tm('common.readFailure')} `, err);
     }
   );
+  //TODO: need more screens
   router.push('/home');
 };
 
