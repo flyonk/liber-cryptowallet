@@ -87,7 +87,7 @@ import { check, share } from '@/helpers/nativeShare';
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
 
-import { TopNavigation } from '@/components/UI';
+import { TopNavigation } from '@/components/ui';
 import QrCodeWithLogo from 'qrcode-with-logos';
 
 const toast = useToast();
