@@ -47,4 +47,11 @@ export enum Route {
   PushNotifications = 'push-notifications',
 
   Deposit = 'deposit',
+
+  ContactsWhoToPay = 'contacts.who-to-pay',
+  ContactsSend = 'contacts.send',
+  ContactsSendFirstTime = 'contacts.send.first.time',
+  ContactsSendInvite = 'contacts.send.invite',
+  ContactsAddNewContact = 'contacts.add.new.contact',
+  ContactsSendLink = 'contacts.send.link',
 }
