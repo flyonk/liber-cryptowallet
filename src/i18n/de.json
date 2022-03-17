@@ -169,6 +169,9 @@
     }
   },
   "views": {
+    "recepients": {
+      "recepients": "Recepients"
+    },
     "aboutpage": {
       "home": "Home",
       "about": "About",
