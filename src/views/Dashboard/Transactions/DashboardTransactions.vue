@@ -166,7 +166,7 @@ onMounted(async () => {
 });
 
 const transactions = computed(() => tStore.getTransactionList);
-// console.log(transactionsX);
+
 // const transactions = [
 //   {
 //     info: `${tm('transactions.operations.received')} USDT`,
