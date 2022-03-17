@@ -1049,6 +1049,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/push-notifications/-/push-notifications-1.0.9.tgz#8a8398cdbd17a06f1b3d003f60897bd6db7bd1fe"
   integrity sha512-NaH+drTYjOGgFMHl/2Jn1/+2rlgomtwP2NfK20E0i7+QoRze1ArcSThJ4vSF0m7VkYBsH3MgbXkWfNSSPaYrtw==
 
+"@capacitor/share@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/share/-/share-1.1.2.tgz#7e35c2c3bccc9955e852d3dd401afe7bd5a69b7e"
+  integrity sha512-FUTdjA7MAiD1tkGVZ+C3gs7a4fyEhXojDO2HkZ954oupG1cQ51dEJ1xTNnR9BAmCwUJO4sa91cxy7SMyCDPuGg==
+
 "@capacitor/storage@^1.2.4":
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/@capacitor/storage/-/storage-1.2.4.tgz#7aed6c311587857ce6a11d31783904170453ae98"

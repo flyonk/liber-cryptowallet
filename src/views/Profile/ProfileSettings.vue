@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left">
         <img
+          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
-          alt="arrow-left"
           @click="$router.push({ name: 'dashboard-home' })"
         />
         <h1 class="title">{{ accountName }}</h1>
@@ -78,7 +78,7 @@
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
         </li>
-        <router-link to="/profile/devices" class="item">
+        <router-link class="item" to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
@@ -94,7 +94,7 @@
           <img class="icon" src="@/assets/icon/circle_close.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.close') }}</p>
         </li>
-        <li class="item">
+        <li class="item" @click="onLogout">
           <img class="icon" src="@/assets/icon/log_out.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.logOut') }}</p>
         </li>
@@ -108,10 +108,17 @@
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue';
-import InputSwitch from 'primevue/inputswitch';
+<script lang="ts" setup>
+import { computed, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { useAuthStore } from '@/stores/auth';
+
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
+import InputSwitch from 'primevue/inputswitch';
+
+const route = useRouter();
+const authStore = useAuthStore();
 
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
@@ -125,7 +132,12 @@ const nameInitials = computed(() => {
 
 function closeMenu() {
   showCloseAccount.value = false;
-  console.log(showCloseAccount.value);
+}
+
+async function onLogout() {
+  await authStore.logout();
+
+  await route.push({ name: 'welcome-logo-screen' });
 }
 </script>
 
