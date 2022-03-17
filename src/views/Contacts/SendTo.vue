@@ -5,7 +5,7 @@
         class="back mr-2"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/profile')"
+        @click="$router.push({ name: 'profile-main-view' })"
       />
       <h4 class="username">@AshleyRogers</h4>
     </div>
@@ -63,7 +63,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ChangeCurrency from '@/components/transactions/ChangeCurrency.vue';
+import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 
 const showPopup = ref(false);
