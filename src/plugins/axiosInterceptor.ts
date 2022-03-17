@@ -1,6 +1,8 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import apiService from '@/services/apiService';
 import { i18n } from '@/i18n';
+import { Storage } from '@capacitor/storage';
+import { EStorageKeys } from '@/types/storage';
 
 //TODO: what API calls should be authorized
 const _notAuthorizedRoutes = (): string[] => {
@@ -19,11 +21,13 @@ const _requestHandler = async (
    * TODO: set authorized API calls logic
    */
   if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-    //let token = //TODO: Retrieve token from store
+    const { value: token } = await Storage.get({
+      key: EStorageKeys.token,
+    });
     //TODO: add refresh token logic
-    // if (token) {
-    //   config.headers['Authorization'] = `Bearer ${token}`;
-    // }
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`;
+    }
   }
   return config;
 };

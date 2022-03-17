@@ -3,10 +3,9 @@
 </template>
 
 <script lang="ts" setup>
-import { IAuthSteps } from '@/stores/auth';
+import { onBeforeRouteLeave } from 'vue-router';
+import { IAuthSteps, useAuthStore } from '@/stores/auth';
 import { computed, PropType } from 'vue-demi';
-
-import { useAuthStore } from '@/stores/auth';
 import { EStepDirection } from '@/types/base-component';
 
 const authStore = useAuthStore();
@@ -29,6 +28,10 @@ const currentComponent = computed(() => props.components[step.value]);
 const nextStep = () => authStore.setStep(EStepDirection.next, props.scope);
 
 const prevStep = () => authStore.setStep(EStepDirection.prev, props.scope);
+
+onBeforeRouteLeave(() => {
+  authStore.setStep(0, props.scope);
+});
 </script>
 
 <style lang="scss">

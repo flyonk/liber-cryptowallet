@@ -20,19 +20,19 @@ export default {
   },
   profile: {
     baseUrl(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile`;
     },
     avatar(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/avatar`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/avatar`;
     },
     close(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/close`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/close`;
     },
     kycClaim(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/kyc/claim`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/kyc/claim`;
     },
     kycHook(): string {
-      return `${BASE_API_URL}/profile/api/${API_VERSION}/profile/kyc/claim/hook`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/kyc/claim/hook`;
     },
   },
   authenticators: {
