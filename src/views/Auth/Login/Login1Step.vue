@@ -48,7 +48,6 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { get, set } from '@/helpers/storage';
 
 import {
   BaseButton,
@@ -66,18 +65,10 @@ const countryDialCode = ref('');
 const type = ref('');
 
 onMounted(async () => {
-  const [dialCode, phone] = await Promise.all([get('dialCode'), get('phone')]);
-
-  if (phone) {
-    authStore.login.phone = phone as unknown as string;
-  }
+  await authStore.getFromStorage();
 
   number.value = authStore.login.phone;
 
-  if (!dialCode) {
-    //TODO:Change to the default value taken from the smartphone
-    authStore.login.dialCode = '+7';
-  }
   countryDialCode.value = authStore.login.dialCode;
 });
 
@@ -98,25 +89,17 @@ const handleSelectCountry = (data: ICountryInformation) => {
       mask.value = '';
     }
 
-    authStore.login.dialCode = data.dialCode;
+    authStore.setDialCode(data.dialCode);
+
     type.value = data.mask ? 'mask' : 'number';
   }, 0);
 };
 
 const nextStep = async () => {
   if (!number.value) return;
-  authStore.login.phone = number.value;
+  authStore.setPhone(number.value);
 
-  await Promise.all([
-    set({
-      key: 'dialCode',
-      value: authStore.login.dialCode,
-    }),
-    set({
-      key: 'phone',
-      value: authStore.login.phone,
-    }),
-  ]);
+  await authStore.setToStorage();
 
   authStore.setStep(1, 'login');
 };

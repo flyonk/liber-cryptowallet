@@ -112,13 +112,13 @@
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import authService from '@/services/authService';
-import { clearAll, get, set } from '@/helpers/storage';
+import { useAuthStore } from '@/stores/auth';
 
-import CloseAccount from '@/components/ui/CloseAccount.vue';
+import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
 
 const route = useRouter();
+const authStore = useAuthStore();
 
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
@@ -132,32 +132,12 @@ const nameInitials = computed(() => {
 
 function closeMenu() {
   showCloseAccount.value = false;
-  console.log(showCloseAccount.value);
 }
 
 async function onLogout() {
-  const [dialCode, phone, access_token] = await Promise.all([
-    get('dialCode'),
-    get('phone'),
-    get('access_token'),
-  ]);
+  await authStore.logout();
 
   await route.push({ name: 'welcome-logo-screen' });
-
-  authService.logout({ access_token: access_token as string });
-
-  await clearAll();
-
-  await Promise.all([
-    set({
-      key: 'dialCode',
-      value: dialCode as string,
-    }),
-    set({
-      key: 'phone',
-      value: phone as string,
-    }),
-  ]);
 }
 </script>
 
