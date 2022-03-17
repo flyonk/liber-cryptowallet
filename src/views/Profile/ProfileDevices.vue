@@ -50,41 +50,16 @@ import { onBeforeMount, ref, Ref } from 'vue';
 
 import { IUserDevice, TAgentType } from '@/models/auth/devices';
 import { timestampToDate } from '@/helpers/time';
+import { useAuthStore } from '@/stores/auth';
 
-import { TopNavigation } from '@/components/UI';
+import { TopNavigation } from '@/components/ui';
 
-const mockData: IUserDevice[] = [
-  {
-    id: '1',
-    agentType: 'ios',
-    deviceName: 'iPhone XR',
-    loggedAt: '1542674993',
-    ip: '45.234.12.154',
-    location: 'Pavshino Russian Federation',
-  },
-  {
-    id: '2',
-    agentType: 'mac',
-    deviceName: 'Chrome V96.0.4664.93 (Mac OS)',
-    loggedAt: '1542674993',
-    ip: '45.234.12.154',
-    location: 'Tallin Estonia',
-  },
-  {
-    id: '3',
-    agentType: 'ios',
-    deviceName: 'iPhone XR',
-    loggedAt: '1542674993',
-    ip: '45.234.12.154',
-    location: 'Tbilisi Georgia',
-  },
-];
+const authStore = useAuthStore();
 
 const devices = ref([]) as Ref<IUserDevice[]>;
 
-onBeforeMount(() => {
-  //  TODO: change when API for devices is ready
-  devices.value = mockData;
+onBeforeMount(async () => {
+  devices.value = await authStore.getDevices();
 });
 
 function getImage(agentType: TAgentType): string {
