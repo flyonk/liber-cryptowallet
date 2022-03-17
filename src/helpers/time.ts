@@ -1,8 +1,9 @@
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
+// Check out about formats here: https://moment.github.io/luxon/#/formatting
 export const timestampToDate = (
   timestamp: string,
-  format = 'YYYY.MM.DD HH:MM:SS'
-): string => {
-  return moment.unix(Number(timestamp)).format(format);
+  format = 'yyyy.LL.dd HH:mm:ss'
+) => {
+  return DateTime.fromSeconds(Number(timestamp)).toFormat(format);
 };

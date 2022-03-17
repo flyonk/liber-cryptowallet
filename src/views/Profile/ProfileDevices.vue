@@ -12,16 +12,16 @@
       <ul v-for="device in devices" :key="device.id" class="list">
         <li class="item">
           <p class="name -first">
-            {{ device.device_name }}
+            {{ device.deviceName }}
           </p>
-          <img :alt="device.agent_type" :src="getImage(device.agent_type)" />
+          <img :alt="device.agent_type" :src="getImage(device.agentType)" />
         </li>
         <li class="item">
           <p class="name">
             {{ $t('views.profile.profileDevices.date') }}
           </p>
           <p class="description">
-            {{ timestampToDate(device.logged_at) }}
+            {{ timestampToDate(device.loggedAt) }}
           </p>
         </li>
         <li class="item">
@@ -56,25 +56,25 @@ import { TopNavigation } from '@/components/UI';
 const mockData: IUserDevice[] = [
   {
     id: '1',
-    agent_type: 'ios',
-    device_name: 'iPhone XR',
-    logged_at: '1641540870',
+    agentType: 'ios',
+    deviceName: 'iPhone XR',
+    loggedAt: '1542674993',
     ip: '45.234.12.154',
     location: 'Pavshino Russian Federation',
   },
   {
     id: '2',
-    agent_type: 'mac',
-    device_name: 'Chrome V96.0.4664.93 (Mac OS)',
-    logged_at: '1641540870',
+    agentType: 'mac',
+    deviceName: 'Chrome V96.0.4664.93 (Mac OS)',
+    loggedAt: '1542674993',
     ip: '45.234.12.154',
     location: 'Tallin Estonia',
   },
   {
     id: '3',
-    agent_type: 'ios',
-    device_name: 'iPhone XR',
-    logged_at: '1641540870',
+    agentType: 'ios',
+    deviceName: 'iPhone XR',
+    loggedAt: '1542674993',
     ip: '45.234.12.154',
     location: 'Tbilisi Georgia',
   },

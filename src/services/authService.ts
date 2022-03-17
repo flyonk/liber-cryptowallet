@@ -30,6 +30,6 @@ export default {
   async devices(): Promise<IUserDevice[]> {
     const res = await axios.get(apiService.auth.devices());
 
-    return DevicesMapper.deserialize(res.data);
+    return res.data.map(DevicesMapper.deserialize);
   },
 };

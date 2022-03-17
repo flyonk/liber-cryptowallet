@@ -2,24 +2,23 @@ export type TAgentType = 'ios' | 'windows' | 'mac' | 'linux' | 'android';
 
 export interface IUserDevice {
   id: string;
-  agent_type: TAgentType;
-  device_name: string;
-  logged_at: string;
+  agentType: TAgentType;
+  deviceName: string;
+  loggedAt: string;
   ip: string;
   location: string;
 }
 
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IUserDevice[] {
-    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-    return input.devices.map((device: any) => ({
-      id: device.id,
-      agent_type: device.agent_type,
-      device_name: device.device_name,
-      logged_at: device.logged_at,
-      ip: device.ip,
-      location: device.location,
-    }));
+  deserialize(input: any): IUserDevice {
+    return {
+      id: input.id,
+      agentType: input.agent_type,
+      deviceName: input.device_name,
+      loggedAt: input.logged_at,
+      ip: input.ip,
+      location: input.location,
+    };
   },
 };
