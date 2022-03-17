@@ -7,13 +7,20 @@
         alt="arrow-left"
         @click="$router.push('/home')"
       />
-      <!--TODO: get this stuff from call-->
-      <total-account-balance-by-coin
-        balance="2.1234"
-        coin-code="TBTC"
-        base-conversion-sum="532.00"
-        currency="€"
-      />
+      <div class="count">
+        <div class="flex">
+          <h1 class="title title-currency">
+            2.12345678
+            <span class="currency">USDT</span>
+          </h1>
+          <img
+            class="icon"
+            src="@/assets/icon/currencies/tether.svg"
+            alt="currency"
+          />
+        </div>
+        <p class="subtitle heading-gray-md">€594.41</p>
+      </div>
       <VueAgile
         class="carousel-slider"
         :slides-to-show="2"
@@ -63,7 +70,6 @@
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-      <!--TODO: move to separate transactions component-->
       <ul v-if="activeTab === 1" class="transactions">
         <li
           v-for="(transaction, index) in transactions"
@@ -71,13 +77,10 @@
           class="item"
           @click="$router.push('/transactions/details')"
         >
-          <img class="icon" :src="transaction.icon" />
+          <img class="icon" :src="transaction.img" />
           <div class="info">
             <div class="flex">
-              <h1 class="title">
-                {{ $t(`transactions.operations.${transaction.type}`) }}
-                {{ transaction.code }}
-              </h1>
+              <h1 class="title">{{ transaction.info }}</h1>
               <p :class="{ received: transaction.sum.startsWith('+') }">
                 {{ transaction.sum }}
               </p>
@@ -88,11 +91,9 @@
                 v-if="transaction.status"
                 :class="{ pending: transaction.status === 'Pending' }"
               >
-                {{ $t(`transactions.status.${transaction.status}`) }}
+                {{ transaction.status }}
               </p>
-              <p v-else class="sum">
-                {{ transaction.sum }} {{ transaction.code }}
-              </p>
+              <p v-else class="sum">{{ transaction.sum }}</p>
             </div>
           </div>
         </li>
@@ -132,81 +133,54 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, getCurrentInstance, computed } from 'vue';
+import { ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
-// import { useRoute } from 'vue-router';
-
-import { useTransactionStore } from '@/stores/transaction';
-
-import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 
 let showControls = ref(false);
 const { tm } = useI18n();
 
-const tStore = useTransactionStore();
-
 const activeTab = ref(1);
-
-const { proxy } = getCurrentInstance();
-
-// const route = useRoute();
-
-/**
- * Lifecycle
- */
-//TODO: move to transactions separated component
-onMounted(async () => {
-  try {
-    //await tStore.init(route.params.coin as string); //TODO: api is broken
-    await tStore.init();
-  } catch (err) {
-    proxy.$sentry.capture(err, 'DashboardTransactions', 'getTransactionList');
-  }
-});
-
-const transactions = computed(() => tStore.getTransactionList);
-
-// const transactions = [
-//   {
-//     info: `${tm('transactions.operations.received')} USDT`,
-//     from: `${tm('common.from')} andrew@gmail.com`,
-//     sum: '+ 0.0001 BTC',
-//     status: 'Pending',
-//     img: require('@/assets/icon/transactions/received.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.deposit')} BTC`,
-//     from: `${tm('common.from')} Bitcoin address`,
-//     sum: '+ 0.0001 BTC',
-//     img: require('@/assets/icon/transactions/sent.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.sent')} USDT`,
-//     from: `${tm('common.to')} andrew@gmail.com`,
-//     sum: '- 13.55 USDT',
-//     img: require('@/assets/icon/transactions/exchange.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.received')} USDT`,
-//     from: `${tm('common.from')} andrew@gmail.com`,
-//     sum: '+ 13.55 USDT',
-//     status: tm('transactions.operations.pending'),
-//     img: require('@/assets/icon/transactions/received.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.deposit')} USDT`,
-//     from: `${tm('common.from')} Bitcoin address`,
-//     sum: '+ 125.00 USDT',
-//     img: require('@/assets/icon/transactions/sent.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.sent')} USDT`,
-//     from: `${tm('common.from')} andrew@gmail.com`,
-//     sum: '- 13.55 USDT',
-//     img: require('@/assets/icon/transactions/exchange.svg'),
-//   },
-// ];
+const transactions = [
+  {
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
+    sum: '+ 0.0001 BTC',
+    status: 'Pending',
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+  {
+    info: `${tm('transactions.operations.deposit')} BTC`,
+    from: `${tm('common.from')} Bitcoin address`,
+    sum: '+ 0.0001 BTC',
+    img: require('@/assets/icon/transactions/sent.svg'),
+  },
+  {
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.to')} andrew@gmail.com`,
+    sum: '- 13.55 USDT',
+    img: require('@/assets/icon/transactions/exchange.svg'),
+  },
+  {
+    info: `${tm('transactions.operations.received')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
+    sum: '+ 13.55 USDT',
+    status: tm('transactions.operations.pending'),
+    img: require('@/assets/icon/transactions/received.svg'),
+  },
+  {
+    info: `${tm('transactions.operations.deposit')} USDT`,
+    from: `${tm('common.from')} Bitcoin address`,
+    sum: '+ 125.00 USDT',
+    img: require('@/assets/icon/transactions/sent.svg'),
+  },
+  {
+    info: `${tm('transactions.operations.sent')} USDT`,
+    from: `${tm('common.from')} andrew@gmail.com`,
+    sum: '- 13.55 USDT',
+    img: require('@/assets/icon/transactions/exchange.svg'),
+  },
+];
 
 const carousel = [
   {
@@ -239,6 +213,27 @@ const carousel = [
 
   > .header {
     padding: 0 16px;
+
+    > .count {
+      > .flex {
+        > .icon {
+          height: 56px;
+          width: 56px;
+          margin-left: auto;
+        }
+
+        > .title {
+          font-weight: 600;
+          font-size: 28px;
+          line-height: 34px;
+          letter-spacing: 0.0038em;
+        }
+      }
+
+      > .subtitle {
+        margin-bottom: 28px;
+      }
+    }
 
     > .controls {
       display: flex;
