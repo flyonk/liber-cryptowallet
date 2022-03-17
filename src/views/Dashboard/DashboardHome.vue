@@ -36,7 +36,10 @@
         </li>
       </ul>
       <div class="currencies flex items-center">
-        <h1 class="title">€ 0.00</h1>
+        <!--TODO: map currencies-->
+        <h1 class="title">
+          {{ totalBalance.currency }} {{ totalBalance.sum }}
+        </h1>
         <div class="circle-wrap">
           <img
             class="down"
@@ -184,9 +187,10 @@ let isMenuOpen = ref(false);
 let loading = ref(true);
 
 const accountStore = useAccountStore();
+//TODO: move accounts to the bottom swipe component
 const accounts = computed(() => accountStore.getAccounts);
 const totalBalance = computed(() => accountStore.getTotalBalance);
-console.log(accounts, totalBalance);
+console.log(accounts);
 
 const { tm } = useI18n();
 
