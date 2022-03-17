@@ -53,11 +53,17 @@ import {
   TTransaction,
 } from '@/models/transaction/transaction';
 import transactionService from '@/services/transactionService';
-import { computed, ref } from 'vue';
+import { computed, onBeforeUpdate, ref } from 'vue';
 import { onMounted } from 'vue-demi';
 import { useI18n } from 'vue-i18n';
 
 const { tm } = useI18n();
+
+defineProps({
+  limit: Number,
+  page: Number,
+  preview: Number,
+});
 
 let transactions: any = ref([]);
 
@@ -67,7 +73,12 @@ onMounted(async () => {
   transactions.value = transactions.value.map(_getTransactionDataByType);
 });
 
-type TTypedTransaction = {
+onBeforeUpdate(() => {
+  console.log('onBeforeUpdate');
+  //TODO:implement pagination
+});
+
+type TInternalComponentTransaction = {
   info: string;
   contractor: string;
   sum: string;
@@ -77,7 +88,7 @@ type TTypedTransaction = {
 
 const _getTransactionDataByType = (
   transaction: TTransaction
-): TTypedTransaction => {
+): TInternalComponentTransaction => {
   if (transaction.type === ETransactionType.Deposit)
     return {
       info: `${tm('transactions.operations.deposit')} ${transaction.code}`,

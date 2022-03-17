@@ -8,11 +8,17 @@ import axios from 'axios';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import apiService from '@/services/apiService';
 import { TErrorResponse } from '@/types/api';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import transaction from '@/models/transaction/transaction';
 
 export default {
   async getUserTransaction(): Promise<TTransaction[] | TErrorResponse> {
-    // return await axios.get(apiService.transactions.userTransactions());
-    // !temporary test data until I get an api token
+    // const res = await axios.get(apiService.transactions.userTransactions());
+    // return res.data.list.map((e: any): TTransaction => {
+    //   return transaction.deserialize(e);
+    // });
+
+    // !temporary test data until transaction model is updated
     return await Promise.resolve([
       {
         id: 'string',
