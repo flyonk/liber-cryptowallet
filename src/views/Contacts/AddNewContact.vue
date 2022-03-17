@@ -31,16 +31,23 @@
         </p>
       </li>
     </ul>
-    <BaseButton class="btn" size="large" :disabled="isBtnDisabled">
-      Sent
+    <BaseButton
+      class="btn"
+      size="large"
+      @click="router.push('/contacts/send/1')"
+    >
+      Continue
     </BaseButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { BaseButton, BaseInput } from '@/components/ui';
+
+const router = useRouter();
 
 const newContacts = [
   {
@@ -54,15 +61,6 @@ function addExtraContact() {
     name: ref(''),
     email: ref(''),
   });
-}
-
-function isBtnDisabled() {
-  let result = true;
-  newContacts.forEach((i) => {
-    if (i.name.value === '' || i.email.value === '') result = false;
-    return i;
-  });
-  return result;
 }
 </script>
 
