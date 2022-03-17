@@ -1,12 +1,11 @@
 <template>
   <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
-    <div
-      class="bottom-menu -close"
-      @click="closeMenu"
+    <div class="close" @click="closeMenu"></div>
+    <component
+      :is="currentComponent"
+      @close-menu="closeMenu"
       @touchmove="startMove"
-      @touchend="endMove"
     />
-    <component :is="currentComponent" @close-menu="closeMenu" />
   </div>
 </template>
 
@@ -88,8 +87,8 @@ onUpdated(() => {
       break;
     case 'add_contact':
       if (!menu.value) return;
-      menu.value.style.minHeight = `50%`;
-      menu.value.style.maxHeight = `75%`;
+      menu.value.style.minHeight = `45%`;
+      menu.value.style.maxHeight = `65%`;
       break;
   }
 });
@@ -110,7 +109,7 @@ onUpdated(() => {
   padding: 8px 16px 0;
   z-index: 2;
 
-  &.-close {
+  > .close {
     width: 64px;
     height: 5px;
     border-radius: 1px;

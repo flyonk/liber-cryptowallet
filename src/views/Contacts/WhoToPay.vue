@@ -67,7 +67,13 @@
         </li>
       </ul>
     </div>
-    <button v-if="hasFriends" class="options-button">Payment Options</button>
+    <button
+      v-if="hasFriends"
+      class="options-button"
+      @click="isMenuOpen = !isMenuOpen"
+    >
+      Payment Options
+    </button>
     <div v-if="!hasFriends" class="empty-list">
       <img
         class="image"
@@ -114,7 +120,7 @@ function getContactInitials(fio: string) {
 
 const getMenuType = computed(() => {
   if (hasFriends.value) {
-    return 'communication';
+    return 'add_contact';
   } else {
     return 'add_contact';
   }
