@@ -127,38 +127,38 @@ function closeMenu() {
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 const mockContacts = [
-  {
-    name: 'Abraham Watsan',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Alexander Wood',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Ashley Rogers',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Vasya Pupkin',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Petr Schepetin',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Tovarish Stalin',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Super Man',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Benjamin Lewis',
-    phone: '+1 347 432 32 43',
-  },
+  // {
+  //   name: 'Abraham Watsan',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Alexander Wood',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Ashley Rogers',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Vasya Pupkin',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Petr Schepetin',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Tovarish Stalin',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Super Man',
+  //   phone: '+1 347 432 32 43',
+  // },
+  // {
+  //   name: 'Benjamin Lewis',
+  //   phone: '+1 347 432 32 43',
+  // },
 ];
 
 const contactTabs = [

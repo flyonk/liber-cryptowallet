@@ -39,31 +39,31 @@ const currencies = [
   {
     name: 'EUR',
     description: tm('views.account.allAccounts'),
-    sum: '€1025.50',
+    sum: '€ 46.00',
     img: require('@/assets/icon/currencies/euro.svg'),
   },
   {
     name: 'BTC',
     description: 'Bitcoin',
-    sum: '0.00369879',
+    sum: '0.001',
     img: require('@/assets/icon/currencies/btc.svg'),
   },
   {
     name: 'USDT',
     description: 'Teather USDT',
-    sum: '300.0305152',
+    sum: '0',
     img: require('@/assets/icon/currencies/tether.svg'),
   },
   {
     name: 'Hush',
     description: 'Hush',
-    sum: '156.34569879',
+    sum: '0',
     img: require('@/assets/icon/currencies/hush.svg'),
   },
   {
     name: 'XRP',
     description: 'Ripple XRP',
-    sum: '€1025.50',
+    sum: '0',
     img: require('@/assets/icon/currencies/xrp.svg'),
   },
 ];
