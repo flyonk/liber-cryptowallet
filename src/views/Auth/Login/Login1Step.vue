@@ -43,7 +43,12 @@
 </template>
 
 <script lang="ts" setup>
-import { Storage } from '@capacitor/storage';
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { useAuthStore } from '@/stores/auth';
+import { ICountryInformation } from '@/types/country-phone-types';
+import { get, set } from '@/helpers/storage';
 
 import {
   BaseButton,
@@ -51,11 +56,6 @@ import {
   BaseInput,
   TopNavigation,
 } from '@/components/ui';
-
-import { useAuthStore } from '@/stores/auth';
-import { ICountryInformation } from '@/types/country-phone-types';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -66,10 +66,7 @@ const countryDialCode = ref('');
 const type = ref('');
 
 onMounted(async () => {
-  const [{ value: dialCode }, { value: phone }] = await Promise.all([
-    Storage.get({ key: 'dialCode' }),
-    Storage.get({ key: 'phone' }),
-  ]);
+  const [dialCode, phone] = await Promise.all([get('dialCode'), get('phone')]);
 
   if (phone) {
     authStore.login.phone = phone as unknown as string;
@@ -111,11 +108,11 @@ const nextStep = async () => {
   authStore.login.phone = number.value;
 
   await Promise.all([
-    Storage.set({
+    set({
       key: 'dialCode',
       value: authStore.login.dialCode,
     }),
-    Storage.set({
+    set({
       key: 'phone',
       value: authStore.login.phone,
     }),

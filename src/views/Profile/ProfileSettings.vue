@@ -110,11 +110,13 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import InputSwitch from 'primevue/inputswitch';
-import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
-import { Storage } from '@capacitor/storage';
 import { useRouter } from 'vue-router';
+
 import authService from '@/services/authService';
+import { clearAll, get, set } from '@/helpers/storage';
+
+import CloseAccount from '@/components/ui/CloseAccount.vue';
+import InputSwitch from 'primevue/inputswitch';
 
 const route = useRouter();
 
@@ -134,25 +136,24 @@ function closeMenu() {
 }
 
 async function onLogout() {
-  const [{ value: dialCode }, { value: phone }, { value: access_token }] =
-    await Promise.all([
-      Storage.get({ key: 'dialCode' }),
-      Storage.get({ key: 'phone' }),
-      Storage.get({ key: 'access_token' }),
-    ]);
+  const [dialCode, phone, access_token] = await Promise.all([
+    get('dialCode'),
+    get('phone'),
+    get('access_token'),
+  ]);
 
   await route.push({ name: 'welcome-logo-screen' });
 
   authService.logout({ access_token: access_token as string });
 
-  await Storage.clear();
+  await clearAll();
 
   await Promise.all([
-    Storage.set({
+    set({
       key: 'dialCode',
       value: dialCode as string,
     }),
-    Storage.set({
+    set({
       key: 'phone',
       value: phone as string,
     }),
