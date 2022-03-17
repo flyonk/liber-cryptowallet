@@ -75,7 +75,7 @@ import {
   BaseToast,
   BasePasscode,
   BaseButton,
-} from '@/components/UI';
+} from '@/components/ui';
 import { EState } from '@/types/base-component';
 
 const emit = defineEmits(['prev', 'next']);

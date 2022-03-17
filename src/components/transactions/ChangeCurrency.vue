@@ -103,7 +103,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import BaseButton from '@/components/UI/BaseButton.vue';
+import { BaseButton } from '@/components/ui';
 
 import { BaseCountdown } from '@/components/UI';
 

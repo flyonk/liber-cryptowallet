@@ -25,8 +25,8 @@ import {
   CameraPreviewOptions,
 } from '@capacitor-community/camera-preview';
 import { Device } from '@capacitor/device';
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/UI';
-import ScanAnimation from '@/components/KYC/ScanAnimation.vue';
+import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
 import { useKYCStore, EKYCProofType } from '@/stores/kyc';

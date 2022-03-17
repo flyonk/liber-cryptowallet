@@ -30,7 +30,7 @@ import {
   BaseToast,
   BaseVerificationCodeInput,
   TopNavigation,
-} from '@/components/UI';
+} from '@/components/ui';
 import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
 import { use2faStore } from '@/stores/2fa';

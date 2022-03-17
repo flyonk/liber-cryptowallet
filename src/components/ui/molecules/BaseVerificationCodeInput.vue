@@ -35,7 +35,7 @@
 import { computed, onBeforeUpdate, Ref, ref, getCurrentInstance } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
-import { BaseButton } from '@/components/UI';
+import { BaseButton } from '@/components/ui';
 
 const props = defineProps({
   type: {

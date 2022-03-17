@@ -1,4 +1,4 @@
-import { BASE_API_URL, API_VERSION } from '@/constants';
+import { API_VERSION, BASE_API_URL } from '@/constants';
 
 export default {
   auth: {
@@ -13,6 +13,9 @@ export default {
     },
     logout(): string {
       return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/logout`;
+    },
+    devices(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/devices`;
     },
   },
   profile: {

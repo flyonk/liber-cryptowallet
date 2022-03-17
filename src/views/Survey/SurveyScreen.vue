@@ -40,7 +40,7 @@
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation } from '@/components/UI';
+import { TopNavigation } from '@/components/ui';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';

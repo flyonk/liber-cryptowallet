@@ -40,8 +40,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import BaseInput from '@/components/UI/BaseInput.vue';
-import BaseButton from '@/components/UI/BaseButton.vue';
+import { BaseButton, BaseInput } from '@/components/ui';
 
 const newContacts = ref([
   {

@@ -48,7 +48,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import BackHistoryBtn from '@/components/UI/BackHistoryBtn.vue';
+import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 import CoinItem from './CoinItem.vue';
 
 const router = useRouter();
