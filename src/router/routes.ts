@@ -142,11 +142,11 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
-        path: ':coin', //TODO: create new component for this (attend for api)
+        path: ':coin',
         name: Route.AccountDetail,
         component: () =>
           import(
-            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
+            /* webpackChunkName: "dashboard" */ '@/components/ui/pages/AccountDetail.vue'
           ),
       },
       {

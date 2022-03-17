@@ -1,4 +1,4 @@
-<template name="DashboardTransactions">
+<template name="AccountDetail">
   <div class="account-transactions">
     <div class="header">
       <img
@@ -14,6 +14,7 @@
         base-conversion-sum="532.00"
         currency="€"
       />
+      <!--TODO: move to separated component-->
       <VueAgile
         class="carousel-slider"
         :slides-to-show="2"
@@ -63,42 +64,13 @@
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-      <!--TODO: move to separate transactions component-->
-      <ul v-if="activeTab === 1" class="transactions">
-        <li
-          v-for="(transaction, index) in transactions"
-          :key="index"
-          class="item"
-          @click="$router.push('/transactions/details')"
-        >
-          <img class="icon" :src="transaction.icon" />
-          <div class="info">
-            <div class="flex">
-              <h1 class="title">
-                {{ $t(`transactions.operations.${transaction.type}`) }}
-                {{ transaction.code }}
-              </h1>
-              <p :class="{ received: transaction.sum.startsWith('+') }">
-                {{ transaction.sum }}
-              </p>
-            </div>
-            <div class="flex">
-              <div class="subtitle">{{ transaction.from }}</div>
-              <p
-                v-if="transaction.status"
-                :class="{ pending: transaction.status === 'Pending' }"
-              >
-                {{ $t(`transactions.status.${transaction.status}`) }}
-              </p>
-              <p v-else class="sum">
-                {{ transaction.sum }} {{ transaction.code }}
-              </p>
-            </div>
-          </div>
-        </li>
-      </ul>
+
+      <div v-if="activeTab === 1">
+        <transactions-list :transactions="transactions" />
+      </div>
 
       <div v-if="activeTab === 2" class="wallet">
+        <!--TODO move to separated component-->
         <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
         <div class="wallet-address">
           <h4 class="title">
@@ -140,6 +112,7 @@ import { useI18n } from 'vue-i18n';
 import { useTransactionStore } from '@/stores/transaction';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
+import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -155,7 +128,6 @@ const { proxy } = getCurrentInstance();
 /**
  * Lifecycle
  */
-//TODO: move to transactions separated component
 onMounted(async () => {
   try {
     //await tStore.init(route.params.coin as string); //TODO: api is broken
@@ -166,47 +138,6 @@ onMounted(async () => {
 });
 
 const transactions = computed(() => tStore.getTransactionList);
-
-// const transactions = [
-//   {
-//     info: `${tm('transactions.operations.received')} USDT`,
-//     from: `${tm('common.from')} andrew@gmail.com`,
-//     sum: '+ 0.0001 BTC',
-//     status: 'Pending',
-//     img: require('@/assets/icon/transactions/received.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.deposit')} BTC`,
-//     from: `${tm('common.from')} Bitcoin address`,
-//     sum: '+ 0.0001 BTC',
-//     img: require('@/assets/icon/transactions/sent.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.sent')} USDT`,
-//     from: `${tm('common.to')} andrew@gmail.com`,
-//     sum: '- 13.55 USDT',
-//     img: require('@/assets/icon/transactions/exchange.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.received')} USDT`,
-//     from: `${tm('common.from')} andrew@gmail.com`,
-//     sum: '+ 13.55 USDT',
-//     status: tm('transactions.operations.pending'),
-//     img: require('@/assets/icon/transactions/received.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.deposit')} USDT`,
-//     from: `${tm('common.from')} Bitcoin address`,
-//     sum: '+ 125.00 USDT',
-//     img: require('@/assets/icon/transactions/sent.svg'),
-//   },
-//   {
-//     info: `${tm('transactions.operations.sent')} USDT`,
-//     from: `${tm('common.from')} andrew@gmail.com`,
-//     sum: '- 13.55 USDT',
-//     img: require('@/assets/icon/transactions/exchange.svg'),
-//   },
-// ];
 
 const carousel = [
   {
@@ -258,63 +189,6 @@ const carousel = [
 
         > .label {
           margin-right: 9px;
-        }
-      }
-    }
-
-    > .transactions {
-      max-height: 360px;
-      overflow-y: auto;
-      padding-right: 10px;
-
-      > .item {
-        display: flex;
-        width: 100%;
-        margin-bottom: 24px;
-
-        > .icon {
-          margin-right: 12px;
-          width: 40px;
-          height: 40px;
-        }
-
-        > .info {
-          width: 100%;
-
-          > .flex {
-            width: 100%;
-            justify-content: space-between;
-
-            > .title {
-              font-weight: 500;
-              font-size: 16px;
-              line-height: 21px;
-              letter-spacing: -0.0031em;
-            }
-
-            > .subtitle {
-              font-size: 13px;
-              line-height: 18px;
-              letter-spacing: -0.0008em;
-              color: $color-dark-grey;
-            }
-
-            > .pending {
-              color: $color-yellow-600;
-            }
-
-            > .received {
-              color: $color-green-600;
-            }
-
-            > .sum {
-              font-size: 13px;
-              line-height: 18px;
-              text-align: right;
-              letter-spacing: -0.0008em;
-              color: $color-dark-grey;
-            }
-          }
         }
       }
     }
