@@ -28,7 +28,7 @@
 </template>
 
 <script lang="ts" setup>
-import { BaseButton, TopNavigation } from '@/components/UI';
+import { BaseButton, TopNavigation } from '@/components/ui';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { EStorageKeys } from '@/types/base-component';
 import { useRouter } from 'vue-router';

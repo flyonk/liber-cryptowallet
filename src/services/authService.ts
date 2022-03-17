@@ -3,6 +3,7 @@ import apiService from '@/services/apiService';
 
 import SignInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
+import { IUserDevice } from '@/models/auth/devices';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
@@ -25,4 +26,39 @@ export default {
     const res = await axios.post(apiService.auth.refresh(), data);
     return SignInMapper.deserialize(res.data);
   },
+
+  async devices(): Promise<IUserDevice[]> {
+    // const res = await axios.get(apiService.auth.devices());
+
+    // return res.data.map(DevicesMapper.deserialize);
+
+    return mockData;
+  },
 };
+
+const mockData: IUserDevice[] = [
+  {
+    id: '1',
+    agentType: 'ios',
+    deviceName: 'iPhone XR',
+    loggedAt: '1542674993',
+    ip: '45.234.12.154',
+    location: 'Pavshino Russian Federation',
+  },
+  {
+    id: '2',
+    agentType: 'mac',
+    deviceName: 'Chrome V96.0.4664.93 (Mac OS)',
+    loggedAt: '1542674993',
+    ip: '45.234.12.154',
+    location: 'Tallin Estonia',
+  },
+  {
+    id: '3',
+    agentType: 'ios',
+    deviceName: 'iPhone XR',
+    loggedAt: '1542674993',
+    ip: '45.234.12.154',
+    location: 'Tbilisi Georgia',
+  },
+];

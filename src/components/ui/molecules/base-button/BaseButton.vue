@@ -14,6 +14,11 @@
 <script lang="ts" setup>
 import { computed, toRefs } from 'vue';
 
+import {
+  SizeBaseButton,
+  ViewBaseButton,
+} from '@/components/ui/molecules/base-button/types';
+
 const props = defineProps({
   block: {
     type: Boolean,
@@ -21,15 +26,13 @@ const props = defineProps({
   },
   size: {
     type: String,
-    default: 'large',
-    validator: (value: string) =>
-      ['large', 'medium', 'small', 'x-small'].includes(value),
+    default: SizeBaseButton.Large,
+    validator: (value: string) => Object.values(SizeBaseButton).includes(value),
   },
   view: {
     type: String,
-    default: 'simple',
-    validator: (value: string) =>
-      ['simple', 'secondary', 'ghost', 'flat', 'white'].includes(value),
+    default: ViewBaseButton.Simple,
+    validator: (value: string) => Object.values(ViewBaseButton).includes(value),
   },
   disabled: {
     type: Boolean,

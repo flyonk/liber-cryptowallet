@@ -28,8 +28,8 @@ import { useI18n } from 'vue-i18n';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/UI';
-import ScanAnimation from '@/components/KYC/ScanAnimation.vue';
+import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
+import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
 const emit = defineEmits(['next', 'prev']);

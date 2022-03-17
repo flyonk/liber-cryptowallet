@@ -10,13 +10,13 @@
     <base-passcode
       v-if="actionType === EPasscodeActions.store"
       :action-type="actionType"
+      :show-touch-faceid="false"
       @submit="onCreate"
-      :showTouchFaceid="false"
     />
 
     <base-passcode
       v-if="actionType === EPasscodeActions.compare"
-      :showTouchFaceid="false"
+      :show-touch-faceid="false"
       @submit="onSubmit"
     />
   </div>
@@ -30,7 +30,7 @@
 
 <script lang="ts" setup>
 import { computed, Ref, ref } from 'vue';
-import { BasePasscode, BaseToast, TopNavigation } from '@/components/UI';
+import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';

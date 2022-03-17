@@ -39,7 +39,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/UI';
+import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EStepDirection } from '@/types/base-component';

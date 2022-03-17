@@ -12,7 +12,7 @@ import {
   SignUp4Step,
   SignUp5Step,
 } from '@/views/Auth/SignUp/index';
-import AuthPageSwitcher from '@/components/Auth/AuthPageSwitcher.vue';
+import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
 
 const components = computed(() => [
   SignUp1Step,

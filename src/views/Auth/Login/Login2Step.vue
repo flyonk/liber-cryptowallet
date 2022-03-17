@@ -45,7 +45,7 @@ import {
   BaseCountdown,
   BaseVerificationCodeInput,
   TopNavigation,
-} from '@/components/UI';
+} from '@/components/ui';
 import { useAuthStore } from '@/stores/auth';
 import authService from '@/services/authService';
 

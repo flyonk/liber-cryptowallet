@@ -49,7 +49,7 @@
 </template>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/UI';
+import { TopNavigation, BaseButton } from '@/components/ui';
 </script>
 
 <style lang="scss" scoped>
