@@ -142,6 +142,14 @@ const routes: Array<RouteRecordRaw> = [
           ),
       },
       {
+        path: ':coin', //TODO: create new component for this (attend for api)
+        name: Route.AccountDetail,
+        component: () =>
+          import(
+            /* webpackChunkName: "dashboard" */ '@/views/Dashboard/Transactions/DashboardTransactions.vue'
+          ),
+      },
+      {
         path: 'add',
         name: Route.AccountAdd,
         component: () =>
@@ -164,7 +172,7 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     children: [
       {
-        path: '',
+        path: '', //TODO: ref this rout, component is wrong
         name: Route.TransactionsMain,
         component: () =>
           import(

@@ -8,9 +8,12 @@ import transactionMapper, {
 // import { TSuccessResponse } from '@/types/api';
 
 export default {
-  async getTransactionList(): Promise<INetTransaction[]> {
+  async getTransactionList(coin?: string): Promise<INetTransaction[]> {
     //TODO: implement pagination
-    const res = await axios.get(apiService.transactions.transactionsList());
+    const url = coin
+      ? `${apiService.transactions.transactionsList()}/coin/${coin}`
+      : apiService.transactions.transactionsList();
+    const res = await axios.get(url);
     return res.data.list.map(transactionMapper.deserialize);
   },
 };

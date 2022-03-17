@@ -7,20 +7,13 @@
         alt="arrow-left"
         @click="$router.push('/home')"
       />
-      <div class="count">
-        <div class="flex">
-          <h1 class="title title-currency">
-            2.12345678
-            <span class="currency">USDT</span>
-          </h1>
-          <img
-            class="icon"
-            src="@/assets/icon/currencies/tether.svg"
-            alt="currency"
-          />
-        </div>
-        <p class="subtitle heading-gray-md">€594.41</p>
-      </div>
+      <!--TODO: get this stuff from call-->
+      <total-account-balance-by-coin
+        balance="2.1234"
+        coin-code="TBTC"
+        base-conversion-sum="532.00"
+        currency="€"
+      />
       <VueAgile
         class="carousel-slider"
         :slides-to-show="2"
@@ -70,6 +63,7 @@
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
+      <!--TODO: move to separate transactions component-->
       <ul v-if="activeTab === 1" class="transactions">
         <li
           v-for="(transaction, index) in transactions"
@@ -141,8 +135,11 @@
 import { onMounted, ref, getCurrentInstance, computed } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
+// import { useRoute } from 'vue-router';
 
 import { useTransactionStore } from '@/stores/transaction';
+
+import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -153,12 +150,15 @@ const activeTab = ref(1);
 
 const { proxy } = getCurrentInstance();
 
+// const route = useRoute();
+
 /**
  * Lifecycle
  */
 
 onMounted(async () => {
   try {
+    //await tStore.init(route.params.coin as string); //TODO: api is broken
     await tStore.init();
   } catch (err) {
     proxy.$sentry.capture(err, 'DashboardTransactions', 'getTransactionList');
@@ -239,27 +239,6 @@ const carousel = [
 
   > .header {
     padding: 0 16px;
-
-    > .count {
-      > .flex {
-        > .icon {
-          height: 56px;
-          width: 56px;
-          margin-left: auto;
-        }
-
-        > .title {
-          font-weight: 600;
-          font-size: 28px;
-          line-height: 34px;
-          letter-spacing: 0.0038em;
-        }
-      }
-
-      > .subtitle {
-        margin-bottom: 28px;
-      }
-    }
 
     > .controls {
       display: flex;

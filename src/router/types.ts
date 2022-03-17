@@ -17,6 +17,7 @@ export enum Route {
 
   Account = 'account',
   AccountMain = 'account-main',
+  AccountDetail = 'account-detail',
   AccountAdd = 'account-add',
 
   Transactions = 'transactions',
