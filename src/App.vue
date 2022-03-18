@@ -23,14 +23,15 @@
 <script setup lang="ts">
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
-import { useAccountStore } from './stores/account';
+//TODO: use profile store instead
+// import { useAccountStore } from './stores/account';
 
 import SwipeBack from '@/plugins/swipe-capacitor';
 
 SwipeBack.enable();
 
-const store = useAccountStore();
-store.init();
+// const store = useAccountStore();
+// store.init();
 </script>
 
 <style lang="scss">

@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left">
         <img
-          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
+          alt="arrow-left"
           @click="$router.push({ name: 'dashboard-home' })"
         />
         <h1 class="title">{{ accountName }}</h1>
