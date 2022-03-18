@@ -52,4 +52,6 @@ export enum Route {
   ContactsSend = 'contacts-send',
 
   ChooseCoin = 'choose_coin',
+
+  Recepients = 'recepients',
 }

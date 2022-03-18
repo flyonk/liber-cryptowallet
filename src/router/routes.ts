@@ -396,6 +396,14 @@ const routes: Array<RouteRecordRaw> = [
     component: () => import('@/views/DepositeCoin/DepositeIndex.vue'),
     children: DepositeRoutes,
   },
+
+  // === Recepients ===
+
+  {
+    path: '/recepients',
+    name: Route.Recepients,
+    component: () => import('@/views/Contacts/Recepients.vue'),
+  },
 ];
 
 export default routes;
