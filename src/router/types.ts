@@ -24,6 +24,8 @@ export enum Route {
   TransactionsMain = 'transactions-main',
   TransactionsDetails = 'transactions-details',
 
+  ConvertFunds = 'convert',
+
   ProfileMainView = 'profile-main-view',
   ProfileSettings = 'profile-settings',
   ProfileMyQrCode = 'profile-my-qr-code',

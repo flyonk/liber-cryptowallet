@@ -14,7 +14,7 @@
       <div class="initials">AR</div>
     </div>
     <div class="sendto-main">
-      <send-currency @send-transaction="sendTransaction" />
+      <change-currency @send-transaction="sendTransaction" />
     </div>
   </div>
   <!--TODO: make toasts logic-->
@@ -64,7 +64,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import SendCurrency from '@/components/transactions/SendCurrency.vue';
+import ChangeCurrency from '@/components/transactions/ChangeCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 
 const showPopup = ref(false);

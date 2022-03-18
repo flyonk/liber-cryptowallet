@@ -8,14 +8,16 @@
       />
       <p class="text">Send Funds</p>
     </router-link>
-    <li class="menu-item">
-      <img
-        class="icon"
-        src="@/assets/icon/transactions/menu/convert_funds.svg"
-        alt="send"
-      />
-      <p class="text">Convert Funds</p>
-    </li>
+    <router-link :to="'/convert'" class="menu-item">
+      <li class="menu-item">
+        <img
+          class="icon"
+          src="@/assets/icon/transactions/menu/convert_funds.svg"
+          alt="send"
+        />
+        <p class="text">Convert Funds</p>
+      </li>
+    </router-link>
     <li class="menu-item">
       <img
         class="icon"
