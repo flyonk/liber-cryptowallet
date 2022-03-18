@@ -67,16 +67,16 @@ export default {
   },
   funds: {
     convertInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/funds/convert-info`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/convert/info`;
     },
     convert(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/funds/convert`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/convert`;
     },
     coins(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coins`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/coins`;
     },
     depositInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/deposit-info`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/deposit-info`;
     },
   },
   transactions: {
