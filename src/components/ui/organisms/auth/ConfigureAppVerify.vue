@@ -1,7 +1,5 @@
 <template>
-  <!--TODO: move this component to atomic design templates (used in login flow and configure-app flow) -->
   <div class="page-wrapper">
-    <!--TODO: move to molecule component-->
     <top-navigation @click:left-icon="onPrev">
       {{ title }}
     </top-navigation>
@@ -11,12 +9,12 @@
     </p>
 
     <base-verification-code-input
-      v-model="verificationCode"
+      :value="verificationCode"
       @complete="onComplete"
     />
 
     <slot name="footer">
-      <div class="footer" v-if="props.withCountdown">
+      <div v-if="props.withCountdown" class="footer">
         <span class="text--footnote font-weight--semibold">
           <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
             <template #countdown="{ minute, second }">
@@ -43,7 +41,7 @@
       {{ $t('common.pasteCta') }}
     </base-button>
   </div>
-  <base-toast :visible="isError" severity="error">
+  <base-toast :visible="isError" severity="error" @update:visible="onHide">
     <template #description>
       <div>
         {{ $t('configureApp.invalidCodeMessage') }}
@@ -53,7 +51,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -66,9 +63,13 @@ import {
 
 const { tm } = useI18n();
 
-const verificationCode = ref('');
-
-const emit = defineEmits(['onComplete', 'onResend', 'onTimeIsUp', 'onPrev']);
+const emit = defineEmits([
+  'onComplete',
+  'onResend',
+  'onTimeIsUp',
+  'onPrev',
+  'onHide',
+]);
 
 const props = defineProps({
   isError: {
@@ -91,17 +92,25 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  verificationCode: {
+    type: String,
+    default: '',
+  },
 });
 
 const pasteFromClipboard = () => {
   navigator.clipboard.readText().then(
     function (clipText) {
-      verificationCode.value = clipText;
+      emit('onComplete', clipText);
     },
     function (err) {
       console.error(`${tm('common.readFailure')} `, err);
     }
   );
+};
+
+const onHide = () => {
+  emit('onHide');
 };
 
 const onComplete = (value) => {

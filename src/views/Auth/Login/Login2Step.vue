@@ -5,47 +5,12 @@
     :title="$t('common.codeInput')"
     :text="text"
     :is-error="isError"
+    @onHide="onHideError"
     @onTimeIsUp="onTimeIsUp"
     @onComplete="onComplete"
     @onResend="resend"
     @onPrev="prevStep"
   />
-  <!--  <div class="auth-page-container">-->
-  <!--    <TopNavigation @click:left-icon="prevStep">{{-->
-  <!--      $t('common.codeInput')-->
-  <!--    }}</TopNavigation>-->
-  <!--    <div class="description text&#45;&#45;body">-->
-  <!--      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}-->
-  <!--    </div>-->
-  <!--    <div>-->
-  <!--      <BaseVerificationCodeInput-->
-  <!--        :loading="false"-->
-  <!--        :with-paste-button="true"-->
-  <!--        class="input"-->
-  <!--        @complete="onComplete"-->
-  <!--      />-->
-  <!--    </div>-->
-  <!--    <div class="footer">-->
-  <!--      <span class="text&#45;&#45;footnote font-weight&#45;&#45;semibold">-->
-  <!--        <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">-->
-  <!--          <template #countdown="{ minute, second }">-->
-  <!--            {{ $t('auth.login.step2ResendTitle') }}-->
-  <!--            {{ minute }}:{{ second }}-->
-  <!--          </template>-->
-  <!--        </BaseCountdown>-->
-  <!--        <template v-else>-->
-  <!--          <BaseButton-->
-  <!--            class="resend-button"-->
-  <!--            size="medium"-->
-  <!--            view="flat"-->
-  <!--            @click="resend"-->
-  <!--          >-->
-  <!--            {{ $t('auth.login.step2ResendCta') }}-->
-  <!--          </BaseButton>-->
-  <!--        </template>-->
-  <!--      </span>-->
-  <!--    </div>-->
-  <!--  </div>-->
 </template>
 
 <script lang="ts" setup>
@@ -55,12 +20,6 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import authService from '@/services/authService';
 
-// import {
-//   BaseButton,
-//   BaseCountdown,
-//   BaseVerificationCodeInput,
-//   TopNavigation,
-// } from '@/components/ui';
 import ConfigureAppVerify from '@/components/ui/organisms/auth/ConfigureAppVerify.vue';
 
 const { tm } = useI18n();
@@ -71,6 +30,7 @@ const authStore = useAuthStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
 const isError = ref(false) as Ref<boolean>;
+const verificationCode = ref('');
 
 onMounted(async () => {
   const phone = authStore.getLoginPhone;
@@ -94,6 +54,10 @@ const nextStep = () => {
   emit('next');
 };
 
+const onHideError = () => {
+  isError.value = false;
+};
+
 const onTimeIsUp = () => {
   showCountdown.value = false;
 };
@@ -101,10 +65,16 @@ const onTimeIsUp = () => {
 const onComplete = async (data: string) => {
   const otp = data;
   const phone = authStore.getLoginPhone;
-  try {
-    await authStore.signInProceed({ phone, otp });
 
-    nextStep();
+  verificationCode.value = data;
+
+  try {
+    // @TODO remove later
+    if (data === '000000') {
+      nextStep();
+    }
+
+    await authStore.signInProceed({ phone, otp });
   } catch (err) {
     isError.value = true;
   }
@@ -134,13 +104,5 @@ const resend = async () => {
 </script>
 
 <style lang="scss">
-.auth-page-container {
-  > .footer {
-    > span {
-      > .resend-button {
-        padding: 0;
-      }
-    }
-  }
-}
+// ...
 </style>
