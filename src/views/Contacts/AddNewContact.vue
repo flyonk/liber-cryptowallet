@@ -22,8 +22,8 @@
         >
           <template #label> Name </template>
         </BaseInput>
-        <BaseInput v-model="newContacts[index].email.value" type="text">
-          <template #label> Email </template>
+        <BaseInput v-model="newContacts[index].phone.value" type="text">
+          <template #label> Phone </template>
         </BaseInput>
         <p class="add" @click="addExtraContact">
           <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
@@ -52,7 +52,7 @@ const router = useRouter();
 const newContacts = [
   {
     name: ref(''),
-    email: ref(''),
+    phone: ref(''),
   },
 ];
 

@@ -36,7 +36,7 @@
         </li>
       </ul>
       <div class="currencies flex items-center">
-        <h1 class="title">€ 46.00</h1>
+        <h1 class="title">€ 0.00</h1>
         <div class="circle-wrap">
           <img
             class="down"

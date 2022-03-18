@@ -18,19 +18,19 @@
     </div>
     <ul class="fees-data">
       <li class="fees-item">
+        <div class="circle" style="opacity: 0">=</div>
+        <p class="sum" style="">&nbsp;</p>
+        <p class="name" style="opacity: 0">Amount we’ll covert</p>
+      </li>
+      <li class="fees-item">
         <div class="circle">-</div>
-        <p class="sum">0.12345678 BTC</p>
+        <p class="sum">0.0005 BTC</p>
         <p class="name">Transfer Fee</p>
       </li>
       <li class="fees-item">
-        <div class="circle">=</div>
-        <p class="sum">0.19811656 BTC</p>
-        <p class="name">Amount we’ll covert</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">x</div>
-        <p class="sum">0.19811656 USD</p>
-        <p class="name">Guaranteed rate (100h)</p>
+        <div class="circle" style="opacity: 0">x</div>
+        <p class="sum" style="opacity: 0">0.19811656 USD</p>
+        <p class="name" style="opacity: 0">Guaranteed rate (100h)</p>
       </li>
     </ul>
     <div class="input-wrapper relative w-full mb-5">

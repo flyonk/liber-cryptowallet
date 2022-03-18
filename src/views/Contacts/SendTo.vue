@@ -7,11 +7,11 @@
         alt="arrow-left"
         @click="$router.push({ name: 'profile-main-view' })"
       />
-      <h4 class="username">@AshleyRogers</h4>
+      <h4 class="username">@MyDude</h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">Ashley Rogers</h1>
-      <div class="initials">AR</div>
+      <h1 class="title">My Dude</h1>
+      <div class="initials">MD</div>
     </div>
     <div class="sendto-main">
       <change-currency @send-transaction="sendTransaction" />

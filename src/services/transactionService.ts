@@ -21,6 +21,19 @@ export default {
     // !temporary test data until transaction model is updated
     return await Promise.resolve([
       {
+        id: '4',
+        txid: '4xd',
+        amount: '0.0095',
+        timestamp: '1647525472', //15.03.22
+        status: ETransactionStatus.Finished,
+        type: ETransactionType.Send,
+        code: 'BTC',
+        contractor: {
+          phone: '+79110110101',
+          email: 'My Dude',
+        },
+      },
+      {
         id: 'string',
         txid: 'string',
         amount: '0.001',
@@ -46,7 +59,7 @@ export default {
           email: 'test@example.com',
         },
       },
-      {
+      /* {
         id: 'string',
         txid: 'string',
         amount: '1',
@@ -58,7 +71,7 @@ export default {
           phone: '+71234567890',
           email: 'test@example.com',
         },
-      },
+      }, */
     ]);
   },
 };
