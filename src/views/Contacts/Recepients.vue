@@ -1,12 +1,7 @@
 <template name="Recepients">
   <div class="who-topay">
     <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/profile')"
-      />
+      <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
       <div class="flex">
         <img
           class="add mr-3"
@@ -69,13 +64,6 @@
         </li>
       </ul>
     </div>
-    <button
-      v-if="hasFriends"
-      class="options-button"
-      @click="isMenuOpen = !isMenuOpen"
-    >
-      Payment Options
-    </button>
     <div v-if="!hasFriends" class="empty-list">
       <img
         class="image"

@@ -403,6 +403,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/recepients',
     name: Route.Recepients,
     component: () => import('@/views/Contacts/Recepients.vue'),
+    meta: { layout: 'navbar' },
   },
 ];
 

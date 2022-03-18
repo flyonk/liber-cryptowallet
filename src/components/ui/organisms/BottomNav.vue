@@ -46,7 +46,7 @@
       <router-link
         style="text-decoration: none"
         :to="{
-          name: 'recepients',
+          name: Route.Recepients,
         }"
         class="item"
         @click="changeTab(4)"
@@ -83,6 +83,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { Route } from '@/router/types';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
