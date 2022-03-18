@@ -47,6 +47,7 @@ function getCurrencyUrl(code: string): string {
   return code === 'eur' ? Route.DashboardHome : `/${Route.Account}/${code}`;
 }
 
+//TODO: get from API call if
 const currencies = [
   {
     name: 'EUR',

@@ -4,9 +4,10 @@ export interface INetTransaction {
   id: string;
   sum: string;
   status: ETransactionStatus;
-  type: ETransactionType;
+  type: ETransactionType | ETransactionDirection;
   code: string;
   icon?: string;
+  direction: ETransactionDirection;
   contractor?: {
     id: string;
     phone: string;
@@ -22,6 +23,7 @@ export interface IRequestFunds {
   status: ERequestFundsStatus;
   code: string;
   type: ERequestFundsType;
+  direction: ETransactionDirection;
   contractor: {
     id: string;
     phone: string;
@@ -30,17 +32,23 @@ export interface IRequestFunds {
   };
 }
 
-enum ETransactionType {
-  Transfer = 'transfer',
-  Convert = 'convert',
-  Deposit = 'deposit',
-  Withdraw = 'withdraw',
+enum ETransactionDirection {
+  outcome = 'outcome',
+  income = 'income',
 }
+
+enum ETransactionType {
+  transfer = 'transfer',
+  convert = 'convert',
+  deposit = 'deposit',
+  withdraw = 'withdraw',
+}
+
 enum ETransactionStatus {
-  Pending = 'pending',
-  Unconfirmed = 'unconfirmed',
-  Completed = 'finished',
-  Rejected = 'cancelled',
+  pending = 'pending',
+  unconfirmed = 'unconfirmed',
+  completed = 'finished',
+  rejected = 'cancelled',
 }
 
 enum ERequestFundsType {
@@ -60,10 +68,12 @@ export default {
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
-      sum: _transactionAmount2Sum(input.amount, input.type),
+      sum: _transactionAmount2Sum(input.amount, input.direction),
       status: input.status,
-      type: input.type,
+      type:
+        input.type === ETransactionType.transfer ? input.direction : input.type,
       code: input.code?.toUpperCase(),
+      direction: input.direction,
       icon: _getTransactionIcon(input.type),
       contractor: input.contragent
         ? {
@@ -96,27 +106,26 @@ export default {
   },
 };
 
-//TODO: check Transfer type for sent or receive
 function _transactionAmount2Sum(
   amount: string,
-  type: ETransactionType
+  direction: ETransactionDirection
 ): string {
-  return type === ETransactionType.Deposit || type === ETransactionType.Convert
+  return direction === ETransactionDirection.income
     ? `+ ${amount}`
     : `- ${amount}`;
 }
 
 function _getTransactionIcon(type: ETransactionType): string {
-  //TODO: define icons set
+  //TODO: define icons set, check logic
   let icon = '';
   switch (type) {
-    case ETransactionType.Transfer || ETransactionType.Withdraw:
+    case ETransactionType.transfer || ETransactionType.withdraw:
       icon = require('@/assets/icon/transactions/sent.svg');
       break;
-    case ETransactionType.Deposit:
+    case ETransactionType.deposit:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
-    case ETransactionType.Convert:
+    case ETransactionType.convert:
       icon = require('@/assets/icon/transactions/exchange.svg');
       break;
     default:

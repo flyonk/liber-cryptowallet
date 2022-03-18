@@ -18,7 +18,7 @@
           </p>
         </div>
         <div class="flex">
-          <div class="subtitle">{{ transaction.from }}</div>
+          <div class="subtitle">{{ transaction.direction }}</div>
           <p
             v-if="transaction.status"
             :class="{ pending: transaction.status === 'Pending' }"

@@ -11,11 +11,10 @@ import accountBalanceMapper, {
 export default {
   async getAccounts(): Promise<IAccount[]> {
     const res = await axios.get(apiService.account.accountsList());
-    //TODO: wait for api
     return res.data.map(accountMapper.deserialize);
   },
 
-  async getAccountBalanceByCoin(coin: string): Promise<IAccount> {
+  async getAccountBalanceByCoin(coin?: string): Promise<IAccount> {
     const res = await axios.get(`${apiService.account.accountsList()}/${coin}`);
     return accountMapper.deserialize(res.data);
   },

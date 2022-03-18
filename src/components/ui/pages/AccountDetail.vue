@@ -9,10 +9,10 @@
       />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
-        balance="2.1234"
-        coin-code="TBTC"
-        base-conversion-sum="532.00"
-        currency="€"
+        :balance="balance.balance"
+        :coin-code="balance.name"
+        :base-conversion-sum="balance.baseBalanceConversion"
+        :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
       <VueAgile
@@ -104,12 +104,12 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, getCurrentInstance, computed } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
-// import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 
-import { useTransactionStore } from '@/stores/transaction';
+import { useAccountStore } from '@/stores/account';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
@@ -117,27 +117,22 @@ import TransactionsList from '@/components/ui/organisms/transactions/Transaction
 let showControls = ref(false);
 const { tm } = useI18n();
 
-const tStore = useTransactionStore();
+const aStore = useAccountStore();
 
 const activeTab = ref(1);
 
-const { proxy } = getCurrentInstance();
-
-// const route = useRoute();
+const route = useRoute();
 
 /**
  * Lifecycle
  */
-onMounted(async () => {
-  try {
-    //await tStore.init(route.params.coin as string); //TODO: api is broken
-    await tStore.init();
-  } catch (err) {
-    proxy.$sentry.capture(err, 'DashboardTransactions', 'getTransactionList');
-  }
+onMounted(() => {
+  console.log(route.params.coin);
+  if (route.params.coin) aStore.init(route.params.coin as string);
 });
 
-const transactions = computed(() => tStore.getTransactionList);
+const transactions = computed(() => aStore.getCoinTransactions);
+const balance = computed(() => aStore.getBalanceByCoin);
 
 const carousel = [
   {

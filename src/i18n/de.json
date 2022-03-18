@@ -127,8 +127,8 @@
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
     "operations": {
-      "to": "Sent",
-      "from": "Received",
+      "income": "Received",
+      "outcome": "Sent",
       "transfer": "Transfer",
       "deposit": "Deposit",
       "withdraw": "Withdraw",
