@@ -43,7 +43,14 @@
           {{ $t('bottomNav.send') }}
         </p>
       </li>
-      <li class="item" @click="changeTab(4)">
+      <router-link
+        style="text-decoration: none"
+        :to="{
+          name: 'recepients',
+        }"
+        class="item"
+        @click="changeTab(4)"
+      >
         <svg v-if="activeTab === 4" class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients-active" />
         </svg>
@@ -53,7 +60,7 @@
         <p class="label" :class="{ '-active': activeTab === 4 }">
           {{ $t('bottomNav.recipients') }}
         </p>
-      </li>
+      </router-link>
       <li class="item" @click="changeTab(5)">
         <svg v-if="activeTab === 5" class="svg">
           <use xlink:href="@/assets/icon/navbar/sprite.svg#gift-active" />
