@@ -1,12 +1,7 @@
-import { EStepDirection } from '@/types/base-component';
 import { defineStore } from 'pinia';
 import { EDocumentSide } from '@/types/document';
 
 // === KYC Types ===
-
-export interface IKYCStep {
-  personal: number;
-}
 
 export enum EKYCProofType {
   licence = 'licence',
@@ -29,8 +24,6 @@ export interface IKYCFormData {
 }
 
 export interface IKYCState {
-  steps: IKYCStep;
-
   proof_type: EKYCProofType | null;
 
   completed_percentage: number;
@@ -44,10 +37,6 @@ export interface IKYCState {
 
 export const useKYCStore = defineStore('kyc', {
   state: (): IKYCState => ({
-    steps: {
-      personal: 0,
-    },
-
     proof_type: null,
 
     completed_percentage: 0.2,
@@ -68,8 +57,6 @@ export const useKYCStore = defineStore('kyc', {
   }),
 
   getters: {
-    getStep: ({ steps }) => steps,
-
     getProofType: ({ proof_type }) => proof_type,
 
     getData: ({ data }) => data,
@@ -90,22 +77,6 @@ export const useKYCStore = defineStore('kyc', {
 
     setPercentage(percentage: number) {
       this.completed_percentage = percentage;
-    },
-
-    setStep(step: number | EStepDirection) {
-      if (step === EStepDirection.next) {
-        this.steps.personal += 1;
-
-        return;
-      }
-
-      if (step === EStepDirection.prev) {
-        this.steps.personal -= 1;
-
-        return;
-      }
-
-      this.steps.personal = step;
     },
 
     setImage(image: string | null, side: EDocumentSide) {
