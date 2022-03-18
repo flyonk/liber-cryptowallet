@@ -34,6 +34,7 @@ import { useAppOptionsStore } from '@/stores/appOptions';
 import { BaseButton, TopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -42,14 +43,14 @@ const { setOptions } = useAppOptionsStore();
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.notifications);
   router.push({
-    name: 'dashboard-home',
+    name: Route.DashboardHome,
   });
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.notifications);
   router.push({
-    name: 'dashboard-home',
+    name: Route.DashboardHome,
   });
 };
 </script>

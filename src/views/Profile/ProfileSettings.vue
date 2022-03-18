@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push({ name: 'dashboard-home' })"
+          @click="$router.push({ name: Route.DashboardHome })"
         />
         <h1 class="title">{{ accountName }}</h1>
         <div class="flex">
@@ -114,6 +114,7 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { Route } from '@/router/types';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
