@@ -14,9 +14,10 @@
       <div class="initials">MD</div>
     </div>
     <div class="sendto-main">
-      <change-currency @send-transaction="sendTransaction" />
+      <send-currency @send-transaction="sendTransaction" />
     </div>
   </div>
+  <!--TODO: make toasts logic-->
   <base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showPopup"
@@ -63,7 +64,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
+import SendCurrency from '@/components/transactions/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 
 const showPopup = ref(false);

@@ -36,7 +36,10 @@
         </li>
       </ul>
       <div class="currencies flex items-center">
-        <h1 class="title">€ 0.00</h1>
+        <!--TODO: map currencies-->
+        <h1 class="title">
+          {{ totalBalance.currency }} {{ totalBalance.sum }}
+        </h1>
         <div class="circle-wrap">
           <img
             class="down"
@@ -49,7 +52,7 @@
           class="ml-auto"
           src="@/assets/icon/currencies/euro.svg"
           alt="eurounion"
-          @click="$router.push('/transactions')"
+          @click="$router.push('/account/tbtc')"
         />
       </div>
       <h3 class="heading-gray-md mb-4">
@@ -132,17 +135,20 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
+import { useAccountStore } from '@/stores/account';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import TransactionList from '@/components/ui/organisms/TransactionList.vue';
 
-const activeTab = ref(1);
+// import { Route } from '@/router/types';
+
+let activeTab = ref(1);
 const VerificationStatus = ref('verified');
 
 const { stylePaddings } = useSafeAreaPaddings();
@@ -151,7 +157,21 @@ const isMenuOpen = ref(false);
 // TODO: check if there is a data in store
 const loading = ref(true);
 
+const accountStore = useAccountStore();
+//TODO: move accounts to the bottom swipe component
+const accounts = computed(() => accountStore.getAccounts);
+const totalBalance = computed(() => accountStore.getTotalBalance);
+console.log(accounts);
+
 const { tm } = useI18n();
+
+/**
+ * Lifecycle
+ */
+onMounted(() => {
+  accountStore.getAccountList();
+  accountStore.getAccountBalance();
+});
 
 setTimeout(() => {
   loading.value = false;

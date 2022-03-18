@@ -1,7 +1,7 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import PaymentLinkMapper, {
+import paymentLinkMapper, {
   IPaymentLink,
 } from '@/models/transaction/paymentLink';
 import {
@@ -23,7 +23,7 @@ export default {
     const res = await axios.get(
       `${apiService.transactions.requestFunds()}/${id}`
     );
-    return PaymentLinkMapper.deserialize(res.data);
+    return paymentLinkMapper.deserialize(res.data);
   },
 
   async cancelRequestFunds(id: string): Promise<TSuccessResponse> {

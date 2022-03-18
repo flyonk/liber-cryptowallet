@@ -1,8 +1,8 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import ProfileMapper, { IProfile } from '@/models/profile/profile';
-import ClaimMapper, { IClaim } from '@/models/profile/claim';
+import profileMapper, { IProfile } from '@/models/profile/profile';
+import claimMapper, { IClaim } from '@/models/profile/claim';
 
 import {
   TConfigureAppData,
@@ -13,15 +13,15 @@ import {
 export default {
   async getProfile(): Promise<IProfile> {
     const res = await axios.get(apiService.profile.baseUrl());
-    return ProfileMapper.deserialize(res.data);
+    return profileMapper.deserialize(res.data);
   },
 
   async updateProfile(data: Partial<IProfile>): Promise<IProfile> {
     const res = await axios.patch(
       apiService.profile.baseUrl(),
-      ProfileMapper.requestSerialize(data)
+      profileMapper.requestSerialize(data)
     );
-    return ProfileMapper.deserialize(res.data);
+    return profileMapper.deserialize(res.data);
   },
 
   async updateProfileAvatar(data: File): Promise<TSuccessResponse> {
@@ -59,7 +59,7 @@ export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   async kycCreateClaim(data: any): Promise<IClaim> {
     const res = await axios.post(apiService.profile.kycClaim(), data);
-    return ClaimMapper.deserialize(res.data);
+    return claimMapper.deserialize(res.data);
   },
 
   //TODO: fix any
@@ -70,7 +70,7 @@ export default {
 
   async kycGetClaimById(id: number): Promise<IClaim> {
     const res = await axios.get(`${apiService.profile.kycClaim()}/${id}`);
-    return ClaimMapper.deserialize(res.data);
+    return claimMapper.deserialize(res.data);
   },
 
   async kycProceedClaimById(id: number): Promise<TSuccessResponse> {

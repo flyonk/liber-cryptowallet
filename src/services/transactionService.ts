@@ -1,77 +1,19 @@
-import {
-  ETransactionStatus,
-  ETransactionType,
-  TTransaction,
-} from '@/models/transaction/transaction';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import axios from 'axios';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import apiService from '@/services/apiService';
-import { TErrorResponse } from '@/types/api';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import transaction from '@/models/transaction/transaction';
+
+import transactionMapper, {
+  INetTransaction,
+} from '@/models/transaction/transaction';
+
+// import { TSuccessResponse } from '@/types/api';
 
 export default {
-  async getUserTransaction(): Promise<TTransaction[] | TErrorResponse> {
-    // const res = await axios.get(apiService.transactions.userTransactions());
-    // return res.data.list.map((e: any): TTransaction => {
-    //   return transaction.deserialize(e);
-    // });
-
-    // !temporary test data until transaction model is updated
-    return await Promise.resolve([
-      {
-        id: '4',
-        txid: '4xd',
-        amount: '0.0095',
-        timestamp: '1647525472', //15.03.22
-        status: ETransactionStatus.Finished,
-        type: ETransactionType.Send,
-        code: 'BTC',
-        contractor: {
-          phone: '+79110110101',
-          email: 'My Dude',
-        },
-      },
-      {
-        id: 'string',
-        txid: 'string',
-        amount: '0.001',
-        timestamp: '1647339981', //15.03.22
-        status: ETransactionStatus.Finished,
-        type: ETransactionType.Deposit,
-        code: 'BTC',
-        contractor: {
-          phone: '+71234567890',
-          email: 'test@example.com',
-        },
-      },
-      {
-        id: 'string',
-        txid: 'string',
-        amount: '0.9',
-        timestamp: '1647339981', //15.03.22
-        status: ETransactionStatus.Finished,
-        type: ETransactionType.Send,
-        code: 'ETH',
-        contractor: {
-          phone: '+71234567890',
-          email: 'test@example.com',
-        },
-      },
-      /* {
-        id: 'string',
-        txid: 'string',
-        amount: '1',
-        timestamp: '1647339981', //15.03.22
-        status: ETransactionStatus.Finished,
-        type: ETransactionType.Received,
-        code: 'ETH',
-        contractor: {
-          phone: '+71234567890',
-          email: 'test@example.com',
-        },
-      }, */
-    ]);
+  async getTransactionList(coin?: string): Promise<INetTransaction[]> {
+    //TODO: implement pagination
+    const url = coin
+      ? `${apiService.transactions.transactionsList()}/coin/${coin}`
+      : apiService.transactions.transactionsList();
+    const res = await axios.get(url);
+    return res.data.list.map(transactionMapper.deserialize);
   },
 };

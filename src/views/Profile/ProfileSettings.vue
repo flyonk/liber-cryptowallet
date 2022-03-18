@@ -78,7 +78,7 @@
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
         </li>
-        <router-link to="/profile/devices" class="item">
+        <router-link class="item" to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
@@ -94,7 +94,7 @@
           <img class="icon" src="@/assets/icon/circle_close.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.close') }}</p>
         </li>
-        <li class="item">
+        <li class="item" @click="onLogout">
           <img class="icon" src="@/assets/icon/log_out.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.logOut') }}</p>
         </li>
@@ -109,14 +109,38 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
-import InputSwitch from 'primevue/inputswitch';
-import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
+import { ref, computed, onMounted, getCurrentInstance } from 'vue';
+import { useRouter } from 'vue-router';
 
+import { useAuthStore } from '@/stores/auth';
+import { useProfileStore } from '@/stores/profile';
+
+import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
+import InputSwitch from 'primevue/inputswitch';
+
+const route = useRouter();
+const authStore = useAuthStore();
+
+const profileStore = useProfileStore();
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
 const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
+
+const { proxy } = getCurrentInstance();
+
+/**
+ * Lifecycles
+ */
+
+onMounted(async () => {
+  if (!profileStore.getUser.id)
+    try {
+      await profileStore.init();
+    } catch (err) {
+      proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
+    }
+});
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');
@@ -125,7 +149,12 @@ const nameInitials = computed(() => {
 
 function closeMenu() {
   showCloseAccount.value = false;
-  console.log(showCloseAccount.value);
+}
+
+async function onLogout() {
+  await authStore.logout();
+
+  await route.push({ name: 'welcome-logo-screen' });
 }
 </script>
 

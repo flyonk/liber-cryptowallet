@@ -94,19 +94,16 @@ function close() {
   padding-top: 16px;
 }
 
-.cancel-button {
+> .cancel-button {
   color: $color-primary;
   cursor: pointer;
   user-select: none;
-  user-select: none;
-  user-select: none;
-  user-select: none;
 }
 
-.country-list {
+> .country-list {
   margin-top: 20px;
 
-  & > .item {
+  > .item {
     border-radius: 8px;
     padding: 12px 16px;
     margin-bottom: 8px;
@@ -115,21 +112,21 @@ function close() {
     &.-selected {
       background: $color-light-grey-300;
     }
+
+    > .flag {
+      padding: 0;
+
+      > img {
+        object-fit: cover;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
+      }
+    }
+
+    > .code {
+      color: $color-dark-grey;
+    }
   }
-}
-
-.flag {
-  padding: 0;
-
-  & > .img {
-    object-fit: cover;
-    border-radius: 50%;
-    height: 40px;
-    width: 40px;
-  }
-}
-
-.code {
-  color: $color-dark-grey;
 }
 </style>

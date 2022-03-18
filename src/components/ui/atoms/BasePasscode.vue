@@ -35,9 +35,11 @@
 
 <script lang="ts" setup>
 import { ref, onBeforeMount, PropType } from 'vue';
-import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
-import { EPasscodeActions, EStorageKeys } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
+
+import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
+import { EPasscodeActions } from '@/types/base-component';
+import { EStorageKeys } from '@/types/storage';
 
 const props = defineProps({
   actionType: {

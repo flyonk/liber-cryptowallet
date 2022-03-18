@@ -9,6 +9,7 @@ import { createPinia } from 'pinia';
 import { i18n, setLocale } from './i18n';
 import sentry from '@/plugins/sentry';
 import axiosInterceptor from '@/plugins/axiosInterceptor';
+import filters from '@/helpers/filters';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
@@ -29,7 +30,8 @@ const app = createApp(App)
   .use(ToastService)
   .use(router)
   .use(FloatingVue)
-  .use(sentry);
+  .use(sentry)
+  .use(filters);
 
 setLocale();
 
