@@ -31,24 +31,37 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import { useRecepientsStore } from '@/stores/recipients';
 
 import { BaseButton, TopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
 const router = useRouter();
+const store = useRecepientsStore();
 
 const onEnable = (): void => {
-  router.push({
-    name: Route.RecepientsPhone,
-    params: {
-      next: 'true',
-    },
-  });
+  store
+    .getPhoneContacts()
+    .then(() => {
+      router.push({
+        name: Route.RecepientsPhone,
+        params: {
+          next: 'true',
+        },
+      });
+    })
+    .catch(() => {
+      router.push({
+        name: Route.RecepientsPhone,
+        params: {
+          next: 'true',
+        },
+      });
+    });
 };
 
 const onCancel = (): void => {
-  console.log('move to recepients', Route.Recepients);
   router.push({
     name: Route.RecepientsPhone,
     params: {

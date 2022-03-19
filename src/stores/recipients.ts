@@ -1,9 +1,11 @@
 import { defineStore } from 'pinia';
+import { Contacts } from '@capacitor-community/contacts';
 
-import { IIPhoneContact } from '@/models/recipient/iPhoneContact';
+import { Contact } from '@/types/contacts';
 
 interface IRecepients {
-  contacts: IIPhoneContact[];
+  contacts: Contact[];
+  permission: boolean;
 }
 
 // === Phone contacts Store ===
@@ -11,11 +13,23 @@ interface IRecepients {
 export const useRecepientsStore = defineStore('recepients', {
   state: (): IRecepients => ({
     contacts: [],
+    permission: false,
   }),
 
   getters: {
     getContacts: (state) => state.contacts,
   },
 
-  actions: {},
+  actions: {
+    async getPhoneContacts() {
+      const { granted } = await Contacts.getPermissions();
+      this.permission = !!granted;
+      if (granted) {
+        const { contacts } = await Contacts.getContacts();
+        this.contacts = contacts;
+        return true;
+      }
+      return true;
+    },
+  },
 });

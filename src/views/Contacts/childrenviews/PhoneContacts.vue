@@ -2,20 +2,23 @@
   <div v-if="hasFriends" class="main-list flex">
     <ul class="contacts-list">
       <li
-        v-for="(contact, index) in mockContacts"
-        :key="index"
+        v-for="contact in contacts"
+        :key="contact.contactId"
         class="contact-item"
         @click="isMenuOpen = !isMenuOpen"
       >
         <div class="initials">
-          {{ getContactInitials(contact.name) }}
+          {{ getContactInitials(contact.displayName) }}
         </div>
-        <router-link :to="`/contacts/send/${index}`" class="user-contact">
+        <router-link
+          :to="`/contacts/send/${contact.contactId}`"
+          class="user-contact"
+        >
           <p class="name">
-            {{ contact.name }}
+            {{ contact.displayName }}
           </p>
           <p class="phone">
-            {{ contact.phone }}
+            {{ contact.phoneNumbers[0] }}
           </p>
         </router-link>
       </li>
@@ -35,13 +38,19 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useRecepientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+
+import { Contact } from '@/types/contacts';
+
+const recepientsStore = useRecepientsStore();
+const contacts: Contact[] = recepientsStore.getContacts;
 
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);
 
-function getContactInitials(fio: string) {
+function getContactInitials(fio = '') {
   let parts = fio.split(' ');
   return parts[0][0] + parts[1][0];
 }
@@ -59,41 +68,6 @@ function closeMenu() {
 }
 
 const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-const mockContacts = [
-  {
-    name: 'Abraham Watsan',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Alexander Wood',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Ashley Rogers',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Vasya Pupkin',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Petr Schepetin',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Tovarish Stalin',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Super Man',
-    phone: '+1 347 432 32 43',
-  },
-  {
-    name: 'Benjamin Lewis',
-    phone: '+1 347 432 32 43',
-  },
-];
 </script>
 
 <style lang="scss" scoped>
