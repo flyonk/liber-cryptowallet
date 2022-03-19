@@ -21,10 +21,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 
-import {
-  INetTransaction,
-  // ETransactionStatus,
-} from '@/models/transaction/transaction';
+import { INetTransaction } from '@/models/transaction/transaction';
 
 import TransactionsListItem from '@/components/ui/molecules/TransactionsListItem.vue';
 

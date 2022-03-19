@@ -28,13 +28,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  INetTransaction,
-  ETransactionStatus,
-} from '@/models/transaction/transaction';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { PropType } from 'vue-demi';
+import { ETransactionStatus } from '@/models/transaction/transaction';
 
 defineProps({
   icon: {
