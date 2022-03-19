@@ -11,6 +11,15 @@ interface ITransferState {
   amount: string;
 }
 
+export const emptyConvert = {
+  coin: '',
+  recipient: {
+    id: '',
+    phone: '',
+  },
+  amount: '',
+} as ITransferState;
+
 // === transaction Store ===
 
 export const useTransferStore = defineStore('transfer', {
@@ -24,9 +33,15 @@ export const useTransferStore = defineStore('transfer', {
   }),
 
   getters: {
-    getCoin: (state) => state.coin,
-    getRecipient: (state) => state.recipient,
-    getAmount: (state) => state.recipient,
+    isReadyForTransfer: (state) => {
+      const isFullData =
+        Boolean(state.coin) &&
+        Boolean(state.recipient.id) &&
+        Boolean(state.recipient.phone) &&
+        Boolean(state.amount);
+
+      return isFullData;
+    },
   },
 
   actions: {
