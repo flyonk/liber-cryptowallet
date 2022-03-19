@@ -16,23 +16,39 @@
         </div>
       </label>
     </div>
-    <ul class="fees-data">
-      <li class="fees-item">
-        <div class="circle">-</div>
-        <p class="sum">0.12345678 BTC</p>
-        <p class="name">Transfer Fee</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">=</div>
-        <p class="sum">0.19811656 BTC</p>
-        <p class="name">Amount we’ll covert</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">x</div>
-        <p class="sum">0.19811656 USD</p>
-        <p class="name">Guaranteed rate (100h)</p>
-      </li>
-    </ul>
+    <div class="flex align-items-center">
+      <ul v-if="isDiffererentCoins" class="fees-data">
+        <li class="fees-item">
+          <div class="circle">-</div>
+          <p class="sum">0.12345678 BTC</p>
+          <p class="name">Transfer Fee</p>
+        </li>
+        <li class="fees-item">
+          <div class="circle">=</div>
+          <p class="sum">0.19811656 BTC</p>
+          <p class="name">Amount we’ll covert</p>
+        </li>
+        <li class="fees-item">
+          <div class="circle">x</div>
+          <p class="sum">0.19811656 USD</p>
+          <p class="name">Guaranteed rate (100h)</p>
+        </li>
+      </ul>
+      <div v-else class="different-coins">
+        <img src="@/assets/icon/attention.svg" alt="attention" class="mr-1" />
+        <p class="text">Please choose different coins</p>
+      </div>
+      <div
+        v-if="hasCoinReverse && isDiffererentCoins"
+        class="coin-switcher cursor-pointer"
+      >
+        <img
+          class="pb-3"
+          src="@/assets/icon/transactions/reverse_currencies.svg"
+          alt="coin-switcher"
+        />
+      </div>
+    </div>
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
         <p class="label">Ashley will get</p>
@@ -87,6 +103,13 @@ import { BaseCountdown } from '@/components/ui';
 
 import { useConvertFundsStore } from '@/stores/convertFunds';
 
+defineProps({
+  hasCoinReverse: {
+    type: Boolean,
+    default: false,
+  },
+});
+
 const fundsStore = useConvertFundsStore();
 
 const { from, to, imgFrom, imgTo } = fundsStore.getState;
@@ -107,6 +130,7 @@ const currentSendToCurrency = {
 
 let currentButton = ref('send');
 let disableRefreshBtn = ref(true);
+let isDiffererentCoins = ref(true);
 
 // function changeCurrentCurrency(index: number, type: string) {
 
@@ -313,5 +337,20 @@ const sendTransaction = () => {
   font-size: 12px;
   line-height: 16px;
   color: $color-red-500;
+}
+
+.different-coins {
+  display: flex;
+  align-items: center;
+  height: 110px;
+
+  > .text {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: #0d1f3c;
+  }
 }
 </style>

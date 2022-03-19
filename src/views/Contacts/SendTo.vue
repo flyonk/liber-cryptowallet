@@ -14,7 +14,10 @@
       <div class="initials">AR</div>
     </div>
     <div class="sendto-main">
-      <change-currency @send-transaction="sendTransaction" />
+      <change-currency
+        :has-coin-reverse="true"
+        @send-transaction="sendTransaction"
+      />
     </div>
   </div>
   <base-toast
