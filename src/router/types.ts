@@ -54,4 +54,6 @@ export enum Route {
   ChooseCoin = 'choose_coin',
 
   Recepients = 'recepients',
+
+  LoadContacts = 'request-phone-contacts',
 }

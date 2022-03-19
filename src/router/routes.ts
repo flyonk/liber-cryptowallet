@@ -407,6 +407,17 @@ const routes: Array<RouteRecordRaw> = [
     meta: { layout: 'navbar' },
     beforeEnter: checkContactsLoaded,
   },
+
+  // === Load phone contacts ===
+
+  {
+    path: '/requestcontacts',
+    name: Route.LoadContacts,
+    component: () => import('@/views/Contacts/RequestContatcs.vue'),
+    meta: {
+      classLayout: '-full-height',
+    },
+  },
 ];
 
 export default routes;

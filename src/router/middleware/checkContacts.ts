@@ -8,11 +8,13 @@ function checkContactsLoaded(
   next: any
 ) {
   const store = useRecepientsStore();
-  if (store.getContacts.length) {
+  if (to.params?.next === 'true') {
+    next();
+  } else if (store.getContacts.length) {
     next();
   } else {
     next({
-      name: Route.PushNotifications,
+      name: Route.LoadContacts,
     });
   }
 }
