@@ -94,7 +94,7 @@ export default {
   },
   transfer: {
     transfer(coin: string): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/coin/${coin}`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transfer/coin/${coin}`;
     },
   },
 };
