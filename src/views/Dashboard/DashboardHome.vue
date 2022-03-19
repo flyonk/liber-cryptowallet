@@ -91,7 +91,16 @@
           ...
         </button>
       </div>
-      <div class="transactions">
+      <div v-if="hasTransactions">
+        <transactions-list :transactions="transactions" />
+      </div>
+      <div v-else class="no-transactions">
+        <img src="@/assets/icon/clock.svg" class="mr-2" />
+        <p class="text-dark-gray">
+          {{ $t('views.dashboard.home.noTransactions') }}
+        </p>
+      </div>
+      <!-- <div class="transactions">
         <div class="flex justify-content-between items-center w-full mb-3">
           <p class="text-dark-gray">
             {{ $t('views.dashboard.home.transactions') }}
@@ -139,27 +148,27 @@
         <h4 class="heading-gray-md mb-3">
           {{ $t('views.dashboard.home.todo') }}
         </h4>
-        <div class="carousel">
-          <VueAgile :slides-to-show="2" :nav-buttons="false">
-            <div
-              v-for="(item, index) in carousel"
-              :key="index"
-              class="carousel-item slide"
-              @click="$router.push('/home/story')"
+      </div> -->
+      <div class="carousel">
+        <VueAgile :slides-to-show="2" :nav-buttons="false">
+          <div
+            v-for="(item, index) in carousel"
+            :key="index"
+            class="carousel-item slide"
+            @click="$router.push('/home/story')"
+          >
+            <img :src="item.imgSrc" />
+            <h4
+              :class="{
+                'text-green': item.text === 'green',
+                'text-black': item.text === 'black',
+              }"
             >
-              <img :src="item.imgSrc" />
-              <h4
-                :class="{
-                  'text-green': item.text === 'green',
-                  'text-black': item.text === 'black',
-                }"
-              >
-                {{ item.status }}
-              </h4>
-              <p>{{ item.description }}</p>
-            </div>
-          </VueAgile>
-        </div>
+              {{ item.status }}
+            </h4>
+            <p>{{ item.description }}</p>
+          </div>
+        </VueAgile>
       </div>
       <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
     </div>
@@ -167,7 +176,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
@@ -176,6 +185,10 @@ import { useAccountStore } from '@/stores/account';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
+import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import transactionService from '@/services/transactionService';
+import { INetTransaction } from '@/models/transaction/transaction';
 
 // import { Route } from '@/router/types';
 
@@ -196,12 +209,16 @@ console.log(accounts);
 
 const { tm } = useI18n();
 
+//TODO: Put to store
+let transactions: Ref<INetTransaction[]> = ref([]);
+
 /**
  * Lifecycle
  */
-onMounted(() => {
+onMounted(async () => {
   accountStore.getAccountList();
   accountStore.getAccountBalance();
+  transactions.value = await transactionService.getTransactionList();
 });
 
 setTimeout(() => {
@@ -253,16 +270,6 @@ const carousel = [
     text: 'black',
   },
 ];
-
-const transactions = ref([
-  {
-    info: `${tm('transactions.operations.received')} BTC`,
-    from: `${tm('common.from')} test@cryptowize.tech`,
-    sum: '+ 0.0001 BTC',
-    status: 'Completed',
-    img: require('@/assets/icon/transactions/received.svg'),
-  },
-]);
 
 const hasTransactions = computed(() => transactions.value.length > 0);
 </script>
@@ -464,108 +471,11 @@ const hasTransactions = computed(() => transactions.value.length > 0);
     }
   }
 
-  /**
-  I consider it a legacy, but I will keep it
-  */
-  // &__header {
-  //   margin-bottom: 16px;
-  // }
-
-  // &__tabs {
-  //   display: flex;
-
-  //   &--item {
-  //     color: $color-brand-primary;
-  //     border-radius: 8px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //     width: 101px;
-  //     height: 40px;
-
-  //     &.active {
-  //       background: $color-brand-secondary;
-  //       color: $color-white;
-  //     }
-  //   }
-  // }
-
-  // &__currencies {
-  //   margin-top: 30px;
-
-  //   &--wrap {
-  //     margin: 0 6px 5px 0;
-  //   }
-
-  //   &--down {
-  //     width: 24px;
-  //     height: 24px;
-  //     background: $color-light-grey;
-  //     border-radius: 100px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //   }
-  // }
-
-  // &__controls {
-  //   display: flex;
-  //   margin-bottom: 32px;
-
-  //   &--btn {
-  //     background: $color-grey;
-  //     border-radius: 8px;
-  //     padding: 0 16px 0 12px;
-  //     display: flex;
-  //     justify-content: center;
-  //     align-items: center;
-  //     width: 109px;
-  //     height: 40px;
-  //     margin-right: 8px;
-  //     color: $color-white;
-
-  //     &:last-child {
-  //       width: 40px;
-  //       height: 40px;
-  //       margin: 0;
-  //     }
-  //   }
-  // }
-
-  // &__carousel {
-  //   display: flex;
-  //   margin-bottom: 20px;
-
-  //   &--item {
-  //     width: 160px;
-  //     padding: 16px;
-  //     height: 160px;
-  //     border-radius: 16px;
-  //     margin-right: 8px;
-  //     background: $color-light-grey;
-
-  //     img {
-  //       margin-bottom: 20px;
-  //     }
-
-  //     h4 {
-  //       color: $color-primary;
-  //       font-weight: 800;
-  //       font-size: 10px;
-  //       line-height: 13px;
-  //       margin-bottom: 5px;
-  //     }
-
-  //     &:nth-child(3) {
-  //       background: $color-green-50;
-  //     }
-
-  //     &:last-child {
-  //       margin-right: 0;
-  //       background: $color-yellow-50;
-  //     }
-  //   }
-  // }
+  > .no-transactions {
+    display: flex;
+    align-items: center;
+    height: 60px;
+  }
 }
 
 .carousel-item {
