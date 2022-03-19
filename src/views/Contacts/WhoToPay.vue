@@ -46,7 +46,7 @@
           v-for="(contact, index) in mockContacts"
           :key="index"
           class="contact-item"
-          @click="isMenuOpen = !isMenuOpen"
+          @click="handleContactClick(contact.id, contact.phone)"
         >
           <div class="initials">
             {{ getContactInitials(contact.name) }}
@@ -85,14 +85,14 @@
         I this list, you can find contact with which you make transactions. Add
         contact to make the first transfer.
       </p>
-      <BaseButton
+      <base-button
         class="btn"
         size="large"
         view="simple"
         @click="isMenuOpen = !isMenuOpen"
       >
         Add new contact
-      </BaseButton>
+      </base-button>
     </div>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
@@ -103,12 +103,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, Ref } from 'vue';
 
 import { BaseInput, BaseButton } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import { useTransferStore } from '@/stores/transfer';
 
-let isMenuOpen = ref(false);
+let isMenuOpen: Ref<boolean> = ref(false);
 let hasFriends = ref(true);
 
 let activeTab = ref(1);
@@ -125,6 +126,14 @@ const getMenuType = computed(() => {
     return 'add_contact';
   }
 });
+
+const transferStore = useTransferStore();
+
+const handleContactClick = (id: string, phone: string) => {
+  isMenuOpen.value = !isMenuOpen.value;
+  const recipient = { id, phone };
+  transferStore.recipient = recipient;
+};
 
 function closeMenu() {
   isMenuOpen.value = false;
