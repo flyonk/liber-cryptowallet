@@ -1,10 +1,10 @@
-<template name="">
+<template>
   <div class="page-wrapper">
-    <BackHistoryBtn :path="{ name: 'deposit-network' }" />
-
-    <h1 class="main-title">
+    <top-navigation
+      @click:left-icon="$router.push({ name: 'deposit-network' })"
+    >
       {{ $t('views.deposit.wallet.deposit') }} {{ coin }}
-    </h1>
+    </top-navigation>
 
     <div class="qr-code-container">
       <canvas ref="canvas" class="qr-code-canvas" />
@@ -23,7 +23,7 @@
           </p>
         </div>
         <button class="icon" type="button" @click="updateNetwork">
-          <img src="@/assets/images/update-icon.svg" alt="Update" />
+          <img alt="Update" src="@/assets/images/update-icon.svg" />
         </button>
       </div>
 
@@ -35,7 +35,7 @@
           </p>
         </div>
         <button class="icon" type="button" @click="copyToClipboard">
-          <img src="@/assets/images/copy-icon.svg" alt="Copy" />
+          <img alt="Copy" src="@/assets/images/copy-icon.svg" />
         </button>
       </div>
 
@@ -62,8 +62,8 @@
 
       <div class="btns-container">
         <button
-          type="button"
           class="btn-default btn-secondary"
+          type="button"
           @click="saveImage"
         >
           {{ $t('views.deposit.wallet.saveImage') }}
@@ -80,13 +80,17 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+<script lang="ts" setup>
 import { onMounted, ref } from 'vue';
-import QrCodeWithLogo from 'qrcode-with-logos';
+
+import { check, share } from '@/helpers/nativeShare';
 import { useToast } from 'primevue/usetoast';
-const toast = useToast();
 import { useI18n } from 'vue-i18n';
+
+import { TopNavigation } from '@/components/ui';
+import QrCodeWithLogo from 'qrcode-with-logos';
+
+const toast = useToast();
 
 const { tm } = useI18n();
 
@@ -113,15 +117,30 @@ const saveImage = () => {
   console.log(tm('views.deposit.wallet.saveImage'));
 };
 
-const shareAddress = () => {
-  console.log(tm('views.deposit.wallet.shareAddress'));
+const shareAddress = async () => {
+  const canShare = await check();
+
+  if (!canShare) {
+    return toast.add({
+      severity: 'error',
+      summary: tm('views.deposit.wallet.deviceIsNotSupportedToShare') as string,
+      life: 3000,
+      closable: false,
+    });
+  }
+
+  await share({
+    title: 'Share address',
+    text: wallet.value,
+    dialogTitle: 'Share address',
+  });
 };
 
 const copyToClipboard = () => {
   navigator.clipboard.writeText(wallet.value).then(
     function () {
       toast.add({
-        summary: tm('views.deposit.wallet.copySuccess'),
+        summary: tm('views.deposit.wallet.copySuccess') as string,
         life: 3000,
         closable: false,
       });

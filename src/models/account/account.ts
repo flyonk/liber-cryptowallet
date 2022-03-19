@@ -4,17 +4,19 @@ export interface IAccount {
   exchange: string;
   code: string;
   baseBalanceConversion: string;
+  baseBalanceConversionCode: string;
 }
 
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any): IAccount {
     return {
-      name: input.name,
+      name: input.name.toUpperCase(),
       balance: input.balance,
       exchange: input.exchange,
       code: input.code,
-      baseBalanceConversion: input.base_balance_conversion || 0,
+      baseBalanceConversion: input.base_balance || 0,
+      baseBalanceConversionCode: input.base_balance_code || '€',
     };
   },
 };

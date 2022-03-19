@@ -21,7 +21,7 @@
           @click="setSelectedCountry(country)"
         >
           <div class="flag col-2">
-            <img :src="country.flag" alt="" />
+            <img :src="country.flag" alt="" class="img" />
           </div>
           <div class="code col-2">
             {{ country[entity] }}
@@ -89,43 +89,43 @@ function close() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .country-select-block {
   padding-top: 16px;
+}
 
-  > .cancel-button {
-    color: $color-primary;
+> .cancel-button {
+  color: $color-primary;
+  cursor: pointer;
+  user-select: none;
+}
+
+> .country-list {
+  margin-top: 20px;
+
+  > .item {
+    border-radius: 8px;
+    padding: 12px 16px;
+    margin-bottom: 8px;
     cursor: pointer;
-    user-select: none;
-  }
 
-  > .country-list {
-    margin-top: 20px;
+    &.-selected {
+      background: $color-light-grey-300;
+    }
 
-    > .item {
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 8px;
-      cursor: pointer;
+    > .flag {
+      padding: 0;
 
-      &.-selected {
-        background: $color-light-grey-300;
+      > img {
+        object-fit: cover;
+        border-radius: 50%;
+        height: 40px;
+        width: 40px;
       }
+    }
 
-      > .flag {
-        padding: 0;
-
-        > img {
-          object-fit: cover;
-          border-radius: 50%;
-          height: 40px;
-          width: 40px;
-        }
-      }
-
-      > .code {
-        color: $color-dark-grey;
-      }
+    > .code {
+      color: $color-dark-grey;
     }
   }
 }

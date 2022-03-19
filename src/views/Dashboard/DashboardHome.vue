@@ -52,7 +52,7 @@
           class="ml-auto"
           src="@/assets/icon/currencies/euro.svg"
           alt="eurounion"
-          @click="$router.push('/transactions')"
+          @click="$router.push('/account/tbtc')"
         />
       </div>
       <h3 class="heading-gray-md mb-4">
@@ -176,6 +176,8 @@ import { useAccountStore } from '@/stores/account';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
+
+// import { Route } from '@/router/types';
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');

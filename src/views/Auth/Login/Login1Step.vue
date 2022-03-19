@@ -17,9 +17,9 @@
       <div class="col-8 ml-auto">
         <base-input
           v-model="number"
-          :use-grouping="false"
-          :type="type"
           :mask="mask"
+          :type="type"
+          :use-grouping="false"
         >
           <template #label>
             {{ $t('common.numberLabel') }}
@@ -29,31 +29,33 @@
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        <router-link to="" class="link">
+        <router-link class="link" to="">
           {{ $t('auth.login.step1LostAccess') }}
         </router-link>
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button block :disabled="!number.length" @click="nextStep">
+      <base-button :disabled="!number.length" block @click="nextStep">
         {{ $t('common.logInCta') }}
       </base-button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import {
-  TopNavigation,
-  BaseCountryPhoneInput,
-  BaseInput,
-  BaseButton,
-} from '@/components/ui';
+<script lang="ts" setup>
+import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+
+import {
+  BaseButton,
+  BaseCountryPhoneInput,
+  BaseInput,
+  TopNavigation,
+} from '@/components/ui';
+
 const router = useRouter();
 const authStore = useAuthStore();
 
@@ -66,15 +68,10 @@ onMounted(async () => {
   //Check if user is authorized
   if (await authStore.checkAuthorizedUser()) authStore.setStep(2, 'login');
 
-  const { phone, dialCode } = authStore.login;
+  await authStore.getFromStorage();
 
-  if (phone) {
-    number.value = authStore.login.phone;
-  }
-  if (!dialCode) {
-    //TODO:Change to the default value taken from the smartphone
-    authStore.login.dialCode = '+7';
-  }
+  number.value = authStore.login.phone;
+
   countryDialCode.value = authStore.login.dialCode;
 });
 
@@ -95,14 +92,18 @@ const handleSelectCountry = (data: ICountryInformation) => {
       mask.value = '';
     }
 
-    authStore.login.dialCode = data.dialCode;
+    authStore.setDialCode(data.dialCode);
+
     type.value = data.mask ? 'mask' : 'number';
   }, 0);
 };
 
-const nextStep = () => {
+const nextStep = async () => {
   if (!number.value) return;
-  authStore.login.phone = number.value;
+  authStore.setPhone(number.value);
+
+  await authStore.setToStorage();
+
   authStore.setStep(1, 'login');
 };
 

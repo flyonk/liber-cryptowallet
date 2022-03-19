@@ -4,6 +4,7 @@ import { Storage } from '@capacitor/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
 import { defineStore } from 'pinia';
+import { clearAll, get, set } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
 
@@ -13,6 +14,7 @@ export interface IAuthSteps {
   registration: number;
   login: number;
   recover: number;
+  kyc: number;
 }
 
 export interface ICommonPhoneNumber {
@@ -42,6 +44,7 @@ export const useAuthStore = defineStore('auth', {
       registration: 0,
       login: 0,
       recover: 0,
+      kyc: 0,
     },
     registration: {
       dialCode: '+7',
@@ -80,7 +83,7 @@ export const useAuthStore = defineStore('auth', {
 
     async signIn(_data: { phone: string }): Promise<void> {
       await authService.signIn(_data);
-      this.setPhone();
+      this.savePhone();
     },
 
     async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
@@ -119,11 +122,72 @@ export const useAuthStore = defineStore('auth', {
       return !!(await Storage.get({ key: EStorageKeys.token })).value;
     },
 
-    async setPhone(): Promise<void> {
+    async savePhone(): Promise<void> {
       await Storage.set({
         key: EStorageKeys.phone,
         value: JSON.stringify(this.login),
       });
+    },
+
+    async getDevices() {
+      return await authService.devices();
+    },
+
+    async getFromStorage() {
+      const [dialCode, phone] = await Promise.all([
+        get('dialCode'),
+        get('phone'),
+      ]);
+
+      if (phone) {
+        this.login.phone = phone;
+      }
+
+      this.login.dialCode = dialCode || '+7';
+    },
+
+    async setToStorage() {
+      await Promise.all([
+        set({
+          key: 'dialCode',
+          value: this.login.dialCode,
+        }),
+        set({
+          key: 'phone',
+          value: this.login.phone,
+        }),
+      ]);
+    },
+
+    setPhone(phone: string) {
+      this.login.phone = phone;
+    },
+
+    setDialCode(dialCode: string) {
+      this.login.dialCode = dialCode;
+    },
+
+    async logout() {
+      const [dialCode, phone, access_token] = await Promise.all([
+        get('dialCode'),
+        get('phone'),
+        get('access_token'),
+      ]);
+
+      authService.logout({ access_token: access_token as string });
+
+      await clearAll();
+
+      await Promise.all([
+        set({
+          key: 'dialCode',
+          value: dialCode as string,
+        }),
+        set({
+          key: 'phone',
+          value: phone as string,
+        }),
+      ]);
     },
   },
 });

@@ -4,7 +4,7 @@
     @click="openSelect"
   >
     <div class="flag">
-      <img :src="selectedData?.flag" alt="" />
+      <img :src="selectedData?.flag" alt="" class="img" />
     </div>
     <div class="code ml-2 mb-1">
       {{ selectedData?.dialCode }}
@@ -65,7 +65,7 @@ function closeSelect() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-country-phone-input {
   border-radius: 12px;
   background: $color-grey-100;
@@ -74,14 +74,14 @@ function closeSelect() {
   padding: 16px;
   user-select: none;
   cursor: pointer;
+}
 
-  > .flag {
-    > img {
-      object-fit: cover;
-      border-radius: 50%;
-      height: 24px;
-      width: 24px;
-    }
+.flag {
+  & > .img {
+    object-fit: cover;
+    border-radius: 50%;
+    height: 24px;
+    width: 24px;
   }
 }
 </style>

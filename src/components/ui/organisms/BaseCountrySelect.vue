@@ -70,25 +70,16 @@ function closeSelect(): void {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .base-country-input {
   border-radius: 12px;
   width: 100%;
   height: 56px;
   user-select: none;
   cursor: pointer;
+}
 
-  > .flag {
-    > img {
-      object-fit: cover;
-      border-radius: 50%;
-      height: 24px;
-      width: 24px;
-    }
-  }
-
-  > .p-float-label {
-    width: 100%;
-  }
+.p-float-label {
+  width: 100%;
 }
 </style>

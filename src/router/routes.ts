@@ -249,6 +249,17 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
 
+  // === Convert funds Flow ===
+
+  {
+    path: '/convert',
+    name: Route.ConvertFunds,
+    component: () =>
+      import(
+        /* webpackChunkName: "dashboard" */ '@/components/ui/pages/ChangeCurrency.vue'
+      ),
+  },
+
   // === Profile (Left Navigation Menu) ===
 
   {

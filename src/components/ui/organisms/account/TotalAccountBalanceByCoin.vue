@@ -12,7 +12,7 @@
       />
     </div>
     <p class="subtitle heading-gray-md">
-      {{ currency }}{{ baseConversionSum }}
+      {{ currency }} {{ baseConversionSum }}
     </p>
   </div>
 </template>

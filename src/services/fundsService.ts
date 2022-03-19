@@ -23,13 +23,15 @@ export default {
     return depositMapper.deserialize(res.data);
   },
 
-  async convertInfo(data: TConvertData): Promise<IConvertInfo> {
+  async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
     //TODO: discuss with backend TConvertData
     const res = await axios.post(apiService.funds.convertInfo(), data);
     return convertInfoMapper.deserialize(res.data);
   },
 
-  async convert(data: TConvertData): Promise<TSuccessResponse> {
+  async convert(
+    data: Omit<TConvertData, 'request_amount'>
+  ): Promise<TSuccessResponse> {
     return (await axios.post(apiService.funds.convert(), data)).data;
   },
 };

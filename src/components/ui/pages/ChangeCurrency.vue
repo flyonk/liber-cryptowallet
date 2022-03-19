@@ -1,5 +1,5 @@
 <template name="send-to">
-  <div class="send-to">
+  <div v-if="!show2FA" class="send-to">
     <div class="header sendto-header">
       <img
         class="back mr-2"
@@ -14,7 +14,7 @@
       <div class="initials">AR</div>
     </div>
     <div class="sendto-main">
-      <send-currency @send-transaction="sendTransaction" />
+      <change-currency @show-2fa="handle2FA" />
     </div>
   </div>
   <!--TODO: make toasts logic-->
@@ -59,19 +59,33 @@
       </div>
     </template>
   </base-toast>
+  <div v-if="show2FA">
+    <auth2-f-a-verification-component @convert-funds="handleConvert" />
+  </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import SendCurrency from '@/components/transactions/SendCurrency.vue';
+import { useFundsStore } from '@/stores/funds';
+
+import ChangeCurrency from '@/components/transactions/ChangeCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
+import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 
 const showPopup = ref(false);
+const show2FA = ref(false);
 const popupStatus = ref('confirmation');
 
-function sendTransaction() {
-  showPopup.value = true;
+const fStore = useFundsStore();
+
+function handle2FA() {
+  show2FA.value = true;
+}
+
+function handleConvert() {
+  show2FA.value = false;
+  fStore.setConvertFunds(true);
 }
 </script>
 

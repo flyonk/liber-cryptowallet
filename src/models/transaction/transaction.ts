@@ -72,7 +72,8 @@ export default {
       id: input.id,
       sum: _transactionAmount2Sum(input.amount, input.type, input.direction),
       status: input.status,
-      type: input.type,
+      type:
+        input.type === ETransactionType.transfer ? input.direction : input.type,
       code: input.code?.toUpperCase(),
       icon: _getTransactionIcon(input.type),
       info: _getTransactionInfo(input.direction, input.contragent, input.code),
@@ -107,7 +108,6 @@ export default {
   },
 };
 
-//TODO: check Transfer type for sent or receive
 function _transactionAmount2Sum(
   amount: string,
   type: ETransactionType,
@@ -121,7 +121,7 @@ function _transactionAmount2Sum(
 }
 
 function _getTransactionIcon(type: ETransactionType): string {
-  //TODO: define icons set
+  //TODO: define icons set, check logic
   let icon = '';
   switch (type) {
     case ETransactionType.transfer:
