@@ -60,7 +60,10 @@
     </template>
   </base-toast>
   <div v-if="show2FA">
-    <auth2-f-a-verification-component @convert-funds="handleConvert" />
+    <auth2-f-a-verification-component
+      @convert-funds="handleConvert"
+      @close="onClose"
+    />
   </div>
 </template>
 
@@ -86,6 +89,10 @@ function handle2FA() {
 function handleConvert() {
   show2FA.value = false;
   fStore.setConvertFunds(true);
+}
+
+function onClose() {
+  show2FA.value = false;
 }
 </script>
 

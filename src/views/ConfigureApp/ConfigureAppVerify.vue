@@ -1,5 +1,5 @@
 <template>
-  <ConfigureAppVerify
+  <EnterVerificationCode
     :title="$t('auth.login.step4Title')"
     :text="$t('auth.login.step4Description')"
     :is-error="isError"
@@ -16,7 +16,7 @@ import { Ref, ref } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
 
-import ConfigureAppVerify from '@/components/ui/organisms/auth/ConfigureAppVerify.vue';
+import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 import { Route } from '@/router/types';
 

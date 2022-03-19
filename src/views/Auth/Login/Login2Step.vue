@@ -1,5 +1,5 @@
 <template>
-  <ConfigureAppVerify
+  <EnterVerificationCode
     with-countdown
     :show-countdown="showCountdown"
     :title="$t('common.codeInput')"
@@ -20,7 +20,7 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import authService from '@/services/authService';
 
-import ConfigureAppVerify from '@/components/ui/organisms/auth/ConfigureAppVerify.vue';
+import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const { tm } = useI18n();
 

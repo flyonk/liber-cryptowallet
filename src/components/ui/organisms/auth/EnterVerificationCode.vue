@@ -109,23 +109,23 @@ const pasteFromClipboard = () => {
   );
 };
 
-const onHide = () => {
+const onHide = (): void => {
   emit('onHide');
 };
 
-const onComplete = (value) => {
+const onComplete = (value: string): void => {
   emit('onComplete', value);
 };
 
-const onResend = () => {
+const onResend = (): void => {
   emit('onResend');
 };
 
-const onTimeIsUp = () => {
+const onTimeIsUp = (): void => {
   emit('onTimeIsUp');
 };
 
-const onPrev = () => {
+const onPrev = (): void => {
   emit('onPrev');
 };
 </script>
