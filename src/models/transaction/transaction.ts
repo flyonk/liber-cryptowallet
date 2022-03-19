@@ -3,16 +3,12 @@ export type TTransaction = INetTransaction | IRequestFunds;
 export interface INetTransaction {
   id: string;
   sum: string;
-  status: ETransactionStatus;
-  type: ETransactionType;
   code: string;
   icon?: string;
-  contractor?: {
-    id: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
+  info: string;
+  status: ETransactionStatus;
+  type: ETransactionType;
+  contractor?: IContractor;
 }
 
 export interface IRequestFunds {
@@ -22,37 +18,51 @@ export interface IRequestFunds {
   status: ERequestFundsStatus;
   code: string;
   type: ERequestFundsType;
-  contractor: {
-    id: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
+  contractor: IContractor;
 }
 
-enum ETransactionType {
-  Transfer = 'transfer',
-  Convert = 'convert',
-  Deposit = 'deposit',
-  Withdraw = 'withdraw',
-}
-enum ETransactionStatus {
-  Pending = 'pending',
-  Unconfirmed = 'unconfirmed',
-  Completed = 'finished',
-  Rejected = 'cancelled',
+export interface IContractor {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
 }
 
-enum ERequestFundsType {
-  PaymentLink,
-  Send,
-  Request,
+export enum ETransactionType {
+  convert = 'convert', //using now
+  deposit = 'deposit', //using now
+  transfer = 'transfer', //using now
+  received = 'received',
+  send = 'send',
+  guard = '',
 }
-enum ERequestFundsStatus {
-  Opened,
-  Closed,
-  Declined,
-  Completed,
+
+export enum ETransactionStatus {
+  pending = 'pending',
+  finished = 'finished',
+  failed = 'failed',
+  guard = '',
+}
+
+export enum ERequestFundsType {
+  paymentLink = 'paymentLink',
+  send = 'send',
+  request = 'request',
+  guard = '',
+}
+
+export enum ERequestFundsStatus {
+  opened = 'opened',
+  closed = 'closed',
+  declined = 'declined',
+  completed = 'completed',
+  guard = '',
+}
+
+export enum EDirection {
+  income = 'income',
+  outcome = 'outcome',
+  guard = '',
 }
 
 export default {
@@ -60,11 +70,12 @@ export default {
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
-      sum: _transactionAmount2Sum(input.amount, input.type),
+      sum: _transactionAmount2Sum(input.amount, input.type, input.direction),
       status: input.status,
       type: input.type,
       code: input.code?.toUpperCase(),
       icon: _getTransactionIcon(input.type),
+      info: _getTransactionInfo(input.direction, input.contragent, input.code),
       contractor: input.contragent
         ? {
             id: input.contragent.id || '',
@@ -99,9 +110,12 @@ export default {
 //TODO: check Transfer type for sent or receive
 function _transactionAmount2Sum(
   amount: string,
-  type: ETransactionType
+  type: ETransactionType,
+  direction: EDirection
 ): string {
-  return type === ETransactionType.Deposit || type === ETransactionType.Convert
+  return type === ETransactionType.deposit ||
+    (type === ETransactionType.transfer && direction === EDirection.income) ||
+    (type === ETransactionType.convert && direction === EDirection.income)
     ? `+ ${amount}`
     : `- ${amount}`;
 }
@@ -110,13 +124,13 @@ function _getTransactionIcon(type: ETransactionType): string {
   //TODO: define icons set
   let icon = '';
   switch (type) {
-    case ETransactionType.Transfer || ETransactionType.Withdraw:
+    case ETransactionType.transfer:
       icon = require('@/assets/icon/transactions/sent.svg');
       break;
-    case ETransactionType.Deposit:
+    case ETransactionType.deposit:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
-    case ETransactionType.Convert:
+    case ETransactionType.convert:
       icon = require('@/assets/icon/transactions/exchange.svg');
       break;
     default:
@@ -124,4 +138,19 @@ function _getTransactionIcon(type: ETransactionType): string {
       break;
   }
   return icon;
+}
+
+function _getTransactionInfo(
+  direction: EDirection,
+  contractor: IContractor,
+  code: string
+): string {
+  if (direction === EDirection.income)
+    return `From ${
+      contractor ? contractor.phone : `${code.toUpperCase()} address`
+    }`;
+
+  return `To ${
+    contractor ? contractor.phone : `${code.toUpperCase()} address`
+  }`;
 }
