@@ -9,7 +9,7 @@
             :to="{ name: 'choose_coin', params: { type: 'from' } }"
             class="select-option flex"
           >
-            <img class="icon" :src="currentSendFromCurrency.img" />
+            <img class="icon" :src="currentSendFromCurrency.img.value" />
             <p class="name">{{ currentSendFromCurrency.name.value }}</p>
             <img src="@/assets/icon/arrow-down.svg" alt="list" />
           </router-link>
@@ -41,6 +41,7 @@
       <div
         v-if="hasCoinReverse && isDiffererentCoins"
         class="coin-switcher cursor-pointer"
+        @click="replaceCoins"
       >
         <img
           class="pb-3"
@@ -58,7 +59,7 @@
             :to="{ name: 'choose_coin', params: { type: 'to' } }"
             class="select-option flex"
           >
-            <img class="icon" :src="currentSendToCurrency.img" />
+            <img class="icon" :src="currentSendToCurrency.img.value" />
             <p class="name">{{ currentSendToCurrency.name.value }}</p>
             <img src="@/assets/icon/arrow-down.svg" alt="list" />
           </router-link>
@@ -120,42 +121,19 @@ const showCountdown = ref(false);
 
 const currentSendFromCurrency = {
   name: ref(from || 'BTC'),
-  img: imgFrom || require('@/assets/icon/currencies/btc.svg'),
+  img: ref(imgFrom || require('@/assets/icon/currencies/btc.svg')),
 };
 
 const currentSendToCurrency = {
   name: ref(to || 'BTC'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  img: ref(imgTo || require('@/assets/icon/currencies/btc.svg')),
 };
 
 let currentButton = ref('send');
 let disableRefreshBtn = ref(true);
 let isDiffererentCoins = ref(true);
 
-// function changeCurrentCurrency(index: number, type: string) {
-
-// }
-
 const emit = defineEmits(['send-transaction']);
-
-// const currencies = [
-//   {
-//     name: 'BTC',
-//     img: require('@/assets/icon/currencies/btc.svg'),
-//   },
-//   {
-//     name: 'USDT',
-//     img: require('@/assets/icon/currencies/tether.svg'),
-//   },
-//   {
-//     name: 'ETH',
-//     img: require('@/assets/icon/currencies/eth.svg'),
-//   },
-//   {
-//     name: 'XRP',
-//     img: require('@/assets/icon/currencies/xrp.svg'),
-//   },
-// ];
 
 const onBlur = (event: any) => {
   const newElem = event.relatedTarget?.nodeName;
@@ -169,6 +147,19 @@ const onTimeIsUp = () => {
   showCountdown.value = false;
   disableRefreshBtn.value = false;
   emit('send-transaction');
+};
+
+const replaceCoins = () => {
+  fundsStore.replaceCoins();
+  const { from, to, imgFrom, imgTo } = fundsStore.getState;
+
+  console.log('show me from', from, imgFrom, imgTo);
+
+  currentSendFromCurrency.name.value = from || '';
+  currentSendFromCurrency.img.value = imgFrom;
+
+  currentSendToCurrency.name.value = to || '';
+  currentSendToCurrency.img.value = imgTo;
 };
 
 const sendTransaction = () => {
