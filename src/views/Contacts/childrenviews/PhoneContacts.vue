@@ -1,3 +1,185 @@
 <template>
-  <h1>Phone contacts</h1>
+  <div v-if="hasFriends" class="main-list flex">
+    <ul class="contacts-list">
+      <li
+        v-for="(contact, index) in mockContacts"
+        :key="index"
+        class="contact-item"
+        @click="isMenuOpen = !isMenuOpen"
+      >
+        <div class="initials">
+          {{ getContactInitials(contact.name) }}
+        </div>
+        <router-link :to="`/contacts/send/${index}`" class="user-contact">
+          <p class="name">
+            {{ contact.name }}
+          </p>
+          <p class="phone">
+            {{ contact.phone }}
+          </p>
+        </router-link>
+      </li>
+    </ul>
+    <ul class="alphabet-list">
+      <li v-for="(symbol, index) in alphabet" :key="index" class="symbol">
+        {{ symbol }}
+      </li>
+    </ul>
+  </div>
+  <bottom-swipe-menu
+    :is-menu-open="isMenuOpen"
+    :menu-type="getMenuType"
+    @close-menu="closeMenu"
+  />
 </template>
+
+<script setup lang="ts">
+import { ref, computed } from 'vue';
+
+import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+
+let isMenuOpen = ref(false);
+let hasFriends = ref(true);
+
+function getContactInitials(fio: string) {
+  let parts = fio.split(' ');
+  return parts[0][0] + parts[1][0];
+}
+
+const getMenuType = computed(() => {
+  if (hasFriends.value) {
+    return 'add_contact';
+  } else {
+    return 'add_contact';
+  }
+});
+
+function closeMenu() {
+  isMenuOpen.value = false;
+}
+
+const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+const mockContacts = [
+  {
+    name: 'Abraham Watsan',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Alexander Wood',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Ashley Rogers',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Vasya Pupkin',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Petr Schepetin',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Tovarish Stalin',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Super Man',
+    phone: '+1 347 432 32 43',
+  },
+  {
+    name: 'Benjamin Lewis',
+    phone: '+1 347 432 32 43',
+  },
+];
+</script>
+
+<style lang="scss" scoped>
+.contact-tabs {
+  margin-bottom: 24px;
+}
+
+.contact-tabs-item {
+  white-space: nowrap;
+  padding: 11px 16px;
+  color: $color-brand-primary;
+  margin-right: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 114px;
+  height: 40px;
+  background: #edf0fb;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.0008em;
+}
+
+.main-list {
+  width: 100%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.contacts-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-item {
+  display: flex;
+  margin-bottom: 24px;
+
+  > .initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: $color-yellow-100;
+    width: 40px;
+    height: 40px;
+    color: $color-yellow-700;
+    margin-right: 12px;
+  }
+}
+
+.alphabet-list {
+  > .symbol {
+    font-style: normal;
+    margin-bottom: 3px;
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    text-align: center;
+    letter-spacing: -0.0008em;
+    color: $color-brand-2-300;
+  }
+}
+
+.user-contact {
+  > .name {
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+    color: #0d1f3c;
+  }
+
+  > .phone {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-brand-2-300;
+  }
+}
+
+.router-link-exact-active {
+  background: $color-brand-secondary;
+  color: $color-white;
+}
+</style>
