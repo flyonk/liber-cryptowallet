@@ -109,14 +109,14 @@
  * TODO: Move all business logic to parent component - pages/ChangeCurrency
  */
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { useFundsStore } from '@/stores/funds';
-import SentryUtil from '@/helpers/sentryUtil';
-
-import { BaseButton } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { useFundsStore } from '@/stores/funds';
+
+import { BaseButton } from '@/components/ui';
+import SentryUtil from '@/helpers/sentryUtil';
+import { useRouter } from 'vue-router';
+
 const emit = defineEmits<{
   (event: 'show-2fa'): void;
 }>();
@@ -261,6 +261,17 @@ const onTimeIsUp = () => {
   showCountdown.value = false;
   disableRefreshBtn.value = false;
   emit('send-transaction');
+};
+
+const replaceCoins = () => {
+  fundsStore.replaceCoins();
+  const { from, to, imgFrom, imgTo } = fundsStore.getState;
+
+  currentSendFromCurrency.name.value = from || '';
+  currentSendFromCurrency.img.value = imgFrom;
+
+  currentSendToCurrency.name.value = to || '';
+  currentSendToCurrency.img.value = imgTo;
 };
 
 const sendTransaction = () => {
@@ -430,5 +441,20 @@ const sendTransaction = () => {
   font-size: 12px;
   line-height: 16px;
   color: $color-red-500;
+}
+
+.different-coins {
+  display: flex;
+  align-items: center;
+  height: 110px;
+
+  > .text {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: #0d1f3c;
+  }
 }
 </style>

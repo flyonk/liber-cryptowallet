@@ -1,6 +1,6 @@
 <template>
   <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
-    <div class="close" @click="closeMenu"></div>
+    <div class="close" @click="closeMenu" @touchmove="startMove"></div>
     <component
       :is="currentComponent"
       @close-menu="closeMenu"
@@ -96,7 +96,7 @@ onUpdated(() => {
 
 <style lang="scss" scoped>
 .bottom-menu {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   left: 0;
   width: 100%;

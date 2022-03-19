@@ -14,7 +14,10 @@
       <div class="initials">MD</div>
     </div>
     <div class="sendto-main">
-      <send-currency @send-transaction="sendTransaction" />
+      <send-currency
+        :has-coin-reverse="true"
+        @send-transaction="sendTransaction"
+      />
     </div>
   </div>
   <!--TODO: make toasts logic-->
