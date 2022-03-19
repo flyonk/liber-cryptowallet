@@ -40,6 +40,12 @@ const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
+function goToDashboard() {
+  router.push({
+    name: Route.DashboardHome,
+  });
+}
+
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.notifications);
   goToDashboard();
@@ -49,12 +55,6 @@ const onCancel = (): void => {
   setOptions('', EStorageKeys.notifications);
   goToDashboard();
 };
-
-function goToDashboard() {
-  router.push({
-    name: Route.DashboardHome,
-  });
-}
 </script>
 
 <style lang="scss" scoped>

@@ -92,11 +92,18 @@
           ...
         </button>
       </div>
-      <div class="transactions-container">
-        <div
-          class="header flex justify-content-between items-center w-full mb-3"
-        >
-          <p class="title text-dark-gray">
+      <div v-if="hasTransactions">
+        <transactions-list :transactions="transactions" />
+      </div>
+      <div v-else class="no-transactions">
+        <img src="@/assets/icon/clock.svg" class="mr-2" />
+        <p class="text-dark-gray">
+          {{ $t('views.dashboard.home.noTransactions') }}
+        </p>
+      </div>
+      <!-- <div class="transactions">
+        <div class="flex justify-content-between items-center w-full mb-3">
+          <p class="text-dark-gray">
             {{ $t('views.dashboard.home.transactions') }}
           </p>
           <p class="button heading-gray-md">
@@ -107,27 +114,27 @@
         <h4 class="heading-gray-md mb-3">
           {{ $t('views.dashboard.home.todo') }}
         </h4>
-        <div class="carousel">
-          <VueAgile :slides-to-show="2" :nav-buttons="false">
-            <div
-              v-for="(item, index) in carousel"
-              :key="index"
-              class="carousel-item slide"
-              @click="$router.push('/home/story')"
+      </div> -->
+      <div class="carousel">
+        <VueAgile :slides-to-show="2" :nav-buttons="false">
+          <div
+            v-for="(item, index) in carousel"
+            :key="index"
+            class="carousel-item slide"
+            @click="$router.push('/home/story')"
+          >
+            <img :src="item.imgSrc" />
+            <h4
+              :class="{
+                'text-green': item.text === 'green',
+                'text-black': item.text === 'black',
+              }"
             >
-              <img :src="item.imgSrc" />
-              <h4
-                :class="{
-                  'text-green': item.text === 'green',
-                  'text-black': item.text === 'black',
-                }"
-              >
-                {{ item.status }}
-              </h4>
-              <p>{{ item.description }}</p>
-            </div>
-          </VueAgile>
-        </div>
+              {{ item.status }}
+            </h4>
+            <p>{{ item.description }}</p>
+          </div>
+        </VueAgile>
       </div>
       <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
     </div>
@@ -135,7 +142,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, onMounted, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
@@ -144,7 +151,10 @@ import { useAccountStore } from '@/stores/account';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
-import TransactionList from '@/components/ui/organisms/TransactionList.vue';
+import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import transactionService from '@/services/transactionService';
+import { INetTransaction } from '@/models/transaction/transaction';
 
 // import { Route } from '@/router/types';
 
@@ -165,12 +175,16 @@ console.log(accounts);
 
 const { tm } = useI18n();
 
+//TODO: Put to store
+let transactions: Ref<INetTransaction[]> = ref([]);
+
 /**
  * Lifecycle
  */
-onMounted(() => {
+onMounted(async () => {
   accountStore.getAccountList();
   accountStore.getAccountBalance();
+  transactions.value = await transactionService.getTransactionList();
 });
 
 setTimeout(() => {
@@ -222,6 +236,8 @@ const carousel = [
     text: 'black',
   },
 ];
+
+const hasTransactions = computed(() => transactions.value.length > 0);
 </script>
 
 <style lang="scss" scoped>
@@ -376,6 +392,12 @@ const carousel = [
         color: $color-primary;
       }
     }
+  }
+
+  > .no-transactions {
+    display: flex;
+    align-items: center;
+    height: 60px;
   }
 }
 
