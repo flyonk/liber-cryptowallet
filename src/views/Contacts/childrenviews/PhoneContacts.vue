@@ -18,7 +18,7 @@
             {{ contact.displayName }}
           </p>
           <p class="phone">
-            {{ contact.phoneNumbers[0] }}
+            {{ contact.phoneNumbers[0]?.number }}
           </p>
         </router-link>
       </li>
