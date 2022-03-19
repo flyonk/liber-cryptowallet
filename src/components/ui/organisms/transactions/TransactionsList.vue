@@ -6,7 +6,7 @@
       class="item"
       @click="$router.push('/transactions/details')"
     >
-      <TransactionsListItem
+      <transactions-list-item
         :icon="icon"
         :sum="sum"
         :info="info"
@@ -28,7 +28,6 @@ import TransactionsListItem from '@/components/ui/molecules/TransactionsListItem
 defineProps({
   transactions: {
     type: Array as PropType<INetTransaction[]>,
-    default: () => [],
   },
 });
 </script>

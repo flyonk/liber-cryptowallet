@@ -15,6 +15,7 @@
         <div class="subtitle">{{ info }}</div>
         <p
           v-if="status"
+          class="status"
           :class="{
             pending: status === ETransactionStatus.pending,
           }"
@@ -82,6 +83,7 @@ defineProps({
         font-size: 16px;
         line-height: 21px;
         letter-spacing: -0.0031em;
+        color: $color-black;
       }
 
       > .subtitle {
@@ -91,6 +93,14 @@ defineProps({
         color: $color-dark-grey;
       }
 
+      > .status {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 18px;
+        text-align: right;
+        letter-spacing: -0.0008em;
+      }
+      // TODO:fix linter element rules and create variants from pending and received
       > .pending {
         color: $color-yellow-600;
       }
