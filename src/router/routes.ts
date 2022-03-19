@@ -1,5 +1,6 @@
 import { RouteRecordRaw } from 'vue-router';
 import DepositeRoutes from './routesDeposite';
+import checkContactsLoaded from './middleware/checkContacts';
 
 // Pages
 // import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
@@ -404,6 +405,7 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Recepients,
     component: () => import('@/views/Contacts/Recepients.vue'),
     meta: { layout: 'navbar' },
+    beforeEnter: checkContactsLoaded,
   },
 ];
 
