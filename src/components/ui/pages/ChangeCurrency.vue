@@ -7,11 +7,11 @@
         alt="arrow-left"
         @click="$router.push('/profile')"
       />
-      <h4 class="username">@AshleyRogers</h4>
+      <h4 class="username"></h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">Ashley Rogers</h1>
-      <div class="initials">AR</div>
+      <h1 class="title">Convert Funds</h1>
+      <!-- <div class="initials">AR</div> -->
     </div>
     <div class="sendto-main">
       <change-currency @show-2fa="handle2FA" />
@@ -69,7 +69,7 @@ import { ref } from 'vue';
 
 import { useFundsStore } from '@/stores/funds';
 
-import ChangeCurrency from '@/components/transactions/ChangeCurrency.vue';
+import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 

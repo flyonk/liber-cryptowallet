@@ -51,6 +51,7 @@ import {
   ETransactionStatus,
   ETransactionType,
   TTransaction,
+  // _getTransactionIcon,
 } from '@/models/transaction/transaction';
 import transactionService from '@/services/transactionService';
 import { computed, onBeforeUpdate, ref } from 'vue';
@@ -65,7 +66,60 @@ defineProps({
   preview: Number,
 });
 
-let transactions: any = ref([]);
+let transactions: any = ref([
+  // {
+  //   id: '4',
+  //   txid: '4xd',
+  //   amount: '0.15',
+  //   sum: '+ 55.5 USDT',
+  //   info: 'Convert TBTC to USDT',
+  //   img: _getTransactionIcon(ETransactionType.convert),
+  //   timestamp: '1647525472', //15.03.22
+  //   status: ETransactionStatus.completed,
+  //   type: ETransactionType.convert,
+  //   code: 'BTC',
+  //   contractor: '0.15 BTC',
+  // },
+  // {
+  //   id: 'string',
+  //   txid: 'string',
+  //   amount: '0.001',
+  //   sum: '+ 0.0095 BTC',
+  //   info: 'Transfer BTC',
+  //   timestamp: '1647339981', //15.03.22
+  //   status: ETransactionStatus.completed,
+  //   type: ETransactionType.deposit,
+  //   img: _getTransactionIcon(ETransactionType.deposit),
+  //   code: 'BTC',
+  //   contractor: '+79110110101',
+  // },
+  // {
+  //   id: 'string',
+  //   txid: 'string',
+  //   amount: '0.001',
+  //   sum: '+ 0.0012 BTC',
+  //   info: 'Deposit BTC',
+  //   timestamp: '1647339981', //15.03.22
+  //   status: ETransactionStatus.completed,
+  //   type: ETransactionType.deposit,
+  //   img: _getTransactionIcon(ETransactionType.deposit),
+  //   code: 'BTC',
+  //   contractor: 'My Dude',
+  // },
+  // {
+  //   id: 'string',
+  //   txid: 'string',
+  //   amount: '0.9',
+  //   sum: '- 0.9 ETH',
+  //   info: 'Send ETH',
+  //   timestamp: '1647339981', //15.03.22
+  //   status: ETransactionStatus.completed,
+  //   type: ETransactionType.transfer,
+  //   img: _getTransactionIcon(ETransactionType.transfer),
+  //   code: 'ETH',
+  //   contractor: 'test@example.com',
+  // },
+]);
 
 onMounted(async () => {
   transactions.value = await transactionService.getUserTransaction();
@@ -89,7 +143,7 @@ type TInternalComponentTransaction = {
 const _getTransactionDataByType = (
   transaction: TTransaction
 ): TInternalComponentTransaction => {
-  if (transaction.type === ETransactionType.Deposit)
+  if (transaction.type === ETransactionType.deposit)
     return {
       info: `${tm('transactions.operations.deposit')} ${transaction.code}`,
       contractor: `From Bitcoin address`, //TODO: resolve it
@@ -98,7 +152,7 @@ const _getTransactionDataByType = (
       img: require('@/assets/icon/transactions/deposit.svg'),
     };
 
-  if (transaction.type === ETransactionType.Received)
+  if (transaction.type === ETransactionType.deposit)
     return {
       info: `${tm('transactions.operations.received')} ${transaction.code}`,
       contractor: `From ${
@@ -111,7 +165,7 @@ const _getTransactionDataByType = (
       img: require('@/assets/icon/transactions/received.svg'),
     };
 
-  if (transaction.type === ETransactionType.Send)
+  if (transaction.type === ETransactionType.transfer)
     return {
       info: `${tm('transactions.operations.sent')} ${transaction.code}`,
       contractor: `To ${
@@ -128,7 +182,7 @@ const _getTransactionDataByType = (
     info: '',
     contractor: '',
     sum: '',
-    status: ETransactionStatus.Pending,
+    status: ETransactionStatus.pending,
     img: '',
   };
 };

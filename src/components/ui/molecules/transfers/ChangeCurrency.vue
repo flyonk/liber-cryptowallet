@@ -3,7 +3,7 @@
     <div class="change-currency">
       <div class="input-wrapper mb-2 relative m-0">
         <label class="change-from">
-          <p class="label">You send exactly</p>
+          <p class="label">You convert exactly</p>
           <input
             v-model="requestAmount"
             type="number"
@@ -40,7 +40,7 @@
           <p class="sum">
             {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
           </p>
-          <p class="name">Transfer Fee</p>
+          <p class="name">Conversion Fee</p>
         </li>
         <li class="fees-item">
           <div class="circle">=</div>
@@ -59,7 +59,7 @@
       </ul>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
-          <p class="label">Ashley will get</p>
+          <p class="label">You will get</p>
           <!--TODO: implement change coin logic for readonly-->
           <input
             v-model="convertInfo.estimatedAmount"
@@ -98,7 +98,7 @@
         :disabled="loading"
         @click="handleClick"
       >
-        {{ ctaState === 'preview' ? 'Preview' : 'Send' }}
+        {{ ctaState === 'preview' ? 'Preview' : 'Convert' }}
       </BaseButton>
     </div>
   </keep-alive>

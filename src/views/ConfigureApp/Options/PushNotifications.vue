@@ -42,17 +42,19 @@ const { setOptions } = useAppOptionsStore();
 
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.notifications);
-  router.push({
-    name: Route.DashboardHome,
-  });
+  goToDashboard();
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.notifications);
+  goToDashboard();
+};
+
+function goToDashboard() {
   router.push({
     name: Route.DashboardHome,
   });
-};
+}
 </script>
 
 <style lang="scss" scoped>

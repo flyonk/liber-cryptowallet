@@ -64,7 +64,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import SendCurrency from '@/components/transactions/SendCurrency.vue';
+import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 
 const showPopup = ref(false);

@@ -37,14 +37,14 @@ enum ETransactionDirection {
   income = 'income',
 }
 
-enum ETransactionType {
+export enum ETransactionType {
   transfer = 'transfer',
   convert = 'convert',
   deposit = 'deposit',
   withdraw = 'withdraw',
 }
 
-enum ETransactionStatus {
+export enum ETransactionStatus {
   pending = 'pending',
   unconfirmed = 'unconfirmed',
   completed = 'finished',
@@ -116,7 +116,7 @@ function _transactionAmount2Sum(
     : `- ${amount}`;
 }
 
-function _getTransactionIcon(type: ETransactionType): string {
+export function _getTransactionIcon(type: ETransactionType): string {
   //TODO: define icons set, check logic
   let icon = '';
   switch (type) {
