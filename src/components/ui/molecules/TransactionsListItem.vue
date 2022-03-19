@@ -1,27 +1,27 @@
 <template>
   <div class="transaction-list-item">
-    <img class="icon" :src="transaction.icon" />
+    <img class="icon" :src="icon" />
     <div class="info">
       <div class="flex">
         <h1 class="title">
-          {{ $t(`transactions.operations.${transaction.type}`) }}
-          {{ transaction.code }}
+          {{ $t(`transactions.operations.${type}`) }}
+          {{ code }}
         </h1>
-        <p :class="{ received: transaction.sum.startsWith('+') }">
-          {{ transaction.sum }}
+        <p :class="{ received: sum.startsWith('+') }">
+          {{ sum }}
         </p>
       </div>
       <div class="flex">
-        <div class="subtitle">{{ transaction.info }}</div>
+        <div class="subtitle">{{ info }}</div>
         <p
-          v-if="transaction.status"
+          v-if="status"
           :class="{
-            pending: transaction.status === ETransactionStatus.pending,
+            pending: status === ETransactionStatus.pending,
           }"
         >
-          {{ $t(`transactions.status.${transaction.status}`) }}
+          {{ $t(`transactions.status.${status}`) }}
         </p>
-        <p v-else class="sum">{{ transaction.sum }} {{ transaction.code }}</p>
+        <p v-else class="sum">{{ sum }} {{ code }}</p>
       </div>
     </div>
   </div>
@@ -29,18 +29,37 @@
 
 <script setup lang="ts">
 import {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   INetTransaction,
   ETransactionStatus,
 } from '@/models/transaction/transaction';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { PropType } from 'vue-demi';
 
 defineProps({
-  transaction: {
-    type: Object as PropType<INetTransaction>,
-    required: true,
-  },
   icon: {
     type: String,
+    default: '',
+  },
+  sum: {
+    type: String,
+    default: '',
+  },
+  info: {
+    type: String,
+    default: '',
+  },
+  status: {
+    type: String,
+    default: '',
+  },
+  code: {
+    type: String,
+    default: '',
+  },
+  type: {
+    type: String,
+    default: '',
   },
 });
 </script>
