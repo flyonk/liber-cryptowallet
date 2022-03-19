@@ -3,7 +3,13 @@
     <div class="input-wrapper mb-2 relative m-0">
       <label class="change-from">
         <p class="label">You send exactly</p>
-        <input type="number" class="input" autofocus @blur="onBlur" />
+        <input
+          v-model="amount"
+          type="number"
+          class="input"
+          autofocus
+          @blur="onBlur"
+        />
         <div class="select">
           <div class="select-option flex" @click="showCryptoList(1)">
             <img class="icon" :src="currentSendFromCurrency.img" />
@@ -30,7 +36,7 @@
     <ul class="fees-data">
       <li class="fees-item">
         <div class="circle">-</div>
-        <p class="sum">0.12345678 BTC</p>
+        <p class="sum">0 BTC</p>
         <p class="name">Transfer Fee</p>
       </li>
       <li class="fees-item">
@@ -71,20 +77,24 @@
         </div>
       </label>
     </div>
-    <BaseButton
+    <base-button
       class="send-button"
       size="large"
       view="simple"
       @click="$emit('send-transaction')"
     >
       Send
-    </BaseButton>
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { BaseButton } from '@/components/ui';
+import { useTransferStore } from '@/stores/transfer';
+
+const transferStore = useTransferStore();
+let amount = ref('');
 
 const currentSendFromCurrency = {
   name: ref('BTC'),
@@ -109,6 +119,12 @@ function changeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name;
     currentSendFromCurrency.img = currencies[index].img;
+
+    // now API allows send X to X currency
+    currentSendToCurrency.name.value = currencies[index].name;
+    currentSendToCurrency.img = currencies[index].img;
+    //
+    transferStore.coin = currentSendFromCurrency.name.value;
   }
 
   if (type === 'to') {
@@ -152,6 +168,10 @@ const onBlur = (event: any) => {
     elem.focus();
   }
 };
+
+watch(amount, () => {
+  transferStore.amount = amount.value;
+});
 </script>
 
 <style lang="scss" scoped>
