@@ -1,7 +1,10 @@
 <template name="Recepients">
   <div class="who-topay">
     <div class="header">
-      <img src="@/assets/images/avatar.png" @click="$router.push('/profile')" />
+      <img
+        src="@/assets/images/avatar.png"
+        @click="$router.push({ name: Route.ProfileMainView })"
+      />
       <div class="flex">
         <img
           class="add mr-3"
@@ -14,7 +17,7 @@
           alt="circle-add"
           @click="
             $router.push({
-              name: 'deposit-coin',
+              name: Route.Deposit,
             })
           "
         />
@@ -26,17 +29,21 @@
     <BaseInput type="text">
       <template #label> Name, @id, phone, email </template>
     </BaseInput>
-    <ul class="contact-tabs flex">
-      <li
-        v-for="tab in contactTabs"
-        :key="tab.id"
-        class="item"
-        :class="{ active: activeTab === tab.id }"
-        @click="activeTab = tab.id"
+    <div class="contact-tabs flex">
+      <router-link
+        :to="{ name: Route.RecepientsLiber }"
+        class="contact-tabs-item"
       >
-        {{ tab.name }}
-      </li>
-    </ul>
+        Liber Friends
+      </router-link>
+      <router-link
+        :to="{ name: Route.RecepientsPhone }"
+        class="contact-tabs-item"
+      >
+        All Contacts
+      </router-link>
+    </div>
+    <router-view />
     <div v-if="hasFriends" class="main-list flex">
       <ul class="contacts-list">
         <li
@@ -98,10 +105,10 @@ import { ref, computed } from 'vue';
 import { BaseInput, BaseButton } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
+import { Route } from '@/router/types';
+
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);
-
-let activeTab = ref(1);
 
 function getContactInitials(fio: string) {
   let parts = fio.split(' ');
@@ -156,17 +163,6 @@ const mockContacts = [
     phone: '+1 347 432 32 43',
   },
 ];
-
-const contactTabs = [
-  {
-    id: 1,
-    name: 'Liber Friends',
-  },
-  {
-    id: 2,
-    name: 'All Contacts',
-  },
-];
 </script>
 
 <style lang="scss" scoped>
@@ -196,29 +192,24 @@ const contactTabs = [
 
 .contact-tabs {
   margin-bottom: 24px;
+}
 
-  > .item {
-    white-space: nowrap;
-    padding: 11px 16px;
-    color: $color-brand-primary;
-    margin-right: 8px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-width: 114px;
-    height: 40px;
-    background: #edf0fb;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-  }
-
-  > .active {
-    background: $color-brand-secondary;
-    color: $color-white;
-  }
+.contact-tabs-item {
+  white-space: nowrap;
+  padding: 11px 16px;
+  color: $color-brand-primary;
+  margin-right: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 114px;
+  height: 40px;
+  background: #edf0fb;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.0008em;
 }
 
 .main-list {
@@ -329,5 +320,10 @@ const contactTabs = [
   > .btn {
     margin-top: auto;
   }
+}
+
+.router-link-exact-active {
+  background: $color-brand-secondary;
+  color: $color-white;
 }
 </style>

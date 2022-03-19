@@ -46,7 +46,7 @@
       <router-link
         style="text-decoration: none"
         :to="{
-          name: Route.Recepients,
+          name: Route.RecepientsPhone,
         }"
         class="item"
         @click="changeTab(4)"

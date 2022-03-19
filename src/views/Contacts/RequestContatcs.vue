@@ -40,7 +40,7 @@ const router = useRouter();
 
 const onEnable = (): void => {
   router.push({
-    name: Route.Recepients,
+    name: Route.RecepientsPhone,
     params: {
       next: 'true',
     },
@@ -50,7 +50,7 @@ const onEnable = (): void => {
 const onCancel = (): void => {
   console.log('move to recepients', Route.Recepients);
   router.push({
-    name: Route.Recepients,
+    name: Route.RecepientsPhone,
     params: {
       next: 'true',
     },
