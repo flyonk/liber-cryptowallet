@@ -1,12 +1,14 @@
 export type TTransaction = INetTransaction | IRequestFunds;
 
-interface INetTransaction {
+export interface INetTransaction {
   id: string;
   sum: string;
-  timestamp: string;
   status: ETransactionStatus;
-  type: ETransactionType;
-  contractor: {
+  type: ETransactionType | ETransactionDirection;
+  code: string;
+  icon?: string;
+  direction: ETransactionDirection;
+  contractor?: {
     id: string;
     phone: string;
     email: string;
@@ -14,12 +16,14 @@ interface INetTransaction {
   };
 }
 
-interface IRequestFunds {
+export interface IRequestFunds {
   id: string;
   sum: string;
   timestamp: string;
   status: ERequestFundsStatus;
+  code: string;
   type: ERequestFundsType;
+  direction: ETransactionDirection;
   contractor: {
     id: string;
     phone: string;
@@ -28,17 +32,23 @@ interface IRequestFunds {
   };
 }
 
-enum ETransactionType {
-  To,
-  From,
-  Convert,
-  Deposit,
-  Withdraw,
+enum ETransactionDirection {
+  outcome = 'outcome',
+  income = 'income',
 }
+
+enum ETransactionType {
+  transfer = 'transfer',
+  convert = 'convert',
+  deposit = 'deposit',
+  withdraw = 'withdraw',
+}
+
 enum ETransactionStatus {
-  Pending,
-  Completed,
-  Rejected,
+  pending = 'pending',
+  unconfirmed = 'unconfirmed',
+  completed = 'finished',
+  rejected = 'cancelled',
 }
 
 enum ERequestFundsType {
@@ -58,16 +68,21 @@ export default {
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
-      sum: input.sum || '',
-      timestamp: input.timestamp || '',
+      sum: _transactionAmount2Sum(input.amount, input.direction),
       status: input.status,
-      type: input.type,
-      contractor: {
-        id: input.contractor.id,
-        phone: input.contractor.phone || '',
-        email: input.contractor.email || '',
-        address: input.contractor.address || '',
-      },
+      type:
+        input.type === ETransactionType.transfer ? input.direction : input.type,
+      code: input.code?.toUpperCase(),
+      direction: input.direction,
+      icon: _getTransactionIcon(input.type),
+      contractor: input.contragent
+        ? {
+            id: input.contragent.id || '',
+            phone: input.contragent.phone || '',
+            email: input.contragent.email || '',
+            address: input.contragent.address || '',
+          }
+        : undefined,
     };
   },
 
@@ -75,16 +90,47 @@ export default {
   requestSerialize(input: TTransaction): any {
     return {
       id: input.id,
-      sum: input.sum,
-      timestamp: input.timestamp,
+      amount: input.sum,
       status: input.status,
       type: input.type,
-      contractor: {
-        id: input.contractor.id,
-        phone: input.contractor.phone,
-        email: input.contractor.email,
-        address: input.contractor.address,
-      },
+      code: input.code,
+      contragent: input.contractor
+        ? {
+            id: input.contractor.id,
+            phone: input.contractor.phone,
+            email: input.contractor.email,
+            address: input.contractor.address,
+          }
+        : undefined,
     };
   },
 };
+
+function _transactionAmount2Sum(
+  amount: string,
+  direction: ETransactionDirection
+): string {
+  return direction === ETransactionDirection.income
+    ? `+ ${amount}`
+    : `- ${amount}`;
+}
+
+function _getTransactionIcon(type: ETransactionType): string {
+  //TODO: define icons set, check logic
+  let icon = '';
+  switch (type) {
+    case ETransactionType.transfer || ETransactionType.withdraw:
+      icon = require('@/assets/icon/transactions/sent.svg');
+      break;
+    case ETransactionType.deposit:
+      icon = require('@/assets/icon/transactions/received.svg');
+      break;
+    case ETransactionType.convert:
+      icon = require('@/assets/icon/transactions/exchange.svg');
+      break;
+    default:
+      icon = require('@/assets/icon/transactions/received.svg');
+      break;
+  }
+  return icon;
+}

@@ -7,8 +7,6 @@ interface IconvertFunds {
   imgTo: string | null;
 }
 
-// === 2fa Store ===
-
 export const useConvertFundsStore = defineStore('convertFunds', {
   state: (): IconvertFunds => ({
     from: null,

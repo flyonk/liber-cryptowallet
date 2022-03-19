@@ -21,7 +21,7 @@
             {{ $t('views.profile.profileDevices.date') }}
           </p>
           <p class="description">
-            {{ timestampToDate(device.loggedAt) }}
+            {{ $filters.timestampToDate(device.loggedAt) }}
           </p>
         </li>
         <li class="item">
@@ -49,7 +49,6 @@
 import { onBeforeMount, ref, Ref } from 'vue';
 
 import { IUserDevice, TAgentType } from '@/models/auth/devices';
-import { timestampToDate } from '@/helpers/time';
 import { useAuthStore } from '@/stores/auth';
 
 import { TopNavigation } from '@/components/ui';

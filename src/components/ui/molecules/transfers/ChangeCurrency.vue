@@ -97,11 +97,13 @@
 </template>
 
 <script setup lang="ts">
+/*
+ * TODO: Move all business logic to parent component - pages/ChangeCurrency
+ */
 import { ref } from 'vue';
+
 import { BaseButton } from '@/components/ui';
-
 import { BaseCountdown } from '@/components/ui';
-
 import { useConvertFundsStore } from '@/stores/convertFunds';
 
 defineProps({
@@ -114,8 +116,6 @@ defineProps({
 const fundsStore = useConvertFundsStore();
 
 const { from, to, imgFrom, imgTo } = fundsStore.getState;
-
-console.log('show me from', from, imgFrom, imgTo);
 
 const showCountdown = ref(false);
 
@@ -152,8 +152,6 @@ const onTimeIsUp = () => {
 const replaceCoins = () => {
   fundsStore.replaceCoins();
   const { from, to, imgFrom, imgTo } = fundsStore.getState;
-
-  console.log('show me from', from, imgFrom, imgTo);
 
   currentSendFromCurrency.name.value = from || '';
   currentSendFromCurrency.img.value = imgFrom;

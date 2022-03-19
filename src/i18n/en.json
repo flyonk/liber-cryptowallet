@@ -137,10 +137,18 @@
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
     "operations": {
-      "received": "Received",
-      "pending": "Pending",
+      "income": "Received",
+      "outcome": "Sent",
+      "transfer": "Transfer",
       "deposit": "Deposit",
-      "sent": "Sent"
+      "withdraw": "Withdraw",
+      "convert": "Convert"
+    },
+    "status": {
+      "pending": "Pending",
+      "unconfirmed": "Unconfirmed",
+      "finished": "Finished",
+      "cancelled": "Cancelled"
     },
     "carousel": {
       "deposit": "Deposit",
@@ -426,7 +434,8 @@
         "shareAddress": "Share Address",
         "copySuccess": "Wallet Address Copied!",
         "copyFailure": "Async: Could not copy text:",
-        "updateCoinNetwork": "update coin network"
+        "updateCoinNetwork": "update coin network",
+        "deviceIsNotSupportedToShare": "Device is not support native share"
       }
     }
   },

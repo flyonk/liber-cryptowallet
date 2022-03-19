@@ -2,9 +2,9 @@
   <div class="transaction-details">
     <div class="header">
       <img
+        alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
         @click="$router.push('/transactions')"
       />
       <div class="sum">
@@ -12,7 +12,7 @@
           - 2.12345678<span class="currency">USDT</span>
         </div>
         <div class="arrow">
-          <img src="@/assets/icon/short_right.svg" alt="right" />
+          <img alt="right" src="@/assets/icon/short_right.svg" />
         </div>
       </div>
       <h2 class="sendto">{{ $t('common.to') }} Abraham Watson</h2>
@@ -81,7 +81,7 @@
           <p class="transaction">3M8w2knJKsr3jqMatYiyuraxVvZA</p>
         </div>
         <div class="inner">
-          <img src="@/assets/icon/folders.svg" alt="folders" />
+          <img alt="folders" src="@/assets/icon/folders.svg" />
         </div>
       </li>
     </ul>
@@ -91,8 +91,9 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { ref } from 'vue';
+
 const transactionStatus = 'complete';
 
 const transactionType = ref('payment-link');

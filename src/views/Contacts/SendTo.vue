@@ -20,6 +20,7 @@
       />
     </div>
   </div>
+  <!--TODO: make toasts logic-->
   <base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showPopup"
