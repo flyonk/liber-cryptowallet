@@ -75,7 +75,7 @@ export default {
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
       code: input.code?.toUpperCase(),
-      icon: _getTransactionIcon(input.type),
+      icon: _getTransactionIcon(input.type, input.direction),
       info: _getTransactionInfo(input.direction, input.contragent, input.code),
       contractor: input.contragent
         ? {
@@ -120,18 +120,24 @@ function _transactionAmount2Sum(
     : `- ${amount}`;
 }
 
-function _getTransactionIcon(type: ETransactionType): string {
+function _getTransactionIcon(
+  type: ETransactionType,
+  direction: string
+): string {
   //TODO: define icons set, check logic
   let icon = '';
   switch (type) {
-    case ETransactionType.transfer:
-      icon = require('@/assets/icon/transactions/sent.svg');
+    case ETransactionType.transfer: {
+      if (direction === EDirection.income)
+        icon = require('@/assets/icon/transactions/sent.svg');
+      icon = require('@/assets/icon/transactions/received.svg');
       break;
+    }
     case ETransactionType.deposit:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
     case ETransactionType.convert:
-      icon = require('@/assets/icon/transactions/exchange.svg');
+      icon = require('@/assets/icon/transactions/convert.svg');
       break;
     default:
       icon = require('@/assets/icon/transactions/received.svg');
