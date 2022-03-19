@@ -67,7 +67,13 @@
         </li>
       </ul>
     </div>
-    <button v-if="hasFriends" class="options-button">Payment Options</button>
+    <button
+      v-if="hasFriends"
+      class="options-button"
+      @click="isMenuOpen = !isMenuOpen"
+    >
+      Payment Options
+    </button>
     <div v-if="!hasFriends" class="empty-list">
       <img
         class="image"
@@ -79,14 +85,14 @@
         I this list, you can find contact with which you make transactions. Add
         contact to make the first transfer.
       </p>
-      <BaseButton
+      <base-button
         class="btn"
         size="large"
         view="simple"
         @click="isMenuOpen = !isMenuOpen"
       >
         Add new contact
-      </BaseButton>
+      </base-button>
     </div>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"

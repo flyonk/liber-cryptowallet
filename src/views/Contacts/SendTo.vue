@@ -35,12 +35,12 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <BaseButton class="btn mb-3" size="large" @click="showPopup = false">
+        <base-button class="btn mb-3" size="large" @click="showPopup = false">
           No, go back
-        </BaseButton>
-        <BaseButton class="btn" size="large" view="secondary">
+        </base-button>
+        <base-button class="btn" size="large" view="secondary">
           Yes, continue
-        </BaseButton>
+        </base-button>
       </div>
     </template>
   </base-toast>
@@ -66,13 +66,17 @@ import { ref } from 'vue';
 
 import SendCurrency from '@/components/transactions/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
+import fundsService from '@/services/fundsService';
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');
 
-function sendTransaction() {
+const sendTransaction = async () => {
+  let coin = 'btc';
+  await fundsService.transfer(coin, { id: '1', phone: '' });
+
   showPopup.value = true;
-}
+};
 </script>
 
 <style lang="scss" scoped>
