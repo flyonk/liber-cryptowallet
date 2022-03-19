@@ -1,10 +1,12 @@
 <template>
   <div class="kyc-main">
-    <component :is="currentComponent" @next="onNext" @prev="onPrev" />
+    <AuthPageSwitcher :components="components" scope="kyc" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import {
   KYC1Step,
   KYC2Step,
@@ -14,14 +16,9 @@ import {
   KYC6Step,
   KYC7Step,
 } from '.';
+import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
 
-import { useKYCStore } from '@/stores/kyc';
-import { computed } from 'vue';
-import { EStepDirection } from '@/types/base-component';
-
-const kycStore = useKYCStore();
-
-const KYCComponents = [
+const components = computed(() => [
   KYC1Step,
   KYC2Step,
   KYC3Step,
@@ -29,19 +26,7 @@ const KYCComponents = [
   KYC5Step,
   KYC6Step,
   KYC7Step,
-];
-
-const currentComponent = computed(() => {
-  return KYCComponents[kycStore.getStep.personal];
-});
-
-const onNext = () => {
-  kycStore.setStep(EStepDirection.next);
-};
-
-const onPrev = () => {
-  kycStore.setStep(EStepDirection.prev);
-};
+]);
 </script>
 
 <style lang="scss">
