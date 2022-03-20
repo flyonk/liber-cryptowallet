@@ -7,7 +7,6 @@
           v-model="amount"
           type="number"
           min="0"
-          onkeypress="return event.charCode >= 48"
           class="input"
           autofocus
           @blur="onBlur"
@@ -49,7 +48,6 @@
           v-model="recipientAmount"
           type="number"
           min="0"
-          onkeypress="return event.charCode >= 48"
           disabled
           class="input"
           @blur="onBlur"

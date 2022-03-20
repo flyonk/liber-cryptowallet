@@ -72,7 +72,7 @@
     <template #description>
       <div class="popup-description">
         <p class="description">
-          Make sure all the fields are filled in and try again please
+          Please make sure all the fields are filled correct in and try again
         </p>
       </div>
     </template>
