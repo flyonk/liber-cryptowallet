@@ -9,7 +9,7 @@ export enum Route {
   Restore = 'restore',
 
   DashboardParent = 'dashboard-parent',
-  DashboardHome = 'dashboard-home',
+  DashboardHome = 'home',
   DashboardVerification = 'dashboard-verification',
   DashboardStory = 'dashboard-story',
   DashboardVerifyingStory = 'dashboard-verifying-story',
@@ -17,11 +17,14 @@ export enum Route {
 
   Account = 'account',
   AccountMain = 'account-main',
+  AccountDetail = 'account-detail',
   AccountAdd = 'account-add',
 
   Transactions = 'transactions',
   TransactionsMain = 'transactions-main',
   TransactionsDetails = 'transactions-details',
+
+  ConvertFunds = 'convert',
 
   ProfileMainView = 'profile-main-view',
   ProfileSettings = 'profile-settings',

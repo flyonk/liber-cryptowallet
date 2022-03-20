@@ -12,17 +12,26 @@
     </template>
   </p-toast>
   <app-layout-switcher>
-    <router-view class="router-view" />
+    <router-view v-slot="{ Component, route }" class="router-view">
+      <transition name="dissolve">
+        <component :is="Component" :key="route.path" />
+      </transition>
+    </router-view>
   </app-layout-switcher>
 </template>
 
 <script setup lang="ts">
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
-import { useAccountStore } from './stores/account';
+//TODO: use profile store instead
+// import { useAccountStore } from './stores/account';
 
-const store = useAccountStore();
-store.init();
+import SwipeBack from '@/plugins/swipe-capacitor';
+
+SwipeBack.enable();
+
+// const store = useAccountStore();
+// store.init();
 </script>
 
 <style lang="scss">
@@ -42,5 +51,27 @@ store.init();
 
 .router-view {
   touch-action: manipulation;
+}
+
+.dissolve-enter-active {
+  animation: dissolve 0.3s;
+}
+
+.dissolve-leave-active {
+  animation: dissolve 0.3s reverse;
+}
+
+@keyframes dissolve {
+  0% {
+    opacity: 0;
+    position: absolute;
+    width: 100%;
+  }
+
+  100% {
+    opacity: 1;
+    position: absolute;
+    width: 100%;
+  }
 }
 </style>

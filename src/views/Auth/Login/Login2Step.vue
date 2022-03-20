@@ -57,9 +57,10 @@ const showCountdown = ref(true) as Ref<boolean>;
 onMounted(async () => {
   const phone = authStore.getLoginPhone;
   try {
-    await authService.signIn({ phone });
+    await authStore.signIn({ phone });
   } catch (err) {
-    console.log(err);
+    // console.log(err);
+    //TODO: show error notification, log error to Sentry
   }
 });
 
@@ -102,6 +103,7 @@ const resend = async () => {
   showCountdown.value = true;
 
   try {
+    //TODO: use right method - response 403 forbidden
     await authService.signIn({ phone });
   } catch (err) {
     console.log(err);

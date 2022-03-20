@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left">
         <img
-          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
+          alt="arrow-left"
           @click="$router.push({ name: 'dashboard-home' })"
         />
         <h1 class="title">{{ accountName }}</h1>
@@ -108,11 +108,12 @@
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
-<script lang="ts" setup>
-import { computed, ref } from 'vue';
+<script setup lang="ts">
+import { ref, computed, onMounted, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
+import { useProfileStore } from '@/stores/profile';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
@@ -120,10 +121,26 @@ import InputSwitch from 'primevue/inputswitch';
 const route = useRouter();
 const authStore = useAuthStore();
 
+const profileStore = useProfileStore();
 const accountName = 'Abraham Watson';
 const accountID = '@abrahamwatson';
 const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
+
+const { proxy } = getCurrentInstance();
+
+/**
+ * Lifecycles
+ */
+
+onMounted(async () => {
+  if (!profileStore.getUser.id)
+    try {
+      await profileStore.init();
+    } catch (err) {
+      proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
+    }
+});
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');

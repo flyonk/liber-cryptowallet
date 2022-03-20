@@ -1,9 +1,12 @@
 import authService from '@/services/authService';
 import { EStepDirection } from '@/types/base-component';
+import { Storage } from '@capacitor/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
 import { defineStore } from 'pinia';
 import { clearAll, get, set } from '@/helpers/storage';
+
+import { EStorageKeys } from '@/types/storage';
 
 // === Auth Types ===
 
@@ -11,6 +14,7 @@ export interface IAuthSteps {
   registration: number;
   login: number;
   recover: number;
+  kyc: number;
 }
 
 export interface ICommonPhoneNumber {
@@ -40,6 +44,7 @@ export const useAuthStore = defineStore('auth', {
       registration: 0,
       login: 0,
       recover: 0,
+      kyc: 0,
     },
     registration: {
       dialCode: '+7',
@@ -76,6 +81,11 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
+    async signIn(_data: { phone: string }): Promise<void> {
+      await authService.signIn(_data);
+      this.savePhone();
+    },
+
     async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
       const data = await authService.signInProceed(_data);
 
@@ -85,23 +95,38 @@ export const useAuthStore = defineStore('auth', {
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
         await Promise.all([
-          set({
-            key: 'access_token',
+          Storage.set({
+            key: EStorageKeys.token,
             value: data.token,
           }),
-          set({
-            key: 'refresh_token',
+          Storage.set({
+            key: EStorageKeys.refreshToken,
             value: data.refreshToken,
           }),
         ]);
 
         this.token = { ...this.token, ...data };
       } else {
-        const token = await get('access_token');
-        const refreshToken = await get('refresh_token');
+        const { value: token } = await Storage.get({
+          key: EStorageKeys.token,
+        });
+        const { value: refreshToken } = await Storage.get({
+          key: EStorageKeys.refreshToken,
+        });
 
         this.token = { ...this.token, token, refreshToken };
       }
+    },
+
+    async checkAuthorizedUser(): Promise<boolean> {
+      return !!(await Storage.get({ key: EStorageKeys.token })).value;
+    },
+
+    async savePhone(): Promise<void> {
+      await Storage.set({
+        key: EStorageKeys.phone,
+        value: JSON.stringify(this.login),
+      });
     },
 
     async getDevices() {
