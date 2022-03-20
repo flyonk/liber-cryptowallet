@@ -2,7 +2,9 @@
   <!--TODO: move this component to atomic design templates (used in login flow and configure-app flow) -->
   <div class="page-wrapper">
     <!--TODO: move to molecule component-->
-    <top-navigation @click:left-icon="$router.push({ name: 'configure-app' })">
+    <top-navigation
+      @click:left-icon="$router.push({ name: Route.ConfigureApp })"
+    >
       {{ $t('auth.login.step4Title') }}
     </top-navigation>
 
@@ -38,6 +40,7 @@ import { ref, watch } from 'vue';
 import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
 import { useI18n } from 'vue-i18n';
+import { Route } from '@/router/types';
 
 const { tm } = useI18n();
 

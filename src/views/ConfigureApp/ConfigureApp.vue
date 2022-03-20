@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: 'install-app' })">
+    <top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
       {{ $t('configureApp.configTitle') }}
     </top-navigation>
 
@@ -31,7 +31,10 @@
     </p>
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="$router.push({ name: 'configure-app-verify' })">
+    <base-button
+      block
+      @click="$router.push({ name: Route.ConfigureAppVerify })"
+    >
       {{ $t('common.continueCta') }}
     </base-button>
   </div>
@@ -44,6 +47,7 @@ import QrCodeWithLogo from 'qrcode-with-logos';
 import { useToast } from 'primevue/usetoast';
 import { use2faStore } from '@/stores/2fa';
 import { useI18n } from 'vue-i18n';
+import { Route } from '@/router/types';
 
 const { tm } = useI18n();
 

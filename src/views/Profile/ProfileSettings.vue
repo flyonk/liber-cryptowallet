@@ -6,7 +6,7 @@
           class="back"
           src="@/assets/icon/arrow-left.svg"
           alt="arrow-left"
-          @click="$router.push({ name: 'dashboard-home' })"
+          @click="$router.push({ name: Route.DashboardHome })"
         />
         <h1 class="title">{{ accountName }}</h1>
         <div class="flex">
@@ -36,7 +36,7 @@
         {{ $t('views.profile.profileSettings.profile') }}
       </h6>
       <ul class="list list--profile">
-        <li class="item" @click="$router.push({ name: 'profile-my-qr-code' })">
+        <li class="item" @click="$router.push({ name: Route.ProfileMyQrCode })">
           <img class="icon" src="@/assets/icon/qr-mini.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.QRCode') }}</p>
         </li>
@@ -68,7 +68,7 @@
             {{ $t('views.profile.profileSettings.changePasscode') }}
           </p>
         </router-link>
-        <li class="item" @click="$router.push({ name: 'profile-privacy' })">
+        <li class="item" @click="$router.push({ name: Route.ProfilePrivacy })">
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
@@ -114,6 +114,7 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { Route } from '@/router/types';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
@@ -154,7 +155,7 @@ function closeMenu() {
 async function onLogout() {
   await authStore.logout();
 
-  await route.push({ name: 'welcome-logo-screen' });
+  await route.push({ name: Route.WelcomeLogoScreen });
 }
 </script>
 
