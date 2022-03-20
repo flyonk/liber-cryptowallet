@@ -50,4 +50,6 @@ export enum Route {
   PushNotifications = 'push-notifications',
 
   Deposit = 'deposit',
+  DepositAdd = 'deposit-add',
+  DepositNetwork = 'deposit-network',
 }
