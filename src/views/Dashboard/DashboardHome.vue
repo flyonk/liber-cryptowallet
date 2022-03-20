@@ -38,7 +38,10 @@
       <div class="currencies flex items-center">
         <!--TODO: map currencies-->
         <h1 class="title">
-          {{ totalBalance.currency }} {{ totalBalance.sum }}
+          {{
+            totalBalance.currency === 'EUR' ? '€' : `${totalBalance.currency}`
+          }}
+          {{ totalBalance.sum }}
         </h1>
         <div class="circle-wrap">
           <img
