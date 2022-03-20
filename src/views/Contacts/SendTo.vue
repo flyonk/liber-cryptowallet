@@ -130,7 +130,6 @@ const sendTransaction = async () => {
         'sendTransaction',
         'error unable to send funds'
       );
-      transferStore.clearTransferData();
     }
   } else {
     showIncorrectDataPopup.value = true;
