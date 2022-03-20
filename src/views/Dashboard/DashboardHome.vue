@@ -338,6 +338,11 @@ const hasTransactions = computed(() => transactions.value.length > 0);
 
     > .title {
       margin-right: 8px;
+      font-weight: 600;
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: 0.0038em;
+      color: $color-black;
     }
 
     > .circle-wrap {
