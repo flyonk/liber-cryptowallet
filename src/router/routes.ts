@@ -194,7 +194,7 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        name: 'contacts.who-to-pay',
+        name: Route.ContactsPay,
         component: () =>
           import(
             /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
