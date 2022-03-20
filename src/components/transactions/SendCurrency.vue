@@ -102,8 +102,8 @@ onMounted(() => {
 });
 
 watch(amount, () => {
-  const fee = 1;
-  transferStore.amount = +amount.value * fee;
+  const fee = 0;
+  transferStore.amount = +amount.value - fee;
   recipientAmount.value = String(transferStore.amount);
 });
 
