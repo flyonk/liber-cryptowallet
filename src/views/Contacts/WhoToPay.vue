@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/profile')"
+        @click="$router.push({ name: Route.DashboardHome })"
       />
       <div class="flex">
         <img
@@ -19,13 +19,15 @@
           alt="circle-add"
           @click="
             $router.push({
-              name: 'deposit-coin',
+              name: Route.Deposit,
             })
           "
         />
       </div>
     </div>
-    <h1 class="title">Who To Pay</h1>
+    <h1 class="title">
+      {{ $t('views.sendfunds.whopay') }}
+    </h1>
     <BaseInput type="text">
       <template #label> Name, @id, phone, email </template>
     </BaseInput>
@@ -107,6 +109,7 @@ import { ref, computed } from 'vue';
 
 import { BaseInput, BaseButton } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import { Route } from '@/router/types';
 
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);

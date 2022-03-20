@@ -3,7 +3,7 @@
     <div class="header">
       <img
         src="@/assets/images/avatar.png"
-        @click="$router.push({ name: Route.ProfileMainView })"
+        @click="$router.push({ name: Route.ProfileSettings })"
       />
       <div class="flex">
         <img
