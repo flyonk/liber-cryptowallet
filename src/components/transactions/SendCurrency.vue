@@ -6,6 +6,8 @@
         <input
           v-model="amount"
           type="number"
+          min="0"
+          onkeypress="return event.charCode >= 48"
           class="input"
           autofocus
           @blur="onBlur"
@@ -46,6 +48,9 @@
         <input
           v-model="recipientAmount"
           type="number"
+          min="0"
+          onkeypress="return event.charCode >= 48"
+          disabled
           class="input"
           @blur="onBlur"
         />
@@ -93,22 +98,24 @@ let amount = ref('');
 let recipientAmount = ref('');
 
 onMounted(() => {
-  transferStore.coin = currencies[0].name;
+  transferStore.coin = currencies[0].code;
 });
 
 watch(amount, () => {
   const fee = 1;
-  transferStore.amount = String(+amount.value * fee);
-  recipientAmount.value = transferStore.amount;
+  transferStore.amount = +amount.value * fee;
+  recipientAmount.value = String(transferStore.amount);
 });
 
 const currentSendFromCurrency = {
-  name: ref('BTC'),
+  name: ref('TBTC'),
+  code: ref('tbtc'),
   img: require('@/assets/icon/currencies/btc.svg'),
 };
 
 const currentSendToCurrency = {
-  name: ref('BTC'),
+  name: ref('TBTC'),
+  code: ref('tbtc'),
   img: require('@/assets/icon/currencies/btc.svg'),
 };
 
@@ -145,21 +152,35 @@ defineEmits(['send-transaction']);
 
 const currencies = [
   {
-    name: 'BTC',
+    name: 'TBTC',
+    code: 'tbtc',
     img: require('@/assets/icon/currencies/btc.svg'),
   },
   {
-    name: 'USDT',
-    img: require('@/assets/icon/currencies/tether.svg'),
+    name: 'TLTC',
+    code: 'tltc',
+    img: require('@/assets/icon/currencies/ltc.svg'),
   },
-  {
-    name: 'ETH',
-    img: require('@/assets/icon/currencies/eth.svg'),
-  },
-  {
-    name: 'XRP',
-    img: require('@/assets/icon/currencies/xrp.svg'),
-  },
+  // {
+  //   name: 'BTC',
+  //   code: 'btc',
+  //   img: require('@/assets/icon/currencies/btc.svg'),
+  // },
+  // {
+  //   name: 'USDT',
+  //   code: 'usdt',
+  //   img: require('@/assets/icon/currencies/tether.svg'),
+  // },
+  // {
+  //   name: 'ETH',
+  //   code: 'eth',
+  //   img: require('@/assets/icon/currencies/eth.svg'),
+  // },
+  // {
+  //   name: 'XRP',
+  //   code: 'xrp',
+  //   img: require('@/assets/icon/currencies/xrp.svg'),
+  // },
 ];
 
 const _setCurrentSendToCurrency = (index: number) => {
