@@ -1,6 +1,6 @@
 <template name="CloseAccount">
   <div v-if="showMenu" class="close-account">
-    <img class="logo" src="@/assets/images/liber-logo.png" alt="logo" />
+    <img alt="logo" class="logo" src="@/assets/images/liber-logo.png" />
     <h5 class="title">
       {{ $t('views.profile.profileSettings.preventClosingAccount') }}
     </h5>
@@ -8,20 +8,27 @@
       {{ $t('views.profile.profileSettings.freeToKeep') }}
     </p>
     <div class="control-buttons">
-      <BaseButton class="keepopen" size="large">
+      <BaseButton class="keepopen" size="large" @click="$emit('closeMenu')">
         {{ $t('views.profile.profileSettings.keepOpen') }}
       </BaseButton>
-      <button class="close" size="large" @click="$emit('closeMenu')">
+      <button class="close" size="large" @click="onCloseAccount">
         {{ $t('views.profile.profileSettings.close') }}
       </button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { toRefs } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { useProfileStore } from '@/stores/profile';
+import { Route } from '@/router/types';
 
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
+
+const profileStore = useProfileStore();
+const router = useRouter();
 
 const props = defineProps({
   showMenu: {
@@ -34,6 +41,12 @@ defineEmits(['closeMenu']);
 
 const { path } = toRefs(props);
 console.log(path);
+
+const onCloseAccount = async () => {
+  await profileStore.closeAccount();
+
+  router.push({ name: Route.WelcomeLogoScreen });
+};
 </script>
 
 <style lang="scss" scoped>
