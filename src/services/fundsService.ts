@@ -37,7 +37,7 @@ export default {
 
   async transfer(
     coin: string,
-    payload: { recipient: { id: string; phone: string }; amount: string }
+    payload: { recipient: { id: string; phone: string }; amount: number }
   ): Promise<number> {
     return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
   },
