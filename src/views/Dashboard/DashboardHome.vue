@@ -37,9 +37,7 @@
       </ul>
       <div class="currencies flex items-center">
         <!--TODO: map currencies-->
-        <h1 class="title">
-          {{ totalBalance.currency }} {{ totalBalance.sum }}
-        </h1>
+        <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
         <div class="circle-wrap">
           <img
             class="down"
@@ -238,6 +236,10 @@ const carousel = [
 ];
 
 const hasTransactions = computed(() => transactions.value.length > 0);
+
+const totalCurrency = computed(() =>
+  totalBalance.value.currency === 'EUR' ? '€' : `${totalBalance.value.currency}`
+);
 </script>
 
 <style lang="scss" scoped>
