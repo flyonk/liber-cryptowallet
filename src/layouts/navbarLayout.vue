@@ -8,18 +8,22 @@
 </template>
 
 <script setup lang="ts">
-import BottomNav from '@/components/ui/organisms/BottomNav.vue';
-import { useRouter } from 'vue-router';
 import { ref, watch } from 'vue';
+import { useRouter } from 'vue-router';
+
+import { Route } from '@/router/types';
+
+import BottomNav from '@/components/ui/organisms/BottomNav.vue';
+
 const route = useRouter();
 
 let showNavBar = ref(true);
 let path = route.currentRoute.value.name;
 
-if (path === 'dashboard-verification') showNavBar.value = false;
+if (path === Route.DashboardVerification) showNavBar.value = false;
 
 watch(route.currentRoute, (val) => {
-  if (val.name === 'dashboard-verification') {
+  if (val.name === Route.DashboardVerification) {
     showNavBar.value = false;
   } else {
     showNavBar.value = true;

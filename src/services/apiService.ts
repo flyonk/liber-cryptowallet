@@ -91,5 +91,13 @@ export default {
     accountsList(): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/accounts`;
     },
+    userTransactions(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+    },
+  },
+  transfer: {
+    transfer(coin: string): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transfer/coin/${coin}`;
+    },
   },
 };

@@ -3,7 +3,13 @@
     <div class="input-wrapper mb-2 relative m-0">
       <label class="change-from">
         <p class="label">You send exactly</p>
-        <input type="number" class="input" autofocus @blur="onBlur" />
+        <input
+          v-model="amount"
+          type="number"
+          class="input"
+          autofocus
+          @blur="onBlur"
+        />
         <div class="select">
           <router-link
             :to="{ name: 'choose_coin', params: { type: 'from' } }"
@@ -129,6 +135,11 @@ const currentSendToCurrency = {
   name: ref(to || 'BTC'),
   img: ref(imgTo || require('@/assets/icon/currencies/btc.svg')),
 };
+
+// const _setCurrentSendToCurrency = (index: number) => {
+//   currentSendToCurrency.name.value = currencies[index].name;
+//   currentSendToCurrency.img = currencies[index].img;
+// };
 
 const onBlur = (event: any) => {
   const newElem = event.relatedTarget?.nodeName;

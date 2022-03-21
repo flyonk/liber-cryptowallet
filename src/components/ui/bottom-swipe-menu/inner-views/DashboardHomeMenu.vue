@@ -11,6 +11,13 @@
       <p class="name">All Accounts</p>
       <p class="price">€2.00</p>
     </li>
+    <li class="item" @click="$router.push('/home')">
+      <div class="image-wrap">
+        <img src="@/assets/icon/currencies/btc.svg" alt="btc" />
+      </div>
+      <p class="name">BTC</p>
+      <p class="price">0.001</p>
+    </li>
   </ul>
 </template>
 

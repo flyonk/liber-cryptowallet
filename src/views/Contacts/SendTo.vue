@@ -7,11 +7,11 @@
         alt="arrow-left"
         @click="$router.push({ name: 'profile-main-view' })"
       />
-      <h4 class="username">@AshleyRogers</h4>
+      <h4 class="username">@MyDude</h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">Ashley Rogers</h1>
-      <div class="initials">AR</div>
+      <h1 class="title">My Dude</h1>
+      <div class="initials">MD</div>
     </div>
     <div class="sendto-main">
       <send-currency
@@ -23,7 +23,7 @@
   <!--TODO: make toasts logic-->
   <base-toast
     v-if="popupStatus === 'attention'"
-    v-model:visible="showPopup"
+    v-model:visible="showSuccessPopup"
     :severity="'attention'"
   >
     <template #description>
@@ -38,26 +38,45 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <BaseButton class="btn mb-3" size="large" @click="showPopup = false">
+        <base-button
+          class="btn mb-3"
+          size="large"
+          @click="showSuccessPopup = false"
+        >
           No, go back
-        </BaseButton>
-        <BaseButton class="btn" size="large" view="secondary">
+        </base-button>
+        <base-button class="btn" size="large" view="secondary">
           Yes, continue
-        </BaseButton>
+        </base-button>
       </div>
     </template>
   </base-toast>
   <base-toast
     v-if="popupStatus === 'confirmation'"
-    v-model:visible="showPopup"
+    v-model:visible="showSuccessPopup"
     :severity="'confirmation'"
-    @click="showPopup = false"
+    @click="showSuccessPopup = false"
   >
     <template #description>
       <div class="popup-description">
         <p class="description">
-          $1 will be sent once Andrey Verbitsky (andrey@gmail.com) accepts the
-          payment
+          {{ transferStore.amount }} {{ transferStore.coin.toUpperCase() }} will
+          be sent once Andrey Verbitsky (andrey@gmail.com) accepts the payment
+        </p>
+      </div>
+    </template>
+  </base-toast>
+  <base-toast
+    v-if="popupStatus === 'confirmation'"
+    v-model:visible="showFailurePopup"
+    :severity="'error'"
+    @click="showSuccessPopup = false"
+  >
+    <template #description>
+      <div class="popup-description">
+        <p class="description">
+          Transfer is not possible, please check the entered data or contact
+          support
         </p>
       </div>
     </template>
@@ -69,13 +88,33 @@ import { ref } from 'vue';
 
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
+import { useTransferStore } from '@/stores/transfer';
+import SentryUtil from '@/helpers/sentryUtil';
 
-const showPopup = ref(false);
+const showSuccessPopup = ref(false);
+const showFailurePopup = ref(false);
 const popupStatus = ref('confirmation');
 
-function sendTransaction() {
-  showPopup.value = true;
-}
+const transferStore = useTransferStore();
+
+const sendTransaction = async () => {
+  if (transferStore.isReadyForTransfer) {
+    try {
+      await transferStore.transfer();
+    } catch (err) {
+      SentryUtil.capture(
+        err,
+        'SendTo',
+        'sendTransaction',
+        'error unable to send funds'
+      );
+    } finally {
+      showSuccessPopup.value = true;
+    }
+  } else {
+    showFailurePopup.value = true;
+  }
+};
 </script>
 
 <style lang="scss" scoped>

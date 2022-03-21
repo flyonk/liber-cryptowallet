@@ -7,11 +7,11 @@
         alt="arrow-left"
         @click="$router.push('/profile')"
       />
-      <h4 class="username">@AshleyRogers</h4>
+      <h4 class="username"></h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">Ashley Rogers</h1>
-      <div class="initials">AR</div>
+      <h1 class="title">Convert Funds</h1>
+      <!-- <div class="initials">AR</div> -->
     </div>
     <div class="sendto-main">
       <send-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
