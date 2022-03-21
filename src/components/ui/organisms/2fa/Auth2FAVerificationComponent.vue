@@ -15,14 +15,12 @@ import { ref } from 'vue';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const emit = defineEmits<{
-  (event: 'convert-funds'): void;
+  (event: 'success-verification'): void;
   (event: 'close'): void;
 }>();
 
 const verificationCode = ref('');
 const isError = ref(false);
-
-// const router = useRouter();
 
 const onComplete = async (code: string) => {
   verificationCode.value = code;
@@ -30,7 +28,7 @@ const onComplete = async (code: string) => {
   // @TODO
   // Remove later
   if (code === '000000') {
-    emit('convert-funds');
+    emit('success-verification');
   } else {
     isError.value = true;
   }
