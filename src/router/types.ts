@@ -52,4 +52,8 @@ export enum Route {
   Deposit = 'deposit',
   DepositAdd = 'deposit-add',
   DepositNetwork = 'deposit-network',
+  DepositCoin = 'deposit-coin',
+
+  PhoneEnter = 'phone-enter',
+  CodeEnter = 'code-enter',
 }
