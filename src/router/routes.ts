@@ -194,7 +194,7 @@ const routes: Array<RouteRecordRaw> = [
 
   {
     path: '/contacts',
-    name: 'contacts',
+    name: Route.Contacts,
     component: () =>
       import(/* webpackChunkName: "contacts" */ '@/views/Contacts/index.vue'),
     children: [
@@ -208,7 +208,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'send/:id',
-        name: 'contacts.send',
+        name: Route.ContactsSend,
         component: () =>
           import(
             /* webpackChunkName: "contacts-sendto" */ '@/views/Contacts/SendTo.vue'
@@ -397,6 +397,14 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       classLayout: '-full-height',
     },
+  },
+
+  // == Select Coin ==
+
+  {
+    path: '/choose_coin',
+    name: Route.ChooseCoin,
+    component: () => import('@/views/Contacts/SelectCoin.vue'),
   },
 
   // === Deposite btc ===

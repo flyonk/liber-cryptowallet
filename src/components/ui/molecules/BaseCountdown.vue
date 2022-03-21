@@ -31,6 +31,10 @@ const props = defineProps({
     type: Number,
     default: 1, // adds 1 minute to current time
   },
+  seconds: {
+    type: Number,
+    default: 60,
+  },
 });
 
 const emit = defineEmits(['time:up']);
@@ -40,7 +44,9 @@ const timer = ref(null) as Ref<number | null>;
 const diff = ref({}) as Ref<IDifference | Record<string, never>>;
 
 onBeforeMount(() => {
-  until.value = new Date(new Date().getTime() + props.countdown * 60000);
+  until.value = new Date(
+    new Date().getTime() + props.countdown * (Number(props.seconds) * 1000)
+  );
   timer.value = setInterval(getDiff, 1000);
 });
 

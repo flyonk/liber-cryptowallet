@@ -4,11 +4,7 @@
     class="back-btn"
     @click="path === -1 ? $router.go(-1) : $router.push(path)"
   >
-    <img
-      src="@/assets/images/back-arrow.svg"
-      alt="Go back"
-      class="back-btn-img"
-    />
+    <img :src="getIcon()" alt="Go back" class="back-btn-img" />
   </button>
 </template>
 
@@ -20,9 +16,20 @@ const props = defineProps({
     type: [String, Object, Number],
     default: -1,
   },
+  iconType: {
+    type: String,
+    default: 'back',
+  },
 });
 
 const { path } = toRefs(props);
+
+function getIcon() {
+  if (props.iconType === 'back') {
+    return require('@/assets/images/back-arrow.svg');
+  }
+  return require('@/assets/images/close-icon.svg');
+}
 </script>
 
 <style lang="scss" scoped>

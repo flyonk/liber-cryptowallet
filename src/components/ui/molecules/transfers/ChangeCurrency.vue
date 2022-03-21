@@ -3,7 +3,7 @@
     <div class="change-currency">
       <div class="input-wrapper mb-2 relative m-0">
         <label class="change-from">
-          <p class="label">You send exactly</p>
+          <p class="label">You convert exactly</p>
           <input
             v-model="requestAmount"
             type="number"
@@ -40,7 +40,7 @@
           <p class="sum">
             {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
           </p>
-          <p class="name">Transfer Fee</p>
+          <p class="name">Conversion Fee</p>
         </li>
         <li class="fees-item">
           <div class="circle">=</div>
@@ -59,7 +59,7 @@
       </ul>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
-          <p class="label">Ashley will get</p>
+          <p class="label">You will get</p>
           <!--TODO: implement change coin logic for readonly-->
           <input
             v-model="convertInfo.estimatedAmount"
@@ -98,7 +98,7 @@
         :disabled="loading"
         @click="handleClick"
       >
-        {{ ctaState === 'preview' ? 'Preview' : 'Send' }}
+        {{ ctaState === 'preview' ? 'Preview' : 'Convert' }}
       </BaseButton>
     </div>
   </keep-alive>
@@ -109,14 +109,14 @@
  * TODO: Move all business logic to parent component - pages/ChangeCurrency
  */
 import { computed, ref } from 'vue';
-import { useRouter } from 'vue-router';
-
-import { useFundsStore } from '@/stores/funds';
-import SentryUtil from '@/helpers/sentryUtil';
-
-import { BaseButton } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { useFundsStore } from '@/stores/funds';
+
+import { BaseButton } from '@/components/ui';
+import SentryUtil from '@/helpers/sentryUtil';
+import { useRouter } from 'vue-router';
+
 const emit = defineEmits<{
   (event: 'show-2fa'): void;
 }>();
@@ -256,6 +256,29 @@ const onBlur = (event: any) => {
     elem.focus();
   }
 };
+/* 
+const onTimeIsUp = () => {
+  showCountdown.value = false;
+  disableRefreshBtn.value = false;
+  emit('send-transaction');
+};
+
+const replaceCoins = () => {
+  fundsStore.replaceCoins();
+  const { from, to, imgFrom, imgTo } = fundsStore.getState;
+
+  currentSendFromCurrency.name.value = from || '';
+  currentSendFromCurrency.img.value = imgFrom;
+
+  currentSendToCurrency.name.value = to || '';
+  currentSendToCurrency.img.value = imgTo;
+};
+
+const sendTransaction = () => {
+  currentButton.value = 'refresh';
+  showCountdown.value = true;
+};
+*/
 </script>
 
 <style lang="scss" scoped>
@@ -410,6 +433,28 @@ const onBlur = (event: any) => {
     display: flex;
     align-items: center;
     color: $color-brand-2-300;
+  }
+}
+
+.clock-wrapper {
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: $color-red-500;
+}
+
+.different-coins {
+  display: flex;
+  align-items: center;
+  height: 110px;
+
+  > .text {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    display: flex;
+    align-items: center;
+    color: #0d1f3c;
   }
 }
 </style>

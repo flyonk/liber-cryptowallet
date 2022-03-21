@@ -22,8 +22,8 @@
         >
           <template #label> Name </template>
         </BaseInput>
-        <BaseInput v-model="newContacts[index].email.value" type="text">
-          <template #label> Email </template>
+        <BaseInput v-model="newContacts[index].phone.value" type="text">
+          <template #label> Phone </template>
         </BaseInput>
         <p class="add" @click="addExtraContact">
           <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
@@ -31,21 +31,28 @@
         </p>
       </li>
     </ul>
-    <BaseButton class="btn" size="large" :disabled="isBtnDisabled">
-      Sent
+    <BaseButton
+      class="btn"
+      size="large"
+      @click="router.push('/contacts/send/1')"
+    >
+      Continue
     </BaseButton>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { BaseButton, BaseInput } from '@/components/ui';
+
+const router = useRouter();
 
 const newContacts = [
   {
     name: ref(''),
-    email: ref(''),
+    phone: ref(''),
   },
 ];
 
@@ -54,15 +61,6 @@ function addExtraContact() {
     name: ref(''),
     email: ref(''),
   });
-}
-
-function isBtnDisabled() {
-  let result = true;
-  newContacts.forEach((i) => {
-    if (i.name.value === '' || i.email.value === '') result = false;
-    return i;
-  });
-  return result;
 }
 </script>
 

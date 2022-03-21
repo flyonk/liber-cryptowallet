@@ -1,7 +1,7 @@
-<template name="DepositeSelectCoin">
+<template name="SelectCoin">
   <div class="page-wrapper">
     <div class="page-header">
-      <BackHistoryBtn :path="'/home'" />
+      <BackHistoryBtn icon-type="close" />
 
       <h1 class="main-title">
         {{ $t('views.deposit.selectCoin.selectCoin') }}
@@ -22,17 +22,22 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+import { useConvertFundsStore } from '@/stores/convertFunds';
 
 const router = useRouter();
+const route = useRoute();
+const fundsStore = useConvertFundsStore();
 
 const selectCoin = (item: any) => {
-  console.log('selected coin', item);
-  router.push({
-    name: 'deposit-network',
-  });
+  if (route.params.type === 'from') {
+    fundsStore.setCryptoFrom(item.shortName, item.icon);
+  } else {
+    fundsStore.setCryptoTo(item.shortName, item.icon);
+  }
+  router.go(-1);
 };
 </script>
 

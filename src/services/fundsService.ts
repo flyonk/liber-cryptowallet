@@ -34,4 +34,11 @@ export default {
   ): Promise<TSuccessResponse> {
     return (await axios.post(apiService.funds.convert(), data)).data;
   },
+
+  async transfer(
+    coin: string,
+    payload: { recipient: { id: string; phone: string }; amount: string }
+  ): Promise<number> {
+    return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
+  },
 };

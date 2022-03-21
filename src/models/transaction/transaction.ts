@@ -3,64 +3,66 @@ export type TTransaction = INetTransaction | IRequestFunds;
 export interface INetTransaction {
   id: string;
   sum: string;
-  status: ETransactionStatus;
-  type: ETransactionType | ETransactionDirection;
   code: string;
   icon?: string;
-  direction: ETransactionDirection;
-  contractor?: {
-    id: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
+  info: string;
+  status: ETransactionStatus;
+  type: ETransactionType;
+  contractor?: IContractor;
 }
 
 export interface IRequestFunds {
   id: string;
-  sum: string;
+  amount: string;
   timestamp: string;
   status: ERequestFundsStatus;
   code: string;
   type: ERequestFundsType;
-  direction: ETransactionDirection;
-  contractor: {
-    id: string;
-    phone: string;
-    email: string;
-    address: string;
-  };
+  contractor: IContractor;
 }
 
-enum ETransactionDirection {
-  outcome = 'outcome',
-  income = 'income',
+export interface IContractor {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
 }
 
-enum ETransactionType {
-  transfer = 'transfer',
-  convert = 'convert',
-  deposit = 'deposit',
-  withdraw = 'withdraw',
+export enum ETransactionType {
+  convert = 'convert', //using now
+  deposit = 'deposit', //using now
+  transfer = 'transfer', //using now
+  received = 'received',
+  send = 'send',
+  guard = '',
 }
 
-enum ETransactionStatus {
+export enum ETransactionStatus {
   pending = 'pending',
-  unconfirmed = 'unconfirmed',
-  completed = 'finished',
-  rejected = 'cancelled',
+  finished = 'finished',
+  failed = 'failed',
+  guard = '',
 }
 
-enum ERequestFundsType {
-  PaymentLink,
-  Send,
-  Request,
+export enum ERequestFundsType {
+  paymentLink = 'paymentLink',
+  send = 'send',
+  request = 'request',
+  guard = '',
 }
-enum ERequestFundsStatus {
-  Opened,
-  Closed,
-  Declined,
-  Completed,
+
+export enum ERequestFundsStatus {
+  opened = 'opened',
+  closed = 'closed',
+  declined = 'declined',
+  completed = 'completed',
+  guard = '',
+}
+
+export enum EDirection {
+  income = 'income',
+  outcome = 'outcome',
+  guard = '',
 }
 
 export default {
@@ -68,13 +70,13 @@ export default {
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
-      sum: _transactionAmount2Sum(input.amount, input.direction),
+      sum: _transactionAmount2Sum(input.amount, input.type, input.direction),
       status: input.status,
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
       code: input.code?.toUpperCase(),
-      direction: input.direction,
-      icon: _getTransactionIcon(input.type),
+      icon: _getTransactionIcon(input.type, input.direction),
+      info: _getTransactionInfo(input.direction, input.contragent, input.code),
       contractor: input.contragent
         ? {
             id: input.contragent.id || '',
@@ -90,7 +92,7 @@ export default {
   requestSerialize(input: TTransaction): any {
     return {
       id: input.id,
-      amount: input.sum,
+      amount: (input as INetTransaction).sum || (input as IRequestFunds).amount,
       status: input.status,
       type: input.type,
       code: input.code,
@@ -108,29 +110,53 @@ export default {
 
 function _transactionAmount2Sum(
   amount: string,
-  direction: ETransactionDirection
+  type: ETransactionType,
+  direction: EDirection
 ): string {
-  return direction === ETransactionDirection.income
+  return type === ETransactionType.deposit ||
+    (type === ETransactionType.transfer && direction === EDirection.income) ||
+    (type === ETransactionType.convert && direction === EDirection.income)
     ? `+ ${amount}`
     : `- ${amount}`;
 }
 
-function _getTransactionIcon(type: ETransactionType): string {
+function _getTransactionIcon(
+  type: ETransactionType,
+  direction: string
+): string {
   //TODO: define icons set, check logic
   let icon = '';
   switch (type) {
-    case ETransactionType.transfer || ETransactionType.withdraw:
-      icon = require('@/assets/icon/transactions/sent.svg');
+    case ETransactionType.transfer: {
+      if (direction === EDirection.income)
+        icon = require('@/assets/icon/transactions/sent.svg');
+      icon = require('@/assets/icon/transactions/received.svg');
       break;
+    }
     case ETransactionType.deposit:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
     case ETransactionType.convert:
-      icon = require('@/assets/icon/transactions/exchange.svg');
+      icon = require('@/assets/icon/transactions/convert.svg');
       break;
     default:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
   }
   return icon;
+}
+
+function _getTransactionInfo(
+  direction: EDirection,
+  contractor: IContractor,
+  code: string
+): string {
+  if (direction === EDirection.income)
+    return `From ${
+      contractor ? contractor.phone : `${code.toUpperCase()} address`
+    }`;
+
+  return `To ${
+    contractor ? contractor.phone : `${code.toUpperCase()} address`
+  }`;
 }

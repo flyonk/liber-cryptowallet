@@ -3,7 +3,13 @@
     <div class="input-wrapper mb-2 relative m-0">
       <label class="change-from">
         <p class="label">You send exactly</p>
-        <input type="number" class="input" autofocus @blur="onBlur" />
+        <input
+          v-model="amount"
+          type="number"
+          class="input"
+          autofocus
+          @blur="onBlur"
+        />
         <div class="select">
           <div class="select-option flex" @click="showCryptoList(1)">
             <img class="icon" :src="currentSendFromCurrency.img" />
@@ -18,7 +24,7 @@
               v-for="(currency, index) in currencies"
               :key="index"
               class="options-item"
-              @click="changeCurrentCurrency(index, 'from')"
+              @click="handleChangeCurrentCurrency(index, 'from')"
             >
               <img class="icon" :src="currency.img" alt="" />
               <p class="currency">{{ currency.name }}</p>
@@ -30,24 +36,19 @@
     <ul class="fees-data">
       <li class="fees-item">
         <div class="circle">-</div>
-        <p class="sum">0.12345678 BTC</p>
+        <p class="sum">0 {{ currentSendToCurrency.name.value }}</p>
         <p class="name">Transfer Fee</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">=</div>
-        <p class="sum">0.19811656 BTC</p>
-        <p class="name">Amount we’ll covert</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">x</div>
-        <p class="sum">0.19811656 USD</p>
-        <p class="name">Guaranteed rate (100h)</p>
       </li>
     </ul>
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
         <p class="label">Ashley will get</p>
-        <input type="number" class="input" @blur="onBlur" />
+        <input
+          v-model="recipientAmount"
+          type="number"
+          class="input"
+          @blur="onBlur"
+        />
         <div class="select select-to">
           <div class="select-option flex" @click="showCryptoList(2)">
             <img class="icon" :src="currentSendToCurrency.img" />
@@ -62,7 +63,7 @@
               v-for="(currency, index) in currencies"
               :key="index"
               class="options-item"
-              @click="changeCurrentCurrency(index, 'to')"
+              @click="handleChangeCurrentCurrency(index, 'to')"
             >
               <img class="icon" :src="currency.img" alt="" />
               <p class="currency">{{ currency.name }}</p>
@@ -71,20 +72,35 @@
         </div>
       </label>
     </div>
-    <BaseButton
+    <base-button
       class="send-button"
       size="large"
       view="simple"
       @click="$emit('send-transaction')"
     >
       Send
-    </BaseButton>
+    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { onMounted, ref, watch } from 'vue';
 import { BaseButton } from '@/components/ui';
+import { useTransferStore } from '@/stores/transfer';
+
+const transferStore = useTransferStore();
+let amount = ref('');
+let recipientAmount = ref('');
+
+onMounted(() => {
+  transferStore.coin = currencies[0].name;
+});
+
+watch(amount, () => {
+  const fee = 1;
+  transferStore.amount = String(+amount.value * fee);
+  recipientAmount.value = transferStore.amount;
+});
 
 const currentSendFromCurrency = {
   name: ref('BTC'),
@@ -105,26 +121,27 @@ function showCryptoList(listId: number) {
   currentOpenedSelectId.value = listId;
 }
 
-function changeCurrentCurrency(index: number, type: string) {
+function handleChangeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name;
     currentSendFromCurrency.img = currencies[index].img;
+
+    // now API allows send X to X currency
+    _setCurrentSendToCurrency(index);
+    //
+
+    transferStore.coin = currentSendFromCurrency.name.value;
   }
 
   if (type === 'to') {
-    currentSendToCurrency.name.value = currencies[index].name;
-    currentSendToCurrency.img = currencies[index].img;
+    // temporary off
+    // _setCurrentSendToCurrency(index);
   }
 
   isSelectListOpen.value = false;
 }
 
 defineEmits(['send-transaction']);
-
-// function sendTransaction() {
-//   console.log('test send transc')
-//   $emit('send')
-// }
 
 const currencies = [
   {
@@ -144,6 +161,11 @@ const currencies = [
     img: require('@/assets/icon/currencies/xrp.svg'),
   },
 ];
+
+const _setCurrentSendToCurrency = (index: number) => {
+  currentSendToCurrency.name.value = currencies[index].name;
+  currentSendToCurrency.img = currencies[index].img;
+};
 
 const onBlur = (event: any) => {
   const newElem = event.relatedTarget?.nodeName;
