@@ -25,11 +25,11 @@
 import { useRouter, useRoute } from 'vue-router';
 import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
-import { useConvertFundsStore } from '@/stores/convertFunds';
+import { useFundsStore } from '@/stores/funds';
 
 const router = useRouter();
 const route = useRoute();
-const fundsStore = useConvertFundsStore();
+const fundsStore = useFundsStore();
 
 const selectCoin = (item: any) => {
   if (route.params.type === 'from') {

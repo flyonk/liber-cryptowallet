@@ -8,6 +8,10 @@ import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
 interface IFundsState {
   convertInfo: IConvertInfo;
   convertFunds: boolean;
+  from: string | null;
+  to: string | null;
+  imgFrom: string | null;
+  imgTo: string | null;
 }
 
 export const emptyConvert = {
@@ -26,9 +30,14 @@ export const useFundsStore = defineStore('funds', {
   state: (): IFundsState => ({
     convertInfo: cloneDeep(emptyConvert),
     convertFunds: false,
+    from: null,
+    to: null,
+    imgFrom: null,
+    imgTo: null,
   }),
 
   getters: {
+    getState: (state) => state,
     getConvertInfo: (state) => state.convertInfo,
     getConvertFunds: (state) => state.convertFunds,
   },
@@ -51,6 +60,22 @@ export const useFundsStore = defineStore('funds', {
     clearConvertInfo(): void {
       this.convertFunds = false;
       this.convertInfo = cloneDeep(emptyConvert);
+    },
+    setCryptoTo(crypto: string, img: string): void {
+      this.to = crypto;
+      this.imgTo = img;
+    },
+    setCryptoFrom(crypto: string, img: string): void {
+      this.from = crypto;
+      this.imgFrom = img;
+    },
+    replaceCoins(): void {
+      const _from = this.from;
+      const _imgFrom = this.imgFrom;
+      this.from = this.to;
+      this.imgFrom = this.imgTo;
+      this.to = _from;
+      this.imgTo = _imgFrom;
     },
   },
 });

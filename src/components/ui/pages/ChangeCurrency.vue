@@ -14,7 +14,7 @@
       <!-- <div class="initials">AR</div> -->
     </div>
     <div class="sendto-main">
-      <change-currency @show-2fa="handle2FA" />
+      <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
     </div>
   </div>
   <!--TODO: make toasts logic-->
