@@ -3,6 +3,7 @@ import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 import profileService from '@/services/profileService';
 import { IProfile } from '@/models/profile/profile';
+import { clearAll } from '@/helpers/storage';
 
 import { SStorageKeys } from '@/types/storage';
 
@@ -31,6 +32,12 @@ export const useProfileStore = defineStore('profile', {
         key: SStorageKeys.user,
         value,
       });
+    },
+    async closeAccount() {
+      // TODO Wait for response when API is ready
+      profileService.closeProfile();
+
+      await clearAll();
     },
   },
 });

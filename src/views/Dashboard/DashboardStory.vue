@@ -5,7 +5,7 @@
         class="close-btn"
         src="@/assets/icon/close_big.svg"
         alt="close"
-        @click="$router.push({ name: 'dashboard-home' })"
+        @click="$router.push({ name: DashboardHome })"
       />
       <img
         class="image"
@@ -32,7 +32,10 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Route } from '@/router/types';
+const { DashboardHome } = Route;
+</script>
 
 <style lang="scss" scoped>
 .dashboard-story {

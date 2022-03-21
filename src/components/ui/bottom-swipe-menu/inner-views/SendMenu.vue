@@ -8,7 +8,7 @@
       />
       <p class="text">Send Funds</p>
     </router-link>
-    <li class="menu-item">
+    <li class="menu-item" @click="$router.push('/convert')">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/convert_funds.svg"

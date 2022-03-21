@@ -1,5 +1,7 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 import apiService from '@/services/apiService';
+import { useAuthStore } from '@/stores/auth';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { i18n } from '@/i18n';
 import { Storage } from '@capacitor/storage';
 import { EStorageKeys } from '@/types/storage';
@@ -24,7 +26,22 @@ const _requestHandler = async (
     const { value: token } = await Storage.get({
       key: EStorageKeys.token,
     });
-    //TODO: add refresh token logic
+
+    const { value: refreshToken } = await Storage.get({
+      key: EStorageKeys.refreshToken,
+    });
+
+    const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
+
+    const authStore = useAuthStore();
+
+    if (
+      (decodedToken?.exp as JwtPayload) <
+      Math.round(new Date().getTime() / 1000)
+    ) {
+      authStore.refresh({ refresh_token: refreshToken || '' });
+    }
+
     if (token) {
       config.headers['Authorization'] = `Bearer ${token}`;
     }

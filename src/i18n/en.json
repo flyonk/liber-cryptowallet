@@ -137,10 +137,19 @@
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
     "operations": {
-      "received": "Received",
-      "pending": "Pending",
+      "income": "Received",
+      "outcome": "Sent",
+      "transfer": "Transfer",
       "deposit": "Deposit",
-      "sent": "Sent"
+      "withdraw": "Withdraw",
+      "convert": "Convert",
+      "send": "Send"
+    },
+    "status": {
+      "pending": "Pending",
+      "unconfirmed": "Unconfirmed",
+      "finished": "Finished",
+      "cancelled": "Cancelled"
     },
     "carousel": {
       "deposit": "Deposit",

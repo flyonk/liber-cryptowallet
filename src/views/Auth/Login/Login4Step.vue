@@ -37,6 +37,7 @@ import { use2faStore } from '@/stores/2fa';
 import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { getSupportedOptions } from '@/helpers/identification';
+import { Route } from '@/router/types';
 
 const authStore = useAuthStore();
 const store = use2faStore();
@@ -75,7 +76,7 @@ watch(verificationCode, async (code) => {
       });
     } else {
       router.push({
-        name: 'dashboard-home',
+        name: Route.DashboardHome,
       });
     }
     return;
@@ -92,7 +93,7 @@ watch(verificationCode, async (code) => {
         });
       } else {
         router.push({
-          name: 'dashboard-home',
+          name: Route.DashboardHome,
         });
       }
     } else {
@@ -108,13 +109,14 @@ function prevStep(): void {
 async function getSupportedIdentificationWay() {
   const option = await getSupportedOptions();
   if (option === 'face-id') {
-    return 'face-id';
-  }
-  if (option === 'touch-id') {
-    return 'touch-id';
+    return Route.FaceId;
   }
 
-  return 'push-notifications';
+  if (option === 'touch-id') {
+    return Route.FaceId;
+  }
+
+  return Route.PushNotifications;
 }
 </script>
 

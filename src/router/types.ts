@@ -17,11 +17,15 @@ export enum Route {
 
   Account = 'account',
   AccountMain = 'account-main',
+  AccountDetail = 'account-detail',
   AccountAdd = 'account-add',
 
   Transactions = 'transactions',
   TransactionsMain = 'transactions-main',
   TransactionsDetails = 'transactions-details',
+
+  ConvertFunds = 'convert',
+  ContactsWhoToPay = 'contacts.who-to-pay',
 
   ProfileMainView = 'profile-main-view',
   ProfileSettings = 'profile-settings',
@@ -59,4 +63,11 @@ export enum Route {
   RecepientsLiber = 'recepients-liber',
 
   LoadContacts = 'request-phone-contacts',
+
+  DepositAdd = 'deposit-add',
+  DepositNetwork = 'deposit-network',
+  DepositCoin = 'deposit-coin',
+
+  PhoneEnter = 'phone-enter',
+  CodeEnter = 'code-enter',
 }

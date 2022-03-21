@@ -13,14 +13,19 @@
         alt="circle-add"
         @click="
           $router.push({
-            name: 'deposit-coin',
+            name: Route.DepositCoin,
           })
         "
       />
     </div>
     <h1 class="title">{{ $t('views.account.allAccounts') }}</h1>
     <ul class="currencies">
-      <li v-for="(currency, index) in currencies" :key="index" class="item">
+      <li
+        v-for="(currency, index) in currencies"
+        :key="index"
+        class="item"
+        @click="$router.push(getCurrencyUrl(currency.code))"
+      >
         <img v-if="currency.img !== ''" class="icon" :src="currency.img" alt />
         <h4 class="title">{{ currency.name }}</h4>
         <p class="description">{{ currency.description }}</p>
@@ -33,37 +38,50 @@
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 
+import { Route } from '@/router/types';
+
 const { tm } = useI18n();
 
+function getCurrencyUrl(code: string): string {
+  //TODO: define logic with backend
+  return code === 'eur' ? Route.DashboardHome : `/${Route.Account}/${code}`;
+}
+
+//TODO: get from API call if
 const currencies = [
   {
     name: 'EUR',
+    code: 'eur',
     description: tm('views.account.allAccounts'),
-    sum: '€1025.50',
+    sum: '€ 46.00',
     img: require('@/assets/icon/currencies/euro.svg'),
   },
   {
     name: 'BTC',
+    code: 'tbtc',
     description: 'Bitcoin',
-    sum: '0.00369879',
+    sum: '0.001',
     img: require('@/assets/icon/currencies/btc.svg'),
   },
   {
     name: 'USDT',
+    code: 'usdt',
     description: 'Teather USDT',
-    sum: '300.0305152',
+    sum: '0',
     img: require('@/assets/icon/currencies/tether.svg'),
   },
   {
     name: 'Hush',
+    code: 'hush',
     description: 'Hush',
-    sum: '156.34569879',
+    sum: '0',
     img: require('@/assets/icon/currencies/hush.svg'),
   },
   {
     name: 'XRP',
+    code: 'xrp',
     description: 'Ripple XRP',
-    sum: '€1025.50',
+    sum: '0',
     img: require('@/assets/icon/currencies/xrp.svg'),
   },
 ];

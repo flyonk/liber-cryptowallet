@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <top-navigation
-      @click:left-icon="$router.push({ name: 'deposit-network' })"
+      @click:left-icon="$router.push({ name: Route.DepositNetwork })"
     >
       {{ $t('views.deposit.wallet.deposit') }} {{ coin }}
     </top-navigation>
@@ -89,7 +89,7 @@ import { useI18n } from 'vue-i18n';
 
 import { TopNavigation } from '@/components/ui';
 import QrCodeWithLogo from 'qrcode-with-logos';
-
+import { Route } from '@/router/types';
 const toast = useToast();
 
 const { tm } = useI18n();

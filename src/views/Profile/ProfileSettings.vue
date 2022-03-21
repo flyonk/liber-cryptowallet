@@ -3,10 +3,10 @@
     <div class="header">
       <div class="left">
         <img
-          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
-          @click="$router.push({ name: 'dashboard-home' })"
+          alt="arrow-left"
+          @click="$router.push({ name: Route.DashboardHome })"
         />
         <h1 class="title">{{ accountName }}</h1>
         <div class="flex">
@@ -36,24 +36,24 @@
         {{ $t('views.profile.profileSettings.profile') }}
       </h6>
       <ul class="list list--profile">
-        <li class="item" @click="$router.push({ name: 'profile-my-qr-code' })">
+        <li class="item" @click="$router.push({ name: Route.ProfileMyQrCode })">
           <img class="icon" src="@/assets/icon/qr-mini.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.QRCode') }}</p>
         </li>
         <router-link
-          :to="{ name: 'profile-edit', params: { id: '1' } }"
+          :to="{ name: Route.ProfileEdit, params: { id: '1' } }"
           class="item"
         >
           <img class="icon" src="@/assets/icon/user_circle.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.details') }}</p>
         </router-link>
-        <router-link :to="{ name: 'account-main' }" class="item">
+        <router-link :to="{ name: Route.AccountMain }" class="item">
           <img class="icon" src="@/assets/icon/data.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.allAccounts') }}
           </p>
         </router-link>
-        <router-link :to="{ name: 'profile-help' }" class="item">
+        <router-link :to="{ name: Route.ProfileHelp }" class="item">
           <img class="icon" src="@/assets/icon/help_circle.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
         </router-link>
@@ -62,13 +62,13 @@
         {{ $t('views.profile.profileSettings.security') }}
       </h6>
       <ul class="list security--profile">
-        <router-link :to="{ name: 'auth-passcode' }" class="item">
+        <router-link :to="{ name: Route.AuthPasscode }" class="item">
           <img class="icon" src="@/assets/icon/lock.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.changePasscode') }}
           </p>
         </router-link>
-        <li class="item" @click="$router.push({ name: 'profile-privacy' })">
+        <li class="item" @click="$router.push({ name: Route.ProfilePrivacy })">
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
@@ -114,6 +114,7 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { Route } from '@/router/types';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
@@ -154,7 +155,7 @@ function closeMenu() {
 async function onLogout() {
   await authStore.logout();
 
-  await route.push({ name: 'welcome-logo-screen' });
+  await route.push({ name: Route.WelcomeLogoScreen });
 }
 </script>
 

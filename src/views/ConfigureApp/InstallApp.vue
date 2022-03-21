@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
+    <top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
       {{ $t('configureApp.installAppTitle') }}
     </top-navigation>
 
@@ -42,7 +42,7 @@
   </div>
 
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="$router.push({ name: 'configure-app' })">{{
+    <base-button block @click="$router.push({ name: Route.ConfigureApp })">{{
       $t('common.continueCta')
     }}</base-button>
   </div>
@@ -50,6 +50,7 @@
 
 <script setup lang="ts">
 import { TopNavigation, BaseButton } from '@/components/ui';
+import { Route } from '@/router/types';
 </script>
 
 <style lang="scss" scoped>

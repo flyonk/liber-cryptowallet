@@ -34,6 +34,7 @@ import { useRouter } from 'vue-router';
 
 import { TopNavigation, BaseButton } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -53,7 +54,7 @@ const setCountry = (selectedCountry: string): void => {
 
 const prevStep = (): void => {
   router.push({
-    name: 'survey',
+    name: Route.Survey,
   });
 };
 </script>

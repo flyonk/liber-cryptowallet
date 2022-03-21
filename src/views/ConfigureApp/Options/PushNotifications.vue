@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <top-navigation
-      @click:left-icon="$router.push({ name: 'configure-app-verify' })"
+      @click:left-icon="$router.push({ name: Route.ConfigureAppVerify })"
     >
       {{ $t('configureApp.pushNotificationsTitle') }}
     </top-navigation>
@@ -34,23 +34,26 @@ import { useAppOptionsStore } from '@/stores/appOptions';
 import { BaseButton, TopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
+function goToDashboard() {
+  router.push({
+    name: Route.DashboardHome,
+  });
+}
+
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.notifications);
-  router.push({
-    name: 'dashboard-home',
-  });
+  goToDashboard();
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.notifications);
-  router.push({
-    name: 'dashboard-home',
-  });
+  goToDashboard();
 };
 </script>
 

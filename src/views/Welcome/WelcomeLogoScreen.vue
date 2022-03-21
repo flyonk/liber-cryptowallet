@@ -11,6 +11,7 @@ import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
+import { Route } from '@/router/types';
 const { stylePaddings } = useSafeAreaPaddings();
 
 const loading = ref(true);
@@ -26,7 +27,7 @@ onMounted(() => {
       if (authStore.isLoggedIn) {
         authStore.setStep(2, 'login');
 
-        router.push({ name: 'login' });
+        router.push({ name: Route.Login });
       } else {
         router.push('/welcome-auth');
       }

@@ -14,6 +14,7 @@ export interface IAuthSteps {
   registration: number;
   login: number;
   recover: number;
+  kyc: number;
 }
 
 export interface ICommonPhoneNumber {
@@ -43,6 +44,7 @@ export const useAuthStore = defineStore('auth', {
       registration: 0,
       login: 0,
       recover: 0,
+      kyc: 0,
     },
     registration: {
       dialCode: '+7',
@@ -86,6 +88,12 @@ export const useAuthStore = defineStore('auth', {
 
     async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
       const data = await authService.signInProceed(_data);
+
+      this.setToken(data);
+    },
+
+    async refresh(_data: { refresh_token: string }): Promise<void> {
+      const data = await authService.refresh(_data);
 
       this.setToken(data);
     },

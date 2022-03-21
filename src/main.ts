@@ -45,3 +45,6 @@ app.directive('tooltip', PTooltip);
 router.isReady().then(() => {
   app.mount('#app');
 });
+
+// declare const window: any;
+// window.ap = app;

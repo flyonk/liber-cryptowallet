@@ -67,21 +67,37 @@ export default {
   },
   funds: {
     convertInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/funds/convert-info`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/convert/info`;
     },
     convert(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/funds/convert`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/convert`;
     },
     coins(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coins`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/coins`;
     },
     depositInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/deposit-info`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/deposit-info`;
     },
   },
   transactions: {
+    transactionsList(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+    },
     requestFunds(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/request-funds`;
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/request-funds`;
+    },
+  },
+  account: {
+    accountsList(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/accounts`;
+    },
+    userTransactions(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+    },
+  },
+  transfer: {
+    transfer(coin: string): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transfer/coin/${coin}`;
     },
   },
 };
