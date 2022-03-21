@@ -34,6 +34,7 @@ import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -61,7 +62,7 @@ function onCreate(success: boolean): void {
 
 function onSubmit(success: boolean): void {
   if (success) {
-    router.push({ name: '2fa-app' });
+    router.push({ name: Route.TwoFAApp });
   } else {
     showErrorToast.value = true;
   }
@@ -69,7 +70,7 @@ function onSubmit(success: boolean): void {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function prevStep(): void {
-  router.push({ name: 'survey' });
+  router.push({ name: Route.Survey });
 }
 </script>
 

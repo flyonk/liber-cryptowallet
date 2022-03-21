@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <top-navigation
-      @click:left-icon="$router.push({ name: 'configure-app-verify' })"
+      @click:left-icon="$router.push({ name: Route.ConfigureAppVerify })"
     >
       {{ $t('configureApp.pushNotificationsTitle') }}
     </top-navigation>

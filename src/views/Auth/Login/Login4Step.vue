@@ -109,13 +109,14 @@ function prevStep(): void {
 async function getSupportedIdentificationWay() {
   const option = await getSupportedOptions();
   if (option === 'face-id') {
-    return 'face-id';
-  }
-  if (option === 'touch-id') {
-    return 'touch-id';
+    return Route.FaceId;
   }
 
-  return 'push-notifications';
+  if (option === 'touch-id') {
+    return Route.FaceId;
+  }
+
+  return Route.PushNotifications;
 }
 </script>
 

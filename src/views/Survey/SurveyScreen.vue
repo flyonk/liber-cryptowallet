@@ -44,6 +44,7 @@ import { TopNavigation } from '@/components/ui';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
+import { Route } from '@/router/types';
 
 const { tm } = useI18n();
 
@@ -128,7 +129,7 @@ const selectAnswer = (id: number | string) => {
     const userAnswers = getSelectedAnswers();
     saveAnswers(userAnswers).then(() => {
       router.push({
-        name: 'auth-passcode',
+        name: Route.AuthPasscode,
       });
     });
     return;
@@ -139,7 +140,7 @@ const selectAnswer = (id: number | string) => {
 
 const closePage = () => {
   router.push({
-    name: 'auth-passcode',
+    name: Route.AuthPasscode,
   });
 };
 

@@ -32,7 +32,7 @@
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
         {{ $t('auth.signup.step1ExistingAcc') }}
-        <router-link :to="{ name: 'login' }" class="link">
+        <router-link :to="{ name: Route.Login }" class="link">
           {{ $t('common.logInCta') }}
         </router-link>
       </span>
@@ -58,6 +58,7 @@ import {
 } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -114,7 +115,7 @@ const handleStep = () => {
 
 const prevStep = () => {
   router.push({
-    name: 'welcome-auth-screen',
+    name: Route.WelcomeAuthScreen,
   });
 };
 </script>

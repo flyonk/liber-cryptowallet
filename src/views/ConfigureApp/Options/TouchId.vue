@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: '2fa-app' })">
+    <top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
       {{ $t('configureApp.touchIdTitle') }}
     </top-navigation>
 
@@ -28,6 +28,7 @@ import { useAppOptionsStore } from '@/stores/appOptions';
 import { TopNavigation, BaseButton } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -35,12 +36,12 @@ const { setOptions } = useAppOptionsStore();
 
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.touchid);
-  router.push({ name: 'push-notifications' });
+  router.push({ name: Route.PushNotifications });
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.touchid);
-  router.push({ name: 'push-notifications' });
+  router.push({ name: Route.PushNotifications });
 };
 </script>
 
