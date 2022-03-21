@@ -55,6 +55,7 @@ import {
   BaseInput,
   TopNavigation,
 } from '@/components/ui';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -100,7 +101,10 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
 const nextStep = async () => {
   if (!number.value) return;
-  authStore.setPhone(number.value);
+
+  const phone = formatPhoneNumber(number.value);
+
+  authStore.setPhone(phone);
 
   await authStore.setToStorage();
 

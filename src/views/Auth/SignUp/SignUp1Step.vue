@@ -19,9 +19,9 @@
       <div class="col-8 ml-auto">
         <BaseInput
           v-model="number"
-          :use-grouping="false"
-          :type="type"
           :mask="mask"
+          :type="type"
+          :use-grouping="false"
         >
           <template #label>
             {{ $t('common.numberLabel') }}
@@ -51,13 +51,14 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
-  TopNavigation,
+  BaseButton,
   BaseCountryPhoneInput,
   BaseInput,
-  BaseButton,
+  TopNavigation,
 } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 const router = useRouter();
 
@@ -108,7 +109,10 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
 const handleStep = () => {
   if (!number.value) return;
-  authStore.registration.phone = String(number.value);
+
+  const phone = formatPhoneNumber(number.value);
+
+  authStore.registration.phone = String(phone);
   emits('next');
 };
 
