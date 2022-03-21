@@ -142,7 +142,8 @@
       "transfer": "Transfer",
       "deposit": "Deposit",
       "withdraw": "Withdraw",
-      "convert": "Convert"
+      "convert": "Convert",
+      "send": "Send"
     },
     "status": {
       "pending": "Pending",
