@@ -48,6 +48,12 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
 import { TopNavigation, BaseButton } from '@/components/ui';
 import { Route } from '@/router/types';

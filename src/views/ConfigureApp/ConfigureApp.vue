@@ -43,6 +43,12 @@
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';

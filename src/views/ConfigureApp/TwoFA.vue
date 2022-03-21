@@ -14,11 +14,17 @@
   </div>
 
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="$router.push({ name: Route.InstallApp })">
+    <base-button block @click="installApp">
       {{ $t('common.continueCta') }}
     </base-button>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
@@ -49,6 +55,12 @@ onMounted(async () => {
 function prevStep(): void {
   router.push({
     name: Route.AuthPasscode,
+  });
+}
+
+function installApp(): void {
+  router.push({
+    name: Route.InstallApp,
   });
 }
 </script>
