@@ -14,7 +14,7 @@
       <div class="initials">AR</div>
     </div>
     <div class="sendto-main">
-      <change-currency
+      <send-currency
         :has-coin-reverse="true"
         @send-transaction="sendTransaction"
       />
@@ -67,7 +67,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
+import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 
 const showPopup = ref(false);

@@ -5,79 +5,93 @@
         <p class="label">You send exactly</p>
         <input type="number" class="input" autofocus @blur="onBlur" />
         <div class="select">
-          <div class="select-option flex" @click="showCryptoList(1)">
-            <img class="icon" :src="currentSendFromCurrency.img" />
+          <router-link
+            :to="{ name: 'choose_coin', params: { type: 'from' } }"
+            class="select-option flex"
+          >
+            <img class="icon" :src="currentSendFromCurrency.img.value" />
             <p class="name">{{ currentSendFromCurrency.name.value }}</p>
             <img src="@/assets/icon/arrow-down.svg" alt="list" />
-          </div>
-          <ul
-            v-if="isSelectListOpen && currentOpenedSelectId === 1"
-            class="options-list"
-          >
-            <li
-              v-for="(currency, index) in currencies"
-              :key="index"
-              class="options-item"
-              @click="changeCurrentCurrency(index, 'from')"
-            >
-              <img class="icon" :src="currency.img" alt="" />
-              <p class="currency">{{ currency.name }}</p>
-            </li>
-          </ul>
+          </router-link>
         </div>
       </label>
     </div>
-    <ul class="fees-data">
-      <li class="fees-item">
-        <div class="circle">-</div>
-        <p class="sum">0.12345678 BTC</p>
-        <p class="name">Transfer Fee</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">=</div>
-        <p class="sum">0.19811656 BTC</p>
-        <p class="name">Amount we’ll covert</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">x</div>
-        <p class="sum">0.19811656 USD</p>
-        <p class="name">Guaranteed rate (100h)</p>
-      </li>
-    </ul>
+    <div class="flex align-items-center">
+      <ul v-if="isDiffererentCoins" class="fees-data">
+        <li class="fees-item">
+          <div class="circle">-</div>
+          <p class="sum">0.12345678 BTC</p>
+          <p class="name">Transfer Fee</p>
+        </li>
+        <li class="fees-item">
+          <div class="circle">=</div>
+          <p class="sum">0.19811656 BTC</p>
+          <p class="name">Amount we’ll covert</p>
+        </li>
+        <li class="fees-item">
+          <div class="circle">x</div>
+          <p class="sum">0.19811656 USD</p>
+          <p class="name">Guaranteed rate (100h)</p>
+        </li>
+      </ul>
+      <div v-else class="different-coins">
+        <img src="@/assets/icon/attention.svg" alt="attention" class="mr-1" />
+        <p class="text">Please choose different coins</p>
+      </div>
+      <div
+        v-if="hasCoinReverse && isDiffererentCoins"
+        class="coin-switcher cursor-pointer"
+        @click="replaceCoins"
+      >
+        <img
+          class="pb-3"
+          src="@/assets/icon/transactions/reverse_currencies.svg"
+          alt="coin-switcher"
+        />
+      </div>
+    </div>
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
         <p class="label">Ashley will get</p>
-        <input type="number" class="input" @blur="onBlur" />
+        <input type="number" class="input mb-2" @blur="onBlur" />
         <div class="select select-to">
-          <div class="select-option flex" @click="showCryptoList(2)">
-            <img class="icon" :src="currentSendToCurrency.img" />
+          <router-link
+            :to="{ name: 'choose_coin', params: { type: 'to' } }"
+            class="select-option flex"
+          >
+            <img class="icon" :src="currentSendToCurrency.img.value" />
             <p class="name">{{ currentSendToCurrency.name.value }}</p>
             <img src="@/assets/icon/arrow-down.svg" alt="list" />
-          </div>
-          <ul
-            v-if="isSelectListOpen && currentOpenedSelectId === 2"
-            class="options-list"
-          >
-            <li
-              v-for="(currency, index) in currencies"
-              :key="index"
-              class="options-item"
-              @click="changeCurrentCurrency(index, 'to')"
-            >
-              <img class="icon" :src="currency.img" alt="" />
-              <p class="currency">{{ currency.name }}</p>
-            </li>
-          </ul>
+          </router-link>
         </div>
       </label>
+      <BaseCountdown v-if="showCountdown" seconds="30" @time:up="onTimeIsUp">
+        <template #countdown="{ minute, second }">
+          <p class="clock-wrapper">
+            {{ $t('auth.login.step2ResendTitle') }}
+            {{ minute }}:{{ second }}
+          </p>
+        </template>
+      </BaseCountdown>
     </div>
     <BaseButton
+      v-if="currentButton === 'send'"
       class="send-button"
       size="large"
       view="simple"
-      @click="$emit('send-transaction')"
+      @click="sendTransaction"
     >
       Send
+    </BaseButton>
+    <BaseButton
+      v-else
+      class="send-button"
+      size="large"
+      view="simple"
+      :disabled="disableRefreshBtn"
+      @click="currentButton = 'send'"
+    >
+      Refresh
     </BaseButton>
   </div>
 </template>
@@ -85,65 +99,36 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import { BaseButton } from '@/components/ui';
+import { useFundsStore } from '@/stores/funds';
+import { BaseCountdown } from '@/components/ui';
+
+const fundsStore = useFundsStore();
+
+const { from, to, imgFrom, imgTo } = fundsStore.getState;
+
+const emit = defineEmits(['send-transaction']);
+
+defineProps({
+  hasCoinReverse: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const showCountdown = ref(false);
+let currentButton = ref('send');
+let disableRefreshBtn = ref(true);
+let isDiffererentCoins = ref(true);
 
 const currentSendFromCurrency = {
-  name: ref('BTC'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  name: ref(from || 'BTC'),
+  img: ref(imgFrom || require('@/assets/icon/currencies/btc.svg')),
 };
 
 const currentSendToCurrency = {
-  name: ref('BTC'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  name: ref(to || 'BTC'),
+  img: ref(imgTo || require('@/assets/icon/currencies/btc.svg')),
 };
-
-let isSelectListOpen = ref(false);
-let currentOpenedSelectId = ref(1);
-
-function showCryptoList(listId: number) {
-  isSelectListOpen.value = !isSelectListOpen.value;
-  currentOpenedSelectId.value = null;
-  currentOpenedSelectId.value = listId;
-}
-
-function changeCurrentCurrency(index: number, type: string) {
-  if (type === 'from') {
-    currentSendFromCurrency.name.value = currencies[index].name;
-    currentSendFromCurrency.img = currencies[index].img;
-  }
-
-  if (type === 'to') {
-    currentSendToCurrency.name.value = currencies[index].name;
-    currentSendToCurrency.img = currencies[index].img;
-  }
-
-  isSelectListOpen.value = false;
-}
-
-defineEmits(['send-transaction']);
-
-// function sendTransaction() {
-//   console.log('test send transc')
-//   $emit('send')
-// }
-
-const currencies = [
-  {
-    name: 'BTC',
-    img: require('@/assets/icon/currencies/btc.svg'),
-  },
-  {
-    name: 'USDT',
-    img: require('@/assets/icon/currencies/tether.svg'),
-  },
-  {
-    name: 'ETH',
-    img: require('@/assets/icon/currencies/eth.svg'),
-  },
-  {
-    name: 'XRP',
-    img: require('@/assets/icon/currencies/xrp.svg'),
-  },
-];
 
 const onBlur = (event: any) => {
   const newElem = event.relatedTarget?.nodeName;
@@ -151,6 +136,28 @@ const onBlur = (event: any) => {
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
     elem.focus();
   }
+};
+
+const replaceCoins = () => {
+  fundsStore.replaceCoins();
+  const { from, to, imgFrom, imgTo } = fundsStore.getState;
+
+  currentSendFromCurrency.name.value = from || '';
+  currentSendFromCurrency.img.value = imgFrom;
+
+  currentSendToCurrency.name.value = to || '';
+  currentSendToCurrency.img.value = imgTo;
+};
+
+const onTimeIsUp = () => {
+  showCountdown.value = false;
+  disableRefreshBtn.value = false;
+  emit('send-transaction');
+};
+
+const sendTransaction = () => {
+  currentButton.value = 'refresh';
+  showCountdown.value = true;
 };
 </script>
 

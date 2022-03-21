@@ -14,7 +14,7 @@
       <div class="initials">AR</div>
     </div>
     <div class="sendto-main">
-      <change-currency @show-2fa="handle2FA" />
+      <send-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
     </div>
   </div>
   <!--TODO: make toasts logic-->
@@ -69,7 +69,7 @@ import { ref } from 'vue';
 
 import { useFundsStore } from '@/stores/funds';
 
-import ChangeCurrency from '@/components/transactions/ChangeCurrency.vue';
+import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 
