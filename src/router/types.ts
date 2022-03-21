@@ -25,6 +25,7 @@ export enum Route {
   TransactionsDetails = 'transactions-details',
 
   ConvertFunds = 'convert',
+  ContactsWhoToPay = 'contacts.who-to-pay',
 
   ProfileMainView = 'profile-main-view',
   ProfileSettings = 'profile-settings',
