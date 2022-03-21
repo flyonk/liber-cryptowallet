@@ -1,3 +1,4 @@
+<!--TODO: removed unused component-->
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="prevStep">
@@ -103,7 +104,7 @@ watch(verificationCode, async (code) => {
 });
 
 function prevStep(): void {
-  authStore.setStep(2, 'login');
+  authStore.setStep(3, 'login');
 }
 
 async function getSupportedIdentificationWay() {

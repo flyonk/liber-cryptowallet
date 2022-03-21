@@ -50,6 +50,7 @@ const router = useRouter();
 
 const authStore = useAuthStore();
 const twoFAStore = use2faStore();
+
 const showErrorToast = ref(false);
 const show2FA = ref(false);
 
@@ -61,7 +62,9 @@ async function onSubmit(success: boolean): Promise<void> {
      */
     (await twoFAStore.check2FAExpire())
       ? (show2FA.value = true)
-      : authStore.setStep(3, 'login');
+      : router.push({
+          name: Route.DashboardHome,
+        });
   } else {
     showErrorToast.value = true;
   }
@@ -79,10 +82,27 @@ function handleSuccessVerification(): void {
    * Set new 2fa dateTime
    */
   twoFAStore.set2FADate();
+  //TODO: check if we need first run logic here
   router.push({
     name: Route.DashboardHome,
   });
 }
+
+/*
+ * From Login4Step
+ */
+// async function getSupportedIdentificationWay() {
+//   const option = await getSupportedOptions();
+//   if (option === 'face-id') {
+//     return Route.FaceId;
+//   }
+//
+//   if (option === 'touch-id') {
+//     return Route.FaceId;
+//   }
+//
+//   return Route.PushNotifications;
+// }
 </script>
 
 <style lang="scss">

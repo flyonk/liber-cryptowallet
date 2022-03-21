@@ -13,6 +13,8 @@
 import { ref } from 'vue';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+// import {getSupportedOptions} from "@/helpers/identification";
+// import {Route} from "@/router/types";
 
 const emit = defineEmits<{
   (event: 'success-verification'): void;
@@ -41,6 +43,19 @@ const onHideError = () => {
 const onPrevStep = (): void => {
   emit('close');
 };
+
+// async function getSupportedIdentificationWay() {
+//   const option = await getSupportedOptions();
+//   if (option === 'face-id') {
+//     return Route.FaceId;
+//   }
+//
+//   if (option === 'touch-id') {
+//     return Route.FaceId;
+//   }
+//
+//   return Route.PushNotifications;
+// }
 </script>
 
 <style lang="scss" scoped>
