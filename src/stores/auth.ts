@@ -92,6 +92,12 @@ export const useAuthStore = defineStore('auth', {
       this.setToken(data);
     },
 
+    async refresh(_data: { refresh_token: string }): Promise<void> {
+      const data = await authService.refresh(_data);
+
+      this.setToken(data);
+    },
+
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
         await Promise.all([

@@ -9,7 +9,7 @@ export enum Route {
   Restore = 'restore',
 
   DashboardParent = 'dashboard-parent',
-  DashboardHome = 'home',
+  DashboardHome = 'dashboard-home',
   DashboardVerification = 'dashboard-verification',
   DashboardStory = 'dashboard-story',
   DashboardVerifyingStory = 'dashboard-verifying-story',
