@@ -50,6 +50,7 @@ import { useRouter } from 'vue-router';
 
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 import CoinItem from './CoinItem.vue';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 const coins = ref([]);
@@ -111,7 +112,7 @@ const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : []);
 const selectCoin = (coin) => {
   console.log('selected coin', coin);
   router.push({
-    name: 'deposit-network',
+    name: Route.DepositNetwork,
   });
 };
 </script>

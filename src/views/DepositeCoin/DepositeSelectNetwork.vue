@@ -1,6 +1,6 @@
 <template name="DepositeWallet">
   <div class="page-wrapper">
-    <BackHistoryBtn :path="{ name: 'deposit-coin' }" />
+    <BackHistoryBtn :path="{ name: Route.DepositCoin }" />
 
     <div v-if="dictionary[activeQuestion]">
       <h1 class="main-title">

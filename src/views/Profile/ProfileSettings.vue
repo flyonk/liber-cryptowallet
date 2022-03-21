@@ -41,19 +41,19 @@
           <p class="text">{{ $t('views.profile.profileSettings.QRCode') }}</p>
         </li>
         <router-link
-          :to="{ name: 'profile-edit', params: { id: '1' } }"
+          :to="{ name: Route.ProfileEdit, params: { id: '1' } }"
           class="item"
         >
           <img class="icon" src="@/assets/icon/user_circle.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.details') }}</p>
         </router-link>
-        <router-link :to="{ name: 'account-main' }" class="item">
+        <router-link :to="{ name: Route.AccountMain }" class="item">
           <img class="icon" src="@/assets/icon/data.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.allAccounts') }}
           </p>
         </router-link>
-        <router-link :to="{ name: 'profile-help' }" class="item">
+        <router-link :to="{ name: Route.ProfileHelp }" class="item">
           <img class="icon" src="@/assets/icon/help_circle.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
         </router-link>
@@ -62,7 +62,7 @@
         {{ $t('views.profile.profileSettings.security') }}
       </h6>
       <ul class="list security--profile">
-        <router-link :to="{ name: 'auth-passcode' }" class="item">
+        <router-link :to="{ name: Route.AuthPasscode }" class="item">
           <img class="icon" src="@/assets/icon/lock.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.changePasscode') }}

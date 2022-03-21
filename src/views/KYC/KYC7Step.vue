@@ -14,7 +14,7 @@
       <base-button
         @click="
           $router.push({
-            name: 'survey',
+            name: Route.Survey,
           })
         "
         >{{ $t('views.kyc.kyc7step.continue') }}</base-button
@@ -30,6 +30,7 @@ import {
   TopNavigation,
   BaseButton,
 } from '@/components/ui';
+import { Route } from '@/router/types';
 
 const percent = ref(50);
 </script>

@@ -62,7 +62,7 @@ const pasteFromClipboard = () => {
     }
   );
   //TODO: need more screens
-  router.push('/home');
+  router.push({ name: Route.DashboardHome });
 };
 
 /**

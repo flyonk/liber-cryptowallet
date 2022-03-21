@@ -29,7 +29,7 @@ const router = useRouter();
 
 function prevStep(): void {
   router.push({
-    name: 'auth-passcode',
+    name: Route.AuthPasscode,
   });
 }
 </script>

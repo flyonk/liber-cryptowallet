@@ -43,14 +43,14 @@ const { setOptions } = useAppOptionsStore();
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.notifications);
   router.push({
-    name: 'dashboard-home',
+    name: Route.DashboardHome,
   });
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.notifications);
   router.push({
-    name: 'dashboard-home',
+    name: Route.DashboardHome,
   });
 };
 </script>
