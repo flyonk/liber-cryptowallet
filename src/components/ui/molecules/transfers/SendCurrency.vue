@@ -157,7 +157,7 @@ const currencies = [
   {
     name: 'TLTC',
     code: 'tltc',
-    img: require('@/assets/icon/currencies/tether.svg'),
+    img: require('@/assets/icon/currencies/ltc.svg'),
   },
   // {
   //   name: 'BTC',

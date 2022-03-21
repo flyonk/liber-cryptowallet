@@ -5,7 +5,7 @@
         class="back mr-2"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push({ name: 'profile-main-view' })"
+        @click="$router.push({ name: Route.ContactsWhoToPay })"
       />
       <h4 class="username">@MyDude</h4>
     </div>
@@ -68,9 +68,23 @@
   </base-toast>
   <base-toast
     v-if="popupStatus === 'confirmation'"
+    v-model:visible="showIncorrectDataPopup"
+    :severity="'attention'"
+    @click="showIncorrectDataPopup = false"
+  >
+    <template #description>
+      <div class="popup-description">
+        <p class="description">
+          Please make sure all the fields are filled correct in and try again
+        </p>
+      </div>
+    </template>
+  </base-toast>
+  <base-toast
+    v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
     :severity="'error'"
-    @click="showSuccessPopup = false"
+    @click="showFailurePopup = false"
   >
     <template #description>
       <div class="popup-description">
@@ -90,29 +104,38 @@ import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import SentryUtil from '@/helpers/sentryUtil';
+import { useRouter } from 'vue-router';
+import { Route } from '@/router/types';
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
+const showIncorrectDataPopup = ref(false);
 const popupStatus = ref('confirmation');
 
 const transferStore = useTransferStore();
+
+const router = useRouter();
 
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
       await transferStore.transfer();
+      showSuccessPopup.value = true;
+      router.push({
+        name: Route.DashboardHome,
+      });
+      transferStore.clearTransferData();
     } catch (err) {
+      showFailurePopup.value = true;
       SentryUtil.capture(
         err,
         'SendTo',
         'sendTransaction',
         'error unable to send funds'
       );
-    } finally {
-      showSuccessPopup.value = true;
     }
   } else {
-    showFailurePopup.value = true;
+    showIncorrectDataPopup.value = true;
   }
 };
 </script>

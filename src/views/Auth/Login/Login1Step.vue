@@ -55,6 +55,7 @@ import {
   BaseInput,
   TopNavigation,
 } from '@/components/ui';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -109,7 +110,7 @@ const nextStep = async () => {
 
 function prevStep(): void {
   router.push({
-    name: 'welcome-auth-screen',
+    name: Route.WelcomeAuthScreen,
   });
 }
 </script>

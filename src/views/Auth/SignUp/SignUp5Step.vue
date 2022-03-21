@@ -22,7 +22,7 @@
         block
         @click="
           $router.push({
-            name: 'kyc-main',
+            name: Route.KYCMain,
           })
         "
       >
@@ -34,6 +34,7 @@
 
 <script lang="ts" setup>
 import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
+import { Route } from '@/router/types';
 import { ref } from 'vue-demi';
 
 const birth = ref('');

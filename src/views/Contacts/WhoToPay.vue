@@ -5,7 +5,7 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/profile')"
+        @click="$router.push({ name: Route.DashboardHome })"
       />
       <div class="flex">
         <img
@@ -19,7 +19,7 @@
           alt="circle-add"
           @click="
             $router.push({
-              name: 'deposit-coin',
+              name: Route.DepositCoin,
             })
           "
         />
@@ -108,6 +108,7 @@ import { ref, computed, Ref } from 'vue';
 import { BaseInput, BaseButton } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import { useTransferStore } from '@/stores/transfer';
+import { Route } from '@/router/types';
 
 let isMenuOpen: Ref<boolean> = ref(false);
 let hasFriends = ref(true);

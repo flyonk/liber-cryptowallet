@@ -19,7 +19,7 @@
     </template>
     <template #footer>
       {{ $t('auth.login.step3FooterTitle') }}
-      <router-link :to="{ name: 'sign-up' }" class="link">
+      <router-link :to="{ name: Route.SignUp }" class="link">
         {{ $t('auth.login.step3FooterCta') }}
       </router-link>
     </template>
@@ -30,6 +30,7 @@
 import { ref } from 'vue';
 import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import { useAuthStore } from '@/stores/auth';
+import { Route } from '@/router/types';
 
 const authStore = useAuthStore();
 const showErrorToast = ref(false);

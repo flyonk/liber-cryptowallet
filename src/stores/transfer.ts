@@ -8,17 +8,8 @@ interface ITransferState {
     id: string;
     phone: string;
   };
-  amount: string;
+  amount: number;
 }
-
-export const emptyConvert = {
-  coin: '',
-  recipient: {
-    id: '',
-    phone: '',
-  },
-  amount: '',
-} as ITransferState;
 
 // === transaction Store ===
 
@@ -29,7 +20,7 @@ export const useTransferStore = defineStore('transfer', {
       id: '',
       phone: '',
     },
-    amount: '',
+    amount: 0,
   }),
 
   getters: {
@@ -38,7 +29,7 @@ export const useTransferStore = defineStore('transfer', {
         Boolean(state.coin) &&
         Boolean(state.recipient.id) &&
         Boolean(state.recipient.phone) &&
-        Boolean(state.amount);
+        Boolean(state.amount > 0);
 
       return isFullData;
     },
@@ -47,9 +38,15 @@ export const useTransferStore = defineStore('transfer', {
   actions: {
     async transfer(): Promise<void> {
       await fundsService.transfer(this.coin, {
-        recipient: this.recipient,
         amount: this.amount,
+        recipient: this.recipient,
       });
+    },
+
+    clearTransferData(): void {
+      this.amount = 0;
+      this.recipient = { id: '', phone: '' };
+      this.coin = '';
     },
   },
 });

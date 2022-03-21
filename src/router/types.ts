@@ -25,6 +25,7 @@ export enum Route {
   TransactionsDetails = 'transactions-details',
 
   ConvertFunds = 'convert',
+  ContactsWhoToPay = 'contacts.who-to-pay',
 
   ProfileMainView = 'profile-main-view',
   ProfileSettings = 'profile-settings',
@@ -55,4 +56,10 @@ export enum Route {
   ContactsSend = 'contacts-send',
 
   ChooseCoin = 'choose_coin',
+  DepositAdd = 'deposit-add',
+  DepositNetwork = 'deposit-network',
+  DepositCoin = 'deposit-coin',
+
+  PhoneEnter = 'phone-enter',
+  CodeEnter = 'code-enter',
 }

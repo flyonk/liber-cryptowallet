@@ -1,6 +1,6 @@
 <template name="DepositeWallet">
   <div class="page-wrapper">
-    <BackHistoryBtn :path="{ name: 'deposit-coin' }" />
+    <BackHistoryBtn :path="{ name: Route.DepositCoin }" />
 
     <div v-if="dictionary[activeQuestion]">
       <h1 class="main-title">
@@ -45,8 +45,8 @@
 import { ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+import { Route } from '@/router/types';
 
 const { tm } = useI18n();
 
@@ -122,7 +122,8 @@ const selectAnswer = (id: number | string) => {
     markAnswerAsSelected(id);
     const userAnswers = getSelectedAnswers();
     saveAnswers(userAnswers).then(() => {
-      router.push({ name: 'deposit-add' });
+      //TODO:This path does not exist, you need to clarify the transition
+      router.push({ name: Route.DepositAdd });
     });
     return;
   }

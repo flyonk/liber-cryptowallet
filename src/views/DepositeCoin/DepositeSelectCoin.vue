@@ -25,13 +25,14 @@
 import { useRouter } from 'vue-router';
 import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
 const selectCoin = (item: any) => {
   console.log('selected coin', item);
   router.push({
-    name: 'deposit-network',
+    name: Route.DepositNetwork,
   });
 };
 </script>
