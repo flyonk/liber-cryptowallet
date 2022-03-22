@@ -40,6 +40,11 @@ import { useAppOptionsStore } from '@/stores/appOptions';
 import { getSupportedOptions } from '@/helpers/identification';
 import { Route } from '@/router/types';
 
+/*
+ * TODO: this is unused component
+ *  All 2FA logic were moved to Auth2FAVerificationComponent
+ */
+
 const authStore = useAuthStore();
 const store = use2faStore();
 const appOptionsStore = useAppOptionsStore();
@@ -114,7 +119,7 @@ async function getSupportedIdentificationWay() {
   }
 
   if (option === 'touch-id') {
-    return Route.FaceId;
+    return Route.TouchId;
   }
 
   return Route.PushNotifications;

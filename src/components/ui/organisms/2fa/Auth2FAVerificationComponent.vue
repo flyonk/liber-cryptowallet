@@ -12,9 +12,11 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+import { use2faStore } from '@/stores/2fa';
+
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
-// import {getSupportedOptions} from "@/helpers/identification";
-// import {Route} from "@/router/types";
+
+const store = use2faStore();
 
 const emit = defineEmits<{
   (event: 'success-verification'): void;
@@ -27,12 +29,14 @@ const isError = ref(false);
 const onComplete = async (code: string) => {
   verificationCode.value = code;
 
-  // @TODO
-  // Remove later
-  if (code === '000000') {
-    emit('success-verification');
-  } else {
-    isError.value = true;
+  if (code.length === 6) {
+    const result = store.verify(code);
+
+    if (result?.delta === 0) {
+      emit('success-verification');
+    } else {
+      isError.value = true;
+    }
   }
 };
 
@@ -43,19 +47,6 @@ const onHideError = () => {
 const onPrevStep = (): void => {
   emit('close');
 };
-
-// async function getSupportedIdentificationWay() {
-//   const option = await getSupportedOptions();
-//   if (option === 'face-id') {
-//     return Route.FaceId;
-//   }
-//
-//   if (option === 'touch-id') {
-//     return Route.FaceId;
-//   }
-//
-//   return Route.PushNotifications;
-// }
 </script>
 
 <style lang="scss" scoped>

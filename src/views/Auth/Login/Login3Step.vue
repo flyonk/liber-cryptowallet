@@ -40,6 +40,8 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
+import { useAppOptionsStore } from '@/stores/appOptions';
+import { getSupportedOptions } from '@/helpers/identification';
 
 import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
@@ -50,6 +52,7 @@ const router = useRouter();
 
 const authStore = useAuthStore();
 const twoFAStore = use2faStore();
+const appOptionsStore = useAppOptionsStore();
 
 const showErrorToast = ref(false);
 const show2FA = ref(false);
@@ -69,6 +72,7 @@ async function onSubmit(success: boolean): Promise<void> {
     showErrorToast.value = true;
   }
 }
+
 function prevStep(): void {
   authStore.setStep(1, 'login');
 }
@@ -77,32 +81,46 @@ function onClose() {
   show2FA.value = false;
 }
 
-function handleSuccessVerification(): void {
+function initOptionsStore(): void {
+  appOptionsStore.init();
+  twoFAStore.init().then(() => {
+    twoFAStore.generateToken();
+  });
+}
+
+async function handleSuccessVerification(): Promise<void> {
   /*
    * Set new 2fa dateTime
    */
   twoFAStore.set2FADate();
-  //TODO: check if we need first run logic here
-  router.push({
-    name: Route.DashboardHome,
-  });
+  if (appOptionsStore.isItFirstRun) {
+    initOptionsStore();
+    const name = await getSupportedIdentificationWay();
+    router.push({
+      name,
+    });
+  } else {
+    router.push({
+      name: Route.DashboardHome,
+    });
+  }
 }
 
 /*
  * From Login4Step
  */
-// async function getSupportedIdentificationWay() {
-//   const option = await getSupportedOptions();
-//   if (option === 'face-id') {
-//     return Route.FaceId;
-//   }
-//
-//   if (option === 'touch-id') {
-//     return Route.FaceId;
-//   }
-//
-//   return Route.PushNotifications;
-// }
+async function getSupportedIdentificationWay() {
+  const option = await getSupportedOptions();
+  if (option === 'face-id') {
+    return Route.FaceId;
+  }
+
+  if (option === 'touch-id') {
+    return Route.TouchId;
+  }
+
+  return Route.PushNotifications;
+}
 </script>
 
 <style lang="scss">
