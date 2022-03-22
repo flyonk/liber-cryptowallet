@@ -1,30 +1,6 @@
 <template name="who-topay">
   <div class="who-topay">
-    <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push({ name: Route.DashboardHome })"
-      />
-      <div class="flex">
-        <img
-          class="add mr-3"
-          src="@/assets/icon/system_qr.svg"
-          alt="circle-add"
-        />
-        <img
-          class="add"
-          src="@/assets/icon/circle-add.svg"
-          alt="circle-add"
-          @click="
-            $router.push({
-              name: Route.DepositCoin,
-            })
-          "
-        />
-      </div>
-    </div>
+    <contacts-header />
     <h1 class="title">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
@@ -109,8 +85,8 @@ import { ref, computed, Ref } from 'vue';
 
 import { BaseInput, BaseButton } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import { useTransferStore } from '@/stores/transfer';
-import { Route } from '@/router/types';
 
 let isMenuOpen: Ref<boolean> = ref(false);
 let hasFriends = ref(true);
@@ -200,12 +176,6 @@ const contactTabs = [
   flex-grow: 1;
   overflow: auto;
   position: relative;
-
-  > .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
 
   > .title {
     font-weight: 800;

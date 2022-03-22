@@ -1,28 +1,6 @@
 <template name="Recepients">
   <div class="who-topay">
-    <div class="header">
-      <img
-        src="@/assets/images/avatar.png"
-        @click="$router.push({ name: Route.ProfileSettings })"
-      />
-      <div class="flex">
-        <img
-          class="add mr-3"
-          src="@/assets/icon/system_qr.svg"
-          alt="circle-add"
-        />
-        <img
-          class="add"
-          src="@/assets/icon/circle-add.svg"
-          alt="circle-add"
-          @click="
-            $router.push({
-              name: Route.DepositCoin,
-            })
-          "
-        />
-      </div>
-    </div>
+    <contacts-header :avatarIcon="true" :routeBack="Route.ProfileSettings" />
     <h1 class="title">
       {{ $t('views.recepients.recepients') }}
     </h1>
@@ -49,6 +27,7 @@
 
 <script setup lang="ts">
 import { BaseInput } from '@/components/ui';
+import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 
 import { Route } from '@/router/types';
 </script>
@@ -62,12 +41,6 @@ import { Route } from '@/router/types';
   flex-grow: 1;
   overflow: auto;
   position: relative;
-
-  > .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
 
   > .title {
     font-weight: 800;
