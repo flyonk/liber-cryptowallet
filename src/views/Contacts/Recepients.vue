@@ -17,6 +17,9 @@
       <router-link
         :to="{ name: Route.RecepientsPhone }"
         class="contact-tabs-item"
+        :class="{
+          'router-link-exact-active': route.name === Route.RecepientsPhone,
+        }"
       >
         All Contacts
       </router-link>
@@ -29,7 +32,11 @@
 import { BaseInput } from '@/components/ui';
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 
+import { useRoute } from 'vue-router';
+
 import { Route } from '@/router/types';
+
+const route = useRoute();
 </script>
 
 <style lang="scss" scoped>
