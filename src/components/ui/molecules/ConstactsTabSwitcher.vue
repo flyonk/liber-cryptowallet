@@ -4,9 +4,7 @@
       :to="{ name: props.liberRoute }"
       class="contact-tabs-item"
       :class="{
-        'router-link-exact-active':
-          route.name === props.activeRoute &&
-          props.liberRoute === props.activeRoute,
+        'router-link-exact-active': route.name === props.liberRoute,
       }"
     >
       {{ $t('ui.friends.liber') }}
@@ -15,9 +13,7 @@
       :to="{ name: props.allRoute }"
       class="contact-tabs-item"
       :class="{
-        'router-link-exact-active':
-          route.name === props.activeRoute &&
-          props.allRoute === props.activeRoute,
+        'router-link-exact-active': route.name === props.allRoute,
       }"
     >
       {{ $t('ui.friends.all') }}
@@ -38,10 +34,6 @@ const props = defineProps({
     default: Route.RecepientsLiber,
   },
   allRoute: {
-    type: String,
-    default: Route.RecepientsPhone,
-  },
-  activeRoute: {
     type: String,
     default: Route.RecepientsPhone,
   },

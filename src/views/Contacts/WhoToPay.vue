@@ -11,7 +11,6 @@
     <constacts-tab-switcher
       :liber-route="Route.PayRecepientsLiber"
       :all-route="Route.PayRecepientsPhone"
-      :active-route="Route.PayRecepientsLiber"
     />
 
     <router-view />
