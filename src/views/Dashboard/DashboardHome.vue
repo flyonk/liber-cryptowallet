@@ -80,6 +80,7 @@
           {{ $t('views.dashboard.home.depositFirstCoins') }}
         </h4>
       </div>
+
       <div class="controls">
         <button
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
@@ -172,20 +173,14 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  ComputedRef,
-  getCurrentInstance,
-  onMounted,
-  Ref,
-  ref,
-} from 'vue';
+import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useErrorsStore } from '@/stores/errors';
 import { useUIStore } from '@/stores/ui';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
@@ -207,6 +202,7 @@ const loading = ref(false);
 
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
+const errorsStore = useErrorsStore();
 const uiStore = useUIStore();
 
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
@@ -231,8 +227,6 @@ const { tm } = useI18n();
 let transactions: Ref<INetTransaction[]> = ref([]);
 let preview = ref(3);
 
-const { proxy } = getCurrentInstance();
-
 /**
  * Lifecycle
  */
@@ -253,9 +247,8 @@ onMounted(async () => {
     transactions.value = _transactions;
 
     setCurrentAccount('all');
-  } catch (error) {
-    console.error(error);
-    proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');
+  } catch (err) {
+    errorsStore.handle(err, 'DashboardHome', 'onMounted');
   } finally {
     loading.value = false;
   }
@@ -309,9 +302,8 @@ const updateDashboardData = async () => {
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
-  } catch (error) {
-    console.error(error);
-    proxy.$sentry.capture(error, 'DashboardHome', 'updateDashboardData');
+  } catch (err) {
+    errorsStore.handle(err, 'DashboardHome.vue', 'updateDashboardData');
   } finally {
     loading.value = false;
   }

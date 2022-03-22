@@ -20,6 +20,7 @@ import {
 } from '@/models/transaction/transaction';
 import { Clipboard } from '@capacitor/clipboard';
 import { useToast } from 'primevue/usetoast';
+import { useErrorsStore } from '@/stores/errors';
 
 import {
   ConvertTransactionDetails,
@@ -27,7 +28,8 @@ import {
 } from '@/components/ui/organisms/transactions';
 
 const route = useRoute();
-const { tm } = useI18n();
+const errorsStore = useErrorsStore();
+const { t } = useI18n();
 const toast = useToast();
 
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
@@ -52,7 +54,7 @@ onBeforeMount(async () => {
       route.params.id as string
     )) as INetTransaction;
   } catch (err) {
-    console.log(err);
+    errorsStore.handle(err, 'TransactionDetails', 'onMounted');
   }
 });
 
@@ -72,12 +74,17 @@ const copyToClipboard = async (data: string) => {
     });
 
     toast.add({
-      summary: tm('transactions.transactionIdCopied') as string,
+      summary: t('transactions.transactionIdCopied'),
       life: 3000,
       closable: false,
     });
   } catch (err) {
-    console.error(`${tm('transactions.transactionIdCopyFail')} `, err);
+    errorsStore.handle(
+      err,
+      'TransactionDetails.vue',
+      'copyToClipboard',
+      t('transactions.transactionIdCopyFail')
+    );
   }
 };
 </script>

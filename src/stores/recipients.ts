@@ -10,6 +10,7 @@ import { EStorageKeys } from '@/types/storage';
 
 import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
+import { useErrorsStore } from '@/stores/errors';
 
 interface IRecepients {
   contacts: Contact[];
@@ -93,8 +94,9 @@ export const useRecepientsStore = defineStore('recepients', {
           return c;
         });
         return true;
-      } catch (error: any) {
-        if (error?.code === CAPACITOR_WEB_ERROR) {
+      } catch (err: any) {
+        if (err?.code === CAPACITOR_WEB_ERROR) {
+          // todo: remove mocked contacts import
           this.contacts = mockedContacts;
           this.friends = await loadFriends();
           this.contacts = this.contacts.map((c: Contact) => {
@@ -104,6 +106,15 @@ export const useRecepientsStore = defineStore('recepients', {
             return c;
           });
         }
+
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
+          err,
+          'recipients.ts',
+          'getPhoneContacts',
+          "error can't get phone contacts"
+        );
       }
     },
     async addNewContact(contact: any) {

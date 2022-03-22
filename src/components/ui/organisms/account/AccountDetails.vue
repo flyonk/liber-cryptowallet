@@ -102,10 +102,12 @@ import { check, share } from '@/helpers/nativeShare';
 import QrCode from 'qrcode-vue3';
 import { BaseButton } from '@/components/ui';
 import AccountDetailsSkeleton from './AccountDetailsSkeleton.vue';
+import { useErrorsStore } from '@/stores/errors';
 
 const toast = useToast();
 const { tm } = useI18n();
 const accountStore = useAccountStore();
+const errorsStore = useErrorsStore();
 
 const props = defineProps({
   coinCode: {
@@ -134,8 +136,8 @@ const createAndSetAccount = async () => {
     });
 
     wallet.value = data as ICreateAccount;
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    errorsStore.handle(err, 'AccountDetails', 'createAndSetAccount');
   }
 };
 
@@ -150,7 +152,12 @@ const copyToClipboard = async () => {
       closable: false,
     });
   } catch (err) {
-    console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
+    errorsStore.handle(
+      err,
+      'AccountDetails',
+      'copyToClipboard',
+      tm('views.deposit.wallet.copyFailure')
+    );
   }
 };
 

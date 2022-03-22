@@ -62,11 +62,13 @@ import { useProfileStore } from '@/stores/profile';
 import { TopNavigation, BaseButton } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
 
 const { tm } = useI18n();
 
 const store = use2faStore();
 const pStore = useProfileStore();
+const errorsStore = useErrorsStore();
 const toast = useToast();
 
 const canvas = ref<HTMLCanvasElement | undefined>();
@@ -98,7 +100,12 @@ const copyToClipboard = async () => {
       closable: false,
     });
   } catch (err) {
-    console.error(`${tm('common.copyFailure')} `, err);
+    errorsStore.handle(
+      err,
+      'ConfigureApp',
+      'copyToClipboard',
+      tm('common.copyFailure')
+    );
   }
 };
 

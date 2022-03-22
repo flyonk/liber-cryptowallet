@@ -142,7 +142,6 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { ICoinForExchange, useFundsStore } from '@/stores/funds';
-import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
 import { ICoin } from '@/models/coin/coins';
 
@@ -151,6 +150,9 @@ import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 import { TConvertData } from '@/models/funds/convertInfo';
+import { useErrorsStore } from '@/stores/errors';
+
+const errorsStore = useErrorsStore();
 
 const emit = defineEmits<{
   (event: 'show-2fa'): void;
@@ -284,7 +286,7 @@ async function previewChangeInfo(direction: 'from' | 'to') {
 
     await fundsStore.checkConvertInfo(data);
   } catch (err) {
-    SentryUtil.capture(
+    errorsStore.handle(
       err,
       'ChangeCurrency',
       'checkConvertInfo',
@@ -326,7 +328,7 @@ async function convertFunds() {
       });
     }
 
-    SentryUtil.capture(
+    errorsStore.handle(
       err,
       'ChangeCurrency',
       'convertCurrency',
