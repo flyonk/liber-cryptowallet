@@ -1,12 +1,12 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom">
+  <BaseBottomSheetV v-if="showList" position="bottom" @close="close">
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
           <BaseSearchInput v-model="searchQuery" />
         </div>
         <div class="col-3 text-right">
-          <div class="cancel-button text--headline" @click="close">
+          <div class="cancel-button text--headline" @click.stop="close">
             {{ $t('ui.basecountryselect.cancel') }}
           </div>
         </div>
@@ -85,6 +85,7 @@ function setSelectedCountry(country: ICountryInformation): void {
 }
 
 function close() {
+  console.log('test 1', props.showList);
   emit('close');
 }
 </script>
