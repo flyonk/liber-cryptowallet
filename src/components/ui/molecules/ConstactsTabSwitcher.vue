@@ -1,16 +1,19 @@
 <template>
   <div class="contact-tabs flex">
     <router-link
-      :to="{ name: Route.RecepientsLiber }"
+      :to="{ name: props.liberRoute }"
       class="contact-tabs-item"
+      :class="{
+        'router-link-exact-active': route.name === props.activeRoute,
+      }"
     >
       {{ $t('ui.friends.liber') }}
     </router-link>
     <router-link
-      :to="{ name: Route.RecepientsPhone }"
+      :to="{ name: props.allRoute }"
       class="contact-tabs-item"
       :class="{
-        'router-link-exact-active': route.name === Route.RecepientsPhone,
+        'router-link-exact-active': route.name === props.activeRoute,
       }"
     >
       {{ $t('ui.friends.all') }}
@@ -19,11 +22,22 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
-
 import { Route } from '@/router/types';
 
-const route = useRoute();
+const props = defineProps({
+  liberRoute: {
+    type: String,
+    default: Route.RecepientsLiber,
+  },
+  allRoute: {
+    type: String,
+    default: Route.RecepientsPhone,
+  },
+  activeRoute: {
+    type: String,
+    default: Route.RecepientsPhone,
+  },
+});
 </script>
 
 <style lang="scss" scoped>
