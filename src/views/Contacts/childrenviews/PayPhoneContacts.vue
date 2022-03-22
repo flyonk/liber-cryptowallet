@@ -153,4 +153,22 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   background: $color-brand-secondary;
   color: $color-white;
 }
+
+.options-button {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  right: 40px;
+  left: 16px;
+  bottom: 5%;
+  background: #edf0fb;
+  border-radius: 13px;
+  color: $color-primary-500;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+}
 </style>

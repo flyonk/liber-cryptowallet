@@ -1,6 +1,6 @@
 <template>
   <ul class="send-menu">
-    <router-link :to="{ name: Route.ContactsPay }" class="menu-item">
+    <router-link :to="{ name: Route.PayRecepientsLiber }" class="menu-item">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/send_funds.svg"
