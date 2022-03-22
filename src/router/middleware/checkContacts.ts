@@ -15,6 +15,9 @@ function checkContactsLoaded(
   } else {
     next({
       name: Route.LoadContacts,
+      params: {
+        back: to.name,
+      },
     });
   }
 }

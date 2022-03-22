@@ -30,7 +30,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import { BaseButton, TopNavigation } from '@/components/ui';
@@ -38,37 +38,33 @@ import { BaseButton, TopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 
 const router = useRouter();
+const route = useRoute();
 const store = useRecepientsStore();
 
 const onEnable = (): void => {
   store
     .getPhoneContacts()
     .then(() => {
-      router.push({
-        name: Route.RecepientsPhone,
-        params: {
-          next: 'true',
-        },
-      });
+      nextRoute();
     })
     .catch(() => {
-      router.push({
-        name: Route.RecepientsPhone,
-        params: {
-          next: 'true',
-        },
-      });
+      nextRoute();
     });
 };
 
 const onCancel = (): void => {
+  nextRoute();
+};
+
+function nextRoute() {
+  const routerBackName = route.params.back || Route.RecepientsPhone;
   router.push({
-    name: Route.RecepientsPhone,
+    name: routerBackName,
     params: {
       next: 'true',
     },
   });
-};
+}
 </script>
 
 <style lang="scss" scoped>
