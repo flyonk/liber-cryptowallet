@@ -1,5 +1,5 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom">
+  <BaseBottomSheetV v-if="showList" position="bottom" @close="$emit('close')">
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
@@ -35,7 +35,7 @@
   </BaseBottomSheetV>
 </template>
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
 
 import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
