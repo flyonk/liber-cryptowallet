@@ -22,7 +22,11 @@
 </template>
 
 <script setup lang="ts">
+import { useRoute } from 'vue-router';
+
 import { Route } from '@/router/types';
+
+const route = useRoute();
 
 const props = defineProps({
   liberRoute: {

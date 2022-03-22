@@ -1,6 +1,7 @@
 import { RouteRecordRaw } from 'vue-router';
 import DepositeRoutes from './routesDeposite';
 import RecepientsRoutes from './routesRecepients';
+import PayRecepientsRoutes from './routesPayRecepients';
 import checkContactsLoaded from './middleware/checkContacts';
 
 // Pages
@@ -208,6 +209,7 @@ const routes: Array<RouteRecordRaw> = [
           import(
             /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
           ),
+        children: PayRecepientsRoutes,
       },
       {
         path: 'send/:id',

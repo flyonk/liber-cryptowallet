@@ -61,6 +61,8 @@ export enum Route {
   Recepients = 'recepients',
   RecepientsPhone = 'recepients-phone',
   RecepientsLiber = 'recepients-liber',
+  PayRecepientsPhone = 'pay-recepients-phone',
+  PayRecepientsLiber = 'pay-recepients-liber',
 
   LoadContacts = 'request-phone-contacts',
 
