@@ -1,0 +1,56 @@
+<template>
+  <div class="contact-tabs flex">
+    <router-link
+      :to="{ name: Route.RecepientsLiber }"
+      class="contact-tabs-item"
+    >
+      {{ $t('ui.friends.liber') }}
+    </router-link>
+    <router-link
+      :to="{ name: Route.RecepientsPhone }"
+      class="contact-tabs-item"
+      :class="{
+        'router-link-exact-active': route.name === Route.RecepientsPhone,
+      }"
+    >
+      {{ $t('ui.friends.all') }}
+    </router-link>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useRoute } from 'vue-router';
+
+import { Route } from '@/router/types';
+
+const route = useRoute();
+</script>
+
+<style lang="scss" scoped>
+.contact-tabs {
+  margin-bottom: 24px;
+}
+
+.contact-tabs-item {
+  white-space: nowrap;
+  padding: 11px 16px;
+  color: $color-brand-primary;
+  margin-right: 8px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 114px;
+  height: 40px;
+  background: #edf0fb;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 18px;
+  letter-spacing: -0.0008em;
+}
+
+.router-link-exact-active {
+  background: $color-brand-secondary;
+  color: $color-white;
+}
+</style>
