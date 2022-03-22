@@ -71,28 +71,6 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 </script>
 
 <style lang="scss" scoped>
-.contact-tabs {
-  margin-bottom: 24px;
-}
-
-.contact-tabs-item {
-  white-space: nowrap;
-  padding: 11px 16px;
-  color: $color-brand-primary;
-  margin-right: 8px;
-  border-radius: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-width: 114px;
-  height: 40px;
-  background: #edf0fb;
-  font-weight: 600;
-  font-size: 13px;
-  line-height: 18px;
-  letter-spacing: -0.0008em;
-}
-
 .main-list {
   width: 100%;
   display: flex;
