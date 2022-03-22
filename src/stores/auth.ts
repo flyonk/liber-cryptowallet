@@ -86,10 +86,14 @@ export const useAuthStore = defineStore('auth', {
       this.savePhone();
     },
 
-    async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
+    async signInProceed(_data: {
+      phone: string;
+      otp: string;
+    }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 
       this.setToken(data);
+      return true;
     },
 
     async refresh(_data: { refresh_token: string }): Promise<void> {

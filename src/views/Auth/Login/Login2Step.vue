@@ -69,12 +69,8 @@ const onComplete = async (data: string) => {
   verificationCode.value = data;
 
   try {
-    // @TODO remove later
-    if (data === '000000') {
-      nextStep();
-    }
-
     await authStore.signInProceed({ phone, otp });
+    nextStep();
   } catch (err) {
     isError.value = true;
   }

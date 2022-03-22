@@ -35,7 +35,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
@@ -58,6 +58,10 @@ const showErrorToast = ref(false);
 const show2FA = ref(false);
 
 appOptionsStore.init();
+
+onMounted(() => {
+  //Check face id / touch id / passcode
+});
 
 async function onSubmit(success: boolean): Promise<void> {
   if (success) {

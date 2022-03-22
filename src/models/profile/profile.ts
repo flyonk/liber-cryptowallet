@@ -1,3 +1,9 @@
+export enum EUserStatus {
+  unregistered = 10, //UserStatusNew
+  active = 20, //UserStatusActive
+  block = 30, //UserStatusBlock
+}
+
 export interface IProfile {
   id: string;
   status?: number;
