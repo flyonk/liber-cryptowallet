@@ -159,6 +159,10 @@
     }
   },
   "ui": {
+    "friends": {
+      "liber": "Liber Friends",
+      "all": "All Contacts"
+    },
     "basecountryphoneinput": {
       "cancel": "Cancel"
     },

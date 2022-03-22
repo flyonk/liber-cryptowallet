@@ -12,7 +12,7 @@
         :to="{ name: Route.RecepientsLiber }"
         class="contact-tabs-item"
       >
-        Liber Friends
+        {{ $t('ui.friends.liber') }}
       </router-link>
       <router-link
         :to="{ name: Route.RecepientsPhone }"
@@ -21,7 +21,7 @@
           'router-link-exact-active': route.name === Route.RecepientsPhone,
         }"
       >
-        All Contacts
+        {{ $t('ui.friends.all') }}
       </router-link>
     </div>
     <router-view />
