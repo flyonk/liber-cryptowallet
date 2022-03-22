@@ -1,9 +1,11 @@
 import { Route } from './types';
+import checkContactsLoaded from './middleware/checkContacts';
 
 export default [
   {
     path: '',
     name: Route.PayRecepientsPhone,
+    beforeEnter: checkContactsLoaded,
     component: () =>
       import('@/views/Contacts/childrenviews/PayPhoneContacts.vue'),
   },

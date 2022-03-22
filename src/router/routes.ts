@@ -204,7 +204,6 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '',
         name: Route.ContactsPay,
-        beforeEnter: checkContactsLoaded,
         component: () =>
           import(
             /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'

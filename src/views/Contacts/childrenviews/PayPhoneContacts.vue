@@ -1,6 +1,5 @@
 <template>
   <div v-if="hasFriends" class="main-list flex">
-    <h1>sfsdfsadfsadf</h1>
     <ul class="contacts-list">
       <li
         v-for="contact in contacts"
