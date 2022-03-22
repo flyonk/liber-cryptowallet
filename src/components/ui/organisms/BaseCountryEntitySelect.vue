@@ -85,7 +85,6 @@ function setSelectedCountry(country: ICountryInformation): void {
 }
 
 function close() {
-  console.log('test 1', props.showList);
   emit('close');
 }
 </script>

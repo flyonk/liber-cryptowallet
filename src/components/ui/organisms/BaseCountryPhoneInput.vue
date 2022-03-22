@@ -61,9 +61,7 @@ function openSelect() {
   showList.value = true;
 }
 function closeSelect() {
-  console.log('test 2', showList.value);
   showList.value = false;
-  console.log('test 3', showList.value);
 }
 </script>
 
