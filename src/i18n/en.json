@@ -2,7 +2,7 @@
   "common": {
     "logInCta": "Log in",
     "signUpCta": "Sign up",
-    "numberLabel": "Number",
+    "numberLabel": "Mobile number",
     "continueCta": "Continue",
     "retryCta": "To retry",
     "okCta": "Got it",
@@ -85,6 +85,7 @@
       "step4Description2": "your name to verify your identity.",
       "step5Title": "Date of birth",
       "ddmmyyyy": "dd.mm.yyyy",
+      "date": "Date",
       "welcomeAuth": {
         "title": "Welcome to",
         "transfer": "Transfer money around the world with the best fee",

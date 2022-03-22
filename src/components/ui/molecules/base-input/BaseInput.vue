@@ -93,6 +93,7 @@ const type = computed(() => {
         font-size: 11px;
         line-height: 13px;
         top: 10px;
+        left: 0;
       }
 
       > .p-inputtext,

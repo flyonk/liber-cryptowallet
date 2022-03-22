@@ -119,6 +119,7 @@ const resend = async () => {
     > span {
       > .resend-button {
         padding: 0;
+        display: flex;
       }
     }
   }

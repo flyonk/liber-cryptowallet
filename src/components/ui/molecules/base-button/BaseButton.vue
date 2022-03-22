@@ -61,11 +61,11 @@ const { block, size, view, disabled, iconLeft, iconRight, icon } =
 
 const classes = computed(() => [
   {
-    '-block': block,
-    '-disabled': disabled,
-    '-with-icon-left': iconLeft,
-    '-with-icon-right': iconRight,
-    '-only_icon': icon,
+    '-block': block.value,
+    '-disabled': disabled.value,
+    '-with-icon-left': iconLeft.value,
+    '-with-icon-right': iconRight.value,
+    '-only_icon': icon.value,
   },
   `-${view.value}`,
   `-${size.value}`,

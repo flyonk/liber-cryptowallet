@@ -22,9 +22,18 @@
           :use-grouping="false"
           :type="type"
           :mask="mask"
+          @focus="showClearBtn"
+          @blur="closeClearBtn"
         >
           <template #label>
             {{ $t('common.numberLabel') }}
+          </template>
+          <template v-if="isClearBtnShown" #append>
+            <i
+              class="ci-off_outline_close"
+              @click="clearNumber"
+              @touchend="clearNumber"
+            />
           </template>
         </BaseInput>
       </div>
@@ -38,7 +47,7 @@
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="handleStep">
+      <BaseButton :disabled="isNumberInvalid" block @click="handleStep">
         {{ $t('common.signUpCta') }}
       </BaseButton>
     </div>
@@ -59,6 +68,7 @@ import {
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
+import { computed } from '@vue/reactivity';
 
 const router = useRouter();
 
@@ -70,6 +80,12 @@ const number = ref('');
 const mask = ref('');
 const countryDialCode = ref('');
 const type = ref('');
+const isClearBtnShown = ref(false);
+
+const isNumberInvalid = computed(() => {
+  if (!number.value) return true;
+  return new RegExp(/_/).test(number.value);
+});
 
 onMounted(() => {
   const { phone, dialCode } = authStore.registration;
@@ -118,6 +134,28 @@ const prevStep = () => {
     name: Route.WelcomeAuthScreen,
   });
 };
+
+const clearNumber = () => {
+  number.value = '';
+};
+
+const showClearBtn = () => {
+  isClearBtnShown.value = true;
+};
+
+const closeClearBtn = () => {
+  isClearBtnShown.value = false;
+};
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+.footer {
+  > span {
+    color: $color-brand-2-300;
+
+    > .link {
+      color: $color-primary-500;
+    }
+  }
+}
+</style>
