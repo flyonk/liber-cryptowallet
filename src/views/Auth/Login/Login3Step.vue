@@ -57,6 +57,8 @@ const appOptionsStore = useAppOptionsStore();
 const showErrorToast = ref(false);
 const show2FA = ref(false);
 
+appOptionsStore.init();
+
 async function onSubmit(success: boolean): Promise<void> {
   if (success) {
     /*
@@ -81,20 +83,12 @@ function onClose() {
   show2FA.value = false;
 }
 
-function initOptionsStore(): void {
-  appOptionsStore.init();
-  twoFAStore.init().then(() => {
-    twoFAStore.generateToken();
-  });
-}
-
 async function handleSuccessVerification(): Promise<void> {
   /*
    * Set new 2fa dateTime
    */
   twoFAStore.set2FADate();
   if (appOptionsStore.isItFirstRun) {
-    initOptionsStore();
     const name = await getSupportedIdentificationWay();
     router.push({
       name,

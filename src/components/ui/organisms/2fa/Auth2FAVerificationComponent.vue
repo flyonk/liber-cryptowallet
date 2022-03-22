@@ -23,6 +23,10 @@ const emit = defineEmits<{
   (event: 'close'): void;
 }>();
 
+store.init().then(() => {
+  store.generateToken();
+});
+
 const verificationCode = ref('');
 const isError = ref(false);
 
