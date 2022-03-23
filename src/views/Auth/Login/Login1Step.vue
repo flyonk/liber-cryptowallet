@@ -47,7 +47,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
-import { useProfileStore } from '@/stores/profile';
+
 import { ICountryInformation } from '@/types/country-phone-types';
 
 import {
@@ -58,11 +58,9 @@ import {
 } from '@/components/ui';
 
 import { Route } from '@/router/types';
-// import { EUserStatus } from '@/models/profile/profile';
 
 const router = useRouter();
 const authStore = useAuthStore();
-const pStore = useProfileStore();
 
 const number = ref('');
 const mask = ref('');
@@ -71,13 +69,7 @@ const type = ref('');
 
 onMounted(async () => {
   //Check if user is authorized
-  if (await authStore.checkAuthorizedUser()) {
-    const user = await pStore.getUserProfile();
-    //TODO: fix with backend
-    user.status === 0 //Should be EUserStatus.unregistered
-      ? router.push({ name: Route.SignUp })
-      : authStore.setStep(2, 'login');
-  }
+  if (await authStore.checkAuthorizedUser()) authStore.setStep(2, 'login');
 
   await authStore.getFromStorage();
 

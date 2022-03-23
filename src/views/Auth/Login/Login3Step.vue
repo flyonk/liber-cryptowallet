@@ -35,13 +35,12 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
-import { getSupportedOptions } from '@/helpers/identification';
 
 import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
@@ -58,10 +57,6 @@ const showErrorToast = ref(false);
 const show2FA = ref(false);
 
 appOptionsStore.init();
-
-onMounted(() => {
-  //Check face id / touch id / passcode
-});
 
 async function onSubmit(success: boolean): Promise<void> {
   if (success) {
@@ -92,32 +87,9 @@ async function handleSuccessVerification(): Promise<void> {
    * Set new 2fa dateTime
    */
   twoFAStore.set2FADate();
-  if (appOptionsStore.isItFirstRun) {
-    const name = await getSupportedIdentificationWay();
-    router.push({
-      name,
-    });
-  } else {
-    router.push({
-      name: Route.DashboardHome,
-    });
-  }
-}
-
-/*
- * From Login4Step
- */
-async function getSupportedIdentificationWay() {
-  const option = await getSupportedOptions();
-  if (option === 'face-id') {
-    return Route.FaceId;
-  }
-
-  if (option === 'touch-id') {
-    return Route.TouchId;
-  }
-
-  return Route.PushNotifications;
+  router.push({
+    name: Route.DashboardHome,
+  });
 }
 </script>
 
