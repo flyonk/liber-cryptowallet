@@ -31,7 +31,15 @@ const _requestHandler = async (
       key: EStorageKeys.refreshToken,
     });
 
-    const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
+    let decodedToken = null;
+    try {
+      //TODO: Resolve it
+      //why is it used > token || '', empty string invokes exception.
+      //And it will not work correctly with an empty store (private browser mode)
+      decodedToken = jwt_decode<JwtPayload>(token || '') || null;
+    } catch (error) {
+      console.error(error);
+    }
 
     const authStore = useAuthStore();
 
