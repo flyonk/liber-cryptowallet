@@ -10,6 +10,7 @@
       <div class="col-4">
         <base-country-phone-input
           :dial-code="countryDialCode"
+          :only-european="true"
           @ready="handleSelectCountry"
           @selected="handleSelectCountry"
         />
