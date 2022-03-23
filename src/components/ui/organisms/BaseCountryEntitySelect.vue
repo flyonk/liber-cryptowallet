@@ -6,7 +6,7 @@
           <BaseSearchInput v-model="searchQuery" />
         </div>
         <div class="col-3 text-right">
-          <div class="cancel-button text--headline" @click.stop="close">
+          <div class="cancel text--headline" @click.stop="close">
             {{ $t('ui.basecountryselect.cancel') }}
           </div>
         </div>
@@ -21,7 +21,7 @@
           @click="setSelectedCountry(country)"
         >
           <div class="flag col-2">
-            <img :src="country.flag" alt="" class="img" />
+            <img :src="country.localPath" alt="" class="img" />
           </div>
           <div class="code col-2">
             {{ country[entity] }}
@@ -94,13 +94,18 @@ function close() {
   padding-top: 16px;
 }
 
-> .cancel-button {
+.cancel {
   color: $color-primary;
   cursor: pointer;
   user-select: none;
+  margin-right: 10px;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
 }
 
-> .country-list {
+.country-list {
   margin-top: 20px;
 
   > .item {
