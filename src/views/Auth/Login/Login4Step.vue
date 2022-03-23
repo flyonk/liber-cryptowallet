@@ -1,3 +1,4 @@
+<!--TODO: removed unused component-->
 <template>
   <div class="page-wrapper">
     <top-navigation @click:left-icon="prevStep">
@@ -38,6 +39,11 @@ import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { getSupportedOptions } from '@/helpers/identification';
 import { Route } from '@/router/types';
+
+/*
+ * TODO: this is unused component
+ *  All 2FA logic were moved to Auth2FAVerificationComponent
+ */
 
 const authStore = useAuthStore();
 const store = use2faStore();
@@ -103,7 +109,7 @@ watch(verificationCode, async (code) => {
 });
 
 function prevStep(): void {
-  authStore.setStep(2, 'login');
+  authStore.setStep(3, 'login');
 }
 
 async function getSupportedIdentificationWay() {
@@ -113,7 +119,7 @@ async function getSupportedIdentificationWay() {
   }
 
   if (option === 'touch-id') {
-    return Route.FaceId;
+    return Route.TouchId;
   }
 
   return Route.PushNotifications;

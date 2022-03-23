@@ -6,17 +6,23 @@
 </template>
 
 <script setup lang="ts">
-import MainPageLoader from '@/components/ui/atoms/MainPageLoader.vue';
+import { onMounted, ref } from 'vue';
+
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
-import { onMounted, ref } from 'vue';
+import { useProfileStore } from '@/stores/profile';
+
+import MainPageLoader from '@/components/ui/atoms/MainPageLoader.vue';
+
 import { Route } from '@/router/types';
+
 const { stylePaddings } = useSafeAreaPaddings();
 
 const loading = ref(true);
 
 const authStore = useAuthStore();
+const pStore = useProfileStore();
 
 onMounted(() => {
   setTimeout(() => {
@@ -25,7 +31,11 @@ onMounted(() => {
       await authStore.setToken();
 
       if (authStore.isLoggedIn) {
-        authStore.setStep(2, 'login');
+        await pStore.init();
+        //TODO: fix with backend user status
+        pStore.getUser.status === 0 //Should be EUserStatus.unregistered
+          ? router.push({ name: Route.SignUp })
+          : authStore.setStep(2, 'login');
 
         router.push({ name: Route.Login });
       } else {
