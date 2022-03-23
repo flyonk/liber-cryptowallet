@@ -77,7 +77,8 @@ const onComplete = async (data: string) => {
   try {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
-    pStore.getUser.status === 0 //TODO: fix with backend - Should be EUserStatus.unregistered
+    //TODO: fix with backend - Should be EUserStatus.unregistered = 10
+    pStore.getUser.status === 0
       ? router.push({ name: Route.SignUp })
       : nextStep();
   } catch (err) {

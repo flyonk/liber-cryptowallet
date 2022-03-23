@@ -6,7 +6,7 @@ export enum EUserStatus {
 
 export interface IProfile {
   id: string;
-  status?: number;
+  status: number;
   phone: string;
   isVerified?: boolean;
   blockReason?: string;
