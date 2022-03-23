@@ -14,6 +14,7 @@
       :list="list"
       :selected-data="selectedData"
       :show-list="showList"
+      @click.stop
       @close="closeSelect"
       @selected="setSelectedCountry"
     />
