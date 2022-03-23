@@ -1,5 +1,8 @@
 import { RouteRecordRaw } from 'vue-router';
 import DepositeRoutes from './routesDeposite';
+import RecepientsRoutes from './routesRecepients';
+import PayRecepientsRoutes from './routesPayRecepients';
+import checkContactsLoaded from './middleware/checkContacts';
 
 // Pages
 // import PhoneEnter from '@/views/Auth/PhoneEnter.vue';
@@ -200,11 +203,12 @@ const routes: Array<RouteRecordRaw> = [
     children: [
       {
         path: '',
-        name: 'contacts.who-to-pay',
+        name: Route.ContactsPay,
         component: () =>
           import(
             /* webpackChunkName: "contacts-who-to-pay" */ '@/views/Contacts/WhoToPay.vue'
           ),
+        children: PayRecepientsRoutes,
       },
       {
         path: 'send/:id',
@@ -414,6 +418,28 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Deposit,
     component: () => import('@/views/DepositeCoin/DepositeIndex.vue'),
     children: DepositeRoutes,
+  },
+
+  // === Recepients ===
+
+  {
+    path: '/recepients',
+    name: Route.Recepients,
+    component: () => import('@/views/Contacts/Recepients.vue'),
+    meta: { layout: 'navbar' },
+    beforeEnter: checkContactsLoaded,
+    children: RecepientsRoutes,
+  },
+
+  // === Load phone contacts ===
+
+  {
+    path: '/requestcontacts',
+    name: Route.LoadContacts,
+    component: () => import('@/views/Contacts/RequestContatcs.vue'),
+    meta: {
+      classLayout: '-full-height',
+    },
   },
 ];
 

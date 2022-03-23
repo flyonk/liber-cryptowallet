@@ -1,6 +1,6 @@
 <template>
   <ul class="send-menu">
-    <router-link :to="'/contacts'" class="menu-item">
+    <router-link :to="{ name: Route.PayRecepientsLiber }" class="menu-item">
       <img
         class="icon"
         src="@/assets/icon/transactions/menu/send_funds.svg"
@@ -35,7 +35,9 @@
   </ul>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Route } from '@/router/types';
+</script>
 
 <style lang="scss" scoped>
 .send-menu {
