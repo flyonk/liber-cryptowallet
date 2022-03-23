@@ -12,6 +12,5 @@ export async function checkExpiration(
   console.log(
     Math.round((Date.now() - fromTime) / (1000 * 60 * 60 * 24)) > days
   );
-  console.log(Math.round((Date.now() - fromTime) / (1000 * 60 * 60 * 24)));
   return Math.round((Date.now() - fromTime) / (1000 * 60 * 60 * 24)) > days;
 }
