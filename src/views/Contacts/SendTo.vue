@@ -5,7 +5,7 @@
         class="back mr-2"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push({ name: Route.ContactsWhoToPay })"
+        @click="$router.push({ name: Route.PayRecepientsPhone })"
       />
       <h4 class="username">@MyDude</h4>
     </div>

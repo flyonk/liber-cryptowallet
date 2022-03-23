@@ -61,7 +61,7 @@
   </base-toast>
   <div v-if="show2FA">
     <auth2-f-a-verification-component
-      @convert-funds="handleConvert"
+      @success-verification="handleConvert"
       @close="onClose"
     />
   </div>
