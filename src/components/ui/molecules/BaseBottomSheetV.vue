@@ -11,7 +11,7 @@
       <div class="indicator" />
     </div>
     <div ref="over" class="over">
-      <slot />
+      <slot :is-opened="isOpened" />
     </div>
   </div>
 </template>
@@ -120,7 +120,7 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
   const diff = (initialTouchY.value as number) - touchY;
 
   if ((wrapper.value?.scrollTop as number) <= 0) {
-    if (isOpened.value === false) {
+    if (isOpened.value === false && diff < 0) {
       emit('close');
 
       return;
