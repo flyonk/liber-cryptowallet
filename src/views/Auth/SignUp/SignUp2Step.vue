@@ -34,6 +34,13 @@
       </span>
     </div>
   </div>
+  <base-toast v-model:visible="showErrorToast" severity="error">
+    <template #description>
+      <div>
+        {{ $t('auth.login.step4VerificationError') }}
+      </div>
+    </template>
+  </base-toast>
 </template>
 
 <script lang="ts" setup>
@@ -44,6 +51,7 @@ import {
   BaseCountdown,
   BaseVerificationCodeInput,
   TopNavigation,
+  BaseToast,
 } from '@/components/ui';
 import { useAuthStore } from '@/stores/auth';
 import authService from '@/services/authService';
@@ -53,6 +61,7 @@ const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
+const showErrorToast = ref(false) as Ref<boolean>;
 
 onMounted(async () => {
   const phone = authStore.getRegistrationPhone;
@@ -82,11 +91,11 @@ const onComplete = async (data: string) => {
 
   try {
     await authService.signInProceed({ phone, otp });
+    nextStep();
   } catch (err) {
     console.log(err);
+    showErrorToast.value = true;
   }
-
-  nextStep();
 };
 
 const formatPhone = () => {

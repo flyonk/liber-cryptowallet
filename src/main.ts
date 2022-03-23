@@ -8,7 +8,7 @@ import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 import { i18n, setLocale } from './i18n';
 import sentry from '@/plugins/sentry';
-// import axiosInterceptor from '@/plugins/axiosInterceptor';
+import axiosInterceptor from '@/plugins/axiosInterceptor';
 import filters from '@/helpers/filters';
 
 import PInput from 'primevue/inputtext';
@@ -20,7 +20,7 @@ import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
 
-// axiosInterceptor();
+axiosInterceptor();
 
 const app = createApp(App)
   // App uses
