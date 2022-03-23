@@ -1,17 +1,14 @@
-<template name="who-topay">
+<template name="Recepients">
   <div class="who-topay">
-    <contacts-header />
+    <contacts-header :avatar-icon="true" :route-back="Route.ProfileSettings" />
     <h1 class="title">
-      {{ $t('views.sendfunds.whopay') }}
+      {{ $t('views.recepients.recepients') }}
     </h1>
     <BaseInput type="text">
       <template #label> Name, @id, phone, email </template>
     </BaseInput>
 
-    <constacts-tab-switcher
-      :liber-route="Route.PayRecepientsLiber"
-      :all-route="Route.PayRecepientsPhone"
-    />
+    <constacts-tab-switcher />
 
     <router-view />
   </div>
