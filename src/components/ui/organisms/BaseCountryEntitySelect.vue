@@ -1,5 +1,5 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom" @close="close">
+  <BaseBottomSheetV v-if="showList" position="bottom">
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
