@@ -19,7 +19,7 @@
         <base-input
           v-model="number"
           :mask="mask"
-          :type="type"
+          :type="TypeBaseInput.Text"
           :use-grouping="false"
         >
           <template #label>
@@ -48,7 +48,6 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
-import { ICountryInformation } from '@/types/country-phone-types';
 
 import {
   BaseButton,
@@ -56,7 +55,10 @@ import {
   BaseInput,
   TopNavigation,
 } from '@/components/ui';
+
+import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -101,7 +103,8 @@ const handleSelectCountry = (data: ICountryInformation) => {
 };
 
 const nextStep = async () => {
-  if (!number.value) return;
+  if (!+number.value) return;
+
   authStore.setPhone(number.value);
 
   await authStore.setToStorage();
