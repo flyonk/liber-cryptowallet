@@ -13,11 +13,13 @@ export interface IConvertInfo {
   fee: string;
   validUntil: string;
   estimatedAmount: string;
+  requestAmount?: string;
 }
 
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any): IConvertInfo {
+    console.log('desecialize');
     return {
       from: input.from,
       to: input.to,
@@ -26,6 +28,19 @@ export default {
       fee: input.fee,
       validUntil: input.valid_until,
       estimatedAmount: input.estimated_amount || '100',
+    };
+  },
+  deserializeBack(input: any, data: any): IConvertInfo {
+    console.log('desecialize back');
+    return {
+      to: input.from,
+      from: input.to,
+      backRate: input.rate,
+      rate: input.back_rate,
+      fee: input.fee,
+      validUntil: input.valid_until,
+      estimatedAmount: data.request_amount || '100',
+      requestAmount: input.estimated_amount,
     };
   },
 };

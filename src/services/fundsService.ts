@@ -24,9 +24,18 @@ export default {
   },
 
   async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
-    //TODO: discuss with backend TConvertData
     const res = await axios.post(apiService.funds.convertInfo(), data);
+    console.log('res data', res);
     return convertInfoMapper.deserialize(res.data);
+  },
+
+  async convertInfoBack(
+    data: Omit<TConvertData, 'amount'>
+  ): Promise<IConvertInfo> {
+    console.log('data for check', data);
+    const res = await axios.post(apiService.funds.convertInfo(), data);
+    console.log('res data back', res);
+    return convertInfoMapper.deserializeBack(res.data, data);
   },
 
   async convert(

@@ -22,29 +22,33 @@ const _requestHandler = async (
   /*
    * TODO: set authorized API calls logic
    */
-  if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-    const { value: token } = await Storage.get({
-      key: EStorageKeys.token,
-    });
+  try {
+    if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
+      const { value: token } = await Storage.get({
+        key: EStorageKeys.token,
+      });
 
-    const { value: refreshToken } = await Storage.get({
-      key: EStorageKeys.refreshToken,
-    });
+      const { value: refreshToken } = await Storage.get({
+        key: EStorageKeys.refreshToken,
+      });
 
-    const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
+      const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
 
-    const authStore = useAuthStore();
+      const authStore = useAuthStore();
 
-    if (
-      (decodedToken?.exp as JwtPayload) <
-      Math.round(new Date().getTime() / 1000)
-    ) {
-      authStore.refresh({ refresh_token: refreshToken || '' });
+      if (
+        (decodedToken?.exp as JwtPayload) <
+        Math.round(new Date().getTime() / 1000)
+      ) {
+        authStore.refresh({ refresh_token: refreshToken || '' });
+      }
+
+      if (token) {
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
     }
-
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
+  } catch (error) {
+    console.log('return config erorro', error);
   }
   return config;
 };

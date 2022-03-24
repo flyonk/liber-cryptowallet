@@ -12,51 +12,53 @@
             @blur="onBlur"
           />
           <div class="select">
-            <div class="select-option flex" @click="showCryptoList(1)">
-              <img class="icon" :src="currentSendFromCurrency.img" />
+            <router-link
+              :to="{ name: 'choose_coin', params: { type: 'from' } }"
+              class="select-option flex"
+            >
+              <img class="icon" :src="currentSendFromCurrency.img.value" />
               <p class="name">{{ currentSendFromCurrency.name.value }}</p>
               <img src="@/assets/icon/arrow-down.svg" alt="list" />
-            </div>
-            <ul
-              v-if="isSelectListOpen && currentOpenedSelectId === 1"
-              class="options-list"
-            >
-              <li
-                v-for="(currency, index) in currencies"
-                :key="index"
-                class="options-item"
-                @click="changeCurrentCurrency(index, 'from')"
-              >
-                <img class="icon" :src="currency.img" alt="" />
-                <p class="currency">{{ currency.name }}</p>
-              </li>
-            </ul>
+            </router-link>
           </div>
         </label>
       </div>
-      <ul class="fees-data">
-        <li class="fees-item">
-          <div class="circle">-</div>
-          <p class="sum">
-            {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
-          </p>
-          <p class="name">Conversion Fee</p>
-        </li>
-        <li class="fees-item">
-          <div class="circle">=</div>
-          <p class="sum">
-            {{ requestAmount }} {{ currentSendFromCurrency.name.value }}
-          </p>
-          <p class="name">Amount we’ll covert</p>
-        </li>
-        <li class="fees-item">
-          <div class="circle">x</div>
-          <p class="sum">
-            {{ convertInfo.rate }} {{ currentSendToCurrency.name.value }}
-          </p>
-          <p class="name">Guaranteed rate (10min)</p>
-        </li>
-      </ul>
+      <div class="middle-info flex">
+        <ul class="fees-data">
+          <li class="fees-item">
+            <div class="circle">-</div>
+            <p class="sum">
+              {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
+            </p>
+            <p class="name">Conversion Fee</p>
+          </li>
+          <li class="fees-item">
+            <div class="circle">=</div>
+            <p class="sum">
+              {{ requestAmount }} {{ currentSendFromCurrency.name.value }}
+            </p>
+            <p class="name">Amount we’ll covert</p>
+          </li>
+          <li class="fees-item">
+            <div class="circle">x</div>
+            <p class="sum">
+              {{ convertInfo.rate }} {{ currentSendToCurrency.name.value }}
+            </p>
+            <p class="name">Guaranteed rate (10min)</p>
+          </li>
+        </ul>
+        <div
+          v-if="hasCoinReverse"
+          class="coin-switcher cursor-pointer"
+          @click="replaceCoins"
+        >
+          <img
+            class="pb-3"
+            src="@/assets/icon/transactions/reverse_currencies.svg"
+            alt="coin-switcher"
+          />
+        </div>
+      </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
           <p class="label">You will get</p>
@@ -65,29 +67,20 @@
             v-model="convertInfo.estimatedAmount"
             type="number"
             class="input"
-            :readonly="true"
             @blur="onBlur"
+            @input="onInput"
           />
           <div class="select select-to">
-            <div class="select-option flex" @click="showCryptoList(2)">
-              <img class="icon" :src="currentSendToCurrency.img" />
-              <p class="name">{{ currentSendToCurrency.name.value }}</p>
-              <img src="@/assets/icon/arrow-down.svg" alt="list" />
-            </div>
-            <ul
-              v-if="isSelectListOpen && currentOpenedSelectId === 2"
-              class="options-list"
-            >
-              <li
-                v-for="(currency, index) in currencies"
-                :key="index"
-                class="options-item"
-                @click="changeCurrentCurrency(index, 'to')"
+            <div class="select-option flex">
+              <router-link
+                :to="{ name: 'choose_coin', params: { type: 'to' } }"
+                class="select-option flex"
               >
-                <img class="icon" :src="currency.img" alt="" />
-                <p class="currency">{{ currency.name }}</p>
-              </li>
-            </ul>
+                <img class="icon" :src="currentSendToCurrency.img.value" />
+                <p class="name">{{ currentSendToCurrency.name.value }}</p>
+                <img src="@/assets/icon/arrow-down.svg" alt="list" />
+              </router-link>
+            </div>
           </div>
         </label>
       </div>
@@ -98,7 +91,13 @@
         :disabled="loading"
         @click="handleClick"
       >
-        {{ ctaState === 'preview' ? 'Preview' : 'Convert' }}
+        <template v-if="ctaState === 'refresh'">Refresh</template>
+        <template v-else-if="loading">
+          <tripple-dots-spinner />
+        </template>
+        <template v-else>
+          {{ ctaState === 'preview' ? 'Preview' : `Convert Now (${timer}s)` }}
+        </template>
       </BaseButton>
     </div>
   </keep-alive>
@@ -108,14 +107,22 @@
 /*
  * TODO: Move all business logic to parent component - pages/ChangeCurrency
  */
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 
 import { Route } from '@/router/types';
+import { useRouter } from 'vue-router';
 import { useFundsStore } from '@/stores/funds';
 
 import { BaseButton } from '@/components/ui';
 import SentryUtil from '@/helpers/sentryUtil';
-import { useRouter } from 'vue-router';
+import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
+
+defineProps({
+  hasCoinReverse: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 const emit = defineEmits<{
   (event: 'show-2fa'): void;
@@ -125,56 +132,65 @@ const fStore = useFundsStore();
 let convertInfo = computed(() => fStore.getConvertInfo);
 const convert = computed(() => fStore.getConvertFunds);
 
+const { from, to, imgFrom, imgTo } = fStore.getState;
+
 const ctaState = ref('preview');
 const loading = ref(false);
+const timer = ref(30);
+const startTimer = ref(0);
 
 const currentSendFromCurrency = {
-  name: ref('TBTC'),
+  name: ref(from || 'TBTC'),
   code: ref('tbtc'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  img: ref(imgFrom || require('@/assets/icon/currencies/btc.svg')),
 };
 
 const currentSendToCurrency = {
-  name: ref('USDT'),
+  name: ref(to || 'USDT'),
   code: ref('tltc'),
-  img: require('@/assets/icon/currencies/tether.svg'),
+  img: ref(imgTo || require('@/assets/icon/currencies/tether.svg')),
 };
-
-let isSelectListOpen = ref(false);
-let currentOpenedSelectId = ref(1);
 
 let requestAmount = ref<number>(0);
 
 const router = useRouter();
 
-function showCryptoList(listId: number) {
-  isSelectListOpen.value = !isSelectListOpen.value;
-  currentOpenedSelectId.value = null;
-  currentOpenedSelectId.value = listId;
-}
+// function changeCurrentCurrency(index: number, type: string) {
+//   if (type === 'from') {
+//     currentSendFromCurrency.name.value = currencies[index].name;
+//     currentSendFromCurrency.img = currencies[index].img;
+//   }
 
-function changeCurrentCurrency(index: number, type: string) {
-  if (type === 'from') {
-    currentSendFromCurrency.name.value = currencies[index].name;
-    currentSendFromCurrency.img = currencies[index].img;
-  }
-
-  if (type === 'to') {
-    currentSendToCurrency.name.value = currencies[index].name;
-    currentSendToCurrency.img = currencies[index].img;
-  }
-
-  isSelectListOpen.value = false;
-}
+//   if (type === 'to') {
+//     currentSendToCurrency.name.value = currencies[index].name;
+//     currentSendToCurrency.img = currencies[index].img;
+//   }
+// }
 
 //TODO: clarify refresh logic
 function handleClick() {
+  if (ctaState.value === 'refresh') {
+    timer.value = 30;
+    ctaState.value = 'send';
+    return;
+  }
   ctaState.value === 'preview' ? previewChangeInfo() : convertCurrency();
 }
 
 async function previewChangeInfo() {
   ctaState.value = 'send';
   try {
+    clearInterval(startTimer.value);
+    timer.value = 30;
+    startTimer.value = setInterval(() => {
+      if (timer.value > 0) {
+        timer.value = timer.value - 1;
+      } else {
+        ctaState.value = 'refresh';
+        timer.value = 30;
+        clearInterval(startTimer.value);
+      }
+    }, 1000);
     loading.value = true;
     //TODO: fix with backend
     await fStore.checkConvertInfo({
@@ -193,6 +209,47 @@ async function previewChangeInfo() {
     loading.value = false;
   }
 }
+
+async function previewChangeInfoBack() {
+  ctaState.value = 'send';
+  try {
+    clearInterval(startTimer.value);
+    timer.value = 30;
+    startTimer.value = setInterval(() => {
+      if (timer.value > 0) {
+        timer.value = timer.value - 1;
+      } else {
+        ctaState.value = 'refresh';
+        timer.value = 30;
+        clearInterval(startTimer.value);
+      }
+    }, 1000);
+    loading.value = true;
+    //TODO: fix with backend
+    await fStore.checkConvertInfoBack({
+      to: currentSendFromCurrency.code.value,
+      from: currentSendToCurrency.code.value,
+      request_amount: String(fStore.convertInfo.estimatedAmount),
+    });
+    requestAmount.value = +(fStore.convertInfo.requestAmount || 0);
+  } catch (err) {
+    SentryUtil.capture(
+      err,
+      'ChangeCurrency',
+      'checkConvertInfo',
+      "error can't retrieve convert info"
+    );
+  } finally {
+    loading.value = false;
+  }
+}
+
+watch(requestAmount, previewChangeInfo);
+// watch(estimatedAmount, previewChangeInfoBack);
+
+const onInput = () => {
+  previewChangeInfoBack();
+};
 
 function convertCurrency() {
   emit('show-2fa');
@@ -226,29 +283,6 @@ if (convert.value) {
   convertFunds();
 }
 
-const currencies = [
-  {
-    name: 'BTC',
-    code: 'tbtc',
-    img: require('@/assets/icon/currencies/btc.svg'),
-  },
-  {
-    name: 'USDT',
-    code: 'tltc',
-    img: require('@/assets/icon/currencies/tether.svg'),
-  },
-  {
-    name: 'ETH',
-    code: 'tltc',
-    img: require('@/assets/icon/currencies/eth.svg'),
-  },
-  {
-    name: 'XRP',
-    code: 'tltc',
-    img: require('@/assets/icon/currencies/xrp.svg'),
-  },
-];
-
 const onBlur = (event: any) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
@@ -256,29 +290,23 @@ const onBlur = (event: any) => {
     elem.focus();
   }
 };
-/* 
-const onTimeIsUp = () => {
-  showCountdown.value = false;
-  disableRefreshBtn.value = false;
-  emit('send-transaction');
-};
 
 const replaceCoins = () => {
-  fundsStore.replaceCoins();
-  const { from, to, imgFrom, imgTo } = fundsStore.getState;
+  fStore.replaceCoins();
+  const { from, to, imgFrom, imgTo } = fStore.getState;
+
+  const _codeFrom = currentSendFromCurrency.code.value;
 
   currentSendFromCurrency.name.value = from || '';
   currentSendFromCurrency.img.value = imgFrom;
+  currentSendFromCurrency.code.value = currentSendToCurrency.code.value;
 
   currentSendToCurrency.name.value = to || '';
   currentSendToCurrency.img.value = imgTo;
-};
+  currentSendToCurrency.code.value = _codeFrom;
 
-const sendTransaction = () => {
-  currentButton.value = 'refresh';
-  showCountdown.value = true;
+  requestAmount.value = +fStore.convertInfo?.estimatedAmount;
 };
-*/
 </script>
 
 <style lang="scss" scoped>
