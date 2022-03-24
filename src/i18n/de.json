@@ -440,6 +440,14 @@
         "copyFailure": "Async: Could not copy text:",
         "updateCoinNetwork": "update coin network",
         "deviceIsNotSupportedToShare": "Device is not support native share"
+      },
+      "convert": {
+        "convertExactly": "You convert exactly",
+        "fee": "Convertion Fee",
+        "amountCovert": "Amount we’ll covert",
+        "guarantedRate": "Guaranted Rate",
+        "youWillGet": "You will get",
+        "refresh": "Refresh"
       }
     }
   },
