@@ -48,7 +48,7 @@ const _requestHandler = async (
       }
     }
   } catch (error) {
-    console.log('return config erorro', error);
+    console.log('return config erorr', error);
   }
   return config;
 };

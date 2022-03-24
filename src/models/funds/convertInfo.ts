@@ -19,7 +19,6 @@ export interface IConvertInfo {
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any): IConvertInfo {
-    console.log('desecialize');
     return {
       from: input.from,
       to: input.to,
@@ -31,7 +30,6 @@ export default {
     };
   },
   deserializeBack(input: any, data: any): IConvertInfo {
-    console.log('desecialize back');
     return {
       to: input.from,
       from: input.to,
