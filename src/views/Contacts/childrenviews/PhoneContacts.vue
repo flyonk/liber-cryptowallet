@@ -7,20 +7,7 @@
         class="contact-item"
         @click="isMenuOpen = !isMenuOpen"
       >
-        <div class="initials">
-          {{ getContactInitials(contact.displayName) }}
-        </div>
-        <router-link
-          :to="`/contacts/send/${contact.contactId}`"
-          class="user-contact"
-        >
-          <p class="name">
-            {{ contact.displayName }}
-          </p>
-          <p class="phone">
-            {{ contact.phoneNumbers[0]?.number }}
-          </p>
-        </router-link>
+        <PhoneContact :contact="contact" />
       </li>
     </ul>
     <ul class="alphabet-list">
@@ -41,6 +28,7 @@ import { ref, computed } from 'vue';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
 
 import { Contact } from '@/types/contacts';
 
@@ -49,11 +37,6 @@ const contacts: Contact[] = recepientsStore.getContacts;
 
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);
-
-function getContactInitials(fio = '') {
-  let parts = fio.split(' ');
-  return parts[0][0] + parts[1][0];
-}
 
 const getMenuType = computed(() => {
   if (hasFriends.value) {
@@ -86,18 +69,6 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 .contact-item {
   display: flex;
   margin-bottom: 24px;
-
-  > .initials {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: $color-yellow-100;
-    width: 40px;
-    height: 40px;
-    color: $color-yellow-700;
-    margin-right: 12px;
-  }
 }
 
 .alphabet-list {
@@ -109,23 +80,6 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     line-height: 18px;
     text-align: center;
     letter-spacing: -0.0008em;
-    color: $color-brand-2-300;
-  }
-}
-
-.user-contact {
-  > .name {
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-    color: #0d1f3c;
-  }
-
-  > .phone {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
     color: $color-brand-2-300;
   }
 }
