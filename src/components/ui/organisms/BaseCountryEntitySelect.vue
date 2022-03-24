@@ -1,12 +1,16 @@
 <template>
+  <!-- @close="emit('close')" for demonstrating bug, using with BaseBottomSheetV-->
   <BaseBottomSheetV v-if="showList" position="bottom">
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
-          <BaseSearchInput v-model="searchQuery" />
+          <BaseSearchInput
+            v-model="searchQuery"
+            @update:model-value="updateSearchQuery"
+          />
         </div>
         <div class="col-3 text-right">
-          <div class="cancel text--headline" @click.stop="close">
+          <div class="cancel text--headline" @click="close">
             {{ $t('ui.basecountryselect.cancel') }}
           </div>
         </div>
@@ -18,7 +22,7 @@
           :key="index"
           :class="{ '-selected': isSelectedCountry(country) }"
           class="item grid align-items-center"
-          @click.stop="setSelectedCountry(country)"
+          @click="setSelectedCountry(country)"
         >
           <div class="flag col-2">
             <img :src="country.localPath" alt="" class="img" />
@@ -86,6 +90,10 @@ function setSelectedCountry(country: ICountryInformation): void {
 
 function close() {
   emit('close');
+}
+
+function updateSearchQuery(data: string) {
+  searchQuery.value = data;
 }
 </script>
 
