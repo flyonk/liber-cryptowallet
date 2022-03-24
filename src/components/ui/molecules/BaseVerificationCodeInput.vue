@@ -5,7 +5,7 @@
         <div class="input-wrapper">
           <input
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
-            class="input-item"
+            class="input-item text--title-1"
             :data-id="index"
             pattern="\d*"
             type="number"
@@ -164,12 +164,28 @@ const onPaste = async (): Promise<void> => {
   &:not(:last-child) {
     margin-right: 12px;
   }
+
+  &:nth-child(3) {
+    margin-right: 25px;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      right: -16px;
+      transform: translateY(-50%);
+      width: 8px;
+      height: 1px;
+      background: $color-grey-500;
+    }
+  }
 }
 
 .input-item {
   width: 100%;
   text-align: center;
-  padding: 16px;
+  padding: 10px 16px;
   border-radius: 12px;
   border: 1px solid transparent;
   background: $color-light-grey;

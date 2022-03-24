@@ -96,7 +96,7 @@ router.replace({
   }
 
   > .footer {
-    margin-top: 0.5rem;
+    margin-top: 1rem;
 
     > .footnote {
       color: $color-dark-grey;

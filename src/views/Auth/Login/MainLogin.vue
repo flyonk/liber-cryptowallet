@@ -4,13 +4,8 @@
 
 <script lang="ts" setup>
 import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
-import { Login1Step, Login2Step, Login3Step, Login4Step } from '.';
+import { Login1Step, Login2Step, Login3Step } from '.';
 import { computed } from 'vue-demi';
 
-const components = computed(() => [
-  Login1Step,
-  Login2Step,
-  Login3Step,
-  Login4Step,
-]);
+const components = computed(() => [Login1Step, Login2Step, Login3Step]);
 </script>

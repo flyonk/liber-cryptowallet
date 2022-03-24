@@ -1,25 +1,27 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation
-      @click:left-icon="$router.push({ name: Route.ConfigureAppVerify })"
-    >
-      {{ $t('configureApp.pushNotificationsTitle') }}
+    <top-navigation left-icon-name="ci-close_big" @click:left-icon="onCancel">
+      {{ $t('views.requestcontacts.title') }}
     </top-navigation>
+
+    <p class="text-default">
+      {{ $t('views.requestcontacts.description') }}
+    </p>
 
     <div class="page-content">
       <img
         alt="Puch notifications"
         class="mb-3"
-        src="@/assets/images/pushnotification-icon.svg"
+        src="@/assets/images/dragndrop-bg.png"
       />
-      <p class="text-default">
-        {{ $t('configureApp.pushNotificationsDescription') }}
+      <p class="text-default -annotation">
+        {{ $t('views.requestcontacts.annotation') }}
       </p>
     </div>
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
     <base-button block class="mb-3" @click="onEnable">
-      {{ $t('configureApp.enablePushNotifications') }}
+      {{ $t('views.requestcontacts.contactsCTA') }}
     </base-button>
     <base-button block view="secondary" @click="onCancel">
       {{ $t('common.notNowCta') }}
@@ -28,33 +30,41 @@
 </template>
 
 <script lang="ts" setup>
-import { useRouter } from 'vue-router';
-import { useAppOptionsStore } from '@/stores/appOptions';
+import { useRouter, useRoute } from 'vue-router';
+import { useRecepientsStore } from '@/stores/recipients';
 
 import { BaseButton, TopNavigation } from '@/components/ui';
 
-import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
 
 const router = useRouter();
-
-const { setOptions } = useAppOptionsStore();
-
-function goToDashboard() {
-  router.push({
-    name: Route.Login,
-  });
-}
+const route = useRoute();
+const store = useRecepientsStore();
 
 const onEnable = (): void => {
-  setOptions('true', EStorageKeys.notifications);
-  goToDashboard();
+  store
+    .getPhoneContacts()
+    .then(() => {
+      nextRoute();
+    })
+    .catch(() => {
+      nextRoute();
+    });
 };
 
 const onCancel = (): void => {
-  setOptions('', EStorageKeys.notifications);
-  goToDashboard();
+  nextRoute();
 };
+
+function nextRoute() {
+  const routerBackName = route.params.back || Route.RecepientsPhone;
+  router.push({
+    name: routerBackName,
+    params: {
+      next: 'true',
+    },
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -73,12 +83,20 @@ const onCancel = (): void => {
   line-height: 22px;
   letter-spacing: -0.0043em;
   border-radius: 13px;
-  text-align: center;
+  text-align: left;
   box-shadow: none;
   outline: none;
   border: none;
   height: 48px;
   width: 100%;
+
+  &.-annotation {
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-brand-2-300;
+    text-align: center;
+  }
 }
 
 .page-content {

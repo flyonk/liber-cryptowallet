@@ -12,27 +12,35 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
+import { use2faStore } from '@/stores/2fa';
+
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
+const store = use2faStore();
+
 const emit = defineEmits<{
-  (event: 'convert-funds'): void;
+  (event: 'success-verification'): void;
   (event: 'close'): void;
 }>();
+
+store.init().then(() => {
+  store.generateToken();
+});
 
 const verificationCode = ref('');
 const isError = ref(false);
 
-// const router = useRouter();
-
 const onComplete = async (code: string) => {
   verificationCode.value = code;
 
-  // @TODO
-  // Remove later
-  if (code === '000000') {
-    emit('convert-funds');
-  } else {
-    isError.value = true;
+  if (code.length === 6) {
+    const result = store.verify(code);
+
+    if (result?.delta === 0) {
+      emit('success-verification');
+    } else {
+      isError.value = true;
+    }
   }
 };
 

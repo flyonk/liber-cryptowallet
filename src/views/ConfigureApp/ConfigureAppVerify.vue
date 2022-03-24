@@ -54,17 +54,18 @@ const onComplete = async (code: string) => {
 
   if (code.length === 6) {
     // @TODO remove later
-    if (code === '000000') {
-      const name = await getSupportedIdentificationWay();
-      router.push({
-        name,
-      });
-      return;
-    }
+    // if (code === '000000') {
+    //   const name = await getSupportedIdentificationWay();
+    //   router.push({
+    //     name,
+    //   });
+    //   return;
+    // }
     //
     const result = store.verify(code);
 
     if (result?.delta === 0) {
+      store.set2FADate();
       const name = await getSupportedIdentificationWay();
       router.push({
         name,

@@ -47,6 +47,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
+
 import { ICountryInformation } from '@/types/country-phone-types';
 
 import {
@@ -55,6 +56,7 @@ import {
   BaseInput,
   TopNavigation,
 } from '@/components/ui';
+
 import { Route } from '@/router/types';
 
 const router = useRouter();
