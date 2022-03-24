@@ -1,13 +1,15 @@
 <template>
-  <div
-    class="base-country-phone-input flex align-items-center"
-    @click="openSelect"
-  >
-    <div class="flag">
-      <img :src="selectedData?.localPath" alt="" class="img" />
-    </div>
-    <div class="code ml-2 mb-1">
-      {{ selectedData?.dialCode }}
+  <div>
+    <div
+      class="base-country-phone-input flex align-items-center"
+      @click="openSelect"
+    >
+      <div class="flag">
+        <img :src="selectedData?.localPath" alt="" class="img" />
+      </div>
+      <div class="code ml-2 mb-1">
+        {{ selectedData?.dialCode }}
+      </div>
     </div>
     <BaseCountryEntitySelect
       entity="dialCode"
