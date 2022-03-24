@@ -158,22 +158,25 @@ function handleClick() {
   ctaState.value === 'preview' ? previewChangeInfo() : convertCurrency();
 }
 
+function changeInfoInterval() {
+  clearInterval(startTimer.value);
+  timer.value = 30;
+  startTimer.value = setInterval(() => {
+    if (timer.value > 0) {
+      timer.value = timer.value - 1;
+    } else {
+      ctaState.value = 'refresh';
+      timer.value = 30;
+      clearInterval(startTimer.value);
+    }
+  }, 1000);
+  loading.value = true;
+}
+
 async function previewChangeInfo() {
   ctaState.value = 'send';
   try {
-    clearInterval(startTimer.value);
-    timer.value = 30;
-    startTimer.value = setInterval(() => {
-      if (timer.value > 0) {
-        timer.value = timer.value - 1;
-      } else {
-        ctaState.value = 'refresh';
-        timer.value = 30;
-        clearInterval(startTimer.value);
-      }
-    }, 1000);
-    loading.value = true;
-    //TODO: fix with backend
+    changeInfoInterval();
     await fStore.checkConvertInfo({
       from: currentSendFromCurrency.code.value,
       to: currentSendToCurrency.code.value,
@@ -194,19 +197,7 @@ async function previewChangeInfo() {
 async function previewChangeInfoBack() {
   ctaState.value = 'send';
   try {
-    clearInterval(startTimer.value);
-    timer.value = 30;
-    startTimer.value = setInterval(() => {
-      if (timer.value > 0) {
-        timer.value = timer.value - 1;
-      } else {
-        ctaState.value = 'refresh';
-        timer.value = 30;
-        clearInterval(startTimer.value);
-      }
-    }, 1000);
-    loading.value = true;
-    //TODO: fix with backend
+    changeInfoInterval();
     await fStore.checkConvertInfoBack({
       to: currentSendFromCurrency.code.value,
       from: currentSendToCurrency.code.value,
