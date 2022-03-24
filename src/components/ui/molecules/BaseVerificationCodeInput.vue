@@ -105,7 +105,6 @@ const onChange = (event: Event) => {
     focusNextInput(currentId);
 
     if (activationCode.value.filter((code) => code).length === props.fields) {
-      console.log('copmlate actions');
       emit('update:modelValue', activationCodeString.value);
       emit('complete', activationCodeString.value);
     }

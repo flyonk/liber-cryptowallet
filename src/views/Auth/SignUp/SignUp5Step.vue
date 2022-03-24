@@ -18,7 +18,7 @@
       @focus="showClearBtn"
       @blur="closeClearBtn"
     >
-      <template #label v-if="isClearBtnShown">
+      <template v-if="isClearBtnShown" #label>
         {{ $t('auth.signup.date') }}
       </template>
       <template v-if="isClearBtnShown" #append>

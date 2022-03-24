@@ -10,6 +10,7 @@
       <div class="col-4">
         <base-country-phone-input
           :dial-code="countryDialCode"
+          :only-european="true"
           @ready="handleSelectCountry"
           @selected="handleSelectCountry"
         />
@@ -18,7 +19,7 @@
         <base-input
           v-model="number"
           :mask="mask"
-          :type="type"
+          :type="TypeBaseInput.Text"
           :use-grouping="false"
         >
           <template #label>
@@ -48,8 +49,6 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 
-import { ICountryInformation } from '@/types/country-phone-types';
-
 import {
   BaseButton,
   BaseCountryPhoneInput,
@@ -58,6 +57,8 @@ import {
 } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+import { ICountryInformation } from '@/types/country-phone-types';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -102,7 +103,8 @@ const handleSelectCountry = (data: ICountryInformation) => {
 };
 
 const nextStep = async () => {
-  if (!number.value) return;
+  if (!+number.value) return;
+
   authStore.setPhone(number.value);
 
   await authStore.setToStorage();
@@ -126,5 +128,19 @@ function prevStep(): void {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 40px;
+}
+
+.auth-page-container {
+  > .footer {
+    > span {
+      > .link:visited {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: -0.0008em;
+        color: $color-primary;
+      }
+    }
+  }
 }
 </style>

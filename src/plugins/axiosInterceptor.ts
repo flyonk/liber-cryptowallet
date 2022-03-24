@@ -8,7 +8,11 @@ import { EStorageKeys } from '@/types/storage';
 
 //TODO: what API calls should be authorized
 const _notAuthorizedRoutes = (): string[] => {
-  return Object.values(apiService.auth).map((item) => item());
+  const routes = [
+    ...Object.values(apiService.auth).map((item) => item()),
+    ...Object.values(apiService.localData).map((item) => item()),
+  ];
+  return routes;
 };
 
 const _requestHandler = async (

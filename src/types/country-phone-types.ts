@@ -4,4 +4,5 @@ export interface ICountryInformation {
   isoCode: string;
   flag: string;
   mask?: string;
+  localPath: string;
 }

@@ -22,7 +22,7 @@
       {{ $t('auth.signup.step3SendNews') }}
     </base-switch>
     <div class="sign-button-wrapper">
-      <base-button :disabled="isEmailInvalid" @click="nextStep" block>
+      <base-button :disabled="isEmailInvalid" block @click="nextStep">
         {{ $t('common.nextStep') }}
       </base-button>
     </div>

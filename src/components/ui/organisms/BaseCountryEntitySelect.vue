@@ -1,12 +1,15 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom">
+  <BaseBottomSheetV v-if="showList" position="bottom" @close="$emit('close')">
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
-          <BaseSearchInput v-model="searchQuery" />
+          <BaseSearchInput
+            v-model="searchQuery"
+            @update:model-value="updateSearchQuery"
+          />
         </div>
         <div class="col-3 text-right">
-          <div class="cancel-button text--headline" @click="close">
+          <div class="cancel text--headline" @click="close">
             {{ $t('ui.basecountryselect.cancel') }}
           </div>
         </div>
@@ -21,7 +24,7 @@
           @click="setSelectedCountry(country)"
         >
           <div class="flag col-2">
-            <img :src="country.flag" alt="" class="img" />
+            <img :src="country.localPath" alt="" class="img" />
           </div>
           <div class="code col-2">
             {{ country[entity] }}
@@ -35,7 +38,7 @@
   </BaseBottomSheetV>
 </template>
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
 
 import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
@@ -87,16 +90,25 @@ function setSelectedCountry(country: ICountryInformation): void {
 function close() {
   emit('close');
 }
+
+function updateSearchQuery(data: string) {
+  searchQuery.value = data;
+}
 </script>
 
 <style lang="scss" scoped>
 .country-select-block {
   padding-top: 16px;
 
-  > .cancel-button {
+  > div > .text-right > .cancel {
     color: $color-primary;
     cursor: pointer;
     user-select: none;
+    margin-right: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
   }
 
   > .country-list {
@@ -126,6 +138,10 @@ function close() {
       > .code {
         color: $color-dark-grey;
       }
+    }
+
+    &:last-child {
+      margin-bottom: 50px;
     }
   }
 }
