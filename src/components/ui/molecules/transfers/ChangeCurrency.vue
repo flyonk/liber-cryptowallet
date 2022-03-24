@@ -59,7 +59,7 @@
             type="number"
             class="input"
             @blur="onBlur"
-            @input="onInput"
+            @input="onChangeEstimatedAmount"
           />
           <div class="select select-to">
             <div class="select-option flex">
@@ -102,7 +102,7 @@ import { computed, ref, watch } from 'vue';
 import { Route } from '@/router/types';
 import { useRouter } from 'vue-router';
 import { useFundsStore } from '@/stores/funds';
-
+import lodash from 'lodash';
 import { BaseButton } from '@/components/ui';
 import SentryUtil from '@/helpers/sentryUtil';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
@@ -127,6 +127,8 @@ const { from, to, imgFrom, imgTo } = fStore.getState;
 
 const ctaState = ref('preview');
 const loading = ref(false);
+
+const DEBOUNCE_TIMER = 500;
 
 const timer = ref(30);
 const startTimer = ref(0);
@@ -214,10 +216,16 @@ async function previewChangeInfoBack() {
   }
 }
 
-watch(requestAmount, previewChangeInfo);
+const debounceChangeInfo = lodash.debounce(previewChangeInfo, DEBOUNCE_TIMER);
+const debounceChangeInfoBack = lodash.debounce(
+  previewChangeInfoBack,
+  DEBOUNCE_TIMER
+);
 
-const onInput = () => {
-  previewChangeInfoBack();
+watch(requestAmount, debounceChangeInfo);
+
+const onChangeEstimatedAmount = () => {
+  debounceChangeInfoBack();
 };
 
 function convertCurrency() {
