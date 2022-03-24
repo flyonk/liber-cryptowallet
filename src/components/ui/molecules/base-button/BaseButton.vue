@@ -242,6 +242,38 @@ const classes = computed(() => [
     }
   }
 
+  &.-transparent {
+    background: transparent;
+
+    > .container {
+      > .label,
+      i {
+        color: $color-primary;
+      }
+    }
+
+    &:disabled,
+    &[disabled] {
+      background: $color-brand-2-100 !important;
+
+      > .container {
+        > .label,
+        i {
+          color: $color-white;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      background: $color-primary-100;
+    }
+
+    &:active {
+      background: $color-primary-100;
+    }
+  }
+
   &.-white {
     background: $color-white;
     box-shadow: 0 2px 4px -3px rgb(64 70 105 / 21%);

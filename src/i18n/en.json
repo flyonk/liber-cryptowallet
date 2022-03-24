@@ -28,7 +28,8 @@
     "to": "To",
     "from": "From",
     "daysAgo": "days ago",
-    "explorer": "Open in Explorer"
+    "explorer": "Open in Explorer",
+    "copySuccess": "Success"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"

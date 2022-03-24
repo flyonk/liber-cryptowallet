@@ -12,6 +12,7 @@
     </base-progress-circular>
     <div class="footer">
       <base-button
+        block
         @click="
           $router.push({
             name: Route.Survey,

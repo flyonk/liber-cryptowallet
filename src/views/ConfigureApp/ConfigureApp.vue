@@ -12,14 +12,13 @@
       <canvas ref="canvas" class="qr-code-canvas" />
     </div>
 
-    <label class="default-input-wrapper">
+    <label class="default-input-wrapper" @click="copyToClipboard">
       <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
       <input v-model="qrCodeValue" class="default-input" type="text" readonly />
       <img
         class="default-input-icon"
         src="@/assets/images/copy-to-clipboard.svg"
         alt="copy"
-        @click="copyToClipboard"
       />
     </label>
 

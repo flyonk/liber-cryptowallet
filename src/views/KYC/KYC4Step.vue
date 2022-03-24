@@ -9,7 +9,7 @@
       <div id="camera" class="camera" />
     </scan-animation>
     <div class="footer">
-      <base-button @click="onScan">
+      <base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
       </base-button>
     </div>
@@ -162,6 +162,7 @@ const onScan = async () => {
           height: 100% !important;
           width: 100%;
           border-radius: 12px;
+          object-fit: cover;
         }
       }
     }

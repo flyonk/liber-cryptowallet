@@ -184,7 +184,7 @@ const onPaste = async (): Promise<void> => {
 .input-item {
   width: 100%;
   text-align: center;
-  padding: 10px 16px;
+  padding: 10px 4px;
   border-radius: 12px;
   border: 1px solid transparent;
   background: $color-light-grey;
