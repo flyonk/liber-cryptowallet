@@ -149,6 +149,10 @@
     }
   },
   "ui": {
+    "friends": {
+      "liber": "Liber Friends",
+      "all": "All Contacts"
+    },
     "basecountryphoneinput": {
       "cancel": "Cancel"
     },
@@ -175,6 +179,18 @@
     }
   },
   "views": {
+    "sendfunds": {
+      "whopay": "Who To Pay"
+    },
+    "requestcontacts": {
+      "title": "Find your friends",
+      "description": "Send and request money from your friends more easily, split bills and much more.",
+      "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
+      "contactsCTA": "Allow access to contacts"
+    },
+    "recepients": {
+      "recepients": "Recepients"
+    },
     "aboutpage": {
       "home": "Home",
       "about": "About",

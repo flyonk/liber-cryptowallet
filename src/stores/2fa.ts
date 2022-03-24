@@ -58,18 +58,21 @@ export const use2faStore = defineStore('2fa', {
       setSecret(secret);
     },
 
-    async setTwofaDate(): Promise<void> {
+    async set2FADate(): Promise<void> {
       await Storage.set({
         key: EStorageKeys.twofaDate,
         value: String(Date.now()),
       });
     },
 
-    async checkTwofaExpire(): Promise<boolean> {
+    async check2FAExpire(): Promise<boolean> {
       const timestamp = Number(
         (await Storage.get({ key: EStorageKeys.twofaDate })).value
       );
-      return checkExpiration(timestamp, 14);
+      /*
+       * Return true if expired
+       */
+      return checkExpiration(timestamp, 3);
     },
 
     async init() {
