@@ -129,4 +129,18 @@ function prevStep(): void {
   color: $color-brand-primary;
   margin-bottom: 40px;
 }
+
+.auth-page-container {
+  > .footer {
+    > span {
+      > .link:visited {
+        font-weight: 600;
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: -0.0008em;
+        color: $color-primary;
+      }
+    }
+  }
+}
 </style>
