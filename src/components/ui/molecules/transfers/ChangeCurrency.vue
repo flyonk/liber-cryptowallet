@@ -49,22 +49,11 @@
             </p>
           </li>
         </ul>
-        <div
-          v-if="hasCoinReverse"
-          class="coin-switcher cursor-pointer"
-          @click="replaceCoins"
-        >
-          <img
-            class="pb-3"
-            src="@/assets/icon/transactions/reverse_currencies.svg"
-            alt="coin-switcher"
-          />
-        </div>
+        <coin-switcher v-if="hasCoinReverse" @switch="replaceCoins" />
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
-          <!--TODO: implement change coin logic for readonly-->
           <input
             v-model="convertInfo.estimatedAmount"
             type="number"
@@ -120,6 +109,7 @@ import { useFundsStore } from '@/stores/funds';
 import { BaseButton } from '@/components/ui';
 import SentryUtil from '@/helpers/sentryUtil';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
+import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 
 defineProps({
   hasCoinReverse: {
@@ -159,19 +149,6 @@ let requestAmount = ref<number>(0);
 
 const router = useRouter();
 
-// function changeCurrentCurrency(index: number, type: string) {
-//   if (type === 'from') {
-//     currentSendFromCurrency.name.value = currencies[index].name;
-//     currentSendFromCurrency.img = currencies[index].img;
-//   }
-
-//   if (type === 'to') {
-//     currentSendToCurrency.name.value = currencies[index].name;
-//     currentSendToCurrency.img = currencies[index].img;
-//   }
-// }
-
-//TODO: clarify refresh logic
 function handleClick() {
   if (ctaState.value === 'refresh') {
     timer.value = 30;
@@ -249,7 +226,6 @@ async function previewChangeInfoBack() {
 }
 
 watch(requestAmount, previewChangeInfo);
-// watch(estimatedAmount, previewChangeInfoBack);
 
 const onInput = () => {
   previewChangeInfoBack();
