@@ -70,7 +70,7 @@ const onComplete = async (data: string) => {
 
   try {
     // @TODO remove later
-    if (data === '000000') {
+    if (data === '000001') {
       nextStep();
     }
 
