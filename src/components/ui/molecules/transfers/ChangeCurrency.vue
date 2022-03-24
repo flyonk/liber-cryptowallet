@@ -97,9 +97,6 @@
 </template>
 
 <script setup lang="ts">
-/*
- * TODO: Move all business logic to parent component - pages/ChangeCurrency
- */
 import { computed, ref, watch } from 'vue';
 
 import { Route } from '@/router/types';
@@ -130,6 +127,7 @@ const { from, to, imgFrom, imgTo } = fStore.getState;
 
 const ctaState = ref('preview');
 const loading = ref(false);
+
 const timer = ref(30);
 const startTimer = ref(0);
 
