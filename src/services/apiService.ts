@@ -100,4 +100,9 @@ export default {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/transfer/coin/${coin}`;
     },
   },
+  localData: {
+    countryDial(): string {
+      return `/country_dial_info.json`;
+    },
+  },
 };
