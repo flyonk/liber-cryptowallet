@@ -8,7 +8,11 @@ import { EStorageKeys } from '@/types/storage';
 
 //TODO: what API calls should be authorized
 const _notAuthorizedRoutes = (): string[] => {
-  return Object.values(apiService.auth).map((item) => item());
+  const routes = [
+    ...Object.values(apiService.auth).map((item) => item()),
+    ...Object.values(apiService.localData).map((item) => item()),
+  ];
+  return routes;
 };
 
 const _requestHandler = async (
@@ -31,15 +35,7 @@ const _requestHandler = async (
       key: EStorageKeys.refreshToken,
     });
 
-    let decodedToken = null;
-    try {
-      //TODO: Resolve it
-      //why is it used > token || '', empty string invokes exception.
-      //And it will not work correctly with an empty store (private browser mode)
-      decodedToken = jwt_decode<JwtPayload>(token || '') || null;
-    } catch (error) {
-      console.error(error);
-    }
+    const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
 
     const authStore = useAuthStore();
 
