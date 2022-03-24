@@ -10,11 +10,7 @@
         <PhoneContact :contact="contact" />
       </li>
     </ul>
-    <ul class="alphabet-list">
-      <li v-for="(symbol, index) in alphabet" :key="index" class="symbol">
-        {{ symbol }}
-      </li>
-    </ul>
+    <PhoneContactsAlphabet />
   </div>
   <button
     v-if="hasFriends"
@@ -37,6 +33,7 @@ import { useTransferStore } from '@/stores/transfer';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
+import PhoneContactsAlphabet from '@/components/ui/atoms/PhoneContactsAlphabet.vue';
 
 import { Contact } from '@/types/contacts';
 
@@ -67,8 +64,6 @@ const handleContactClick = (contact: Contact) => {
   const recipient = { id, phone };
   transferStore.recipient = recipient;
 };
-
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 </script>
 
 <style lang="scss" scoped>
@@ -87,19 +82,6 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 .contact-item {
   display: flex;
   margin-bottom: 24px;
-}
-
-.alphabet-list {
-  > .symbol {
-    font-style: normal;
-    margin-bottom: 3px;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 18px;
-    text-align: center;
-    letter-spacing: -0.0008em;
-    color: $color-brand-2-300;
-  }
 }
 
 .router-link-exact-active {

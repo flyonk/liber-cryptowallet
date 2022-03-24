@@ -10,11 +10,7 @@
         <PhoneContact :contact="contact" />
       </li>
     </ul>
-    <ul class="alphabet-list">
-      <li v-for="(symbol, index) in alphabet" :key="index" class="symbol">
-        {{ symbol }}
-      </li>
-    </ul>
+    <PhoneContactsAlphabet />
   </div>
   <bottom-swipe-menu
     :is-menu-open="isMenuOpen"
@@ -29,6 +25,7 @@ import { useRecepientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
+import PhoneContactsAlphabet from '@/components/ui/atoms/PhoneContactsAlphabet.vue';
 
 import { Contact } from '@/types/contacts';
 
@@ -49,8 +46,6 @@ const getMenuType = computed(() => {
 function closeMenu() {
   isMenuOpen.value = false;
 }
-
-const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 </script>
 
 <style lang="scss" scoped>
@@ -69,19 +64,6 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 .contact-item {
   display: flex;
   margin-bottom: 24px;
-}
-
-.alphabet-list {
-  > .symbol {
-    font-style: normal;
-    margin-bottom: 3px;
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 18px;
-    text-align: center;
-    letter-spacing: -0.0008em;
-    color: $color-brand-2-300;
-  }
 }
 
 .router-link-exact-active {
