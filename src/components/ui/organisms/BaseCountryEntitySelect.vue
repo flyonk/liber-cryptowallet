@@ -18,7 +18,7 @@
           :key="index"
           :class="{ '-selected': isSelectedCountry(country) }"
           class="item grid align-items-center"
-          @click="setSelectedCountry(country)"
+          @click.stop="setSelectedCountry(country)"
         >
           <div class="flag col-2">
             <img :src="country.localPath" alt="" class="img" />
@@ -132,6 +132,10 @@ function close() {
     > .code {
       color: $color-dark-grey;
     }
+  }
+
+  &:last-child {
+    margin-bottom: 50px;
   }
 }
 </style>
