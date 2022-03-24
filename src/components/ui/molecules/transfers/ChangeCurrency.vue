@@ -3,7 +3,7 @@
     <div class="change-currency">
       <div class="input-wrapper mb-2 relative m-0">
         <label class="change-from">
-          <p class="label">You convert exactly</p>
+          <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
           <input
             v-model="requestAmount"
             type="number"
@@ -30,21 +30,23 @@
             <p class="sum">
               {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
             </p>
-            <p class="name">Conversion Fee</p>
+            <p class="name">{{ $t('views.deposit.convert.fee') }}</p>
           </li>
           <li class="fees-item">
             <div class="circle">=</div>
             <p class="sum">
               {{ requestAmount }} {{ currentSendFromCurrency.name.value }}
             </p>
-            <p class="name">Amount we’ll covert</p>
+            <p class="name">{{ $t('views.deposit.convert.amountCovert') }}</p>
           </li>
           <li class="fees-item">
             <div class="circle">x</div>
             <p class="sum">
               {{ convertInfo.rate }} {{ currentSendToCurrency.name.value }}
             </p>
-            <p class="name">Guaranteed rate (10min)</p>
+            <p class="name">
+              {{ $t('views.deposit.convert.guarantedRate') }} (10min)
+            </p>
           </li>
         </ul>
         <div
@@ -61,7 +63,7 @@
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
-          <p class="label">You will get</p>
+          <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
           <!--TODO: implement change coin logic for readonly-->
           <input
             v-model="convertInfo.estimatedAmount"
@@ -91,7 +93,9 @@
         :disabled="loading"
         @click="handleClick"
       >
-        <template v-if="ctaState === 'refresh'">Refresh</template>
+        <template v-if="ctaState === 'refresh'">{{
+          $t('views.deposit.convert.refresh')
+        }}</template>
         <template v-else-if="loading">
           <tripple-dots-spinner />
         </template>
