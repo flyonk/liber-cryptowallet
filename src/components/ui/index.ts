@@ -16,3 +16,5 @@ export { default as BaseProgressBar } from './atoms/BaseProgressBar.vue';
 export { default as BaseRadioSelect } from './atoms/BaseRadioSelect.vue';
 export { default as BaseProgressCircular } from './atoms/BaseProgressCircular.vue';
 export { default as LanguageSwitcher } from './organisms/LanguageSwitcher.vue';
+export { default as BaseAccount } from './molecules/base-account/BaseAccount.vue';
+export { default as AccountListBottomSheet } from './organisms/dashboard/AccountList.vue';

@@ -3,11 +3,12 @@
     ref="wrapper"
     :class="{
       '-locked': isMoving,
+      '-expanded': isOpened,
     }"
     :style="wrapperStyle"
     class="bottom-wrapper"
   >
-    <div class="header">
+    <div v-if="withHeader" class="header">
       <div class="indicator" />
     </div>
     <div ref="over" class="over">
@@ -19,10 +20,9 @@
 <script lang="ts" setup>
 import { computed, onMounted, onUnmounted, Ref, ref } from 'vue';
 
-const emit = defineEmits(['close']);
+const emit = defineEmits(['close', 'expanded']);
 
 const top = ref(null) as Ref<number | null>;
-const topPadding = ref(5);
 const lastTop = ref(null) as Ref<number | null>;
 const overTop = ref(null) as Ref<number | null>;
 const overHeight = ref(null) as Ref<number | null>;
@@ -41,6 +41,23 @@ const wrapperStyle = computed(() => {
     transform:
       top.value === null ? 'translateY(100%)' : `translateY(${top.value}%)`,
   };
+});
+
+const props = defineProps({
+  scrollableToTop: {
+    type: Boolean,
+    default: true,
+  },
+
+  topPadding: {
+    type: Number,
+    default: 5,
+  },
+
+  withHeader: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 onMounted(() => {
@@ -102,10 +119,10 @@ const onTouchMove = (e: TouchEvent | MouseEvent) => {
 
   const topPosition = (lastTop.value as number) - diff;
 
-  if (topPosition < topPadding.value) {
-    top.value = topPadding.value;
+  if (topPosition < props.topPadding) {
+    top.value = props.topPadding;
 
-    isOpened.value = true;
+    setIsOpenedState(true);
   } else {
     top.value = topPosition;
   }
@@ -119,6 +136,10 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
 
   const diff = (initialTouchY.value as number) - touchY;
 
+  if (diff < 10 && diff > -10) {
+    return;
+  }
+
   if ((wrapper.value?.scrollTop as number) <= 0) {
     if (isOpened.value === false && diff < 0) {
       emit('close');
@@ -126,10 +147,20 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
       return;
     }
 
+    if (props.scrollableToTop && diff > 0) {
+      top.value = props.topPadding;
+
+      setIsOpenedState(true);
+
+      return;
+    }
+
     initialTouchY.value = (e as TouchEvent).changedTouches[0].clientY;
 
     top.value = initialTopPosition.value;
-    isOpened.value = false;
+
+    setIsOpenedState(false);
+
     return;
   }
 
@@ -137,16 +168,23 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
     if (diff <= 0) {
       top.value = initialTopPosition.value;
 
-      isOpened.value = false;
+      setIsOpenedState(false);
     } else {
-      top.value = topPadding.value;
+      top.value = props.topPadding;
 
-      isOpened.value = true;
+      setIsOpenedState(true);
     }
   } else {
-    top.value = topPadding.value;
-    isOpened.value = true;
+    top.value = props.topPadding;
+
+    setIsOpenedState(true);
   }
+};
+
+const setIsOpenedState = (state: boolean) => {
+  isOpened.value = state;
+
+  emit('expanded', isOpened.value);
 };
 
 const onLastTransitionEnd = () => {
@@ -179,6 +217,7 @@ const onLastTransitionEnd = () => {
     display: flex;
     width: 100%;
     justify-content: center;
+    margin: 0 0 30px;
 
     & > .indicator {
       width: 64px;

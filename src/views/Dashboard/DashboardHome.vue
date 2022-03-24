@@ -135,37 +135,11 @@
         </VueAgile>
       </div>
       <!--      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />-->
-      <BaseBottomSheet v-if="isMenuOpen" @close="closeMenu">
-        <template #default="{ isOpened }">
-          <div :class="{ '-expanded': isOpened }" class="bottom-sheet">
-            <div class="menu-header">
-              <h4 class="title">
-                {{ $t('views.dashboard.home.accounts') }}
-              </h4>
-              <div class="add">+</div>
-            </div>
-            <div class="menu-list">
-              <div class="item" @click="$router.push('/account')">
-                <div class="image-wrap">
-                  <img alt="all" src="@/assets/icon/all-accounts.svg" />
-                </div>
-                <p class="name">
-                  {{ $t('views.dashboard.home.allAccounts') }}
-                </p>
-                <p class="price">
-                  {{ getSymbolByCode(totalBalance.currency) }}
-                  {{ totalBalance.sum }}
-                </p>
-              </div>
-              <BaseAccount
-                v-for="(account, index) in accounts"
-                :key="index"
-                :data="account"
-              />
-            </div>
-          </div>
-        </template>
-      </BaseBottomSheet>
+      <AccountListBottomSheet
+        v-if="isMenuOpen"
+        :accounts="accounts"
+        @close="closeMenu"
+      />
     </div>
   </div>
 </template>
@@ -179,12 +153,10 @@ import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
-import { getSymbolByCode } from '@/helpers/currency';
 
-import { BaseBottomSheet } from '@/components/ui';
+import { AccountListBottomSheet } from '@/components/ui';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
-import BaseAccount from '@/components/ui/molecules/base-account/BaseAccount.vue';
 import { IAccount } from '@/models/account/account';
 
 let activeTab = ref(1);
@@ -466,74 +438,6 @@ const totalCurrency = computed(() =>
 
 .agile {
   width: 100%;
-}
-
-.menu-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  > .title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
-    letter-spacing: -0.0045em;
-  }
-
-  > .add {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: $color-white;
-    background: $color-primary;
-    border-radius: 8px;
-    width: 40px;
-    height: 40px;
-    font-size: 25px;
-    padding-bottom: 4px;
-    z-index: 5;
-  }
-}
-
-.menu-list {
-  display: flex;
-  flex-direction: column;
-
-  > .item {
-    display: flex;
-    align-items: center;
-
-    &:not(:last-child) {
-      margin-bottom: 24px;
-    }
-
-    > .image-wrap {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 48px;
-      height: 48px;
-      background: $color-grey-100;
-      margin-right: 12px;
-      border-radius: 8px;
-    }
-
-    > .name {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 21px;
-      letter-spacing: -0.0031em;
-    }
-
-    > .price {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 21px;
-      text-align: right;
-      letter-spacing: -0.0031em;
-      margin-left: auto;
-    }
-  }
 }
 
 @keyframes topToBottom {

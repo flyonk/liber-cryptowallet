@@ -14,7 +14,7 @@ export default {
       name: input.name,
       balance: input.balance,
       exchange: input.exchange,
-      code: input.code.toUpperCase(),
+      code: input.code,
       baseBalanceConversion: input.base_balance || 0,
       baseBalanceConversionCode: input.base_balance_code || '€',
     };

@@ -8,7 +8,7 @@
         {{ data.name }}
       </p>
       <p class="subtitle text--footnote">
-        {{ data.code }}
+        {{ data.code.toUpperCase() }}
       </p>
     </div>
     <div class="price">
