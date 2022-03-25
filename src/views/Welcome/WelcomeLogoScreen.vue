@@ -23,6 +23,7 @@ const loading = ref(true);
 
 const authStore = useAuthStore();
 const appOptionsStore = useAppOptionsStore();
+appOptionsStore.init();
 
 onMounted(() => {
   setTimeout(() => {
@@ -35,7 +36,6 @@ onMounted(() => {
         appOptionsStore.isItFirstRun
           ? (route = Route.SignUp)
           : authStore.setStep(2, 'login');
-
         router.push({ name: route });
       } else {
         router.push('/welcome-auth');
