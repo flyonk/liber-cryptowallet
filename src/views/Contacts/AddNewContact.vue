@@ -55,7 +55,7 @@ const newContacts: {
 }[] = [
   {
     name: ref('Test Contact'),
-    phone: ref('+79082359608'),
+    phone: ref('+79082359632'),
   },
 ];
 
