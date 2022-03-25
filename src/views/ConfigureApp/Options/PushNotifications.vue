@@ -42,7 +42,7 @@ const { setOptions } = useAppOptionsStore();
 
 function goToDashboard() {
   router.push({
-    name: Route.Login,
+    name: Route.DashboardHome,
   });
 }
 
