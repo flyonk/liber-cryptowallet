@@ -19,6 +19,7 @@
         class="default-input-icon"
         src="@/assets/images/copy-to-clipboard.svg"
         alt="copy"
+        @click.stop
       />
     </label>
 

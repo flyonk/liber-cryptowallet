@@ -32,7 +32,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUpdate, Ref, ref, getCurrentInstance } from 'vue';
+import {
+  computed,
+  onBeforeUpdate,
+  Ref,
+  ref,
+  getCurrentInstance,
+  watch,
+} from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { BaseButton } from '@/components/ui';
@@ -47,6 +54,10 @@ const props = defineProps({
     default: 6,
   },
   withPasteButton: {
+    type: Boolean,
+    default: false,
+  },
+  isError: {
     type: Boolean,
     default: false,
   },
@@ -69,7 +80,9 @@ const focusNextInput = (currentId: number) => {
 
   if (nextInput) {
     nextInput.focus();
+    return currentId + 1;
   }
+  return currentId;
 };
 
 const focusPrevInput = (currentId: number) => {
@@ -102,11 +115,19 @@ const onChange = (event: Event) => {
   }
 
   if (value.length >= 1) {
-    focusNextInput(currentId);
+    const focusedInputId = focusNextInput(currentId);
 
     if (activationCode.value.filter((code) => code).length === props.fields) {
       emit('update:modelValue', activationCodeString.value);
       emit('complete', activationCodeString.value);
+
+      const currentInput = inputs.value[focusedInputId] as
+        | HTMLElement
+        | undefined;
+
+      if (currentInput) {
+        currentInput.blur();
+      }
     }
   } else if (value.length === 0) {
     focusPrevInput(currentId);
@@ -137,6 +158,15 @@ const onPaste = async (): Promise<void> => {
     proxy.$sentry.capture(e, 'BaseVerificationCodeInput', 'onPaste');
   }
 };
+
+watch(
+  () => props.isError,
+  (newValue, oldValue) => {
+    if (!newValue && oldValue) {
+      activationCode.value = [];
+    }
+  }
+);
 </script>
 
 <style lang="scss">

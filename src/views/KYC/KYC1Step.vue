@@ -19,7 +19,7 @@
         <a class="link" href="http://"> Privacy Policy </a
         >{{ $t('views.kyc.kyc1step.privacyPolicy') }}
       </p>
-      <base-button block @click="onSignUp" :disabled="!isCountrySelected">{{
+      <base-button block :disabled="!isCountrySelected" @click="onSignUp">{{
         $t('views.kyc.kyc1step.signUpSecurely')
       }}</base-button>
     </div>

@@ -10,6 +10,7 @@
       <BaseVerificationCodeInput
         :loading="false"
         class="input"
+        :is-error="showErrorToast"
         @complete="onComplete"
       />
     </div>

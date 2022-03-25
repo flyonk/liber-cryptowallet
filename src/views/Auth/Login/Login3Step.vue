@@ -11,11 +11,8 @@
     <base-toast v-model:visible="showErrorToast" severity="error">
       <template #description>
         <div>
-          {{
-            $t('views.auth.login.login3step.6966', {
-              '1': $t('auth.login.step3InvalidInput'),
-            })
-          }}
+          {{ $t('auth.login.step3InvalidInput') }}
+          {{ authStore.getLoginPhone }}
         </div>
       </template>
       <template #footer>

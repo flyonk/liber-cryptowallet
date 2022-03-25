@@ -21,7 +21,7 @@
       <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
     </base-input>
     <div class="footer">
-      <base-button block @click="onContinue" :disabled="!isFormValid">{{
+      <base-button block :disabled="!isFormValid" @click="onContinue">{{
         $t('views.kyc.kyc2step.continue')
       }}</base-button>
     </div>
