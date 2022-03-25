@@ -9,6 +9,7 @@ import convertInfoMapper, {
 import coinMapper, { ICoin } from '@/models/funds/coin';
 
 import { TSuccessResponse } from '@/types/api';
+import { TRecipient } from '@/stores/transfer';
 
 export default {
   async getCoins(): Promise<ICoin[]> {
@@ -37,7 +38,7 @@ export default {
 
   async transfer(
     coin: string,
-    payload: { recipient: { id: string; phone: string }; amount: number }
+    payload: { recipient: TRecipient; amount: string }
   ): Promise<number> {
     return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
   },

@@ -4,12 +4,15 @@ import fundsService from '@/services/fundsService';
 
 interface ITransferState {
   coin: string;
-  recipient: {
-    id: string;
-    phone: string;
-  };
-  amount: number;
+  recipient: TRecipient;
+  amount: string;
 }
+
+export type TRecipient = {
+  id?: string;
+  phone: string;
+  email?: string;
+};
 
 // === transaction Store ===
 
@@ -20,7 +23,7 @@ export const useTransferStore = defineStore('transfer', {
       id: '',
       phone: '',
     },
-    amount: 0,
+    amount: '',
   }),
 
   getters: {
@@ -29,7 +32,7 @@ export const useTransferStore = defineStore('transfer', {
         Boolean(state.coin) &&
         Boolean(state.recipient.id) &&
         Boolean(state.recipient.phone) &&
-        Boolean(state.amount > 0);
+        Boolean(+state.amount > 0);
 
       return isFullData;
     },
@@ -39,14 +42,18 @@ export const useTransferStore = defineStore('transfer', {
     async transfer(): Promise<void> {
       await fundsService.transfer(this.coin, {
         amount: this.amount,
-        recipient: this.recipient,
+        recipient: this.recipient as TRecipient,
       });
     },
 
     clearTransferData(): void {
-      this.amount = 0;
+      this.amount = '';
       this.recipient = { id: '', phone: '' };
       this.coin = '';
+    },
+
+    setRecipient(data: TRecipient = { id: '', phone: '' }): void {
+      this.recipient = data;
     },
   },
 });

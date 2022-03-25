@@ -31,37 +31,51 @@
         </p>
       </li>
     </ul>
-    <BaseButton
-      class="btn"
-      size="large"
-      @click="router.push('/contacts/send/1')"
-    >
+    <BaseButton class="btn" size="large" @click="handleAddContact">
       Continue
     </BaseButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { BaseButton, BaseInput } from '@/components/ui';
+import { useTransferStore } from '@/stores/transfer';
+import { Route } from '@/router/types';
 
+const transferStore = useTransferStore();
 const router = useRouter();
 
-const newContacts = [
+const newContacts: {
+  name: Ref<string>;
+  phone: Ref<string>;
+  email?: Ref<string>;
+}[] = [
   {
-    name: ref(''),
-    phone: ref(''),
+    name: ref('Test Contact'),
+    phone: ref('+79082359608'),
   },
 ];
 
 function addExtraContact() {
   newContacts.push({
     name: ref(''),
-    email: ref(''),
+    phone: ref(''),
   });
 }
+
+const handleAddContact = () => {
+  if (!newContacts[0].phone.value) return;
+
+  transferStore.setRecipient({
+    id: '1',
+    phone: newContacts[0].phone.value,
+  });
+
+  router.push({ name: Route.ContactsSend, params: { id: '1' } });
+};
 </script>
 
 <style lang="scss" scoped>
