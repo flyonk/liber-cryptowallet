@@ -7,13 +7,13 @@
         {{ $t('views.deposit.selectCoin.selectCoin') }}
       </h1>
 
-      <label for="searchCoin" class="input-label">
-        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
+      <label class="input-label" for="searchCoin">
+        <img alt="search" class="icon" src="@/assets/icon/search.svg" />
         <input
-          class="search"
-          type="text"
-          name="searchCoin"
           :placeholder="$t('views.deposit.selectCoin.searchCoin')"
+          class="search"
+          name="searchCoin"
+          type="text"
         />
       </label>
     </div>
@@ -21,17 +21,49 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
+
+import { Route } from '@/router/types';
+import { useAccountStore } from '@/stores/account';
+import { useDepositStore } from '@/stores/deposit';
+import { ICryptocurrencyItem } from '@/types/currency';
+import { IAccount } from '@/models/account/account';
+
 import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
-import { Route } from '@/router/types';
 
 const router = useRouter();
+const accountStore = useAccountStore();
+const depositStore = useDepositStore();
 
-const selectCoin = (item: any) => {
-  console.log('selected coin', item);
-  router.push({
+onBeforeMount(async () => {
+  await accountStore.getAccountList();
+});
+
+const selectAccount = (coinCode: string) => {
+  return accountStore.getAccounts.find(({ code }) => code === coinCode);
+};
+
+const selectCoin = async (selectedAccount: ICryptocurrencyItem) => {
+  console.log('selected coin ->', selectedAccount);
+  console.log('creating account with -> ', 'tbtc');
+
+  // TODO: later, change to selected account code
+  const isExistsAccount = !!selectAccount('tbtc');
+
+  if (!isExistsAccount) {
+    await accountStore.createAccount('tbtc', {
+      network: 'default',
+      force: false,
+    });
+  }
+
+  // TODO: later, change to selected account code
+  depositStore.setAccount(selectAccount('tbtc') as IAccount);
+
+  await router.push({
     name: Route.DepositNetwork,
   });
 };

@@ -94,6 +94,9 @@ export default {
     userTransactions(): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
     },
+    create(coin: string): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/accounts/${coin}/address`;
+    },
   },
   transfer: {
     transfer(coin: string): string {

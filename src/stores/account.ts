@@ -86,5 +86,21 @@ export const useAccountStore = defineStore('account', {
         );
       }
     },
+
+    async createAccount(
+      coinCode: string,
+      data: { network: string; force: boolean }
+    ) {
+      try {
+        await accountService.createAccount(coinCode, data);
+      } catch (err) {
+        SentryUtil.capture(
+          err,
+          'dashboard',
+          'createAccount',
+          'error on creating account'
+        );
+      }
+    },
   },
 });
