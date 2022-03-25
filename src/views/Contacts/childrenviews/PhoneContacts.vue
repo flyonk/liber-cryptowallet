@@ -1,5 +1,5 @@
 <template>
-  <div v-if="hasFriends" class="main-list flex">
+  <div v-if="contacts.length" class="main-list flex">
     <ul class="contacts-list">
       <li
         v-for="contact in contacts"
@@ -33,14 +33,9 @@ const recepientsStore = useRecepientsStore();
 const contacts: Contact[] = recepientsStore.getContacts;
 
 let isMenuOpen = ref(false);
-let hasFriends = ref(true);
 
 const getMenuType = computed(() => {
-  if (hasFriends.value) {
-    return 'add_contact';
-  } else {
-    return 'add_contact';
-  }
+  return 'add_contact';
 });
 
 function closeMenu() {
