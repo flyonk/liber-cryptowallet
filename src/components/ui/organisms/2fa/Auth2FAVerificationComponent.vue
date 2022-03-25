@@ -1,11 +1,11 @@
 <template name="Auth2FAVerificationComponent">
   <EnterVerificationCode
-    :title="$t('auth.login.step4Title')"
-    :text="$t('auth.login.step4Description')"
     :is-error="isError"
-    @onHide="onHideError"
-    @onComplete="onComplete"
-    @onPrev="onPrevStep"
+    :text="$t('auth.login.step4Description')"
+    :title="$t('auth.login.step4Title')"
+    @on-hide="onHideError"
+    @on-complete="onComplete"
+    @on-prev="onPrevStep"
   />
 </template>
 

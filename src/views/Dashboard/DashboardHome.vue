@@ -22,14 +22,14 @@
         >
           {{ $t('views.dashboard.home.iDVerificationFailed') }}
         </div>
-        <img src="@/assets/icon/bell.svg" class="ml-auto" />
+        <img class="ml-auto" src="@/assets/icon/bell.svg" />
       </div>
       <ul class="tabs flex">
         <li
           v-for="tab in tabs"
           :key="tab.id"
-          class="tab-item"
           :class="{ active: activeTab === tab.id }"
+          class="tab-item"
           @click="activeTab = tab.id"
         >
           {{ tab.name }}
@@ -40,16 +40,16 @@
         <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
         <div class="circle-wrap">
           <img
-            class="down"
             :class="{ '-reverted': isMenuOpen }"
+            class="down"
             src="@/assets/icon/arrow-down.svg"
             @click="isMenuOpen = !isMenuOpen"
           />
         </div>
         <img
+          alt="eurounion"
           class="ml-auto"
           src="@/assets/icon/currencies/euro.svg"
-          alt="eurounion"
           @click="$router.push('/account/tbtc')"
         />
       </div>
@@ -68,24 +68,24 @@
       </div>
       <div class="controls">
         <button
-          class="btn"
           :class="{ '-active': VerificationStatus === 'verified' }"
           :disabled="VerificationStatus !== 'verified'"
+          class="btn"
           @click="$router.push('/deposit')"
         >
           {{ $t('views.dashboard.home.deposit') }}
         </button>
         <button
-          class="btn"
           :class="{ '-active': VerificationStatus === 'verified' }"
           :disabled="VerificationStatus !== 'verified'"
+          class="btn"
         >
           {{ $t('views.dashboard.home.send') }}
         </button>
         <button
-          class="btn"
           :class="{ '-active': VerificationStatus === 'verified' }"
           :disabled="VerificationStatus !== 'verified'"
+          class="btn"
         >
           ...
         </button>
@@ -94,7 +94,7 @@
         <transactions-list :transactions="transactions" />
       </div>
       <div v-else class="no-transactions">
-        <img src="@/assets/icon/clock.svg" class="mr-2" />
+        <img class="mr-2" src="@/assets/icon/clock.svg" />
         <p class="text-dark-gray">
           {{ $t('views.dashboard.home.noTransactions') }}
         </p>
@@ -114,7 +114,7 @@
         </h4>
       </div> -->
       <div class="carousel">
-        <VueAgile :slides-to-show="2" :nav-buttons="false">
+        <VueAgile :nav-buttons="false" :slides-to-show="2">
           <div
             v-for="(item, index) in carousel"
             :key="index"
@@ -134,27 +134,30 @@
           </div>
         </VueAgile>
       </div>
-      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />
+      <!--      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />-->
+      <AccountListBottomSheet
+        v-if="isMenuOpen"
+        :accounts="accounts"
+        @close="closeMenu"
+      />
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { computed, onMounted, Ref, ref } from 'vue';
+<script lang="ts" setup>
+import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
-
-import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
-import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
-import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
 
-// import { Route } from '@/router/types';
+import { AccountListBottomSheet } from '@/components/ui';
+import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
+import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+import { IAccount } from '@/models/account/account';
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
@@ -167,9 +170,10 @@ const loading = ref(true);
 
 const accountStore = useAccountStore();
 //TODO: move accounts to the bottom swipe component
-const accounts = computed(() => accountStore.getAccounts);
+const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
+  IAccount[]
+>;
 const totalBalance = computed(() => accountStore.getTotalBalance);
-console.log(accounts);
 
 const { tm } = useI18n();
 
