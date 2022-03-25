@@ -1,17 +1,5 @@
 <template>
-  <div v-if="contacts.length" class="main-list flex">
-    <ul class="contacts-list">
-      <li
-        v-for="contact in contacts"
-        :key="contact.contactId"
-        class="contact-item"
-        @click="isMenuOpen = !isMenuOpen"
-      >
-        <PhoneContact :contact="contact" />
-      </li>
-    </ul>
-    <PhoneContactsAlphabet />
-  </div>
+  <contacts-list :contacts="contacts" @contactClick="handleContactClick" />
   <bottom-swipe-menu
     :is-menu-open="isMenuOpen"
     :menu-type="getMenuType"
@@ -24,8 +12,7 @@ import { ref, computed } from 'vue';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
-import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
-import PhoneContactsAlphabet from '@/components/ui/atoms/PhoneContactsAlphabet.vue';
+import ContactsList from '@/components/ui/organisms/ContactsList.vue';
 
 import { Contact } from '@/types/contacts';
 
@@ -41,26 +28,13 @@ const getMenuType = computed(() => {
 function closeMenu() {
   isMenuOpen.value = false;
 }
+
+const handleContactClick = () => {
+  isMenuOpen.value = !isMenuOpen.value;
+};
 </script>
 
 <style lang="scss" scoped>
-.main-list {
-  width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-}
-
-.contacts-list {
-  display: flex;
-  flex-direction: column;
-}
-
-.contact-item {
-  display: flex;
-  margin-bottom: 24px;
-}
-
 .router-link-exact-active {
   background: $color-brand-secondary;
   color: $color-white;
