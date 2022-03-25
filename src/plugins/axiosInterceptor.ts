@@ -23,7 +23,7 @@ const _requestHandler = async (
    * TODO: set authorized API calls logic
    */
   if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-    const { value: token } = await Storage.get({
+    let { value: token } = await Storage.get({
       key: EStorageKeys.token,
     });
 
@@ -39,7 +39,15 @@ const _requestHandler = async (
       (decodedToken?.exp as JwtPayload) <
       Math.round(new Date().getTime() / 1000)
     ) {
-      authStore.refresh({ refresh_token: refreshToken || '' });
+      authStore
+        .refresh({ refresh_token: refreshToken || '' })
+        .then(async () => {
+          await Storage.get({
+            key: EStorageKeys.token,
+          }).then((data) => {
+            token = data.value;
+          });
+        });
     }
 
     if (token) {
