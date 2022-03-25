@@ -1,3 +1,4 @@
+## User Statuses
 ```mermaid
 graph TD
     Guest -->|Fill OTP|Authenticated
@@ -6,4 +7,14 @@ graph TD
     Registered -->|KYC Failed x3|Blocked
     Active -->|Closing profile from menu|Closed
     Closed
+```
+
+```mermaid
+## KYC Statuses
+graph TD
+    A[Not started] -->|Claim request|B
+    B[Pending] -->|KYC Failed|C
+    B -->|KYC Passed|D
+    C[Rejected] -->|Next try|B
+    D[Success]
 ```
