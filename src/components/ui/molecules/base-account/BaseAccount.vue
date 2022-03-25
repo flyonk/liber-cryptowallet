@@ -12,7 +12,7 @@
       </p>
     </div>
     <div class="price">
-      <p>{{ data.balance }} {{ data.code }}</p>
+      <p>{{ data.balance }} {{ data.code.toUpperCase() }}</p>
       <p class="subtitle text--footnote">
         {{ getSymbolByCode(data.baseBalanceConversionCode) }}
         {{ data.baseBalanceConversion }}
