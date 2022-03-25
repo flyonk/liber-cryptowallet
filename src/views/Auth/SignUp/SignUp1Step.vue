@@ -20,7 +20,7 @@
         <BaseInput
           v-model="number"
           :use-grouping="false"
-          :type="type"
+          :type="TypeBaseInput.Text"
           :mask="mask"
           @focus="showClearBtn"
           @blur="closeClearBtn"
@@ -69,6 +69,7 @@ import {
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
 import { computed } from '@vue/reactivity';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 const router = useRouter();
 
