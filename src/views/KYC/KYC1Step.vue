@@ -19,7 +19,7 @@
         <a class="link" href="http://"> Privacy Policy </a
         >{{ $t('views.kyc.kyc1step.privacyPolicy') }}
       </p>
-      <base-button block @click="onSignUp">{{
+      <base-button block :disabled="!isCountrySelected" @click="onSignUp">{{
         $t('views.kyc.kyc1step.signUpSecurely')
       }}</base-button>
     </div>
@@ -28,9 +28,10 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
+import { computed } from '@vue/reactivity';
+import { useRouter } from 'vue-router';
 
 import { useKYCStore } from '@/stores/kyc';
-import { useRouter } from 'vue-router';
 
 import { TopNavigation, BaseButton } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
@@ -43,6 +44,10 @@ const kycStore = useKYCStore();
 const emit = defineEmits(['next']);
 
 const country = ref('');
+
+const isCountrySelected = computed(() => {
+  return Boolean(country.value);
+});
 
 const onSignUp = () => {
   emit('next');

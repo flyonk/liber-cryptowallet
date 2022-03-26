@@ -10,6 +10,7 @@
 
     <base-verification-code-input
       :value="verificationCode"
+      :is-error="isError"
       @complete="onComplete"
     />
 

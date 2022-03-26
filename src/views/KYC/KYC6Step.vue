@@ -21,7 +21,7 @@
     </ul>
 
     <div class="footer">
-      <base-button class="footer-button" @click="selectPicture">{{
+      <base-button block class="footer-button" @click="selectPicture">{{
         $t('views.kyc.kyc6step.upload')
       }}</base-button>
     </div>

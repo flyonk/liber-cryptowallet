@@ -28,7 +28,8 @@
     "to": "To",
     "from": "From",
     "daysAgo": "days ago",
-    "explorer": "Open in Explorer"
+    "explorer": "Open in Explorer",
+    "copySuccess": "Success"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -68,10 +69,12 @@
       "step2VerificationDescription": "We just need to perform a coupe of security checks to recover your account.",
       "step2Notification": "Please check back on this device after 06.12.2021",
       "step3Description": "Get a verification code from the authenticator app",
+      "step3Title": "Enter verification code",
       "step4Title": "We need more data",
       "step4Description": "To keep your account safe, we need to make sure it’s you!",
       "step5Title": "When were you born?",
-      "step5BirthLabel": "Date of birth"
+      "step5BirthLabel": "Date of birth",
+      "step5Placeholder": "DD/MM/YYYY"
     },
     "signup": {
       "step1Title": "Enter phone number",

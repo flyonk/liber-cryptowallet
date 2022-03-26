@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="$emit('next')">
+      <BaseButton block @click="$emit('next')" :disabled="!number.length">
         {{ $t('common.continueCta') }}
       </BaseButton>
     </div>

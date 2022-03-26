@@ -7,13 +7,7 @@
     <base-input v-model="form.street">
       <template #label>{{ $t('views.kyc.kyc2step.streetAndNumber') }}</template>
     </base-input>
-    <base-input v-model="form.flat">
-      <template #append>
-        <i
-          v-tooltip="$t('views.kyc.kyc2step.newMessages')"
-          class="ci-help_circle_outline"
-        />
-      </template>
+    <base-input v-model="form.flat" type="number">
       <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
       <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
     </base-input>
@@ -27,7 +21,7 @@
       <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
     </base-input>
     <div class="footer">
-      <base-button block @click="onContinue">{{
+      <base-button block :disabled="!isFormValid" @click="onContinue">{{
         $t('views.kyc.kyc2step.continue')
       }}</base-button>
     </div>
@@ -36,6 +30,7 @@
 
 <script setup lang="ts">
 import { reactive } from 'vue';
+import { computed } from '@vue/reactivity';
 
 import { TopNavigation, BaseInput, BaseButton } from '@/components/ui';
 
@@ -51,6 +46,11 @@ const form = reactive({
   postal_code: null,
   state: '',
   city: '',
+});
+
+const isFormValid = computed(() => {
+  // TODO: need to clarify validation conditions for every field
+  return Object.values(form).every((value) => Boolean(value));
 });
 
 const onContinue = () => {

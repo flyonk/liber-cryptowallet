@@ -53,15 +53,6 @@ const onComplete = async (code: string) => {
   verificationCode.value = code;
 
   if (code.length === 6) {
-    // @TODO remove later
-    // if (code === '000000') {
-    //   const name = await getSupportedIdentificationWay();
-    //   router.push({
-    //     name,
-    //   });
-    //   return;
-    // }
-    //
     const result = store.verify(code);
 
     if (result?.delta === 0) {
