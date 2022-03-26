@@ -1,5 +1,5 @@
 <template>
-  <div class="page-wrapper">
+  <div class="page-wrapper" onclick="void(0);">
     <top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
       {{ $t('configureApp.configTitle') }}
     </top-navigation>
@@ -48,6 +48,7 @@ import { useToast } from 'primevue/usetoast';
 import { use2faStore } from '@/stores/2fa';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
+import { Clipboard } from '@capacitor/clipboard';
 
 const { tm } = useI18n();
 
@@ -70,19 +71,19 @@ onMounted(() => {
   qrcode.toCanvas();
 });
 
-const copyToClipboard = () => {
-  navigator.clipboard.writeText(qrCodeValue.value).then(
-    function () {
-      toast.add({
-        summary: tm('common.copySuccess'),
-        life: 3000,
-        closable: false,
-      });
-    },
-    function (err) {
-      console.error(`${tm('common.copyFailure')} `, err);
-    }
-  );
+const copyToClipboard = async () => {
+  try {
+    await Clipboard.write({
+      string: qrCodeValue.value,
+    });
+    toast.add({
+      summary: tm('common.copySuccess'),
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    console.error(`${tm('common.copyFailure')} `, err);
+  }
 };
 </script>
 

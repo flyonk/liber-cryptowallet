@@ -37,7 +37,8 @@ export interface IAuthState {
 }
 
 // === Auth Store ===
-
+// TODO: Save to Storage phone number
+// TODO: Restore from Storage saved phone number
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
@@ -48,7 +49,7 @@ export const useAuthStore = defineStore('auth', {
     },
     registration: {
       dialCode: '+7',
-      phone: '9082359632',
+      phone: '',
       email: '',
     },
     login: {

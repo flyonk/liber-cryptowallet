@@ -53,6 +53,7 @@
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { Clipboard } from '@capacitor/clipboard';
 
 import {
   TopNavigation,
@@ -99,15 +100,16 @@ const props = defineProps({
   },
 });
 
-const pasteFromClipboard = () => {
-  navigator.clipboard.readText().then(
-    function (clipText) {
-      emit('onComplete', clipText);
-    },
-    function (err) {
-      console.error(`${tm('common.readFailure')} `, err);
+const pasteFromClipboard = async () => {
+  try {
+    const content = await Clipboard.read();
+    console.debug(content);
+    if (content.type === 'text/plain') {
+      emit('onComplete', content.value);
     }
-  );
+  } catch (err) {
+    console.error(`${tm('common.readFailure')} `, err);
+  }
 };
 
 const onHide = (): void => {
