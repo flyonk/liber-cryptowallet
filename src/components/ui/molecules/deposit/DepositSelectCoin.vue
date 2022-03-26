@@ -5,9 +5,9 @@
       <CoinItem
         v-for="item in suggestedCoins"
         :key="item.id"
+        :full-name="item.name"
         :icon="item.icon"
-        :full-name="item.fullName"
-        :short-name="item.shortName"
+        :short-name="item.code"
         @click="$emit('select-coin', item)"
       />
     </ul>
@@ -16,21 +16,23 @@
       <CoinItem
         v-for="item in otherCoins"
         :key="item.id"
+        :full-name="item.name"
         :icon="item.icon"
-        :full-name="item.fullName"
-        :short-name="item.shortName"
+        :short-name="item.code"
         @click="$emit('select-coin', item)"
       />
     </ul>
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref } from 'vue';
+<script lang="ts" setup>
+import { Ref, ref } from 'vue';
+
+import { ICryptocurrencyItem } from '@/types/currency';
 
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
 
-const coins = ref([]);
+const coins = ref([]) as Ref<ICryptocurrencyItem[]>;
 
 defineEmits(['select-coin']);
 
@@ -38,50 +40,50 @@ coins.value = [
   {
     id: 'bitcoin',
     icon: require('@/assets/icon/currencies/btc.svg'),
-    fullName: 'Bitcoin',
-    shortName: 'BTC',
+    name: 'Bitcoin',
+    code: 'btc',
   },
   {
     id: 'ethereum',
     icon: require('@/assets/icon/currencies/eth.svg'),
-    fullName: 'ethereum',
-    shortName: 'ETH',
+    name: 'ethereum',
+    code: 'eth',
   },
   {
     id: 'binance',
     icon: require('@/assets/icon/currencies/binance.svg'),
-    fullName: 'Binance',
-    shortName: 'BNB',
+    name: 'Binance',
+    code: 'bnb',
   },
   {
     id: 'dash',
     icon: require('@/assets/icon/currencies/dash.svg'),
-    fullName: 'Dash',
-    shortName: 'DSH',
+    name: 'Dash',
+    code: 'dsh',
   },
   {
     id: 'xrp',
     icon: require('@/assets/icon/currencies/xrp.svg'),
-    fullName: 'Ripple',
-    shortName: 'XRP',
+    name: 'Ripple',
+    code: 'xrp',
   },
   {
     id: 'ftn',
     icon: require('@/assets/icon/currencies/fantom.svg'),
-    fullName: 'Fantom',
-    shortName: 'FTN',
+    name: 'Fantom',
+    code: 'ftn',
   },
   {
     id: 'tron',
     icon: require('@/assets/icon/currencies/tron.svg'),
-    fullName: 'Tron',
-    shortName: 'TRX',
+    name: 'Tron',
+    code: 'trx',
   },
   {
     id: 'graph',
     icon: require('@/assets/icon/currencies/graph.svg'),
-    fullName: 'Graph',
-    shortName: 'GRT',
+    name: 'Graph',
+    code: 'grt',
   },
 ];
 
