@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
+    <top-navigation @click:left-icon="prevStep">
       {{ $t('auth.signup.step1Title') }}
-    </TopNavigation>
+    </top-navigation>
     <div class="description text--body">
       {{ $t('auth.signup.step1Description1') }}
       <br />
@@ -10,14 +10,15 @@
     </div>
     <div class="grid">
       <div class="col-4">
-        <BaseCountryPhoneInput
+        <base-country-phone-input
           :dial-code="countryDialCode"
+          :only-european="true"
           @ready="handleSelectCountry"
           @selected="handleSelectCountry"
         />
       </div>
       <div class="col-8 ml-auto">
-        <BaseInput
+        <base-input
           v-model="number"
           :use-grouping="false"
           :type="TypeBaseInput.Text"
@@ -35,7 +36,7 @@
               @touchend="clearNumber"
             />
           </template>
-        </BaseInput>
+        </base-input>
       </div>
     </div>
     <div class="footer">
@@ -47,9 +48,9 @@
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton :disabled="isNumberInvalid" block @click="handleStep">
+      <base-button :disabled="isNumberInvalid" block @click="handleStep">
         {{ $t('common.signUpCta') }}
-      </BaseButton>
+      </base-button>
     </div>
   </div>
 </template>
