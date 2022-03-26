@@ -101,8 +101,8 @@ onMounted(() => {
 
 watch(amount, () => {
   const fee = 0;
-  transferStore.amount = +amount.value - fee;
-  recipientAmount.value = String(transferStore.amount);
+  recipientAmount.value = String(+amount.value - fee);
+  transferStore.amount = recipientAmount.value;
 });
 
 const currentSendFromCurrency = {
