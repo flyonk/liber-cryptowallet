@@ -55,21 +55,22 @@
 </template>
 
 <script lang="ts" setup>
+import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
-  TopNavigation,
+  BaseButton,
   BaseCountryPhoneInput,
   BaseInput,
-  BaseButton,
+  TopNavigation,
 } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
-import { computed } from '@vue/reactivity';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 const router = useRouter();
 
@@ -126,7 +127,10 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
 const handleStep = () => {
   if (!number.value) return;
-  authStore.registration.phone = String(number.value);
+
+  const phone = formatPhoneNumber(number.value);
+
+  authStore.registration.phone = String(phone);
   emits('next');
 };
 
