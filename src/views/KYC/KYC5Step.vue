@@ -42,7 +42,7 @@ import { computed } from 'vue';
 import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
-import { EStepDirection } from '@/types/base-component';
+// import { EStepDirection } from '@/types/base-component';
 import { EDocumentSide } from '@/types/document';
 
 const emit = defineEmits(['prev', 'next']);
@@ -51,7 +51,7 @@ const kycStore = useKYCStore();
 
 const onScanAgain = () => {
   // FIXME: setStep doesn't exist!
-  kycStore.setStep(EStepDirection.prev);
+  // kycStore.setStep(EStepDirection.prev);
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
