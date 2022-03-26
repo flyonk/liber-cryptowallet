@@ -45,6 +45,7 @@ const cameraPreviewOptions: CameraPreviewOptions = {
   className: 'camera-video',
   position: 'rear',
   toBack: true,
+  disableAudio: true,
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
