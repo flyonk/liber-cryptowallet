@@ -13,7 +13,8 @@
   </p-toast>
   <app-layout-switcher>
     <router-view v-slot="{ Component, route }" class="router-view">
-      <transition name="dissolve">
+      <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
+      <transition>
         <component :is="Component" :key="route.path" />
       </transition>
     </router-view>
