@@ -103,7 +103,6 @@ const props = defineProps({
 const pasteFromClipboard = async () => {
   try {
     const content = await Clipboard.read();
-    console.debug(content);
     if (content.type === 'text/plain') {
       emit('onComplete', content.value);
     }

@@ -91,6 +91,7 @@ import { useI18n } from 'vue-i18n';
 import { TopNavigation } from '@/components/ui';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { Route } from '@/router/types';
+import { Clipboard } from '@capacitor/clipboard';
 const toast = useToast();
 
 const { tm } = useI18n();
@@ -137,19 +138,19 @@ const shareAddress = async () => {
   });
 };
 
-const copyToClipboard = () => {
-  navigator.clipboard.writeText(wallet.value).then(
-    function () {
-      toast.add({
-        summary: tm('views.deposit.wallet.copySuccess') as string,
-        life: 3000,
-        closable: false,
-      });
-    },
-    function (err) {
-      console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
-    }
-  );
+const copyToClipboard = async () => {
+  try {
+    await Clipboard.write({
+      string: wallet.value,
+    });
+    toast.add({
+      summary: tm('views.deposit.wallet.copySuccess') as string,
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
+  }
 };
 
 const updateNetwork = () => {
