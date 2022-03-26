@@ -10,6 +10,7 @@
 
 <style lang="scss">
 .scan-animation {
+  // FIXME: https://app.asana.com/0/1202027391732065/1202029229041328/f
   background-image: url('@/assets/images/kyc-camera-border.svg');
   background-repeat: no-repeat;
   background-size: contain;
