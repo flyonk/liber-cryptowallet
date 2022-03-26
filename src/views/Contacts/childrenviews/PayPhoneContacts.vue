@@ -1,5 +1,5 @@
 <template>
-  <contacts-list :contacts="contacts" @contactClick="handleContactClick" />
+  <contacts-list :contacts="contacts" @contact-click="handleContactClick" />
   <button
     v-if="contacts.length"
     class="options-button"

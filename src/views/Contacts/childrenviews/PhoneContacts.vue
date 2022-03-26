@@ -1,5 +1,5 @@
 <template>
-  <contacts-list :contacts="contacts" @contactClick="handleContactClick" />
+  <contacts-list :contacts="contacts" @contact-click="handleContactClick" />
   <bottom-swipe-menu
     :is-menu-open="isMenuOpen"
     :menu-type="getMenuType"

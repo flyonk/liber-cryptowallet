@@ -28,7 +28,7 @@
 
     <!-- TODO: make separated component -->
     <div class="sign-button-wrapper">
-      <BaseButton block @click="$emit('next')" :disabled="isDateInvalid">
+      <BaseButton block :disabled="isDateInvalid" @click="$emit('next')">
         {{ $t('common.continueCta') }}
       </BaseButton>
     </div>

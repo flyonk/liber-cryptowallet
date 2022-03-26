@@ -1,8 +1,8 @@
 <template>
   <div class="page-wrapper">
     <top-navigation
-      @click:left-icon="$router.push({ name: Route.DepositNetwork })"
       left-icon-name="ci-close_big"
+      @click:left-icon="$router.push({ name: Route.DepositNetwork })"
     >
       {{ $t('views.deposit.wallet.deposit') }} {{ coin }}
     </top-navigation>
