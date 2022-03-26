@@ -53,8 +53,12 @@ export enum Route {
   Deposit = 'deposit',
 
   Contacts = 'contacts',
-  ContactsSend = 'contacts-send',
+  ContactsAddNewContact = 'contacts.add.new.contact',
   ContactsPay = 'contacts.who-to-pay',
+  ContactsSend = 'contacts-send',
+  ContactsSendFirstTime = 'contacts.send.first.time',
+  ContactsSendInvite = 'contacts.send.invite',
+  ContactsSendLink = 'contacts.send.link',
 
   ChooseCoin = 'choose_coin',
 
