@@ -131,6 +131,9 @@ const handleStep = () => {
   const phone = formatPhoneNumber(number.value);
 
   authStore.registration.phone = String(phone);
+
+  authStore.savePhone('signup');
+
   emits('next');
 };
 

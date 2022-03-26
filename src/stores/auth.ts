@@ -83,7 +83,7 @@ export const useAuthStore = defineStore('auth', {
 
     async signIn(_data: { phone: string }): Promise<void> {
       await authService.signIn(_data);
-      this.savePhone();
+      this.savePhone('login');
     },
 
     async signInProceed(_data: {
@@ -132,10 +132,14 @@ export const useAuthStore = defineStore('auth', {
       return !!(await Storage.get({ key: EStorageKeys.token })).value;
     },
 
-    async savePhone(): Promise<void> {
+    async savePhone(type: 'login' | 'signup'): Promise<void> {
+      const value =
+        type === 'login'
+          ? JSON.stringify(this.login)
+          : JSON.stringify(this.registration);
       await Storage.set({
         key: EStorageKeys.phone,
-        value: JSON.stringify(this.login),
+        value,
       });
     },
 
