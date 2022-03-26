@@ -369,8 +369,8 @@
         "system": "System",
         "close": "Close account",
         "logOut": "Log out",
-        "version": "Version",
-        "copyright": "Liber Ltd",
+        "version": "Version 0.1.0",
+        "copyright": "Liber Ltd.",
         "preventClosingAccount": "Hey, wait! Where are you going?",
         "freeToKeep": "It's free to keep a account, and opening a new one could take some time if you cancel",
         "keepOpen": "Keep account open"
