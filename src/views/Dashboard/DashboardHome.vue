@@ -56,7 +56,7 @@
       <h3 class="heading-gray-md mb-4">
         {{ $t('views.dashboard.home.allAccounts') }}
       </h3>
-      <div class="main" style="display: none">
+      <div v-show="showWelcomeMessage" class="main">
         <h1 class="title">
           {{ $t('views.dashboard.home.getYourCryptoAsset') }}
         </h1>
@@ -244,6 +244,10 @@ const hasTransactions = computed(() => transactions.value.length > 0);
 const totalCurrency = computed(() =>
   totalBalance.value.currency === 'EUR' ? '€' : `${totalBalance.value.currency}`
 );
+
+const showWelcomeMessage = computed(() => {
+  return !hasTransactions.value && totalBalance.value.sum == '0.00';
+});
 </script>
 
 <style lang="scss" scoped>
