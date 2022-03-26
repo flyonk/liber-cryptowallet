@@ -2,7 +2,7 @@ import { RouteRecordRaw } from 'vue-router';
 
 import DepositeRoutes from './routesDeposite';
 import RecepientsRoutes from './routesRecepients';
-// import PayRecepientsRoutes from './routesPayRecepients';
+import PayRecepientsRoutes from './routesPayRecepients';
 import checkContactsLoaded from './middleware/checkContacts';
 
 // Pages
@@ -219,6 +219,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: Route.ContactsWhoToPay,
         component: WhoToPay,
+        children: PayRecepientsRoutes,
       },
       {
         path: 'send/:id',
