@@ -8,6 +8,7 @@
     "ios:open": "npx cap open ios",
     "ios:run": "npx cap run ios",
     "ios:sync": "npx cap sync",
+    "devtools": "PORT=8020 vue-devtools",
     "lint-fix": "yarn lint:code:fix && yarn lint:style:fix",
     "lint:all:fix": "yarn lint:style:fix && yarn lint:code:fix",
     "lint:all": "yarn lint:style && yarn lint:code",
