@@ -166,8 +166,6 @@ import TransactionsList from '@/components/ui/organisms/transactions/Transaction
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
-import { Route } from '@/router/types';
-
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
 
