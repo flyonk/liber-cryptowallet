@@ -16,6 +16,7 @@ import WelcomeLogoScreen from '@/views/Welcome/WelcomeLogoScreen.vue';
 import WelcomeAuthScreen from '@/views/Welcome/WelcomeAuthScreen.vue';
 
 import PasscodeEnter from '@/views/ConfigureApp/PasscodeEnter.vue';
+import ChangePasscode from '@/views/ConfigureApp/ChangePasscode.vue';
 
 import Dashboard from '@/views/Dashboard/index.vue';
 import DashboardHome from '@/views/Dashboard/DashboardHome.vue';
@@ -90,6 +91,12 @@ const routes: Array<RouteRecordRaw> = [
     path: '/passcode',
     name: Route.AuthPasscode,
     component: PasscodeEnter,
+  },
+
+  {
+    path: '/change-passcode',
+    name: Route.ChangePasscode,
+    component: ChangePasscode,
   },
 
   {

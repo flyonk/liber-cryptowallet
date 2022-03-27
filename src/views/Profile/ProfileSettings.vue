@@ -63,7 +63,7 @@
         {{ $t('views.profile.profileSettings.security') }}
       </h6>
       <ul class="list security--profile">
-        <router-link :to="{ name: Route.AuthPasscode }" class="item">
+        <router-link :to="{ name: Route.ChangePasscode }" class="item">
           <img class="icon" src="@/assets/icon/lock.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.changePasscode') }}

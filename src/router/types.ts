@@ -4,6 +4,7 @@ export enum Route {
   WelcomeAuthScreen = 'welcome-auth-screen',
   AuthCode = 'auth-code',
   AuthPasscode = 'auth-passcode',
+  ChangePasscode = 'change-passcode',
   SignUp = 'sign-up',
   Login = 'login',
   Restore = 'restore',
