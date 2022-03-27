@@ -22,7 +22,7 @@
         >
           {{ $t('views.dashboard.home.iDVerificationFailed') }}
         </div>
-        <img class="ml-auto" src="@/assets/icon/bell.svg" />
+        <img class="notification ml-auto" src="@/assets/icon/bell.svg" />
       </div>
       <ul class="tabs flex">
         <li
@@ -314,6 +314,10 @@ const showWelcomeMessage = computed(() => {
         background: $color-red-100;
         color: $color-red-700;
       }
+    }
+
+    > .notification {
+      opacity: 0.5;
     }
   }
 
