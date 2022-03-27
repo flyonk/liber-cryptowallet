@@ -50,7 +50,7 @@
           alt="eurounion"
           class="ml-auto"
           src="@/assets/icon/currencies/euro.svg"
-          @click="$router.push('/account/tbtc')"
+          @click="$router.push({ name: Route.AccountMain })"
         />
       </div>
       <h3 class="heading-gray-md mb-4">
@@ -158,6 +158,8 @@ import { AccountListBottomSheet } from '@/components/ui';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 import { IAccount } from '@/models/account/account';
+
+import { Route } from '@/router/types';
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
