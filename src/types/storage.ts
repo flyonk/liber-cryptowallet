@@ -9,6 +9,7 @@ export enum EStorageKeys {
   phone = 'login-phone',
   token = 'access_token',
   refreshToken = 'refresh_token',
+  marketing = 'marketing',
 }
 
 export enum SStorageKeys {

@@ -3,10 +3,10 @@ import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 import profileService from '@/services/profileService';
 import { IProfile } from '@/models/profile/profile';
-import { clearAll } from '@/helpers/storage';
+import { clearAll, get, set } from '@/helpers/storage';
 import SentryUtil from '@/helpers/sentryUtil';
 
-import { SStorageKeys } from '@/types/storage';
+import { EStorageKeys, SStorageKeys } from '@/types/storage';
 
 interface IUserProfile {
   user: IProfile;
@@ -79,6 +79,21 @@ export const useProfileStore = defineStore('profile', {
           'Signup',
           "error can't update user data"
         );
+      }
+    },
+
+    async setMarketingToStorage() {
+      await set({
+        key: EStorageKeys.marketing,
+        value: JSON.stringify(this.getMarketing),
+      });
+    },
+
+    async getMarketingFromStorage() {
+      const marketing = await get(EStorageKeys.marketing);
+
+      if (marketing !== null) {
+        return JSON.parse(marketing);
       }
     },
   },

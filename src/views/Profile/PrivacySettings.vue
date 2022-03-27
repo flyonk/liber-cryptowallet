@@ -65,21 +65,34 @@
 <script setup lang="ts">
 import { BaseSwitch } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
+import { onMounted } from 'vue-demi';
 
 const profileStore = useProfileStore();
 
-const handleEmailUpdate = () => {
+onMounted(async () => {
+  const { isEmail, isPushNotification, isSocialMedia } =
+    await profileStore.getMarketingFromStorage();
+
+  profileStore.getMarketing.isEmail = isEmail;
+  profileStore.getMarketing.isPushNotification = isPushNotification;
+  profileStore.getMarketing.isSocialMedia = isSocialMedia;
+});
+
+const handleEmailUpdate = async () => {
   profileStore.getMarketing.isEmail = !profileStore.getMarketing.isEmail;
+  await profileStore.setMarketingToStorage();
 };
 
-const handlePushesUpdate = () => {
+const handlePushesUpdate = async () => {
   profileStore.getMarketing.isPushNotification =
     !profileStore.getMarketing.isPushNotification;
+  await profileStore.setMarketingToStorage();
 };
 
-const handleSocialMediaUpdate = () => {
+const handleSocialMediaUpdate = async () => {
   profileStore.getMarketing.isSocialMedia =
     !profileStore.getMarketing.isSocialMedia;
+  await profileStore.setMarketingToStorage();
 };
 </script>
 
