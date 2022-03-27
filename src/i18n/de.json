@@ -35,6 +35,7 @@
   },
   "bottomNav": {
     "home": "Home",
+    "account": "Accounts",
     "send": "Send",
     "recipients": "Recipients",
     "invite": "Invite"
