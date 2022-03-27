@@ -15,6 +15,7 @@
     </div>
     <div class="sendto-main">
       <send-currency
+        :contactName="recepient.displayName"
         :has-coin-reverse="true"
         @send-transaction="sendTransaction"
       />
