@@ -29,9 +29,20 @@ const props = defineProps({
 function getContactInitials(fio = '') {
   let parts = fio.split(' ');
   if (parts && parts.length > 1) {
-    return parts[0][0] + parts[1][0];
+    let initials = '';
+    let i = 0;
+    while (initials.length < 2 && i < parts.length) {
+      if (parts[i]) {
+        initials += parts[i].charAt(0);
+      }
+      i++;
+    }
+    if (initials.length) {
+      return initials;
+    }
   }
-  return (fio && fio[0]) || '?';
+  const firstLettter = fio && fio.charAt(0);
+  return firstLettter || '?';
 }
 </script>
 

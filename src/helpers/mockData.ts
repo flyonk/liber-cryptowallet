@@ -31,4 +31,22 @@ export const mockedContacts: Contact[] = [
     phoneNumbers: [{ number: '+7 123 102 9955' }],
     emails: [],
   },
+  {
+    contactId: '6',
+    displayName: '',
+    phoneNumbers: [{ number: '+7 123 102 9912' }],
+    emails: [],
+  },
+  {
+    contactId: '7',
+    displayName: 'Иван Тест',
+    phoneNumbers: [{ number: '+7 123 102 9912' }],
+    emails: [],
+  },
+  {
+    contactId: '8',
+    displayName: ' ! фтн any',
+    phoneNumbers: [{ number: '+7 123 102 9912' }],
+    emails: [],
+  },
 ];
