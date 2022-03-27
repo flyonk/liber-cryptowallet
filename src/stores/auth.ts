@@ -53,8 +53,8 @@ export const useAuthStore = defineStore('auth', {
       email: '',
     },
     login: {
-      dialCode: '+7',
-      phone: '9082359632',
+      dialCode: '',
+      phone: '',
     },
     token: {
       token: null,
@@ -154,11 +154,19 @@ export const useAuthStore = defineStore('auth', {
         get('phone'),
       ]);
 
-      if (phone) {
+      if (dialCode === 'null' || dialCode === null) {
+        this.login.dialCode = '+7';
+      } else {
+        this.login.dialCode = dialCode;
+      }
+
+      if (phone === 'null' || phone === null) {
+        this.login.phone = '';
+      } else {
         this.login.phone = phone;
       }
 
-      this.login.dialCode = dialCode || '+7';
+      // this.login.dialCode = dialCode || '+7';
     },
 
     async setToStorage() {
