@@ -3,7 +3,7 @@ import { Contacts } from '@capacitor-community/contacts';
 
 import { Contact } from '@/types/contacts';
 
-import { mockedContacts } from '@/helpers/mockData';
+import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
 
 interface IRecepients {

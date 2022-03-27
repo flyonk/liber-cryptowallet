@@ -13,15 +13,7 @@
     />
     <div class="flex">
       <img class="mr-3" src="@/assets/icon/system_qr.svg" alt="circle-add" />
-      <img
-        src="@/assets/icon/circle-add.svg"
-        alt="circle-add"
-        @click="
-          $router.push({
-            name: props.routeCoin,
-          })
-        "
-      />
+      <img src="@/assets/icon/circle-add.svg" alt="circle-add" />
     </div>
   </div>
 </template>
