@@ -2,8 +2,9 @@
   <div class="bottom-nav">
     <ul class="navbar-list">
       <router-link
-        style="text-decoration: none"
-        to="/home"
+        :to="{
+          name: Route.DashboardHome,
+        }"
         class="item"
         @click="changeTab(1)"
       >
@@ -18,8 +19,9 @@
         </p>
       </router-link>
       <router-link
-        style="text-decoration: none"
-        to="/account"
+        :to="{
+          name: Route.AccountMain,
+        }"
         class="item"
         @click="changeTab(2)"
       >
@@ -44,7 +46,6 @@
         </p>
       </li>
       <router-link
-        style="text-decoration: none"
         :to="{
           name: Route.RecepientsPhone,
         }"
@@ -110,16 +111,16 @@ function closeMenu() {
   width: 100%;
   position: absolute;
   bottom: 0;
+  padding-bottom: 30px;
 }
 
 .navbar-list {
-  background: $color-white;
+  background-color: $color-white;
   margin-top: auto;
   width: 100%;
   height: 65px;
   display: flex;
   justify-content: space-around;
-  margin-bottom: 15px;
 
   > .item {
     height: 100%;
@@ -127,9 +128,11 @@ function closeMenu() {
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
+    text-decoration: none;
 
     > .label {
       text-decoration: none;
+      color: $color-brand-2-400;
 
       &.-active {
         color: $color-primary;
