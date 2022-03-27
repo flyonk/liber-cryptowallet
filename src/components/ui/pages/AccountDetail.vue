@@ -2,23 +2,23 @@
   <div class="account-transactions">
     <div class="header">
       <img
+        alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/home')"
+        @click="$router.push({ name: Route.AccountMain })"
       />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
         :balance="balance.balance"
-        :coin-code="balance.name"
         :base-conversion-sum="balance.baseBalanceConversion"
+        :coin-code="balance.name"
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
       <VueAgile
-        class="carousel-slider"
-        :slides-to-show="2"
         :nav-buttons="false"
+        :slides-to-show="2"
+        class="carousel-slider"
       >
         <div
           v-for="(item, index) in carousel"
@@ -26,7 +26,7 @@
           class="item-slide"
           @click="$router.push('/home/story')"
         >
-          <img class="image" :src="item.img" />
+          <img :src="item.img" class="image" />
           <p class="name">{{ item.name }}</p>
         </div>
       </VueAgile>
@@ -50,15 +50,15 @@
 
       <div class="main-tabs">
         <div
-          class="tab"
           :class="{ active: activeTab === 1 }"
+          class="tab"
           @click="activeTab = 1"
         >
           {{ $t('common.history') }}
         </div>
         <div
-          class="tab"
           :class="{ active: activeTab === 2 }"
+          class="tab"
           @click="activeTab = 2"
         >
           {{ $t('transactions.walletAddress') }}
@@ -71,7 +71,7 @@
 
       <div v-if="activeTab === 2" class="wallet">
         <!--TODO move to separated component-->
-        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
+        <img alt="qr-code" class="qr" src="@/assets/images/qr-code.png" />
         <div class="wallet-address">
           <h4 class="title">
             {{ $t('transactions.walletAddress') }}
@@ -84,7 +84,7 @@
                 <span class="bold">Opa139z0l</span>
               </p>
             </div>
-            <img src="@/assets/icon/folders.svg" alt="folders" />
+            <img alt="folders" src="@/assets/icon/folders.svg" />
           </div>
           <h2 class="bluetitle">
             {{ $t('transactions.generateAddress') }}
@@ -103,12 +103,13 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+<script lang="ts" setup>
+import { computed, onMounted, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useRoute } from 'vue-router';
 
+import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';

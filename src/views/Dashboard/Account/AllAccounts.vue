@@ -2,15 +2,15 @@
   <div class="all-accounts">
     <div class="header">
       <img
+        alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
         @click="$router.back()"
       />
       <img
+        alt="circle-add"
         class="add"
         src="@/assets/icon/circle-add.svg"
-        alt="circle-add"
         @click="
           $router.push({
             name: Route.DepositCoin,
@@ -20,71 +20,56 @@
     </div>
     <h1 class="title">{{ $t('views.account.allAccounts') }}</h1>
     <ul class="currencies">
+      <li class="item" @click="$router.push({ name: Route.DashboardHome })">
+        <img alt class="icon" src="@/assets/icon/currencies/euro.svg" />
+        <h4 class="title">{{ totalBalance.currency }}</h4>
+        <p class="description">{{ $t('views.account.allAccounts') }}</p>
+        <h5 class="sum">
+          {{ getSymbolByCode(totalBalance.currency) }} {{ totalBalance.sum }}
+        </h5>
+      </li>
       <li
-        v-for="(currency, index) in currencies"
+        v-for="(currency, index) in accounts"
         :key="index"
         class="item"
         @click="$router.push(getCurrencyUrl(currency.code))"
       >
-        <img v-if="currency.img !== ''" class="icon" :src="currency.img" alt />
-        <h4 class="title">{{ currency.name }}</h4>
-        <p class="description">{{ currency.description }}</p>
-        <h5 class="sum">{{ currency.sum }}</h5>
+        <div class="icon" />
+        <!--        <img alt class="icon" src="" />-->
+        <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
+        <p class="description">{{ currency.name }}</p>
+        <h5 class="sum">{{ currency.balance }}</h5>
       </li>
     </ul>
   </div>
 </template>
 
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n';
+<script lang="ts" setup>
+import { computed, ComputedRef, onMounted } from 'vue';
 
+import { useAccountStore } from '@/stores/account';
+import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
+import { IAccount } from '@/models/account/account';
 
-const { tm } = useI18n();
+const accountStore = useAccountStore();
+
+onMounted(async () => {
+  await Promise.all([
+    accountStore.getAccountList(),
+    accountStore.getAccountBalance(),
+  ]);
+});
+
+const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
+  IAccount[]
+>;
+const totalBalance = computed(() => accountStore.getTotalBalance);
 
 function getCurrencyUrl(code: string): string {
   //TODO: define logic with backend
   return code === 'eur' ? Route.DashboardHome : `/${Route.Account}/${code}`;
 }
-
-//TODO: get from API call if
-const currencies = [
-  {
-    name: 'EUR',
-    code: 'eur',
-    description: tm('views.account.allAccounts'),
-    sum: '€ 46.00',
-    img: require('@/assets/icon/currencies/euro.svg'),
-  },
-  {
-    name: 'BTC',
-    code: 'tbtc',
-    description: 'Bitcoin',
-    sum: '0.001',
-    img: require('@/assets/icon/currencies/btc.svg'),
-  },
-  {
-    name: 'USDT',
-    code: 'usdt',
-    description: 'Teather USDT',
-    sum: '0',
-    img: require('@/assets/icon/currencies/tether.svg'),
-  },
-  {
-    name: 'Hush',
-    code: 'hush',
-    description: 'Hush',
-    sum: '0',
-    img: require('@/assets/icon/currencies/hush.svg'),
-  },
-  {
-    name: 'XRP',
-    code: 'xrp',
-    description: 'Ripple XRP',
-    sum: '0',
-    img: require('@/assets/icon/currencies/xrp.svg'),
-  },
-];
 </script>
 
 <style lang="scss" scoped>
@@ -126,6 +111,8 @@ const currencies = [
         margin-bottom: 25px;
         height: 28px;
         width: 28px;
+        border-radius: 50%;
+        background-color: $color-dark-grey;
       }
 
       > .title {

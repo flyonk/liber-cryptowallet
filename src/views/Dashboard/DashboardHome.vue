@@ -175,7 +175,7 @@ const isMenuOpen = ref(false);
 const loading = ref(false);
 
 const accountStore = useAccountStore();
-//TODO: move accounts to the bottom swipe component
+
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
