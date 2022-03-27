@@ -91,7 +91,7 @@ export const useAccountStore = defineStore('account', {
       data: { network: string; force: boolean }
     ) {
       try {
-        await accountService.createAccount(coinCode, data);
+        return await accountService.createAccount(coinCode, data);
       } catch (err) {
         SentryUtil.capture(
           err,

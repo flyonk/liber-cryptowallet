@@ -3,4 +3,5 @@ export interface ICryptocurrencyItem {
   icon: string;
   name: string;
   code: string;
+  avaliable?: boolean;
 }

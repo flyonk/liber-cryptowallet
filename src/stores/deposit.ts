@@ -1,22 +1,34 @@
 import { defineStore } from 'pinia';
 import { IAccount } from '@/models/account/account';
 
+export interface IDepositNetwork {
+  value: string | number;
+  text: string;
+}
+
 export interface IDepositState {
-  account: IAccount | null;
+  accountInfo: IAccount | null;
+  network: IDepositNetwork | null;
 }
 
 export const useDepositStore = defineStore('deposit', {
   state: (): IDepositState => ({
-    account: null,
+    accountInfo: null,
+    network: null,
   }),
 
   getters: {
-    getAccount: ({ account }) => account,
+    getNetwork: ({ network }) => network,
+    getAccountInfo: ({ accountInfo }) => accountInfo,
   },
 
   actions: {
-    setAccount(account: IAccount) {
-      this.account = account;
+    setAccountInfo(info: IAccount) {
+      this.accountInfo = info;
+    },
+
+    setNetwork(network: IDepositNetwork) {
+      this.network = { ...network };
     },
   },
 });
