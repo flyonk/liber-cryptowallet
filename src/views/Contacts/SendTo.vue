@@ -10,7 +10,7 @@
       <h4 class="username">@MyDude</h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">My Dude</h1>
+      <h1 class="title">{{ contact.displayName }}</h1>
       <div class="initials">MD</div>
     </div>
     <div class="sendto-main">
@@ -103,9 +103,11 @@ import { ref } from 'vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
+import { useRecepientsStore } from '@/stores/recipients';
 import SentryUtil from '@/helpers/sentryUtil';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { Route } from '@/router/types';
+import { Contact } from '@/types/contacts';
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
@@ -113,8 +115,17 @@ const showIncorrectDataPopup = ref(false);
 const popupStatus = ref('confirmation');
 
 const transferStore = useTransferStore();
+const recepientsStore = useRecepientsStore();
 
 const router = useRouter();
+const route = useRoute();
+
+const contactId = route.params.id;
+const contacts: Contact[] = recepientsStore.getContacts;
+const _contact = contacts.filter((c) => {
+  return c.contactId === contactId;
+});
+const contact = _contact && _contact[0];
 
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
