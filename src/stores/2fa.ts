@@ -47,6 +47,7 @@ export const use2faStore = defineStore('2fa', {
     },
 
     generateSecret() {
+      // TODO: Add phone number to secret generation
       const { secret, uri } = generateSecret({
         name: 'Liber App',
         account: 'Personal',
