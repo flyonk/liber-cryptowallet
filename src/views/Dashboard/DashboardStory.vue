@@ -12,12 +12,13 @@
         src="@/assets/icon/todo/empty-profile.svg"
         alt="story"
       />
-    </header>
-    <main class="main">
+      <br />
       <h1 class="title">
         {{ $t('views.dashboard.story.verifyYourIdentity') }}
       </h1>
       <p class="description">{{ $t('views.dashboard.story.requirement') }}</p>
+    </header>
+    <main class="main">
       <img
         class="image"
         src="@/assets/images/passport_upload.png"
@@ -64,9 +65,7 @@ const { DashboardHome } = Route;
       height: 64px;
       width: 64px;
     }
-  }
 
-  > .main {
     > .title {
       font-weight: 800;
       font-size: 28px;
@@ -81,6 +80,11 @@ const { DashboardHome } = Route;
       letter-spacing: -0.0043em;
       margin-bottom: 32px;
     }
+  }
+
+  > .main {
+    display: flex;
+    justify-content: center;
 
     > .image {
       padding-left: 10%;
@@ -88,7 +92,10 @@ const { DashboardHome } = Route;
   }
 
   > .footer {
-    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
 
     > .btn {
       display: flex;
