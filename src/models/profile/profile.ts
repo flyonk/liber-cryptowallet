@@ -49,7 +49,7 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       marketing: {
-        isEmail: input.is_send_news || false,
+        isEmail: false,
         isPushNotification: false,
         isSocialMedia: false,
       },
