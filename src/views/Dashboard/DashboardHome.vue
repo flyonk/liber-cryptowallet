@@ -119,7 +119,7 @@
             v-for="(item, index) in carousel"
             :key="index"
             class="carousel-item slide"
-            @click="$router.push('/home/story')"
+            @click="$router.push({ name: item.route })"
           >
             <img :src="item.imgSrc" />
             <h4
@@ -165,6 +165,7 @@ import { AccountListBottomSheet } from '@/components/ui';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 import { IAccount } from '@/models/account/account';
+import { Route } from '@/router/types';
 
 let activeTab = ref(1);
 const VerificationStatus = ref('verified');
@@ -242,24 +243,28 @@ const carousel = [
     description: tm('views.dashboard.home.carousel.verifying'),
     imgSrc: require('@/assets/icon/todo/empty-profile.svg'),
     text: 'blue',
+    route: Route.DashboardVerifyingStory,
   },
   {
     status: tm('views.dashboard.home.carousel.required'),
     description: tm('views.dashboard.home.carousel.verify'),
     imgSrc: require('@/assets/icon/todo/mail.svg'),
     text: 'blue',
+    route: Route.DashboardStory,
   },
   {
     status: tm('views.dashboard.home.carousel.recommend'),
     description: tm('views.dashboard.home.carousel.getYourCryptoProperty'),
     imgSrc: require('@/assets/icon/todo/wallet.svg'),
     text: 'green',
+    route: Route.DashboardHome,
   },
   {
     status: '_',
     description: tm('views.dashboard.home.carousel.reach'),
     imgSrc: require('@/assets/icon/todo/mail.svg'),
     text: 'black',
+    route: Route.DashboardTransferFundsToTreasuryStory,
   },
 ];
 
