@@ -1,23 +1,29 @@
 <template name="DashboardVerifyingStory">
   <div class="dashboard-story">
     <div class="header">
-      <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
+      <img
+        class="close-btn"
+        src="@/assets/icon/close_big.svg"
+        alt="close"
+        @click="$router.push({ name: Route.DashboardHome })"
+      />
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
         alt="story"
       />
-    </div>
-    <div class="main">
+      <br />
       <h1 class="title">
         {{ $t('views.dashboard.verifyingIdentity.verifying') }}
       </h1>
       <p class="description">
         {{ $t('views.dashboard.verifyingIdentity.details') }}
       </p>
+    </div>
+    <div class="main">
       <img
         class="image"
-        src="@/assets/images/50-percent-loader.png"
+        src="@/assets/images/50-percent-loader.svg"
         alt="50% completed"
       />
     </div>
@@ -29,10 +35,13 @@
   </div>
 </template>
 
-<script setup lang="scss"></script>
+<script setup lang="ts">
+import { Route } from '@/router/types';
+</script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dashboard-story {
+  width: 100%;
   height: 100%;
   padding: 32px 24px;
   background: linear-gradient(
@@ -43,6 +52,7 @@
 
   > .header {
     display: flex;
+    width: inherit;
     flex-direction: column;
     margin-bottom: 16px;
 
@@ -56,9 +66,7 @@
       height: 64px;
       width: 64px;
     }
-  }
 
-  > .main {
     > .title {
       font-weight: 800;
       font-size: 28px;
@@ -73,14 +81,18 @@
       letter-spacing: -0.0043em;
       margin-bottom: 32px;
     }
+  }
 
-    > .image {
-      padding-left: 10%;
-    }
+  > .main {
+    display: flex;
+    justify-content: center;
   }
 
   > .footer {
-    margin-top: 105px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 25%;
 
     > .btn {
       display: flex;

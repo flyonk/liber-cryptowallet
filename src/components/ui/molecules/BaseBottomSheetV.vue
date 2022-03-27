@@ -207,7 +207,7 @@ const onLastTransitionEnd = () => {
   border-top-left-radius: 32px;
   border-top-right-radius: 32px;
   /* stylelint-disable color-function-notation */
-  box-shadow: 0 0 0 99999px rgba(0, 0, 0, 50%);
+  box-shadow: 0 0 0 99999px rgba($color-brand-primary, 80%);
   /* stylelint-enable color-function-notation */
   box-sizing: border-box;
   transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
