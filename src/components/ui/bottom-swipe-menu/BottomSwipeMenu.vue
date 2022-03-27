@@ -110,7 +110,7 @@ onUpdated(() => {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: rgb(0 0 0 / 50%);
+  background-color: rgba($color-brand-primary, 80%);
 }
 
 .bottom-menu {
