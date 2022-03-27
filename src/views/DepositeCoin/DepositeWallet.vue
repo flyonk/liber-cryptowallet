@@ -2,7 +2,7 @@
   <div v-if="wallet" class="page-wrapper">
     <top-navigation
       left-icon-name="ci-close_big"
-      @click:left-icon="$router.push({ name: Route.DepositNetwork })"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
     >
       {{ $t('views.deposit.wallet.deposit') }} {{ coinCode }}
     </top-navigation>
@@ -108,6 +108,7 @@ import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
 import { BaseButton, TopNavigation } from '@/components/ui';
 
 import { Clipboard } from '@capacitor/clipboard';
+
 const toast = useToast();
 const { tm } = useI18n();
 const depositStore = useDepositStore();
