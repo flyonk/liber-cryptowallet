@@ -3,26 +3,35 @@
     <DashboardSkeleton v-if="loading" />
     <div v-else class="dashboard-container">
       <div class="header flex mb-4">
-        <img
-          src="@/assets/images/avatar.png"
-          @click="$router.push('/profile')"
-        />
-        <div v-if="VerificationStatus === 'in_progress'" class="verification">
-          {{ $t('views.dashboard.home.idVerification') }}
+        <div class="left">
+          <img
+            src="@/assets/images/avatar.png"
+            @click="$router.push('/profile')"
+          />
+          <div v-if="VerificationStatus === 'in_progress'" class="verification">
+            {{ $t('views.dashboard.home.idVerification') }}
+          </div>
+          <div
+            v-if="VerificationStatus === 'verified'"
+            class="verification -verified"
+          >
+            {{ $t('views.dashboard.home.idVerified') }}
+          </div>
+          <div
+            v-if="VerificationStatus === 'failed'"
+            class="verification verification--failed"
+          >
+            {{ $t('views.dashboard.home.iDVerificationFailed') }}
+          </div>
         </div>
-        <div
-          v-if="VerificationStatus === 'verified'"
-          class="verification -verified"
-        >
-          {{ $t('views.dashboard.home.idVerified') }}
+        <div class="right">
+          <img class="notification ml-auto" src="@/assets/icon/bell.svg" />
+          <img
+            class="refresh ml-auto"
+            src="@/assets/icon/refresh.svg"
+            @click="updateDashboardData"
+          />
         </div>
-        <div
-          v-if="VerificationStatus === 'failed'"
-          class="verification verification--failed"
-        >
-          {{ $t('views.dashboard.home.iDVerificationFailed') }}
-        </div>
-        <img class="ml-auto" src="@/assets/icon/bell.svg" />
       </div>
       <ul class="tabs flex">
         <li
@@ -98,20 +107,6 @@
           {{ $t('views.dashboard.home.noTransactions') }}
         </p>
       </div>
-      <!-- <div class="transactions">
-        <div class="flex justify-content-between items-center w-full mb-3">
-          <p class="text-dark-gray">
-            {{ $t('views.dashboard.home.transactions') }}
-          </p>
-          <p class="button heading-gray-md">
-            {{ $t('views.dashboard.home.seeAll') }}
-          </p>
-        </div>
-        <transaction-list />
-        <h4 class="heading-gray-md mb-3">
-          {{ $t('views.dashboard.home.todo') }}
-        </h4>
-      </div> -->
       <div class="carousel">
         <VueAgile :nav-buttons="false" :slides-to-show="2">
           <div
@@ -221,6 +216,24 @@ function closeMenu() {
   isMenuOpen.value = false;
 }
 
+// Temporary update method
+const updateDashboardData = async () => {
+  loading.value = true;
+  try {
+    const [, , _transactions] = await Promise.all([
+      accountStore.getAccountList(),
+      accountStore.getAccountBalance(),
+      transactionService.getTransactionList(),
+    ]);
+    transactions.value = _transactions;
+  } catch (error) {
+    console.error(error);
+    proxy.$sentry.capture(error, 'DashboardHome', 'updateDashboardData');
+  } finally {
+    loading.value = false;
+  }
+};
+
 const tabs = [
   {
     id: 1,
@@ -286,33 +299,47 @@ const showWelcomeMessage = computed(() => {
   flex-grow: 1;
 
   > .header {
+    display: flex;
     align-items: center;
+    justify-content: space-between;
 
-    > .verification {
-      margin-left: 8px;
+    > .left {
       display: flex;
-      flex-direction: row;
-      justify-content: center;
       align-items: center;
-      width: 131px;
-      height: 31px;
-      background: $color-yellow-100;
-      border-radius: 100px;
-      white-space: nowrap;
-      font-size: 16px;
-      line-height: 21px;
-      letter-spacing: -0.0031em;
-      color: $color-yellow-800;
 
-      &.-verified {
-        background: $color-green-100;
-        color: $color-green-800;
+      > .verification {
+        margin-left: 8px;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        width: 131px;
+        height: 31px;
+        background: $color-yellow-100;
+        border-radius: 100px;
+        white-space: nowrap;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.0031em;
+        color: $color-yellow-800;
+
+        &.-verified {
+          background: $color-green-100;
+          color: $color-green-800;
+        }
+
+        &.-failed {
+          width: 181px;
+          background: $color-red-100;
+          color: $color-red-700;
+        }
       }
+    }
 
-      &.-failed {
-        width: 181px;
-        background: $color-red-100;
-        color: $color-red-700;
+    > .right {
+      > .notification {
+        opacity: 0.5;
+        margin-right: 35px;
       }
     }
   }
