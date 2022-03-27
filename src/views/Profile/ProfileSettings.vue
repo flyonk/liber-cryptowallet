@@ -83,10 +83,23 @@
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
-        <li class="item" disabled>
+        <li v-if="touchFaceIdSwitcher" class="item">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch v-model="isTouchIdOn" class="switcher" />
+          <InputSwitch
+            v-model="isTouchIdOn"
+            class="switcher"
+            @change="onSwitcherChange"
+          />
+        </li>
+        <li v-else class="item" disabled>
+          <img class="icon" src="@/assets/icon/touchid.svg" />
+          <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
+          <InputSwitch
+            v-model="isTouchIdOn"
+            class="switcher"
+            :disabled="true"
+          />
         </li>
       </ul>
       <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
@@ -115,17 +128,22 @@ import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { useAppOptionsStore } from '@/stores/appOptions';
+import { getSupportedOptions } from '@/helpers/identification';
+
 import { Route } from '@/router/types';
+import { EStorageKeys } from '@/types/storage';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
 
 const route = useRouter();
 const authStore = useAuthStore();
+const appOptionsStore = useAppOptionsStore();
 
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;
-console.log('show me what a fuck inside', profileStore.getUser);
+
 if (firstName == null) {
   firstName = 'Name';
 }
@@ -134,8 +152,20 @@ if (lastName == null) {
 }
 const accountName = ref(`${firstName} ${lastName}`);
 const accountID = ref(`${phone}`);
-const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
+const { faceid, touchid } = appOptionsStore.getOptions;
+const isTouchIdOn = ref(faceid || touchid);
+const touchFaceIdSwitcher = ref('');
+
+const onSwitcherChange = () => {
+  const value = isTouchIdOn.value ? 'true' : '';
+  if (touchFaceIdSwitcher.value === 'face-id') {
+    appOptionsStore.setOptions(value, EStorageKeys.faceid);
+  }
+  if (touchFaceIdSwitcher.value === 'touch-id') {
+    appOptionsStore.setOptions(value, EStorageKeys.touchid);
+  }
+};
 
 const { proxy } = getCurrentInstance();
 
@@ -153,6 +183,15 @@ onMounted(async () => {
       lastName = user?.lastName;
       accountName.value = `${firstName} ${lastName}`;
       accountID.value = phone;
+
+      await appOptionsStore.init();
+      isTouchIdOn.value =
+        appOptionsStore.getOptions.faceid || appOptionsStore.getOptions.touchid;
+      const option = await getSupportedOptions();
+
+      if (option === 'face-id' || option === 'touch-id') {
+        touchFaceIdSwitcher.value = option;
+      }
     } catch (err) {
       proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
     }
