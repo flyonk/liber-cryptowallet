@@ -37,7 +37,8 @@ export interface IAuthState {
 }
 
 // === Auth Store ===
-
+// TODO: Save to Storage phone number
+// TODO: Restore from Storage saved phone number
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
@@ -48,12 +49,12 @@ export const useAuthStore = defineStore('auth', {
     },
     registration: {
       dialCode: '+7',
-      phone: '9082359632',
+      phone: '',
       email: '',
     },
     login: {
-      dialCode: '+7',
-      phone: '9082359632',
+      dialCode: '',
+      phone: '',
     },
     token: {
       token: null,
@@ -83,7 +84,7 @@ export const useAuthStore = defineStore('auth', {
 
     async signIn(_data: { phone: string }): Promise<void> {
       await authService.signIn(_data);
-      this.savePhone();
+      this.savePhone('login');
     },
 
     async signInProceed(_data: {
@@ -102,6 +103,7 @@ export const useAuthStore = defineStore('auth', {
       this.setToken(data);
     },
 
+    // TODO: Rename it to setOrRefreshTokens
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
         await Promise.all([
@@ -132,10 +134,14 @@ export const useAuthStore = defineStore('auth', {
       return !!(await Storage.get({ key: EStorageKeys.token })).value;
     },
 
-    async savePhone(): Promise<void> {
+    async savePhone(type: 'login' | 'signup'): Promise<void> {
+      const value =
+        type === 'login'
+          ? JSON.stringify(this.login)
+          : JSON.stringify(this.registration);
       await Storage.set({
         key: EStorageKeys.phone,
-        value: JSON.stringify(this.login),
+        value,
       });
     },
 
@@ -149,11 +155,19 @@ export const useAuthStore = defineStore('auth', {
         get('phone'),
       ]);
 
-      if (phone) {
+      if (dialCode === 'null' || dialCode === null) {
+        this.login.dialCode = '+7';
+      } else {
+        this.login.dialCode = dialCode;
+      }
+
+      if (phone === 'null' || phone === null) {
+        this.login.phone = '';
+      } else {
         this.login.phone = phone;
       }
 
-      this.login.dialCode = dialCode || '+7';
+      // this.login.dialCode = dialCode || '+7';
     },
 
     async setToStorage() {

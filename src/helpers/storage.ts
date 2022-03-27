@@ -8,9 +8,9 @@ export const set = async (data: SetOptions) => {
   await Storage.set(data);
 };
 
+//FIXME: Storage.get Returns null as a string
 export const get = async (key: string): Promise<string | null> => {
   const { value } = await Storage.get({ key });
-
   return value;
 };
 

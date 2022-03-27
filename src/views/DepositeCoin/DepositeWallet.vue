@@ -1,6 +1,7 @@
 <template>
   <div v-if="wallet" class="page-wrapper">
     <top-navigation
+      left-icon-name="ci-close_big"
       @click:left-icon="$router.push({ name: Route.DepositNetwork })"
     >
       {{ $t('views.deposit.wallet.deposit') }} {{ coinCode }}
@@ -106,6 +107,7 @@ import QrCode from 'qrcode-vue3';
 import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
 import { BaseButton, TopNavigation } from '@/components/ui';
 
+import { Clipboard } from '@capacitor/clipboard';
 const toast = useToast();
 const { tm } = useI18n();
 const depositStore = useDepositStore();
@@ -163,19 +165,19 @@ const shareAddress = async () => {
   });
 };
 
-const copyToClipboard = () => {
-  navigator.clipboard.writeText(wallet.value?.address as string).then(
-    function () {
-      toast.add({
-        summary: tm('views.deposit.wallet.copySuccess') as string,
-        life: 3000,
-        closable: false,
-      });
-    },
-    function (err) {
-      console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
-    }
-  );
+const copyToClipboard = async () => {
+  try {
+    await Clipboard.write({
+      string: wallet.value?.address as string,
+    });
+    toast.add({
+      summary: tm('views.deposit.wallet.copySuccess') as string,
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
+  }
 };
 </script>
 

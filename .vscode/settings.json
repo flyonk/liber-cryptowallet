@@ -6,9 +6,10 @@
   "vetur.validation.template": false,
   // Spell checker exceptions
   "cSpell.words": [
+    "passcode",
     "Pinia",
     "primevue",
-    "stylelint",
+    "stylelint"
   ],
   "editor.formatOnSave": true,
   "editor.formatOnPaste": true

@@ -13,9 +13,10 @@
   </p-toast>
   <app-layout-switcher>
     <router-view v-slot="{ Component, route }" class="router-view">
-      <transition name="dissolve">
-        <component :is="Component" :key="route.path" />
-      </transition>
+      <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
+      <!-- <transition> -->
+      <component :is="Component" :key="route.path" />
+      <!-- </transition> -->
     </router-view>
   </app-layout-switcher>
 </template>
@@ -24,14 +25,14 @@
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 //TODO: use profile store instead
-// import { useAccountStore } from './stores/account';
+import { useAccountStore } from './stores/account';
 
 import SwipeBack from '@/plugins/swipe-capacitor';
 
 SwipeBack.enable();
 
-// const store = useAccountStore();
-// store.init();
+const store = useAccountStore();
+store.init();
 </script>
 
 <style lang="scss">

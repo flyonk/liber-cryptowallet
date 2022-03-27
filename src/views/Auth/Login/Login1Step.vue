@@ -55,6 +55,7 @@ import {
   BaseInput,
   TopNavigation,
 } from '@/components/ui';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 import { Route } from '@/router/types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
@@ -105,7 +106,9 @@ const handleSelectCountry = (data: ICountryInformation) => {
 const nextStep = async () => {
   if (!+number.value) return;
 
-  authStore.setPhone(number.value);
+  const phone = formatPhoneNumber(number.value);
+
+  authStore.setPhone(phone);
 
   await authStore.setToStorage();
 

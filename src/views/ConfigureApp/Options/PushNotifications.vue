@@ -21,7 +21,7 @@
     <base-button block class="mb-3" @click="onEnable">
       {{ $t('configureApp.enablePushNotifications') }}
     </base-button>
-    <base-button block view="secondary" @click="onCancel">
+    <base-button block view="transparent" @click="onCancel">
       {{ $t('common.notNowCta') }}
     </base-button>
   </div>

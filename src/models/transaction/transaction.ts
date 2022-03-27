@@ -128,9 +128,11 @@ function _getTransactionIcon(
   let icon = '';
   switch (type) {
     case ETransactionType.transfer: {
-      if (direction === EDirection.income)
-        icon = require('@/assets/icon/transactions/sent.svg');
-      icon = require('@/assets/icon/transactions/received.svg');
+      if (direction === EDirection.income) {
+        icon = require('@/assets/icon/transactions/received.svg');
+        break;
+      }
+      icon = require('@/assets/icon/transactions/sent.svg');
       break;
     }
     case ETransactionType.deposit:

@@ -13,6 +13,7 @@ export interface IConvertInfo {
   fee: string;
   validUntil: string;
   estimatedAmount: string;
+  requestAmount?: string;
 }
 
 export default {
@@ -26,6 +27,18 @@ export default {
       fee: input.fee,
       validUntil: input.valid_until,
       estimatedAmount: input.estimated_amount || '100',
+    };
+  },
+  deserializeBack(input: any, data: any): IConvertInfo {
+    return {
+      to: input.from,
+      from: input.to,
+      backRate: input.rate,
+      rate: input.back_rate,
+      fee: input.fee,
+      validUntil: input.valid_until,
+      estimatedAmount: data.request_amount || '100',
+      requestAmount: input.estimated_amount,
     };
   },
 };

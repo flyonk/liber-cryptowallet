@@ -16,6 +16,7 @@ export default {
   },
 
   async getAccountBalanceByCoin(coin?: string): Promise<IAccount> {
+    console.log('111111');
     const res = await axios.get(`${apiService.account.accountsList()}/${coin}`);
     return accountMapper.deserialize(res.data);
   },

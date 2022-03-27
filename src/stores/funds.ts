@@ -22,6 +22,7 @@ export const emptyConvert = {
   fee: '0',
   validUntil: '',
   estimatedAmount: '0',
+  requestAmount: '0',
 } as IConvertInfo;
 
 // === transaction Store ===
@@ -30,10 +31,10 @@ export const useFundsStore = defineStore('funds', {
   state: (): IFundsState => ({
     convertInfo: cloneDeep(emptyConvert),
     convertFunds: false,
-    from: null,
-    to: null,
-    imgFrom: null,
-    imgTo: null,
+    from: 'BTC',
+    to: 'USDT',
+    imgFrom: require('@/assets/icon/currencies/btc.svg'),
+    imgTo: require('@/assets/icon/currencies/tether.svg'),
   }),
 
   getters: {
@@ -45,6 +46,12 @@ export const useFundsStore = defineStore('funds', {
   actions: {
     async checkConvertInfo(data: Omit<TConvertData, 'amount'>): Promise<void> {
       this.convertInfo = await fundsService.convertInfo(data);
+    },
+
+    async checkConvertInfoBack(
+      data: Omit<TConvertData, 'amount'>
+    ): Promise<void> {
+      this.convertInfo = await fundsService.convertInfoBack(data);
     },
 
     async changeCurrency(

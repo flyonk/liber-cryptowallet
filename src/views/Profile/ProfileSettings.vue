@@ -22,7 +22,8 @@
       </div>
       <div class="right">{{ nameInitials }}</div>
     </div>
-    <div class="controls">
+    <!-- TODO: Implement menu controls -->
+    <div class="controls" style="display: none">
       <button class="btn -blue">
         <img class="icon" src="@/assets/icon/user_heart.svg" />
         {{ $t('views.profile.profileSettings.invite') }}
@@ -72,17 +73,17 @@
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
-        <li class="item">
+        <li class="item" disabled>
           <img class="icon" src="@/assets/icon/google.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
         </li>
-        <router-link class="item" to="/profile/devices">
+        <router-link class="item" to="/profile/devices" disabled>
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
-        <li class="item">
+        <li class="item" disabled>
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
           <InputSwitch v-model="isTouchIdOn" class="switcher" />
@@ -123,8 +124,15 @@ const route = useRouter();
 const authStore = useAuthStore();
 
 const profileStore = useProfileStore();
-const accountName = 'Abraham Watson';
-const accountID = '@abrahamwatson';
+let { phone, firstName, lastName } = profileStore.getUser;
+if (firstName == null) {
+  firstName = 'Name';
+}
+if (lastName == null) {
+  lastName = 'Surname';
+}
+const accountName = ref(`${firstName} ${lastName}`);
+const accountID = ref(`@${phone}`);
 const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
 
@@ -144,7 +152,7 @@ onMounted(async () => {
 });
 
 const nameInitials = computed(() => {
-  let parts = accountName.split(' ');
+  let parts = accountName.value.split(' ');
   return parts[0][0] + parts[1][0];
 });
 

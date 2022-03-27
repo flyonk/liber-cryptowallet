@@ -25,4 +25,10 @@ export const mockedContacts: Contact[] = [
     phoneNumbers: [{ number: '+7 123 102 9999' }],
     emails: [],
   },
+  {
+    contactId: '5',
+    displayName: undefined,
+    phoneNumbers: [{ number: '+7 123 102 9955' }],
+    emails: [],
+  },
 ];
