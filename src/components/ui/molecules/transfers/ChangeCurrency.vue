@@ -102,7 +102,7 @@ import { computed, ref, watch } from 'vue';
 import { Route } from '@/router/types';
 import { useRouter } from 'vue-router';
 import { useFundsStore } from '@/stores/funds';
-import lodash from 'lodash';
+import { debounce } from 'lodash';
 import { BaseButton } from '@/components/ui';
 import SentryUtil from '@/helpers/sentryUtil';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
@@ -123,7 +123,7 @@ const fStore = useFundsStore();
 let convertInfo = computed(() => fStore.getConvertInfo);
 const convert = computed(() => fStore.getConvertFunds);
 
-const { from, to, imgFrom, imgTo } = fStore.getState;
+const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
 
 const ctaState = ref('preview');
 const loading = ref(false);
@@ -144,6 +144,10 @@ const currentSendToCurrency = {
   code: ref('tltc'),
   img: ref(imgTo || require('@/assets/icon/currencies/tether.svg')),
 };
+
+// const currentSendFromCode = computed(() => {
+//   return fStore.getState.from;
+// });
 
 let requestAmount = ref<number>(0);
 
@@ -175,11 +179,13 @@ function changeInfoInterval() {
 
 async function previewChangeInfo() {
   ctaState.value = 'send';
+  if (!requestAmount.value) return;
   try {
     changeInfoInterval();
+    if (from === to) return;
     await fStore.checkConvertInfo({
-      from: currentSendFromCurrency.code.value,
-      to: currentSendToCurrency.code.value,
+      from: codeFrom || currentSendFromCurrency.code.value,
+      to: codeTo || currentSendToCurrency.code.value,
       request_amount: String(requestAmount.value),
     });
   } catch (err) {
@@ -195,13 +201,16 @@ async function previewChangeInfo() {
 }
 
 async function previewChangeInfoBack() {
+  const _requestAmount = fStore.convertInfo.estimatedAmount;
+  if (!_requestAmount) return;
   ctaState.value = 'send';
   try {
     changeInfoInterval();
+    if (from === to) return;
     await fStore.checkConvertInfoBack({
-      to: currentSendFromCurrency.code.value,
-      from: currentSendToCurrency.code.value,
-      request_amount: String(fStore.convertInfo.estimatedAmount),
+      to: codeFrom || currentSendFromCurrency.code.value,
+      from: codeTo || currentSendToCurrency.code.value,
+      request_amount: String(_requestAmount),
     });
     requestAmount.value = +(fStore.convertInfo.requestAmount || 0);
   } catch (err) {
@@ -216,11 +225,8 @@ async function previewChangeInfoBack() {
   }
 }
 
-const debounceChangeInfo = lodash.debounce(previewChangeInfo, DEBOUNCE_TIMER);
-const debounceChangeInfoBack = lodash.debounce(
-  previewChangeInfoBack,
-  DEBOUNCE_TIMER
-);
+const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
+const debounceChangeInfoBack = debounce(previewChangeInfoBack, DEBOUNCE_TIMER);
 
 watch(requestAmount, debounceChangeInfo);
 
