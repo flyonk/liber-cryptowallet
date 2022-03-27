@@ -3,13 +3,10 @@
     <div class="flex">
       <h1 class="title title-currency">
         {{ balance }}
-        <span class="currency">{{ coinCode }}</span>
+        <span class="currency">{{ coinCode.toUpperCase() }}</span>
       </h1>
-      <img
-        class="icon"
-        src="@/assets/icon/currencies/tether.svg"
-        alt="currency"
-      />
+      <!--      TODO: get logo of coin-->
+      <img alt class="icon" />
     </div>
     <p class="subtitle heading-gray-md">
       {{ currency }} {{ baseConversionSum }}
@@ -17,7 +14,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 defineProps({
   balance: {
     type: String,
@@ -44,6 +41,8 @@ defineProps({
     > .icon {
       height: 56px;
       width: 56px;
+      background-color: $color-dark-grey;
+      border-radius: 50%;
       margin-left: auto;
     }
 

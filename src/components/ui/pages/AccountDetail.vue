@@ -70,34 +70,7 @@
       </div>
 
       <div v-if="activeTab === 2" class="wallet">
-        <!--TODO move to separated component-->
-        <img alt="qr-code" class="qr" src="@/assets/images/qr-code.png" />
-        <div class="wallet-address">
-          <h4 class="title">
-            {{ $t('transactions.walletAddress') }}
-          </h4>
-          <div class="account">
-            <div class="crypto-number">
-              <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr
-                <br />sd21213
-                <span class="bold">Opa139z0l</span>
-              </p>
-            </div>
-            <img alt="folders" src="@/assets/icon/folders.svg" />
-          </div>
-          <h2 class="bluetitle">
-            {{ $t('transactions.generateAddress') }}
-          </h2>
-          <div class="controls">
-            <button class="btn">
-              {{ $t('common.saveImage') }}
-            </button>
-            <button class="btn">
-              {{ $t('transactions.shareAddress') }}
-            </button>
-          </div>
-        </div>
+        <account-details :coin-code="route.params.coin || 'tbtc'" />
       </div>
     </div>
   </div>
@@ -114,10 +87,12 @@ import { useAccountStore } from '@/stores/account';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+import { AccountDetails } from '@/components/ui';
 
 let showControls = ref(false);
 const { tm } = useI18n();
 
+//TODO: write full name accountStore
 const aStore = useAccountStore();
 
 const activeTab = ref(1);
@@ -128,7 +103,6 @@ const route = useRoute();
  * Lifecycle
  */
 onMounted(() => {
-  console.log(route.params.coin);
   if (route.params.coin) aStore.init(route.params.coin as string);
 });
 
