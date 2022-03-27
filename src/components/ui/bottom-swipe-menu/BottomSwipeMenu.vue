@@ -1,5 +1,6 @@
 <template>
   <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
+    <div class="background-locker" />
     <div class="close" @click="closeMenu" @touchmove="startMove"></div>
     <component
       :is="currentComponent"
@@ -102,12 +103,25 @@ onUpdated(() => {
   width: 100%;
   background: $color-white;
   border-radius: 10% 10% 0 0;
+
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
+  box-shadow: 0 -1000px 0 1000px rgba($color-brand-primary, 0.8);
   max-height: 90%;
   min-height: 10%;
   height: 30%;
   animation: topToBottom ease 1s;
   padding: 8px 16px 0;
   z-index: 2;
+
+  > .background-locker {
+    position: absolute;
+    width: calc(100% + 10px);
+    height: 100vh;
+    top: -100vh;
+    left: -10px;
+    opacity: 0;
+    z-index: -1;
+  }
 
   > .close {
     width: 64px;
