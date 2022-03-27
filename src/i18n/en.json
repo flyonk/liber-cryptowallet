@@ -374,7 +374,11 @@
         "copyright": "Liber Ltd.",
         "preventClosingAccount": "Hey, wait! Where are you going?",
         "freeToKeep": "It's free to keep a account, and opening a new one could take some time if you cancel",
-        "keepOpen": "Keep account open"
+        "keepOpen": "Keep account open",
+        "logoutConfirmationTitle": "Log out",
+        "logoutConfirmation": "Are you sure to logging out from this account?",
+        "logoutAccept": "Yes",
+        "logoutDecline": "No"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",

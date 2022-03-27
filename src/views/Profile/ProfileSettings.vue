@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left">
         <img
+          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
-          alt="arrow-left"
           @click="$router.push({ name: Route.DashboardHome })"
         />
         <h1 class="title">{{ accountName }}</h1>
@@ -79,7 +79,7 @@
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
         </li>
-        <router-link class="item" to="/profile/devices" disabled>
+        <router-link class="item" disabled to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
@@ -97,8 +97,8 @@
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
           <InputSwitch
             v-model="isTouchIdOn"
-            class="switcher"
             :disabled="true"
+            class="switcher"
           />
         </li>
       </ul>
@@ -122,17 +122,18 @@
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
-<script setup lang="ts">
-import { ref, computed, onMounted, getCurrentInstance } from 'vue';
+<script lang="ts" setup>
+import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { getSupportedOptions } from '@/helpers/identification';
-
 import { Route } from '@/router/types';
 import { EStorageKeys } from '@/types/storage';
+import { showConfirm } from '@/helpers/nativeDialog';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
@@ -140,6 +141,7 @@ import InputSwitch from 'primevue/inputswitch';
 const route = useRouter();
 const authStore = useAuthStore();
 const appOptionsStore = useAppOptionsStore();
+const { tm } = useI18n();
 
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;
@@ -207,6 +209,19 @@ function closeMenu() {
 }
 
 async function onLogout() {
+  const confirmed = await showConfirm({
+    title: tm(
+      'views.profile.profileSettings.logoutConfirmationTitle'
+    ) as string,
+    message: tm('views.profile.profileSettings.logoutConfirmation') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    cancelButtonTitle: tm(
+      'views.profile.profileSettings.logoutAccept'
+    ) as string,
+  });
+
+  if (confirmed) return;
+
   await authStore.logout();
 
   await route.push({ name: Route.WelcomeLogoScreen });
