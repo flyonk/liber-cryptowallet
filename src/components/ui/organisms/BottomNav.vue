@@ -112,6 +112,7 @@ function closeMenu() {
   position: absolute;
   bottom: 0;
   padding-bottom: 30px;
+  background-color: $color-white;
 }
 
 .navbar-list {

@@ -8,7 +8,8 @@
         @click="$router.push('/profile')"
       />
       <div class="title">
-        {{ $t('views.profile.profileHelp.hello') }} Abraham Watson,
+        {{ $t('views.profile.profileHelp.hello') }}
+        {{ `${firstName} ${lastName}` }},
         {{ $t('views.profile.profileHelp.help') }}
       </div>
       <BaseInput v-model="value" type="text">
@@ -47,6 +48,11 @@
 import { ref } from 'vue';
 
 import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
+
+import { useProfileStore } from '@/stores/profile';
+
+const profileStore = useProfileStore();
+let { firstName, lastName } = profileStore.getUser;
 
 const value = ref('');
 </script>

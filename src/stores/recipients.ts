@@ -20,7 +20,12 @@ export const useRecepientsStore = defineStore('recepients', {
   }),
 
   getters: {
-    getContacts: (state) => state.contacts,
+    getContacts: (state) =>
+      state.contacts.sort((a, b) => {
+        const aFirstLetter = a.displayName?.charCodeAt(0) || Number.MAX_VALUE;
+        const bFirstLetter = b.displayName?.charCodeAt(0) || Number.MAX_VALUE;
+        return aFirstLetter - bFirstLetter;
+      }),
   },
 
   actions: {
