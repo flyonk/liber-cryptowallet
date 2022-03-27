@@ -8,6 +8,7 @@
     Payment Options
   </button>
   <bottom-swipe-menu
+    :showOverlay="true"
     :is-menu-open="isMenuOpen"
     :menu-type="getMenuType"
     @close-menu="closeMenu"
