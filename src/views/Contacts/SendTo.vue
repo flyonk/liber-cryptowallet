@@ -15,7 +15,7 @@
     </div>
     <div class="sendto-main">
       <send-currency
-        :contactName="recepient.displayName"
+        :contact-name="recepient.displayName"
         :has-coin-reverse="true"
         @send-transaction="sendTransaction"
       />
@@ -129,11 +129,19 @@ const _contact = contacts.filter((c) => {
 });
 const contact = _contact && _contact[0];
 
+const phone = getContactPhone(contact);
+
 const recepient = computed(() => ({
   displayName: contact.displayName,
   initials: getContactInitials(contact.displayName),
   phone: getContactPhone(contact),
 }));
+
+const recipient = {
+  id: contact.contactId,
+  phone: phone || '',
+};
+transferStore.recipient = recipient;
 
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {

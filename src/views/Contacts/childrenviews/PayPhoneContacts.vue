@@ -18,7 +18,6 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRecepientsStore } from '@/stores/recipients';
-import { useTransferStore } from '@/stores/transfer';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import ContactsList from '@/components/ui/organisms/ContactsList.vue';
@@ -26,7 +25,6 @@ import ContactsList from '@/components/ui/organisms/ContactsList.vue';
 import { Contact } from '@/types/contacts';
 
 const recepientsStore = useRecepientsStore();
-const transferStore = useTransferStore();
 
 const contacts: Contact[] = recepientsStore.getContacts;
 
@@ -40,12 +38,8 @@ function closeMenu() {
   isMenuOpen.value = false;
 }
 
-const handleContactClick = (contact: Contact) => {
+const handleContactClick = () => {
   isMenuOpen.value = !isMenuOpen.value;
-  const id = contact.contactId;
-  const phone = contact.phoneNumbers[0]?.number || '';
-  const recipient = { id, phone };
-  transferStore.recipient = recipient;
 };
 </script>
 
