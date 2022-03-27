@@ -3,7 +3,12 @@
     {{ getContactInitials(props.contact.displayName) }}
   </div>
   <router-link
-    :to="`/contacts/send/${props.contact.contactId}`"
+    :to="{
+      name: Route.ContactsSend,
+      params: {
+        id: props.contact.contactId,
+      },
+    }"
     class="user-contact"
   >
     <p class="name">
@@ -19,6 +24,7 @@
 import { PropType } from 'vue';
 
 import { Contact } from '@/types/contacts';
+import { Route } from '@/router/types';
 
 const props = defineProps({
   contact: {
