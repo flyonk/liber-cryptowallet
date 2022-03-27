@@ -26,14 +26,14 @@
       <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
       <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
       <div class="flex">
-        <a class="link-to"> liber.me/abrahamwatson </a>
+        <a class="link-to"> liber.me/{{ link }}</a>
         <img src="@/assets/icon/copy.svg" alt="copy" />
       </div>
       <div class="controls">
-        <button class="btn">
+        <button class="btn" type="button">
           {{ $t('views.profile.profileQRCode.scan') }}
         </button>
-        <button class="btn active">
+        <button class="btn active" type="button">
           {{ $t('views.profile.profileQRCode.code') }}
         </button>
       </div>
@@ -43,8 +43,15 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
-const accountName = 'Abraham Watson';
-const accountID = '@abrahamwatson';
+
+import { useProfileStore } from '@/stores/profile';
+
+const profileStore = useProfileStore();
+let { phone, firstName, lastName } = profileStore.getUser;
+
+const accountName = `${firstName} ${lastName}`;
+const link = accountName.replaceAll(' ', '');
+const accountID = phone;
 
 const nameInitials = computed(() => {
   let parts = accountName.split(' ');
