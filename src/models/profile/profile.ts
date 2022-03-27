@@ -6,6 +6,12 @@ export enum EUserStatus {
   block = 30, //UserStatusBlock
 }
 
+export type TMarketing = {
+  isEmail?: boolean;
+  isPushNotification?: boolean;
+  isSocialMedia?: boolean;
+};
+
 export interface IProfile {
   id: string;
   status: number;
@@ -21,11 +27,7 @@ export interface IProfile {
   optionalAddress?: string;
   postalCode?: string;
   birthDate?: string;
-  marketing: {
-    isEmail?: boolean;
-    isPushNotification?: boolean;
-    isSocialMedia?: boolean;
-  };
+  marketing: TMarketing;
 }
 
 export default {
@@ -47,7 +49,7 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       marketing: {
-        isEmail: input.is_send_news || false,
+        isEmail: false,
         isPushNotification: false,
         isSocialMedia: false,
       },
