@@ -145,7 +145,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  getCurrentInstance,
+  onMounted,
+  Ref,
+  ref,
+} from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 
@@ -165,8 +172,7 @@ const VerificationStatus = ref('verified');
 const { stylePaddings } = useSafeAreaPaddings();
 
 const isMenuOpen = ref(false);
-// TODO: check if there is a data in store
-const loading = ref(true);
+const loading = ref(false);
 
 const accountStore = useAccountStore();
 //TODO: move accounts to the bottom swipe component
@@ -174,24 +180,42 @@ const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
 const totalBalance = computed(() => accountStore.getTotalBalance);
+const isDashboardSkeletonReady = computed(() => {
+  return (
+    !!accountStore.accountList[0]?.baseBalanceConversion &&
+    !!accountStore.totalBalance?.sum
+  );
+});
 
 const { tm } = useI18n();
 
 //TODO: Put to store
 let transactions: Ref<INetTransaction[]> = ref([]);
 
+const { proxy } = getCurrentInstance();
+
 /**
  * Lifecycle
  */
 onMounted(async () => {
-  accountStore.getAccountList();
-  accountStore.getAccountBalance();
-  transactions.value = await transactionService.getTransactionList();
-});
+  if (!isDashboardSkeletonReady.value) {
+    loading.value = true;
+  }
 
-setTimeout(() => {
-  loading.value = false;
-}, 1500);
+  try {
+    const [, , _transactions] = await Promise.all([
+      accountStore.getAccountList(),
+      accountStore.getAccountBalance(),
+      transactionService.getTransactionList(),
+    ]);
+    transactions.value = _transactions;
+  } catch (error) {
+    console.error(error);
+    proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');
+  } finally {
+    loading.value = false;
+  }
+});
 
 function closeMenu() {
   isMenuOpen.value = false;
