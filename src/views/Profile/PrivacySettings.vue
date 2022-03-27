@@ -20,8 +20,8 @@
           </h3>
           <BaseSwitch
             class="switch"
-            :model-value="isEmailsAgreement"
-            @update:model-value="isEmailsAgreement = !isEmailsAgreement"
+            :model-value="profileStore.getMarketing.isEmail"
+            @update:model-value="handleEmailUpdate"
           />
         </div>
         <div class="description">
@@ -36,8 +36,8 @@
           </h3>
           <BaseSwitch
             class="switch"
-            :model-value="isPushesAgreement"
-            @update:model-value="isPushesAgreement = !isPushesAgreement"
+            :model-value="profileStore.getMarketing.isPushNotification"
+            @update:model-value="handlePushesUpdate"
           />
         </div>
         <div class="description">
@@ -50,10 +50,8 @@
           <h3 class="title">{{ $t('views.profile.profilePrivacy.social') }}</h3>
           <BaseSwitch
             class="switch"
-            :model-value="isSocialMediaAgreement"
-            @update:model-value="
-              isSocialMediaAgreement = !isSocialMediaAgreement
-            "
+            :model-value="profileStore.getMarketing.isSocialMedia"
+            @update:model-value="handleSocialMediaUpdate"
           />
         </div>
         <div class="description">
@@ -66,11 +64,23 @@
 
 <script setup lang="ts">
 import { BaseSwitch } from '@/components/ui';
-import { ref } from 'vue';
+import { useProfileStore } from '@/stores/profile';
 
-let isEmailsAgreement = ref(true);
-let isPushesAgreement = ref(true);
-let isSocialMediaAgreement = ref(true);
+const profileStore = useProfileStore();
+
+const handleEmailUpdate = () => {
+  profileStore.getMarketing.isEmail = !profileStore.getMarketing.isEmail;
+};
+
+const handlePushesUpdate = () => {
+  profileStore.getMarketing.isPushNotification =
+    !profileStore.getMarketing.isPushNotification;
+};
+
+const handleSocialMediaUpdate = () => {
+  profileStore.getMarketing.isSocialMedia =
+    !profileStore.getMarketing.isSocialMedia;
+};
 </script>
 
 <style lang="scss">

@@ -3,14 +3,19 @@
     {{ getContactInitials(props.contact.displayName) }}
   </div>
   <router-link
-    :to="`/contacts/send/${props.contact.contactId}`"
+    :to="{
+      name: Route.ContactsSend,
+      params: {
+        id: props.contact.contactId,
+      },
+    }"
     class="user-contact"
   >
     <p class="name">
       {{ props.contact.displayName }}
     </p>
     <p class="phone">
-      {{ props.contact.phoneNumbers[0]?.number }}
+      {{ getContactPhone(props.contact) }}
     </p>
   </router-link>
 </template>
@@ -18,21 +23,16 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 
+import { getContactInitials, getContactPhone } from '@/helpers/contacts';
+
 import { Contact } from '@/types/contacts';
+import { Route } from '@/router/types';
 
 const props = defineProps({
   contact: {
     type: Object as PropType<Contact>,
   },
 });
-
-function getContactInitials(fio = '') {
-  let parts = fio.split(' ');
-  if (parts && parts.length > 1) {
-    return parts[0][0] + parts[1][0];
-  }
-  return (fio && fio[0]) || '?';
-}
 </script>
 
 <style lang="scss" scoped>

@@ -5,9 +5,10 @@
       <CoinItem
         v-for="item in suggestedCoins"
         :key="item.id"
-        :full-name="item.name"
         :icon="item.icon"
-        :short-name="item.code"
+        :full-name="item.fullName"
+        :short-name="item.shortName"
+        :avaliable="!item.avaliable"
         @click="$emit('select-coin', item)"
       />
     </ul>
@@ -16,9 +17,10 @@
       <CoinItem
         v-for="item in otherCoins"
         :key="item.id"
-        :full-name="item.name"
         :icon="item.icon"
-        :short-name="item.code"
+        :full-name="item.fullName"
+        :short-name="item.shortName"
+        :avaliable="!item.avaliable"
         @click="$emit('select-coin', item)"
       />
     </ul>
@@ -40,50 +42,74 @@ coins.value = [
   {
     id: 'bitcoin',
     icon: require('@/assets/icon/currencies/btc.svg'),
-    name: 'Bitcoin',
-    code: 'btc',
+    fullName: 'Bitcoin',
+    shortName: 'BTC',
+    code: 'tbtc',
+    avaliable: true,
   },
   {
     id: 'ethereum',
     icon: require('@/assets/icon/currencies/eth.svg'),
-    name: 'ethereum',
+    fullName: 'Ethereum',
+    shortName: 'ETH',
     code: 'eth',
+    avaliable: true,
+  },
+  {
+    id: 'usdt',
+    icon: require('@/assets/icon/currencies/tether.svg'),
+    fullName: 'Tether',
+    shortName: 'USDT',
+    code: 'usdt',
+    avaliable: true,
   },
   {
     id: 'binance',
     icon: require('@/assets/icon/currencies/binance.svg'),
-    name: 'Binance',
+    fullName: 'Binance',
+    shortName: 'BNB',
     code: 'bnb',
+    avaliable: false,
   },
   {
     id: 'dash',
     icon: require('@/assets/icon/currencies/dash.svg'),
-    name: 'Dash',
+    fullName: 'Dash',
+    shortName: 'DSH',
     code: 'dsh',
+    avaliable: false,
   },
   {
     id: 'xrp',
     icon: require('@/assets/icon/currencies/xrp.svg'),
-    name: 'Ripple',
+    fullName: 'Ripple',
+    shortName: 'XRP',
     code: 'xrp',
+    avaliable: false,
   },
   {
     id: 'ftn',
     icon: require('@/assets/icon/currencies/fantom.svg'),
-    name: 'Fantom',
+    fullName: 'Fantom',
+    shortName: 'FTN',
     code: 'ftn',
+    avaliable: false,
   },
   {
     id: 'tron',
     icon: require('@/assets/icon/currencies/tron.svg'),
-    name: 'Tron',
+    fullName: 'Tron',
+    shortName: 'TRX',
     code: 'trx',
+    avaliable: false,
   },
   {
     id: 'graph',
     icon: require('@/assets/icon/currencies/graph.svg'),
-    name: 'Graph',
+    fullName: 'Graph',
+    shortName: 'GRT',
     code: 'grt',
+    avaliable: false,
   },
 ];
 

@@ -19,7 +19,11 @@ export interface IProfile {
   optionalAddress?: string;
   postalCode?: string;
   birthDate?: string;
-  isSendNews?: boolean;
+  marketing: {
+    isEmail?: boolean;
+    isPushNotification?: boolean;
+    isSocialMedia?: boolean;
+  };
 }
 
 export default {
@@ -40,7 +44,11 @@ export default {
       optionalAddress: input.optional_address || '',
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
-      isSendNews: input.is_send_news || false, // by default undefined
+      marketing: {
+        isEmail: input.is_send_news || false,
+        isPushNotification: false,
+        isSocialMedia: false,
+      },
     };
   },
 
@@ -59,7 +67,7 @@ export default {
       optionalAddress: input.optionalAddress,
       postal_code: input.postalCode,
       birthdate: input.birthDate,
-      is_send_news: input.isSendNews,
+      is_send_news: !!input.marketing?.isEmail,
     };
   },
 };
