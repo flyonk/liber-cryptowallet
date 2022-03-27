@@ -6,6 +6,8 @@ export interface INetTransaction {
   code: string;
   icon?: string;
   info: string;
+  fee?: string;
+  feeCode?: string;
   status: ETransactionStatus;
   type: ETransactionType;
   contractor?: IContractor;
@@ -17,6 +19,8 @@ export interface IRequestFunds {
   timestamp: string;
   status: ERequestFundsStatus;
   code: string;
+  fee?: string;
+  feeCode?: string;
   type: ERequestFundsType;
   contractor: IContractor;
 }
@@ -75,6 +79,8 @@ export default {
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
       code: input.code?.toUpperCase(),
+      fee: input.fee || '',
+      feeCode: input.fee_code || '',
       icon: _getTransactionIcon(input.type, input.direction),
       info: _getTransactionInfo(input.direction, input.contragent, input.code),
       contractor: input.contragent
@@ -153,12 +159,13 @@ function _getTransactionInfo(
   contractor: IContractor,
   code: string
 ): string {
-  if (direction === EDirection.income)
-    return `From ${
-      contractor ? contractor.phone : `${code.toUpperCase()} address`
-    }`;
+  const address =
+    contractor && contractor.phone
+      ? contractor.phone
+      : contractor && contractor.email
+      ? contractor.email
+      : `${code.toUpperCase()} address`;
+  if (direction === EDirection.income) return `From ${address}`;
 
-  return `To ${
-    contractor ? contractor.phone : `${code.toUpperCase()} address`
-  }`;
+  return `To ${address}`;
 }

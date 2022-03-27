@@ -3,6 +3,7 @@ import apiService from '@/services/apiService';
 
 import transactionMapper, {
   INetTransaction,
+  TTransaction,
 } from '@/models/transaction/transaction';
 
 // import { TSuccessResponse } from '@/types/api';
@@ -15,5 +16,12 @@ export default {
       : apiService.transactions.transactionsList();
     const res = await axios.get(url);
     return res.data.list.map(transactionMapper.deserialize);
+  },
+
+  async getTransactionById(id: string): Promise<TTransaction> {
+    const res = await axios.get(
+      `${apiService.transactions.transactionsList()}/${id}`
+    );
+    return transactionMapper.deserialize(res.data);
   },
 };

@@ -5,17 +5,18 @@
         alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        @click="$router.push('/transactions')"
+        @click="$router.push({ name: Route.DashboardHome })"
       />
       <div class="sum">
         <div class="sum-title">
-          - 2.12345678<span class="currency">USDT</span>
+          {{ transaction.sum
+          }}<span class="currency">{{ transaction.code }}</span>
         </div>
         <div class="arrow">
           <img alt="right" src="@/assets/icon/short_right.svg" />
         </div>
       </div>
-      <h2 class="sendto">{{ $t('common.to') }} Abraham Watson</h2>
+      <h2 class="sendto">{{ transaction.info }}</h2>
       <p class="date">
         <!-- TODO: add number depends -->
         2 {{ $t('common.daysAgo') }}
@@ -48,14 +49,14 @@
         <p class="name">
           {{ $t('status.title') }}
         </p>
-        <div v-if="transactionStatus === 'pending'" class="status">
-          {{ $t('status.pending') }}
-        </div>
-        <div v-if="transactionStatus === 'complete'" class="status -complete">
-          {{ $t('status.complete') }}
-        </div>
-        <div v-if="transactionStatus === 'reverted'" class="status -reverted">
-          {{ $t('transactions.reverted') }}
+        <div
+          v-if="transaction.status"
+          class="status"
+          :class="{
+            pending: transaction.status === ETransactionStatus.pending,
+          }"
+        >
+          {{ $t(`transactions.status.${transaction.status}`) }}
         </div>
       </li>
       <li class="main-item">
@@ -64,21 +65,21 @@
         </p>
         <div class="item-right">
           <img class="icon" src="@/assets/icon/green_ok.svg" />
-          <p class="name">Abraham Watson ∙ USDT</p>
+          <p class="name">{{ transaction.info }} ∙ {{ transaction.code }}</p>
         </div>
       </li>
-      <li class="main-item">
+      <li v-if="transaction.fee" class="main-item">
         <p class="name">
           {{ $t('transactions.transferFee') }}
         </p>
-        <p class="description">0,12345678 USDT</p>
+        <p class="description">0,12345678 {{ transaction.code }}</p>
       </li>
       <li class="main-item">
         <div class="inner">
           <p class="name">
             {{ $t('transactions.id') }}
           </p>
-          <p class="transaction">3M8w2knJKsr3jqMatYiyuraxVvZA</p>
+          <p class="transaction">{{ transaction.id }}</p>
         </div>
         <div class="inner">
           <img alt="folders" src="@/assets/icon/folders.svg" />
@@ -92,11 +93,30 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onMounted, Ref, ref } from 'vue';
+import { useRoute } from 'vue-router';
 
-const transactionStatus = 'complete';
+import transactionService from '@/services/transactionService';
+import { INetTransaction } from '@/models/transaction/transaction';
+import { ETransactionStatus } from '@/models/transaction/transaction';
+
+import { Route } from '@/router/types';
+
+const route = useRoute();
 
 const transactionType = ref('payment-link');
+let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+
+onMounted(async () => {
+  try {
+    if (!route.params.id) return;
+    transaction.value = await transactionService.getTransactionById(
+      route.params.id
+    );
+  } catch (err) {
+    console.log(err);
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -237,14 +257,23 @@ const transactionType = ref('payment-link');
     border-radius: 100px;
     color: $color-yellow-800;
 
-    &.-complete {
+    > .complete {
       background: $color-green-100;
       color: $color-green-800;
     }
 
-    &.-reverted {
+    > .reverted {
       background: $color-red-100;
       color: $color-red-700;
+    }
+
+    > .pending {
+      color: $color-yellow-600;
+    }
+
+    > .received {
+      background: $color-green-100;
+      color: $color-green-800;
     }
   }
 
