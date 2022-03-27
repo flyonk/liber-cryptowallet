@@ -1,5 +1,10 @@
 <template>
-  <button :class="classes" :disabled="disabled" class="base-button">
+  <button
+    :class="classes"
+    :disabled="disabled"
+    class="base-button"
+    type="button"
+  >
     <i v-if="icon" :class="icon" />
     <div v-else class="container">
       <i v-if="iconLeft" :class="iconLeft" />

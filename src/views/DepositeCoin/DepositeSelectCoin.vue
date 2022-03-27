@@ -1,15 +1,16 @@
 <template name="DepositeSelectCoin">
   <div class="page-wrapper">
+    <TopNavigation
+      left-icon-name="ci-close_big"
+      @click="router.push({ name: Route.DashboardHome })"
+    >
+      {{ $t('views.deposit.selectCoin.selectCoin') }}
+    </TopNavigation>
     <div class="page-header">
-      <BackHistoryBtn :path="'/home'" />
-
-      <h1 class="main-title">
-        {{ $t('views.deposit.selectCoin.selectCoin') }}
-      </h1>
-
       <label class="input-label" for="searchCoin">
         <img alt="search" class="icon" src="@/assets/icon/search.svg" />
         <input
+          id="searchCoin"
           :placeholder="$t('views.deposit.selectCoin.searchCoin')"
           class="search"
           name="searchCoin"
@@ -22,8 +23,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount } from 'vue';
 import { useRouter } from 'vue-router';
+import { onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
@@ -32,7 +33,7 @@ import { ICryptocurrencyItem } from '@/types/currency';
 import { IAccount } from '@/models/account/account';
 
 import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+import { TopNavigation } from '@/components/ui';
 
 const router = useRouter();
 const accountStore = useAccountStore();
@@ -51,17 +52,7 @@ const selectCoin = async (selectedAccount: ICryptocurrencyItem) => {
   console.log('creating account with -> ', 'tbtc');
 
   // TODO: later, change to selected account code
-  const isExistsAccount = !!selectAccount('tbtc');
-
-  if (!isExistsAccount) {
-    await accountStore.createAccount('tbtc', {
-      network: 'default',
-      force: false,
-    });
-  }
-
-  // TODO: later, change to selected account code
-  depositStore.setAccount(selectAccount('tbtc') as IAccount);
+  depositStore.setAccountInfo(selectAccount('tbtc') as IAccount);
 
   await router.push({
     name: Route.DepositNetwork,

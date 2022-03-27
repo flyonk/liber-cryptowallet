@@ -1,16 +1,29 @@
 <template>
-  <div class="page-wrapper">
+  <div v-if="wallet" class="page-wrapper">
     <top-navigation
       left-icon-name="ci-close_big"
-      @click:left-icon="$router.push({ name: Route.DepositNetwork })"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
     >
-      {{ $t('views.deposit.wallet.deposit') }} {{ coin }}
+      {{ $t('views.deposit.wallet.deposit') }} {{ coinCode }}
     </top-navigation>
 
     <div class="qr-code-container">
-      <canvas ref="canvas" class="qr-code-canvas" />
+      <qr-code
+        :background-options="{ color: 'transparent' }"
+        :corners-dot-options="{ type: 'square', color: '#000000' }"
+        :corners-square-options="{ type: 'square', color: '#000000' }"
+        :dots-options="{
+          type: 'square',
+          color: '#000000',
+        }"
+        :height="150"
+        :image-options="{ hideBackgroundDots: true, imageSize: 0.4, margin: 0 }"
+        :qr-options="{ typeNumber: 0, mode: 'Byte', errorCorrectionLevel: 'L' }"
+        :value="walletAddress"
+        :width="150"
+      />
       <p class="text-default">
-        {{ $t('views.deposit.wallet.sendOnly') }} {{ coin }}
+        {{ $t('views.deposit.wallet.sendOnly') }} {{ coinCode }}
         {{ $t('views.deposit.wallet.address') }}
       </p>
     </div>
@@ -20,11 +33,11 @@
         <div class="titled-block">
           <h2 class="title">{{ $t('views.deposit.wallet.network') }}</h2>
           <p class="content">
-            {{ network }}
+            {{ network.text }}
           </p>
         </div>
-        <button class="icon" type="button" @click="updateNetwork">
-          <img alt="Update" src="@/assets/images/update-icon.svg" />
+        <button class="icon" type="button" @click="createAccount">
+          <i class="ci-repeat" />
         </button>
       </div>
 
@@ -32,91 +45,106 @@
         <div class="titled-block">
           <h2 class="title">{{ $t('views.deposit.wallet.walletAddress') }}</h2>
           <p class="content">
-            {{ wallet }}
+            {{ walletAddress }}
           </p>
         </div>
         <button class="icon" type="button" @click="copyToClipboard">
-          <img alt="Copy" src="@/assets/images/copy-icon.svg" />
+          <i class="ci-copy" />
         </button>
       </div>
 
       <div class="wallet-footer">
         <div class="row row-footer">
           <p class="title">{{ $t('views.deposit.wallet.minimumDeposit') }}</p>
-          <p class="content">0.000000001 {{ coin }}</p>
+          <p class="content">{{ wallet.minimumDeposit }} {{ coinCode }}</p>
         </div>
 
         <div class="row row-footer">
           <p class="title">{{ $t('views.deposit.wallet.arrival') }}</p>
           <p class="content">
-            1 {{ $t('views.deposit.wallet.networkConfirmation') }}
+            {{ wallet.expectedArrival }}
+            {{ $t('views.deposit.wallet.networkConfirmations') }}
           </p>
         </div>
 
         <div class="row row-footer">
           <p class="title">{{ $t('views.deposit.wallet.expectedUnlock') }}</p>
           <p class="content">
-            2 {{ $t('views.deposit.wallet.networkConfirmations') }}
+            {{ wallet.expectedUnlock }}
+            {{ $t('views.deposit.wallet.networkConfirmations') }}
           </p>
         </div>
       </div>
 
       <div class="btns-container">
-        <button
-          class="btn-default btn-secondary"
-          type="button"
+        <base-button
+          :view="ViewBaseButton.Secondary"
+          disabled
           @click="saveImage"
         >
           {{ $t('views.deposit.wallet.saveImage') }}
-        </button>
-        <button
-          class="btn-default btn-primary"
-          type="button"
-          @click="shareAddress"
-        >
+        </base-button>
+        <base-button @click="shareAddress">
           {{ $t('views.deposit.wallet.shareAddress') }}
-        </button>
+        </base-button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { computed, onBeforeMount, ref } from 'vue';
 
 import { check, share } from '@/helpers/nativeShare';
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
-
-import { TopNavigation } from '@/components/ui';
-import QrCodeWithLogo from 'qrcode-with-logos';
 import { Route } from '@/router/types';
+import { useAccountStore } from '@/stores/account';
+import { IDepositNetwork, useDepositStore } from '@/stores/deposit';
+import { IAccount } from '@/models/account/account';
+import { ICreateAccount } from '@/models/account/createAccount';
+import QrCode from 'qrcode-vue3';
+import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
+import { BaseButton, TopNavigation } from '@/components/ui';
+
 import { Clipboard } from '@capacitor/clipboard';
+
 const toast = useToast();
-
 const { tm } = useI18n();
+const depositStore = useDepositStore();
+const accountStore = useAccountStore();
 
-const canvas = ref<HTMLCanvasElement | undefined>();
-let qrCodeValue = ref<string>('');
+const coin = ref<IAccount | null>(null);
+const network = ref<IDepositNetwork | null>(null);
+const wallet = ref<ICreateAccount | null>(null);
 
-const coin = ref<string>('Fantom');
-const network = ref<string>('Bitcoin');
-const wallet = ref('1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l');
+onBeforeMount(async () => {
+  coin.value = depositStore.getAccountInfo;
 
-onMounted(() => {
-  qrCodeValue.value = wallet.value;
+  network.value = depositStore.getNetwork;
 
-  let qrcode = new QrCodeWithLogo({
-    canvas: canvas.value,
-    content: qrCodeValue.value,
-    width: 180,
-  });
+  await createAccount();
+});
 
-  qrcode.toCanvas();
+const walletAddress = computed(() => {
+  return wallet.value?.address;
+});
+
+const coinCode = computed(() => {
+  return coin.value?.code.toUpperCase() || '';
 });
 
 const saveImage = () => {
   console.log(tm('views.deposit.wallet.saveImage'));
+};
+
+const createAccount = async () => {
+  const data = await accountStore.createAccount(coin.value?.code as string, {
+    network: 'default',
+    force: true,
+  });
+
+  wallet.value = data as ICreateAccount;
 };
 
 const shareAddress = async () => {
@@ -133,7 +161,7 @@ const shareAddress = async () => {
 
   await share({
     title: 'Share address',
-    text: wallet.value,
+    text: wallet.value?.address,
     dialogTitle: 'Share address',
   });
 };
@@ -141,7 +169,7 @@ const shareAddress = async () => {
 const copyToClipboard = async () => {
   try {
     await Clipboard.write({
-      string: wallet.value,
+      string: wallet.value?.address as string,
     });
     toast.add({
       summary: tm('views.deposit.wallet.copySuccess') as string,
@@ -152,15 +180,11 @@ const copyToClipboard = async () => {
     console.error(`${tm('views.deposit.wallet.copyFailure')} `, err);
   }
 };
-
-const updateNetwork = () => {
-  console.log(tm('views.deposit.wallet.updateCoinNetwork'));
-};
 </script>
 
 <style lang="scss" scoped>
 .page-wrapper {
-  padding: 15px;
+  padding: 0 15px;
   flex-grow: 1;
   background-color: $color-light-grey-200;
   display: flex;
@@ -179,6 +203,11 @@ const updateNetwork = () => {
 
 .qr-code-container {
   flex-grow: 1;
+  margin: 28px 0 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 }
 
 .qr-code-canvas {
@@ -189,7 +218,7 @@ const updateNetwork = () => {
 
 .wallet-block {
   background-color: $color-white;
-  margin: -15px;
+  margin: 0 -15px -15px;
   padding: 15px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -200,6 +229,12 @@ const updateNetwork = () => {
   align-items: center;
   padding: 15px;
   padding-bottom: 0;
+
+  > .icon {
+    font-size: 24px;
+    margin: 0 0 0 15px;
+    background: none;
+  }
 }
 
 .titled-block {
@@ -263,6 +298,7 @@ const updateNetwork = () => {
   font-size: 12px;
   line-height: 16px;
   text-align: center;
+  margin: 16px 0 36px;
 }
 
 .wallet-footer {
