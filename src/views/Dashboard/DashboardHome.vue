@@ -38,12 +38,11 @@
       <div class="currencies flex items-center">
         <!--TODO: map currencies-->
         <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
-        <div class="circle-wrap">
+        <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
           <img
             :class="{ '-reverted': isMenuOpen }"
             class="down"
             src="@/assets/icon/arrow-down.svg"
-            @click="isMenuOpen = !isMenuOpen"
           />
         </div>
         <img
@@ -333,6 +332,8 @@ const showWelcomeMessage = computed(() => {
       width: 36px;
 
       > .down {
+        width: 10px;
+
         &.-reverted {
           transform: rotate(180deg);
         }
