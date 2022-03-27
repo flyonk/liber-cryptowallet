@@ -32,6 +32,8 @@ const route = useRoute();
 const fundsStore = useFundsStore();
 
 const selectCoin = (item: any) => {
+  const id = item.id;
+  if (id !== 'bitcoin' && id !== 'ethereum' && id !== 'usdt') return;
   if (route.params.type === 'from') {
     fundsStore.setCryptoFrom(item.shortName, item.icon);
   } else {
