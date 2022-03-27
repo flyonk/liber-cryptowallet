@@ -125,6 +125,7 @@ const authStore = useAuthStore();
 
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;
+console.log('show me what a fuck inside', profileStore.getUser);
 if (firstName == null) {
   firstName = 'Name';
 }
@@ -132,7 +133,7 @@ if (lastName == null) {
   lastName = 'Surname';
 }
 const accountName = ref(`${firstName} ${lastName}`);
-const accountID = ref(`@${phone}`);
+const accountID = ref(`${phone}`);
 const isTouchIdOn = ref(false);
 const showCloseAccount = ref(false);
 
@@ -146,6 +147,12 @@ onMounted(async () => {
   if (!profileStore.getUser.id)
     try {
       await profileStore.init();
+      const user = profileStore.getUser;
+      phone = user?.phone;
+      firstName = user?.firstName;
+      lastName = user?.lastName;
+      accountName.value = `${firstName} ${lastName}`;
+      accountID.value = phone;
     } catch (err) {
       proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
     }
