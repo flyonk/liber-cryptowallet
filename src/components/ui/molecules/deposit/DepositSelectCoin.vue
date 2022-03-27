@@ -42,6 +42,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/btc.svg'),
     fullName: 'Bitcoin',
     shortName: 'BTC',
+    code: 'tbtc',
     avaliable: true,
   },
   {
@@ -49,6 +50,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/eth.svg'),
     fullName: 'Ethereum',
     shortName: 'ETH',
+    code: 'eth',
     avaliable: true,
   },
   {
@@ -56,6 +58,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/tether.svg'),
     fullName: 'Tether',
     shortName: 'USDT',
+    code: 'usdt',
     avaliable: true,
   },
   {
@@ -63,6 +66,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/binance.svg'),
     fullName: 'Binance',
     shortName: 'BNB',
+    code: 'bnb',
     avaliable: false,
   },
   {
@@ -70,6 +74,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/dash.svg'),
     fullName: 'Dash',
     shortName: 'DSH',
+    code: 'dsh',
     avaliable: false,
   },
   {
@@ -77,6 +82,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/xrp.svg'),
     fullName: 'Ripple',
     shortName: 'XRP',
+    code: 'xrp',
     avaliable: false,
   },
   {
@@ -84,6 +90,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/fantom.svg'),
     fullName: 'Fantom',
     shortName: 'FTN',
+    code: 'ftn',
     avaliable: false,
   },
   {
@@ -91,6 +98,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/tron.svg'),
     fullName: 'Tron',
     shortName: 'TRX',
+    code: 'trx',
     avaliable: false,
   },
   {
@@ -98,6 +106,7 @@ coins.value = [
     icon: require('@/assets/icon/currencies/graph.svg'),
     fullName: 'Graph',
     shortName: 'GRT',
+    code: 'grt',
     avaliable: false,
   },
 ];
