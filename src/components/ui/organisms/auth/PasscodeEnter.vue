@@ -44,6 +44,10 @@ const props = defineProps({
       required: true,
     },
   },
+  toCreate: {
+    type: Boolean,
+    default: true,
+  },
 });
 const router = useRouter();
 
@@ -54,7 +58,9 @@ const { tm } = useI18n();
 const title = computed(() => {
   switch (actionType.value) {
     case EPasscodeActions.store:
-      return tm('views.passcodeEnter.createPasscode');
+      return props.toCreate
+        ? tm('views.passcodeEnter.createPasscode')
+        : tm('views.passcodeEnter.changePasscode');
     case EPasscodeActions.compare:
       return tm('views.passcodeEnter.confirmPasscode');
 

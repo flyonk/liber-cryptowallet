@@ -1,5 +1,8 @@
 <template>
-  <passcode-enter :redirect-on-success-route="Route.DashboardHome" />
+  <passcode-enter
+    :to-create="false"
+    :redirect-on-success-route="Route.DashboardHome"
+  />
 </template>
 
 <script lang="ts" setup>
