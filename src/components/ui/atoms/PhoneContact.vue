@@ -23,6 +23,8 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 
+import { getContactInitials } from '@/helpers/contacts';
+
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
 
@@ -31,25 +33,6 @@ const props = defineProps({
     type: Object as PropType<Contact>,
   },
 });
-
-function getContactInitials(fio = '') {
-  let parts = fio.split(' ');
-  if (parts && parts.length > 1) {
-    let initials = '';
-    let i = 0;
-    while (initials.length < 2 && i < parts.length) {
-      if (parts[i]) {
-        initials += parts[i].charAt(0);
-      }
-      i++;
-    }
-    if (initials.length) {
-      return initials;
-    }
-  }
-  const firstLettter = fio && fio.charAt(0);
-  return firstLettter || '?';
-}
 </script>
 
 <style lang="scss" scoped>

@@ -50,3 +50,22 @@ export const mockedContacts: Contact[] = [
     emails: [],
   },
 ];
+
+export function getContactInitials(fio = '') {
+  const parts = fio.split(' ');
+  if (parts && parts.length > 1) {
+    let initials = '';
+    let i = 0;
+    while (initials.length < 2 && i < parts.length) {
+      if (parts[i]) {
+        initials += parts[i].charAt(0);
+      }
+      i++;
+    }
+    if (initials.length) {
+      return initials;
+    }
+  }
+  const firstLettter = fio && fio.charAt(0);
+  return firstLettter || '?';
+}
