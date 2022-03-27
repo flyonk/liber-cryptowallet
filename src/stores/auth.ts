@@ -103,6 +103,7 @@ export const useAuthStore = defineStore('auth', {
       this.setToken(data);
     },
 
+    // TODO: Rename it to setOrRefreshTokens
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
         await Promise.all([

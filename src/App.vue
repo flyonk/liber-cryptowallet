@@ -14,9 +14,9 @@
   <app-layout-switcher>
     <router-view v-slot="{ Component, route }" class="router-view">
       <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
-      <transition>
-        <component :is="Component" :key="route.path" />
-      </transition>
+      <!-- <transition> -->
+      <component :is="Component" :key="route.path" />
+      <!-- </transition> -->
     </router-view>
   </app-layout-switcher>
 </template>
