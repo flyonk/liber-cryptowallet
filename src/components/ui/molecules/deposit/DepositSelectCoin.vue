@@ -5,10 +5,10 @@
       <CoinItem
         v-for="item in suggestedCoins"
         :key="item.id"
+        :avaliable="!item.avaliable"
         :full-name="item.name"
         :icon="item.icon"
         :short-name="item.code"
-        :avaliable="!item.avaliable"
         @click="$emit('select-coin', item)"
       />
     </ul>
@@ -17,10 +17,10 @@
       <CoinItem
         v-for="item in otherCoins"
         :key="item.id"
+        :avaliable="!item.avaliable"
         :full-name="item.name"
         :icon="item.icon"
         :short-name="item.code"
-        :avaliable="!item.avaliable"
         @click="$emit('select-coin', item)"
       />
     </ul>
@@ -56,8 +56,8 @@ coins.value = [
   {
     id: 'usdt',
     icon: require('@/assets/icon/currencies/tether.svg'),
-    fullName: 'Tether',
-    shortName: 'USDT',
+    name: 'Tether',
+    code: 'USDT',
     avaliable: true,
   },
   {
