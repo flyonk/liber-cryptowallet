@@ -1,3 +1,5 @@
+import { string2ISO } from '@/helpers/filters';
+
 export enum EUserStatus {
   unregistered = 10, //UserStatusNew
   active = 20, //UserStatusActive
@@ -54,6 +56,9 @@ export default {
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   requestSerialize(input: Partial<IProfile>): any {
+    const address =
+      input.street && input.homeNum ? `${input.street} ${input.homeNum}` : null;
+    const birthDate = input.birthDate ? string2ISO(input.birthDate) : null;
     return {
       status: input.status,
       phone: input.phone,
@@ -63,10 +68,10 @@ export default {
       last_name: input.lastName,
       email: input.email,
       country: input.country,
-      street_and_number: `${input.street} ${input.homeNum}`,
+      street_and_number: address,
       optionalAddress: input.optionalAddress,
       postal_code: input.postalCode,
-      birthdate: input.birthDate,
+      birthdate: birthDate,
       is_send_news: !!input.marketing?.isEmail,
     };
   },

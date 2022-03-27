@@ -12,6 +12,11 @@ interface IUserProfile {
   user: IProfile;
 }
 
+// const getKeyValue = <T extends Partial<IProfile>, K extends keyof T>(
+//   obj: T,
+//   key: K
+// ) => obj[key];
+
 // === User Profile Store ===
 
 export const useProfileStore = defineStore('profile', {
@@ -55,6 +60,25 @@ export const useProfileStore = defineStore('profile', {
           "error can't retrieve user data"
         );
         return {} as IProfile;
+      }
+    },
+
+    async updateUserProfile(data: Partial<IProfile>): Promise<void> {
+      try {
+        for (const [key, val] of Object.entries(data)) {
+          //TODO: fix typescript
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          // @ts-ignore
+          this.user[key] = val;
+        }
+        await profileService.updateProfile(this.user);
+      } catch (err) {
+        SentryUtil.capture(
+          err,
+          'updateUserProfile',
+          'Signup',
+          "error can't update user data"
+        );
       }
     },
   },

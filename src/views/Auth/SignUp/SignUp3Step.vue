@@ -34,6 +34,7 @@ import { ref } from 'vue-demi';
 import { computed } from '@vue/reactivity';
 
 import { useAuthStore } from '@/stores/auth';
+import { useProfileStore } from '@/stores/profile';
 
 import {
   TopNavigation,
@@ -44,6 +45,7 @@ import {
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();
+const pStore = useProfileStore();
 
 const sendNews = ref(false);
 
@@ -63,6 +65,9 @@ const prevStep = () => {
 
 const nextStep = () => {
   authStore.registration.email = email.value;
+  pStore.updateUserProfile({
+    email: email.value,
+  });
   emit('next');
 };
 
