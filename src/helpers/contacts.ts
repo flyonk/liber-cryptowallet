@@ -69,3 +69,7 @@ export function getContactInitials(fio = '') {
   const firstLettter = fio && fio.charAt(0);
   return firstLettter || '?';
 }
+
+export function getContactPhone(contact: Contact) {
+  return contact.phoneNumbers[0]?.number;
+}

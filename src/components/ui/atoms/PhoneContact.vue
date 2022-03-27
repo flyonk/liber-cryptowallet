@@ -15,7 +15,7 @@
       {{ props.contact.displayName }}
     </p>
     <p class="phone">
-      {{ props.contact.phoneNumbers[0]?.number }}
+      {{ getContactPhone(props.contact) }}
     </p>
   </router-link>
 </template>
@@ -23,7 +23,7 @@
 <script setup lang="ts">
 import { PropType } from 'vue';
 
-import { getContactInitials } from '@/helpers/contacts';
+import { getContactInitials, getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';

@@ -7,11 +7,11 @@
         alt="arrow-left"
         @click="$router.push({ name: Route.PayRecepientsPhone })"
       />
-      <h4 class="username">@MyDude</h4>
+      <h4 class="username">{{ recepient.phone }}</h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">{{ contact.displayName }}</h1>
-      <div class="initials">MD</div>
+      <h1 class="title">{{ recepient.displayName }}</h1>
+      <div class="initials">{{ recepient.initials }}</div>
     </div>
     <div class="sendto-main">
       <send-currency
@@ -98,13 +98,14 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
 import SentryUtil from '@/helpers/sentryUtil';
+import { getContactInitials, getContactPhone } from '@/helpers/contacts';
 import { useRouter, useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
@@ -126,6 +127,12 @@ const _contact = contacts.filter((c) => {
   return c.contactId === contactId;
 });
 const contact = _contact && _contact[0];
+
+const recepient = computed(() => ({
+  displayName: contact.displayName,
+  initials: getContactInitials(contact.displayName),
+  phone: getContactPhone(contact),
+}));
 
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
