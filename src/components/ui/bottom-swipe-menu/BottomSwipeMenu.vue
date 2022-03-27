@@ -1,8 +1,8 @@
 <template>
   <div
     v-if="isMenuOpen && showOverlay"
-    @click="closeMenu"
     class="overlay"
+    @click="closeMenu"
   ></div>
   <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
     <div class="close" @click="closeMenu" @touchmove="startMove"></div>
