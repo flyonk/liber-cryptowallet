@@ -31,7 +31,7 @@
 
 <script setup lang="scss"></script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dashboard-story {
   height: 100%;
   padding: 32px 24px;
