@@ -58,6 +58,7 @@
             v-model="convertInfo.estimatedAmount"
             type="number"
             class="input"
+            :readonly="true"
             @blur="onBlur"
             @input="onChangeEstimatedAmount"
           />
