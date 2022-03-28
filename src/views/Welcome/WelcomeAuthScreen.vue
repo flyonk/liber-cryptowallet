@@ -11,7 +11,7 @@
         <stories-slider-example-story
           v-for="item in 4"
           :key="item"
-          :base-img="require('@/assets/images/example-story-money-image.png')"
+          :base-img="require('@/assets/images/money.svg')"
           :logo-img="require('@/assets/images/full-logo-white.png')"
           :header-title="$t('auth.signup.welcomeAuth.title')"
           :base-title="$t('auth.signup.welcomeAuth.transfer')"

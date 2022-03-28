@@ -5,19 +5,17 @@
         class="back mr-2"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/profile')"
+        @click="$router.push({ name: Route.DashboardHome })"
       />
       <h4 class="username"></h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
       <h1 class="title">Convert Funds</h1>
-      <!-- <div class="initials">AR</div> -->
     </div>
     <div class="sendto-main">
       <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
     </div>
   </div>
-  <!--TODO: make toasts logic-->
   <base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showPopup"
@@ -70,11 +68,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { useFundsStore } from '@/stores/funds';
-
 import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
-import { BaseToast, BaseButton } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
+import { Route } from '@/router/types';
+import { BaseToast, BaseButton } from '@/components/ui';
+import { useFundsStore } from '@/stores/funds';
 
 const showPopup = ref(false);
 const show2FA = ref(false);

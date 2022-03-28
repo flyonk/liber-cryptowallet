@@ -79,7 +79,7 @@
         class="send-button"
         size="large"
         view="simple"
-        :disabled="loading"
+        :disabled="disableBtnHandler"
         @click="handleClick"
       >
         <template v-if="ctaState === 'refresh'">{{
@@ -145,16 +145,13 @@ const currentSendToCurrency = {
   img: ref(imgTo || require('@/assets/icon/currencies/tether.svg')),
 };
 
-// const currentSendFromCode = computed(() => {
-//   return fStore.getState.from;
-// });
-
 let requestAmount = ref<number>(0);
 
 const router = useRouter();
 
 function handleClick() {
   if (ctaState.value === 'refresh') {
+    previewChangeInfo();
     timer.value = 30;
     ctaState.value = 'send';
     return;
@@ -290,6 +287,11 @@ const replaceCoins = () => {
 
   requestAmount.value = +fStore.convertInfo?.estimatedAmount;
 };
+
+const disableBtnHandler = computed(() => {
+  if (loading.value || requestAmount.value === 0) return true;
+  return false;
+});
 </script>
 
 <style lang="scss" scoped>
