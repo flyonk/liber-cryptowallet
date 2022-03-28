@@ -6,6 +6,13 @@ export enum EUserStatus {
   block = 30, //UserStatusBlock
 }
 
+export enum EKYCStatus {
+  not_started = 10,
+  pending = 20,
+  rejected = 30,
+  success = 40,
+}
+
 export type TMarketing = {
   isEmail: boolean;
   isPushNotification: boolean;
@@ -28,6 +35,7 @@ export interface IProfile {
   postalCode?: string;
   birthDate?: string;
   marketing: TMarketing;
+  kycStatus: EKYCStatus;
 }
 
 export default {
@@ -48,6 +56,7 @@ export default {
       optionalAddress: input.optional_address || '',
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
+      kycStatus: input.kycStatus || EKYCStatus.success,
       marketing: {
         isEmail: false,
         isPushNotification: false,

@@ -24,7 +24,7 @@
           v-for="(item, index) in carousel"
           :key="index"
           class="item-slide"
-          @click="$router.push('/home/story')"
+          @click="onClick(item)"
         >
           <img :src="item.img" class="image" />
           <p class="name">{{ item.name }}</p>
@@ -80,10 +80,12 @@
 import { computed, onMounted, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
+import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
+import { useProfileStore } from '@/stores/profile';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
@@ -94,10 +96,12 @@ const { tm } = useI18n();
 
 //TODO: write full name accountStore
 const aStore = useAccountStore();
+const profileStore = useProfileStore();
 
 const activeTab = ref(1);
 
 const route = useRoute();
+const router = useRouter();
 
 /**
  * Lifecycle
@@ -113,20 +117,47 @@ const carousel = [
   {
     name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
+    successRoute: Route.DepositNetwork,
+    failRoute: Route.DashboardStory,
   },
   {
     name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
+    successRoute: Route.PayRecepientsPhone,
+    failRoute: Route.DashboardStory,
   },
   {
     name: tm('transactions.carousel.convert'),
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
+    successRoute: Route.ConvertFunds,
+    failRoute: Route.DashboardStory,
   },
   {
     name: tm('transactions.carousel.withdraw'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
+    successRoute: Route.PayRecepientsPhone,
+    failRoute: Route.DashboardStory,
   },
 ];
+
+const onClick = (carouselItem: any) => {
+  const { kycStatus } = profileStore.getUser;
+  switch (kycStatus) {
+    case EKYCStatus.success:
+      router.push({
+        name: carouselItem.successRoute,
+      });
+      break;
+    case EKYCStatus.not_started:
+    case EKYCStatus.pending:
+    case EKYCStatus.rejected:
+    default:
+      router.push({
+        name: carouselItem.failRoute,
+      });
+      break;
+  }
+};
 </script>
 
 <style lang="scss" scoped>
