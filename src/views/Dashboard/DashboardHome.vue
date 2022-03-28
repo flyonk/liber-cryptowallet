@@ -8,17 +8,20 @@
             src="@/assets/images/avatar.png"
             @click="$router.push('/profile')"
           />
-          <div v-if="VerificationStatus === 'in_progress'" class="verification">
+          <div
+            v-if="VerificationStatus === EKYCStatus.pending"
+            class="verification"
+          >
             {{ $t('views.dashboard.home.idVerification') }}
           </div>
           <div
-            v-if="VerificationStatus === 'verified'"
+            v-if="VerificationStatus === EKYCStatus.success"
             class="verification -verified"
           >
             {{ $t('views.dashboard.home.idVerified') }}
           </div>
           <div
-            v-if="VerificationStatus === 'failed'"
+            v-if="VerificationStatus === EKYCStatus.rejected"
             class="verification verification--failed"
           >
             {{ $t('views.dashboard.home.iDVerificationFailed') }}
@@ -76,23 +79,23 @@
       </div>
       <div class="controls">
         <button
-          :class="{ '-active': VerificationStatus === 'verified' }"
-          :disabled="VerificationStatus !== 'verified'"
+          :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
           @click="$router.push('/deposit')"
         >
           {{ $t('views.dashboard.home.deposit') }}
         </button>
         <button
-          :class="{ '-active': VerificationStatus === 'verified' }"
-          :disabled="VerificationStatus !== 'verified'"
+          :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
         >
           {{ $t('views.dashboard.home.send') }}
         </button>
         <button
-          :class="{ '-active': VerificationStatus === 'verified' }"
-          :disabled="VerificationStatus !== 'verified'"
+          :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
         >
           ...
@@ -152,8 +155,10 @@ import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
+import { useProfileStore } from '@/stores/profile';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
+import { EKYCStatus } from '@/models/profile/profile';
 
 import { AccountListBottomSheet } from '@/components/ui';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
@@ -162,7 +167,7 @@ import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
 let activeTab = ref(1);
-const VerificationStatus = ref('verified');
+const VerificationStatus = ref(EKYCStatus.success);
 
 const { stylePaddings } = useSafeAreaPaddings();
 
@@ -170,6 +175,7 @@ const isMenuOpen = ref(false);
 const loading = ref(false);
 
 const accountStore = useAccountStore();
+const profileStore = useProfileStore();
 
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
@@ -193,6 +199,11 @@ const { proxy } = getCurrentInstance();
  * Lifecycle
  */
 onMounted(async () => {
+  await profileStore.init();
+  const { kycStatus } = profileStore.getUser;
+
+  VerificationStatus.value = kycStatus;
+
   if (!isDashboardSkeletonReady.value) {
     loading.value = true;
   }

@@ -35,7 +35,7 @@ export interface IProfile {
   postalCode?: string;
   birthDate?: string;
   marketing: TMarketing;
-  kycStatus?: EKYCStatus;
+  kycStatus: EKYCStatus;
 }
 
 export default {
