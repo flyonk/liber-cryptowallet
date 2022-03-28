@@ -1,7 +1,7 @@
 <template>
   <passcode-enter
     :to-create="false"
-    :redirect-on-success-route="Route.DashboardHome"
+    :redirect-on-success-route="Route.ProfileSettings"
   />
 </template>
 
