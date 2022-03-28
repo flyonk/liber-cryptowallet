@@ -12,7 +12,8 @@ export type TMarketing = {
   isSocialMedia: boolean;
 };
 
-export interface IProfile {
+export interface IProfile
+  extends Record<string, string | boolean | number | TMarketing | undefined> {
   id: string;
   status: number;
   phone: string;

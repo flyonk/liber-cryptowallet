@@ -12,11 +12,6 @@ interface IUserProfile {
   user: IProfile;
 }
 
-// const getKeyValue = <T extends Partial<IProfile>, K extends keyof T>(
-//   obj: T,
-//   key: K
-// ) => obj[key];
-
 // === User Profile Store ===
 
 export const useProfileStore = defineStore('profile', {
@@ -33,15 +28,18 @@ export const useProfileStore = defineStore('profile', {
     async init(): Promise<void> {
       this.user = await this.getUserProfile();
       if (this.user.id) {
-        const value = JSON.stringify(this.user);
-        //TODO: save to storage - sync after user data editing
-        // Use storage servise
-        SecureStoragePlugin.set({
-          key: SStorageKeys.user,
-          value,
-        });
+        this.syncUserDataInStorage();
       }
     },
+
+    syncUserDataInStorage(): void {
+      const value = JSON.stringify(this.user);
+      SecureStoragePlugin.set({
+        key: SStorageKeys.user,
+        value,
+      });
+    },
+
     async closeAccount() {
       // TODO Wait for response when API is ready
       profileService.closeProfile();
@@ -66,12 +64,10 @@ export const useProfileStore = defineStore('profile', {
     async updateUserProfile(data: Partial<IProfile>): Promise<void> {
       try {
         for (const [key, val] of Object.entries(data)) {
-          //TODO: fix typescript
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
           this.user[key] = val;
         }
         await profileService.updateProfile(this.user);
+        this.syncUserDataInStorage();
       } catch (err) {
         SentryUtil.capture(
           err,
