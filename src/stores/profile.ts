@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 import profileService from '@/services/profileService';
-import { IProfile } from '@/models/profile/profile';
+import { IProfile, TMarketing } from '@/models/profile/profile';
 import { clearAll, get, set } from '@/helpers/storage';
 import SentryUtil from '@/helpers/sentryUtil';
 
@@ -89,12 +89,18 @@ export const useProfileStore = defineStore('profile', {
       });
     },
 
-    async getMarketingFromStorage() {
+    async getMarketingFromStorage(): Promise<TMarketing> {
       const marketing = await get(EStorageKeys.marketing);
 
       if (marketing !== null) {
         return JSON.parse(marketing);
       }
+
+      return {
+        isEmail: false,
+        isPushNotification: false,
+        isSocialMedia: false,
+      };
     },
   },
 });
