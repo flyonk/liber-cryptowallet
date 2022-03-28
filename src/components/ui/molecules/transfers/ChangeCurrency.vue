@@ -130,7 +130,7 @@ const loading = ref(false);
 
 const DEBOUNCE_TIMER = 500;
 
-const timer = ref(5);
+const timer = ref(30);
 const startTimer = ref(0);
 
 const currentSendFromCurrency = {
