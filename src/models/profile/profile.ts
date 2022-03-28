@@ -7,9 +7,9 @@ export enum EUserStatus {
 }
 
 export type TMarketing = {
-  isEmail?: boolean;
-  isPushNotification?: boolean;
-  isSocialMedia?: boolean;
+  isEmail: boolean;
+  isPushNotification: boolean;
+  isSocialMedia: boolean;
 };
 
 export interface IProfile {
