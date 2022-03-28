@@ -25,7 +25,7 @@ export default {
 
   async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
     const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserialize(res.data);
+    return convertInfoMapper.deserialize(res.data, data);
   },
 
   async convertInfoBack(

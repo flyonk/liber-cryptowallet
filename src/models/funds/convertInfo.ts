@@ -18,7 +18,7 @@ export interface IConvertInfo {
 
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IConvertInfo {
+  deserialize(input: any, data: any): IConvertInfo {
     return {
       from: input.from,
       to: input.to,
@@ -27,6 +27,7 @@ export default {
       fee: input.fee,
       validUntil: input.valid_until,
       estimatedAmount: input.estimated_amount || '100',
+      requestAmount: data.request_amount || '0',
     };
   },
   deserializeBack(input: any, data: any): IConvertInfo {
