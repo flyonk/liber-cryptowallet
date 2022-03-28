@@ -1,4 +1,4 @@
-<template name="DepositeSelectCoin">
+<template name="SelectCoin">
   <div class="select-coin">
     <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>
     <ul class="coin-list suggested">
@@ -37,19 +37,20 @@ const coins = ref([]) as Ref<ICryptocurrencyItem[]>;
 
 defineEmits(['select-coin']);
 
+//TODO: get from API
 coins.value = [
   {
     id: 'bitcoin',
     icon: require('@/assets/icon/currencies/btc.svg'),
     name: 'Bitcoin',
-    code: 'btc',
+    code: 'tbtc',
     avaliable: true,
   },
   {
-    id: 'ethereum',
-    icon: require('@/assets/icon/currencies/eth.svg'),
-    name: 'Ethereum',
-    code: 'eth',
+    id: 'litecoin',
+    icon: require('@/assets/icon/currencies/ltc.svg'),
+    name: 'Litecoin',
+    code: 'tltc',
     avaliable: true,
   },
   {
@@ -103,8 +104,8 @@ coins.value = [
   },
 ];
 
-const suggestedCoins = ref(coins.value.slice(0, 3));
-const otherCoins = ref(coins.value.length > 3 ? coins.value.slice(3) : []);
+const suggestedCoins = ref(coins.value.slice(0, 2));
+const otherCoins = ref(coins.value.length > 2 ? coins.value.slice(2) : []);
 </script>
 
 <style lang="scss" scoped>

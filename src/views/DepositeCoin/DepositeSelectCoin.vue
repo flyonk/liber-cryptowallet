@@ -18,7 +18,7 @@
         />
       </label>
     </div>
-    <DepositSelectCoin @select-coin="selectCoin" />
+    <SelectCoin @select-coin="selectCoin" />
   </div>
 </template>
 
@@ -32,7 +32,7 @@ import { useDepositStore } from '@/stores/deposit';
 import { ICryptocurrencyItem } from '@/types/currency';
 import { IAccount } from '@/models/account/account';
 
-import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
+import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import { TopNavigation } from '@/components/ui';
 
 const router = useRouter();

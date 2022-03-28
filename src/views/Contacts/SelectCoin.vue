@@ -17,15 +17,17 @@
         />
       </label>
     </div>
-    <DepositSelectCoin @select-coin="selectCoin" />
+    <SelectCoin @select-coin="selectCoin" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router';
-import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+
 import { useFundsStore } from '@/stores/funds';
+
+import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 
 const router = useRouter();
 const route = useRoute();
