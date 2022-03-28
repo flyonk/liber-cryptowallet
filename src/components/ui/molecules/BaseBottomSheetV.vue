@@ -1,18 +1,21 @@
 <template>
-  <div
-    ref="wrapper"
-    :class="{
-      '-locked': isMoving,
-      '-expanded': isOpened,
-    }"
-    :style="wrapperStyle"
-    class="bottom-wrapper"
-  >
-    <div v-if="withHeader" class="header">
-      <div class="indicator" />
-    </div>
-    <div ref="over" class="over">
-      <slot :is-opened="isOpened" />
+  <div class="base-bottom-sheet-v">
+    <div class="background-locker" />
+    <div
+      ref="wrapper"
+      :class="{
+        '-locked': isMoving,
+        '-expanded': isOpened,
+      }"
+      :style="wrapperStyle"
+      class="bottom-wrapper"
+    >
+      <div v-if="withHeader" class="header">
+        <div class="indicator" />
+      </div>
+      <div ref="over" class="over">
+        <slot :is-opened="isOpened" />
+      </div>
     </div>
   </div>
 </template>
@@ -193,45 +196,57 @@ const onLastTransitionEnd = () => {
 </script>
 
 <style lang="scss" scoped>
-.bottom-wrapper {
-  overflow-x: hidden;
-  position: fixed;
-  z-index: 99;
-  background: white;
-  width: 100%;
-  left: 0;
-  padding: 0 16px;
-  bottom: 0;
-  overflow-y: auto;
-  transform: translateY(100%);
-  border-top-left-radius: 32px;
-  border-top-right-radius: 32px;
-  /* stylelint-disable color-function-notation */
-  box-shadow: 0 0 0 99999px rgba($color-brand-primary, 80%);
-  /* stylelint-enable color-function-notation */
-  box-sizing: border-box;
-  transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
-
-  & > .header {
-    border-radius: inherit;
-    display: flex;
+.base-bottom-sheet-v {
+  > .background-locker {
+    position: absolute;
     width: 100%;
-    justify-content: center;
-    margin: 0 0 30px;
-
-    & > .indicator {
-      width: 64px;
-      height: 5px;
-      left: calc(50% - 64px / 2 - 0.5px);
-      top: 8px;
-      background: #afb3c3;
-      border-radius: 24px;
-      margin-top: 8px;
-    }
+    height: 100vh;
+    top: 0;
+    left: -10px;
+    opacity: 0;
+    z-index: 1;
   }
 
-  &.-locked {
-    transition: none;
+  > .bottom-wrapper {
+    overflow-x: hidden;
+    position: fixed;
+    z-index: 99;
+    background: white;
+    width: 100%;
+    left: 0;
+    padding: 0 16px;
+    bottom: 0;
+    overflow-y: auto;
+    transform: translateY(100%);
+    border-top-left-radius: 32px;
+    border-top-right-radius: 32px;
+    /* stylelint-disable color-function-notation */
+    box-shadow: 0 0 0 99999px rgba($color-brand-primary, 80%);
+    /* stylelint-enable color-function-notation */
+    box-sizing: border-box;
+    transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+
+    & > .header {
+      border-radius: inherit;
+      display: flex;
+      width: 100%;
+      justify-content: center;
+      margin: 0 0 30px;
+
+      & > .indicator {
+        width: 64px;
+        height: 5px;
+        left: calc(50% - 64px / 2 - 0.5px);
+        top: 8px;
+        background: #afb3c3;
+        border-radius: 24px;
+        margin-top: 8px;
+      }
+    }
+
+    &.-locked {
+      transition: none;
+    }
   }
 }
 </style>
