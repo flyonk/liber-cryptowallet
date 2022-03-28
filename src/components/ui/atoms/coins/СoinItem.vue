@@ -1,5 +1,5 @@
 <template name="CoinItem">
-  <li class="coin-item" :class="{ 'coin-disabled': avaliable }">
+  <li class="coin-item" :class="{ 'coin-disabled': available }">
     <img class="image" :src="getSrcImage" alt="" />
     <p class="title">
       {{ fullName }}
@@ -24,7 +24,7 @@ const props = defineProps({
     type: String,
     default: ref(''),
   },
-  avaliable: {
+  available: {
     type: Boolean,
     default: true,
   },

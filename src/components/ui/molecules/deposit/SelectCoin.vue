@@ -5,7 +5,7 @@
       <CoinItem
         v-for="item in suggestedCoins"
         :key="item.id"
-        :avaliable="!item.avaliable"
+        :available="!item.available"
         :full-name="item.name"
         :icon="item.icon"
         @click="$emit('select-coin', item)"
@@ -16,7 +16,7 @@
       <CoinItem
         v-for="item in otherCoins"
         :key="item.id"
-        :avaliable="!item.avaliable"
+        :available="!item.available"
         :full-name="item.name"
         :icon="item.icon"
         :short-name="item.code"
@@ -44,63 +44,63 @@ coins.value = [
     icon: require('@/assets/icon/currencies/btc.svg'),
     name: 'Bitcoin',
     code: 'tbtc',
-    avaliable: true,
+    available: true,
   },
   {
     id: 'litecoin',
     icon: require('@/assets/icon/currencies/ltc.svg'),
     name: 'Litecoin',
     code: 'tltc',
-    avaliable: true,
+    available: true,
   },
   {
     id: 'usdt',
     icon: require('@/assets/icon/currencies/tether.svg'),
     name: 'Tether',
     code: 'USDT',
-    avaliable: true,
+    available: false,
   },
   {
     id: 'binance',
     icon: require('@/assets/icon/currencies/binance.svg'),
     name: 'Binance',
     code: 'bnb',
-    avaliable: false,
+    available: false,
   },
   {
     id: 'dash',
     icon: require('@/assets/icon/currencies/dash.svg'),
     name: 'Dash',
     code: 'dsh',
-    avaliable: false,
+    available: false,
   },
   {
     id: 'xrp',
     icon: require('@/assets/icon/currencies/xrp.svg'),
     name: 'Ripple',
     code: 'xrp',
-    avaliable: false,
+    available: false,
   },
   {
     id: 'ftn',
     icon: require('@/assets/icon/currencies/fantom.svg'),
     name: 'Fantom',
     code: 'ftn',
-    avaliable: false,
+    available: false,
   },
   {
     id: 'tron',
     icon: require('@/assets/icon/currencies/tron.svg'),
     name: 'Tron',
     code: 'trx',
-    avaliable: false,
+    available: false,
   },
   {
     id: 'graph',
     icon: require('@/assets/icon/currencies/graph.svg'),
     name: 'Graph',
     code: 'grt',
-    avaliable: false,
+    available: false,
   },
 ];
 
