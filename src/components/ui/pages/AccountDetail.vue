@@ -83,7 +83,9 @@ import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
+import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
+import { useProfileStore } from '@/stores/profile';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
@@ -94,6 +96,7 @@ const { tm } = useI18n();
 
 //TODO: write full name accountStore
 const aStore = useAccountStore();
+const profileStore = useProfileStore();
 
 const activeTab = ref(1);
 
@@ -138,10 +141,21 @@ const carousel = [
 ];
 
 const onClick = (carouselItem: any) => {
-  if (carouselItem) {
-    router.push({
-      name: carouselItem.successRoute,
-    });
+  const { kycStatus } = profileStore.getUser;
+  switch (kycStatus) {
+    case EKYCStatus.success:
+      router.push({
+        name: carouselItem.successRoute,
+      });
+      break;
+    case EKYCStatus.not_started:
+    case EKYCStatus.pending:
+    case EKYCStatus.rejected:
+    default:
+      router.push({
+        name: carouselItem.failRoute,
+      });
+      break;
   }
 };
 </script>
