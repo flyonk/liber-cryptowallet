@@ -20,6 +20,7 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { useAppOptionsStore } from '@/stores/appOptions';
 import authService from '@/services/authService';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
@@ -33,6 +34,7 @@ const emit = defineEmits(['next', 'prev']);
 
 const authStore = useAuthStore();
 const pStore = useProfileStore();
+const appOptionsStore = useAppOptionsStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
 const isError = ref(false) as Ref<boolean>;
@@ -78,8 +80,9 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
     //TODO: fix with backend - Should be EUserStatus.unregistered = 10
-    pStore.getUser.status === 0
-      ? router.push({ name: Route.SignUp })
+    // pStore.getUser.status === 0 //After backend fix
+    !(await appOptionsStore.checkPassCode()) //HACK: until user staus is not ready
+      ? router.push({ name: Route.SignUp }) //!!!TODO: show email screen (SignUp3Step) 4.1 signup flow
       : nextStep();
   } catch (err) {
     isError.value = true;

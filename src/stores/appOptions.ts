@@ -2,6 +2,8 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { Storage } from '@capacitor/storage';
 import { defineStore } from 'pinia';
 
+import { get } from '@/helpers/storage';
+
 import { EStorageKeys } from '@/types/storage';
 
 interface IappOptionsState {
@@ -69,6 +71,10 @@ export const useAppOptionsStore = defineStore('appOptions', {
       this.notifictions = notifications === null ? null : !!notifications;
       this.faceid = faceid === null ? null : !!faceid;
       this.touchid = touchid === null ? null : !!touchid;
+    },
+
+    async checkPassCode(): Promise<boolean> {
+      return !!(await get(EStorageKeys.passcode));
     },
   },
 });
