@@ -11,7 +11,6 @@
             autofocus
             @blur="onBlur"
           />
-          <pre>{{ codeFrom }} {{ codeTo }} {{ codeFrom === codeTo }}</pre>
           <div class="select">
             <router-link
               :to="{ name: 'choose_coin', params: { type: 'from' } }"
