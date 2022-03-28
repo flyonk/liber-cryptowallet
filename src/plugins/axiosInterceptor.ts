@@ -1,18 +1,18 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { Storage } from '@capacitor/storage';
+
 import apiService from '@/services/apiService';
 import { useAuthStore } from '@/stores/auth';
-import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { i18n } from '@/i18n';
-import { Storage } from '@capacitor/storage';
+
 import { EStorageKeys } from '@/types/storage';
 
 //TODO: what API calls should be authorized
 const _notAuthorizedRoutes = (): string[] => {
-  const routes = [
+  return [
     ...Object.values(apiService.auth).map((item) => item()),
     ...Object.values(apiService.localData).map((item) => item()),
   ];
-  return routes;
 };
 
 const _requestHandler = async (
@@ -28,34 +28,15 @@ const _requestHandler = async (
    */
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-      let { value: token } = await Storage.get({
+      const { value: token } = await Storage.get({
         key: EStorageKeys.token,
       });
 
-      const { value: refreshToken } = await Storage.get({
-        key: EStorageKeys.refreshToken,
-      });
-
-      const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
-
-      const authStore = useAuthStore();
-
-      if (
-        (decodedToken?.exp as JwtPayload) <
-        Math.round(new Date().getTime() / 1000)
-      ) {
-        authStore
-          .refresh({ refresh_token: refreshToken || '' })
-          .then(async () => {
-            await Storage.get({
-              key: EStorageKeys.token,
-            }).then((data) => {
-              token = data.value;
-            });
-          });
-      }
-
       if (token) {
+        const authStore = useAuthStore();
+        if (await authStore.verifyToken()) {
+          await authStore.refresh();
+        }
         config.headers['Authorization'] = `Bearer ${token}`;
       }
     }

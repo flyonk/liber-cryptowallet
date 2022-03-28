@@ -1,12 +1,15 @@
-import authService from '@/services/authService';
-import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { ISuccessSignIn } from '@/models/auth/successSignIn';
-
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
+import { DateTime } from 'luxon';
+
+import authService from '@/services/authService';
 import { clearAll, get, set } from '@/helpers/storage';
+import { ISuccessSignIn } from '@/models/auth/successSignIn';
+import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
+import { EStepDirection } from '@/types/base-component';
 
 // === Auth Types ===
 
@@ -72,6 +75,18 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    async recoverTokenData(): Promise<void> {
+      const { value: token } = await Storage.get({
+        key: EStorageKeys.token,
+      });
+      const { value: refreshToken } = await Storage.get({
+        key: EStorageKeys.refreshToken,
+      });
+
+      if (token && refreshToken)
+        this.token = { ...this.token, token, refreshToken };
+    },
+
     setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
       if (step === EStepDirection.next) {
         this.steps[scope] = this.steps[scope] + 1;
@@ -97,15 +112,32 @@ export const useAuthStore = defineStore('auth', {
       return true;
     },
 
-    async refresh(_data: { refresh_token: string }): Promise<void> {
-      const data = await authService.refresh(_data);
+    async refresh(): Promise<void> {
+      try {
+        const refreshToken = await get(EStorageKeys.refreshToken);
+        const data = await authService.refresh({
+          refresh_token: refreshToken || '',
+        });
 
-      this.setToken(data);
+        this.setToken(data);
+      } catch (err) {
+        SentryUtil.capture(
+          err,
+          'refresh',
+          'authStore',
+          "error can't refresh token"
+        );
+      }
     },
 
-    // TODO: Rename it to setOrRefreshTokens
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
+        const decodedToken = jwt_decode<JwtPayload>(data.token || '') || null;
+        if (decodedToken?.exp)
+          await Storage.set({
+            key: EStorageKeys.tokenExpire,
+            value: String(decodedToken.exp),
+          });
         await Promise.all([
           Storage.set({
             key: EStorageKeys.token,
@@ -118,16 +150,13 @@ export const useAuthStore = defineStore('auth', {
         ]);
 
         this.token = { ...this.token, ...data };
-      } else {
-        const { value: token } = await Storage.get({
-          key: EStorageKeys.token,
-        });
-        const { value: refreshToken } = await Storage.get({
-          key: EStorageKeys.refreshToken,
-        });
-
-        this.token = { ...this.token, token, refreshToken };
       }
+    },
+
+    async verifyToken(): Promise<boolean> {
+      const expireTokenDate = await get(EStorageKeys.tokenExpire);
+      const dateTimeObj = DateTime.fromSeconds(Number(expireTokenDate));
+      return dateTimeObj.valueOf() < Date.now();
     },
 
     async checkAuthorizedUser(): Promise<boolean> {
