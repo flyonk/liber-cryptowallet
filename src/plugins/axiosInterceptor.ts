@@ -28,14 +28,20 @@ const _requestHandler = async (
    */
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-      const { value: token } = await Storage.get({
+      let { value: token } = await Storage.get({
         key: EStorageKeys.token,
       });
 
       if (token) {
         const authStore = useAuthStore();
         if (await authStore.verifyToken()) {
-          await authStore.refresh();
+          await authStore.refresh().then(() => {
+            Storage.get({
+              key: EStorageKeys.token,
+            }).then((data) => {
+              token = data.value;
+            });
+          });
         }
         config.headers['Authorization'] = `Bearer ${token}`;
       }
