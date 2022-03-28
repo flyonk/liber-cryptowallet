@@ -79,7 +79,7 @@
         class="send-button"
         size="large"
         view="simple"
-        :disabled="loading"
+        :disabled="disableBtnHandler"
         @click="handleClick"
       >
         <template v-if="ctaState === 'refresh'">{{
@@ -290,6 +290,11 @@ const replaceCoins = () => {
 
   requestAmount.value = +fStore.convertInfo?.estimatedAmount;
 };
+
+const disableBtnHandler = computed(() => {
+  if (loading.value || requestAmount.value === 0) return true;
+  return false;
+});
 </script>
 
 <style lang="scss" scoped>
