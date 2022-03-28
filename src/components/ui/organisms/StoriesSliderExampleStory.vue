@@ -13,7 +13,7 @@
     <main class="main">
       <h1 class="title">{{ props.baseTitle }}</h1>
       <div class="imagecontainer">
-        <img class="image" width="330" height="330" :src="props.baseImg" />
+        <img class="image" :src="props.baseImg" />
       </div>
     </main>
     <footer class="footer">
@@ -110,6 +110,8 @@ const props = defineProps({
 
   > .main > .imagecontainer > .image {
     align-self: center;
+    width: 550px;
+    height: 550px;
   }
 
   > .footer {
