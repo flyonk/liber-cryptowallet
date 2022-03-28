@@ -130,7 +130,7 @@ const loading = ref(false);
 
 const DEBOUNCE_TIMER = 500;
 
-const timer = ref(30);
+const timer = ref(5);
 const startTimer = ref(0);
 
 const currentSendFromCurrency = {
@@ -145,16 +145,13 @@ const currentSendToCurrency = {
   img: ref(imgTo || require('@/assets/icon/currencies/tether.svg')),
 };
 
-// const currentSendFromCode = computed(() => {
-//   return fStore.getState.from;
-// });
-
 let requestAmount = ref<number>(0);
 
 const router = useRouter();
 
 function handleClick() {
   if (ctaState.value === 'refresh') {
+    previewChangeInfo();
     timer.value = 30;
     ctaState.value = 'send';
     return;
