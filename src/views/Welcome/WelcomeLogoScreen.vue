@@ -29,7 +29,7 @@ onMounted(() => {
   setTimeout(() => {
     loading.value = false;
     setTimeout(async () => {
-      await authStore.setToken();
+      await authStore.recoverTokenData();
 
       if (authStore.isLoggedIn) {
         let route = Route.Login;
