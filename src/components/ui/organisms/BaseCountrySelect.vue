@@ -1,11 +1,7 @@
 <template>
   <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
-      <BaseInput
-        v-model="selectedData.name"
-        @focus.self.prevent="openSelect"
-        readonly
-      >
+      <BaseInput v-model="selectedData.name" @click.self="openSelect" readonly>
         <template #label>{{ $t('ui.basecountryselect.country') }}</template>
       </BaseInput>
     </span>
