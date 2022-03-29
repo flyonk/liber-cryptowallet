@@ -17,7 +17,8 @@
       <!--TODO: move to separated component-->
       <VueAgile
         :nav-buttons="false"
-        :slides-to-show="2"
+        :slides-to-show="3.5"
+        :swipe-distance="20"
         class="carousel-slider"
       >
         <div
@@ -26,23 +27,23 @@
           class="item-slide"
           @click="onClick(item)"
         >
-          <img :src="item.img" class="image" />
+          <img :src="item.img" alt class="image" />
           <p class="name">{{ item.name }}</p>
         </div>
       </VueAgile>
       <div v-if="showControls" class="controls">
         <button class="btn">
-          <img class="label" src="@/assets/icon/plus.svg" />{{
+          <img alt class="label" src="@/assets/icon/plus.svg" />{{
             $t('transactions.deposit')
           }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />{{
+          <img alt class="label" src="@/assets/icon/arrow-right-white.svg" />{{
             $t('transactions.send')
           }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />{{
+          <img alt class="label" src="@/assets/icon/repeat.svg" />{{
             $t('transactions.exchange')
           }}
         </button>
@@ -256,7 +257,7 @@ const onClick = (carouselItem: any) => {
   background: $color-white;
   box-shadow: 0 2px 24px -12px rgb(0 0 0 / 34%);
   border-radius: 13px;
-  margin-left: 5px;
+  margin-right: 5px;
 
   > .image {
     margin-bottom: 8px;
