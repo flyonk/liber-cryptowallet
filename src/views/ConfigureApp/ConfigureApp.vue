@@ -55,13 +55,15 @@ const { tm } = useI18n();
 const store = use2faStore();
 const toast = useToast();
 
-store.generateSecret();
-const { secret, uri } = store;
-
 const canvas = ref<HTMLCanvasElement | undefined>();
-let qrCodeValue = ref<string>(secret);
+let qrCodeValue = ref<string>('');
 
-onMounted(() => {
+onMounted(async () => {
+  await store.generateSecret();
+  const { secret, uri } = store;
+
+  qrCodeValue.value = secret;
+
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: uri,
