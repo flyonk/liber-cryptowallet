@@ -5,7 +5,8 @@ export interface INetTransaction {
   sum: string;
   code: string;
   icon?: string;
-  info: string;
+  info?: string;
+  direction?: EDirection;
   fee?: string;
   feeCode?: string;
   status: ETransactionStatus;
@@ -83,6 +84,7 @@ export default {
       feeCode: input.fee_code || '',
       icon: _getTransactionIcon(input.type, input.direction),
       info: _getTransactionInfo(input.direction, input.contragent, input.code),
+      direction: input.direction || '',
       contractor: input.contragent
         ? {
             id: input.contragent.id || '',
@@ -154,17 +156,24 @@ function _getTransactionIcon(
   return icon;
 }
 
+function _getTransactionAddress(
+  direction: EDirection,
+  contractor: IContractor,
+  code: string
+): string {
+  return contractor && contractor.phone
+    ? contractor.phone
+    : contractor && contractor.email
+    ? contractor.email
+    : `${code.toUpperCase()} address`;
+}
+
 function _getTransactionInfo(
   direction: EDirection,
   contractor: IContractor,
   code: string
 ): string {
-  const address =
-    contractor && contractor.phone
-      ? contractor.phone
-      : contractor && contractor.email
-      ? contractor.email
-      : `${code.toUpperCase()} address`;
+  const address = _getTransactionAddress(direction, contractor, code);
   if (direction === EDirection.income) return `From ${address}`;
 
   return `To ${address}`;

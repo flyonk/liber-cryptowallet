@@ -65,7 +65,7 @@
         </p>
         <div class="item-right">
           <img class="icon" src="@/assets/icon/green_ok.svg" />
-          <p class="name">{{ transaction.info }} ∙ {{ transaction.code }}</p>
+          <p class="name">{{ receiver }} ∙ {{ transaction.code }}</p>
         </div>
       </li>
       <li v-if="transaction.fee" class="main-item">
@@ -98,25 +98,41 @@ import { useRoute } from 'vue-router';
 
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
-import { ETransactionStatus } from '@/models/transaction/transaction';
+import {
+  ETransactionStatus,
+  EDirection,
+} from '@/models/transaction/transaction';
+import { useProfileStore } from '@/stores/profile';
 
 import { Route } from '@/router/types';
 
 const route = useRoute();
+const pStore = useProfileStore();
 
 const transactionType = ref('payment-link');
+const receiver = ref('');
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
 
 onMounted(async () => {
   try {
     if (!route.params.id) return;
-    transaction.value = await transactionService.getTransactionById(
-      route.params.id
-    );
+    transaction.value = (await transactionService.getTransactionById(
+      route.params.id as string
+    )) as INetTransaction;
+
+    await getTransactionReceiver();
   } catch (err) {
     console.log(err);
   }
 });
+
+async function getTransactionReceiver() {
+  receiver.value = (
+    EDirection.income === transaction.value.direction
+      ? `To ${pStore.user.phone}`
+      : transaction.value.info
+  ) as string;
+}
 </script>
 
 <style lang="scss" scoped>
