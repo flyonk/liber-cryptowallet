@@ -5,7 +5,7 @@
     class="options-button"
     @click="isMenuOpen = !isMenuOpen"
   >
-    Payment Options
+    {{ $t('common.paymentoptions') }}
   </button>
   <bottom-swipe-menu
     :show-overlay="true"
