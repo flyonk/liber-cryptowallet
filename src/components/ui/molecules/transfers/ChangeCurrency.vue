@@ -143,9 +143,9 @@ const currentSendFromCurrency = {
 };
 
 const currentSendToCurrency = {
-  name: ref(to || 'USDT'),
+  name: ref(to || 'LTC'),
   code: ref('tltc'),
-  img: ref(imgTo || require('@/assets/icon/currencies/tether.svg')),
+  img: ref(imgTo || require('@/assets/icon/currencies/ltc.svg')),
 };
 
 let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
