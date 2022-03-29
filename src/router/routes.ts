@@ -419,6 +419,15 @@ const routes: Array<RouteRecordRaw> = [
       classLayout: '-full-height',
     },
   },
+
+  // === Invite ===
+
+  {
+    path: '/invite',
+    name: Route.Invite,
+    component: Recipients,
+    meta: { layout: 'navbar' },
+  },
 ];
 
 export default routes;

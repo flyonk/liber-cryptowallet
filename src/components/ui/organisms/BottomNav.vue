@@ -30,7 +30,7 @@
         hashTag="recipients"
       />
       <NavBarItem
-        :routeName="Route.RecepientsPhone"
+        :routeName="Route.Invite"
         :label="$t('bottomNav.invite')"
         activeHashTag="gift-active"
         hashTag="gift"

@@ -77,4 +77,6 @@ export enum Route {
 
   PhoneEnter = 'phone-enter',
   CodeEnter = 'code-enter',
+
+  Invite = 'invite',
 }
