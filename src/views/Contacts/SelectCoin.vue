@@ -34,12 +34,11 @@ const route = useRoute();
 const fundsStore = useFundsStore();
 
 const selectCoin = (item: any) => {
-  const id = item.id;
-  if (id !== 'bitcoin' && id !== 'ethereum' && id !== 'usdt') return;
+  if (!item.available) return;
   if (route.params.type === 'from') {
-    fundsStore.setCryptoFrom(item.shortName, item.code, item.icon);
+    fundsStore.setCryptoFrom(item.id, item.code, item.icon);
   } else {
-    fundsStore.setCryptoTo(item.shortName, item.code, item.icon);
+    fundsStore.setCryptoTo(item.id, item.code, item.icon);
   }
   router.go(-1);
 };

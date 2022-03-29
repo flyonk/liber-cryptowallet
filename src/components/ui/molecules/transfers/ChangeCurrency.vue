@@ -126,6 +126,8 @@ const convert = computed(() => fStore.getConvertFunds);
 
 const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
 
+const router = useRouter();
+
 const ctaState = ref('preview');
 const loading = ref(false);
 
@@ -141,14 +143,19 @@ const currentSendFromCurrency = {
 };
 
 const currentSendToCurrency = {
-  name: ref(to || 'USDT'),
+  name: ref(to || 'LTC'),
   code: ref('tltc'),
-  img: ref(imgTo || require('@/assets/icon/currencies/tether.svg')),
+  img: ref(imgTo || require('@/assets/icon/currencies/ltc.svg')),
 };
 
-let requestAmount = ref<number>(0);
+let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
 
-const router = useRouter();
+const disableBtnHandler = computed(() => {
+  if (loading.value || requestAmount.value === 0 || codeFrom === codeTo) {
+    return true;
+  }
+  return false;
+});
 
 function handleClick() {
   if (ctaState.value === 'refresh') {
@@ -288,11 +295,6 @@ const replaceCoins = () => {
 
   requestAmount.value = +fStore.convertInfo?.estimatedAmount;
 };
-
-const disableBtnHandler = computed(() => {
-  if (loading.value || requestAmount.value === 0) return true;
-  return false;
-});
 </script>
 
 <style lang="scss" scoped>

@@ -40,14 +40,14 @@ defineEmits(['select-coin']);
 //TODO: get from API
 coins.value = [
   {
-    id: 'bitcoin',
+    id: 'BTC',
     icon: require('@/assets/icon/currencies/btc.svg'),
     name: 'Bitcoin',
     code: 'tbtc',
     available: true,
   },
   {
-    id: 'litecoin',
+    id: 'LTC',
     icon: require('@/assets/icon/currencies/ltc.svg'),
     name: 'Litecoin',
     code: 'tltc',
