@@ -3,7 +3,7 @@ import { Contacts } from '@capacitor-community/contacts';
 
 import { Contact } from '@/types/contacts';
 
-import { mockedContacts } from '@/helpers/mockData';
+import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
 
 interface IRecepients {
@@ -20,7 +20,12 @@ export const useRecepientsStore = defineStore('recepients', {
   }),
 
   getters: {
-    getContacts: (state) => state.contacts,
+    getContacts: (state) =>
+      state.contacts.sort((a, b) => {
+        const aFirstLetter = a.displayName?.charCodeAt(0) || Number.MAX_VALUE;
+        const bFirstLetter = b.displayName?.charCodeAt(0) || Number.MAX_VALUE;
+        return aFirstLetter - bFirstLetter;
+      }),
   },
 
   actions: {

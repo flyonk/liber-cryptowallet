@@ -29,11 +29,11 @@ onMounted(() => {
   setTimeout(() => {
     loading.value = false;
     setTimeout(async () => {
-      await authStore.setToken();
+      await authStore.recoverTokenData();
 
       if (authStore.isLoggedIn) {
         let route = Route.Login;
-        appOptionsStore.isItFirstRun
+        !(await appOptionsStore.checkPassCode()) //TODO: check user status when backend is ready
           ? (route = Route.SignUp)
           : authStore.setStep(2, 'login');
         router.push({ name: route });

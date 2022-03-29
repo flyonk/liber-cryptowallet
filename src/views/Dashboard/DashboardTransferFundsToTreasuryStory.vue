@@ -1,8 +1,13 @@
 <template name="DashboardTransferFundsToTreasuryStory">
   <div class="dashboard-story">
     <header class="header">
-      <img class="close-btn" src="@/assets/icon/close_big.svg" alt="close" />
-      <img class="image" src="@/assets/images/euro-coin.svg" alt="story" />
+      <img
+        class="close-btn"
+        src="@/assets/icon/close_big.svg"
+        alt="close"
+        @click="$router.push({ name: Route.DashboardHome })"
+      />
+      <img class="image" src="@/assets/images/euro-coin.svg" alt="Euro logo" />
     </header>
     <main class="main">
       <h1 class="title">
@@ -32,9 +37,11 @@
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { Route } from '@/router/types';
+</script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .dashboard-story {
   height: 100%;
   padding: 32px 24px;

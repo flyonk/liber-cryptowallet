@@ -31,15 +31,7 @@
     </base-input>
     <!-- TODO: move to a separated component -->
     <div class="sign-button-wrapper">
-      <BaseButton
-        block
-        :disabled="isDateInvalid"
-        @click="
-          $router.push({
-            name: Route.KYCMain,
-          })
-        "
-      >
+      <BaseButton block :disabled="isDateInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
       </BaseButton>
     </div>
@@ -51,6 +43,12 @@ import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
 import { Route } from '@/router/types';
 import { ref } from 'vue-demi';
 import { computed } from '@vue/reactivity';
+import { useRouter } from 'vue-router';
+
+import { useProfileStore } from '@/stores/profile';
+
+const router = useRouter();
+const pStore = useProfileStore();
 
 const birth = ref('');
 
@@ -77,5 +75,14 @@ const showClearBtn = () => {
 
 const closeClearBtn = () => {
   isClearBtnShown.value = false;
+};
+
+const nextStep = () => {
+  pStore.updateUserProfile({
+    birthDate: birth.value,
+  });
+  router.push({
+    name: Route.KYCMain,
+  });
 };
 </script>

@@ -1,18 +1,20 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+
 import apiService from '@/services/apiService';
 import { useAuthStore } from '@/stores/auth';
-import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { i18n } from '@/i18n';
-import { Storage } from '@capacitor/storage';
+import { get } from '@/helpers/storage';
+import router from '@/router';
+
 import { EStorageKeys } from '@/types/storage';
+import { Route } from '@/router/types';
 
 //TODO: what API calls should be authorized
 const _notAuthorizedRoutes = (): string[] => {
-  const routes = [
+  return [
     ...Object.values(apiService.auth).map((item) => item()),
     ...Object.values(apiService.localData).map((item) => item()),
   ];
-  return routes;
 };
 
 const _requestHandler = async (
@@ -26,29 +28,21 @@ const _requestHandler = async (
   /*
    * TODO: set authorized API calls logic
    */
-  if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-    const { value: token } = await Storage.get({
-      key: EStorageKeys.token,
-    });
+  try {
+    if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
+      let token = await get(EStorageKeys.token);
 
-    const { value: refreshToken } = await Storage.get({
-      key: EStorageKeys.refreshToken,
-    });
-
-    const decodedToken = jwt_decode<JwtPayload>(token || '') || null;
-
-    const authStore = useAuthStore();
-
-    if (
-      (decodedToken?.exp as JwtPayload) <
-      Math.round(new Date().getTime() / 1000)
-    ) {
-      authStore.refresh({ refresh_token: refreshToken || '' });
+      if (token) {
+        const authStore = useAuthStore();
+        if (await authStore.verifyToken()) {
+          await authStore.refresh();
+          token = await get(EStorageKeys.token);
+        }
+        config.headers['Authorization'] = `Bearer ${token}`;
+      }
     }
-
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
+  } catch (error) {
+    console.log('return config erorr', error);
   }
   return config;
 };
@@ -65,13 +59,18 @@ export default function init(): void {
     (response) => {
       return response;
     },
-    (error) => {
+    async (error) => {
       if (error.response.status === 401) {
         //TODO: define scenarios
-        //Logout -> SignIn screen ?
+        //TODO: clear only token data
+        const authStore = useAuthStore();
+        /*
+         * Clear only expired token and refresh token
+         */
+        await authStore.clearTokenData();
+        router.push({ name: Route.WelcomeLogoScreen });
       }
-      //TODO: log to sentry
-      console.error(`error: ${error}`);
+      //Logger error
       return Promise.reject(error);
     }
   );

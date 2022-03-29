@@ -28,14 +28,16 @@
     "to": "To",
     "from": "From",
     "daysAgo": "days ago",
-    "explorer": "Open in Explorer"
+    "explorer": "Open in Explorer",
+    "copySuccess": "Success",
+    "paymentoptions": "Payment Options"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
   },
   "bottomNav": {
     "home": "Home",
-    "account": "Account",
+    "account": "Accounts",
     "send": "Send",
     "recipients": "Recipients",
     "invite": "Invite"
@@ -68,10 +70,12 @@
       "step2VerificationDescription": "We just need to perform a coupe of security checks to recover your account.",
       "step2Notification": "Please check back on this device after 06.12.2021",
       "step3Description": "Get a verification code from the authenticator app",
+      "step3Title": "Enter verification code",
       "step4Title": "We need more data",
       "step4Description": "To keep your account safe, we need to make sure it’s you!",
       "step5Title": "When were you born?",
-      "step5BirthLabel": "Date of birth"
+      "step5BirthLabel": "Date of birth",
+      "step5Placeholder": "DD/MM/YYYY"
     },
     "signup": {
       "step1Title": "Enter phone number",
@@ -283,7 +287,8 @@
     },
     "passcodeEnter": {
       "createPasscode": "Create passcode",
-      "confirmPasscode": "Confirm passcode"
+      "confirmPasscode": "Confirm passcode",
+      "changePasscode": "Change passcode"
     },
     "dashboard": {
       "home": {
@@ -366,11 +371,15 @@
         "system": "System",
         "close": "Close account",
         "logOut": "Log out",
-        "version": "Version",
-        "copyright": "Liber Ltd",
+        "version": "Version 0.1.0",
+        "copyright": "Liber Ltd.",
         "preventClosingAccount": "Hey, wait! Where are you going?",
         "freeToKeep": "It's free to keep a account, and opening a new one could take some time if you cancel",
-        "keepOpen": "Keep account open"
+        "keepOpen": "Keep account open",
+        "logoutConfirmationTitle": "Log out",
+        "logoutConfirmation": "Are you sure to logging out from this account?",
+        "logoutAccept": "Yes",
+        "logoutDecline": "No"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -455,6 +464,14 @@
         "copyFailure": "Async: Could not copy text:",
         "updateCoinNetwork": "update coin network",
         "deviceIsNotSupportedToShare": "Device is not support native share"
+      },
+      "convert": {
+        "convertExactly": "You convert exactly",
+        "fee": "Convertion Fee",
+        "amountCovert": "Amount we’ll covert",
+        "guarantedRate": "Guaranted Rate",
+        "youWillGet": "You will get",
+        "refresh": "Refresh"
       }
     }
   },

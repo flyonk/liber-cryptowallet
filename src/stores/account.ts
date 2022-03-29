@@ -44,13 +44,12 @@ export const useAccountStore = defineStore('account', {
       const payload = window.localStorage.getItem(STORE_AUTH_KEY);
       console.debug(payload);
       try {
-        //Get account data
-        const [totalBalance, coinTransactions] = await Promise.all([
-          await accountService.getAccountBalanceByCoin(coin),
-          await transactionService.getTransactionList(coin),
-        ]);
-        this.balanceByCoin = totalBalance;
-        this.coinTransactions = coinTransactions;
+        this.balanceByCoin = coin
+          ? await accountService.getAccountBalanceByCoin(coin)
+          : <IAccount>{};
+        this.coinTransactions = coin
+          ? await transactionService.getTransactionList(coin)
+          : [];
       } catch (err) {
         SentryUtil.capture(
           err,
@@ -83,6 +82,22 @@ export const useAccountStore = defineStore('account', {
           'dashboard',
           'getAccountBalance',
           "error can't retrieve account balance"
+        );
+      }
+    },
+
+    async createAccount(
+      coinCode: string,
+      data: { network: string; force: boolean }
+    ) {
+      try {
+        return await accountService.createAccount(coinCode, data);
+      } catch (err) {
+        SentryUtil.capture(
+          err,
+          'dashboard',
+          'createAccount',
+          'error on creating account'
         );
       }
     },

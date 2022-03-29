@@ -17,25 +17,28 @@
         />
       </label>
     </div>
-    <DepositSelectCoin @select-coin="selectCoin" />
+    <SelectCoin @select-coin="selectCoin" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { useRouter, useRoute } from 'vue-router';
-import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+
 import { useFundsStore } from '@/stores/funds';
+
+import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 
 const router = useRouter();
 const route = useRoute();
 const fundsStore = useFundsStore();
 
 const selectCoin = (item: any) => {
+  if (!item.available) return;
   if (route.params.type === 'from') {
-    fundsStore.setCryptoFrom(item.shortName, item.icon);
+    fundsStore.setCryptoFrom(item.id, item.code, item.icon);
   } else {
-    fundsStore.setCryptoTo(item.shortName, item.icon);
+    fundsStore.setCryptoTo(item.id, item.code, item.icon);
   }
   router.go(-1);
 };

@@ -10,6 +10,8 @@ interface IFundsState {
   convertFunds: boolean;
   from: string | null;
   to: string | null;
+  codeFrom: string | null;
+  codeTo: string | null;
   imgFrom: string | null;
   imgTo: string | null;
 }
@@ -17,11 +19,14 @@ interface IFundsState {
 export const emptyConvert = {
   from: '',
   to: '',
+  codeFrom: '',
+  codeTo: '',
   rate: '0',
   backRate: '0',
   fee: '0',
   validUntil: '',
   estimatedAmount: '0',
+  requestAmount: '0',
 } as IConvertInfo;
 
 // === transaction Store ===
@@ -30,14 +35,17 @@ export const useFundsStore = defineStore('funds', {
   state: (): IFundsState => ({
     convertInfo: cloneDeep(emptyConvert),
     convertFunds: false,
-    from: null,
-    to: null,
-    imgFrom: null,
-    imgTo: null,
+    from: 'BTC',
+    codeFrom: 'tbtc',
+    to: 'LTC',
+    codeTo: 'tltc',
+    imgFrom: require('@/assets/icon/currencies/btc.svg'),
+    imgTo: require('@/assets/icon/currencies/ltc.svg'),
   }),
 
   getters: {
     getState: (state) => state,
+
     getConvertInfo: (state) => state.convertInfo,
     getConvertFunds: (state) => state.convertFunds,
   },
@@ -45,6 +53,12 @@ export const useFundsStore = defineStore('funds', {
   actions: {
     async checkConvertInfo(data: Omit<TConvertData, 'amount'>): Promise<void> {
       this.convertInfo = await fundsService.convertInfo(data);
+    },
+
+    async checkConvertInfoBack(
+      data: Omit<TConvertData, 'amount'>
+    ): Promise<void> {
+      this.convertInfo = await fundsService.convertInfoBack(data);
     },
 
     async changeCurrency(
@@ -61,12 +75,14 @@ export const useFundsStore = defineStore('funds', {
       this.convertFunds = false;
       this.convertInfo = cloneDeep(emptyConvert);
     },
-    setCryptoTo(crypto: string, img: string): void {
+    setCryptoTo(crypto: string, code: string, img: string): void {
       this.to = crypto;
+      this.codeTo = code;
       this.imgTo = img;
     },
-    setCryptoFrom(crypto: string, img: string): void {
+    setCryptoFrom(crypto: string, code: string, img: string): void {
       this.from = crypto;
+      this.codeFrom = code;
       this.imgFrom = img;
     },
     replaceCoins(): void {

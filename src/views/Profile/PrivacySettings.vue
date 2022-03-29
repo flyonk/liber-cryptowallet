@@ -20,8 +20,8 @@
           </h3>
           <BaseSwitch
             class="switch"
-            :model-value="isEmailsAgreement"
-            @update:model-value="isEmailsAgreement = !isEmailsAgreement"
+            :model-value="_isEmail"
+            @update:model-value="handleEmailUpdate"
           />
         </div>
         <div class="description">
@@ -36,8 +36,8 @@
           </h3>
           <BaseSwitch
             class="switch"
-            :model-value="isPushesAgreement"
-            @update:model-value="isPushesAgreement = !isPushesAgreement"
+            :model-value="_isPushNotification"
+            @update:model-value="handlePushesUpdate"
           />
         </div>
         <div class="description">
@@ -50,10 +50,8 @@
           <h3 class="title">{{ $t('views.profile.profilePrivacy.social') }}</h3>
           <BaseSwitch
             class="switch"
-            :model-value="isSocialMediaAgreement"
-            @update:model-value="
-              isSocialMediaAgreement = !isSocialMediaAgreement
-            "
+            :model-value="_isSocialMedia"
+            @update:model-value="handleSocialMediaUpdate"
           />
         </div>
         <div class="description">
@@ -66,11 +64,44 @@
 
 <script setup lang="ts">
 import { BaseSwitch } from '@/components/ui';
+import { useProfileStore } from '@/stores/profile';
 import { ref } from 'vue';
+import { onMounted } from 'vue-demi';
 
-let isEmailsAgreement = ref(true);
-let isPushesAgreement = ref(true);
-let isSocialMediaAgreement = ref(true);
+const profileStore = useProfileStore();
+let _isEmail = ref(false);
+let _isPushNotification = ref(false);
+let _isSocialMedia = ref(false);
+
+onMounted(async () => {
+  if (!profileStore.getMarketing) {
+    await profileStore.init();
+  }
+
+  const { isEmail, isPushNotification, isSocialMedia } =
+    await profileStore.getMarketingFromStorage();
+  _isEmail.value = isEmail;
+  _isPushNotification.value = isPushNotification;
+  _isSocialMedia.value = isSocialMedia;
+});
+
+const handleEmailUpdate = async () => {
+  _isEmail.value = !_isEmail.value;
+  profileStore.getMarketing.isEmail = _isEmail.value;
+  await profileStore.setMarketingToStorage();
+};
+
+const handlePushesUpdate = async () => {
+  _isPushNotification.value = !_isPushNotification.value;
+  profileStore.getMarketing.isPushNotification = _isPushNotification.value;
+  await profileStore.setMarketingToStorage();
+};
+
+const handleSocialMediaUpdate = async () => {
+  _isSocialMedia.value = !_isSocialMedia.value;
+  profileStore.getMarketing.isSocialMedia = _isSocialMedia.value;
+  await profileStore.setMarketingToStorage();
+};
 </script>
 
 <style lang="scss">

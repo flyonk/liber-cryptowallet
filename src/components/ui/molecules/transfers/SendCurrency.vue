@@ -43,7 +43,7 @@
     </ul>
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
-        <p class="label">Ashley will get</p>
+        <p class="label">{{ props.contactName }} will get</p>
         <input
           v-model="recipientAmount"
           type="number"
@@ -91,6 +91,13 @@ import { onMounted, ref, watch } from 'vue';
 import { BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 
+const props = defineProps({
+  contactName: {
+    type: String,
+    default: '',
+  },
+});
+
 const transferStore = useTransferStore();
 let amount = ref('');
 let recipientAmount = ref('');
@@ -101,8 +108,8 @@ onMounted(() => {
 
 watch(amount, () => {
   const fee = 0;
-  transferStore.amount = +amount.value - fee;
-  recipientAmount.value = String(transferStore.amount);
+  recipientAmount.value = String(+amount.value - fee);
+  transferStore.amount = recipientAmount.value;
 });
 
 const currentSendFromCurrency = {

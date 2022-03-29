@@ -3,9 +3,9 @@
     <div class="header">
       <div class="left">
         <img
+          alt="arrow-left"
           class="back"
           src="@/assets/icon/arrow-left.svg"
-          alt="arrow-left"
           @click="$router.push({ name: Route.DashboardHome })"
         />
         <h1 class="title">{{ accountName }}</h1>
@@ -22,7 +22,8 @@
       </div>
       <div class="right">{{ nameInitials }}</div>
     </div>
-    <div class="controls">
+    <!-- TODO: Implement menu controls -->
+    <div class="controls" style="display: none">
       <button class="btn -blue">
         <img class="icon" src="@/assets/icon/user_heart.svg" />
         {{ $t('views.profile.profileSettings.invite') }}
@@ -62,7 +63,7 @@
         {{ $t('views.profile.profileSettings.security') }}
       </h6>
       <ul class="list security--profile">
-        <router-link :to="{ name: Route.AuthPasscode }" class="item">
+        <router-link :to="{ name: Route.ChangePasscode }" class="item">
           <img class="icon" src="@/assets/icon/lock.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.changePasscode') }}
@@ -72,20 +73,33 @@
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
-        <li class="item">
+        <li class="item" disabled>
           <img class="icon" src="@/assets/icon/google.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
         </li>
-        <router-link class="item" to="/profile/devices">
+        <router-link class="item" disabled to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
-        <li class="item">
+        <li v-if="touchFaceIdSwitcher" class="item">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch v-model="isTouchIdOn" class="switcher" />
+          <InputSwitch
+            v-model="isTouchIdOn"
+            class="switcher"
+            @change="onSwitcherChange"
+          />
+        </li>
+        <li v-else class="item" disabled>
+          <img class="icon" src="@/assets/icon/touchid.svg" />
+          <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
+          <InputSwitch
+            v-model="isTouchIdOn"
+            :disabled="true"
+            class="switcher"
+          />
         </li>
       </ul>
       <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
@@ -108,25 +122,52 @@
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
-<script setup lang="ts">
-import { ref, computed, onMounted, getCurrentInstance } from 'vue';
+<script lang="ts" setup>
+import { computed, getCurrentInstance, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { useAppOptionsStore } from '@/stores/appOptions';
+import { getSupportedOptions } from '@/helpers/identification';
 import { Route } from '@/router/types';
+import { EStorageKeys } from '@/types/storage';
+import { showConfirm } from '@/helpers/nativeDialog';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
 
 const route = useRouter();
 const authStore = useAuthStore();
+const appOptionsStore = useAppOptionsStore();
+const { tm } = useI18n();
 
 const profileStore = useProfileStore();
-const accountName = 'Abraham Watson';
-const accountID = '@abrahamwatson';
-const isTouchIdOn = ref(false);
+let { phone, firstName, lastName } = profileStore.getUser;
+
+if (firstName == null) {
+  firstName = 'Name';
+}
+if (lastName == null) {
+  lastName = 'Surname';
+}
+const accountName = ref(`${firstName} ${lastName}`);
+const accountID = ref(`${phone}`);
 const showCloseAccount = ref(false);
+const { faceid, touchid } = appOptionsStore.getOptions;
+const isTouchIdOn = ref(faceid || touchid);
+const touchFaceIdSwitcher = ref('');
+
+const onSwitcherChange = () => {
+  const value = isTouchIdOn.value ? 'true' : '';
+  if (touchFaceIdSwitcher.value === 'face-id') {
+    appOptionsStore.setOptions(value, EStorageKeys.faceid);
+  }
+  if (touchFaceIdSwitcher.value === 'touch-id') {
+    appOptionsStore.setOptions(value, EStorageKeys.touchid);
+  }
+};
 
 const { proxy } = getCurrentInstance();
 
@@ -138,13 +179,28 @@ onMounted(async () => {
   if (!profileStore.getUser.id)
     try {
       await profileStore.init();
+      const user = profileStore.getUser;
+      phone = user?.phone;
+      firstName = user?.firstName;
+      lastName = user?.lastName;
+      accountName.value = `${firstName} ${lastName}`;
+      accountID.value = phone;
+
+      await appOptionsStore.init();
+      isTouchIdOn.value =
+        appOptionsStore.getOptions.faceid || appOptionsStore.getOptions.touchid;
+      const option = await getSupportedOptions();
+
+      if (option === 'face-id' || option === 'touch-id') {
+        touchFaceIdSwitcher.value = option;
+      }
     } catch (err) {
       proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
     }
 });
 
 const nameInitials = computed(() => {
-  let parts = accountName.split(' ');
+  let parts = accountName.value.split(' ');
   return parts[0][0] + parts[1][0];
 });
 
@@ -153,6 +209,19 @@ function closeMenu() {
 }
 
 async function onLogout() {
+  const confirmed = await showConfirm({
+    title: tm(
+      'views.profile.profileSettings.logoutConfirmationTitle'
+    ) as string,
+    message: tm('views.profile.profileSettings.logoutConfirmation') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    cancelButtonTitle: tm(
+      'views.profile.profileSettings.logoutAccept'
+    ) as string,
+  });
+
+  if (confirmed) return;
+
   await authStore.logout();
 
   await route.push({ name: Route.WelcomeLogoScreen });

@@ -1,10 +1,26 @@
+import { string2ISO } from '@/helpers/filters';
+
 export enum EUserStatus {
   unregistered = 10, //UserStatusNew
   active = 20, //UserStatusActive
   block = 30, //UserStatusBlock
 }
 
-export interface IProfile {
+export enum EKYCStatus {
+  not_started = 10,
+  pending = 20,
+  rejected = 30,
+  success = 40,
+}
+
+export type TMarketing = {
+  isEmail: boolean;
+  isPushNotification: boolean;
+  isSocialMedia: boolean;
+};
+
+export interface IProfile
+  extends Record<string, string | boolean | number | TMarketing | undefined> {
   id: string;
   status: number;
   phone: string;
@@ -19,7 +35,8 @@ export interface IProfile {
   optionalAddress?: string;
   postalCode?: string;
   birthDate?: string;
-  isSendNews?: boolean;
+  marketing: TMarketing;
+  kycStatus: EKYCStatus;
 }
 
 export default {
@@ -40,12 +57,20 @@ export default {
       optionalAddress: input.optional_address || '',
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
-      isSendNews: input.is_send_news || false, // by default undefined
+      kycStatus: input.kycStatus || EKYCStatus.success,
+      marketing: {
+        isEmail: false,
+        isPushNotification: false,
+        isSocialMedia: false,
+      },
     };
   },
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   requestSerialize(input: Partial<IProfile>): any {
+    const address =
+      input.street && input.homeNum ? `${input.street} ${input.homeNum}` : null;
+    const birthDate = input.birthDate ? string2ISO(input.birthDate) : null;
     return {
       status: input.status,
       phone: input.phone,
@@ -55,11 +80,11 @@ export default {
       last_name: input.lastName,
       email: input.email,
       country: input.country,
-      street_and_number: `${input.street} ${input.homeNum}`,
+      street_and_number: address,
       optionalAddress: input.optionalAddress,
       postal_code: input.postalCode,
-      birthdate: input.birthDate,
-      is_send_news: input.isSendNews,
+      birthdate: birthDate,
+      is_send_news: !!input.marketing?.isEmail,
     };
   },
 };

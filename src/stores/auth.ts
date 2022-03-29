@@ -1,12 +1,15 @@
-import authService from '@/services/authService';
-import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
-import { ISuccessSignIn } from '@/models/auth/successSignIn';
-
+import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
-import { clearAll, get, set } from '@/helpers/storage';
+import { DateTime } from 'luxon';
+
+import authService from '@/services/authService';
+import { clearAll, get, set, remove } from '@/helpers/storage';
+import { ISuccessSignIn } from '@/models/auth/successSignIn';
+import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
+import { EStepDirection } from '@/types/base-component';
 
 // === Auth Types ===
 
@@ -37,7 +40,8 @@ export interface IAuthState {
 }
 
 // === Auth Store ===
-
+// TODO: Save to Storage phone number
+// TODO: Restore from Storage saved phone number
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
@@ -48,12 +52,12 @@ export const useAuthStore = defineStore('auth', {
     },
     registration: {
       dialCode: '+7',
-      phone: '9082359632',
+      phone: '',
       email: '',
     },
     login: {
-      dialCode: '+7',
-      phone: '9082359632',
+      dialCode: '',
+      phone: '',
     },
     token: {
       token: null,
@@ -71,6 +75,18 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    async recoverTokenData(): Promise<void> {
+      const { value: token } = await Storage.get({
+        key: EStorageKeys.token,
+      });
+      const { value: refreshToken } = await Storage.get({
+        key: EStorageKeys.refreshToken,
+      });
+
+      if (token && refreshToken)
+        this.token = { ...this.token, token, refreshToken };
+    },
+
     setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
       if (step === EStepDirection.next) {
         this.steps[scope] = this.steps[scope] + 1;
@@ -83,7 +99,7 @@ export const useAuthStore = defineStore('auth', {
 
     async signIn(_data: { phone: string }): Promise<void> {
       await authService.signIn(_data);
-      this.savePhone();
+      this.savePhone('login');
     },
 
     async signInProceed(_data: {
@@ -96,14 +112,31 @@ export const useAuthStore = defineStore('auth', {
       return true;
     },
 
-    async refresh(_data: { refresh_token: string }): Promise<void> {
-      const data = await authService.refresh(_data);
-
-      this.setToken(data);
+    async refresh(): Promise<void> {
+      try {
+        const refreshToken = await get(EStorageKeys.refreshToken);
+        const data = await authService.refresh({
+          refresh_token: refreshToken || '',
+        });
+        this.setToken(data);
+      } catch (err) {
+        SentryUtil.capture(
+          err,
+          'refresh',
+          'authStore',
+          "error can't refresh token"
+        );
+      }
     },
 
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
+        const decodedToken = jwt_decode<JwtPayload>(data.token || '') || null;
+        if (decodedToken?.exp)
+          await Storage.set({
+            key: EStorageKeys.tokenExpire,
+            value: String(decodedToken.exp),
+          });
         await Promise.all([
           Storage.set({
             key: EStorageKeys.token,
@@ -116,26 +149,27 @@ export const useAuthStore = defineStore('auth', {
         ]);
 
         this.token = { ...this.token, ...data };
-      } else {
-        const { value: token } = await Storage.get({
-          key: EStorageKeys.token,
-        });
-        const { value: refreshToken } = await Storage.get({
-          key: EStorageKeys.refreshToken,
-        });
-
-        this.token = { ...this.token, token, refreshToken };
       }
+    },
+
+    async verifyToken(): Promise<boolean> {
+      const expireTokenDate = await get(EStorageKeys.tokenExpire);
+      const dateTimeObj = DateTime.fromSeconds(Number(expireTokenDate));
+      return dateTimeObj.valueOf() < Date.now();
     },
 
     async checkAuthorizedUser(): Promise<boolean> {
       return !!(await Storage.get({ key: EStorageKeys.token })).value;
     },
 
-    async savePhone(): Promise<void> {
+    async savePhone(type: 'login' | 'signup'): Promise<void> {
+      const value =
+        type === 'login'
+          ? JSON.stringify(this.login)
+          : JSON.stringify(this.registration);
       await Storage.set({
         key: EStorageKeys.phone,
-        value: JSON.stringify(this.login),
+        value,
       });
     },
 
@@ -149,11 +183,19 @@ export const useAuthStore = defineStore('auth', {
         get('phone'),
       ]);
 
-      if (phone) {
+      if (dialCode === 'null' || dialCode === null) {
+        this.login.dialCode = '+7';
+      } else {
+        this.login.dialCode = dialCode;
+      }
+
+      if (phone === 'null' || phone === null) {
+        this.login.phone = '';
+      } else {
         this.login.phone = phone;
       }
 
-      this.login.dialCode = dialCode || '+7';
+      // this.login.dialCode = dialCode || '+7';
     },
 
     async setToStorage() {
@@ -197,6 +239,14 @@ export const useAuthStore = defineStore('auth', {
           key: 'phone',
           value: phone as string,
         }),
+      ]);
+    },
+
+    async clearTokenData(): Promise<void> {
+      await Promise.all([
+        remove(EStorageKeys.token),
+        remove(EStorageKeys.refreshToken),
+        remove(EStorageKeys.tokenExpire),
       ]);
     },
   },

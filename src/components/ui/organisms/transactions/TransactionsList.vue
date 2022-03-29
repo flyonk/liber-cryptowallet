@@ -1,10 +1,12 @@
 <template name="TransactionsList">
   <ul class="transactions">
     <li
-      v-for="({ icon, sum, info, status, code, type }, index) in transactions"
+      v-for="(
+        { icon, sum, info, status, code, type, id }, index
+      ) in transactions"
       :key="index"
       class="item"
-      @click="$router.push('/transactions/details')"
+      @click="$router.push(`/transactions/details/${id}`)"
     >
       <transactions-list-item
         :icon="icon"
@@ -28,6 +30,7 @@ import TransactionsListItem from '@/components/ui/molecules/TransactionsListItem
 defineProps({
   transactions: {
     type: Array as PropType<INetTransaction[]>,
+    default: () => [],
   },
 });
 </script>

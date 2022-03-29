@@ -1,5 +1,10 @@
 <template>
-  <button :class="classes" :disabled="disabled" class="base-button">
+  <button
+    :class="classes"
+    :disabled="disabled"
+    class="base-button"
+    type="button"
+  >
     <i v-if="icon" :class="icon" />
     <div v-else class="container">
       <i v-if="iconLeft" :class="iconLeft" />
@@ -212,6 +217,38 @@ const classes = computed(() => [
 
   &.-secondary {
     background: $color-light-grey;
+
+    > .container {
+      > .label,
+      i {
+        color: $color-primary;
+      }
+    }
+
+    &:disabled,
+    &[disabled] {
+      background: $color-brand-2-100 !important;
+
+      > .container {
+        > .label,
+        i {
+          color: $color-white;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      background: $color-primary-100;
+    }
+
+    &:active {
+      background: $color-primary-100;
+    }
+  }
+
+  &.-transparent {
+    background: transparent;
 
     > .container {
       > .label,

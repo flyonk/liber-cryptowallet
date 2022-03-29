@@ -4,12 +4,13 @@ export enum Route {
   WelcomeAuthScreen = 'welcome-auth-screen',
   AuthCode = 'auth-code',
   AuthPasscode = 'auth-passcode',
+  ChangePasscode = 'change-passcode',
   SignUp = 'sign-up',
   Login = 'login',
   Restore = 'restore',
 
   DashboardParent = 'dashboard-parent',
-  DashboardHome = 'dashboard-home',
+  DashboardHome = 'home',
   DashboardVerification = 'dashboard-verification',
   DashboardStory = 'dashboard-story',
   DashboardVerifyingStory = 'dashboard-verifying-story',
@@ -53,8 +54,12 @@ export enum Route {
   Deposit = 'deposit',
 
   Contacts = 'contacts',
-  ContactsSend = 'contacts-send',
+  ContactsAddNewContact = 'contacts.add.new.contact',
   ContactsPay = 'contacts.who-to-pay',
+  ContactsSend = 'contacts-send',
+  ContactsSendFirstTime = 'contacts.send.first.time',
+  ContactsSendInvite = 'contacts.send.invite',
+  ContactsSendLink = 'contacts.send.link',
 
   ChooseCoin = 'choose_coin',
 
@@ -72,4 +77,6 @@ export enum Route {
 
   PhoneEnter = 'phone-enter',
   CodeEnter = 'code-enter',
+
+  Invite = 'invite',
 }

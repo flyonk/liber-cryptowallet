@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
+    <top-navigation @click:left-icon="prevStep">
       {{ $t('auth.signup.step1Title') }}
-    </TopNavigation>
+    </top-navigation>
     <div class="description text--body">
       {{ $t('auth.signup.step1Description1') }}
       <br />
@@ -10,17 +10,18 @@
     </div>
     <div class="grid">
       <div class="col-4">
-        <BaseCountryPhoneInput
+        <base-country-phone-input
           :dial-code="countryDialCode"
+          :only-european="true"
           @ready="handleSelectCountry"
           @selected="handleSelectCountry"
         />
       </div>
       <div class="col-8 ml-auto">
-        <BaseInput
+        <base-input
           v-model="number"
           :use-grouping="false"
-          :type="type"
+          :type="TypeBaseInput.Text"
           :mask="mask"
           @focus="showClearBtn"
           @blur="closeClearBtn"
@@ -35,7 +36,7 @@
               @touchend="clearNumber"
             />
           </template>
-        </BaseInput>
+        </base-input>
       </div>
     </div>
     <div class="footer">
@@ -47,28 +48,30 @@
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton :disabled="isNumberInvalid" block @click="handleStep">
+      <base-button :disabled="isNumberInvalid" block @click="handleStep">
         {{ $t('common.signUpCta') }}
-      </BaseButton>
+      </base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
-  TopNavigation,
+  BaseButton,
   BaseCountryPhoneInput,
   BaseInput,
-  BaseButton,
+  TopNavigation,
 } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
-import { computed } from '@vue/reactivity';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 const router = useRouter();
 
@@ -125,7 +128,13 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
 const handleStep = () => {
   if (!number.value) return;
-  authStore.registration.phone = String(number.value);
+
+  const phone = formatPhoneNumber(number.value);
+
+  authStore.registration.phone = String(phone);
+
+  authStore.savePhone('signup');
+
   emits('next');
 };
 

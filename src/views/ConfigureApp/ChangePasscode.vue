@@ -1,0 +1,16 @@
+<template>
+  <passcode-enter
+    :to-create="false"
+    :redirect-on-success-route="Route.ProfileSettings"
+  />
+</template>
+
+<script lang="ts" setup>
+import PasscodeEnter from '@/components/ui/organisms/auth/PasscodeEnter.vue';
+
+import { Route } from '@/router/types';
+</script>
+
+<style lang="scss" scoped>
+// ...
+</style>

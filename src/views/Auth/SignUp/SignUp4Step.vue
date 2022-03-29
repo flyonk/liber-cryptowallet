@@ -41,7 +41,7 @@
       </template>
     </base-input>
     <div class="sign-button-wrapper">
-      <BaseButton block :disabled="isFullNameInvalid" @click="$emit('next')">
+      <BaseButton block :disabled="isFullNameInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
       </BaseButton>
     </div>
@@ -54,7 +54,11 @@ import { ref } from 'vue-demi';
 import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
 import { computed } from '@vue/reactivity';
 
-defineEmits(['next', 'prev']);
+import { useProfileStore } from '@/stores/profile';
+
+const pStore = useProfileStore();
+
+const emit = defineEmits(['next', 'prev']);
 
 const firstname = ref('');
 const lastname = ref('');
@@ -87,5 +91,13 @@ const showClearLastNameBtn = () => {
 
 const closeClearLastNameBtn = () => {
   isClearLastNameBtnShown.value = false;
+};
+
+const nextStep = () => {
+  pStore.updateUserProfile({
+    firstName: firstname.value,
+    lastName: lastname.value,
+  });
+  emit('next');
 };
 </script>

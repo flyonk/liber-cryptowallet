@@ -1,5 +1,5 @@
 <template name="CoinItem">
-  <li class="coin-item">
+  <li class="coin-item" :class="{ 'coin-disabled': available }">
     <img class="image" :src="getSrcImage" alt="" />
     <p class="title">
       {{ fullName }}
@@ -23,6 +23,10 @@ const props = defineProps({
   shortName: {
     type: String,
     default: ref(''),
+  },
+  available: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -54,5 +58,9 @@ const getSrcImage = computed(() => {
 .sub-title {
   color: $color-grey;
   margin-left: 14px;
+}
+
+.coin-disabled {
+  opacity: 0.5;
 }
 </style>

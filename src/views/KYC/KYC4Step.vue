@@ -3,41 +3,42 @@
     <top-navigation @click:left-icon="$emit('prev')">
       {{ scanText.title }}
     </top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
+    <base-progress-bar :value="getPercentage" class="mb-3" />
     <p class="description">{{ scanText.description }}</p>
     <scan-animation class="p-0">
       <div id="camera" class="camera" />
     </scan-animation>
     <div class="footer">
-      <base-button @click="onScan">
+      <base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
       </base-button>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { computed, ref, Ref, onMounted, onBeforeUnmount } from 'vue';
-
-// import { Camera, CameraResultType } from '@capacitor/camera';
+<script lang="ts" setup>
+import { computed, onMounted, ref, Ref, watch } from 'vue';
 import {
   CameraPreview,
   CameraPreviewOptions,
 } from '@capacitor-community/camera-preview';
 import { Device } from '@capacitor/device';
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
+
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { cropImage } from '@/helpers/image';
+
+import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
-
-import { useKYCStore, EKYCProofType } from '@/stores/kyc';
-import { cropImage } from '@/helpers/image';
-import { useI18n } from 'vue-i18n';
 
 const emit = defineEmits(['next', 'prev']);
 
 const kycStore = useKYCStore();
 
 const { tm } = useI18n();
+const route = useRoute();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
 
@@ -46,6 +47,7 @@ const cameraPreviewOptions: CameraPreviewOptions = {
   className: 'camera-video',
   position: 'rear',
   toBack: true,
+  disableAudio: true,
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
@@ -82,9 +84,17 @@ onMounted(() => {
   startCamera();
 });
 
-onBeforeUnmount(() => {
-  stopCamera();
-});
+watch(
+  route,
+  ({ query: { step } }) => {
+    if (step !== '3') {
+      stopCamera();
+    } else {
+      startCamera();
+    }
+  },
+  { deep: true }
+);
 
 const startCamera = async () => {
   await CameraPreview.start(cameraPreviewOptions);
@@ -149,7 +159,6 @@ const onScan = async () => {
 
 <style lang="scss">
 .kyc-4-step {
-  // commit test
   > .scan-animation {
     > .inner {
       > .camera {
@@ -162,6 +171,7 @@ const onScan = async () => {
           height: 100% !important;
           width: 100%;
           border-radius: 12px;
+          object-fit: cover;
         }
       }
     }

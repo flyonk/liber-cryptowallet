@@ -39,6 +39,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { getSupportedOptions } from '@/helpers/identification';
 import { Route } from '@/router/types';
+import { Clipboard } from '@capacitor/clipboard';
 
 /*
  * TODO: this is unused component
@@ -59,15 +60,15 @@ const showErrorToast = ref(false);
 
 const router = useRouter();
 
-const pasteFromClipboard = () => {
-  navigator.clipboard.readText().then(
-    function (clipText) {
-      verificationCode.value = clipText;
-    },
-    function (err) {
-      console.error('Async: Could not read text: ', err);
+const pasteFromClipboard = async () => {
+  try {
+    const content = await Clipboard.read();
+    if (content.type === 'text/plain') {
+      verificationCode.value = content.value;
     }
-  );
+  } catch (err) {
+    console.error('Async: Could not read text: ', err);
+  }
 };
 
 watch(verificationCode, async (code) => {
