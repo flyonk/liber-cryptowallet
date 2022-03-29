@@ -39,10 +39,8 @@ import { PropType } from 'vue-demi';
 
 const props = defineProps({
   redirectOnSuccessRoute: {
-    redirectOnSuccessRoute: {
-      type: String as PropType<Route>,
-      required: true,
-    },
+    type: String as PropType<Route>,
+    required: true,
   },
   toCreate: {
     type: Boolean,

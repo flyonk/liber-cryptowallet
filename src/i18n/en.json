@@ -379,7 +379,9 @@
         "logoutConfirmationTitle": "Log out",
         "logoutConfirmation": "Are you sure to logging out from this account?",
         "logoutAccept": "Yes",
-        "logoutDecline": "No"
+        "logoutDecline": "No",
+        "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
+        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",

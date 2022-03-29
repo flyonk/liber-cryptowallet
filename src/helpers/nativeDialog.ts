@@ -14,6 +14,6 @@ export const showConfirm = async (options: ConfirmOptions) => {
 
     return value;
   } catch (e) {
-    return await Promise.reject();
+    return false;
   }
 };
