@@ -1,11 +1,13 @@
 import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
-import { Storage } from '@capacitor/storage';
 
 import apiService from '@/services/apiService';
 import { useAuthStore } from '@/stores/auth';
 import { i18n } from '@/i18n';
+import { get } from '@/helpers/storage';
+import router from '@/router';
 
 import { EStorageKeys } from '@/types/storage';
+import { Route } from '@/router/types';
 
 //TODO: what API calls should be authorized
 const _notAuthorizedRoutes = (): string[] => {
@@ -28,20 +30,13 @@ const _requestHandler = async (
    */
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-      let { value: token } = await Storage.get({
-        key: EStorageKeys.token,
-      });
+      let token = await get(EStorageKeys.token);
 
       if (token) {
         const authStore = useAuthStore();
         if (await authStore.verifyToken()) {
-          await authStore.refresh().then(() => {
-            Storage.get({
-              key: EStorageKeys.token,
-            }).then((data) => {
-              token = data.value;
-            });
-          });
+          await authStore.refresh();
+          token = await get(EStorageKeys.token);
         }
         config.headers['Authorization'] = `Bearer ${token}`;
       }
@@ -64,13 +59,18 @@ export default function init(): void {
     (response) => {
       return response;
     },
-    (error) => {
+    async (error) => {
       if (error.response.status === 401) {
         //TODO: define scenarios
-        //Logout -> SignIn screen ?
+        //TODO: clear only token data
+        const authStore = useAuthStore();
+        /*
+         * Clear only expired token and refresh token
+         */
+        await authStore.clearTokenData();
+        router.push({ name: Route.WelcomeLogoScreen });
       }
-      //TODO: log to sentry
-      console.error(`error: ${error}`);
+      //Logger error
       return Promise.reject(error);
     }
   );
