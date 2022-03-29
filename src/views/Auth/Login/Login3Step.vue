@@ -6,7 +6,11 @@
       </top-navigation>
     </div>
 
-    <base-passcode class="login-passcode" @submit="onSubmit" />
+    <base-passcode
+      :show-touch-faceid="showNativeVerification"
+      class="login-passcode"
+      @submit="onSubmit"
+    />
 
     <base-toast v-model:visible="showErrorToast" severity="error">
       <template #description>
@@ -25,14 +29,14 @@
   </div>
   <div v-if="show2FA">
     <auth2-f-a-verification-component
-      @success-verification="handleSuccessVerification"
       @close="onClose"
+      @success-verification="handleSuccessVerification"
     />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
@@ -54,6 +58,11 @@ const showErrorToast = ref(false);
 const show2FA = ref(false);
 
 appOptionsStore.init();
+
+const showNativeVerification = computed(() => {
+  const { faceid, touchid } = appOptionsStore.getOptions;
+  return faceid || touchid;
+});
 
 async function onSubmit(success: boolean): Promise<void> {
   if (success) {

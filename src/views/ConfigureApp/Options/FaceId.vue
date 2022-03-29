@@ -5,7 +5,7 @@
     </top-navigation>
 
     <div class="page-content">
-      <img src="@/assets/images/face-icon.svg" alt="Face id" class="mb-3" />
+      <img alt="Face id" class="mb-3" src="@/assets/images/face-icon.svg" />
       <p class="text-default">
         {{ $t('configureApp.faceIdDescription') }}
       </p>
@@ -21,15 +21,16 @@
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useRouter } from 'vue-router';
 
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { BaseButton, TopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
+import { verifyIdentity } from '@/helpers/identification';
 
 const router = useRouter();
 
@@ -37,6 +38,8 @@ const { setOptions } = useAppOptionsStore();
 
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.faceid);
+  verifyIdentity();
+
   router.push({ name: Route.PushNotifications });
 };
 
