@@ -1,40 +1,18 @@
 <template name="BottomNav">
   <div class="bottom-nav">
     <ul class="navbar-list">
-      <router-link
-        :to="{
-          name: Route.DashboardHome,
-        }"
-        class="item"
-        @click="changeTab(1)"
-      >
-        <svg v-if="activeTab === 1" class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#home-active" />
-        </svg>
-        <svg v-else class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#home" />
-        </svg>
-        <p class="label" :class="{ '-active': activeTab === 1 }">
-          {{ $t('bottomNav.home') }}
-        </p>
-      </router-link>
-      <router-link
-        :to="{
-          name: Route.AccountMain,
-        }"
-        class="item"
-        @click="changeTab(2)"
-      >
-        <svg v-if="activeTab === 2" class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#account-active" />
-        </svg>
-        <svg v-else class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#account" />
-        </svg>
-        <p class="label" :class="{ '-active': activeTab === 2 }">
-          {{ $t('bottomNav.account') }}
-        </p>
-      </router-link>
+      <NavBarItem
+        :routeName="Route.DashboardHome"
+        :label="$t('bottomNav.home')"
+        activeHashTag="home-active"
+        hashTag="home"
+      />
+      <NavBarItem
+        :routeName="Route.AccountMain"
+        :label="$t('bottomNav.account')"
+        activeHashTag="account-active"
+        hashTag="account"
+      />
       <li class="item" @click="changeTab(3)">
         <img
           class="icon center-image"
@@ -45,34 +23,18 @@
           {{ $t('bottomNav.send') }}
         </p>
       </li>
-      <router-link
-        :to="{
-          name: Route.RecepientsPhone,
-        }"
-        class="item"
-        @click="changeTab(4)"
-      >
-        <svg v-if="activeTab === 4" class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients-active" />
-        </svg>
-        <svg v-else class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#recipients" />
-        </svg>
-        <p class="label" :class="{ '-active': activeTab === 4 }">
-          {{ $t('bottomNav.recipients') }}
-        </p>
-      </router-link>
-      <li class="item" @click="changeTab(5)">
-        <svg v-if="activeTab === 5" class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#gift-active" />
-        </svg>
-        <svg v-else class="svg">
-          <use xlink:href="@/assets/icon/navbar/sprite.svg#gift" />
-        </svg>
-        <p class="label" :class="{ '-active': activeTab === 5 }">
-          {{ $t('bottomNav.invite') }}
-        </p>
-      </li>
+      <NavBarItem
+        :routeName="Route.RecepientsPhone"
+        :label="$t('bottomNav.recipients')"
+        activeHashTag="recipients-active"
+        hashTag="recipients"
+      />
+      <NavBarItem
+        :routeName="Route.RecepientsPhone"
+        :label="$t('bottomNav.invite')"
+        activeHashTag="gift-active"
+        hashTag="gift"
+      />
     </ul>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
@@ -86,6 +48,7 @@
 import { ref } from 'vue';
 import { Route } from '@/router/types';
 
+import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 const activeTab = ref(1);
@@ -130,15 +93,6 @@ function closeMenu() {
     align-items: center;
     justify-content: flex-end;
     text-decoration: none;
-
-    > .label {
-      text-decoration: none;
-      color: $color-brand-2-400;
-
-      &.-active {
-        color: $color-primary;
-      }
-    }
 
     > .svg {
       width: 24px;
