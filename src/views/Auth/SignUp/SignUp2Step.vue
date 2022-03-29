@@ -1,61 +1,28 @@
 <template>
-  <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">{{
-      $t('common.codeInput')
-    }}</TopNavigation>
-    <div class="description text--body">
-      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}
-    </div>
-    <div>
-      <BaseVerificationCodeInput
-        :loading="false"
-        class="input"
-        :is-error="showErrorToast"
-        @complete="onComplete"
-      />
-    </div>
-    <div class="footer">
-      <span class="footnote font-weight--semibold">
-        <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
-          <template #countdown="{ minute, second }">
-            {{ $t('auth.login.step2ResendTitle') }}
-            {{ minute }}:{{ second }}
-          </template>
-        </BaseCountdown>
-        <template v-else>
-          <BaseButton
-            class="resend-button"
-            size="medium"
-            view="flat"
-            @click="resend"
-          >
-            {{ $t('auth.login.step2ResendCta') }}
-          </BaseButton>
-        </template>
-      </span>
-    </div>
-  </div>
-  <base-toast v-model:visible="showErrorToast" severity="error">
-    <template #description>
-      <div>
-        {{ $t('auth.login.step4VerificationError') }}
-      </div>
-    </template>
-  </base-toast>
+  <EnterVerificationCode
+    with-countdown
+    :show-countdown="showCountdown"
+    :title="$t('common.codeInput')"
+    :text="text"
+    :is-error="showErrorToast"
+    @onHide="onHideError"
+    @onTimeIsUp="onTimeIsUp"
+    @onComplete="onComplete"
+    @onResend="resend"
+    @onPrev="prevStep"
+  />
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, Ref } from 'vue';
-// import { nextTick } from 'vue';
-import {
-  BaseButton,
-  BaseCountdown,
-  BaseVerificationCodeInput,
-  TopNavigation,
-  BaseToast,
-} from '@/components/ui';
+import { computed, onMounted, ref, Ref } from 'vue';
+import { useI18n } from 'vue-i18n';
+
 import { useAuthStore } from '@/stores/auth';
 import authService from '@/services/authService';
+
+import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+
+const { tm } = useI18n();
 
 const emit = defineEmits(['next', 'prev']);
 
@@ -74,12 +41,20 @@ onMounted(async () => {
   }
 });
 
+const text = computed(() => {
+  return `${tm('auth.login.step2Description')} ${formatPhone()}`;
+});
+
 const prevStep = () => {
   emit('prev');
 };
 
 const nextStep = () => {
   emit('next');
+};
+
+const onHideError = () => {
+  showErrorToast.value = false;
 };
 
 const onTimeIsUp = () => {

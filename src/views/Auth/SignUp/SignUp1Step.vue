@@ -1,77 +1,31 @@
 <template>
-  <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      {{ $t('auth.signup.step1Title') }}
-    </top-navigation>
-    <div class="description text--body">
-      {{ $t('auth.signup.step1Description1') }}
-      <br />
-      {{ $t('auth.signup.step1Description2') }}
-    </div>
-    <div class="grid">
-      <div class="col-4">
-        <base-country-phone-input
-          :dial-code="countryDialCode"
-          :only-european="true"
-          @ready="handleSelectCountry"
-          @selected="handleSelectCountry"
-        />
-      </div>
-      <div class="col-8 ml-auto">
-        <base-input
-          v-model="number"
-          :use-grouping="false"
-          :type="TypeBaseInput.Text"
-          :mask="mask"
-          @focus="showClearBtn"
-          @blur="closeClearBtn"
-        >
-          <template #label>
-            {{ $t('common.numberLabel') }}
-          </template>
-          <template v-if="isClearBtnShown" #append>
-            <i
-              class="ci-off_outline_close"
-              @click="clearNumber"
-              @touchend="clearNumber"
-            />
-          </template>
-        </base-input>
-      </div>
-    </div>
-    <div class="footer">
-      <span class="text--footnote font-weight--semibold">
-        {{ $t('auth.signup.step1ExistingAcc') }}
-        <router-link :to="{ name: Route.Login }" class="link">
-          {{ $t('common.logInCta') }}
-        </router-link>
-      </span>
-    </div>
-    <div class="sign-button-wrapper">
-      <base-button :disabled="isNumberInvalid" block @click="handleStep">
-        {{ $t('common.signUpCta') }}
-      </base-button>
-    </div>
-  </div>
+  <auth-credentials
+    :title="$t('auth.signup.step1Title')"
+    :text="$t('auth.signup.step1Description1')"
+    :additional-text="$t('auth.signup.step1Description2')"
+    :initial-number="number"
+    :country-dial-code="countryDialCode"
+    @handleSelectCountry="handleSelectCountry"
+    @handleStep="handleStep"
+    @numberChange="numberChange"
+    @onPrev="prevStep"
+  >
+    <template #router-link>
+      <router-link :to="{ name: Route.Login }" class="link">
+        {{ $t('common.logInCta') }}
+      </router-link>
+    </template>
+  </auth-credentials>
 </template>
 
 <script lang="ts" setup>
-import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import {
-  BaseButton,
-  BaseCountryPhoneInput,
-  BaseInput,
-  TopNavigation,
-} from '@/components/ui';
-
-import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
-import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
-import { formatPhoneNumber } from '@/helpers/auth';
+
+import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
 
 const router = useRouter();
 
@@ -80,15 +34,7 @@ const authStore = useAuthStore();
 const emits = defineEmits(['next']);
 
 const number = ref('');
-const mask = ref('');
 const countryDialCode = ref('');
-const type = ref('');
-const isClearBtnShown = ref(false);
-
-const isNumberInvalid = computed(() => {
-  if (!number.value) return true;
-  return new RegExp(/_/).test(number.value);
-});
 
 onMounted(() => {
   const { phone, dialCode } = authStore.registration;
@@ -104,33 +50,11 @@ onMounted(() => {
   countryDialCode.value = authStore.registration.dialCode;
 });
 
-const handleSelectCountry = (data: ICountryInformation) => {
-  const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
-
-  // hack for reactive phone mask change
-  type.value = '';
-  setTimeout(() => {
-    // set phone mask
-    if (data.mask) {
-      data.mask.replace(maskRegEx, function (match: string) {
-        mask.value = match.replace(new RegExp(/^\)/), '');
-        return match;
-      });
-      mask.value = mask.value.replaceAll('#', '9');
-    } else {
-      mask.value = '';
-    }
-
-    authStore.registration.dialCode = data.dialCode;
-    type.value = data.mask ? 'mask' : 'number';
-  }, 0);
+const handleSelectCountry = (dialCode: string) => {
+  authStore.registration.dialCode = dialCode;
 };
 
-const handleStep = () => {
-  if (!number.value) return;
-
-  const phone = formatPhoneNumber(number.value);
-
+const handleStep = (phone: number) => {
   authStore.registration.phone = String(phone);
 
   authStore.savePhone('signup');
@@ -143,28 +67,8 @@ const prevStep = () => {
     name: Route.WelcomeAuthScreen,
   });
 };
-
-const clearNumber = () => {
-  number.value = '';
-};
-
-const showClearBtn = () => {
-  isClearBtnShown.value = true;
-};
-
-const closeClearBtn = () => {
-  isClearBtnShown.value = false;
-};
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  > span {
-    color: $color-brand-2-300;
-
-    > .link {
-      color: $color-primary-500;
-    }
-  }
-}
+// ...
 </style>
