@@ -17,13 +17,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, onMounted, ref, Ref } from 'vue';
+import { computed, onMounted, ref, Ref, watch } from 'vue';
 import {
   CameraPreview,
   CameraPreviewOptions,
 } from '@capacitor-community/camera-preview';
 import { Device } from '@capacitor/device';
 import { useI18n } from 'vue-i18n';
+import { useRoute } from 'vue-router';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
@@ -37,6 +38,7 @@ const emit = defineEmits(['next', 'prev']);
 const kycStore = useKYCStore();
 
 const { tm } = useI18n();
+const route = useRoute();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
 
@@ -82,9 +84,17 @@ onMounted(() => {
   startCamera();
 });
 
-onBeforeUnmount(() => {
-  stopCamera();
-});
+watch(
+  route,
+  ({ query: { step } }) => {
+    if (step !== '3') {
+      stopCamera();
+    } else {
+      startCamera();
+    }
+  },
+  { deep: true }
+);
 
 const startCamera = async () => {
   await CameraPreview.start(cameraPreviewOptions);

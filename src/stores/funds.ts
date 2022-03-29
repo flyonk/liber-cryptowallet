@@ -38,7 +38,7 @@ export const useFundsStore = defineStore('funds', {
     from: 'BTC',
     codeFrom: 'tbtc',
     to: 'LTC',
-    codeTo: 'ltlc',
+    codeTo: 'tltc',
     imgFrom: require('@/assets/icon/currencies/btc.svg'),
     imgTo: require('@/assets/icon/currencies/ltc.svg'),
   }),

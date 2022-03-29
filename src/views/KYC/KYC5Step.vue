@@ -30,7 +30,7 @@
       </div>
     </template>
 
-    <base-button class="footer-button" @click="onNext">{{
+    <base-button block class="footer-button" @click="onNext">{{
       $t('views.kyc.kyc5step.upload')
     }}</base-button>
   </div>

@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
 import authService from '@/services/authService';
-import { clearAll, get, set } from '@/helpers/storage';
+import { clearAll, get, set, remove } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 import SentryUtil from '@/helpers/sentryUtil';
 
@@ -118,7 +118,6 @@ export const useAuthStore = defineStore('auth', {
         const data = await authService.refresh({
           refresh_token: refreshToken || '',
         });
-
         this.setToken(data);
       } catch (err) {
         SentryUtil.capture(
@@ -240,6 +239,14 @@ export const useAuthStore = defineStore('auth', {
           key: 'phone',
           value: phone as string,
         }),
+      ]);
+    },
+
+    async clearTokenData(): Promise<void> {
+      await Promise.all([
+        remove(EStorageKeys.token),
+        remove(EStorageKeys.refreshToken),
+        remove(EStorageKeys.tokenExpire),
       ]);
     },
   },
