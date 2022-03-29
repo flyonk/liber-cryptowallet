@@ -83,23 +83,15 @@
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
-        <li v-if="touchFaceIdSwitcher" class="item">
+        <li v-if="touchFaceIdSwitcher" class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch
-            v-model="isTouchIdOn"
-            class="switcher"
-            @change="onSwitcherChange"
-          />
+          <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
-        <li v-else class="item" disabled>
+        <li v-else class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch
-            v-model="isTouchIdOn"
-            :disabled="true"
-            class="switcher"
-          />
+          <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
       </ul>
       <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
@@ -130,7 +122,7 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useAppOptionsStore } from '@/stores/appOptions';
-import { getSupportedOptions } from '@/helpers/identification';
+import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
 import { EStorageKeys } from '@/types/storage';
 import { showConfirm } from '@/helpers/nativeDialog';
@@ -159,13 +151,39 @@ const { faceid, touchid } = appOptionsStore.getOptions;
 const isTouchIdOn = ref(faceid || touchid);
 const touchFaceIdSwitcher = ref('');
 
-const onSwitcherChange = () => {
+const onSwitcherChange = async () => {
   const value = isTouchIdOn.value ? 'true' : '';
-  if (touchFaceIdSwitcher.value === 'face-id') {
-    appOptionsStore.setOptions(value, EStorageKeys.faceid);
-  }
-  if (touchFaceIdSwitcher.value === 'touch-id') {
-    appOptionsStore.setOptions(value, EStorageKeys.touchid);
+
+  const key =
+    touchFaceIdSwitcher.value === 'face-id'
+      ? EStorageKeys.faceid
+      : EStorageKeys.touchid;
+
+  if (!isTouchIdOn.value) {
+    await verifyIdentity();
+
+    appOptionsStore.setOptions(value, key);
+
+    isTouchIdOn.value = true;
+  } else {
+    const submitted = await showConfirm({
+      title: tm(
+        'views.profile.profileSettings.confirmNativeVerificationTitle'
+      ) as string,
+      message: tm(
+        'views.profile.profileSettings.confirmNativeVerification'
+      ) as string,
+      okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
+      cancelButtonTitle: tm(
+        'views.profile.profileSettings.logoutDecline'
+      ) as string,
+    });
+
+    if (submitted) {
+      appOptionsStore.setOptions('', key);
+    }
+
+    isTouchIdOn.value = false;
   }
 };
 
