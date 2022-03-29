@@ -173,10 +173,16 @@ export const useAuthStore = defineStore('auth', {
       });
     },
 
+    async recoverPhoneFromStorage(): Promise<Record<string, string>> {
+      const json = await get(EStorageKeys.phone);
+      return json ? JSON.parse(json) : { dialCode: '', phone: '' };
+    },
+
     async getDevices() {
       return await authService.devices();
     },
 
+    //TODO: rename method ex: getPhoneFromStorage
     async getFromStorage() {
       const [dialCode, phone] = await Promise.all([
         get('dialCode'),
@@ -198,6 +204,7 @@ export const useAuthStore = defineStore('auth', {
       // this.login.dialCode = dialCode || '+7';
     },
 
+    //TODO: rename method ex: setPhoneToStorage
     async setToStorage() {
       await Promise.all([
         set({
