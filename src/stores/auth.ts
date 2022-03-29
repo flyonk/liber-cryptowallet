@@ -221,11 +221,14 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      const [dialCode, phone, access_token] = await Promise.all([
-        get('dialCode'),
-        get('phone'),
-        get('access_token'),
-      ]);
+      const [dialCode, phone, access_token, touchid, faceid] =
+        await Promise.all([
+          get('dialCode'),
+          get('phone'),
+          get('access_token'),
+          get(EStorageKeys.touchid),
+          get(EStorageKeys.faceid),
+        ]);
 
       authService.logout({ access_token: access_token as string });
 
@@ -239,6 +242,14 @@ export const useAuthStore = defineStore('auth', {
         set({
           key: 'phone',
           value: phone as string,
+        }),
+        set({
+          key: EStorageKeys.touchid,
+          value: touchid || '',
+        }),
+        set({
+          key: EStorageKeys.faceid,
+          value: faceid || '',
         }),
       ]);
     },

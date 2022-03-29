@@ -180,7 +180,7 @@ const onSwitcherChange = async () => {
     });
 
     if (submitted) {
-      appOptionsStore.setOptions('false', key);
+      appOptionsStore.setOptions('', key);
     }
 
     isTouchIdOn.value = false;

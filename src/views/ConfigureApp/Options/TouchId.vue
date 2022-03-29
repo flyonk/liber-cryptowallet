@@ -29,6 +29,7 @@ import { TopNavigation, BaseButton } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
+import { verifyIdentity } from '@/helpers/identification';
 
 const router = useRouter();
 
@@ -36,6 +37,8 @@ const { setOptions } = useAppOptionsStore();
 
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.touchid);
+
+  verifyIdentity();
   router.push({ name: Route.PushNotifications });
 };
 
