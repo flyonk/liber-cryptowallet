@@ -13,13 +13,13 @@
         activeHashTag="account-active"
         hashTag="account"
       />
-      <li class="item" @click="changeTab(3)">
+      <li class="item" @click="openMenu">
         <img
           class="icon center-image"
           src="@/assets/icon/navbar/send.svg"
           alt="Send"
         />
-        <p class="label" :class="{ '-active': activeTab === 3 }">
+        <p class="label" :class="{ '-active': isMenuOpen.value === true }">
           {{ $t('bottomNav.send') }}
         </p>
       </li>
@@ -51,13 +51,10 @@ import { Route } from '@/router/types';
 import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
-const activeTab = ref(1);
-
 let isMenuOpen = ref(false);
 
-function changeTab(tabNum: number) {
-  activeTab.value = tabNum;
-  if (tabNum === 3) isMenuOpen.value = true;
+function openMenu() {
+  isMenuOpen.value = true;
 }
 
 function closeMenu() {
