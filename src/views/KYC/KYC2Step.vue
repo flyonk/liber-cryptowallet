@@ -7,7 +7,7 @@
     <base-input v-model="form.street">
       <template #label>{{ $t('views.kyc.kyc2step.streetAndNumber') }}</template>
     </base-input>
-    <base-input v-model="form.flat" type="number">
+    <base-input v-model="form.flat">
       <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
       <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
     </base-input>
