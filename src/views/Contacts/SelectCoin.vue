@@ -7,38 +7,48 @@
         {{ $t('views.deposit.selectCoin.selectCoin') }}
       </h1>
 
-      <label for="searchCoin" class="input-label">
-        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
+      <label class="input-label" for="searchCoin">
+        <img alt="search" class="icon" src="@/assets/icon/search.svg" />
         <input
-          class="search"
-          type="text"
-          name="searchCoin"
           :placeholder="$t('views.deposit.selectCoin.searchCoin')"
+          class="search"
+          name="searchCoin"
+          type="text"
         />
       </label>
     </div>
-    <SelectCoin @select-coin="selectCoin" />
+    <SelectCoin :coins="coins" @select-coin="selectCoin" />
   </div>
 </template>
 
-<script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
+<script lang="ts" setup>
+import { useRoute, useRouter } from 'vue-router';
+import { computed, onBeforeMount } from 'vue';
 
 import { useFundsStore } from '@/stores/funds';
+import { useCoinsStore } from '@/stores/coins';
 
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+import { ICoin } from '@/models/coin/coins';
 
 const router = useRouter();
 const route = useRoute();
 const fundsStore = useFundsStore();
+const coinsStore = useCoinsStore();
 
-const selectCoin = (item: any) => {
-  if (!item.available) return;
+onBeforeMount(async () => {
+  await coinsStore.fetchCoins();
+});
+
+const coins = computed(() => coinsStore.getCoins);
+
+const selectCoin = (item: ICoin) => {
+  console.log('select coin', item, coins);
   if (route.params.type === 'from') {
-    fundsStore.setCryptoFrom(item.id, item.code, item.icon);
+    fundsStore.setCryptoFrom(item.name, item.code, item.imageUrl);
   } else {
-    fundsStore.setCryptoTo(item.id, item.code, item.icon);
+    fundsStore.setCryptoTo(item.name, item.code, item.imageUrl);
   }
   router.go(-1);
 };

@@ -2,30 +2,41 @@
   <div class="add-account">
     <div class="header">
       <img
+        alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
         @click="$router.back()"
       />
       <h1 class="title">{{ $t('common.coinSelect') }}</h1>
       <label class="input-label">
-        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
+        <img alt="search" class="icon" src="@/assets/icon/search.svg" />
         <input
-          class="search"
-          type="text"
-          name="searchCoin"
           :placeholder="$t('common.searchCoin')"
+          class="search"
+          name="searchCoin"
+          type="text"
         />
       </label>
     </div>
     <div class="main">
-      <SelectCoin @select-coin="selectCoin" />
+      <SelectCoin :coins="coins" @select-coin="selectCoin" />
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
+import { computed, onBeforeMount } from 'vue';
+
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+import { useCoinsStore } from '@/stores/coins';
+
+const coinStore = useCoinsStore();
+
+onBeforeMount(async () => {
+  await coinStore.fetchCoins();
+});
+
+const coins = computed(() => coinStore.getCoins);
 
 function selectCoin() {
   console.log('select coin');

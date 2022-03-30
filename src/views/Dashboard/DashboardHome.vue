@@ -101,14 +101,30 @@
           ...
         </button>
       </div>
+      <div class="transactions-header">
+        <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
+        <span
+          class="button"
+          :class="{ '-active': hasTransactions }"
+          @click="$router.push({ name: Route.TransactionsAll })"
+          >{{ $t('views.dashboard.home.seeAll') }}</span
+        >
+      </div>
       <div v-if="hasTransactions">
-        <transactions-list :transactions="transactions" />
+        <transactions-list :transactions="transactions" :preview="preview" />
       </div>
       <div v-else class="no-transactions">
         <img class="mr-2" src="@/assets/icon/clock.svg" />
         <p class="text-dark-gray">
           {{ $t('views.dashboard.home.noTransactions') }}
         </p>
+      </div>
+      <div class="carousel-header">
+        <span class="title">{{ $t('views.dashboard.home.todo') }}</span>
+        <!-- TODO: Uncomment seeAll when the card screen is ready -->
+        <!-- <span class="button" :class="{ '-active': hasTransactions }">{{
+          $t('views.dashboard.home.seeAll')
+        }}</span> -->
       </div>
       <div class="carousel">
         <VueAgile :nav-buttons="false" :slides-to-show="2">
@@ -192,6 +208,7 @@ const { tm } = useI18n();
 
 //TODO: Put to store
 let transactions: Ref<INetTransaction[]> = ref([]);
+let preview = ref(3);
 
 const { proxy } = getCurrentInstance();
 
@@ -452,6 +469,46 @@ const showWelcomeMessage = computed(() => {
         height: 40px;
         margin: 0;
       }
+    }
+  }
+
+  > .transactions-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    margin-bottom: 16px;
+
+    > .title {
+      color: $color-dark-grey;
+    }
+
+    > .button {
+      color: $color-brand-2-200;
+
+      &.-active {
+        color: $color-primary;
+      }
+    }
+  }
+
+  > .carousel-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    margin-bottom: 16px;
+
+    > .title {
+      color: $color-dark-grey;
+    }
+
+    > .button {
+      color: $color-brand-2-200;
     }
   }
 
