@@ -48,6 +48,8 @@
       "step1Description": "Enter your registered mobile number to log in",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
+      "step1AccountExists": "Don’t have an account?",
+      "step1AccountExistsLink": "Sign up",
       "step2Description": "To sign up, enter the security code we've sent to",
       "step2ResendTitle": "Resend code in",
       "step2ResendCta": "Resend",

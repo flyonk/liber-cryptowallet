@@ -2,6 +2,7 @@
   <auth-credentials
     :title="$t('auth.signup.step1Title')"
     :text="$t('auth.login.step1Description')"
+    :remind-text="$t('auth.login.step1AccountExists')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
     @handleSelectCountry="handleSelectCountry"
@@ -11,7 +12,7 @@
   >
     <template #router-link>
       <router-link :to="{ name: Route.Login }" class="link">
-        {{ $t('common.logInCta') }}
+        {{ $t('auth.login.step1AccountExistsLink') }}
       </router-link>
     </template>
   </auth-credentials>
@@ -48,7 +49,7 @@ const handleSelectCountry = (dialCode: string) => {
   authStore.setDialCode(dialCode);
 };
 
-const nextStep = async (phone: number) => {
+const nextStep = async (phone: string) => {
   authStore.setPhone(phone);
 
   await authStore.setToStorage();

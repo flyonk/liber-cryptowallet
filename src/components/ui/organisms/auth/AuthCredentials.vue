@@ -43,7 +43,7 @@
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        {{ $t('auth.signup.step1ExistingAcc') }}
+        {{ remindText }}
         <slot name="router-link" />
       </span>
     </div>
@@ -86,6 +86,10 @@ const props = defineProps({
     required: true,
   },
   additionalText: {
+    type: String,
+    default: '',
+  },
+  remindText: {
     type: String,
     default: '',
   },

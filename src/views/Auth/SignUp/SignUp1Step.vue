@@ -3,6 +3,7 @@
     :title="$t('auth.signup.step1Title')"
     :text="$t('auth.signup.step1Description1')"
     :additional-text="$t('auth.signup.step1Description2')"
+    :remind-text="$t('auth.signup.step1ExistingAcc')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
     @handleSelectCountry="handleSelectCountry"
