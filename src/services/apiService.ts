@@ -108,4 +108,9 @@ export default {
       return `/country_dial_info.json`;
     },
   },
+  coin: {
+    getCoins(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/coins`;
+    },
+  },
 };
