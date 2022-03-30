@@ -1,5 +1,7 @@
 import { string2ISO } from '@/helpers/filters';
 
+type TAnyObjectType = Record<string, string | boolean | number | null>;
+
 export enum EUserStatus {
   unregistered = 10, //UserStatusNew
   active = 20, //UserStatusActive
@@ -20,7 +22,10 @@ export type TMarketing = {
 };
 
 export interface IProfile
-  extends Record<string, string | boolean | number | TMarketing | undefined> {
+  extends Record<
+    string,
+    string | boolean | number | TMarketing | undefined | TAnyObjectType
+  > {
   id: string;
   status: number;
   phone: string;
@@ -35,6 +40,8 @@ export interface IProfile
   optionalAddress?: string;
   postalCode?: string;
   birthDate?: string;
+  options?: TAnyObjectType;
+  is2FAConfigured?: boolean;
   marketing: TMarketing;
   kycStatus: EKYCStatus;
 }
@@ -58,6 +65,8 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       kycStatus: input.kycStatus || EKYCStatus.success,
+      is2FAConfigured: input.is_2fa_configured || false,
+      options: input.options || {},
       marketing: {
         isEmail: false,
         isPushNotification: false,
@@ -85,6 +94,7 @@ export default {
       postal_code: input.postalCode,
       birthdate: birthDate,
       is_send_news: !!input.marketing?.isEmail,
+      options: input.options || {},
     };
   },
 };
