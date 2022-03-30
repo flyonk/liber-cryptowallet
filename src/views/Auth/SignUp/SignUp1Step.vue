@@ -3,7 +3,7 @@
     :title="$t('auth.signup.step1Title')"
     :text="$t('auth.signup.step1Description1')"
     :additional-text="$t('auth.signup.step1Description2')"
-    :remind-text="$t('auth.signup.step1ExistingAcc')"
+    :next-title="$t('common.signUpCta')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
     @handleSelectCountry="handleSelectCountry"
@@ -11,7 +11,14 @@
     @numberChange="numberChange"
     @onPrev="prevStep"
   >
-    <template #router-link>
+    <template #footer-empty-state>
+      {{ $t('auth.signup.step1ExistingAcc') }}
+      <router-link :to="{ name: Route.Login }" class="link">
+        {{ $t('common.logInCta') }}
+      </router-link>
+    </template>
+    <template #footer-valuable-state>
+      {{ $t('auth.signup.step1ExistingAcc') }}
       <router-link :to="{ name: Route.Login }" class="link">
         {{ $t('common.logInCta') }}
       </router-link>

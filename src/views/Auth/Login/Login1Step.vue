@@ -2,7 +2,7 @@
   <auth-credentials
     :title="$t('auth.signup.step1Title')"
     :text="$t('auth.login.step1Description')"
-    :remind-text="$t('auth.login.step1AccountExists')"
+    :next-title="$t('common.logInCta')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
     @handleSelectCountry="handleSelectCountry"
@@ -10,7 +10,13 @@
     @numberChange="numberChange"
     @onPrev="prevStep"
   >
-    <template #router-link>
+    <template #footer-empty-state>
+      <router-link :to="{ name: Route.Restore }" class="link">
+        {{ $t('auth.login.step1LostAccess') }}
+      </router-link>
+    </template>
+    <template #footer-valuable-state>
+      {{ $t('auth.login.step1AccountExists') }}
       <router-link :to="{ name: Route.Login }" class="link">
         {{ $t('auth.login.step1AccountExistsLink') }}
       </router-link>

@@ -74,10 +74,10 @@ const prevStep = () => {
 };
 
 // disable for starting not from beginning
-authStore.setStep(0, props.scope);
-router.replace({
-  path: router.currentRoute.value.path,
-});
+// authStore.setStep(0, props.scope);
+// router.replace({
+//   path: router.currentRoute.value.path,
+// });
 </script>
 
 <style lang="scss">

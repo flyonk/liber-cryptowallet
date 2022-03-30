@@ -17,16 +17,21 @@
 import { computed, onMounted, ref, Ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
+import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
+import { useProfileStore } from '@/stores/profile';
 import authService from '@/services/authService';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+
+import { Route } from '@/router/types';
 
 const { tm } = useI18n();
 
 const emit = defineEmits(['next', 'prev']);
 
 const authStore = useAuthStore();
+const pStore = useProfileStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
 const showErrorToast = ref(false) as Ref<boolean>;
@@ -67,9 +72,17 @@ const onComplete = async (data: string) => {
 
   try {
     await authStore.signInProceed({ phone, otp });
-    nextStep();
+    await pStore.init();
+
+    if (pStore.getUser.status === 20) {
+      authStore.setStep(2, 'registration');
+      router.push({
+        name: Route.SignUp,
+      });
+    } else {
+      nextStep();
+    }
   } catch (err) {
-    console.log(err);
     showErrorToast.value = true;
   }
 };

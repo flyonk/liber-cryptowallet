@@ -23,7 +23,7 @@
         <base-input
           v-model="number"
           :use-grouping="false"
-          :type="TypeBaseInput.Text"
+          :type="type"
           :mask="mask"
           @focus="showClearBtn"
           @blur="closeClearBtn"
@@ -43,13 +43,13 @@
     </div>
     <div class="footer">
       <span class="text--footnote font-weight--semibold">
-        {{ remindText }}
-        <slot name="router-link" />
+        <slot v-if="isInitialStep" name="footer-empty-state" />
+        <slot v-else name="footer-valuable-state" />
       </span>
     </div>
     <div class="sign-button-wrapper">
       <base-button :disabled="isNumberInvalid" block @click="handleStep">
-        {{ $t('common.signUpCta') }}
+        {{ nextTitle }}
       </base-button>
     </div>
   </div>
@@ -57,7 +57,7 @@
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { ref } from 'vue';
+import { Ref, ref } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
 import {
@@ -89,7 +89,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  remindText: {
+  nextTitle: {
     type: String,
     default: '',
   },
@@ -104,9 +104,11 @@ const props = defineProps({
 });
 
 const mask = ref('');
-const type = ref('');
+const type = ref(TypeBaseInput.Number) as Ref<TypeBaseInput>;
 const isClearBtnShown = ref(false);
 const number = ref(props.initialNumber);
+
+const isInitialStep = ref(true) as Ref<boolean>;
 
 const isNumberInvalid = computed(() => {
   if (!number.value) return true;
@@ -117,7 +119,7 @@ const handleSelectCountry = (data: ICountryInformation) => {
   const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
 
   // hack for reactive phone mask change
-  type.value = '';
+  type.value = TypeBaseInput.Number;
   setTimeout(() => {
     // set phone mask
     if (data.mask) {
@@ -131,7 +133,7 @@ const handleSelectCountry = (data: ICountryInformation) => {
     }
 
     emits('handleSelectCountry', data.dialCode);
-    type.value = data.mask ? 'mask' : 'number';
+    type.value = data.mask ? TypeBaseInput.Mask : TypeBaseInput.Number;
   }, 0);
 };
 
@@ -153,6 +155,7 @@ const clearNumber = () => {
 
 const showClearBtn = () => {
   isClearBtnShown.value = true;
+  isInitialStep.value = false;
 };
 
 const closeClearBtn = () => {
