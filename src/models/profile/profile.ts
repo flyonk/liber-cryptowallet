@@ -65,7 +65,8 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       kycStatus: input.kycStatus || EKYCStatus.success,
-      is2FAConfigured: input.is_2fa_configured || false,
+      is2FAConfigured:
+        input.is_2fa_configured || !!input.options?.secret_2fa || false, //TODO: temporary hack for 2FA
       options: input.options || {},
       marketing: {
         isEmail: false,
@@ -77,10 +78,7 @@ export default {
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   requestSerialize(input: Partial<IProfile>): any {
-    const address =
-      input.street && input.homeNum ? `${input.street} ${input.homeNum}` : null;
-    const birthDate = input.birthDate ? string2ISO(input.birthDate) : null;
-    return {
+    const request = {
       status: input.status,
       phone: input.phone,
       is_verified: input.isVerified,
@@ -89,12 +87,14 @@ export default {
       last_name: input.lastName,
       email: input.email,
       country: input.country,
-      street_and_number: address,
       optionalAddress: input.optionalAddress,
       postal_code: input.postalCode,
-      birthdate: birthDate,
       is_send_news: !!input.marketing?.isEmail,
-      options: input.options || {},
-    };
+      options: input.options,
+    } as Partial<IProfile>;
+    if (input.birthDate) request.birthdate = string2ISO(input.birthDate);
+    if (input.street && input.homeNum)
+      request.street_and_number = `${input.street} ${input.homeNum}`;
+    return request;
   },
 };

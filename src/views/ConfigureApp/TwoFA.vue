@@ -14,7 +14,7 @@
   </div>
 
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="$router.push({ name: Route.InstallApp })">
+    <base-button block @click="$router.push({ name: routeName })">
       {{ $t('common.continueCta') }}
     </base-button>
   </div>
@@ -22,10 +22,25 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
+import { onMounted, ref } from 'vue';
+
+import { useProfileStore } from '@/stores/profile';
+
 import { BaseButton, TopNavigation } from '@/components/ui';
+
 import { Route } from '@/router/types';
 
 const router = useRouter();
+const pStore = useProfileStore();
+
+let routeName = ref<string>('');
+
+onMounted(async () => {
+  if (!pStore.user.id) await pStore.init();
+  routeName.value = pStore.user.options?.secrte_2fa
+    ? Route.ConfigureAppVerify
+    : Route.InstallApp;
+});
 
 function prevStep(): void {
   router.push({
