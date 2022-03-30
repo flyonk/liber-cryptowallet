@@ -18,19 +18,20 @@
         />
       </label>
     </div>
-    <SelectCoin @select-coin="selectCoin" />
+    <SelectCoin :coins="coins" @select-coin="selectCoin" />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { onBeforeMount } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
-import { ICryptocurrencyItem } from '@/types/currency';
 import { IAccount } from '@/models/account/account';
+import { useCoinsStore } from '@/stores/coins';
+import { ICoin } from '@/models/coin/coins';
 
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import { TopNavigation } from '@/components/ui';
@@ -38,21 +39,20 @@ import { TopNavigation } from '@/components/ui';
 const router = useRouter();
 const accountStore = useAccountStore();
 const depositStore = useDepositStore();
+const coinStore = useCoinsStore();
 
 onBeforeMount(async () => {
-  await accountStore.getAccountList();
+  await Promise.all([accountStore.getAccountList(), coinStore.fetchCoins()]);
 });
+
+const coins = computed(() => coinStore.getCoins);
 
 const selectAccount = (coinCode: string) => {
   return accountStore.getAccounts.find(({ code }) => code === coinCode);
 };
 
-const selectCoin = async (selectedAccount: ICryptocurrencyItem) => {
-  console.log('selected coin ->', selectedAccount);
-  console.log('creating account with -> ', 'tbtc');
-
-  // TODO: later, change to selected account code
-  depositStore.setAccountInfo(selectAccount('tbtc') as IAccount);
+const selectCoin = async (selectedAccount: ICoin) => {
+  depositStore.setAccountInfo(selectAccount(selectedAccount.code) as IAccount);
 
   await router.push({
     name: Route.DepositNetwork,

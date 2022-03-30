@@ -1,25 +1,13 @@
 <template name="SelectCoin">
   <div class="select-coin">
-    <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>
+    <!--    <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>-->
     <ul class="coin-list suggested">
       <CoinItem
-        v-for="item in suggestedCoins"
-        :key="item.id"
-        :available="!item.available"
+        v-for="item in coins"
+        :key="item.code"
         :full-name="item.name"
-        :icon="item.icon"
-        @click="$emit('select-coin', item)"
-      />
-    </ul>
-    <h4 class="title">{{ $t('views.deposit.selectCoin.allCoins') }}</h4>
-    <ul class="coin-list all-coins">
-      <CoinItem
-        v-for="item in otherCoins"
-        :key="item.id"
-        :available="!item.available"
-        :full-name="item.name"
-        :icon="item.icon"
-        :short-name="item.code"
+        :icon="item.imageUrl"
+        :short-name="item.code.toUpperCase()"
         @click="$emit('select-coin', item)"
       />
     </ul>
@@ -27,85 +15,18 @@
 </template>
 
 <script lang="ts" setup>
-import { Ref, ref } from 'vue';
-
-import { ICryptocurrencyItem } from '@/types/currency';
-
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
-
-const coins = ref([]) as Ref<ICryptocurrencyItem[]>;
+import { PropType } from 'vue-demi';
+import { ICoin } from '@/models/coin/coins';
 
 defineEmits(['select-coin']);
 
-//TODO: get from API
-coins.value = [
-  {
-    id: 'BTC',
-    icon: require('@/assets/icon/currencies/btc.svg'),
-    name: 'Bitcoin',
-    code: 'tbtc',
-    available: true,
+defineProps({
+  coins: {
+    type: Array as PropType<ICoin[]>,
+    required: true,
   },
-  {
-    id: 'LTC',
-    icon: require('@/assets/icon/currencies/ltc.svg'),
-    name: 'Litecoin',
-    code: 'tltc',
-    available: true,
-  },
-  {
-    id: 'usdt',
-    icon: require('@/assets/icon/currencies/tether.svg'),
-    name: 'Tether',
-    code: 'USDT',
-    available: false,
-  },
-  {
-    id: 'binance',
-    icon: require('@/assets/icon/currencies/binance.svg'),
-    name: 'Binance',
-    code: 'bnb',
-    available: false,
-  },
-  {
-    id: 'dash',
-    icon: require('@/assets/icon/currencies/dash.svg'),
-    name: 'Dash',
-    code: 'dsh',
-    available: false,
-  },
-  {
-    id: 'xrp',
-    icon: require('@/assets/icon/currencies/xrp.svg'),
-    name: 'Ripple',
-    code: 'xrp',
-    available: false,
-  },
-  {
-    id: 'ftn',
-    icon: require('@/assets/icon/currencies/fantom.svg'),
-    name: 'Fantom',
-    code: 'ftn',
-    available: false,
-  },
-  {
-    id: 'tron',
-    icon: require('@/assets/icon/currencies/tron.svg'),
-    name: 'Tron',
-    code: 'trx',
-    available: false,
-  },
-  {
-    id: 'graph',
-    icon: require('@/assets/icon/currencies/graph.svg'),
-    name: 'Graph',
-    code: 'grt',
-    available: false,
-  },
-];
-
-const suggestedCoins = ref(coins.value.slice(0, 2));
-const otherCoins = ref(coins.value.length > 2 ? coins.value.slice(2) : []);
+});
 </script>
 
 <style lang="scss" scoped>
