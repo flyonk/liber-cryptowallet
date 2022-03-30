@@ -58,7 +58,6 @@
             v-model="convertInfo.estimatedAmount"
             type="number"
             class="input"
-            :readonly="true"
             @blur="onBlur"
             @input="onChangeEstimatedAmount"
           />
@@ -135,6 +134,7 @@ const DEBOUNCE_TIMER = 500;
 
 const timer = ref(30);
 const startTimer = ref(0);
+let _convertDirectionBack = false;
 
 const currentSendFromCurrency = {
   name: ref(from || 'TBTC'),
@@ -183,6 +183,10 @@ function changeInfoInterval() {
 }
 
 async function previewChangeInfo() {
+  if (_convertDirectionBack) {
+    _convertDirectionBack = false;
+    return;
+  }
   ctaState.value = 'send';
   if (!requestAmount.value) return;
   try {
@@ -206,6 +210,7 @@ async function previewChangeInfo() {
 }
 
 async function previewChangeInfoBack() {
+  _convertDirectionBack = true;
   const _requestAmount = fStore.convertInfo.estimatedAmount;
   if (!_requestAmount) return;
   ctaState.value = 'send';

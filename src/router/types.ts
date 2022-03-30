@@ -24,6 +24,7 @@ export enum Route {
   Transactions = 'transactions',
   TransactionsMain = 'transactions-main',
   TransactionsDetails = 'transactions-details',
+  TransactionsAll = 'transactions-all',
 
   ConvertFunds = 'convert',
   ContactsWhoToPay = 'contacts.who-to-pay',

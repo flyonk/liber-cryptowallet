@@ -70,8 +70,7 @@ const props = defineProps({
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap: nowrap;
-    flex: 0 0 auto;
+    flex: 1 0 auto;
   }
 
   > .header > .title {
@@ -87,12 +86,11 @@ const props = defineProps({
   > .main {
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
+    flex: 0 1 auto;
+    overflow: scroll;
   }
 
   > .main > .title {
-    font-family: Inter, sans-serif;
-    font-style: normal;
     font-weight: 800;
     font-size: 34px;
     line-height: 41px;
@@ -104,14 +102,7 @@ const props = defineProps({
   > .main > .imagecontainer {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-
-  > .main > .imagecontainer > .image {
-    align-self: center;
-    width: 550px;
-    height: 550px;
+    overflow: hidden;
   }
 
   > .footer {
@@ -119,8 +110,8 @@ const props = defineProps({
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: space-around;
-    flex: 0 0 auto;
-    height: 85px;
+    flex: 1 0 auto;
+    height: 100px;
   }
 
   > .footer > .login {

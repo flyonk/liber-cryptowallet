@@ -3,7 +3,7 @@
     <li
       v-for="(
         { icon, sum, info, status, code, type, id }, index
-      ) in previewTransactions"
+      ) in displayedTransactions"
       :key="index"
       class="item"
       @click="$router.push(`/transactions/details/${id}`)"
@@ -34,18 +34,20 @@ const props = defineProps({
   },
   preview: {
     type: Number,
-    default: () => 1,
+    default: () => 0,
   },
 });
 
-const previewTransactions = computed(() => {
-  return props.transactions.slice(0, props.preview);
+const displayedTransactions = computed(() => {
+  return props.preview
+    ? props.transactions.slice(0, props.preview)
+    : props.transactions;
 });
 </script>
 
 <style lang="scss" scoped>
 .transactions {
-  max-height: 360px;
+  // max-height: 360px;
   overflow-y: auto;
   padding: 0;
 
