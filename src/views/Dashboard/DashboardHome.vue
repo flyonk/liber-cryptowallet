@@ -103,9 +103,12 @@
       </div>
       <div class="transactions-header">
         <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
-        <span class="button" :class="{ '-active': hasTransactions }">{{
-          $t('views.dashboard.home.seeAll')
-        }}</span>
+        <span
+          class="button"
+          :class="{ '-active': hasTransactions }"
+          @click="$router.push({ name: Route.TransactionsAll })"
+          >{{ $t('views.dashboard.home.seeAll') }}</span
+        >
       </div>
       <div v-if="hasTransactions">
         <transactions-list :transactions="transactions" :preview="preview" />
