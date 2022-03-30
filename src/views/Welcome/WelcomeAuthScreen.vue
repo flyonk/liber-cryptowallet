@@ -9,7 +9,7 @@
         @change-by-user="handleChangeByUser"
       >
         <stories-slider-example-story
-          v-for="item in 4"
+          v-for="item in 2"
           :key="item"
           :base-img="require('@/assets/images/money.svg')"
           :logo-img="require('@/assets/images/full-logo-white.png')"
