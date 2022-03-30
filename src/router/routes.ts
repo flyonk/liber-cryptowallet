@@ -32,6 +32,7 @@ import AddAccount from '@/views/Dashboard/Account/AddAccount.vue';
 import Transactions from '@/views/Dashboard/Transactions/index.vue';
 import DashboardTransactions from '@/views/Dashboard/Transactions/DashboardTransactions.vue';
 import TransactionDetails from '@/views/Dashboard/Transactions/TransactionDetails.vue';
+import TransactionsAll from '@/views/Dashboard/Transactions/TransactionsAll.vue';
 
 import Contacts from '@/views/Contacts/index.vue';
 import WhoToPay from '@/views/Contacts/WhoToPay.vue';
@@ -211,6 +212,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'details/:id',
         name: Route.TransactionsDetails,
         component: TransactionDetails,
+      },
+      {
+        path: 'all',
+        name: Route.TransactionsAll,
+        component: TransactionsAll,
       },
     ],
   },
