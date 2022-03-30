@@ -101,8 +101,12 @@
           ...
         </button>
       </div>
+      <div class="transactions-header">
+        <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
+        <span class="button">{{ $t('views.dashboard.home.seeAll') }}</span>
+      </div>
       <div v-if="hasTransactions">
-        <transactions-list :transactions="transactions" />
+        <transactions-list :transactions="transactions" :preview="preview" />
       </div>
       <div v-else class="no-transactions">
         <img class="mr-2" src="@/assets/icon/clock.svg" />
@@ -192,6 +196,7 @@ const { tm } = useI18n();
 
 //TODO: Put to store
 let transactions: Ref<INetTransaction[]> = ref([]);
+let preview = ref(3);
 
 const { proxy } = getCurrentInstance();
 
@@ -452,6 +457,24 @@ const showWelcomeMessage = computed(() => {
         height: 40px;
         margin: 0;
       }
+    }
+  }
+
+  > .transactions-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    margin-bottom: 16px;
+
+    > .title {
+      color: $color-dark-grey;
+    }
+
+    > .button {
+      color: $color-brand-2-200;
     }
   }
 
