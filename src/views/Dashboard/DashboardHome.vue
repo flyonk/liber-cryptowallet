@@ -103,7 +103,9 @@
       </div>
       <div class="transactions-header">
         <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
-        <span class="button">{{ $t('views.dashboard.home.seeAll') }}</span>
+        <span class="button" :class="{ '-active': hasTransactions }">{{
+          $t('views.dashboard.home.seeAll')
+        }}</span>
       </div>
       <div v-if="hasTransactions">
         <transactions-list :transactions="transactions" :preview="preview" />
@@ -475,6 +477,10 @@ const showWelcomeMessage = computed(() => {
 
     > .button {
       color: $color-brand-2-200;
+
+      &.-active {
+        color: $color-primary;
+      }
     }
   }
 
