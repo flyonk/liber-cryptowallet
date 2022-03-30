@@ -4,22 +4,26 @@
     <h1 class="title">
       {{ $t('views.recepients.recepients') }}
     </h1>
-    <BaseInput type="text">
+    <BaseInput type="text" v-model="filterContacts">
       <template #label> Name, @id, phone, email </template>
     </BaseInput>
 
     <constacts-tab-switcher />
 
-    <router-view />
+    <router-view :filter="filterContacts" />
   </div>
 </template>
 
 <script setup lang="ts">
+import { ref } from 'vue';
+
 import { BaseInput } from '@/components/ui';
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
+
+const filterContacts = ref('');
 </script>
 
 <style lang="scss" scoped>

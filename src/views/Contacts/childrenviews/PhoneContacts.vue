@@ -1,5 +1,5 @@
 <template>
-  <Contacts />
+  <Contacts :filter="$props.filter" />
 </template>
 
 <script setup lang="ts">

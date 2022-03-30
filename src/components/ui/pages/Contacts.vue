@@ -1,5 +1,8 @@
 <template v-bind="$props">
-  <contacts-list :contacts="contacts" @contact-click="handleContactClick" />
+  <contacts-list
+    :contacts="filteredContacts"
+    @contact-click="handleContactClick"
+  />
   <button
     v-if="props.showPaymentOptions && contacts.length"
     class="options-button"
@@ -20,6 +23,7 @@ import { useRecepientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import ContactsList from '@/components/ui/organisms/ContactsList.vue';
+import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 
@@ -46,6 +50,30 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  filter: {
+    type: String,
+    default: '',
+  },
+});
+
+const filteredContacts = computed(() => {
+  if (props.filter) {
+    const filterStr = props.filter.toLowerCase();
+    return contacts.filter((contact: Contact) => {
+      const name = contact.displayName?.toLowerCase() || '';
+      if (name.includes(filterStr)) {
+        return true;
+      }
+      let phone = getContactPhone(contact);
+      const regex = / |-|\(|\)|\+/g;
+      phone = phone.replace(regex, '');
+      if (phone.includes(filterStr)) {
+        return true;
+      }
+      return false;
+    });
+  }
+  return contacts;
 });
 </script>
 
