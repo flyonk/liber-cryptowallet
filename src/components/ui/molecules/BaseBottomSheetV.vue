@@ -1,6 +1,6 @@
 <template>
   <div class="base-bottom-sheet-v">
-    <div class="background-locker" />
+    <div class="background-locker" @click="$emit('close')" />
     <div
       ref="wrapper"
       :class="{
