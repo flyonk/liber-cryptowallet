@@ -7,18 +7,18 @@
         }}</span> </template
       >{{ $t('views.kyc.kyc3step.proofOfIdentity') }}</top-navigation
     >
-    <base-progress-bar class="mb-3" :value="getPercentage" />
+    <base-progress-bar :value="getPercentage" class="mb-3" />
     <p class="description">{{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}</p>
     <base-radio-select :items="items" @input="onSelect" />
   </div>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, ref } from 'vue';
 import {
-  TopNavigation,
   BaseProgressBar,
   BaseRadioSelect,
+  TopNavigation,
 } from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 
@@ -53,7 +53,7 @@ const onSelect = (proofType: EKYCProofType): void => {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 .kyc-3-step {
   > .navigation {
     > .page-title {
