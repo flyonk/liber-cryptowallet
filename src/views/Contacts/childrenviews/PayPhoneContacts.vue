@@ -1,5 +1,5 @@
 <template>
-  <Contacts :showPaymentOptions="true" :filter="$props.filter" />
+  <Contacts :show-payment-options="true" :filter="$props.filter" />
 </template>
 
 <script setup lang="ts">

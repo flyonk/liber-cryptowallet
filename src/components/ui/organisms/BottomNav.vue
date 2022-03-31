@@ -2,16 +2,16 @@
   <div class="bottom-nav">
     <ul class="navbar-list">
       <NavBarItem
-        :routeName="Route.DashboardHome"
+        :route-name="Route.DashboardHome"
         :label="$t('bottomNav.home')"
-        activeHashTag="home-active"
-        hashTag="home"
+        active-hash-tag="home-active"
+        hash-tag="home"
       />
       <NavBarItem
-        :routeName="Route.AccountMain"
+        :route-name="Route.AccountMain"
         :label="$t('bottomNav.account')"
-        activeHashTag="account-active"
-        hashTag="account"
+        active-hash-tag="account-active"
+        hash-tag="account"
       />
       <li class="item" @click="openMenu">
         <img
@@ -24,16 +24,16 @@
         </p>
       </li>
       <NavBarItem
-        :routeName="Route.RecepientsPhone"
+        :route-name="Route.RecepientsPhone"
         :label="$t('bottomNav.recipients')"
-        activeHashTag="recipients-active"
-        hashTag="recipients"
+        active-hash-tag="recipients-active"
+        hash-tag="recipients"
       />
       <NavBarItem
-        :routeName="Route.Invite"
+        :route-name="Route.Invite"
         :label="$t('bottomNav.invite')"
-        activeHashTag="gift-active"
-        hashTag="gift"
+        active-hash-tag="gift-active"
+        hash-tag="gift"
       />
     </ul>
     <bottom-swipe-menu
