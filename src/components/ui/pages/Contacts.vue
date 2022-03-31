@@ -3,18 +3,20 @@
     :contacts="filteredContacts"
     @contact-click="handleContactClick"
   />
-  <button
-    v-if="props.showPaymentOptions && contacts.length"
-    class="options-button"
-    @click="isMenuOpen = !isMenuOpen"
-  >
-    {{ $t('common.paymentoptions') }}
-  </button>
-  <bottom-swipe-menu
-    :is-menu-open="isMenuOpen"
-    :menu-type="getMenuType"
-    @close-menu="closeMenu"
-  />
+  <template v-if="props.showPaymentOptions">
+    <button
+      v-if="contacts.length"
+      class="options-button"
+      @click="isMenuOpen = !isMenuOpen"
+    >
+      {{ $t('common.paymentoptions') }}
+    </button>
+    <bottom-swipe-menu
+      :is-menu-open="isMenuOpen"
+      :menu-type="getMenuType"
+      @close-menu="closeMenu"
+    />
+  </template>
 </template>
 
 <script setup lang="ts">
