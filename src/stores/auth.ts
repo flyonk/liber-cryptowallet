@@ -97,9 +97,12 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async signIn(_data: { phone: string }): Promise<void> {
+    async signIn(_data: {
+      phone: string;
+      flow: 'login' | 'signup';
+    }): Promise<void> {
       await authService.signIn(_data);
-      this.savePhone('login');
+      this.savePhone(_data.flow);
     },
 
     async signInProceed(_data: {

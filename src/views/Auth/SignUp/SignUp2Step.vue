@@ -5,11 +5,11 @@
     :title="$t('common.codeInput')"
     :text="text"
     :is-error="showErrorToast"
-    @onHide="onHideError"
-    @onTimeIsUp="onTimeIsUp"
-    @onComplete="onComplete"
-    @onResend="resend"
-    @onPrev="prevStep"
+    @on-hide="onHideError"
+    @on-time-is-up="onTimeIsUp"
+    @on-complete="onComplete"
+    @on-resend="resend"
+    @on-prev="prevStep"
   />
 </template>
 
@@ -20,16 +20,17 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
-import authService from '@/services/authService';
+import { getAuthRoute } from '@/services/userStatusService';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
-import { Route } from '@/router/types';
+import { EUserStatus } from '@/models/profile/profile';
 
 const { tm } = useI18n();
 
 const emit = defineEmits(['next', 'prev']);
-
+//TODO: remove duplicated logic Login2Step === SignUp2step
+//Create unique component???
 const authStore = useAuthStore();
 const pStore = useProfileStore();
 
@@ -40,7 +41,7 @@ onMounted(async () => {
   const phone = authStore.getRegistrationPhone;
 
   try {
-    await authService.signIn({ phone });
+    await authStore.signIn({ phone, flow: 'signup' });
   } catch (err) {
     console.log(err);
   }
@@ -74,10 +75,10 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
 
-    if (pStore.getUser.status === 20) {
-      authStore.setStep(2, 'registration');
+    if (pStore.getUser.status >= EUserStatus.authenticated) {
+      const routeName = getAuthRoute(pStore.getUser);
       router.push({
-        name: Route.SignUp,
+        name: routeName,
       });
     } else {
       nextStep();
@@ -104,7 +105,7 @@ const resend = async () => {
   showCountdown.value = true;
 
   try {
-    await authService.signIn({ phone });
+    await authStore.signIn({ phone, flow: 'signup' });
   } catch (err) {
     console.log(err);
   }

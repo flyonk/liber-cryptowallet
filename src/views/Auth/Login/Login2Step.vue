@@ -5,11 +5,11 @@
     :title="$t('common.codeInput')"
     :text="text"
     :is-error="isError"
-    @onHide="onHideError"
-    @onTimeIsUp="onTimeIsUp"
-    @onComplete="onComplete"
-    @onResend="resend"
-    @onPrev="prevStep"
+    @on-hide="onHideError"
+    @on-time-is-up="onTimeIsUp"
+    @on-complete="onComplete"
+    @on-resend="resend"
+    @on-prev="prevStep"
   />
 </template>
 
@@ -20,30 +20,30 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
-import authService from '@/services/authService';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 import { Route } from '@/router/types';
-// import { EUserStatus } from '@/models/profile/profile';
+import { EUserStatus } from '@/models/profile/profile';
 
 const { tm } = useI18n();
 
 const emit = defineEmits(['next', 'prev']);
-
+//TODO: remove duplicated logic Login2Step === SignUp2step
+//Create unique component???
 const authStore = useAuthStore();
 const pStore = useProfileStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
 const isError = ref(false) as Ref<boolean>;
-const verificationCode = ref('');
+// const verificationCode = ref('');
 
 onMounted(async () => {
   const phone = authStore.getLoginPhone;
   try {
-    await authStore.signIn({ phone });
+    await authStore.signIn({ phone, flow: 'login' });
   } catch (err) {
-    // console.log(err);
+    console.log(err);
     //TODO: show error notification, log error to Sentry
   }
 });
@@ -72,12 +72,12 @@ const onComplete = async (data: string) => {
   const otp = data;
   const phone = authStore.getLoginPhone;
 
-  verificationCode.value = data;
+  // verificationCode.value = data;
 
   try {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
-    if (pStore.getUser.status === 20) {
+    if (pStore.getUser.status >= EUserStatus.authenticated) {
       authStore.setStep(2, 'registration');
       router.push({
         name: Route.SignUp,
@@ -106,7 +106,7 @@ const resend = async () => {
 
   try {
     //TODO: use right method - response 403 forbidden
-    await authService.signIn({ phone });
+    authStore.signIn({ phone, flow: 'login' });
   } catch (err) {
     console.log(err);
   }

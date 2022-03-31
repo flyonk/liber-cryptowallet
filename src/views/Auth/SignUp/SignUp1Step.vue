@@ -6,10 +6,10 @@
     :next-title="$t('common.signUpCta')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
-    @handleSelectCountry="handleSelectCountry"
-    @handleStep="handleStep"
-    @numberChange="numberChange"
-    @onPrev="prevStep"
+    @handle-select-country="handleSelectCountry"
+    @handle-step="handleStep"
+    @number-change="numberChange"
+    @on-prev="prevStep"
   >
     <template #footer-empty-state>
       {{ $t('auth.signup.step1ExistingAcc') }}
@@ -74,6 +74,10 @@ const prevStep = () => {
   router.push({
     name: Route.WelcomeAuthScreen,
   });
+};
+
+const numberChange = () => {
+  console.log('Method not implemented yet');
 };
 </script>
 

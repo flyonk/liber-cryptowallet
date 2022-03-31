@@ -4,8 +4,11 @@ type TAnyObjectType = Record<string, string | boolean | number | null>;
 
 export enum EUserStatus {
   unregistered = 10, //UserStatusNew
-  active = 20, //UserStatusActive
-  block = 30, //UserStatusBlock
+  authenticated = 20, //UserStatusAuth
+  registered = 30, //UserStatusRegistered
+  active = 40, //UserStatusActive
+  block = 50, //UserStatusBlock
+  closed = 60, //UserStatusClosed
 }
 
 export enum EKYCStatus {
