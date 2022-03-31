@@ -50,8 +50,7 @@ const emit = defineEmits(['prev', 'next']);
 const kycStore = useKYCStore();
 
 const onScanAgain = () => {
-  // FIXME: setStep doesn't exist!
-  // kycStore.setStep(EStepDirection.prev);
+  emit('prev');
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);

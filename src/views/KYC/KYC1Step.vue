@@ -19,7 +19,7 @@
         <a class="link" href="http://"> Privacy Policy </a
         >{{ $t('views.kyc.kyc1step.privacyPolicy') }}
       </p>
-      <base-button block :disabled="!isCountrySelected" @click="onSignUp">{{
+      <base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
         $t('views.kyc.kyc1step.signUpSecurely')
       }}</base-button>
     </div>
@@ -33,7 +33,7 @@ import { useRouter } from 'vue-router';
 
 import { useKYCStore } from '@/stores/kyc';
 
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { BaseButton, TopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
 import { Route } from '@/router/types';
 

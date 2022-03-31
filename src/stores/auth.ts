@@ -4,7 +4,7 @@ import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
 import authService from '@/services/authService';
-import { clearAll, get, set, remove } from '@/helpers/storage';
+import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 import SentryUtil from '@/helpers/sentryUtil';
 
@@ -48,7 +48,7 @@ export const useAuthStore = defineStore('auth', {
       registration: 0,
       login: 0,
       recover: 0,
-      kyc: 0,
+      kyc: 2,
     },
     registration: {
       dialCode: '+7',
