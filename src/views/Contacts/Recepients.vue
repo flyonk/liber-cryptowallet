@@ -4,7 +4,7 @@
     <h1 class="title">
       {{ $t('views.recepients.recepients') }}
     </h1>
-    <BaseInput type="text" v-model="filterContacts">
+    <BaseInput v-model="filterContacts" type="text">
       <template #label> Name, @id, phone, email </template>
     </BaseInput>
 

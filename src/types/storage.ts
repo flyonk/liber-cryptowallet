@@ -11,6 +11,7 @@ export enum EStorageKeys {
   refreshToken = 'refresh_token',
   tokenExpire = 'token_expire',
   marketing = 'marketing',
+  friends = 'liber-app-friends',
 }
 
 export enum SStorageKeys {
