@@ -1,37 +1,46 @@
 <template v-bind="$props">
-  <contacts-list
-    :contacts="filteredContacts"
-    @contact-click="handleContactClick"
-  />
-  <template v-if="props.showPaymentOptions">
-    <button
-      v-if="contacts.length"
-      class="options-button"
-      @click="isMenuOpen = !isMenuOpen"
-    >
-      {{ $t('common.paymentoptions') }}
-    </button>
-    <bottom-swipe-menu
-      :is-menu-open="isMenuOpen"
-      :menu-type="getMenuType"
-      @close-menu="closeMenu"
+  <template v-if="filteredContacts?.length">
+    <contacts-list
+      :contacts="filteredContacts"
+      @contact-click="handleContactClick"
     />
+    <template v-if="props.showPaymentOptions">
+      <button
+        v-if="contacts.length"
+        class="options-button"
+        @click="isMenuOpen = !isMenuOpen"
+      >
+        {{ $t('common.paymentoptions') }}
+      </button>
+      <bottom-swipe-menu
+        :is-menu-open="isMenuOpen"
+        :menu-type="getMenuType"
+        @close-menu="closeMenu"
+      />
+    </template>
   </template>
+  <contacts-empty v-else />
 </template>
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useRoute } from 'vue-router';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import ContactsList from '@/components/ui/organisms/ContactsList.vue';
+import ContactsEmpty from '@/components/ui/pages/ContactsEmpty.vue';
 import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 
+const { meta } = useRoute();
+
 const recepientsStore = useRecepientsStore();
 
-const contacts: Contact[] = recepientsStore.getContacts;
+const contacts: Contact[] = meta?.friends
+  ? recepientsStore.getFriends
+  : recepientsStore.getContacts;
 
 let isMenuOpen = ref(false);
 
