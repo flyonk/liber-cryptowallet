@@ -9,6 +9,7 @@ import { CAPACITOR_WEB_ERROR } from '@/constants';
 interface IRecepients {
   contacts: Contact[];
   permission: boolean;
+  friends: Set<string>;
 }
 
 // === Phone contacts Store ===
@@ -17,15 +18,26 @@ export const useRecepientsStore = defineStore('recepients', {
   state: (): IRecepients => ({
     contacts: [],
     permission: false,
+    friends: new Set<string>(),
   }),
 
   getters: {
-    getContacts: (state) =>
-      state.contacts.sort((a, b) => {
+    getFriends: (state) => {
+      return state.contacts
+        .sort((a, b) => {
+          const aFirstLetter = a.displayName?.charCodeAt(0) || Number.MAX_VALUE;
+          const bFirstLetter = b.displayName?.charCodeAt(0) || Number.MAX_VALUE;
+          return aFirstLetter - bFirstLetter;
+        })
+        .filter((c) => state.friends.has(c.contactId));
+    },
+    getContacts: (state) => {
+      return state.contacts.sort((a, b) => {
         const aFirstLetter = a.displayName?.charCodeAt(0) || Number.MAX_VALUE;
         const bFirstLetter = b.displayName?.charCodeAt(0) || Number.MAX_VALUE;
         return aFirstLetter - bFirstLetter;
-      }),
+      });
+    },
   },
 
   actions: {
@@ -45,6 +57,9 @@ export const useRecepientsStore = defineStore('recepients', {
           this.contacts = mockedContacts;
         }
       }
+    },
+    addFriend(contact: Contact) {
+      this.friends.add(contact.contactId);
     },
   },
 });
