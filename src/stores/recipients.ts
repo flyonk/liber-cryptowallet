@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import { Contacts } from '@capacitor-community/contacts';
 import { Storage } from '@capacitor/storage';
 
+import transactionService from '@/services/transactionService';
+
 import { Contact } from '@/types/contacts';
 import { EStorageKeys } from '@/types/storage';
 
@@ -18,14 +20,30 @@ const getStoredOption = async (key: EStorageKeys) => {
   const { value } = await Storage.get({
     key,
   });
-  return value || null;
+  return value ? JSON.parse(value) : [];
 };
 
 async function setOptions(value: any, key: EStorageKeys) {
   await Storage.set({
     key,
-    value,
+    value: JSON.stringify(value),
   });
+}
+
+async function loadFriends() {
+  const transactions = await transactionService.getTransactionList();
+  const userIds =
+    transactions
+      ?.map((transaction) => {
+        const id = transaction.contractor?.id;
+        return id || '';
+      })
+      .filter((id) => id !== '') || [];
+  const friends = await getStoredOption(EStorageKeys.friends);
+  if (friends && friends.length) {
+    return new Set<string>([...friends, ...userIds]);
+  }
+  return new Set<string>(userIds);
 }
 
 // === Phone contacts Store ===
@@ -65,22 +83,19 @@ export const useRecepientsStore = defineStore('recepients', {
         if (granted) {
           const { contacts } = await Contacts.getContacts();
           this.contacts = contacts;
-          return true;
         }
-        const friends = await getStoredOption(EStorageKeys.friends);
-        if (friends && friends.length) {
-          this.friends = new Set<string>(friends);
-        }
+        this.friends = await loadFriends();
         return true;
       } catch (error: any) {
         if (error?.code === CAPACITOR_WEB_ERROR) {
           this.contacts = mockedContacts;
+          this.friends = await loadFriends();
         }
       }
     },
     addFriend(contact: Contact) {
       this.friends.add(contact.contactId);
-      setOptions(this.friends, EStorageKeys.friends);
+      setOptions(Array.from(this.friends), EStorageKeys.friends);
     },
   },
 });
