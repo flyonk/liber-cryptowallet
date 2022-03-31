@@ -13,6 +13,9 @@ export default [
     path: 'liber',
     name: Route.PayRecepientsLiber,
     component: () =>
-      import('@/views/Contacts/childrenviews/PayLiberFriends.vue'),
+      import('@/views/Contacts/childrenviews/PayPhoneContacts.vue'),
+    meta: {
+      friends: true,
+    },
   },
 ];

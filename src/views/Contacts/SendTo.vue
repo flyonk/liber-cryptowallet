@@ -146,6 +146,7 @@ transferStore.recipient = recipient;
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
+      recepientsStore.addFriend(contact);
       await transferStore.transfer();
       showSuccessPopup.value = true;
       router.push({

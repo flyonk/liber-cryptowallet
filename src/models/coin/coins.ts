@@ -1,3 +1,5 @@
+import { STATIC_BASE_URL } from '@/constants';
+
 export interface ICoin {
   name: string;
   code: string;
@@ -12,9 +14,14 @@ export default {
     return {
       name: input.name,
       code: input.code,
-      imageUrl: input.image_url,
+      imageUrl: _getSrcImageUrl(input.name),
       networks: input.networks,
       minimalDepositValue: input.minimal_deposit_value,
     };
   },
 };
+
+function _getSrcImageUrl(name: string) {
+  //TODO change to real image from service
+  return `${STATIC_BASE_URL}/currencies/${name.toLowerCase()}.svg`;
+}
