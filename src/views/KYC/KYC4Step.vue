@@ -89,8 +89,6 @@ watch(
   ({ query: { step } }) => {
     if (step !== '3') {
       stopCamera();
-    } else {
-      startCamera();
     }
   },
   { deep: true }
@@ -98,8 +96,6 @@ watch(
 
 const startCamera = async () => {
   await CameraPreview.start(cameraPreviewOptions);
-
-  console.debug(document.querySelector('video'));
 };
 
 const captureCamera = async () => {
