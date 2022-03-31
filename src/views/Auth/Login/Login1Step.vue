@@ -5,10 +5,10 @@
     :next-title="$t('common.logInCta')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
-    @handleSelectCountry="handleSelectCountry"
-    @handleStep="nextStep"
-    @numberChange="numberChange"
-    @onPrev="prevStep"
+    @handle-select-country="handleSelectCountry"
+    @handle-step="nextStep"
+    @number-change="numberChange"
+    @on-prev="prevStep"
   >
     <template #footer-empty-state>
       <router-link :to="{ name: Route.Restore }" class="link">
@@ -68,6 +68,10 @@ function prevStep(): void {
     name: Route.WelcomeAuthScreen,
   });
 }
+
+const numberChange = () => {
+  console.log('Method not implemented yet');
+};
 </script>
 
 <style lang="scss" scoped>

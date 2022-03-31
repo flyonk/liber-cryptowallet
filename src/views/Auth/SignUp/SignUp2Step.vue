@@ -5,11 +5,11 @@
     :title="$t('common.codeInput')"
     :text="text"
     :is-error="showErrorToast"
-    @onHide="onHideError"
-    @onTimeIsUp="onTimeIsUp"
-    @onComplete="onComplete"
-    @onResend="resend"
-    @onPrev="prevStep"
+    @on-hide="onHideError"
+    @on-time-is-up="onTimeIsUp"
+    @on-complete="onComplete"
+    @on-resend="resend"
+    @on-prev="prevStep"
   />
 </template>
 
