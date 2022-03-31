@@ -44,7 +44,7 @@ export const use2faStore = defineStore('2fa', {
       generateToken(this.secret);
     },
 
-    verify(token: string) {
+    async verify(token: string) {
       return verifyToken(this.secret, token);
     },
 
