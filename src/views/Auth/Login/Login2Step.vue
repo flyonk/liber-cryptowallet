@@ -23,8 +23,8 @@ import { useProfileStore } from '@/stores/profile';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
-import { Route } from '@/router/types';
 import { EUserStatus } from '@/models/profile/profile';
+import { getAuthRoute } from '@/services/userStatusService';
 
 const { tm } = useI18n();
 
@@ -78,10 +78,12 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
     if (pStore.getUser.status >= EUserStatus.authenticated) {
-      authStore.setStep(2, 'registration');
-      router.push({
-        name: Route.SignUp,
-      });
+      const routeData = getAuthRoute(pStore.getUser);
+      const routeToPushData = {
+        name: routeData.route,
+      };
+      if (routeData.step) routeToPushData.query = routeData.step;
+      router.push(routeToPushData);
     } else {
       nextStep();
     }

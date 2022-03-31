@@ -76,10 +76,12 @@ const onComplete = async (data: string) => {
     await pStore.init();
 
     if (pStore.getUser.status >= EUserStatus.authenticated) {
-      const routeName = getAuthRoute(pStore.getUser);
-      router.push({
-        name: routeName,
-      });
+      const routeData = getAuthRoute(pStore.getUser);
+      const routeToPushData = {
+        name: routeData.route,
+      };
+      if (routeData.step) routeToPushData.query = routeData.step;
+      router.push(routeToPushData);
     } else {
       nextStep();
     }
