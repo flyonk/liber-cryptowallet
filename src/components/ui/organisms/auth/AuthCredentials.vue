@@ -108,10 +108,9 @@ const props = defineProps({
 
 const mask = ref('');
 const updateKey = ref(0);
-// const type = ref(TypeBaseInput.Number) as Ref<TypeBaseInput>;
 const type = ref(TypeBaseInput.Mask) as Ref<TypeBaseInput>;
 const isClearBtnShown = ref(false);
-const number = ref(props.initialNumber);
+const number: Ref<string | null> = ref(props.initialNumber);
 
 const isInitialStep = ref(true) as Ref<boolean>;
 
@@ -155,7 +154,7 @@ const prevStep = () => {
 };
 
 const clearNumber = () => {
-  number.value = '';
+  number.value = null;
 };
 
 const showClearBtn = () => {
