@@ -138,7 +138,7 @@ const handleSelectCountry = (data: ICountryInformation) => {
   emits('handleSelectCountry', data.dialCode);
   type.value = data.mask ? TypeBaseInput.Mask : TypeBaseInput.Number;
 
-  // hack for reactive phone mask change
+  // Need to update v-model in BaseInput -> PrimeVue InputMask -> mask
   forceUpdate();
 };
 
