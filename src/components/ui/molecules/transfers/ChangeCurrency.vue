@@ -98,15 +98,17 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-
-import { Route } from '@/router/types';
-import { useRouter } from 'vue-router';
-import { useFundsStore } from '@/stores/funds';
 import { debounce } from 'lodash';
-import { BaseButton } from '@/components/ui';
+import { useRouter } from 'vue-router';
+
+import { useFundsStore } from '@/stores/funds';
 import SentryUtil from '@/helpers/sentryUtil';
+
+import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+
+import { Route } from '@/router/types';
 
 defineProps({
   hasCoinReverse: {
