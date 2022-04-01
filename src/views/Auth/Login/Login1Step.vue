@@ -62,7 +62,7 @@ const handleSelectCountry = (dialCode: string) => {
 const nextStep = async (phone: string) => {
   authStore.setPhone(phone);
 
-  await authStore.setToStorage();
+  await authStore.setPhoneToStorage();
 
   authStore.setStep(1, 'login');
 };

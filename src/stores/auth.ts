@@ -207,8 +207,7 @@ export const useAuthStore = defineStore('auth', {
       // this.login.dialCode = dialCode || '+7';
     },
 
-    //TODO: rename method ex: setPhoneToStorage
-    async setToStorage() {
+    async setPhoneToStorage() {
       await Promise.all([
         set({
           key: 'dialCode',
@@ -229,17 +228,15 @@ export const useAuthStore = defineStore('auth', {
       this.login.dialCode = dialCode;
     },
 
-    async logout() {
-      const [dialCode, phone, access_token, touchid, faceid] =
-        await Promise.all([
-          get('dialCode'),
-          get('phone'),
-          get('access_token'),
-          get(EStorageKeys.touchid),
-          get(EStorageKeys.faceid),
-        ]);
+    async logout(userId: string) {
+      const [dialCode, phone, touchid, faceid] = await Promise.all([
+        get('dialCode'),
+        get('phone'),
+        get(EStorageKeys.touchid),
+        get(EStorageKeys.faceid),
+      ]);
 
-      authService.logout({ access_token: access_token as string });
+      authService.logout({ user_id: userId });
 
       await clearAll();
 
