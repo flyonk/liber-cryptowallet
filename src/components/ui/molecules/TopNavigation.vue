@@ -1,8 +1,11 @@
 <template>
   <header class="page-header">
-    <button type="button" class="controls" @click="$emit('click:left-icon')">
-      <i class="icon-header" :class="leftIconName" />
-    </button>
+    <div class="header-top">
+      <button type="button" class="controls" @click="$emit('click:left-icon')">
+        <i class="icon-header" :class="leftIconName" />
+      </button>
+      <slot name="top-right" />
+    </div>
     <h1 class="page-title">
       <slot />
     </h1>
@@ -25,30 +28,31 @@ defineEmits(['click:left-icon']);
   margin-top: 30px;
   margin-bottom: 8px;
 
-  & > .controls {
+  > .header-top {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
+  }
+
+  > .header-top > .controls {
     background: transparent;
   }
-}
 
-.icon-header {
-  $size: 24px;
+  > .header-top > .controls > .icon-header {
+    $size: 24px;
 
-  width: $size;
-  height: $size;
-  font-size: $size;
-}
+    width: $size;
+    height: $size;
+    font-size: $size;
+  }
 
-.page-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
+  > .page-title {
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
 }
 </style>

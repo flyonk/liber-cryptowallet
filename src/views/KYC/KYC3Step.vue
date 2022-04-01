@@ -1,10 +1,16 @@
 <template>
   <div class="kyc-3-step">
-    <top-navigation class="navigation" left-icon-name="ci-close_big">
+    <top-navigation
+      class="navigation"
+      left-icon-name="ci-close_big"
+      @click:left-icon="$router.push({ name: Route.Survey })"
+    >
       <template #top-right>
-        <span class="controller text--headline">{{
-          $t('views.kyc.kyc3step.notNow')
-        }}</span> </template
+        <span
+          class="controller text--headline"
+          @click="$router.push({ name: Route.Survey })"
+          >{{ $t('views.kyc.kyc3step.notNow') }}</span
+        > </template
       >{{ $t('views.kyc.kyc3step.proofOfIdentity') }}</top-navigation
     >
     <base-progress-bar :value="getPercentage" class="mb-3" />
@@ -21,6 +27,7 @@ import {
   TopNavigation,
 } from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { Route } from '@/router/types';
 
 const emit = defineEmits(['next']);
 
@@ -54,14 +61,8 @@ const onSelect = (proofType: EKYCProofType): void => {
 </script>
 
 <style lang="scss" scoped>
-.kyc-3-step {
-  > .navigation {
-    > .page-title {
-      > .controller {
-        color: $color-primary;
-        user-select: none;
-      }
-    }
-  }
+.controller {
+  color: $color-primary;
+  user-select: none;
 }
 </style>
