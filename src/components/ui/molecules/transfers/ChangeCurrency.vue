@@ -155,7 +155,8 @@ const currentSendToCurrency = {
   img: ref(imgTo || require('@/assets/icon/currencies/ltc.svg')),
 };
 
-let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
+// let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
+let requestAmount = ref<number>(+fStore.convertInfo.requestAmount);
 
 const disableBtnHandler = computed(() => {
   if (loading.value || requestAmount.value === 0 || codeFrom === codeTo) {
@@ -200,8 +201,8 @@ async function previewChangeInfo() {
     changeInfoInterval();
     if (from === to) return;
     await fStore.checkConvertInfo({
-      from: codeFrom || currentSendFromCurrency.code.value,
-      to: codeTo || currentSendToCurrency.code.value,
+      from: currentSendFromCurrency.code.value,
+      to: currentSendToCurrency.code.value,
       request_amount: String(requestAmount.value),
     });
   } catch (err) {
@@ -216,6 +217,7 @@ async function previewChangeInfo() {
   }
 }
 
+//TODO: not used method
 async function previewChangeInfoBack() {
   _convertDirectionBack = true;
   const _requestAmount = fStore.convertInfo.estimatedAmount;
@@ -247,6 +249,7 @@ const debounceChangeInfoBack = debounce(previewChangeInfoBack, DEBOUNCE_TIMER);
 
 watch(requestAmount, debounceChangeInfo);
 
+//TODO: not called
 const onChangeEstimatedAmount = () => {
   debounceChangeInfoBack();
 };
@@ -259,8 +262,8 @@ async function convertFunds() {
   try {
     loading.value = true;
     await fStore.changeCurrency({
-      from: currentSendFromCurrency.code.value,
-      to: currentSendToCurrency.code.value,
+      from: convertInfo.value.from,
+      to: convertInfo.value.to,
       amount: String(requestAmount.value),
     });
     router.push({
@@ -306,7 +309,6 @@ const onBlur = (event: any) => {
 const replaceCoins = () => {
   fStore.replaceCoins();
   const { from, to, imgFrom, imgTo } = fStore.getState;
-
   const _codeFrom = currentSendFromCurrency.code.value;
 
   currentSendFromCurrency.name.value = from || '';
