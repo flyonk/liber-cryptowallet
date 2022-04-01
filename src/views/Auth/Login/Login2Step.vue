@@ -77,7 +77,7 @@ const onComplete = async (data: string) => {
   try {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
-    if (pStore.getUser.status >= EUserStatus.authenticated) {
+    if (pStore.getUser.status === EUserStatus.authenticated) {
       authStore.setStep(2, 'registration');
       router.push({
         name: Route.SignUp,

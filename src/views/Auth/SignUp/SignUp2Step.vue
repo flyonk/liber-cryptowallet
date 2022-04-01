@@ -75,13 +75,13 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
 
-    if (pStore.getUser.status >= EUserStatus.authenticated) {
+    if (pStore.getUser.status === EUserStatus.authenticated) {
+      nextStep();
+    } else {
       const routeName = getAuthRoute(pStore.getUser);
       router.push({
         name: routeName,
       });
-    } else {
-      nextStep();
     }
   } catch (err) {
     showErrorToast.value = true;
