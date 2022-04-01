@@ -14,7 +14,7 @@
     "codeCta": "Enter the code",
     "phoneInput": "Enter phone number",
     "codeInput": "Enter 6-digit code",
-    "notNowCta": "Not Now",
+    "notNowCta": "Not now",
     "codeLabel": "Code",
     "pasteCta": "Paste",
     "googleAuthenticator": "Google Authenticator",
@@ -258,7 +258,7 @@
         "newMessages": "You have new messages."
       },
       "kyc3step": {
-        "notNow": "Not now",
+        "notNow": "Not Now",
         "proofOfIdentity": "Proof of Identity",
         "yourDocumentPhoto": "Your document photo helps us prove your identity. It should match the information you have provided in the previous steps."
       },
