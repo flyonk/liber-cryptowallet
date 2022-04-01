@@ -58,6 +58,7 @@
             v-model="convertInfo.estimatedAmount"
             type="number"
             class="input"
+            :readonly="true"
             @blur="onBlur"
             @input="onChangeEstimatedAmount"
           />
@@ -100,6 +101,7 @@
 import { computed, ref, watch } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import { useFundsStore } from '@/stores/funds';
 import SentryUtil from '@/helpers/sentryUtil';
@@ -107,6 +109,7 @@ import SentryUtil from '@/helpers/sentryUtil';
 import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import { useToast } from 'primevue/usetoast';
 
 import { Route } from '@/router/types';
 
@@ -124,6 +127,8 @@ const emit = defineEmits<{
 const fStore = useFundsStore();
 let convertInfo = computed(() => fStore.getConvertInfo);
 const convert = computed(() => fStore.getConvertFunds);
+const toast = useToast();
+const { tm } = useI18n();
 
 const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
 
@@ -262,7 +267,19 @@ async function convertFunds() {
       name: Route.DashboardHome,
     });
     fStore.clearConvertInfo();
-  } catch (err) {
+  } catch (err: any) {
+    const code = err?.response?.data?.code;
+
+    // insufficient funds case
+    if (+code === 0) {
+      toast.add({
+        severity: 'error',
+        summary: tm('transactions.convert.insufficientfunds') as string,
+        life: 3000,
+        closable: true,
+      });
+    }
+
     SentryUtil.capture(
       err,
       'ChangeCurrency',

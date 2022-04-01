@@ -14,7 +14,7 @@
         src="@/assets/icon/transactions/menu/convert_funds.svg"
         alt="send"
       />
-      <p class="text">Convert Funds</p>
+      <p class="text">{{ $t('transactions.convert.title') }}</p>
     </li>
     <li class="menu-item">
       <img
