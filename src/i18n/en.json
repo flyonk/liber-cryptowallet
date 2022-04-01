@@ -163,6 +163,10 @@
       "sendFunds": "Send Funds",
       "convert": "Convert",
       "withdraw": "Withdraw"
+    },
+    "convert": {
+      "title": "Convert Funds",
+      "insufficientfunds": "It seems you don't have enough funds to proceed"
     }
   },
   "ui": {
