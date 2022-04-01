@@ -136,13 +136,13 @@ function showCryptoList(listId: number) {
 function handleChangeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name;
+    currentSendFromCurrency.code.value = currencies[index].code;
     currentSendFromCurrency.img = currencies[index].img;
 
     // now API allows send X to X currency
     _setCurrentSendToCurrency(index);
     //
-
-    transferStore.coin = currentSendFromCurrency.name.value;
+    transferStore.coin = currentSendFromCurrency.code.value;
   }
 
   if (type === 'to') {
@@ -191,6 +191,7 @@ const currencies = [
 const _setCurrentSendToCurrency = (index: number) => {
   currentSendToCurrency.name.value = currencies[index].name;
   currentSendToCurrency.img = currencies[index].img;
+  currentSendFromCurrency.code.value = currencies[index].code;
 };
 
 const onBlur = (event: any) => {
