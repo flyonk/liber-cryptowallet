@@ -158,10 +158,6 @@ const currentSendToCurrency = {
 // let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
 let requestAmount = ref<number>(+fStore.convertInfo.requestAmount);
 
-// onMounted(() => {
-//
-// });
-
 const disableBtnHandler = computed(() => {
   if (loading.value || requestAmount.value === 0 || codeFrom === codeTo) {
     return true;
