@@ -117,7 +117,8 @@ onMounted(async () => {
   try {
     if (!route.params.id) return;
     transaction.value = (await transactionService.getTransactionById(
-      route.params.id as string
+      route.params.id as string,
+      route.params.direction as string
     )) as INetTransaction;
 
     await getTransactionReceiver();

@@ -209,7 +209,7 @@ const routes: Array<RouteRecordRaw> = [
         component: DashboardTransactions,
       },
       {
-        path: 'details/:id',
+        path: 'details/:id/:direction',
         name: Route.TransactionsDetails,
         component: TransactionDetails,
       },

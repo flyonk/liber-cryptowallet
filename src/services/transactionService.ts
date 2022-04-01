@@ -18,9 +18,12 @@ export default {
     return res.data.list.map(transactionMapper.deserialize);
   },
 
-  async getTransactionById(id: string): Promise<TTransaction> {
+  async getTransactionById(
+    id: string,
+    direction: string
+  ): Promise<TTransaction> {
     const res = await axios.get(
-      `${apiService.transactions.transactionsList()}/${id}`
+      `${apiService.transactions.transactionsList()}/${id}/${direction}`
     );
     return transactionMapper.deserialize(res.data);
   },
