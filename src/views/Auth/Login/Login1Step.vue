@@ -1,10 +1,10 @@
 <template>
   <auth-credentials
-    :title="$t('auth.signup.step1Title')"
-    :text="$t('auth.login.step1Description')"
-    :next-title="$t('common.logInCta')"
-    :initial-number="number"
     :country-dial-code="countryDialCode"
+    :initial-number="number"
+    :next-title="$t('common.logInCta')"
+    :text="$t('auth.login.step1Description')"
+    :title="$t('auth.signup.step1Title')"
     @handle-select-country="handleSelectCountry"
     @handle-step="nextStep"
     @number-change="numberChange"
@@ -58,7 +58,7 @@ const handleSelectCountry = (dialCode: string) => {
 const nextStep = async (phone: string) => {
   authStore.setPhone(phone);
 
-  await authStore.setToStorage();
+  await authStore.setPhoneToStorage();
 
   authStore.setStep(1, 'login');
 };

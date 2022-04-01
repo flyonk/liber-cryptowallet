@@ -240,7 +240,7 @@ async function onLogout() {
 
   if (confirmed) return;
 
-  await authStore.logout();
+  await authStore.logout(profileStore.getUser.id);
 
   await route.push({ name: Route.WelcomeLogoScreen });
 }
