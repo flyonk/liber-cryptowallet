@@ -111,7 +111,7 @@ export const useAuthStore = defineStore('auth', {
     }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 
-      this.setToken(data);
+      await this.setToken(data);
       return true;
     },
 
