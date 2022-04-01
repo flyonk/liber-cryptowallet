@@ -1,6 +1,6 @@
 <template>
   <auth-credentials
-    :title="$t('auth.signup.step1Title')"
+    :title="$t('auth.login.step1Title')"
     :text="$t('auth.login.step1Description')"
     :next-title="$t('common.logInCta')"
     :initial-number="number"
@@ -17,7 +17,7 @@
     </template>
     <template #footer-valuable-state>
       {{ $t('auth.login.step1AccountExists') }}
-      <router-link :to="{ name: Route.Login }" class="link">
+      <router-link :to="{ name: Route.SignUp }" class="link">
         {{ $t('auth.login.step1AccountExistsLink') }}
       </router-link>
     </template>
