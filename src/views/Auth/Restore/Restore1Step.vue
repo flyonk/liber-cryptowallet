@@ -1,6 +1,6 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation>
+    <top-navigation @click:left-icon="$router.push({ name: Route.Login })">
       {{ $t('auth.restore.step1Title') }}
     </top-navigation>
     <div class="description text--body">
@@ -33,6 +33,8 @@ import {
   BaseInput,
   BaseButton,
 } from '@/components/ui';
+
+import { Route } from '@/router/types';
 
 defineEmits(['next', 'prev']);
 </script>

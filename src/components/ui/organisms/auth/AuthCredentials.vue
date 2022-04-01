@@ -21,10 +21,13 @@
       </div>
       <div class="col-8 ml-auto">
         <base-input
+          :key="updateKey"
           v-model="number"
           :use-grouping="false"
           :type="type"
           :mask="mask"
+          :unmask="true"
+          :auto-clear="false"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
@@ -104,9 +107,10 @@ const props = defineProps({
 });
 
 const mask = ref('');
-const type = ref(TypeBaseInput.Number) as Ref<TypeBaseInput>;
+const updateKey = ref(0);
+const type = ref(TypeBaseInput.Mask) as Ref<TypeBaseInput>;
 const isClearBtnShown = ref(false);
-const number = ref(props.initialNumber);
+const number: Ref<string | null> = ref(props.initialNumber);
 
 const isInitialStep = ref(true) as Ref<boolean>;
 
@@ -118,23 +122,23 @@ const isNumberInvalid = computed(() => {
 const handleSelectCountry = (data: ICountryInformation) => {
   const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
 
-  // hack for reactive phone mask change
   type.value = TypeBaseInput.Number;
-  setTimeout(() => {
-    // set phone mask
-    if (data.mask) {
-      data.mask.replace(maskRegEx, function (match: string) {
-        mask.value = match.replace(new RegExp(/^\)/), '');
-        return match;
-      });
-      mask.value = mask.value.replaceAll('#', '9');
-    } else {
-      mask.value = '';
-    }
+  // set phone mask
+  if (data.mask) {
+    data.mask.replace(maskRegEx, function (match: string) {
+      mask.value = match.replace(new RegExp(/^\)/), '');
+      return match;
+    });
+    mask.value = mask.value.replaceAll('#', '9');
+  } else {
+    mask.value = '';
+  }
 
-    emits('handleSelectCountry', data.dialCode);
-    type.value = data.mask ? TypeBaseInput.Mask : TypeBaseInput.Number;
-  }, 0);
+  emits('handleSelectCountry', data.dialCode);
+  type.value = data.mask ? TypeBaseInput.Mask : TypeBaseInput.Number;
+
+  // Need to update v-model in BaseInput -> PrimeVue InputMask -> mask
+  forceUpdate();
 };
 
 const handleStep = () => {
@@ -150,7 +154,7 @@ const prevStep = () => {
 };
 
 const clearNumber = () => {
-  number.value = '';
+  number.value = null;
 };
 
 const showClearBtn = () => {
@@ -160,6 +164,10 @@ const showClearBtn = () => {
 
 const closeClearBtn = () => {
   isClearBtnShown.value = false;
+};
+
+const forceUpdate = () => {
+  updateKey.value++;
 };
 </script>
 

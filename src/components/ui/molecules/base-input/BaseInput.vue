@@ -6,7 +6,7 @@
         :class="{ 'p-input-icon-right': $slots.append }"
       >
         <slot v-if="$slots.append" name="append" />
-        <component :is="currentComponent" v-bind="$attrs" :type="type" />
+        <component :is="currentComponent" v-bind="$attrs" />
         <label>
           <slot name="label" />
         </label>
@@ -48,9 +48,6 @@ const currentComponent = computed(() => {
     default:
       return PInput;
   }
-});
-const type = computed(() => {
-  return props.type;
 });
 </script>
 
