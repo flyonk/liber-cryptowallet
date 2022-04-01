@@ -100,6 +100,7 @@
 import { computed, ref, watch } from 'vue';
 
 import { Route } from '@/router/types';
+import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 import { useFundsStore } from '@/stores/funds';
 import { debounce } from 'lodash';
@@ -107,6 +108,7 @@ import { BaseButton } from '@/components/ui';
 import SentryUtil from '@/helpers/sentryUtil';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import { useToast } from 'primevue/usetoast';
 
 defineProps({
   hasCoinReverse: {
@@ -122,6 +124,8 @@ const emit = defineEmits<{
 const fStore = useFundsStore();
 let convertInfo = computed(() => fStore.getConvertInfo);
 const convert = computed(() => fStore.getConvertFunds);
+const toast = useToast();
+const { tm } = useI18n();
 
 const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
 
@@ -260,7 +264,19 @@ async function convertFunds() {
       name: Route.DashboardHome,
     });
     fStore.clearConvertInfo();
-  } catch (err) {
+  } catch (err: any) {
+    const code = err?.response?.data?.code;
+
+    // insufficient funds case
+    if (+code === 0) {
+      toast.add({
+        severity: 'error',
+        summary: tm('transactions.convert.insufficientfunds') as string,
+        life: 3000,
+        closable: true,
+      });
+    }
+
     SentryUtil.capture(
       err,
       'ChangeCurrency',
