@@ -50,7 +50,13 @@ const form = reactive({
 
 const isFormValid = computed(() => {
   // TODO: need to clarify validation conditions for every field
-  return Object.values(form).every((value) => Boolean(value));
+  return Object.entries(form).every((item) => {
+    const [key, value] = item;
+    if (key === 'flat') {
+      return true;
+    }
+    return Boolean(value);
+  });
 });
 
 const onContinue = () => {
