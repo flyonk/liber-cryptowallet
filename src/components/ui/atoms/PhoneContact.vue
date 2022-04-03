@@ -20,6 +20,12 @@
   </router-link>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
 import { PropType } from 'vue';
 

@@ -27,13 +27,19 @@
       </template>
     </base-toast>
   </div>
-  <div v-if="show2FA">
+  <div v-else>
     <auth2-f-a-verification-component
       @close="onClose"
       @success-verification="handleSuccessVerification"
     />
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
