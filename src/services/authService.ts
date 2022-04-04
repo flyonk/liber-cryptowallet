@@ -4,9 +4,13 @@ import apiService from '@/services/apiService';
 import signInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
 import { IUserDevice } from '@/models/auth/devices';
+import { formatPhoneNumber } from '@/helpers/formatPhoneNumber';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
+    const formattedPhone = formatPhoneNumber(data.phone);
+    data.phone = formattedPhone ? formattedPhone : data.phone;
+
     return (await axios.post(apiService.auth.signIn(), data)).data;
   },
 
@@ -14,6 +18,9 @@ export default {
     phone: string;
     otp: string;
   }): Promise<ISuccessSignIn> {
+    const formattedPhone = formatPhoneNumber(data.phone);
+    data.phone = formattedPhone ? formattedPhone : data.phone;
+
     const res = await axios.post(apiService.auth.signInProceed(), data);
     return signInMapper.deserialize(res.data);
   },
