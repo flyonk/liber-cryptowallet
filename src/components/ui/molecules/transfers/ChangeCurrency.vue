@@ -401,6 +401,29 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   }
 }
 
+.select-option {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  > .icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 4px;
+  }
+
+  > .name {
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: #0d1f3c;
+    margin-right: 18px;
+  }
+}
+
 .fees-data {
   border-left: 1px solid $color-primary-50;
   margin-bottom: 10px;
