@@ -2,7 +2,7 @@
   <ul class="transactions">
     <li
       v-for="(
-        { icon, sum, info, status, code, type, id }, index
+        { icon, sum, info, status, code, type, id, to, from }, index
       ) in displayedTransactions"
       :key="index"
       class="item"
@@ -15,6 +15,8 @@
         :status="status"
         :code="code"
         :type="type"
+        :to="to"
+        :from="from"
       />
     </li>
   </ul>

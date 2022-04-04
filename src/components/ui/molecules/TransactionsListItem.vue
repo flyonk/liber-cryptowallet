@@ -4,7 +4,12 @@
     <div class="info">
       <div class="flex">
         <h1 class="title">
-          {{ $t(`transactions.operations.${type}`) }}
+          {{
+            !to.amount
+              ? $t(`transactions.operations.${type}`)
+              : `${$t(`transactions.operations.${type}`)}
+              ${$t('common.to')} ${to.code.toUpperCase()}`
+          }}
           {{ code }}
         </h1>
         <p :class="{ received: sum.startsWith('+') }">
@@ -29,7 +34,12 @@
 </template>
 
 <script setup lang="ts">
-import { ETransactionStatus } from '@/models/transaction/transaction';
+import { PropType } from 'vue';
+
+import {
+  ETransactionStatus,
+  TConvertTransaction,
+} from '@/models/transaction/transaction';
 
 defineProps({
   icon: {
@@ -55,6 +65,14 @@ defineProps({
   type: {
     type: String,
     default: '',
+  },
+  to: {
+    type: Object as PropType<TConvertTransaction>,
+    default: () => ({} as TConvertTransaction),
+  },
+  from: {
+    type: Object as PropType<TConvertTransaction>,
+    default: () => ({} as TConvertTransaction),
   },
 });
 </script>
