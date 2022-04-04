@@ -121,7 +121,7 @@ export const useAuthStore = defineStore('auth', {
         const data = await authService.refresh({
           refresh_token: refreshToken || '',
         });
-        this.setToken(data);
+        await this.setToken(data);
       } catch (err) {
         SentryUtil.capture(
           err,
