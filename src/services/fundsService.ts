@@ -24,16 +24,12 @@ export default {
     return depositMapper.deserialize(res.data);
   },
 
-  async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
-    const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserialize(res.data, data);
-  },
-
-  async convertInfoBack(
-    data: Omit<TConvertData, 'amount'>
+  async convertInfo(
+    data: Omit<TConvertData, 'amount'>,
+    dir: 'from' | 'to'
   ): Promise<IConvertInfo> {
     const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserializeBack(res.data, data);
+    return convertInfoMapper.deserialize(res.data, data, dir);
   },
 
   async convert(

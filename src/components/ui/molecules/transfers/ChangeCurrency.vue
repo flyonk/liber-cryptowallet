@@ -5,19 +5,20 @@
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
           <input
-            v-model="requestAmount"
+            v-model="convertInfo.requestAmount"
             type="number"
             class="input"
             autofocus
             @blur="onBlur"
+            @input="debounceChangeInfo('from')"
           />
           <div class="select">
             <router-link
               :to="{ name: 'choose_coin', params: { type: 'from' } }"
               class="select-option flex"
             >
-              <img class="icon" :src="currentSendFromCurrency.img.value" />
-              <p class="name">{{ currentSendFromCurrency.name.value }}</p>
+              <img class="icon" :src="currentSendFromCurrency.img" />
+              <p class="name">{{ currentSendFromCurrency.name }}</p>
               <img src="@/assets/icon/arrow-down.svg" alt="list" />
             </router-link>
           </div>
@@ -28,21 +29,21 @@
           <li class="fees-item">
             <div class="circle">-</div>
             <p class="sum">
-              {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
+              {{ convertInfo.fee }} {{ currentSendFromCurrency.name }}
             </p>
             <p class="name">{{ $t('views.deposit.convert.fee') }}</p>
           </li>
           <li class="fees-item">
             <div class="circle">=</div>
             <p class="sum">
-              {{ requestAmount }} {{ currentSendFromCurrency.name.value }}
+              {{ requestAmount }} {{ currentSendFromCurrency.name }}
             </p>
             <p class="name">{{ $t('views.deposit.convert.amountCovert') }}</p>
           </li>
           <li class="fees-item">
             <div class="circle">x</div>
             <p class="sum">
-              {{ convertInfo.rate }} {{ currentSendToCurrency.name.value }}
+              {{ convertInfo.rate }} {{ currentSendToCurrency.name }}
             </p>
             <p class="name">
               {{ $t('views.deposit.convert.guarantedRate') }} (10min)
@@ -58,9 +59,8 @@
             v-model="convertInfo.estimatedAmount"
             type="number"
             class="input"
-            :readonly="true"
             @blur="onBlur"
-            @input="onChangeEstimatedAmount"
+            @input="debounceChangeInfo('to')"
           />
           <div class="select select-to">
             <div class="select-option flex">
@@ -68,8 +68,8 @@
                 :to="{ name: 'choose_coin', params: { type: 'to' } }"
                 class="select-option flex"
               >
-                <img class="icon" :src="currentSendToCurrency.img.value" />
-                <p class="name">{{ currentSendToCurrency.name.value }}</p>
+                <img class="icon" :src="currentSendToCurrency.img" />
+                <p class="name">{{ currentSendToCurrency.name }}</p>
                 <img src="@/assets/icon/arrow-down.svg" alt="list" />
               </router-link>
             </div>
@@ -98,7 +98,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+import { computed, ref } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -130,36 +130,26 @@ const convert = computed(() => fStore.getConvertFunds);
 const toast = useToast();
 const { tm } = useI18n();
 
-const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
+const currentSendFromCurrency = ref(fStore.getState.from);
+const currentSendToCurrency = ref(fStore.getState.to);
 
 const router = useRouter();
 
 const ctaState = ref('preview');
 const loading = ref(false);
 
-const DEBOUNCE_TIMER = 500;
+const DEBOUNCE_TIMER = 300;
 
 const timer = ref(30);
 const startTimer = ref(0);
 let _convertDirectionBack = false;
 
-const currentSendFromCurrency = {
-  name: ref(from || 'TBTC'),
-  code: ref('tbtc'),
-  img: ref(imgFrom || require('@/assets/icon/currencies/btc.svg')),
-};
-
-const currentSendToCurrency = {
-  name: ref(to || 'LTC'),
-  code: ref('tltc'),
-  img: ref(imgTo || require('@/assets/icon/currencies/ltc.svg')),
-};
-
-// let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
-let requestAmount = ref<number>(+fStore.convertInfo.requestAmount);
-
 const disableBtnHandler = computed(() => {
-  if (loading.value || requestAmount.value === 0 || codeFrom === codeTo) {
+  if (
+    loading.value ||
+    +fStore.convertInfo.requestAmount === 0 ||
+    currentSendFromCurrency.value?.code === currentSendToCurrency.value?.code
+  ) {
     return true;
   }
   return false;
@@ -167,12 +157,12 @@ const disableBtnHandler = computed(() => {
 
 function handleClick() {
   if (ctaState.value === 'refresh') {
-    previewChangeInfo();
+    previewChangeInfo('from');
     timer.value = 30;
     ctaState.value = 'send';
     return;
   }
-  ctaState.value === 'preview' ? previewChangeInfo() : convertCurrency();
+  ctaState.value === 'preview' ? previewChangeInfo('from') : convertCurrency();
 }
 
 function changeInfoInterval() {
@@ -190,48 +180,33 @@ function changeInfoInterval() {
   loading.value = true;
 }
 
-async function previewChangeInfo() {
+async function previewChangeInfo(dir: 'from' | 'to') {
   if (_convertDirectionBack) {
     _convertDirectionBack = false;
     return;
   }
   ctaState.value = 'send';
-  if (!requestAmount.value) return;
   try {
     changeInfoInterval();
-    if (from === to) return;
-    await fStore.checkConvertInfo({
-      from: currentSendFromCurrency.code.value,
-      to: currentSendToCurrency.code.value,
-      request_amount: String(requestAmount.value),
-    });
-  } catch (err) {
-    SentryUtil.capture(
-      err,
-      'ChangeCurrency',
-      'checkConvertInfo',
-      "error can't retrieve convert info"
-    );
-  } finally {
-    loading.value = false;
-  }
-}
-
-//TODO: not used method
-async function previewChangeInfoBack() {
-  _convertDirectionBack = true;
-  const _requestAmount = fStore.convertInfo.estimatedAmount;
-  if (!_requestAmount) return;
-  ctaState.value = 'send';
-  try {
-    changeInfoInterval();
-    if (from === to) return;
-    await fStore.checkConvertInfoBack({
-      to: codeFrom || currentSendFromCurrency.code.value,
-      from: codeTo || currentSendToCurrency.code.value,
-      request_amount: String(_requestAmount),
-    });
-    requestAmount.value = +(fStore.convertInfo.requestAmount || 0);
+    if (
+      currentSendFromCurrency.value?.code === currentSendToCurrency.value?.code
+    ) {
+      return;
+    }
+    let data = {
+      from: currentSendFromCurrency.value?.code || '',
+      to: currentSendToCurrency.value?.code || '',
+      request_amount: String(+fStore.convertInfo.requestAmount),
+    };
+    if (dir === 'to') {
+      _convertDirectionBack = true;
+      data = {
+        to: currentSendFromCurrency.value?.code || '',
+        from: currentSendToCurrency.value?.code || '',
+        request_amount: String(fStore.convertInfo.estimatedAmount),
+      };
+    }
+    await fStore.checkConvertInfo(data, dir);
   } catch (err) {
     SentryUtil.capture(
       err,
@@ -245,14 +220,6 @@ async function previewChangeInfoBack() {
 }
 
 const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
-const debounceChangeInfoBack = debounce(previewChangeInfoBack, DEBOUNCE_TIMER);
-
-watch(requestAmount, debounceChangeInfo);
-
-//TODO: not called
-const onChangeEstimatedAmount = () => {
-  debounceChangeInfoBack();
-};
 
 function convertCurrency() {
   emit('show-2fa');
@@ -264,9 +231,9 @@ async function convertFunds() {
     await fStore.changeCurrency({
       from: convertInfo.value.from,
       to: convertInfo.value.to,
-      amount: String(requestAmount.value),
+      amount: String(+fStore.convertInfo.requestAmount),
     });
-    fStore.clearConvertInfo();
+    fStore.$reset();
     router.push({
       name: Route.DashboardHome,
     });
@@ -308,18 +275,16 @@ const onBlur = (event: any) => {
 
 const replaceCoins = () => {
   fStore.replaceCoins();
-  const { from, to, imgFrom, imgTo } = fStore.getState;
-  const _codeFrom = currentSendFromCurrency.code.value;
+  const { from, to } = fStore.getState;
+  const _codeFrom = currentSendFromCurrency.value.code;
 
-  currentSendFromCurrency.name.value = from || '';
-  currentSendFromCurrency.img.value = imgFrom;
-  currentSendFromCurrency.code.value = currentSendToCurrency.code.value;
+  currentSendFromCurrency.value.name = from?.name || '';
+  currentSendFromCurrency.value.img = from?.img;
+  currentSendFromCurrency.value.code = currentSendToCurrency.value.code;
 
-  currentSendToCurrency.name.value = to || '';
-  currentSendToCurrency.img.value = imgTo;
-  currentSendToCurrency.code.value = _codeFrom;
-
-  requestAmount.value = +fStore.convertInfo?.estimatedAmount;
+  currentSendToCurrency.value.name = to?.code || '';
+  currentSendToCurrency.value.img = to?.img;
+  currentSendToCurrency.value.code = _codeFrom;
 };
 </script>
 

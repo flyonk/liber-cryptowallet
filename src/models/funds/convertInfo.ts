@@ -18,29 +18,19 @@ export interface IConvertInfo {
 
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any, data: any): IConvertInfo {
+  deserialize(input: any, data: any, dir: 'from' | 'to'): IConvertInfo {
     return {
-      from: input.from,
-      to: input.to,
-      rate: input.rate,
-      backRate: input.back_rate,
+      from: dir === 'from' ? input.from : input.to,
+      to: dir === 'from' ? input.to : input.from,
+      rate: dir === 'from' ? input.rate : input.back_rate,
+      backRate: dir === 'from' ? input.back_rate : input.rate,
       fee: input.fee,
       validUntil: input.valid_until,
-      estimatedAmount: input.estimated_amount || '100',
-      requestAmount: data.request_amount || '0',
+      estimatedAmount:
+        dir === 'from' ? input.estimated_amount : data.request_amount,
+      requestAmount:
+        dir === 'from' ? data.request_amount : input.estimated_amount,
     };
   },
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserializeBack(input: any, data: any): IConvertInfo {
-    return {
-      to: input.from,
-      from: input.to,
-      backRate: input.rate,
-      rate: input.back_rate,
-      fee: input.fee,
-      validUntil: input.valid_until,
-      estimatedAmount: data.request_amount || '100',
-      requestAmount: input.estimated_amount,
-    };
-  },
 };
