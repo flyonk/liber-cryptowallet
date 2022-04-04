@@ -111,6 +111,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 
+import { formatPhoneNumber } from '@/helpers/auth';
+
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
 const showIncorrectDataPopup = ref(false);
@@ -139,7 +141,7 @@ const recepient = computed(() => ({
 
 const recipient = {
   id: contact.contactId,
-  phone: phone || '',
+  phone: formatPhoneNumber(phone || ''),
 };
 transferStore.recipient = recipient;
 
