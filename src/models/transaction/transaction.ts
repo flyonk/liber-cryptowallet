@@ -89,19 +89,23 @@ export default {
       status: input.status,
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
-      code: input.code?.toUpperCase(),
-      to: input.amount_to
-        ? {
-            code: input.code_to,
-            amount: input.amount_to,
-          }
-        : {},
-      from: input.amount_from
-        ? {
-            code: input.code_from,
-            amount: input.amount_from,
-          }
-        : {},
+      code: input.code
+        ? input.code?.toUpperCase()
+        : input.code_to.toUpperCase(),
+      to:
+        input.type === ETransactionType.convert
+          ? {
+              code: input.code_to,
+              amount: input.amount_to,
+            }
+          : {},
+      from:
+        input.type === ETransactionType.convert
+          ? {
+              code: input.code_from,
+              amount: input.amount_from,
+            }
+          : {},
       fee: input.fee || '',
       feeCode: input.fee_code || '',
       icon: _getTransactionIcon(input.type, input.direction),

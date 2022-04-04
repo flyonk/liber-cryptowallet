@@ -137,6 +137,7 @@
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
     "transferFee": "Transfer Fee",
+    "convertTransaction": "Convert",
     "paymentTo": "Payment to",
     "reverted": "Reverted",
     "noReference": "Sent without reference",

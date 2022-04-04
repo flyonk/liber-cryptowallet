@@ -8,7 +8,7 @@
             !to.amount
               ? $t(`transactions.operations.${type}`)
               : `${$t(`transactions.operations.${type}`)}
-              ${$t('common.to')} ${to.code.toUpperCase()}`
+              ${$t('common.to')}`
           }}
           {{ code }}
         </h1>
