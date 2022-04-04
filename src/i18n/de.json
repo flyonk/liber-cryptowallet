@@ -209,7 +209,8 @@
       "contactsCTA": "Allow access to contacts"
     },
     "recepients": {
-      "recepients": "Recepients"
+      "recepients": "Recepients",
+      "add": "Add a new contact"
     },
     "aboutpage": {
       "home": "Home",

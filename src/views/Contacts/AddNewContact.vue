@@ -5,9 +5,13 @@
         class="back"
         src="@/assets/icon/arrow-left.svg"
         alt="arrow-left"
-        @click="$router.push('/contacts')"
+        @click="
+          $router.push({
+            name: Route.ContactsWhoToPay,
+          })
+        "
       />
-      <h1 class="title">Add a new contact</h1>
+      <h1 class="title">{{ $t('views.recepients.add') }}</h1>
     </div>
     <ul class="invite-list">
       <li
@@ -15,14 +19,10 @@
         :key="index"
         class="invite-item"
       >
-        <BaseInput
-          v-model="newContacts[index].name.value"
-          autofocus
-          type="text"
-        >
+        <BaseInput v-model="contact.name" autofocus type="text">
           <template #label> Name </template>
         </BaseInput>
-        <BaseInput v-model="newContacts[index].phone.value" type="text">
+        <BaseInput v-model="contact.phone" type="text">
           <template #label> Phone </template>
         </BaseInput>
         <p class="add" @click="addExtraContact">
@@ -48,30 +48,36 @@ import { Route } from '@/router/types';
 const transferStore = useTransferStore();
 const router = useRouter();
 
-const newContacts: {
-  name: Ref<string>;
-  phone: Ref<string>;
-  email?: Ref<string>;
-}[] = [
+type TNewContact = {
+  name: string;
+  phone: string;
+  email?: string;
+};
+
+const newContacts = ref([
   {
-    name: ref('Test Contact'),
-    phone: ref('+79082359632'),
+    name: '',
+    phone: '',
   },
-];
+]) as Ref<TNewContact[]>;
 
 function addExtraContact() {
-  newContacts.push({
-    name: ref(''),
-    phone: ref(''),
+  newContacts.value.push({
+    name: '',
+    phone: '',
   });
 }
 
 const handleAddContact = () => {
-  if (!newContacts[0].phone.value) return;
+  const _contact = newContacts.value[0];
+
+  if (!_contact.phone) {
+    return;
+  }
 
   transferStore.setRecipient({
     id: '1',
-    phone: newContacts[0].phone.value,
+    phone: _contact.phone,
   });
 
   router.push({ name: Route.ContactsSend, params: { id: '1' } });
