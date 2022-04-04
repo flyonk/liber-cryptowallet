@@ -4,8 +4,8 @@
       <div
         v-for="circle in 4"
         :key="circle"
-        class="circle-wrapper"
         :class="{ '-active': passcode.length >= circle }"
+        class="circle-wrapper"
       />
     </div>
 
@@ -20,22 +20,22 @@
       </div>
       <div class="number-button" @click="showTouchId">
         <template v-if="props.showTouchFaceid">
-          <img v-if="identificationIcon" :src="identificationIcon" />
+          <img v-if="identificationIcon" :src="identificationIcon" alt />
         </template>
       </div>
       <div class="number-button text--large-title" @click="setNumber('0')">
         0
       </div>
       <div class="number-button" @click="clear">
-        <img src="@/assets/icon/clear-button.svg" />
+        <img alt src="@/assets/icon/clear-button.svg" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, PropType } from 'vue';
-import { Storage } from '@capacitor/storage';
+import { onBeforeMount, PropType, ref } from 'vue';
+import { get, set } from '@/helpers/storage';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { EPasscodeActions } from '@/types/base-component';
@@ -53,9 +53,7 @@ const props = defineProps({
 });
 
 const getStoredPasscode = async () => {
-  const { value } = await Storage.get({
-    key: EStorageKeys.passcode,
-  });
+  const value = await get(EStorageKeys.passcode);
   return value || '0000';
 };
 
@@ -65,7 +63,7 @@ async function checkPasscode(passcode: string) {
 }
 
 async function setPasscode(passcode: string) {
-  await Storage.set({
+  await set({
     key: EStorageKeys.passcode,
     value: passcode,
   });

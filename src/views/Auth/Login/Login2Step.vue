@@ -1,10 +1,10 @@
 <template>
   <EnterVerificationCode
-    with-countdown
-    :show-countdown="showCountdown"
-    :title="$t('common.codeInput')"
-    :text="text"
     :is-error="isError"
+    :show-countdown="showCountdown"
+    :text="text"
+    :title="$t('common.codeInput')"
+    with-countdown
     @on-hide="onHideError"
     @on-time-is-up="onTimeIsUp"
     @on-complete="onComplete"
@@ -14,7 +14,7 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, Ref, computed } from 'vue';
+import { computed, onMounted, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import router from '@/router';
@@ -25,6 +25,8 @@ import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificat
 
 import { Route } from '@/router/types';
 import { EUserStatus } from '@/models/profile/profile';
+import { get } from '@/helpers/storage';
+import { EStorageKeys } from '@/types/storage';
 
 const { tm } = useI18n();
 
@@ -77,13 +79,25 @@ const onComplete = async (data: string) => {
   try {
     await authStore.signInProceed({ phone, otp });
     await pStore.init();
-    if (pStore.getUser.status === EUserStatus.authenticated) {
-      authStore.setStep(2, 'registration');
-      router.push({
-        name: Route.SignUp,
-      });
-    } else {
-      nextStep();
+
+    switch (pStore.getUser.status) {
+      case EUserStatus.authenticated:
+        authStore.setStep(2, 'registration');
+
+        return await router.push({
+          name: Route.SignUp,
+        });
+
+      case EUserStatus.registered:
+        if (await get(EStorageKeys.passcode)) {
+          return nextStep();
+        } else {
+          return await router.push({
+            name: Route.AuthPasscode,
+          });
+        }
+      default:
+        return nextStep();
     }
   } catch (err) {
     isError.value = true;
