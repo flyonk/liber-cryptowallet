@@ -5,7 +5,7 @@ import fundsService from '@/services/fundsService';
 
 import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
 
-interface ICoinForExchange {
+export interface ICoinForExchange {
   name: string;
   code: string;
   img: string;

@@ -1,51 +1,31 @@
 <template name="DepositeSelectCoin">
   <div class="page-wrapper">
-    <TopNavigation
-      left-icon-name="ci-close_big"
-      @click="router.push({ name: Route.DashboardHome })"
-    >
-      {{ $t('views.deposit.selectCoin.selectCoin') }}
-    </TopNavigation>
-    <div class="page-header">
-      <label class="input-label" for="searchCoin">
-        <img alt="search" class="icon" src="@/assets/icon/search.svg" />
-        <input
-          id="searchCoin"
-          :placeholder="$t('views.deposit.selectCoin.searchCoin')"
-          class="search"
-          name="searchCoin"
-          type="text"
-        />
-      </label>
-    </div>
-    <SelectCoin :coins="coins" @select-coin="selectCoin" />
+    <BaseCoinListSelect
+      @back-button="router.push({ name: Route.DashboardHome })"
+      @select-coin="selectCoin"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { computed, onBeforeMount } from 'vue';
+import { onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
 import { IAccount } from '@/models/account/account';
-import { useCoinsStore } from '@/stores/coins';
 import { ICoin } from '@/models/coin/coins';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { TopNavigation } from '@/components/ui';
+import { BaseCoinListSelect } from '@/components/ui';
 
 const router = useRouter();
 const accountStore = useAccountStore();
 const depositStore = useDepositStore();
-const coinStore = useCoinsStore();
 
 onBeforeMount(async () => {
-  await Promise.all([accountStore.getAccountList(), coinStore.fetchCoins()]);
+  await Promise.all([accountStore.getAccountList()]);
 });
-
-const coins = computed(() => coinStore.getCoins);
 
 const selectAccount = (coinCode: string) => {
   return accountStore.getAccounts.find(({ code }) => code === coinCode);

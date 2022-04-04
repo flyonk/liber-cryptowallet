@@ -166,7 +166,11 @@
     },
     "convert": {
       "title": "Convert Funds",
-      "insufficientfunds": "It seems you don't have enough funds to proceed"
+      "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "preview": "Preview",
+      "convertNow": "Convert Now",
+      "updating": "Updating...",
+      "rateChanged": "Rate have been changed"
     }
   },
   "ui": {
@@ -477,7 +481,7 @@
         "convertExactly": "You convert exactly",
         "fee": "Convertion Fee",
         "amountCovert": "Amount we’ll covert",
-        "guarantedRate": "Guaranted Rate",
+        "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh"
       }
