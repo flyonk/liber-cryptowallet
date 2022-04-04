@@ -329,7 +329,7 @@ const onBlur = (event: any) => {
 };
 
 const swapCoins = () => {
-  fundsStore.replaceCoins();
+  fundsStore.swapCoins();
 
   previewChangeInfo('from');
 };

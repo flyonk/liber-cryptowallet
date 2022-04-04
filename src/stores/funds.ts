@@ -71,6 +71,7 @@ export const useFundsStore = defineStore('funds', {
     setConvertFunds(val: boolean): void {
       this.convertFunds = val;
     },
+
     setCrypto(
       crypto: string,
       code: string,
@@ -83,7 +84,8 @@ export const useFundsStore = defineStore('funds', {
         img: img,
       };
     },
-    replaceCoins(): void {
+
+    swapCoins(): void {
       const _from = Object.assign({}, this.from);
       this.from = this.to;
       this.to = _from;
