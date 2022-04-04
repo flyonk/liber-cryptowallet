@@ -27,13 +27,19 @@
       </template>
     </base-toast>
   </div>
-  <div v-if="show2FA">
+  <div v-else>
     <auth2-f-a-verification-component
       @close="onClose"
       @success-verification="handleSuccessVerification"
     />
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
@@ -70,11 +76,15 @@ async function onSubmit(success: boolean): Promise<void> {
      * Check 2fa auth state
      * If more than 3 days 2FA requested
      */
-    (await twoFAStore.check2FAExpire())
-      ? (show2FA.value = true)
-      : router.push({
-          name: Route.DashboardHome,
-        });
+    const is2FAIsExpired = await twoFAStore.check2FAExpire();
+
+    if (is2FAIsExpired) {
+      show2FA.value = true;
+    } else {
+      await router.push({
+        name: Route.DashboardHome,
+      });
+    }
   } else {
     showErrorToast.value = true;
   }

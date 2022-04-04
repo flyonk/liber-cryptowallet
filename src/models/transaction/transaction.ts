@@ -1,9 +1,16 @@
 export type TTransaction = INetTransaction | IRequestFunds;
 
+export type TConvertTransaction = {
+  code?: string;
+  amount?: string;
+};
+
 export interface INetTransaction {
   id: string;
   sum: string;
   code: string;
+  to?: TConvertTransaction;
+  from?: TConvertTransaction;
   icon?: string;
   info?: string;
   direction?: EDirection;
@@ -16,8 +23,8 @@ export interface INetTransaction {
 
 export interface IRequestFunds {
   id: string;
-  amount: string;
-  timestamp: string;
+  amount?: string;
+  timestamp?: string;
   status: ERequestFundsStatus;
   code: string;
   fee?: string;
@@ -75,15 +82,39 @@ export default {
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
-      sum: _transactionAmount2Sum(input.amount, input.type, input.direction),
+      sum:
+        input.type !== ETransactionType.convert
+          ? _transactionAmount2Sum(input.amount, input.type, input.direction)
+          : `+ ${input.amount_to}`,
       status: input.status,
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
-      code: input.code?.toUpperCase(),
+      code: input.code
+        ? input.code?.toUpperCase()
+        : input.code_to.toUpperCase(),
+      to:
+        input.type === ETransactionType.convert
+          ? {
+              code: input.code_to,
+              amount: input.amount_to,
+            }
+          : {},
+      from:
+        input.type === ETransactionType.convert
+          ? {
+              code: input.code_from,
+              amount: input.amount_from,
+            }
+          : {},
       fee: input.fee || '',
       feeCode: input.fee_code || '',
       icon: _getTransactionIcon(input.type, input.direction),
-      info: _getTransactionInfo(input.direction, input.contragent, input.code),
+      info: _getTransactionInfo(
+        input.direction,
+        input.contragent,
+        input.code,
+        input.type
+      ),
       direction: input.direction || '',
       contractor: input.contragent
         ? {
@@ -123,7 +154,7 @@ function _transactionAmount2Sum(
 ): string {
   return type === ETransactionType.deposit ||
     (type === ETransactionType.transfer && direction === EDirection.income) ||
-    (type === ETransactionType.convert && direction === EDirection.income)
+    type === ETransactionType.convert
     ? `+ ${amount}`
     : `- ${amount}`;
 }
@@ -135,6 +166,9 @@ function _getTransactionIcon(
   //TODO: define icons set, check logic
   let icon = '';
   switch (type) {
+    case ETransactionType.convert:
+      icon = require('@/assets/icon/transactions/convert.svg');
+      break;
     case ETransactionType.transfer: {
       if (direction === EDirection.income) {
         icon = require('@/assets/icon/transactions/received.svg');
@@ -146,9 +180,6 @@ function _getTransactionIcon(
     case ETransactionType.deposit:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
-    case ETransactionType.convert:
-      icon = require('@/assets/icon/transactions/convert.svg');
-      break;
     default:
       icon = require('@/assets/icon/transactions/received.svg');
       break;
@@ -157,10 +188,12 @@ function _getTransactionIcon(
 }
 
 function _getTransactionAddress(
-  direction: EDirection,
   contractor: IContractor,
-  code: string
+  code: string,
+  type: string
 ): string {
+  //TODO: use i18n
+  if (type === ETransactionType.convert) return 'Using Liber Exchange';
   return contractor && contractor.phone
     ? contractor.phone
     : contractor && contractor.email
@@ -171,10 +204,11 @@ function _getTransactionAddress(
 function _getTransactionInfo(
   direction: EDirection,
   contractor: IContractor,
-  code: string
+  code: string,
+  type: string
 ): string {
-  const address = _getTransactionAddress(direction, contractor, code);
-  if (direction === EDirection.income) return `From ${address}`;
-
-  return `To ${address}`;
+  const address = _getTransactionAddress(contractor, code, type);
+  if (direction && direction === EDirection.income) return `From ${address}`;
+  //TODO: use i18n
+  return type === ETransactionType.convert ? address : `To ${address}`;
 }

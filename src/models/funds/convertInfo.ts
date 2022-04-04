@@ -13,7 +13,7 @@ export interface IConvertInfo {
   fee: string;
   validUntil: string;
   estimatedAmount: string;
-  requestAmount?: string;
+  requestAmount: string;
 }
 
 export default {
@@ -30,6 +30,7 @@ export default {
       requestAmount: data.request_amount || '0',
     };
   },
+  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserializeBack(input: any, data: any): IConvertInfo {
     return {
       to: input.from,

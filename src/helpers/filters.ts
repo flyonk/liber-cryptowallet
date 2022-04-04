@@ -10,10 +10,7 @@ export const timestampToDate = (
 };
 
 export const string2ISO = (date: string): string => {
-  const formatDate = DateTime.fromJSDate(
-    new Date(date.replace(/(\d{2}).(\d{2}).(\d{4})/, '$2.$1.$3'))
-  ).toFormat('yyyy.LL.dd HH:mm:ss');
-  return DateTime.fromFormat(formatDate, 'yyyy.LL.dd HH:mm:ss').toISO();
+  return DateTime.fromFormat(date, 'dd.LL.yyyy').toISO();
 };
 
 const filters = { timestampToDate };

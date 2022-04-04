@@ -10,7 +10,7 @@
       <h4 class="username"></h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">Convert Funds</h1>
+      <h1 class="title">{{ $t('transactions.convert.title') }}</h1>
     </div>
     <div class="sendto-main">
       <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
@@ -64,6 +64,12 @@
     />
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script setup lang="ts">
 import { ref } from 'vue';

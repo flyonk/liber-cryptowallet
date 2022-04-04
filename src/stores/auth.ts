@@ -1,4 +1,5 @@
 import { Storage } from '@capacitor/storage';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
@@ -8,7 +9,7 @@ import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 import SentryUtil from '@/helpers/sentryUtil';
 
-import { EStorageKeys } from '@/types/storage';
+import { EStorageKeys, SStorageKeys } from '@/types/storage';
 import { EStepDirection } from '@/types/base-component';
 
 // === Auth Types ===
@@ -111,7 +112,7 @@ export const useAuthStore = defineStore('auth', {
     }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 
-      this.setToken(data);
+      await this.setToken(data);
       return true;
     },
 
@@ -121,7 +122,7 @@ export const useAuthStore = defineStore('auth', {
         const data = await authService.refresh({
           refresh_token: refreshToken || '',
         });
-        this.setToken(data);
+        await this.setToken(data);
       } catch (err) {
         SentryUtil.capture(
           err,
@@ -207,8 +208,7 @@ export const useAuthStore = defineStore('auth', {
       // this.login.dialCode = dialCode || '+7';
     },
 
-    //TODO: rename method ex: setPhoneToStorage
-    async setToStorage() {
+    async setPhoneToStorage() {
       await Promise.all([
         set({
           key: 'dialCode',
@@ -229,17 +229,18 @@ export const useAuthStore = defineStore('auth', {
       this.login.dialCode = dialCode;
     },
 
-    async logout() {
-      const [dialCode, phone, access_token, touchid, faceid] =
-        await Promise.all([
-          get('dialCode'),
-          get('phone'),
-          get('access_token'),
-          get(EStorageKeys.touchid),
-          get(EStorageKeys.faceid),
-        ]);
+    async logout(userId: string) {
+      const [dialCode, phone, touchId, faceId] = await Promise.all([
+        get('dialCode'),
+        get('phone'),
+        get(EStorageKeys.touchid),
+        get(EStorageKeys.faceid),
+      ]);
+      SecureStoragePlugin.remove({ key: SStorageKeys.user });
 
-      authService.logout({ access_token: access_token as string });
+      authService.logout({ user_id: userId });
+
+      this.token = { token: null, refreshToken: null };
 
       await clearAll();
 
@@ -252,15 +253,17 @@ export const useAuthStore = defineStore('auth', {
           key: 'phone',
           value: phone as string,
         }),
-        set({
-          key: EStorageKeys.touchid,
-          value: touchid || '',
-        }),
-        set({
-          key: EStorageKeys.faceid,
-          value: faceid || '',
-        }),
       ]);
+      if (touchId)
+        await set({
+          key: EStorageKeys.touchid,
+          value: touchId,
+        });
+      if (faceId)
+        await set({
+          key: EStorageKeys.faceid,
+          value: faceId,
+        });
     },
 
     async clearTokenData(): Promise<void> {

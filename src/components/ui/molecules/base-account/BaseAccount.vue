@@ -1,7 +1,7 @@
 <template>
   <section class="base-account">
     <div class="image-wrap">
-      <img alt="" src="" />
+      <img alt="" :src="data.imageUrl" />
     </div>
     <div class="name text--callout font-weight--medium">
       <p class="title">

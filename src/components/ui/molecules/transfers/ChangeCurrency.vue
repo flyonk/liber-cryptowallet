@@ -58,6 +58,7 @@
             v-model="convertInfo.estimatedAmount"
             type="number"
             class="input"
+            :readonly="true"
             @blur="onBlur"
             @input="onChangeEstimatedAmount"
           />
@@ -98,15 +99,19 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue';
-
-import { Route } from '@/router/types';
-import { useRouter } from 'vue-router';
-import { useFundsStore } from '@/stores/funds';
 import { debounce } from 'lodash';
-import { BaseButton } from '@/components/ui';
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+
+import { useFundsStore } from '@/stores/funds';
 import SentryUtil from '@/helpers/sentryUtil';
+
+import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import { useToast } from 'primevue/usetoast';
+
+import { Route } from '@/router/types';
 
 defineProps({
   hasCoinReverse: {
@@ -122,6 +127,8 @@ const emit = defineEmits<{
 const fStore = useFundsStore();
 let convertInfo = computed(() => fStore.getConvertInfo);
 const convert = computed(() => fStore.getConvertFunds);
+const toast = useToast();
+const { tm } = useI18n();
 
 const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
 
@@ -148,7 +155,8 @@ const currentSendToCurrency = {
   img: ref(imgTo || require('@/assets/icon/currencies/ltc.svg')),
 };
 
-let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
+// let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
+let requestAmount = ref<number>(+fStore.convertInfo.requestAmount);
 
 const disableBtnHandler = computed(() => {
   if (loading.value || requestAmount.value === 0 || codeFrom === codeTo) {
@@ -193,8 +201,8 @@ async function previewChangeInfo() {
     changeInfoInterval();
     if (from === to) return;
     await fStore.checkConvertInfo({
-      from: codeFrom || currentSendFromCurrency.code.value,
-      to: codeTo || currentSendToCurrency.code.value,
+      from: currentSendFromCurrency.code.value,
+      to: currentSendToCurrency.code.value,
       request_amount: String(requestAmount.value),
     });
   } catch (err) {
@@ -209,6 +217,7 @@ async function previewChangeInfo() {
   }
 }
 
+//TODO: not used method
 async function previewChangeInfoBack() {
   _convertDirectionBack = true;
   const _requestAmount = fStore.convertInfo.estimatedAmount;
@@ -240,6 +249,7 @@ const debounceChangeInfoBack = debounce(previewChangeInfoBack, DEBOUNCE_TIMER);
 
 watch(requestAmount, debounceChangeInfo);
 
+//TODO: not called
 const onChangeEstimatedAmount = () => {
   debounceChangeInfoBack();
 };
@@ -252,15 +262,27 @@ async function convertFunds() {
   try {
     loading.value = true;
     await fStore.changeCurrency({
-      from: currentSendFromCurrency.code.value,
-      to: currentSendToCurrency.code.value,
+      from: convertInfo.value.from,
+      to: convertInfo.value.to,
       amount: String(requestAmount.value),
     });
+    fStore.clearConvertInfo();
     router.push({
       name: Route.DashboardHome,
     });
-    fStore.clearConvertInfo();
-  } catch (err) {
+  } catch (err: any) {
+    const code = err?.response?.data?.code;
+
+    // insufficient funds case
+    if (+code === 0) {
+      toast.add({
+        severity: 'error',
+        summary: tm('transactions.convert.insufficientfunds') as string,
+        life: 3000,
+        closable: true,
+      });
+    }
+
     SentryUtil.capture(
       err,
       'ChangeCurrency',
@@ -287,7 +309,6 @@ const onBlur = (event: any) => {
 const replaceCoins = () => {
   fStore.replaceCoins();
   const { from, to, imgFrom, imgTo } = fStore.getState;
-
   const _codeFrom = currentSendFromCurrency.code.value;
 
   currentSendFromCurrency.name.value = from || '';

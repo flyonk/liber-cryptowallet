@@ -51,6 +51,7 @@ export const useFundsStore = defineStore('funds', {
   },
 
   actions: {
+    //TODO: duplicate methods checkConvertInfo and checkConvertInfoBack
     async checkConvertInfo(data: Omit<TConvertData, 'amount'>): Promise<void> {
       this.convertInfo = await fundsService.convertInfo(data);
     },
@@ -74,6 +75,13 @@ export const useFundsStore = defineStore('funds', {
     clearConvertInfo(): void {
       this.convertFunds = false;
       this.convertInfo = cloneDeep(emptyConvert);
+      //TODO: remove - temporary hack
+      this.from = 'BTC';
+      this.codeFrom = 'tbtc';
+      this.to = 'LTC';
+      this.codeTo = 'tltc';
+      this.imgFrom = require('@/assets/icon/currencies/btc.svg');
+      this.imgTo = require('@/assets/icon/currencies/ltc.svg');
     },
     setCryptoTo(crypto: string, code: string, img: string): void {
       this.to = crypto;

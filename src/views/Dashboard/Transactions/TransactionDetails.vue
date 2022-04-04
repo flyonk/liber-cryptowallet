@@ -9,8 +9,10 @@
       />
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.sum
-          }}<span class="currency">{{ transaction.code }}</span>
+          {{ transaction.sum }}
+          <span class="currency">
+            {{ transaction.code }}
+          </span>
         </div>
         <div class="arrow">
           <img alt="right" src="@/assets/icon/short_right.svg" />
@@ -73,6 +75,16 @@
           {{ $t('transactions.transferFee') }}
         </p>
         <p class="description">0,12345678 {{ transaction.code }}</p>
+      </li>
+      <li v-if="transaction.from?.code" class="main-item">
+        <p class="name">
+          {{ $t('transactions.convertTransaction') }}
+        </p>
+        <p class="description">
+          {{ $t('common.from') }}
+          {{ transaction.from?.amount }}
+          {{ transaction.from?.code.toUpperCase() }}
+        </p>
       </li>
       <li class="main-item">
         <div class="inner">

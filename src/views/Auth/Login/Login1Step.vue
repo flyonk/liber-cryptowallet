@@ -1,6 +1,7 @@
 <template>
   <auth-credentials
-    :title="$t('auth.signup.step1Title')"
+    :key="updateKey"
+    :title="$t('auth.login.step1Title')"
     :text="$t('auth.login.step1Description')"
     :next-title="$t('common.logInCta')"
     :initial-number="number"
@@ -17,7 +18,7 @@
     </template>
     <template #footer-valuable-state>
       {{ $t('auth.login.step1AccountExists') }}
-      <router-link :to="{ name: Route.Login }" class="link">
+      <router-link :to="{ name: Route.SignUp }" class="link">
         {{ $t('auth.login.step1AccountExistsLink') }}
       </router-link>
     </template>
@@ -38,6 +39,7 @@ const router = useRouter();
 const authStore = useAuthStore();
 
 const number = ref('');
+const updateKey = ref(0);
 const countryDialCode = ref('');
 
 onMounted(async () => {
@@ -47,8 +49,10 @@ onMounted(async () => {
   await authStore.getFromStorage();
 
   number.value = authStore.login.phone;
-
   countryDialCode.value = authStore.login.dialCode;
+
+  // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
+  forceUpdate();
 });
 
 const handleSelectCountry = (dialCode: string) => {
@@ -58,7 +62,7 @@ const handleSelectCountry = (dialCode: string) => {
 const nextStep = async (phone: string) => {
   authStore.setPhone(phone);
 
-  await authStore.setToStorage();
+  await authStore.setPhoneToStorage();
 
   authStore.setStep(1, 'login');
 };
@@ -71,6 +75,10 @@ function prevStep(): void {
 
 const numberChange = () => {
   console.log('Method not implemented yet');
+};
+
+const forceUpdate = () => {
+  updateKey.value++;
 };
 </script>
 
