@@ -10,6 +10,7 @@ import coinMapper, { IFoundsCoin } from '@/models/funds/coin';
 
 import { TSuccessResponse } from '@/types/api';
 import { TRecipient } from '@/stores/transfer';
+import { formatPhoneNumber } from '@/helpers/formatPhoneNumber';
 
 export default {
   async getCoins(): Promise<IFoundsCoin[]> {
@@ -46,6 +47,10 @@ export default {
     coin: string,
     payload: { recipient: TRecipient; amount: string }
   ): Promise<number> {
-    return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
+    const formattedPhone = formatPhoneNumber(payload.recipient.phone);
+    payload.recipient.phone = formattedPhone
+      ? formattedPhone
+      : payload.recipient.phone;
+    return (await axios.post(apiService.transfer.send(coin), payload)).data;
   },
 };
