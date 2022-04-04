@@ -145,7 +145,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, Ref, ref } from 'vue';
+import { computed, onBeforeUnmount, ref, Ref } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -207,6 +207,10 @@ const preventConvert = computed(() => {
     +fundsStore.convertInfo.requestAmount === 0 ||
     currentSendFromCurrency.value.code === currentSendToCurrency.value.code
   );
+});
+
+onBeforeUnmount(() => {
+  fundsStore.$reset();
 });
 
 function onRefresh() {
