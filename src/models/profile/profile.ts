@@ -1,4 +1,5 @@
 import { string2ISO } from '@/helpers/filters';
+import { formatPhoneNumber } from '@/helpers/formatPhoneNumber';
 
 type TAnyObjectType = Record<string, string | boolean | number | null>;
 
@@ -83,7 +84,7 @@ export default {
   requestSerialize(input: Partial<IProfile>): any {
     const request = {
       status: input.status,
-      phone: input.phone,
+      phone: formatPhoneNumber(input.phone),
       is_verified: input.isVerified,
       block_reason: input.blockReason,
       first_name: input.firstName,
