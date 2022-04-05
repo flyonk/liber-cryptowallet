@@ -109,6 +109,7 @@
       </BaseButton>
       <BaseButton
         v-else-if="componentState === 'refresh'"
+        :disabled="preventConvert"
         block
         class="send-button"
         size="large"
@@ -200,21 +201,33 @@ const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
 );
 
-const preventConvert = computed(() => {
-  return (
-    loading.value ||
-    +fundsStore.convertInfo.requestAmount === 0 ||
-    sameCurrencies
-  );
-});
-
-const sameCurrencies = computed(() => {
+const isSameCurrencies = computed(() => {
   return (
     currentSendFromCurrency.value.code === currentSendToCurrency.value.code
   );
 });
 
-watch(sameCurrencies, (val) => {
+const isZeroValues = computed(() => {
+  return (
+    +fundsStore.convertInfo.requestAmount === 0 &&
+    +fundsStore.convertInfo.estimatedAmount === 0
+  );
+});
+
+const preventConvert = computed(() => {
+  return (
+    loading.value ||
+    +fundsStore.convertInfo.requestAmount === 0 ||
+    isSameCurrencies ||
+    isZeroValues
+  );
+});
+
+watch(isSameCurrencies, (val) => {
+  if (val) componentState.value = 'preview';
+});
+
+watch(isZeroValues, (val) => {
   if (val) componentState.value = 'preview';
 });
 
