@@ -20,8 +20,12 @@
       </div>
       <h2 class="sendto">{{ transaction.info }}</h2>
       <p class="date">
-        <!-- TODO: add number depends -->
-        2 {{ $t('common.daysAgo') }}
+        <!--TODO: diff from now-->
+        {{
+          transaction.finishDate
+            ? transaction.finishDate
+            : transaction.startDate
+        }}
       </p>
       <div class="controls">
         <button v-if="transactionType === 'send'" class="btn -pdf">

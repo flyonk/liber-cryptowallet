@@ -370,11 +370,10 @@ if (convert.value) {
 }
 
 function onBlur(event: FocusEvent) {
-  const newElem = event.relatedTarget?.nodeName;
   const elem = event.target as HTMLInputElement;
 
   if (event.relatedTarget) {
-    newElem?.focus();
+    (event.relatedTarget as HTMLInputElement).focus();
   } else {
     elem?.focus();
   }
