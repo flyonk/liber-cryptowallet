@@ -1,6 +1,11 @@
 <template>
   <keep-alive>
-    <div class="change-currency">
+    <div
+      class="change-currency"
+      @wheel.prevent
+      @touchmove.prevent
+      @scroll.prevent
+    >
       <div class="input-wrapper mb-2 relative m-0">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
@@ -8,11 +13,13 @@
             v-model="convertInfo.requestAmount"
             autofocus
             class="input"
+            inputmode="decimal"
+            pattern="[0-9]*"
             type="number"
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
-          <div class="select" @click="showSelectCoinDialog.from = true">
+          <div class="select" @click.prevent="showSelectCoinDialog.from = true">
             <div class="select-option flex">
               <img :src="currentSendFromCurrency.img" alt class="icon" />
               <p class="name">{{ currentSendFromCurrency.name }}</p>
@@ -75,11 +82,16 @@
           <input
             v-model="convertInfo.estimatedAmount"
             class="input"
+            inputmode="decimal"
+            pattern="[0-9]*"
             type="number"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
-          <div class="select select-to" @click="showSelectCoinDialog.to = true">
+          <div
+            class="select select-to"
+            @click.prevent="showSelectCoinDialog.to = true"
+          >
             <div class="select-option flex">
               <img :src="currentSendToCurrency.img" class="icon" />
               <p class="name">{{ currentSendToCurrency.name }}</p>
