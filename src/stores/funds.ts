@@ -54,7 +54,6 @@ export const useFundsStore = defineStore('funds', {
   },
 
   actions: {
-    //TODO: duplicate methods checkConvertInfo and checkConvertInfoBack
     async checkConvertInfo(
       data: Omit<TConvertData, 'amount'>,
       dir: 'from' | 'to'

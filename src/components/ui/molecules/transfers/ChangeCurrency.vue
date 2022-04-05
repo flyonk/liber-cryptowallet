@@ -74,7 +74,6 @@
           <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
           <input
             v-model="convertInfo.estimatedAmount"
-            :readonly="true"
             class="input"
             type="number"
             @blur="onBlur"
@@ -251,18 +250,19 @@ async function previewChangeInfo(dir: 'from' | 'to') {
       return;
     }
     let data = {
-      from: currentSendFromCurrency.value.code || '',
-      to: currentSendToCurrency.value.code || '',
-      request_amount: String(+fundsStore.convertInfo.requestAmount),
+      from:
+        dir === 'from'
+          ? currentSendFromCurrency.value.code || ''
+          : currentSendToCurrency.value.code || '',
+      to:
+        dir === 'from'
+          ? currentSendToCurrency.value.code || ''
+          : currentSendFromCurrency.value.code,
+      request_amount:
+        dir === 'from'
+          ? String(+fundsStore.convertInfo.requestAmount)
+          : String(+fundsStore.convertInfo.estimatedAmount),
     };
-    if (dir === 'to') {
-      _convertDirectionBack = true;
-      data = {
-        to: currentSendFromCurrency.value.code || '',
-        from: currentSendToCurrency.value.code || '',
-        request_amount: String(fundsStore.convertInfo.estimatedAmount),
-      };
-    }
     await fundsStore.checkConvertInfo(data, dir);
   } catch (err) {
     SentryUtil.capture(
@@ -294,8 +294,7 @@ async function convertFunds() {
     router.push({
       name: Route.DashboardHome,
     });
-    //  TODO try do not to use 'any'
-  } catch (err: any) {
+  } catch (err) {
     const code = err?.response?.data?.code;
 
     // insufficient funds case
@@ -323,11 +322,12 @@ if (convert.value) {
   convertFunds();
 }
 
-//  TODO try do not to use 'any'
-const onBlur = (event: any) => {
+const onBlur = (event: FocusEvent) => {
+  console.log('onBlur!');
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
+    console.log('onBlur Inside');
     elem.focus();
   }
 };
@@ -357,7 +357,6 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 </script>
 
 <style lang="scss" scoped>
-//TODO all colors change to variables
 .change-currency {
   width: 100%;
 }
@@ -371,7 +370,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     font-size: 12px;
     line-height: 16px;
     display: flex;
-    color: #78809b;
+    color: $color-brand-2-300;
   }
 
   > .input {
