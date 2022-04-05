@@ -201,6 +201,11 @@ const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
 );
 
+const getCorrectValue = function (value: number) {
+  const v1 = Math.max(value, 0.000005);
+  return Math.min(v1, 100000000);
+};
+
 const isSameCurrencies = computed(() => {
   return (
     currentSendFromCurrency.value.code === currentSendToCurrency.value.code
@@ -284,8 +289,8 @@ async function previewChangeInfo(dir: 'from' | 'to') {
           : currentSendFromCurrency.value.code,
       request_amount:
         dir === 'from'
-          ? String(+fundsStore.convertInfo.requestAmount)
-          : String(+fundsStore.convertInfo.estimatedAmount),
+          ? String(getCorrectValue(+fundsStore.convertInfo.requestAmount))
+          : String(getCorrectValue(+fundsStore.convertInfo.estimatedAmount)),
     };
     await fundsStore.checkConvertInfo(data, dir);
   } catch (err) {
@@ -351,6 +356,8 @@ const onBlur = (event: FocusEvent) => {
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
     elem?.focus();
+  } else {
+    newElem?.focus();
   }
 };
 
