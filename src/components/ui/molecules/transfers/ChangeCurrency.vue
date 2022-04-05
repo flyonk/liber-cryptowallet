@@ -144,7 +144,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUnmount, ref, Ref } from 'vue';
+import { computed, ref, Ref } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -208,9 +208,10 @@ const preventConvert = computed(() => {
   );
 });
 
-onBeforeUnmount(() => {
-  fundsStore.$reset();
-});
+// onBeforeUnmount(() => {
+//   TODO: this hook clear store when we go to 2FA screen
+//   fundsStore.$reset();
+// });
 
 function onRefresh() {
   previewChangeInfo('from');
@@ -286,8 +287,8 @@ async function convertFunds() {
   try {
     loading.value = true;
     await fundsStore.changeCurrency({
-      from: convertInfo.value.from,
-      to: convertInfo.value.to,
+      from: currentSendFromCurrency.value.code,
+      to: currentSendToCurrency.value.code,
       amount: String(+fundsStore.convertInfo.requestAmount),
     });
     fundsStore.$reset();
@@ -326,7 +327,7 @@ const onBlur = (event: FocusEvent) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    elem.focus();
+    elem?.focus();
   }
 };
 

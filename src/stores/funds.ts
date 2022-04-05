@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
 
 import fundsService from '@/services/fundsService';
+// import { STATIC_BASE_URL } from '@/constants';
 
 import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
 
