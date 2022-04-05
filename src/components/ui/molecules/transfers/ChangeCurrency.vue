@@ -181,7 +181,7 @@ const toast = useToast();
 const { tm } = useI18n();
 const router = useRouter();
 
-const DEBOUNCE_TIMER = 700;
+const DEBOUNCE_TIMER = 1000;
 let _convertDirectionBack = false;
 
 const componentState = ref('preview');
