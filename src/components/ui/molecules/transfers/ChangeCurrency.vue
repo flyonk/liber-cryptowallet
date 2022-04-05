@@ -59,7 +59,8 @@
           <li class="fees-item">
             <div class="circle">x</div>
             <p class="sum">
-              {{ convertInfo.rate }} {{ currentSendToCurrency.name }}
+              {{ preventConvert ? '0' : convertInfo.rate }}
+              {{ currentSendToCurrency.name }}
             </p>
             <p :class="{ '-red': componentState === 'refresh' }" class="name">
               <template v-if="loading">
@@ -69,7 +70,8 @@
                 {{ $t('transactions.convert.rateChanged') }}
               </template>
               <template v-else>
-                {{ $t('views.deposit.convert.guaranteedRate') }} ({{ timer }}s)
+                {{ $t('views.deposit.convert.guaranteedRate') }}
+                ({{ preventConvert ? '30' : timer }}s)
               </template>
             </p>
           </li>
