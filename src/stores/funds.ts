@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
 
 import fundsService from '@/services/fundsService';
-// import { STATIC_BASE_URL } from '@/constants';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
 
@@ -39,12 +39,12 @@ export const useFundsStore = defineStore('funds', {
     from: {
       name: 'BTC',
       code: 'tbtc',
-      img: require('@/assets/icon/currencies/btc.svg'),
+      img: `${STATIC_BASE_URL}/currencies/btc.svg`,
     },
     to: {
       name: 'LTC',
       code: 'tltc',
-      img: require('@/assets/icon/currencies/ltc.svg'),
+      img: `${STATIC_BASE_URL}/currencies/ltc.svg`,
     },
   }),
 
