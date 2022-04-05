@@ -121,9 +121,9 @@ import { Route } from '@/router/types';
 const route = useRoute();
 const pStore = useProfileStore();
 
-const transactionType = ref('payment-link');
 const receiver = ref('');
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+let transactionType = ref('');
 
 onMounted(async () => {
   try {
@@ -133,6 +133,7 @@ onMounted(async () => {
     )) as INetTransaction;
 
     await getTransactionReceiver();
+    transactionType.value = transaction.value.type;
   } catch (err) {
     console.log(err);
   }
