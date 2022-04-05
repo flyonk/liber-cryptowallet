@@ -323,11 +323,9 @@ if (convert.value) {
 }
 
 const onBlur = (event: FocusEvent) => {
-  console.log('onBlur!');
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    console.log('onBlur Inside');
     elem.focus();
   }
 };
