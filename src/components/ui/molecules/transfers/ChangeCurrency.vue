@@ -202,6 +202,7 @@ const currentSendToCurrency = computed(
 );
 
 const getCorrectValue = function (value: number) {
+  if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
   return Math.min(v1, 100000000);
 };
@@ -354,6 +355,7 @@ if (convert.value) {
 const onBlur = (event: FocusEvent) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
+
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
     elem?.focus();
   } else {
