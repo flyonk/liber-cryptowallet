@@ -159,8 +159,8 @@ import { ICoin } from '@/models/coin/coins';
 import { BaseButton, BaseCoinListSelect } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import { TConvertData } from '@/models/funds/convertInfo';
 
-//TODO rethink about it
 const showSelectCoinDialog = ref({
   from: false,
   to: false,
@@ -183,7 +183,6 @@ const { tm } = useI18n();
 const router = useRouter();
 
 const DEBOUNCE_TIMER = 1000;
-let _convertDirectionBack = false;
 
 const componentState = ref('preview');
 const loading = ref(false);
@@ -200,12 +199,6 @@ const currentSendFromCurrency = computed(
 const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
 );
-
-const getCorrectValue = function (value: number) {
-  if (value === 0) return 0;
-  const v1 = Math.max(value, 0.000005);
-  return Math.min(v1, 100000000);
-};
 
 const isSameCurrencies = computed(() => {
   return (
@@ -241,6 +234,11 @@ watch(isZeroValues, (val) => {
 //   TODO: this hook clear store when we go to 2FA screen
 //   fundsStore.$reset();
 // });
+function getCorrectValue(value: number) {
+  if (value === 0) return 0;
+  const v1 = Math.max(value, 0.000005);
+  return Math.min(v1, 100000000);
+}
 
 function onRefresh() {
   previewChangeInfo('from');
@@ -266,12 +264,9 @@ function changeInfoInterval() {
   loading.value = true;
 }
 
-async function previewChangeInfo(dir: 'from' | 'to') {
-  if (_convertDirectionBack) {
-    _convertDirectionBack = false;
-    return;
-  }
+async function previewChangeInfo(direction: 'from' | 'to') {
   componentState.value = 'send';
+
   try {
     changeInfoInterval();
     if (
@@ -279,21 +274,28 @@ async function previewChangeInfo(dir: 'from' | 'to') {
     ) {
       return;
     }
-    let data = {
-      from:
-        dir === 'from'
-          ? currentSendFromCurrency.value.code || ''
-          : currentSendToCurrency.value.code || '',
-      to:
-        dir === 'from'
-          ? currentSendToCurrency.value.code || ''
-          : currentSendFromCurrency.value.code,
-      request_amount:
-        dir === 'from'
-          ? String(getCorrectValue(+fundsStore.convertInfo.requestAmount))
-          : String(getCorrectValue(+fundsStore.convertInfo.estimatedAmount)),
+
+    const data: Omit<TConvertData, 'amount'> = {
+      from: '',
+      to: '',
+      request_amount: '',
     };
-    await fundsStore.checkConvertInfo(data, dir);
+
+    if (direction === 'from') {
+      data.from = currentSendFromCurrency.value.code;
+      data.to = currentSendToCurrency.value.code;
+      data.request_amount = String(
+        getCorrectValue(Number(fundsStore.convertInfo.requestAmount))
+      );
+    } else {
+      data.from = currentSendToCurrency.value.code;
+      data.to = currentSendFromCurrency.value.code;
+      data.request_amount = String(
+        getCorrectValue(Number(fundsStore.convertInfo.estimatedAmount))
+      );
+    }
+
+    await fundsStore.checkConvertInfo(data, direction);
   } catch (err) {
     SentryUtil.capture(
       err,
@@ -328,7 +330,7 @@ async function convertFunds() {
     const code = err?.response?.data?.code;
 
     // insufficient funds case
-    if (+code === 0) {
+    if (Number(code) === 0) {
       toast.add({
         severity: 'error',
         summary: tm('transactions.convert.insufficientfunds') as string,
@@ -352,7 +354,7 @@ if (convert.value) {
   convertFunds();
 }
 
-const onBlur = (event: FocusEvent) => {
+function onBlur(event: FocusEvent) {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
 
@@ -361,7 +363,7 @@ const onBlur = (event: FocusEvent) => {
   } else {
     newElem?.focus();
   }
-};
+}
 
 const swapCoins = () => {
   fundsStore.swapCoins();
@@ -429,6 +431,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     top: 4px;
     width: 114px;
     height: 64px;
+    //TODO change to variables
     background: #edf0fb;
     border-radius: 13px;
     border: 0;
