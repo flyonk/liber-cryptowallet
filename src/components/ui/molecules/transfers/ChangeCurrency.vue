@@ -87,6 +87,7 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
+            :readonly="true"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
@@ -370,12 +371,12 @@ if (convert.value) {
 
 function onBlur(event: FocusEvent) {
   const newElem = event.relatedTarget?.nodeName;
-  const elem = event.target;
+  const elem = event.target as HTMLInputElement;
 
-  if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    elem?.focus();
-  } else {
+  if (event.relatedTarget) {
     newElem?.focus();
+  } else {
+    elem?.focus();
   }
 }
 
