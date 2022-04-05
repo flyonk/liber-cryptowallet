@@ -144,7 +144,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, Ref } from 'vue';
+import { computed, ref, Ref, watch } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -204,8 +204,18 @@ const preventConvert = computed(() => {
   return (
     loading.value ||
     +fundsStore.convertInfo.requestAmount === 0 ||
+    sameCurrencies
+  );
+});
+
+const sameCurrencies = computed(() => {
+  return (
     currentSendFromCurrency.value.code === currentSendToCurrency.value.code
   );
+});
+
+watch(sameCurrencies, (val) => {
+  if (val) componentState.value = 'preview';
 });
 
 // onBeforeUnmount(() => {
