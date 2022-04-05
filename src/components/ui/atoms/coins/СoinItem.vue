@@ -38,6 +38,7 @@ const { fullName, shortName } = toRefs(props);
   display: flex;
   align-items: center;
   margin-bottom: 24px;
+  cursor: pointer;
 
   > .image {
     margin-right: 16px;
