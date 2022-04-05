@@ -229,8 +229,8 @@ const preventConvert = computed(() => {
   return (
     loading.value ||
     +fundsStore.convertInfo.requestAmount === 0 ||
-    isSameCurrencies ||
-    isZeroValues
+    isSameCurrencies.value ||
+    isZeroValues.value
   );
 });
 
