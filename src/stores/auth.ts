@@ -41,8 +41,8 @@ export interface IAuthState {
 }
 
 // === Auth Store ===
-// TODO: Save to Storage phone number
 // TODO: Restore from Storage saved phone number
+// TODO: make a unique object from registration and login
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
