@@ -139,6 +139,7 @@
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
     "transferFee": "Transfer Fee",
+    "convertTransaction": "Convert",
     "paymentTo": "Payment to",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
@@ -166,7 +167,11 @@
     },
     "convert": {
       "title": "Convert Funds",
-      "insufficientfunds": "It seems you don't have enough funds to proceed"
+      "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "preview": "Preview",
+      "convertNow": "Convert Now",
+      "updating": "Updating...",
+      "rateChanged": "Rate have been changed"
     }
   },
   "ui": {
@@ -210,7 +215,8 @@
       "contactsCTA": "Allow access to contacts"
     },
     "recepients": {
-      "recepients": "Recepients"
+      "recepients": "Recepients",
+      "add": "Add a new contact"
     },
     "aboutpage": {
       "home": "Home",
@@ -477,7 +483,7 @@
         "convertExactly": "You convert exactly",
         "fee": "Convertion Fee",
         "amountCovert": "Amount we’ll covert",
-        "guarantedRate": "Guaranted Rate",
+        "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh"
       }

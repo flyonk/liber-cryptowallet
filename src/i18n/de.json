@@ -48,6 +48,8 @@
       "step1Description": "Enter your registered mobile number to log in",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
+      "step1AccountExists": "Don’t have an account?",
+      "step1AccountExistsLink": "Sign up",
       "step2Description": "To sign up, enter the security code we've sent to",
       "step2ResendTitle": "Resend code in",
       "step2ResendCta": "Resend",
@@ -137,6 +139,7 @@
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
     "transferFee": "Transfer Fee",
+    "convertTransaction": "Convert",
     "paymentTo": "Payment to",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
@@ -164,7 +167,11 @@
     },
     "convert": {
       "title": "Convert Funds",
-      "insufficientfunds": "It seems you don't have enough funds to proceed"
+      "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "preview": "Preview",
+      "convertNow": "Convert Now",
+      "updating": "Updating...",
+      "rateChanged": "Rate have been changed"
     }
   },
   "ui": {
@@ -208,7 +215,8 @@
       "contactsCTA": "Allow access to contacts"
     },
     "recepients": {
-      "recepients": "Recepients"
+      "recepients": "Recepients",
+      "add": "Add a new contact"
     },
     "aboutpage": {
       "home": "Home",
@@ -256,7 +264,7 @@
         "newMessages": "You have new messages."
       },
       "kyc3step": {
-        "notNow": "Not now",
+        "notNow": "Not Now",
         "proofOfIdentity": "Proof of Identity",
         "yourDocumentPhoto": "Your document photo helps us prove your identity. It should match the information you have provided in the previous steps."
       },
@@ -383,7 +391,9 @@
         "logoutConfirmationTitle": "Log out",
         "logoutConfirmation": "Are you sure to logging out from this account?",
         "logoutAccept": "Yes",
-        "logoutDecline": "No"
+        "logoutDecline": "No",
+        "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
+        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -473,7 +483,7 @@
         "convertExactly": "You convert exactly",
         "fee": "Convertion Fee",
         "amountCovert": "Amount we’ll covert",
-        "guarantedRate": "Guaranted Rate",
+        "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh"
       }

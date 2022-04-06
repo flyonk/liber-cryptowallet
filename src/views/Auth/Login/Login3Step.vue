@@ -76,11 +76,15 @@ async function onSubmit(success: boolean): Promise<void> {
      * Check 2fa auth state
      * If more than 3 days 2FA requested
      */
-    (await twoFAStore.check2FAExpire())
-      ? (show2FA.value = true)
-      : router.push({
-          name: Route.DashboardHome,
-        });
+    const is2FAIsExpired = await twoFAStore.check2FAExpire();
+
+    if (is2FAIsExpired) {
+      show2FA.value = true;
+    } else {
+      await router.push({
+        name: Route.DashboardHome,
+      });
+    }
   } else {
     showErrorToast.value = true;
   }

@@ -1,25 +1,41 @@
 <template>
   <keep-alive>
-    <div class="change-currency">
+    <div
+      class="change-currency"
+      @wheel.prevent
+      @touchmove.prevent
+      @scroll.prevent
+    >
       <div class="input-wrapper mb-2 relative m-0">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
           <input
-            v-model="requestAmount"
-            type="number"
-            class="input"
+            v-model="convertInfo.requestAmount"
             autofocus
+            class="input"
+            inputmode="decimal"
+            pattern="[0-9]*"
+            type="number"
             @blur="onBlur"
+            @input="debounceChangeInfo('from')"
           />
-          <div class="select">
-            <router-link
-              :to="{ name: 'choose_coin', params: { type: 'from' } }"
-              class="select-option flex"
-            >
-              <img class="icon" :src="currentSendFromCurrency.img.value" />
-              <p class="name">{{ currentSendFromCurrency.name.value }}</p>
-              <img src="@/assets/icon/arrow-down.svg" alt="list" />
-            </router-link>
+          <div class="select" @click.prevent="showSelectCoinDialog.from = true">
+            <div class="select-option flex">
+              <img :src="currentSendFromCurrency.img" alt class="icon" />
+              <p class="name">{{ currentSendFromCurrency.name }}</p>
+              <img alt="list" src="@/assets/icon/arrow-down.svg" />
+              <div></div>
+              <p-dialog
+                v-model:visible="showSelectCoinDialog.from"
+                :show-header="false"
+                class="p-dialog-maximized"
+              >
+                <BaseCoinListSelect
+                  @back-button="showSelectCoinDialog.from = false"
+                  @select-coin="onSelectCoin($event, 'from')"
+                />
+              </p-dialog>
+            </div>
           </div>
         </label>
       </div>
@@ -28,90 +44,146 @@
           <li class="fees-item">
             <div class="circle">-</div>
             <p class="sum">
-              {{ convertInfo.fee }} {{ currentSendFromCurrency.name.value }}
+              {{ convertInfo.fee }} {{ currentSendFromCurrency.name }}
             </p>
             <p class="name">{{ $t('views.deposit.convert.fee') }}</p>
           </li>
           <li class="fees-item">
             <div class="circle">=</div>
             <p class="sum">
-              {{ requestAmount }} {{ currentSendFromCurrency.name.value }}
+              {{ fundsStore.convertInfo.requestAmount }}
+              {{ currentSendFromCurrency.name }}
             </p>
             <p class="name">{{ $t('views.deposit.convert.amountCovert') }}</p>
           </li>
           <li class="fees-item">
             <div class="circle">x</div>
             <p class="sum">
-              {{ convertInfo.rate }} {{ currentSendToCurrency.name.value }}
+              {{ preventConvert ? '0' : convertInfo.rate }}
+              {{ currentSendToCurrency.name }}
             </p>
-            <p class="name">
-              {{ $t('views.deposit.convert.guarantedRate') }} (10min)
+            <p :class="{ '-red': componentState === 'refresh' }" class="name">
+              <template v-if="loading">
+                {{ $t('transactions.convert.updating') }}
+              </template>
+              <template v-else-if="componentState === 'refresh'">
+                {{ $t('transactions.convert.rateChanged') }}
+              </template>
+              <template v-else>
+                {{ $t('views.deposit.convert.guaranteedRate') }}
+                ({{ preventConvert ? '30' : timer }}s)
+              </template>
             </p>
           </li>
         </ul>
-        <coin-switcher v-if="hasCoinReverse" @switch="replaceCoins" />
+        <coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
           <input
             v-model="convertInfo.estimatedAmount"
-            type="number"
             class="input"
+            inputmode="decimal"
+            pattern="[0-9]*"
+            type="number"
             :readonly="true"
             @blur="onBlur"
-            @input="onChangeEstimatedAmount"
+            @input="debounceChangeInfo('to')"
           />
-          <div class="select select-to">
+          <div
+            class="select select-to"
+            @click.prevent="showSelectCoinDialog.to = true"
+          >
             <div class="select-option flex">
-              <router-link
-                :to="{ name: 'choose_coin', params: { type: 'to' } }"
-                class="select-option flex"
+              <img :src="currentSendToCurrency.img" class="icon" />
+              <p class="name">{{ currentSendToCurrency.name }}</p>
+              <img alt="list" src="@/assets/icon/arrow-down.svg" />
+              <p-dialog
+                v-model:visible="showSelectCoinDialog.to"
+                :show-header="false"
+                class="p-dialog-maximized"
               >
-                <img class="icon" :src="currentSendToCurrency.img.value" />
-                <p class="name">{{ currentSendToCurrency.name.value }}</p>
-                <img src="@/assets/icon/arrow-down.svg" alt="list" />
-              </router-link>
+                <BaseCoinListSelect
+                  @back-button="showSelectCoinDialog.to = false"
+                  @select-coin="onSelectCoin($event, 'to')"
+                />
+              </p-dialog>
             </div>
           </div>
         </label>
       </div>
       <BaseButton
+        v-if="loading"
+        block
         class="send-button"
         size="large"
         view="simple"
-        :disabled="disableBtnHandler"
-        @click="handleClick"
       >
-        <template v-if="ctaState === 'refresh'">{{
-          $t('views.deposit.convert.refresh')
-        }}</template>
-        <template v-else-if="loading">
-          <tripple-dots-spinner />
-        </template>
-        <template v-else>
-          {{ ctaState === 'preview' ? 'Preview' : `Convert Now (${timer}s)` }}
-        </template>
+        <tripple-dots-spinner />
+      </BaseButton>
+      <BaseButton
+        v-else-if="componentState === 'refresh'"
+        :disabled="preventConvert"
+        block
+        class="send-button"
+        size="large"
+        view="secondary"
+        @click="onRefresh"
+      >
+        {{ $t('views.deposit.convert.refresh') }}
+      </BaseButton>
+      <BaseButton
+        v-else-if="componentState === 'preview'"
+        :disabled="preventConvert"
+        block
+        class="send-button"
+        size="large"
+        view="simple"
+        @click="previewChangeInfo('from')"
+      >
+        {{ $t('transactions.convert.preview') }}
+      </BaseButton>
+      <BaseButton
+        v-else
+        :disabled="preventConvert"
+        block
+        class="send-button"
+        size="large"
+        view="simple"
+        @click="convertCurrency"
+      >
+        {{ $t('transactions.convert.convertNow') }} ({{ timer }}s)
       </BaseButton>
     </div>
   </keep-alive>
 </template>
 
-<script setup lang="ts">
-import { computed, ref, watch } from 'vue';
+<script lang="ts" setup>
+import { computed, ref, Ref, watch } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-
-import { useFundsStore } from '@/stores/funds';
-import SentryUtil from '@/helpers/sentryUtil';
-
-import { BaseButton } from '@/components/ui';
-import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
-import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import { useToast } from 'primevue/usetoast';
 
+import { ICoinForExchange, useFundsStore } from '@/stores/funds';
+import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
+import { ICoin } from '@/models/coin/coins';
+
+import { BaseButton, BaseCoinListSelect } from '@/components/ui';
+import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
+import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import { TConvertData } from '@/models/funds/convertInfo';
+
+const showSelectCoinDialog = ref({
+  from: false,
+  to: false,
+});
+
+const emit = defineEmits<{
+  (event: 'show-2fa'): void;
+}>();
 
 defineProps({
   hasCoinReverse: {
@@ -120,118 +192,125 @@ defineProps({
   },
 });
 
-const emit = defineEmits<{
-  (event: 'show-2fa'): void;
-}>();
-
-const fStore = useFundsStore();
-let convertInfo = computed(() => fStore.getConvertInfo);
-const convert = computed(() => fStore.getConvertFunds);
+const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
-
-const { from, to, imgFrom, imgTo, codeFrom, codeTo } = fStore.getState;
-
 const router = useRouter();
 
-const ctaState = ref('preview');
+const DEBOUNCE_TIMER = 1000;
+
+const componentState = ref('preview');
 const loading = ref(false);
 
-const DEBOUNCE_TIMER = 500;
-
 const timer = ref(30);
-const startTimer = ref(0);
-let _convertDirectionBack = false;
+const startTimer = ref(0) as Ref<number>;
 
-const currentSendFromCurrency = {
-  name: ref(from || 'TBTC'),
-  code: ref('tbtc'),
-  img: ref(imgFrom || require('@/assets/icon/currencies/btc.svg')),
-};
+const convertInfo = computed(() => fundsStore.getConvertInfo);
+const convert = computed(() => fundsStore.getConvertFunds);
 
-const currentSendToCurrency = {
-  name: ref(to || 'LTC'),
-  code: ref('tltc'),
-  img: ref(imgTo || require('@/assets/icon/currencies/ltc.svg')),
-};
+const currentSendFromCurrency = computed(
+  () => fundsStore.getState.from as ICoinForExchange
+);
+const currentSendToCurrency = computed(
+  () => fundsStore.getState.to as ICoinForExchange
+);
 
-// let requestAmount = ref<number>(+fStore.convertInfo.estimatedAmount);
-let requestAmount = ref<number>(+fStore.convertInfo.requestAmount);
-
-const disableBtnHandler = computed(() => {
-  if (loading.value || requestAmount.value === 0 || codeFrom === codeTo) {
-    return true;
-  }
-  return false;
+const isSameCurrencies = computed(() => {
+  return (
+    currentSendFromCurrency.value.code === currentSendToCurrency.value.code
+  );
 });
 
-function handleClick() {
-  if (ctaState.value === 'refresh') {
-    previewChangeInfo();
-    timer.value = 30;
-    ctaState.value = 'send';
-    return;
-  }
-  ctaState.value === 'preview' ? previewChangeInfo() : convertCurrency();
+const isZeroValues = computed(() => {
+  return (
+    +fundsStore.convertInfo.requestAmount === 0 &&
+    +fundsStore.convertInfo.estimatedAmount === 0
+  );
+});
+
+const preventConvert = computed(() => {
+  return (
+    loading.value ||
+    +fundsStore.convertInfo.requestAmount === 0 ||
+    isSameCurrencies.value ||
+    isZeroValues.value
+  );
+});
+
+watch(isSameCurrencies, (val) => {
+  if (val) componentState.value = 'preview';
+});
+
+watch(isZeroValues, (val) => {
+  if (val) componentState.value = 'preview';
+});
+
+// onBeforeUnmount(() => {
+//   TODO: this hook clear store when we go to 2FA screen
+//   fundsStore.$reset();
+// });
+function getCorrectValue(value: number) {
+  if (value === 0) return 0;
+  const v1 = Math.max(value, 0.000005);
+  return Math.min(v1, 100000000);
+}
+
+function onRefresh() {
+  previewChangeInfo('from');
+  timer.value = 30;
+  componentState.value = 'send';
 }
 
 function changeInfoInterval() {
   clearInterval(startTimer.value);
+
   timer.value = 30;
+
   startTimer.value = setInterval(() => {
     if (timer.value > 0) {
       timer.value = timer.value - 1;
     } else {
-      ctaState.value = 'refresh';
+      componentState.value = 'refresh';
       timer.value = 30;
       clearInterval(startTimer.value);
     }
-  }, 1000);
+  }, 1000) as unknown as number;
+
   loading.value = true;
 }
 
-async function previewChangeInfo() {
-  if (_convertDirectionBack) {
-    _convertDirectionBack = false;
-    return;
-  }
-  ctaState.value = 'send';
-  if (!requestAmount.value) return;
-  try {
-    changeInfoInterval();
-    if (from === to) return;
-    await fStore.checkConvertInfo({
-      from: currentSendFromCurrency.code.value,
-      to: currentSendToCurrency.code.value,
-      request_amount: String(requestAmount.value),
-    });
-  } catch (err) {
-    SentryUtil.capture(
-      err,
-      'ChangeCurrency',
-      'checkConvertInfo',
-      "error can't retrieve convert info"
-    );
-  } finally {
-    loading.value = false;
-  }
-}
+async function previewChangeInfo(direction: 'from' | 'to') {
+  componentState.value = 'send';
 
-//TODO: not used method
-async function previewChangeInfoBack() {
-  _convertDirectionBack = true;
-  const _requestAmount = fStore.convertInfo.estimatedAmount;
-  if (!_requestAmount) return;
-  ctaState.value = 'send';
   try {
     changeInfoInterval();
-    if (from === to) return;
-    await fStore.checkConvertInfoBack({
-      to: codeFrom || currentSendFromCurrency.code.value,
-      from: codeTo || currentSendToCurrency.code.value,
-      request_amount: String(_requestAmount),
-    });
-    requestAmount.value = +(fStore.convertInfo.requestAmount || 0);
+    if (
+      currentSendFromCurrency.value.code === currentSendToCurrency.value.code
+    ) {
+      return;
+    }
+
+    const data: Omit<TConvertData, 'amount'> = {
+      from: '',
+      to: '',
+      request_amount: '',
+    };
+
+    if (direction === 'from') {
+      data.from = currentSendFromCurrency.value.code;
+      data.to = currentSendToCurrency.value.code;
+      data.request_amount = String(
+        getCorrectValue(Number(fundsStore.convertInfo.requestAmount))
+      );
+    } else {
+      data.from = currentSendToCurrency.value.code;
+      data.to = currentSendFromCurrency.value.code;
+      data.request_amount = String(
+        getCorrectValue(Number(fundsStore.convertInfo.estimatedAmount))
+      );
+    }
+
+    await fundsStore.checkConvertInfo(data, direction);
   } catch (err) {
     SentryUtil.capture(
       err,
@@ -245,14 +324,6 @@ async function previewChangeInfoBack() {
 }
 
 const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
-const debounceChangeInfoBack = debounce(previewChangeInfoBack, DEBOUNCE_TIMER);
-
-watch(requestAmount, debounceChangeInfo);
-
-//TODO: not called
-const onChangeEstimatedAmount = () => {
-  debounceChangeInfoBack();
-};
 
 function convertCurrency() {
   emit('show-2fa');
@@ -261,20 +332,20 @@ function convertCurrency() {
 async function convertFunds() {
   try {
     loading.value = true;
-    await fStore.changeCurrency({
-      from: convertInfo.value.from,
-      to: convertInfo.value.to,
-      amount: String(requestAmount.value),
+    await fundsStore.changeCurrency({
+      from: currentSendFromCurrency.value.code,
+      to: currentSendToCurrency.value.code,
+      amount: String(+fundsStore.convertInfo.requestAmount),
     });
-    fStore.clearConvertInfo();
+    fundsStore.$reset();
     router.push({
       name: Route.DashboardHome,
     });
-  } catch (err: any) {
+  } catch (err) {
     const code = err?.response?.data?.code;
 
     // insufficient funds case
-    if (+code === 0) {
+    if (Number(code) === 0) {
       toast.add({
         severity: 'error',
         summary: tm('transactions.convert.insufficientfunds') as string,
@@ -298,28 +369,37 @@ if (convert.value) {
   convertFunds();
 }
 
-const onBlur = (event: any) => {
-  const newElem = event.relatedTarget?.nodeName;
-  const elem = event.target;
-  if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    elem.focus();
+function onBlur(event: FocusEvent) {
+  const elem = event.target as HTMLInputElement;
+
+  if (event.relatedTarget) {
+    (event.relatedTarget as HTMLInputElement).focus();
+  } else {
+    elem?.focus();
   }
+}
+
+const swapCoins = () => {
+  fundsStore.swapCoins();
+
+  previewChangeInfo('from');
 };
 
-const replaceCoins = () => {
-  fStore.replaceCoins();
-  const { from, to, imgFrom, imgTo } = fStore.getState;
-  const _codeFrom = currentSendFromCurrency.code.value;
+const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
+  fundsStore.setCrypto(
+    coinInfo.name,
+    coinInfo.code,
+    coinInfo.imageUrl,
+    direction
+  );
 
-  currentSendFromCurrency.name.value = from || '';
-  currentSendFromCurrency.img.value = imgFrom;
-  currentSendFromCurrency.code.value = currentSendToCurrency.code.value;
+  showSelectCoinDialog.value[direction] = false;
 
-  currentSendToCurrency.name.value = to || '';
-  currentSendToCurrency.img.value = imgTo;
-  currentSendToCurrency.code.value = _codeFrom;
+  if (preventConvert.value) {
+    return;
+  }
 
-  requestAmount.value = +fStore.convertInfo?.estimatedAmount;
+  previewChangeInfo('from');
 };
 </script>
 
@@ -337,7 +417,7 @@ const replaceCoins = () => {
     font-size: 12px;
     line-height: 16px;
     display: flex;
-    color: #78809b;
+    color: $color-brand-2-300;
   }
 
   > .input {
@@ -365,6 +445,7 @@ const replaceCoins = () => {
     top: 4px;
     width: 114px;
     height: 64px;
+    //TODO change to variables
     background: #edf0fb;
     border-radius: 13px;
     border: 0;
@@ -385,44 +466,6 @@ const replaceCoins = () => {
   }
 
   > .name {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: #0d1f3c;
-    margin-right: 18px;
-  }
-}
-
-.options-list {
-  position: absolute;
-  top: 70px;
-  width: 100%;
-  right: 0;
-  background: #edf0fb;
-  border-radius: 13px;
-  padding: 10px 18px;
-  z-index: 2;
-}
-
-.options-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  cursor: pointer;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  > .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  > .currency {
     font-weight: 600;
     font-size: 13px;
     line-height: 18px;
@@ -475,28 +518,10 @@ const replaceCoins = () => {
     display: flex;
     align-items: center;
     color: $color-brand-2-300;
-  }
-}
 
-.clock-wrapper {
-  font-weight: 400;
-  font-size: 12px;
-  line-height: 16px;
-  color: $color-red-500;
-}
-
-.different-coins {
-  display: flex;
-  align-items: center;
-  height: 110px;
-
-  > .text {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    color: #0d1f3c;
+    &.-red {
+      color: $color-red-500;
+    }
   }
 }
 </style>

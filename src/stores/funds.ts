@@ -2,25 +2,26 @@ import { defineStore } from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
 
 import fundsService from '@/services/fundsService';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
+
+export interface ICoinForExchange {
+  name: string;
+  code: string;
+  img: string;
+}
 
 interface IFundsState {
   convertInfo: IConvertInfo;
   convertFunds: boolean;
-  from: string | null;
-  to: string | null;
-  codeFrom: string | null;
-  codeTo: string | null;
-  imgFrom: string | null;
-  imgTo: string | null;
+  from: ICoinForExchange | null;
+  to: ICoinForExchange | null;
 }
 
 export const emptyConvert = {
   from: '',
   to: '',
-  codeFrom: '',
-  codeTo: '',
   rate: '0',
   backRate: '0',
   fee: '0',
@@ -35,31 +36,30 @@ export const useFundsStore = defineStore('funds', {
   state: (): IFundsState => ({
     convertInfo: cloneDeep(emptyConvert),
     convertFunds: false,
-    from: 'BTC',
-    codeFrom: 'tbtc',
-    to: 'LTC',
-    codeTo: 'tltc',
-    imgFrom: require('@/assets/icon/currencies/btc.svg'),
-    imgTo: require('@/assets/icon/currencies/ltc.svg'),
+    from: {
+      name: 'BTC',
+      code: 'tbtc',
+      img: `${STATIC_BASE_URL}/currencies/btc.svg`,
+    },
+    to: {
+      name: 'LTC',
+      code: 'tltc',
+      img: `${STATIC_BASE_URL}/currencies/ltc.svg`,
+    },
   }),
 
   getters: {
     getState: (state) => state,
-
     getConvertInfo: (state) => state.convertInfo,
     getConvertFunds: (state) => state.convertFunds,
   },
 
   actions: {
-    //TODO: duplicate methods checkConvertInfo and checkConvertInfoBack
-    async checkConvertInfo(data: Omit<TConvertData, 'amount'>): Promise<void> {
-      this.convertInfo = await fundsService.convertInfo(data);
-    },
-
-    async checkConvertInfoBack(
-      data: Omit<TConvertData, 'amount'>
+    async checkConvertInfo(
+      data: Omit<TConvertData, 'amount'>,
+      dir: 'from' | 'to'
     ): Promise<void> {
-      this.convertInfo = await fundsService.convertInfoBack(data);
+      this.convertInfo = await fundsService.convertInfo(data, dir);
     },
 
     async changeCurrency(
@@ -72,34 +72,23 @@ export const useFundsStore = defineStore('funds', {
       this.convertFunds = val;
     },
 
-    clearConvertInfo(): void {
-      this.convertFunds = false;
-      this.convertInfo = cloneDeep(emptyConvert);
-      //TODO: remove - temporary hack
-      this.from = 'BTC';
-      this.codeFrom = 'tbtc';
-      this.to = 'LTC';
-      this.codeTo = 'tltc';
-      this.imgFrom = require('@/assets/icon/currencies/btc.svg');
-      this.imgTo = require('@/assets/icon/currencies/ltc.svg');
+    setCrypto(
+      crypto: string,
+      code: string,
+      img: string,
+      direction: 'to' | 'from'
+    ): void {
+      this[direction] = {
+        name: crypto,
+        code: code,
+        img: img,
+      };
     },
-    setCryptoTo(crypto: string, code: string, img: string): void {
-      this.to = crypto;
-      this.codeTo = code;
-      this.imgTo = img;
-    },
-    setCryptoFrom(crypto: string, code: string, img: string): void {
-      this.from = crypto;
-      this.codeFrom = code;
-      this.imgFrom = img;
-    },
-    replaceCoins(): void {
-      const _from = this.from;
-      const _imgFrom = this.imgFrom;
+
+    swapCoins(): void {
+      const _from = Object.assign({}, this.from);
       this.from = this.to;
-      this.imgFrom = this.imgTo;
       this.to = _from;
-      this.imgTo = _imgFrom;
     },
   },
 });

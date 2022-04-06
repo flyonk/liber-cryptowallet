@@ -9,8 +9,10 @@
       />
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.sum
-          }}<span class="currency">{{ transaction.code }}</span>
+          {{ transaction.sum }}
+          <span class="currency">
+            {{ transaction.code }}
+          </span>
         </div>
         <div class="arrow">
           <img alt="right" src="@/assets/icon/short_right.svg" />
@@ -18,8 +20,12 @@
       </div>
       <h2 class="sendto">{{ transaction.info }}</h2>
       <p class="date">
-        <!-- TODO: add number depends -->
-        2 {{ $t('common.daysAgo') }}
+        <!--TODO: diff from now-->
+        {{
+          transaction.finishDate
+            ? transaction.finishDate
+            : transaction.startDate
+        }}
       </p>
       <div class="controls">
         <button v-if="transactionType === 'send'" class="btn -pdf">
@@ -74,6 +80,16 @@
         </p>
         <p class="description">0,12345678 {{ transaction.code }}</p>
       </li>
+      <li v-if="transaction.from?.code" class="main-item">
+        <p class="name">
+          {{ $t('transactions.convertTransaction') }}
+        </p>
+        <p class="description">
+          {{ $t('common.from') }}
+          {{ transaction.from?.amount }}
+          {{ transaction.from?.code.toUpperCase() }}
+        </p>
+      </li>
       <li class="main-item">
         <div class="inner">
           <p class="name">
@@ -109,19 +125,19 @@ import { Route } from '@/router/types';
 const route = useRoute();
 const pStore = useProfileStore();
 
-const transactionType = ref('payment-link');
 const receiver = ref('');
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+let transactionType = ref('');
 
 onMounted(async () => {
   try {
     if (!route.params.id) return;
     transaction.value = (await transactionService.getTransactionById(
-      route.params.id as string,
-      route.params.direction as string
+      route.params.id as string
     )) as INetTransaction;
 
     await getTransactionReceiver();
+    transactionType.value = transaction.value.type;
   } catch (err) {
     console.log(err);
   }

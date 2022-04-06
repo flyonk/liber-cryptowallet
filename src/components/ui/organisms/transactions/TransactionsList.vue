@@ -2,11 +2,11 @@
   <ul class="transactions">
     <li
       v-for="(
-        { icon, sum, info, status, code, type, id, direction }, index
+        { icon, sum, info, status, code, type, id, to, from }, index
       ) in displayedTransactions"
       :key="index"
       class="item"
-      @click="$router.push(`/transactions/details/${id}/${direction}`)"
+      @click="$router.push(`/transactions/details/${id}`)"
     >
       <transactions-list-item
         :icon="icon"
@@ -15,6 +15,8 @@
         :status="status"
         :code="code"
         :type="type"
+        :to="to"
+        :from="from"
       />
     </li>
   </ul>

@@ -1,3 +1,5 @@
+import { STATIC_BASE_URL } from '@/constants';
+
 export interface IAccount {
   name: string;
   balance: string;
@@ -5,6 +7,7 @@ export interface IAccount {
   code: string;
   baseBalanceConversion: string;
   baseBalanceConversionCode: string;
+  imageUrl: string;
 }
 
 export default {
@@ -17,6 +20,7 @@ export default {
       code: input.code,
       baseBalanceConversion: input.base_balance || 0,
       baseBalanceConversionCode: input.base_balance_code || '€',
+      imageUrl: `${STATIC_BASE_URL}/currencies/${input.code.substring(1)}.svg`, //TODO: hack for testnet
     };
   },
 };
