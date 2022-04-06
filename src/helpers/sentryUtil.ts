@@ -1,26 +1,18 @@
 import { setUser, captureException } from '@sentry/browser';
 import { cloneDeep } from 'lodash';
 
-//TODO: This is a stub interface - import interface from model
-interface IUser {
-  id?: string;
-  userName?: string;
-  email?: string;
-}
+import { useProfileStore } from '@/stores/profile';
+import { IProfile } from '@/models/profile/profile';
 
 export default {
   setUser(): void {
-    //TODO: get user data from store
-    const user: IUser = {
-      id: '1234',
-      userName: 'cw user',
-      email: 'cwtestuser@mail.com',
-    };
-    setUser({
-      id: user?.id,
-      username: user?.userName,
-      email: user?.email,
-    });
+    const userStore = useProfileStore();
+    const user: Partial<IProfile> = userStore.user.id
+      ? userStore.user
+      : {
+          user: 'Unknown user',
+        };
+    setUser(user);
   },
   capture(
     error: any,

@@ -9,7 +9,7 @@ import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys, SStorageKeys } from '@/types/storage';
 
-interface IUserProfile {
+export interface IUserProfile {
   user: IProfile;
 }
 
@@ -30,6 +30,7 @@ export const useProfileStore = defineStore('profile', {
       this.user = await this.getUserProfile();
       if (this.user.id) {
         this.syncUserDataInStorage();
+        SentryUtil.setUser();
       }
     },
 
