@@ -12,6 +12,7 @@
       v-model="firstname"
       @focus="showClearFirstNameBtn"
       @blur="closeClearFirstNameBtn"
+      @input.stop="firstNamePreventExtraCharacters"
     >
       <template #label>
         {{ $t('common.firstName') }}
@@ -28,6 +29,7 @@
       v-model="lastname"
       @focus="showClearLastNameBtn"
       @blur="closeClearLastNameBtn"
+      @input.stop="lastNamePreventExtraCharacters"
     >
       <template #label>
         {{ $t('common.lastName') }}
@@ -64,6 +66,7 @@ const firstname = ref('');
 const lastname = ref('');
 const isClearFirstNameBtnShown = ref(false);
 const isClearLastNameBtnShown = ref(false);
+const preventNumbersRegExp = new RegExp(/([\d*])/, 'g');
 
 const isFullNameInvalid = computed(() => {
   return !firstname.value || !lastname.value;
@@ -99,5 +102,19 @@ const nextStep = () => {
     lastName: lastname.value,
   });
   emit('next');
+};
+
+const firstNamePreventExtraCharacters = (event: Event) => {
+  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '');
+
+  const target = event.target as HTMLInputElement;
+  target.value = firstname.value;
+};
+
+const lastNamePreventExtraCharacters = (event: Event) => {
+  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '');
+
+  const target = event.target as HTMLInputElement;
+  target.value = lastname.value;
 };
 </script>
