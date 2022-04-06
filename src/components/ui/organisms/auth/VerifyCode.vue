@@ -104,6 +104,22 @@ const onComplete = async (data: string) => {
   try {
     await authStore.signInProceed({ phone: phone.value, otp });
     await pStore.init();
+
+    switch (pStore.getUser.status) {
+      case EUserStatus.authenticated:
+        authStore.setStep(2, 'registration');
+
+        return await router.push({
+          name: Route.SignUp,
+          query: { step: 2 },
+        });
+
+      case EUserStatus.registered:
+        return await router.push({
+          name: Route.KYCMain,
+        });
+    }
+
     if (pStore.getUser.kycStatus > EKYCStatus.not_started) {
       if (await get(EStorageKeys.passcode)) {
         return nextStep();
@@ -112,22 +128,8 @@ const onComplete = async (data: string) => {
           name: Route.AuthPasscode,
         });
       }
-    }
-
-    switch (pStore.getUser.status) {
-      case EUserStatus.authenticated:
-        authStore.setStep(2, 'registration');
-
-        return await router.push({
-          name: Route.SignUp,
-        });
-
-      case EUserStatus.registered:
-        return await router.push({
-          name: Route.KYCMain,
-        });
-      default:
-        return nextStep();
+    } else {
+      nextStep();
     }
   } catch (err) {
     isError.value = true;

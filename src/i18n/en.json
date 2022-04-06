@@ -46,6 +46,7 @@
     "login": {
       "step1Title": "Log in to Liber",
       "step1Description": "Enter your registered mobile number to log in",
+      "step1DescriptionValuable": "We will send verification code to this number.",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
       "step1AccountExists": "Don’t have an account?",
