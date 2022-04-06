@@ -13,6 +13,7 @@
         :base-conversion-sum="balance.baseBalanceConversion"
         :coin-code="balance.name"
         :currency="balance.baseBalanceConversionCode"
+        :coin-icon-url="balance.imageUrl"
       />
       <!--TODO: move to separated component-->
       <VueAgile

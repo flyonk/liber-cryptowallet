@@ -20,8 +20,12 @@
       </div>
       <h2 class="sendto">{{ transaction.info }}</h2>
       <p class="date">
-        <!-- TODO: add number depends -->
-        2 {{ $t('common.daysAgo') }}
+        <!--TODO: diff from now-->
+        {{
+          transaction.finishDate
+            ? transaction.finishDate
+            : transaction.startDate
+        }}
       </p>
       <div class="controls">
         <button v-if="transactionType === 'send'" class="btn -pdf">
@@ -121,9 +125,9 @@ import { Route } from '@/router/types';
 const route = useRoute();
 const pStore = useProfileStore();
 
-const transactionType = ref('payment-link');
 const receiver = ref('');
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+let transactionType = ref('');
 
 onMounted(async () => {
   try {
@@ -133,6 +137,7 @@ onMounted(async () => {
     )) as INetTransaction;
 
     await getTransactionReceiver();
+    transactionType.value = transaction.value.type;
   } catch (err) {
     console.log(err);
   }

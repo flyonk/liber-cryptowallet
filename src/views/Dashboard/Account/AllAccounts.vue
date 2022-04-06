@@ -34,8 +34,7 @@
         class="item"
         @click="$router.push(getCurrencyUrl(currency.code))"
       >
-        <div class="icon" />
-        <!--        <img alt class="icon" src="" />-->
+        <img alt class="icon" :src="currency.imageUrl" />
         <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
         <p class="description">{{ currency.name }}</p>
         <h5 class="sum">{{ currency.balance }}</h5>

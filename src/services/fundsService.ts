@@ -10,6 +10,7 @@ import coinMapper, { IFoundsCoin } from '@/models/funds/coin';
 
 import { TSuccessResponse } from '@/types/api';
 import { TRecipient } from '@/stores/transfer';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 export default {
   async getCoins(): Promise<IFoundsCoin[]> {
@@ -24,16 +25,12 @@ export default {
     return depositMapper.deserialize(res.data);
   },
 
-  async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
-    const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserialize(res.data, data);
-  },
-
-  async convertInfoBack(
-    data: Omit<TConvertData, 'amount'>
+  async convertInfo(
+    data: Omit<TConvertData, 'amount'>,
+    dir: 'from' | 'to'
   ): Promise<IConvertInfo> {
     const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserializeBack(res.data, data);
+    return convertInfoMapper.deserialize(res.data, data, dir);
   },
 
   async convert(
@@ -46,6 +43,8 @@ export default {
     coin: string,
     payload: { recipient: TRecipient; amount: string }
   ): Promise<number> {
-    return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
+    payload.recipient.phone = formatPhoneNumber(payload.recipient.phone);
+
+    return (await axios.post(apiService.transfer.send(coin), payload)).data;
   },
 };
