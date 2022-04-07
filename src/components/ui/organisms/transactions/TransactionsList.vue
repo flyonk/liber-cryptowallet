@@ -9,25 +9,25 @@
       @click="$router.push(`/transactions/details/${id}`)"
     >
       <transactions-list-item
+        :code="code"
+        :from="from"
         :icon="icon"
-        :sum="sum"
         :info="info"
         :status="status"
-        :code="code"
-        :type="type"
+        :sum="sum"
         :to="to"
-        :from="from"
+        :type="type"
       />
     </li>
   </ul>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
 import { INetTransaction } from '@/models/transaction/transaction';
 
-import TransactionsListItem from '@/components/ui/molecules/TransactionsListItem.vue';
+import TransactionsListItem from '@/components/ui/molecules/TransactionListItem/TransactionsListItem.vue';
 
 const props = defineProps({
   transactions: {

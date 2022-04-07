@@ -19,7 +19,6 @@ export interface IConvertInfo {
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any, data: any, dir: 'from' | 'to'): IConvertInfo {
-    console.log('from and to', data.request_amount, input.estimated_amount);
     return {
       from: dir === 'from' ? input.from : input.to,
       to: dir === 'from' ? input.to : input.from,

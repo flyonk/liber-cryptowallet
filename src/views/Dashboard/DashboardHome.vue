@@ -28,8 +28,9 @@
           </div>
         </div>
         <div class="right">
-          <img class="notification ml-auto" src="@/assets/icon/bell.svg" />
+          <img alt class="notification ml-auto" src="@/assets/icon/bell.svg" />
           <img
+            alt
             class="refresh ml-auto"
             src="@/assets/icon/refresh.svg"
             @click="updateDashboardData"
@@ -104,14 +105,14 @@
       <div class="transactions-header">
         <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
         <span
-          class="button"
           :class="{ '-active': hasTransactions }"
+          class="button"
           @click="$router.push({ name: Route.TransactionsAll })"
           >{{ $t('views.dashboard.home.seeAll') }}</span
         >
       </div>
       <div v-if="hasTransactions">
-        <transactions-list :transactions="transactions" :preview="preview" />
+        <transactions-list :preview="preview" :transactions="transactions" />
       </div>
       <div v-else class="no-transactions">
         <img class="mr-2" src="@/assets/icon/clock.svg" />
@@ -232,6 +233,7 @@ onMounted(async () => {
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
+    console.debug(transactions.value);
   } catch (error) {
     console.error(error);
     proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');
