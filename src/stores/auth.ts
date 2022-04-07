@@ -272,6 +272,7 @@ export const useAuthStore = defineStore('auth', {
         remove(EStorageKeys.refreshToken),
         remove(EStorageKeys.tokenExpire),
       ]);
+      this.$reset();
     },
   },
 });
