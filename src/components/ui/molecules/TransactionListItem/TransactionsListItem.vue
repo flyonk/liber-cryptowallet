@@ -40,6 +40,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  mainCoin: {
+    type: String,
+    default: '',
+  },
   to: {
     type: Object as PropType<TConvertTransaction>,
     default: () => ({} as TConvertTransaction),
@@ -59,6 +63,7 @@ const currentComponent = computed(() => {
           icon: props.icon,
           to: props.to,
           from: props.from,
+          mainCoin: props.mainCoin,
         },
       };
     default:

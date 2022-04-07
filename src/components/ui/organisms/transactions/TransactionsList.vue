@@ -13,6 +13,7 @@
         :from="from"
         :icon="icon"
         :info="info"
+        :main-coin="mainCoin"
         :status="status"
         :sum="sum"
         :to="to"
@@ -37,6 +38,10 @@ const props = defineProps({
   preview: {
     type: Number,
     default: () => 0,
+  },
+  mainCoin: {
+    type: String,
+    default: '',
   },
 });
 

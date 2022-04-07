@@ -56,5 +56,9 @@ defineProps({
     type: String,
     default: '',
   },
+  mainCoin: {
+    type: String,
+    required: true,
+  },
 });
 </script>

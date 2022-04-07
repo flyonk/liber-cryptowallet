@@ -12,8 +12,8 @@
         :balance="balance.balance"
         :base-conversion-sum="balance.baseBalanceConversion"
         :coin-code="balance.name"
-        :currency="balance.baseBalanceConversionCode"
         :coin-icon-url="balance.imageUrl"
+        :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
       <VueAgile
@@ -68,7 +68,10 @@
       </div>
 
       <div v-if="activeTab === 1">
-        <transactions-list :transactions="transactions" />
+        <transactions-list
+          :main-coin="currentCoin"
+          :transactions="transactions"
+        />
       </div>
 
       <div v-if="activeTab === 2" class="wallet">
@@ -79,7 +82,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -97,10 +100,11 @@ let showControls = ref(false);
 const { tm } = useI18n();
 
 //TODO: write full name accountStore
-const aStore = useAccountStore();
+const accountStore = useAccountStore();
 const profileStore = useProfileStore();
 
 const activeTab = ref(1);
+const currentCoin = ref(null) as Ref<string | null>;
 
 const route = useRoute();
 const router = useRouter();
@@ -108,12 +112,17 @@ const router = useRouter();
 /**
  * Lifecycle
  */
-onMounted(() => {
-  if (route.params.coin) aStore.init(route.params.coin as string);
+onBeforeMount(() => {
+  if (route.params.coin) {
+    const coin = route.params.coin as string;
+
+    accountStore.init(coin);
+    currentCoin.value = coin;
+  }
 });
 
-const transactions = computed(() => aStore.getCoinTransactions);
-const balance = computed(() => aStore.getBalanceByCoin);
+const transactions = computed(() => accountStore.getCoinTransactions);
+const balance = computed(() => accountStore.getBalanceByCoin);
 
 const carousel = [
   {
