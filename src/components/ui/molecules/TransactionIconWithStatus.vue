@@ -1,0 +1,70 @@
+<template>
+  <div class="image-block">
+    <img :src="pathToImage" alt="" class="image" />
+    <img
+      v-if="status !== 'completed'"
+      :src="pathToStatus"
+      alt=""
+      class="status"
+    />
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { computed } from 'vue';
+import { STATIC_BASE_URL } from '@/constants';
+
+const props = defineProps({
+  imgPath: {
+    type: String,
+    required: true,
+  },
+
+  status: {
+    type: String,
+    default: 'completed',
+    validator: (value: string) => ['pending', 'failed'].includes(value),
+  },
+
+  isCurrency: {
+    type: Boolean,
+    default: false,
+  },
+});
+
+const pathToImage = computed(() => {
+  const directory = props.isCurrency ? 'currencies' : 'transactions';
+
+  return `${STATIC_BASE_URL}/${directory}/${props.imgPath}.svg`;
+});
+
+const pathToStatus = computed(() => {
+  const mapper = {
+    pending: 'pending',
+    failed: 'reverted',
+  };
+
+  return `${STATIC_BASE_URL}/transactions/statuses/${
+    mapper[props.status as 'pending' | 'failed']
+  }.svg`;
+});
+</script>
+
+<style lang="scss">
+.image-block {
+  height: 48px;
+  width: 48px;
+  position: relative;
+
+  > .image {
+    width: 100%;
+    height: 100%;
+  }
+
+  > .status {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+  }
+}
+</style>

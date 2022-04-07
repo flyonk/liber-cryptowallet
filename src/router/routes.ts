@@ -211,6 +211,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'details/:id',
         name: Route.TransactionsDetails,
+        meta: { layout: 'default' },
         component: TransactionDetails,
       },
       {

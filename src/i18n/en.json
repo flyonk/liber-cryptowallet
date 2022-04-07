@@ -138,12 +138,16 @@
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
-    "transferFee": "Transfer Fee",
+    "transferFee": "Fee",
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
+    "statement": "Statement",
+    "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
+    "rate": "Rate",
+    "bought": "Bought",
     "operations": {
       "income": "Received",
       "outcome": "Sent",
@@ -156,7 +160,7 @@
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
-      "finished": "Finished",
+      "finished": "Completed",
       "cancelled": "Cancelled"
     },
     "carousel": {
