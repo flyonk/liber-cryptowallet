@@ -22,12 +22,7 @@
     <div class="header">
       <h2 class="sendto">{{ infoText }}</h2>
       <p class="date">
-        <!--TODO: diff from now-->
-        {{
-          transaction.finishDate
-            ? transaction.finishDate
-            : transaction.startDate
-        }}
+        {{ relativeDate }}
       </p>
     </div>
     <ul class="main mb-5">
@@ -84,11 +79,10 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, Ref, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed } from 'vue';
 
-import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
+import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
@@ -98,27 +92,28 @@ import {
 } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { PropType } from 'vue-demi';
 
-const route = useRoute();
-
-let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+const props = defineProps({
+  transaction: {
+    type: Object as PropType<INetTransaction>,
+    required: true,
+  },
+});
 
 const infoText = computed(
   () =>
     'Sold from ' +
-    transaction.value.from?.code?.toUpperCase() +
+    props.transaction.from?.code?.toUpperCase() +
     ' to ' +
-    transaction.value.to?.code?.toUpperCase()
+    props.transaction.to?.code?.toUpperCase()
 );
 
-onMounted(async () => {
-  try {
-    if (!route.params.id) return;
-    transaction.value = (await transactionService.getTransactionById(
-      route.params.id as string
-    )) as INetTransaction;
-  } catch (err) {
-    console.log(err);
-  }
+const relativeDate = computed(() => {
+  return getRelativeDate(
+    props.transaction.finishDate
+      ? props.transaction.finishDate
+      : props.transaction.startDate
+  );
 });
 </script>
