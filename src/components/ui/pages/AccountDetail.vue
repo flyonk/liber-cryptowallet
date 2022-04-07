@@ -88,6 +88,7 @@ import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useFundsStore } from '@/stores/funds';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
@@ -104,6 +105,7 @@ const activeTab = ref(1);
 
 const route = useRoute();
 const router = useRouter();
+const fundsStore = useFundsStore();
 
 /**
  * Lifecycle
@@ -133,6 +135,24 @@ const carousel = [
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
+    callback() {
+      if (balance.value.code === 'tbtc') return;
+      console.log('balance value', balance.value);
+      const { from } = fundsStore.getState;
+      // from balance
+      fundsStore.setCrypto(
+        from?.name || 'BTC',
+        from?.code || 'tbtc',
+        from?.img || ' ',
+        'to'
+      );
+      fundsStore.setCrypto(
+        balance.value.name,
+        balance.value.code,
+        balance.value.imageUrl,
+        'from'
+      );
+    },
   },
   {
     name: tm('transactions.carousel.withdraw'),
@@ -146,6 +166,9 @@ const onClick = (carouselItem: any) => {
   const { kycStatus } = profileStore.getUser;
   switch (kycStatus) {
     case EKYCStatus.success:
+      if (carouselItem.callback) {
+        carouselItem.callback();
+      }
       router.push({
         name: carouselItem.successRoute,
       });
