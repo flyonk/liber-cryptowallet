@@ -1,3 +1,5 @@
+import { formatPhoneNumber } from '@/helpers/auth';
+
 export interface ILiberContact {
   id: string;
   name: string;
@@ -48,6 +50,6 @@ const requestSerializeCommunicationInfoAdaptor = (
 ): any => {
   return input.map((e: TCommunicationInfo) => {
     const { value, isPrimary } = e;
-    return { value, is_primary: isPrimary };
+    return { value: formatPhoneNumber(value), is_primary: isPrimary };
   });
 };

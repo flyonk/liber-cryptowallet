@@ -59,7 +59,8 @@
           <li class="fees-item">
             <div class="circle">x</div>
             <p class="sum">
-              {{ convertInfo.rate }} {{ currentSendToCurrency.name }}
+              {{ preventConvert ? '0' : convertInfo.rate }}
+              {{ currentSendToCurrency.name }}
             </p>
             <p :class="{ '-red': componentState === 'refresh' }" class="name">
               <template v-if="loading">
@@ -69,7 +70,8 @@
                 {{ $t('transactions.convert.rateChanged') }}
               </template>
               <template v-else>
-                {{ $t('views.deposit.convert.guaranteedRate') }} ({{ timer }}s)
+                {{ $t('views.deposit.convert.guaranteedRate') }}
+                ({{ preventConvert ? '30' : timer }}s)
               </template>
             </p>
           </li>
@@ -85,6 +87,7 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
+            :readonly="true"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
@@ -229,8 +232,8 @@ const preventConvert = computed(() => {
   return (
     loading.value ||
     +fundsStore.convertInfo.requestAmount === 0 ||
-    isSameCurrencies ||
-    isZeroValues
+    isSameCurrencies.value ||
+    isZeroValues.value
   );
 });
 
@@ -367,13 +370,12 @@ if (convert.value) {
 }
 
 function onBlur(event: FocusEvent) {
-  const newElem = event.relatedTarget?.nodeName;
-  const elem = event.target;
+  const elem = event.target as HTMLInputElement;
 
-  if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    elem?.focus();
+  if (event.relatedTarget) {
+    (event.relatedTarget as HTMLInputElement).focus();
   } else {
-    newElem?.focus();
+    elem?.focus();
   }
 }
 
