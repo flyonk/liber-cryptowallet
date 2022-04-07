@@ -1,5 +1,5 @@
 <template>
-  <div v-if="props.contacts.length" class="main-list flex">
+  <div v-if="props.contacts.length" class="main-list">
     <ul class="contacts-list">
       <li
         v-for="contact in props.contacts"
@@ -38,6 +38,8 @@ defineEmits(['contactClick']);
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
+  overflow: auto;
+  padding-bottom: 95px;
 }
 
 .contacts-list {
