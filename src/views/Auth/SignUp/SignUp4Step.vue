@@ -105,14 +105,14 @@ const nextStep = () => {
 };
 
 const firstNamePreventExtraCharacters = (event: Event) => {
-  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '');
+  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '').trim(); //trim for remove the problem after inserting a hint from the iphone keyboard
 
   const target = event.target as HTMLInputElement;
   target.value = firstname.value;
 };
 
 const lastNamePreventExtraCharacters = (event: Event) => {
-  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '');
+  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '').trim(); //trim for remove the problem after inserting a hint from the iphone keyboard
 
   const target = event.target as HTMLInputElement;
   target.value = lastname.value;
