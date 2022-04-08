@@ -5,8 +5,7 @@
         {{ balance }}
         <span class="currency">{{ coinCode.toUpperCase() }}</span>
       </h1>
-      <!--      TODO: get logo of coin-->
-      <img alt class="icon" />
+      <img :src="coinIconUrl" alt class="icon" />
     </div>
     <p class="subtitle heading-gray-md">
       {{ currency }} {{ baseConversionSum }}
@@ -22,7 +21,7 @@ defineProps({
   },
   coinCode: {
     type: String,
-    default: 'USDT',
+    default: 'tbtc',
   },
   baseConversionSum: {
     type: String,
@@ -31,6 +30,10 @@ defineProps({
   currency: {
     type: String,
     default: '€',
+  },
+  coinIconUrl: {
+    type: String,
+    default: '',
   },
 });
 </script>

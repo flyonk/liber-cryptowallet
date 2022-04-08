@@ -111,7 +111,7 @@ onBeforeMount(async (): Promise<void> => {
 });
 
 /**
- * emit true vqlue if passcode is correct
+ * emit true value if passcode is correct
  * emit false value if passcode is wrong
  */
 const emit = defineEmits(['submit']);
@@ -123,9 +123,11 @@ function setNumber(number: string): void {
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
         .then((result: boolean) => {
+          if (!result) passcode.value = '';
           emit('submit', result);
         })
         .catch(() => {
+          passcode.value = '';
           emit('submit', false);
         });
     }
