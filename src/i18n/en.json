@@ -148,6 +148,8 @@
     "downloadState": "Download Statement",
     "rate": "Rate",
     "bought": "Bought",
+    "transactionIdCopied": "Transaction ID is copied successfully",
+    "transactionIdCopyFail": "Failed when copy Transaction ID",
     "operations": {
       "income": "Received",
       "outcome": "Sent",

@@ -1,12 +1,6 @@
 <template name="TransactionDetails">
   <div class="transaction-details">
-    <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.push({ name: Route.DashboardHome })"
-      />
+    <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
           {{ transaction.sum }}
@@ -14,17 +8,24 @@
             {{ transaction.code }}
           </span>
         </div>
-        <div class="arrow">
-          <img alt="right" src="@/assets/icon/short_right.svg" />
-        </div>
       </div>
+      <template #right>
+        <TransactionIconWithStatus
+          v-if="transaction.status"
+          :status="transaction.status"
+          img-path="deposit"
+        />
+      </template>
+    </TopNavigation>
+    <div class="header">
       <h2 class="sendto">{{ transaction.info }}</h2>
       <p class="date">
-        <!--TODO: diff from now-->
         {{
-          transaction.finishDate
-            ? transaction.finishDate
-            : transaction.startDate
+          getRelativeDate(
+            transaction.finishDate
+              ? transaction.finishDate
+              : transaction.startDate
+          )
         }}
       </p>
       <div class="controls">
@@ -97,9 +98,7 @@
           </p>
           <p class="transaction">{{ transaction.id }}</p>
         </div>
-        <div class="inner">
-          <img alt="folders" src="@/assets/icon/folders.svg" />
-        </div>
+        <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
       </li>
     </ul>
     <h2 class="explorer">
@@ -119,8 +118,9 @@ import {
   INetTransaction,
 } from '@/models/transaction/transaction';
 import { useProfileStore } from '@/stores/profile';
+import { getRelativeDate } from '@/helpers/datetime';
 
-import { Route } from '@/router/types';
+import { TopNavigation, TransactionIconWithStatus } from '@/components/ui';
 
 const route = useRoute();
 const pStore = useProfileStore();
@@ -128,6 +128,8 @@ const pStore = useProfileStore();
 const receiver = ref('');
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
 let transactionType = ref('');
+
+defineEmits(['copy']);
 
 onMounted(async () => {
   try {

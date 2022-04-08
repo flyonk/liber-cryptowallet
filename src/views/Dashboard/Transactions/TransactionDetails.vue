@@ -1,16 +1,23 @@
 <template name="TransactionDetails">
-  <component :is="component" :transaction="transaction" />
+  <component
+    :is="component"
+    :transaction="transaction"
+    @copy="copyToClipboard"
+  />
 </template>
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import transactionService from '@/services/transactionService';
 import {
   ETransactionType,
   INetTransaction,
 } from '@/models/transaction/transaction';
+import { Clipboard } from '@capacitor/clipboard';
+import { useToast } from 'primevue/usetoast';
 
 import {
   ConvertTransactionDetails,
@@ -18,6 +25,8 @@ import {
 } from '@/components/ui/organisms/transactions';
 
 const route = useRoute();
+const { tm } = useI18n();
+const toast = useToast();
 
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
 
@@ -40,6 +49,22 @@ const component = computed(() => {
       return DepositTransactionDetails;
   }
 });
+
+const copyToClipboard = async (data: string) => {
+  try {
+    await Clipboard.write({
+      string: data,
+    });
+
+    toast.add({
+      summary: tm('transactions.transactionIdCopied') as string,
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    console.error(`${tm('transactions.transactionIdCopyFail')} `, err);
+  }
+};
 </script>
 
 <style lang="scss">

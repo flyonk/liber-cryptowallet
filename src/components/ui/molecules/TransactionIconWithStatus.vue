@@ -2,7 +2,7 @@
   <div class="image-block">
     <img :src="pathToImage" alt="" class="image" />
     <img
-      v-if="status !== 'completed'"
+      v-if="status !== 'completed' || status !== 'finished'"
       :src="pathToStatus"
       alt=""
       class="status"
@@ -23,7 +23,8 @@ const props = defineProps({
   status: {
     type: String,
     default: 'completed',
-    validator: (value: string) => ['pending', 'failed'].includes(value),
+    validator: (value: string) =>
+      ['pending', 'failed', 'finished', 'completed'].includes(value),
   },
 
   isCurrency: {

@@ -1,9 +1,6 @@
 <template name="TransactionDetails">
   <div class="transaction-details">
-    <TopNavigation
-      class="header"
-      @click:left-icon="$router.push({ name: Route.DashboardHome })"
-    >
+    <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
           {{ transaction.sum }}
@@ -69,7 +66,7 @@
           </p>
           <p class="transaction">{{ transaction.id }}</p>
         </div>
-        <i class="icon ci-copy" />
+        <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
       </li>
     </ul>
     <h2 class="explorer">
@@ -90,10 +87,9 @@ import {
   TransactionIconWithStatus,
   TransactionStatus,
 } from '@/components/ui';
-
-import { Route } from '@/router/types';
 import { PropType } from 'vue-demi';
 
+defineEmits(['copy']);
 const props = defineProps({
   transaction: {
     type: Object as PropType<INetTransaction>,

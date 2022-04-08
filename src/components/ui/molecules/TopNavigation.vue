@@ -35,6 +35,16 @@ defineEmits(['click:left-icon']);
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    > .page-title {
+      font-style: normal;
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: 0.0038em;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
   }
 
   > .header-top {
@@ -52,16 +62,6 @@ defineEmits(['click:left-icon']);
     width: $size;
     height: $size;
     font-size: $size;
-  }
-
-  > .page-title {
-    font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 10px;
-    margin-top: 20px;
   }
 }
 </style>
