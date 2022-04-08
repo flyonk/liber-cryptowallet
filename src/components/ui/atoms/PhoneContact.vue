@@ -1,7 +1,5 @@
 <template>
-  <div class="initials">
-    {{ getContactInitials(props.contact.displayName) }}
-  </div>
+  <ContactInitials :name="props.contact.displayName" />
   <router-link
     :to="{
       name: Route.ContactsSend,
@@ -29,7 +27,8 @@ export default {
 <script setup lang="ts">
 import { PropType } from 'vue';
 
-import { getContactInitials, getContactPhone } from '@/helpers/contacts';
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
