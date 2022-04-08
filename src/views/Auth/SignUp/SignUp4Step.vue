@@ -105,14 +105,32 @@ const nextStep = () => {
 };
 
 const firstNamePreventExtraCharacters = (event: Event) => {
-  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '').trim(); //trim for remove the problem after inserting a hint from the iphone keyboard
+  /**
+   * Trim for remove the problem after inserting a hint from the iphone keyboard.
+   * This insert adds the ' ' character to the field
+   */
+  if (firstname.value.length === 1) {
+    firstname.value = firstname.value
+      .replaceAll(preventNumbersRegExp, '')
+      .trim();
+  }
+
+  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '');
 
   const target = event.target as HTMLInputElement;
   target.value = firstname.value;
 };
 
 const lastNamePreventExtraCharacters = (event: Event) => {
-  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '').trim(); //trim for remove the problem after inserting a hint from the iphone keyboard
+  /**
+   * Trim for remove the problem after inserting a hint from the iphone keyboard.
+   * This insert adds the ' ' character to the field
+   */
+  if (lastname.value.length === 1) {
+    lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '').trim();
+  }
+
+  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '');
 
   const target = event.target as HTMLInputElement;
   target.value = lastname.value;
