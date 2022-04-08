@@ -55,7 +55,11 @@ const isClearBtnShown = ref(false);
 const isEmailInvalid = computed(() => {
   if (!email.value) return true;
   // TODO: clarify correct email regex
-  const correct = new RegExp(/^[^@\s]+@[^@\s]+\.[^@\s]+$/).test(email.value);
+  email.value = email.value.replace(/\s/g, ''); // for iphone hint word inserting
+  const correct = new RegExp(/^[^@\s]+@[^@\s]+\.[^@\s|^\d]+$/).test(
+    email.value
+  );
+
   return !correct;
 });
 
