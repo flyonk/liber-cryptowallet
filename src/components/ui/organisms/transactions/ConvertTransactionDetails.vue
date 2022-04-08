@@ -3,9 +3,9 @@
     <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.sum }}
+          {{ amountWithCode.amount }}
           <span class="currency">
-            {{ transaction.code }}
+            {{ amountWithCode.code }}
           </span>
         </div>
       </div>
@@ -42,21 +42,25 @@
         <p class="name">
           {{ $t('transactions.rate') }}
         </p>
-        <p class="description">0,12345678 {{ transaction.code }}</p>
+        <p class="description">0,12345678 {{ amountWithCode.code }}</p>
       </li>
 
       <li class="main-item">
         <p class="name">
           {{ $t('transactions.transferFee') }}
         </p>
-        <p class="description">0,12345678 {{ transaction.code }}</p>
+        <p class="description">0,12345678 {{ amountWithCode.code }}</p>
       </li>
 
       <li class="main-item">
         <p class="name">
-          {{ $t('transactions.bought') }}
+          {{
+            direction === EDirection.income
+              ? $t('transactions.cost')
+              : $t('transactions.bought')
+          }}
         </p>
-        <p class="description">0,12345678 {{ transaction.code }}</p>
+        <p class="description">0,12345678 {{ amountWithCode.code }}</p>
       </li>
 
       <li class="main-item">
@@ -76,9 +80,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, PropType } from 'vue';
 
-import { INetTransaction } from '@/models/transaction/transaction';
+import { EDirection, INetTransaction } from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
@@ -87,7 +91,6 @@ import {
   TransactionIconWithStatus,
   TransactionStatus,
 } from '@/components/ui';
-import { PropType } from 'vue-demi';
 
 defineEmits(['copy']);
 const props = defineProps({
@@ -95,21 +98,56 @@ const props = defineProps({
     type: Object as PropType<INetTransaction>,
     required: true,
   },
+
+  mainCoin: {
+    type: String,
+    required: true,
+  },
 });
 
-const infoText = computed(
-  () =>
+const direction = computed(() =>
+  props.transaction.from?.code === props.mainCoin
+    ? EDirection.outcome
+    : EDirection.income
+);
+
+const infoText = computed(() => {
+  if (direction.value === EDirection.income) {
+    return (
+      'Bought ' +
+      props.transaction.to?.code?.toUpperCase() +
+      ' with ' +
+      props.transaction.from?.code?.toUpperCase()
+    );
+  }
+
+  return (
     'Sold from ' +
     props.transaction.from?.code?.toUpperCase() +
     ' to ' +
     props.transaction.to?.code?.toUpperCase()
-);
+  );
+});
+
+const amountWithCode = computed(() => {
+  if (direction.value === EDirection.income) {
+    return {
+      amount: '+ ' + props.transaction.to?.amount,
+      code: props.transaction.to?.code?.toUpperCase(),
+    };
+  }
+
+  return {
+    amount: '- ' + props.transaction.from?.amount,
+    code: props.transaction.from?.code?.toUpperCase(),
+  };
+});
 
 const relativeDate = computed(() => {
   return getRelativeDate(
     props.transaction.finishDate
       ? props.transaction.finishDate
-      : props.transaction.startDate
+      : (props.transaction.startDate as string)
   );
 });
 </script>

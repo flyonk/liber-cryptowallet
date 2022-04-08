@@ -1,6 +1,7 @@
 <template name="TransactionDetails">
   <component
     :is="component"
+    :main-coin="mainCoin"
     :transaction="transaction"
     @copy="copyToClipboard"
   />
@@ -29,6 +30,7 @@ const { tm } = useI18n();
 const toast = useToast();
 
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+const mainCoin = ref('');
 
 onBeforeMount(async () => {
   try {
@@ -36,6 +38,10 @@ onBeforeMount(async () => {
     transaction.value = (await transactionService.getTransactionById(
       route.params.id as string
     )) as INetTransaction;
+
+    mainCoin.value = route.query['main-coin']
+      ? (route.query['main-coin'] as string)
+      : '';
   } catch (err) {
     console.log(err);
   }

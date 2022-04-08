@@ -148,6 +148,7 @@
     "downloadState": "Download Statement",
     "rate": "Rate",
     "bought": "Bought",
+    "cost": "Cost",
     "transactionIdCopied": "Transaction ID is copied successfully",
     "transactionIdCopyFail": "Failed when copy Transaction ID",
     "operations": {
