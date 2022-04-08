@@ -28,7 +28,7 @@
       </li>
       <p class="add" @click="addExtraContact">
         <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
-        Additional phone or email
+        {{ $t('views.newcontact.additionalphone') }}
       </p>
     </ul>
     <BaseButton
@@ -37,7 +37,7 @@
       :disabled="isDisabled"
       @click="handleAddContact"
     >
-      Continue
+      {{ $t('common.continueCta') }}
     </BaseButton>
   </div>
 </template>
