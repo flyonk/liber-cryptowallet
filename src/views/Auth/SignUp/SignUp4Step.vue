@@ -109,10 +109,8 @@ const firstNamePreventExtraCharacters = (event: Event) => {
    * Trim for remove the problem after inserting a hint from the iphone keyboard.
    * This insert adds the ' ' character to the field
    */
-  if (firstname.value.length === 1) {
-    firstname.value = firstname.value
-      .replaceAll(preventNumbersRegExp, '')
-      .trim();
+  if (firstname.value === ' ') {
+    firstname.value = firstname.value.replace(/\s/, '');
   }
 
   firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '');
@@ -123,11 +121,11 @@ const firstNamePreventExtraCharacters = (event: Event) => {
 
 const lastNamePreventExtraCharacters = (event: Event) => {
   /**
-   * Trim for remove the problem after inserting a hint from the iphone keyboard.
+   * /\s/ for remove the problem after inserting a hint from the iphone keyboard.
    * This insert adds the ' ' character to the field
    */
-  if (lastname.value.length === 1) {
-    lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '').trim();
+  if (lastname.value === ' ') {
+    lastname.value = lastname.value.replace(/\s/, '');
   }
 
   lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '');
