@@ -81,14 +81,9 @@ const currentComponent = computed(() => {
   width: 100%;
   margin-bottom: 24px;
 
-  > .icon {
-    margin-right: 12px;
-    width: 40px;
-    height: 40px;
-  }
-
   > .info {
     width: 100%;
+    margin-left: 12px;
 
     > .flex {
       width: 100%;

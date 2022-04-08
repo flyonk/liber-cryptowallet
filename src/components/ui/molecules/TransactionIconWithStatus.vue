@@ -1,5 +1,5 @@
 <template>
-  <div class="image-block">
+  <div :style="styles" class="image-block">
     <img :src="pathToImage" alt="" class="image" />
     <img
       v-if="status !== 'completed' || status !== 'finished'"
@@ -31,7 +31,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+
+  size: {
+    type: Number,
+    default: 48,
+  },
 });
+
+const styles = computed(() => ({
+  height: `${props.size}px`,
+  width: `${props.size}px`,
+}));
 
 const pathToImage = computed(() => {
   const directory = props.isCurrency ? 'currencies' : 'transactions';
@@ -53,8 +63,6 @@ const pathToStatus = computed(() => {
 
 <style lang="scss">
 .image-block {
-  height: 48px;
-  width: 48px;
   position: relative;
 
   > .image {

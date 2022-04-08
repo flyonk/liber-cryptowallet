@@ -1,6 +1,10 @@
 <template>
   <div class="transaction-list-item">
-    <img :src="icon" class="icon" />
+    <transaction-icon-with-status
+      :size="45"
+      :status="status"
+      img-path="deposit"
+    />
     <div class="info">
       <div class="flex">
         <h1 class="title">
@@ -30,6 +34,8 @@
 
 <script lang="ts" setup>
 import { ETransactionStatus } from '@/models/transaction/transaction';
+
+import { TransactionIconWithStatus } from '@/components/ui';
 
 defineProps({
   icon: {

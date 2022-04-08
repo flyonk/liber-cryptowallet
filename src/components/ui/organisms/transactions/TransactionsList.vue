@@ -6,7 +6,7 @@
       ) in displayedTransactions"
       :key="index"
       class="item"
-      @click="$router.push(`/transactions/details/${id}`)"
+      @click="goToRoute(id)"
     >
       <transactions-list-item
         :code="code"
@@ -25,10 +25,14 @@
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { INetTransaction } from '@/models/transaction/transaction';
+import { Route } from '@/router/types';
 
 import TransactionsListItem from '@/components/ui/molecules/TransactionListItem/TransactionsListItem.vue';
+
+const router = useRouter();
 
 const props = defineProps({
   transactions: {
@@ -50,6 +54,20 @@ const displayedTransactions = computed(() => {
     ? props.transactions.slice(0, props.preview)
     : props.transactions;
 });
+
+const goToRoute = (id: string) => {
+  // $router.push(`/transactions/details/${id}`)
+
+  router.push({
+    name: Route.TransactionsDetails,
+    params: {
+      id,
+    },
+    query: {
+      'main-coin': props.mainCoin ? props.mainCoin : null,
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
