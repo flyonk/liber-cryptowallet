@@ -18,9 +18,7 @@
           <img src="@/assets/icon/edit.svg" alt="edit" />
         </div>
       </div>
-      <div class="right">
-        {{ nameInitials }}
-      </div>
+      <ContactInitials :name="accountName" />
     </div>
     <div class="main">
       <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
@@ -42,9 +40,8 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
 import { useProfileStore } from '@/stores/profile';
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;
@@ -52,11 +49,6 @@ let { phone, firstName, lastName } = profileStore.getUser;
 const accountName = `${firstName} ${lastName}`;
 const link = accountName.replaceAll(' ', '');
 const accountID = phone;
-
-const nameInitials = computed(() => {
-  let parts = accountName.split(' ');
-  return parts[0][0] + parts[1][0];
-});
 </script>
 
 <style lang="scss" scoped>
@@ -94,17 +86,6 @@ const nameInitials = computed(() => {
         letter-spacing: -0.0045em;
         color: $color-dark-grey;
       }
-    }
-
-    > .right {
-      height: 56px;
-      width: 56px;
-      background: $color-yellow-100;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      align-self: center;
     }
   }
 
