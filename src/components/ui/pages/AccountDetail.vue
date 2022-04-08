@@ -70,6 +70,7 @@
       <div v-if="activeTab === 1">
         <transactions-list
           :main-coin="currentCoin"
+          :show-coin="false"
           :transactions="transactions"
         />
       </div>

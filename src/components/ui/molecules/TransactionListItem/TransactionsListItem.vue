@@ -52,6 +52,10 @@ const props = defineProps({
     type: Object as PropType<TConvertTransaction>,
     default: () => ({} as TConvertTransaction),
   },
+  showCoin: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const currentComponent = computed(() => {

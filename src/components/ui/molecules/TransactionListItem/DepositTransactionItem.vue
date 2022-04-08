@@ -1,9 +1,10 @@
 <template>
   <div class="transaction-list-item">
     <transaction-icon-with-status
+      :img-path="icon"
+      :is-currency="showCoin"
       :size="45"
       :status="status"
-      img-path="deposit"
     />
     <div class="info">
       <div class="flex">
@@ -36,8 +37,9 @@
 import { ETransactionStatus } from '@/models/transaction/transaction';
 
 import { TransactionIconWithStatus } from '@/components/ui';
+import { computed } from 'vue';
 
-defineProps({
+const props = defineProps({
   icon: {
     type: String,
     default: '',
@@ -66,5 +68,24 @@ defineProps({
     type: String,
     required: true,
   },
+  showCoin: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const icon = computed(() => {
+  if (props.showCoin) {
+    return props.code.toLowerCase();
+  }
+
+  const mapper = {
+    deposit: 'deposit',
+    outcome: 'sent',
+    received: 'received',
+    income: 'received',
+  };
+
+  return mapper[props.type as 'deposit' | 'outcome'];
 });
 </script>

@@ -105,11 +105,13 @@ const props = defineProps({
   },
 });
 
-const direction = computed(() =>
-  props.transaction.from?.code === props.mainCoin
-    ? EDirection.outcome
-    : EDirection.income
-);
+const direction = computed(() => {
+  if (props.transaction.to?.code === props.mainCoin) {
+    return EDirection.income;
+  }
+
+  return EDirection.outcome;
+});
 
 const infoText = computed(() => {
   if (direction.value === EDirection.income) {

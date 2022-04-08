@@ -41,6 +41,10 @@ const props = defineProps({
 const styles = computed(() => ({
   height: `${props.size}px`,
   width: `${props.size}px`,
+  minWidth: `${props.size}px`,
+  minHeight: `${props.size}px`,
+  maxWidth: `${props.size}px`,
+  maxHeight: `${props.size}px`,
 }));
 
 const pathToImage = computed(() => {

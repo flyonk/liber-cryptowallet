@@ -14,6 +14,7 @@
         :icon="icon"
         :info="info"
         :main-coin="mainCoin"
+        :show-coin="$attrs['show-coin']"
         :status="status"
         :sum="sum"
         :to="to"
@@ -56,8 +57,6 @@ const displayedTransactions = computed(() => {
 });
 
 const goToRoute = (id: string) => {
-  // $router.push(`/transactions/details/${id}`)
-
   router.push({
     name: Route.TransactionsDetails,
     params: {
