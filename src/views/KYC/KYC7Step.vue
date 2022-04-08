@@ -11,15 +11,9 @@
       </span>
     </base-progress-circular>
     <div class="footer">
-      <base-button
-        block
-        @click="
-          $router.push({
-            name: Route.Survey,
-          })
-        "
-        >{{ $t('views.kyc.kyc7step.continue') }}</base-button
-      >
+      <base-button block @click="handleComplete">
+        {{ $t('views.kyc.kyc7step.continue') }}
+      </base-button>
     </div>
   </div>
 </template>
@@ -31,9 +25,27 @@ import {
   TopNavigation,
   BaseButton,
 } from '@/components/ui';
+import { useProfileStore } from '@/stores/profile';
+import { useRouter } from 'vue-router';
+
 import { Route } from '@/router/types';
 
 const percent = ref(50);
+const router = useRouter();
+const pStore = useProfileStore();
+
+const handleComplete = async () => {
+  if (!pStore.user.id) await pStore.init();
+  if (pStore.user.is2FAConfigured) {
+    router.push({
+      name: Route.AuthPasscode,
+    });
+  } else {
+    router.push({
+      name: Route.Survey,
+    });
+  }
+};
 </script>
 
 <style scoped lang="scss">

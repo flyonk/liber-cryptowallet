@@ -1,7 +1,7 @@
 <template>
   <div v-if="!show2FA">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="prevStep">
+      <top-navigation v-if="!authStore.isLoggedIn" @click:left-icon="prevStep">
         {{ $t('auth.login.step3Title') }}
       </top-navigation>
     </div>

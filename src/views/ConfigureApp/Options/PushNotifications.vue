@@ -40,20 +40,20 @@ const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
-function goToDashboard() {
+function goToAuthPasscode() {
   router.push({
-    name: Route.DashboardHome,
+    name: Route.AuthPasscode,
   });
 }
 
 const onEnable = (): void => {
   setOptions('true', EStorageKeys.notifications);
-  goToDashboard();
+  goToAuthPasscode();
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.notifications);
-  goToDashboard();
+  goToAuthPasscode();
 };
 </script>
 

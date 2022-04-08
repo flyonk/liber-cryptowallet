@@ -129,7 +129,7 @@ const selectAnswer = (id: number | string) => {
     const userAnswers = getSelectedAnswers();
     saveAnswers(userAnswers).then(() => {
       router.push({
-        name: Route.AuthPasscode,
+        name: Route.TwoFAApp,
       });
     });
     return;
@@ -140,7 +140,7 @@ const selectAnswer = (id: number | string) => {
 
 const closePage = () => {
   router.push({
-    name: Route.AuthPasscode,
+    name: Route.TwoFAApp,
   });
 };
 

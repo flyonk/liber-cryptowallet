@@ -53,9 +53,7 @@ onMounted(async () => {
 });
 
 function prevStep(): void {
-  router.push({
-    name: Route.AuthPasscode,
-  });
+  router.go(-1);
 }
 
 function installApp(): void {
