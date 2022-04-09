@@ -1,6 +1,11 @@
 <template>
-  <div class="initials">
-    {{ getContactInitials(props.name) }}
+  <div
+    class="initials"
+    :style="{
+      backgroundColor: color,
+    }"
+  >
+    {{ initials }}
   </div>
 </template>
 
@@ -12,6 +17,13 @@ const props = defineProps({
     type: String,
   },
 });
+
+const initials = getContactInitials(props.name);
+const letterValue = Math.abs(
+  16777215 -
+    ((initials.charCodeAt(0) || 0) + (initials.charCodeAt(1) || 0)) * 113
+);
+const color = `#${Math.floor(letterValue).toString(16)}`;
 </script>
 
 <style lang="scss" scoped>

@@ -14,6 +14,12 @@ export const mockedContacts: Contact[] = [
     emails: [],
   },
   {
+    contactId: '12',
+    displayName: 'Mickle Jordan',
+    phoneNumbers: [{ number: '+7 123 456 1233' }],
+    emails: [],
+  },
+  {
     contactId: '3',
     displayName: 'Indira Gandi',
     phoneNumbers: [{ number: '+7 123 789 1233' }],
@@ -40,6 +46,18 @@ export const mockedContacts: Contact[] = [
   {
     contactId: '7',
     displayName: 'Иван Тест',
+    phoneNumbers: [{ number: '+7 123 102 9912' }],
+    emails: [],
+  },
+  {
+    contactId: '9',
+    displayName: 'Александр',
+    phoneNumbers: [{ number: '+7 123 102 9912' }],
+    emails: [],
+  },
+  {
+    contactId: '10',
+    displayName: 'Борис Годунов',
     phoneNumbers: [{ number: '+7 123 102 9912' }],
     emails: [],
   },
