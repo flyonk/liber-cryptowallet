@@ -1,14 +1,12 @@
 <template>
   <div v-if="props.contacts.length" class="main-list">
     <ul class="contacts-list">
-      <li
-        v-for="contact in props.contacts"
-        :key="contact.contactId"
-        class="contact-item"
-        @click="$emit('contactClick', contact)"
-      >
-        <PhoneContact :contact="contact" />
-      </li>
+      <template v-for="contact in props.contacts" :key="contact.contactId">
+        <li class="contact-letter">{{ getLetter(contact) }}</li>
+        <li class="contact-item" @click="$emit('contactClick', contact)">
+          <PhoneContact :contact="contact" />
+        </li>
+      </template>
     </ul>
     <PhoneContactsAlphabet />
   </div>
@@ -20,6 +18,8 @@ import { PropType } from 'vue';
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
 import PhoneContactsAlphabet from '@/components/ui/atoms/PhoneContactsAlphabet.vue';
 
+import { getContactInitials } from '@/helpers/contacts';
+
 import { Contact } from '@/types/contacts';
 
 const props = defineProps({
@@ -28,6 +28,11 @@ const props = defineProps({
     default: [] as PropType<Contact[]>,
   },
 });
+
+const getLetter = (contact: Contact) => {
+  const initials = getContactInitials(contact.displayName);
+  return initials.charAt(0).toUpperCase();
+};
 
 defineEmits(['contactClick']);
 </script>
@@ -50,5 +55,16 @@ defineEmits(['contactClick']);
 .contact-item {
   display: flex;
   margin-bottom: 24px;
+}
+
+.contact-letter {
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 18px;
+  text-align: left;
+  letter-spacing: -0.0008em;
+  color: $color-brand-2-300;
+  margin-bottom: 12px;
 }
 </style>
