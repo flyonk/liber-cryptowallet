@@ -48,6 +48,7 @@
 .icon-check:before {
   content: '\e906';
 }
+// TODO: FIX icon left - now its icon right
 .icon-chevron-left:before {
   content: '\e907';
 }
@@ -84,6 +85,7 @@
 .icon-home-on:before {
   content: '\e912';
 }
+// TODO: fix down icon
 .icon-ic16-arrow-down:before {
   content: '\e913';
 }
@@ -102,6 +104,7 @@
 .icon-main:before {
   content: '\e918';
 }
+
 .icon-plus_circle:before {
   content: '\e919';
 }

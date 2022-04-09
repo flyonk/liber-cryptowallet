@@ -1,16 +1,14 @@
 <template name="AllAccounts">
   <div class="all-accounts">
-    <div class="header">
+    <div class="accounts-header">
       <img
         alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
         @click="$router.back()"
       />
-      <img
-        alt="circle-add"
-        class="add"
-        src="@/assets/icon/circle-add.svg"
+      <i
+        class="icon-plus_circle add"
         @click="
           $router.push({
             name: Route.DepositCoin,
@@ -78,12 +76,6 @@ function getCurrencyUrl(code: string): string {
   flex-grow: 1;
   overflow: auto;
 
-  > .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
-
   > .title {
     font-weight: 800;
     font-size: 28px;
@@ -138,6 +130,17 @@ function getCurrencyUrl(code: string): string {
         letter-spacing: -0.0031em;
       }
     }
+  }
+}
+
+.accounts-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+
+  > .add {
+    font-size: 38px;
+    color: blue;
   }
 }
 </style>
