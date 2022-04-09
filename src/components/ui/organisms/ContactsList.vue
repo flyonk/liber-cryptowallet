@@ -35,16 +35,16 @@ defineEmits(['contactClick']);
 <style lang="scss" scoped>
 .main-list {
   width: 100%;
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  overflow: auto;
+  overflow: hidden;
   padding-bottom: 95px;
+  position: relative;
 }
 
 .contacts-list {
   display: flex;
   flex-direction: column;
+  overflow: auto;
+  height: 100%;
 }
 
 .contact-item {
