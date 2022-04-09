@@ -27,6 +27,9 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+// TODO: need add refresh icon (like in right side of header in dashboard home page)
+// TODO: need add a lot of icons for Profile Settings display. '/profile' route
+
 .icon-all-accounts:before {
   content: '\e900';
 }
@@ -138,4 +141,3 @@
 .icon-withdraw:before {
   content: '\e923';
 }
-// TODO: need add refresh icon (like in right side of header in dashboard home page)

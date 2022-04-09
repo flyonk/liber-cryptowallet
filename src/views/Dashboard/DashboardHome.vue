@@ -367,8 +367,8 @@ const showWelcomeMessage = computed(() => {
 
     > .right {
       > .notification {
-        opacity: 0.5;
         margin-right: 35px;
+        font-size: 24px;
       }
     }
   }
