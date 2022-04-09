@@ -9,7 +9,7 @@
       />
       <h1 class="title">{{ $t('common.coinSelect') }}</h1>
       <label class="input-label">
-        <img alt="search" class="icon" src="@/assets/icon/search.svg" />
+        <i class="icon-search" />
         <input
           :placeholder="$t('common.searchCoin')"
           class="search"
@@ -86,9 +86,10 @@ function selectCoin() {
         outline: none;
       }
 
-      > .icon {
+      > .icon-search {
+        font-size: 20px;
         position: absolute;
-        top: 10px;
+        top: 12px;
         left: 10px;
         z-index: 1;
       }
