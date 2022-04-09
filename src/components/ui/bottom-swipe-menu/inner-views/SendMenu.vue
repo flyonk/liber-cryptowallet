@@ -1,35 +1,19 @@
 <template>
   <ul class="send-menu">
     <router-link :to="{ name: Route.PayRecepientsLiber }" class="menu-item">
-      <img
-        class="icon"
-        src="@/assets/icon/transactions/menu/send_funds.svg"
-        alt="send"
-      />
+      <i class="icon icon-send" />
       <p class="text">Send Funds</p>
     </router-link>
     <li class="menu-item" @click="$router.push('/convert')">
-      <img
-        class="icon"
-        src="@/assets/icon/transactions/menu/convert_funds.svg"
-        alt="send"
-      />
+      <i class="icon icon-convert" />
       <p class="text">{{ $t('transactions.convert.title') }}</p>
     </li>
     <li class="menu-item">
-      <img
-        class="icon"
-        src="@/assets/icon/transactions/menu/ask_for_funds.svg"
-        alt="send"
-      />
+      <i class="icon icon-ask-for-funds" />
       <p class="text">Ask for Funds</p>
     </li>
     <li class="menu-item">
-      <img
-        class="icon"
-        src="@/assets/icon/transactions/menu/borrow_funds.svg"
-        alt="send"
-      />
+      <i class="icon icon-borrow" />
       <p class="text">Borrow Coin</p>
     </li>
   </ul>
@@ -55,6 +39,8 @@ import { Route } from '@/router/types';
 
   > .icon {
     margin-right: 20px;
+    color: blue;
+    font-size: 40px;
   }
 
   > .text {
