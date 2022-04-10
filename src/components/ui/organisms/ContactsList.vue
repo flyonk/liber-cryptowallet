@@ -2,7 +2,12 @@
   <div v-if="props.contacts.length" class="main-list">
     <ul class="contacts-list">
       <template v-for="contact in props.contacts" :key="contact.contactId">
-        <li class="contact-letter">{{ getLetter(contact) }}</li>
+        <li
+          class="contact-letter"
+          v-if="activeLetters[getLetter(contact)] === contact.contactId"
+        >
+          {{ getLetter(contact) }}
+        </li>
         <li class="contact-item" @click="$emit('contactClick', contact)">
           <PhoneContact :contact="contact" />
         </li>
@@ -29,9 +34,15 @@ const props = defineProps({
   },
 });
 
+const activeLetters: any = {};
+
 const getLetter = (contact: Contact) => {
   const initials = getContactInitials(contact.displayName);
-  return initials.charAt(0).toUpperCase();
+  const letter = initials.charAt(0).toUpperCase();
+  if (!activeLetters[letter]) {
+    activeLetters[letter] = contact.contactId;
+  }
+  return letter;
 };
 
 defineEmits(['contactClick']);
