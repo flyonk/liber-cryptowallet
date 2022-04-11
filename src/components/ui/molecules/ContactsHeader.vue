@@ -13,7 +13,10 @@
     />
     <div class="flex">
       <img class="mr-3" src="@/assets/icon/system_qr.svg" alt="circle-add" />
-      <img src="@/assets/icon/circle-add.svg" alt="circle-add" />
+      <i
+        class="icon-plus_circle circle-add"
+        @click="$router.push({ name: Route.ContactsAddNewContact })"
+      />
     </div>
   </div>
 </template>
@@ -42,5 +45,10 @@ const props = defineProps({
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+}
+
+.circle-add {
+  font-size: 33px;
+  color: blue;
 }
 </style>

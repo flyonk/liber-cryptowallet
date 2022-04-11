@@ -19,24 +19,11 @@
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
-          <div class="select" @click.prevent="showSelectCoinDialog.from = true">
-            <div class="select-option flex">
-              <img :src="currentSendFromCurrency.img" alt class="icon" />
-              <p class="name">{{ currentSendFromCurrency.name }}</p>
-              <img alt="list" src="@/assets/icon/arrow-down.svg" />
-              <div></div>
-              <p-dialog
-                v-model:visible="showSelectCoinDialog.from"
-                :show-header="false"
-                class="p-dialog-maximized"
-              >
-                <BaseCoinListSelect
-                  @back-button="showSelectCoinDialog.from = false"
-                  @select-coin="onSelectCoin($event, 'from')"
-                />
-              </p-dialog>
-            </div>
-          </div>
+          <select-coin-input
+            :direction="'from'"
+            :current-send-currency="currentSendFromCurrency"
+            @on-select-coin="onSelectCoin($event, 'from')"
+          />
         </label>
       </div>
       <div class="middle-info flex">
@@ -91,26 +78,11 @@
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
-          <div
-            class="select select-to"
-            @click.prevent="showSelectCoinDialog.to = true"
-          >
-            <div class="select-option flex">
-              <img :src="currentSendToCurrency.img" class="icon" />
-              <p class="name">{{ currentSendToCurrency.name }}</p>
-              <img alt="list" src="@/assets/icon/arrow-down.svg" />
-              <p-dialog
-                v-model:visible="showSelectCoinDialog.to"
-                :show-header="false"
-                class="p-dialog-maximized"
-              >
-                <BaseCoinListSelect
-                  @back-button="showSelectCoinDialog.to = false"
-                  @select-coin="onSelectCoin($event, 'to')"
-                />
-              </p-dialog>
-            </div>
-          </div>
+          <select-coin-input
+            :direction="'to'"
+            :current-send-currency="currentSendToCurrency"
+            @on-select-coin="onSelectCoin($event, 'to')"
+          />
         </label>
       </div>
       <BaseButton
@@ -171,15 +143,11 @@ import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
 import { ICoin } from '@/models/coin/coins';
 
-import { BaseButton, BaseCoinListSelect } from '@/components/ui';
+import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 import { TConvertData } from '@/models/funds/convertInfo';
-
-const showSelectCoinDialog = ref({
-  from: false,
-  to: false,
-});
 
 const emit = defineEmits<{
   (event: 'show-2fa'): void;
@@ -245,10 +213,6 @@ watch(isZeroValues, (val) => {
   if (val) componentState.value = 'preview';
 });
 
-// onBeforeUnmount(() => {
-//   TODO: this hook clear store when we go to 2FA screen
-//   fundsStore.$reset();
-// });
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
@@ -393,8 +357,6 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     direction
   );
 
-  showSelectCoinDialog.value[direction] = false;
-
   if (preventConvert.value) {
     return;
   }
@@ -437,41 +399,6 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     &:focus {
       border: 1px solid $color-primary-500;
     }
-  }
-
-  > .select {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 114px;
-    height: 64px;
-    //TODO change to variables
-    background: #edf0fb;
-    border-radius: 13px;
-    border: 0;
-  }
-}
-
-.select-option {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-
-  > .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  > .name {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: #0d1f3c;
-    margin-right: 18px;
   }
 }
 

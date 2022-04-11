@@ -208,6 +208,9 @@
     "sendfunds": {
       "whopay": "Who To Pay"
     },
+    "newcontact": {
+      "additionalphone": "Additional phone or email"
+    },
     "requestcontacts": {
       "title": "Find your friends",
       "description": "Send and request money from your friends more easily, split bills and much more.",

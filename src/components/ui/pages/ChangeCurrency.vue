@@ -138,18 +138,6 @@ function onClose() {
     line-height: 34px;
     letter-spacing: 0.0038em;
   }
-
-  > .initials {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: $color-yellow-100;
-    width: 40px;
-    height: 40px;
-    color: $color-yellow-700;
-    margin-right: 12px;
-  }
 }
 
 .popup-description {
