@@ -56,9 +56,7 @@ const isEmailInvalid = computed(() => {
   if (!email.value) return true;
   // TODO: clarify correct email regex
   email.value = email.value.replace(/\s/g, ''); // for iphone hint word inserting
-  const correct = new RegExp(/^[^@\s]+@[^@\s]+\.[^@\s|^\d]+$/).test(
-    email.value
-  );
+  const correct = new RegExp(/^[^@\s]+@[^@\s]+\.[^@\s|\d]+$/).test(email.value);
 
   return !correct;
 });
