@@ -80,7 +80,7 @@ import { BaseInput, BaseButton } from '@/components/ui';
     font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-bottom: 30px;
   }
 }

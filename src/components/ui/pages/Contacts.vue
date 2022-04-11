@@ -103,7 +103,7 @@ const filteredContacts = computed(() => {
   right: 40px;
   left: 16px;
   bottom: 5%;
-  background: #edf0fb;
+  background: $color-white-light;
   border-radius: 13px;
   color: $color-primary-500;
   font-weight: 600;
