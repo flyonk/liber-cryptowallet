@@ -26,7 +26,7 @@
         <BaseInput v-model="contact.value" type="text">
           <template #label> Email or Phone </template>
           <template v-if="newContact.phone.length > 1" #append>
-            <i class="ci-off_outline_close" @click="removeContact(index)" />
+            <i class="ci-trash_full" @click="removeContact(index)" />
           </template>
         </BaseInput>
       </li>
