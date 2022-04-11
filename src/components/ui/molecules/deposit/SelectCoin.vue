@@ -1,9 +1,23 @@
 <template name="SelectCoin">
   <div class="select-coin">
-    <!--    <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>-->
+    <template v-if="hasPopularCoins">
+      <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>
+      <ul class="coin-list suggested">
+        <CoinItem
+          v-for="item in popularCoins"
+          :key="item.code"
+          :full-name="item.name"
+          :icon="item.imageUrl"
+          :short-name="item.code.toUpperCase()"
+          @click="$emit('select-coin', item)"
+        />
+      </ul>
+    </template>
+
+    <h4 class="title">{{ $t('views.deposit.selectCoin.allCoins') }}</h4>
     <ul class="coin-list suggested">
       <CoinItem
-        v-for="item in coins"
+        v-for="item in allCoins"
         :key="item.code"
         :full-name="item.name"
         :icon="item.imageUrl"
@@ -18,15 +32,21 @@
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
 import { PropType } from 'vue-demi';
 import { ICoin } from '@/models/coin/coins';
+import { computed } from 'vue';
 
 defineEmits(['select-coin']);
 
-defineProps({
+const props = defineProps({
   coins: {
     type: Array as PropType<ICoin[]>,
     required: true,
   },
 });
+
+const popularCoins = computed(() => props.coins.filter((e) => !!e?.isPopular));
+const allCoins = computed(() => props.coins.filter((e) => !e?.isPopular));
+
+const hasPopularCoins = computed(() => !!popularCoins.value.length);
 </script>
 
 <style lang="scss" scoped>
