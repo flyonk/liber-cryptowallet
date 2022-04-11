@@ -94,6 +94,21 @@ export const useRecepientsStore = defineStore('recepients', {
         }
       }
     },
+    async addNewContact(contact: any) {
+      const newContact: Contact = {
+        contactId: contact.id || '',
+        displayName: contact.name || '',
+        phoneNumbers: contact.phones.map((item: any) => {
+          return {
+            number: item.value,
+          };
+        }),
+        emails: [],
+      };
+      this.contacts.push(newContact);
+      this.friends.add(newContact.contactId);
+      setOptions(Array.from(this.friends), EStorageKeys.friends);
+    },
     async addFriend(contact: Contact) {
       this.friends.add(contact.contactId);
       const newFriend = {

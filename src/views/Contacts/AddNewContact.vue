@@ -50,12 +50,15 @@
 import { Ref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { useRecepientsStore } from '@/stores/recipients';
+
 import { BaseButton, BaseInput, TopNavigation } from '@/components/ui';
-import { useTransferStore } from '@/stores/transfer';
 import { Route } from '@/router/types';
 
-const transferStore = useTransferStore();
+import { v4 as uuidv4 } from 'uuid';
+
 const router = useRouter();
+const recepientsStore = useRecepientsStore();
 
 type TNewContact = {
   name: string;
@@ -80,12 +83,15 @@ const handleAddContact = () => {
     return;
   }
 
-  transferStore.setRecipient({
-    id: '1',
-    phone: _contact.phone[0].value,
+  const newContactId = uuidv4();
+  recepientsStore.addNewContact({
+    id: newContactId,
+    name: newContact.value.name,
+    phones: newContact.value.phone,
+    emails: [],
   });
 
-  router.push({ name: Route.ContactsSend, params: { id: '1' } });
+  router.push({ name: Route.ContactsSend, params: { id: newContactId } });
 };
 
 const isDisabled = computed(() => {
