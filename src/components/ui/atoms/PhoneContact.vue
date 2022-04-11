@@ -41,18 +41,6 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.initials {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: $color-yellow-100;
-  width: 40px;
-  height: 40px;
-  color: $color-yellow-700;
-  margin-right: 12px;
-}
-
 .user-contact {
   > .name {
     font-weight: 500;

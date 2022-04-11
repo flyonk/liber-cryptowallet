@@ -20,7 +20,7 @@ const props = defineProps({
 
 const initials = getContactInitials(props.name);
 const letterValue = Math.abs(
-  16777215 -
+  16777215 / 2 -
     ((initials.charCodeAt(0) || 0) + (initials.charCodeAt(1) || 0)) * 113
 );
 const color = `#${Math.floor(letterValue).toString(16)}`;
@@ -35,7 +35,7 @@ const color = `#${Math.floor(letterValue).toString(16)}`;
   background: $color-yellow-100;
   width: 40px;
   height: 40px;
-  color: $color-yellow-700;
+  color: rgb(255 255 255 / 50%);
   margin-right: 12px;
 }
 </style>
