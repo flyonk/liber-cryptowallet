@@ -30,8 +30,9 @@
       </p>
     </ul>
     <BaseButton
-      class="btn"
       size="large"
+      view="simple"
+      block
       :disabled="isDisabled"
       @click="handleAddContact"
     >
@@ -99,6 +100,7 @@ const isDisabled = computed(() => {
 }
 
 .invite-list {
+  margin-top: 30px;
   margin-bottom: 100px;
 }
 
