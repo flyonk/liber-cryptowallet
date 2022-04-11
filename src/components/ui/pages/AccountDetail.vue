@@ -241,6 +241,7 @@ const onClick = (carouselItem: any) => {
   border-radius: 8px;
   background: $color-light-grey;
   margin-bottom: 30px;
+  margin-top: 24px;
 
   > .tab {
     width: 49%;
@@ -270,17 +271,14 @@ const onClick = (carouselItem: any) => {
   }
 }
 
-.carousel-slider {
-  margin-bottom: 24px;
-}
-
 .item-slide {
   width: 104px;
   height: 104px;
   padding: 12px;
   background: $color-white;
-  box-shadow: 0 2px 24px -12px rgb(0 0 0 / 34%);
-  border-radius: 13px;
+  border: 1px solid #eef0fb;
+  box-shadow: 0 4px 12px -8px $carousel-item-shadow;
+  border-radius: 8px;
   margin-right: 5px;
 
   > .image {
@@ -364,6 +362,14 @@ const onClick = (carouselItem: any) => {
         color: $color-white;
       }
     }
+  }
+}
+
+:deep(.agile) {
+  height: 115px;
+
+  > .agile__list {
+    height: 100%;
   }
 }
 </style>
