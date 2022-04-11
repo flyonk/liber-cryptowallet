@@ -1,7 +1,7 @@
 <template>
   <ContactInitials
     :name="props.contact.displayName"
-    :isFriend="props.contact.isFriend"
+    :is-friend="props.contact.isFriend"
   />
   <router-link
     :to="{
