@@ -28,7 +28,7 @@
           </div>
         </div>
         <div class="right">
-          <img class="notification ml-auto" src="@/assets/icon/bell.svg" />
+          <i class="icon-bell notification ml-auto" />
           <img
             class="refresh ml-auto"
             src="@/assets/icon/refresh.svg"
@@ -51,6 +51,7 @@
         <!--TODO: map currencies-->
         <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
         <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
+          <i clas="icon-ic16-arrow-down" :class="{ '-reverted': isMenuOpen }" />
           <img
             :class="{ '-reverted': isMenuOpen }"
             class="down"
@@ -114,7 +115,7 @@
         <transactions-list :transactions="transactions" :preview="preview" />
       </div>
       <div v-else class="no-transactions">
-        <img class="mr-2" src="@/assets/icon/clock.svg" />
+        <i class="icon-clock mr-2" />
         <p class="text-dark-gray">
           {{ $t('views.dashboard.home.noTransactions') }}
         </p>
@@ -366,8 +367,8 @@ const showWelcomeMessage = computed(() => {
 
     > .right {
       > .notification {
-        opacity: 0.5;
         margin-right: 35px;
+        font-size: 24px;
       }
     }
   }
