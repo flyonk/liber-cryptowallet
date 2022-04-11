@@ -1,6 +1,7 @@
 <template name="TransactionDetails">
   <component
     :is="component"
+    v-if="transaction"
     :main-coin="mainCoin"
     :transaction="transaction"
     @copy="copyToClipboard"

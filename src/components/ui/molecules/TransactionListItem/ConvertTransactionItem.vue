@@ -6,7 +6,9 @@
         <h1 class="title">
           {{ title }}
         </h1>
-        <p>{{ total }}</p>
+        <p :class="{ received: direction === EDirection.income }">
+          {{ total }}
+        </p>
       </div>
       <div class="flex">
         <div class="subtitle">

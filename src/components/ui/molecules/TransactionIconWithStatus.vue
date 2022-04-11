@@ -2,7 +2,7 @@
   <div :style="styles" class="image-block">
     <img :src="pathToImage" alt="" class="image" />
     <img
-      v-if="status !== 'completed' || status !== 'finished'"
+      v-if="(status !== 'completed' || status !== 'finished') && pathToStatus"
       :src="pathToStatus"
       alt=""
       class="status"
@@ -58,6 +58,10 @@ const pathToStatus = computed(() => {
     pending: 'pending',
     failed: 'reverted',
   };
+
+  if (!mapper[props.status as 'pending' | 'failed']) {
+    return null;
+  }
 
   return `${STATIC_BASE_URL}/transactions/statuses/${
     mapper[props.status as 'pending' | 'failed']

@@ -60,7 +60,9 @@
               : $t('transactions.bought')
           }}
         </p>
-        <p class="description">0,12345678 {{ amountWithCode.code }}</p>
+        <p class="description">
+          {{ oppositeCoinInfo.amount }} {{ oppositeCoinInfo.code }}
+        </p>
       </li>
 
       <li class="main-item">
@@ -113,8 +115,10 @@ const direction = computed(() => {
   return EDirection.outcome;
 });
 
+const isIncome = computed(() => direction.value === EDirection.income);
+
 const infoText = computed(() => {
-  if (direction.value === EDirection.income) {
+  if (isIncome.value) {
     return (
       'Bought ' +
       props.transaction.to?.code?.toUpperCase() +
@@ -131,8 +135,22 @@ const infoText = computed(() => {
   );
 });
 
+const oppositeCoinInfo = computed(() => {
+  if (!isIncome.value) {
+    return {
+      amount: '+ ' + props.transaction.to?.amount,
+      code: props.transaction.to?.code?.toUpperCase(),
+    };
+  }
+
+  return {
+    amount: '- ' + props.transaction.from?.amount,
+    code: props.transaction.from?.code?.toUpperCase(),
+  };
+});
+
 const amountWithCode = computed(() => {
-  if (direction.value === EDirection.income) {
+  if (isIncome.value) {
     return {
       amount: '+ ' + props.transaction.to?.amount,
       code: props.transaction.to?.code?.toUpperCase(),

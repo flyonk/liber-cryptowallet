@@ -74,6 +74,7 @@ const goToRoute = (id: string) => {
   // max-height: 360px;
   overflow-y: auto;
   padding: 0;
+  margin-bottom: 40px;
 
   > .item {
     display: flex;

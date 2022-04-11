@@ -67,13 +67,13 @@
         </div>
       </div>
 
-      <div v-if="activeTab === 1">
-        <transactions-list
-          :main-coin="currentCoin"
-          :show-coin="false"
-          :transactions="transactions"
-        />
-      </div>
+      <transactions-list
+        v-if="activeTab === 1"
+        :main-coin="currentCoin"
+        :show-coin="false"
+        :transactions="transactions"
+        class="transactions-block"
+      />
 
       <div v-if="activeTab === 2" class="wallet">
         <account-details :coin-code="route.params.coin || 'tbtc'" />
@@ -175,7 +175,7 @@ const onClick = (carouselItem: any) => {
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: 85%;
+  height: 90%;
   padding: 35px 0 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -246,6 +246,11 @@ const onClick = (carouselItem: any) => {
     background: $color-white;
     color: $color-brand-secondary;
   }
+}
+
+.transactions-block {
+  height: auto;
+  max-height: 417px;
 }
 
 .title-currency {

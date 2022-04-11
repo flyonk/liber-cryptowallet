@@ -12,9 +12,7 @@
           {{ $t(`transactions.operations.${type}`) }}
           {{ code }}
         </h1>
-        <p :class="{ received: sum.startsWith('+') }">
-          {{ sum }}
-        </p>
+        <p :class="{ received: sum.startsWith('+') }">{{ sum }} {{ code }}</p>
       </div>
       <div class="flex">
         <div class="subtitle">{{ info }}</div>
@@ -25,19 +23,22 @@
           }"
           class="status"
         >
-          {{ $t(`transactions.status.${status}`) }}
+          {{ status }}
         </p>
-        <p v-else class="sum">{{ sum }} {{ code }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ETransactionStatus } from '@/models/transaction/transaction';
-
-import { TransactionIconWithStatus } from '@/components/ui';
 import { computed } from 'vue';
+
+import { useI18n } from 'vue-i18n';
+
+import { ETransactionStatus } from '@/models/transaction/transaction';
+import { TransactionIconWithStatus } from '@/components/ui';
+
+const { tm } = useI18n();
 
 const props = defineProps({
   icon: {
@@ -87,5 +88,13 @@ const icon = computed(() => {
   };
 
   return mapper[props.type as 'deposit' | 'outcome'];
+});
+
+const status = computed(() => {
+  if (props.status === 'finished') {
+    return null;
+  }
+
+  return tm(`transactions.status.${props.status}`);
 });
 </script>

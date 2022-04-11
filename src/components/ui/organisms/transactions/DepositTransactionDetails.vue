@@ -29,16 +29,16 @@
         }}
       </p>
       <div class="controls">
-        <button v-if="transactionType === 'send'" class="btn -pdf">
+        <button v-if="transaction.type === 'send'" class="btn -pdf">
           <img class="icon" src="@/assets/icon/file_pdf.svg" />
           <p>{{ $t('transactions.downloadState') }}</p>
         </button>
-        <button v-if="transactionType === 'payment-link'" class="btn -share">
+        <button v-if="transaction.type === 'payment-link'" class="btn -share">
           <img class="icon" src="@/assets/icon/share.svg" />
           <p>{{ $t('common.shareCta') }}</p>
         </button>
         <button
-          v-if="transactionType === 'payment-link'"
+          v-if="transaction.type === 'payment-link'"
           class="btn btn -cancel"
         >
           <img class="icon" src="@/assets/icon/close_red.svg" />
@@ -108,10 +108,8 @@
 </template>
 
 <script lang="ts" setup>
-import { onMounted, Ref, ref } from 'vue';
-import { useRoute } from 'vue-router';
+import { computed, PropType } from 'vue';
 
-import transactionService from '@/services/transactionService';
 import {
   EDirection,
   ETransactionStatus,
@@ -122,34 +120,28 @@ import { getRelativeDate } from '@/helpers/datetime';
 
 import { TopNavigation, TransactionIconWithStatus } from '@/components/ui';
 
-const route = useRoute();
 const pStore = useProfileStore();
-
-const receiver = ref('');
-let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
-let transactionType = ref('');
 
 defineEmits(['copy']);
 
-onMounted(async () => {
-  try {
-    if (!route.params.id) return;
-    transaction.value = (await transactionService.getTransactionById(
-      route.params.id as string
-    )) as INetTransaction;
-
-    await getTransactionReceiver();
-    transactionType.value = transaction.value.type;
-  } catch (err) {
-    console.log(err);
-  }
+const props = defineProps({
+  transaction: {
+    type: Object as PropType<INetTransaction>,
+    required: true,
+  },
 });
 
-async function getTransactionReceiver() {
-  receiver.value = (
-    EDirection.income === transaction.value.direction
-      ? `To ${pStore.user.phone}`
-      : transaction.value.info
-  ) as string;
-}
+const receiver = computed(() =>
+  EDirection.income === props.transaction.direction
+    ? `To ${pStore.user.phone}`
+    : props.transaction.info
+);
+
+// async function getTransactionReceiver() {
+//   receiver.value = (
+//     EDirection.income === props.transaction.direction
+//       ? `To ${pStore.user.phone}`
+//       : props.transaction.info
+//   ) as string;
+// }
 </script>
