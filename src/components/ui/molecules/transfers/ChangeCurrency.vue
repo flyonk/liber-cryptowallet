@@ -394,7 +394,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-550;
 
     &:focus {
       border: 1px solid $color-primary-500;
@@ -434,7 +434,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     line-height: 16px;
     display: flex;
     align-items: center;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 8px;
   }
 

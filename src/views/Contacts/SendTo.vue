@@ -219,7 +219,7 @@ const sendTransaction = async () => {
     line-height: 34px;
     text-align: center;
     letter-spacing: -0.0026em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-bottom: 8px;
   }
 

@@ -58,7 +58,7 @@ const handleSelect = (coin: ICoin): void => {
   top: 4px;
   width: 114px;
   height: 64px;
-  background: #edf0fb;
+  background: $color-white-light;
   border-radius: 13px;
   border: 0;
 }
@@ -81,7 +81,7 @@ const handleSelect = (coin: ICoin): void => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 18px;
   }
 }
