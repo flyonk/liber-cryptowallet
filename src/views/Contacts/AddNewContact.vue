@@ -1,86 +1,114 @@
 <template name="add-contact">
   <div class="add-contact">
-    <div class="header add-header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="
-          $router.push({
-            name: Route.ContactsWhoToPay,
-          })
-        "
-      />
-      <h1 class="title">{{ $t('views.recepients.add') }}</h1>
-    </div>
+    <top-navigation
+      left-icon-name="icon-app-navigation-back"
+      @click:left-icon="
+        $router.push({
+          name: Route.ContactsWhoToPay,
+        })
+      "
+    >
+      {{ $t('views.recepients.add') }}
+    </top-navigation>
+
     <ul class="invite-list">
+      <BaseInput v-model="newContact.name" autofocus type="text">
+        <template #label> Name </template>
+        <template v-if="newContact.name.length > 2" #append>
+          <i class="ci-off_outline_close" @click="clearName" />
+        </template>
+      </BaseInput>
       <li
-        v-for="(contact, index) in newContacts"
+        v-for="(contact, index) in newContact.phone"
         :key="index"
         class="invite-item"
       >
-        <BaseInput v-model="contact.name" autofocus type="text">
-          <template #label> Name </template>
+        <BaseInput v-model="contact.value" type="text">
+          <template #label> Email or Phone </template>
+          <template v-if="newContact.phone.length > 1" #append>
+            <i class="ci-off_outline_close" @click="removeContact(index)" />
+          </template>
         </BaseInput>
-        <BaseInput v-model="contact.phone" type="text">
-          <template #label> Phone </template>
-        </BaseInput>
-        <p class="add" @click="addExtraContact">
-          <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
-          Additional phone or email
-        </p>
       </li>
+      <BaseButton view="flat" icon-left="ci-plus" @click="addExtraContact">
+        {{ $t('views.newcontact.additionalphone') }}
+      </BaseButton>
     </ul>
-    <BaseButton class="btn" size="large" @click="handleAddContact">
-      Continue
+    <BaseButton
+      size="large"
+      view="simple"
+      block
+      :disabled="isDisabled"
+      @click="handleAddContact"
+    >
+      {{ $t('common.continueCta') }}
     </BaseButton>
   </div>
 </template>
 
 <script setup lang="ts">
-import { Ref, ref } from 'vue';
+import { Ref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { BaseButton, BaseInput } from '@/components/ui';
-import { useTransferStore } from '@/stores/transfer';
+import { useRecepientsStore } from '@/stores/recipients';
+
+import { BaseButton, BaseInput, TopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 
-const transferStore = useTransferStore();
+import { v4 as uuidv4 } from 'uuid';
+
 const router = useRouter();
+const recepientsStore = useRecepientsStore();
 
 type TNewContact = {
   name: string;
-  phone: string;
-  email?: string;
+  phone: any[];
 };
 
-const newContacts = ref([
-  {
-    name: '',
-    phone: '',
-  },
-]) as Ref<TNewContact[]>;
+const newContact = ref({
+  name: '',
+  phone: [{ value: '' }],
+}) as Ref<TNewContact>;
 
 function addExtraContact() {
-  newContacts.value.push({
-    name: '',
-    phone: '',
+  newContact.value.phone.push({
+    value: '',
   });
 }
 
 const handleAddContact = () => {
-  const _contact = newContacts.value[0];
+  const _contact = newContact.value;
 
-  if (!_contact.phone) {
+  if (!_contact.name) {
     return;
   }
 
-  transferStore.setRecipient({
-    id: '1',
-    phone: _contact.phone,
+  const newContactId = uuidv4();
+  recepientsStore.addNewContact({
+    id: newContactId,
+    name: newContact.value.name,
+    phones: newContact.value.phone,
+    emails: [],
   });
 
-  router.push({ name: Route.ContactsSend, params: { id: '1' } });
+  router.push({ name: Route.ContactsSend, params: { id: newContactId } });
+};
+
+const isDisabled = computed(() => {
+  // There are at least one phone number or email
+  const phones = newContact.value.phone.filter((p) => !!p.value).length;
+  const name = newContact.value.name;
+  return !(name && phones);
+});
+
+const clearName = () => {
+  newContact.value.name = '';
+};
+
+const removeContact = (index: number) => {
+  newContact.value.phone = newContact.value.phone.filter((item, i) => {
+    return i !== index;
+  });
 };
 </script>
 
@@ -90,39 +118,14 @@ const handleAddContact = () => {
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
-}
-
-.add-header {
-  margin-bottom: 40px;
-
-  > .back {
-    width: 20;
-    height: 20;
-    margin-bottom: 20px;
-  }
-
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    color: $color-black;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 .invite-list {
-  margin-bottom: 100px;
-}
-
-.invite-item {
-  > .add {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-    color: $color-primary-500;
-  }
+  margin-top: 30px;
+  margin-bottom: 20px;
+  overflow: auto;
+  flex-grow: 1;
 }
 </style>

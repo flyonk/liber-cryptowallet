@@ -9,9 +9,7 @@
       />
       <div class="name-info">
         <h1 class="title">{{ $t('views.profile.profileEdit.editProfile') }}</h1>
-        <div class="initials">
-          {{ nameInitials }}
-        </div>
+        <ContactInitials :name="accountName" />
       </div>
     </div>
     <div class="personal-information">
@@ -46,9 +44,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 
 const accountName = 'Abraham Watson';
 const user = {
@@ -58,11 +56,6 @@ const user = {
   residential_address: '',
 };
 // const accountID = '@abrahamwatson';
-
-const nameInitials = computed(() => {
-  let parts = accountName.split(' ');
-  return parts[0][0] + parts[1][0];
-});
 </script>
 
 <style lang="scss" scoped>
@@ -98,17 +91,6 @@ const nameInitials = computed(() => {
     line-height: 34px;
     letter-spacing: 0.0038em;
     margin-bottom: 8px;
-  }
-
-  > .initials {
-    height: 56px;
-    width: 56px;
-    background: $color-yellow-100;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    align-self: center;
   }
 }
 

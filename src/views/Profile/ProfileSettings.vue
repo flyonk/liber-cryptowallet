@@ -20,7 +20,7 @@
           >-->
         </div>
       </div>
-      <div class="right">{{ nameInitials }}</div>
+      <ContactInitials :name="accountName" />
     </div>
     <!-- TODO: Implement menu controls -->
     <div class="controls" style="display: none">
@@ -121,7 +121,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, getCurrentInstance, onMounted, ref } from 'vue';
+import { getCurrentInstance, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -133,6 +133,7 @@ import { Route } from '@/router/types';
 import { EStorageKeys } from '@/types/storage';
 import { showConfirm } from '@/helpers/nativeDialog';
 
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
 
@@ -223,11 +224,6 @@ onMounted(async () => {
     }
 });
 
-const nameInitials = computed(() => {
-  let parts = accountName.value.split(' ');
-  return parts[0][0] + parts[1][0];
-});
-
 function closeMenu() {
   showCloseAccount.value = false;
 }
@@ -287,17 +283,6 @@ async function onLogout() {
         letter-spacing: -0.0045em;
         color: $color-dark-grey;
       }
-    }
-
-    > .right {
-      height: 56px;
-      width: 56px;
-      background: $color-yellow-100;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      align-self: center;
     }
   }
 

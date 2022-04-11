@@ -11,7 +11,7 @@
     </div>
     <div class="user-info flex justify-between align-items-center">
       <h1 class="title">{{ recepient.displayName }}</h1>
-      <div class="initials">{{ recepient.initials }}</div>
+      <ContactInitials :name="recepient.displayName" />
     </div>
     <div class="sendto-main">
       <send-currency
@@ -101,12 +101,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
 import SentryUtil from '@/helpers/sentryUtil';
-import { getContactInitials, getContactPhone } from '@/helpers/contacts';
+import { getContactPhone } from '@/helpers/contacts';
 import { useRouter, useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
@@ -135,7 +136,6 @@ const phone = getContactPhone(contact);
 
 const recepient = computed(() => ({
   displayName: contact.displayName,
-  initials: getContactInitials(contact.displayName),
   phone: getContactPhone(contact),
 }));
 
@@ -148,7 +148,7 @@ transferStore.recipient = recipient;
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
-      recepientsStore.addFriend(contact);
+      await recepientsStore.addFriend(contact);
       await transferStore.transfer();
       showSuccessPopup.value = true;
       router.push({
@@ -207,18 +207,6 @@ const sendTransaction = async () => {
     font-size: 28px;
     line-height: 34px;
     letter-spacing: 0.0038em;
-  }
-
-  > .initials {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: $color-yellow-100;
-    width: 40px;
-    height: 40px;
-    color: $color-yellow-700;
-    margin-right: 12px;
   }
 }
 
