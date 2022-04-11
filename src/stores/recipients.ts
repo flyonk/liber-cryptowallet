@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { Contacts } from '@capacitor-community/contacts';
 import { Storage } from '@capacitor/storage';
 
+import contactsService from '@/services/contactsService';
 import transactionService from '@/services/transactionService';
 
 import { Contact } from '@/types/contacts';
@@ -93,8 +94,24 @@ export const useRecepientsStore = defineStore('recepients', {
         }
       }
     },
-    addFriend(contact: Contact) {
+    async addFriend(contact: Contact) {
       this.friends.add(contact.contactId);
+      const newFriend = {
+        id: contact.contactId,
+        name: contact.displayName || '',
+        phones: contact.phoneNumbers.map((phone) => {
+          return {
+            value: phone.number || '',
+            isPrimary: false,
+          };
+        }),
+        emails: [],
+      };
+      try {
+        await contactsService.createContact(newFriend);
+      } catch (error) {
+        console.log('friend add error', error);
+      }
       setOptions(Array.from(this.friends), EStorageKeys.friends);
     },
   },
