@@ -14,6 +14,9 @@
     <ul class="invite-list">
       <BaseInput v-model="newContact.name" autofocus type="text">
         <template #label> Name </template>
+        <template v-if="newContact.name.length > 2" #append>
+          <i class="ci-off_outline_close" @click="clearName" />
+        </template>
       </BaseInput>
       <li
         v-for="(contact, index) in newContact.phone"
@@ -21,13 +24,15 @@
         class="invite-item"
       >
         <BaseInput v-model="contact.value" type="text">
-          <template #label> Phone </template>
+          <template #label> Email or Phone </template>
+          <template v-if="newContact.phone.length > 1" #append>
+            <i class="ci-off_outline_close" @click="removeContact(index)" />
+          </template>
         </BaseInput>
       </li>
-      <p class="add" @click="addExtraContact">
-        <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
+      <BaseButton view="flat" icon-left="ci-plus" @click="addExtraContact">
         {{ $t('views.newcontact.additionalphone') }}
-      </p>
+      </BaseButton>
     </ul>
     <BaseButton
       size="large"
@@ -89,6 +94,16 @@ const isDisabled = computed(() => {
   const name = newContact.value.name;
   return !(name && phones);
 });
+
+const clearName = () => {
+  newContact.value.name = '';
+};
+
+const removeContact = (index: number) => {
+  newContact.value.phone = newContact.value.phone.filter((item, i) => {
+    return i !== index;
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -106,17 +121,5 @@ const isDisabled = computed(() => {
   margin-bottom: 20px;
   overflow: auto;
   flex-grow: 1;
-}
-
-.invite-item {
-  > .add {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-    color: $color-primary-500;
-  }
 }
 </style>

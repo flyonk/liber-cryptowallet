@@ -3,8 +3,8 @@
     <ul class="contacts-list">
       <template v-for="contact in props.contacts" :key="contact.contactId">
         <li
-          class="contact-letter"
           v-if="activeLetters[getLetter(contact)] === contact.contactId"
+          class="contact-letter"
         >
           {{ getLetter(contact) }}
         </li>
