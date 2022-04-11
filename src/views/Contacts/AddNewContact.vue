@@ -1,18 +1,16 @@
 <template name="add-contact">
   <div class="add-contact">
-    <div class="header add-header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="
-          $router.push({
-            name: Route.ContactsWhoToPay,
-          })
-        "
-      />
-      <h1 class="title">{{ $t('views.recepients.add') }}</h1>
-    </div>
+    <top-navigation
+      left-icon-name="icon-app-navigation-back"
+      @click:left-icon="
+        $router.push({
+          name: Route.ContactsWhoToPay,
+        })
+      "
+    >
+      {{ $t('views.recepients.add') }}
+    </top-navigation>
+
     <ul class="invite-list">
       <BaseInput v-model="newContact.name" autofocus type="text">
         <template #label> Name </template>
@@ -46,7 +44,7 @@
 import { Ref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { BaseButton, BaseInput } from '@/components/ui';
+import { BaseButton, BaseInput, TopNavigation } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { Route } from '@/router/types';
 
@@ -98,24 +96,6 @@ const isDisabled = computed(() => {
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
-}
-
-.add-header {
-  margin-bottom: 40px;
-
-  > .back {
-    width: 20;
-    height: 20;
-    margin-bottom: 20px;
-  }
-
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    color: $color-black;
-  }
 }
 
 .invite-list {
