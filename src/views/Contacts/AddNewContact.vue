@@ -97,11 +97,15 @@ const isDisabled = computed(() => {
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .invite-list {
   margin-top: 30px;
-  margin-bottom: 100px;
+  margin-bottom: 20px;
+  overflow: auto;
+  flex-grow: 1;
 }
 
 .invite-item {
