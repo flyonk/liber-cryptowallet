@@ -16,7 +16,7 @@
 defineProps({
   leftIconName: {
     type: String,
-    default: 'ci-short_left',
+    default: 'icon-app-navigation-back',
   },
 });
 
