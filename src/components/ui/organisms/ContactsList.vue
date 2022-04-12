@@ -14,7 +14,7 @@
         </li>
       </template>
     </ul>
-    <PhoneContactsAlphabet :activeLetters="activeLetters" />
+    <PhoneContactsAlphabet :active-letters="activeLetters" />
   </div>
 </template>
 
