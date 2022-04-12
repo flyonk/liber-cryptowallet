@@ -40,9 +40,7 @@ onBeforeMount(async () => {
       route.params.id as string
     )) as INetTransaction;
 
-    mainCoin.value = route.query['main-coin']
-      ? (route.query['main-coin'] as string)
-      : '';
+    mainCoin.value = route.params.coin ? (route.params.coin as string) : '';
   } catch (err) {
     console.log(err);
   }

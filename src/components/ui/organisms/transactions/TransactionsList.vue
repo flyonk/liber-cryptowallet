@@ -61,9 +61,7 @@ const goToRoute = (id: string) => {
     name: Route.TransactionsDetails,
     params: {
       id,
-    },
-    query: {
-      'main-coin': props.mainCoin ? props.mainCoin : null,
+      coin: props.mainCoin ? props.mainCoin : 'default',
     },
   });
 };
