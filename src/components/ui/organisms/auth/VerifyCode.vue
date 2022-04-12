@@ -104,6 +104,7 @@ const onComplete = async (data: string) => {
   try {
     await authStore.signInProceed({ phone: phone.value, otp });
     await pStore.init();
+    const passcode = await get(EStorageKeys.passcode);
 
     switch (pStore.getUser.status) {
       case EUserStatus.authenticated:
@@ -115,6 +116,10 @@ const onComplete = async (data: string) => {
         });
 
       case EUserStatus.registered:
+        await pStore.setTwoFASecret(pStore.user.options?.secret_2fa as string);
+
+        if (passcode) return nextStep();
+
         return await router.push({
           name: Route.KYCMain,
         });
