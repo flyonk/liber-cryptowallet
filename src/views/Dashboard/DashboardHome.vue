@@ -85,13 +85,22 @@
           class="btn"
           @click="$router.push('/deposit')"
         >
+          <i
+            class="icon-btn icon-plus_circle"
+            :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          />
           {{ $t('views.dashboard.home.deposit') }}
         </button>
         <button
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
           :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
+          @click="$router.push({ name: Route.PayRecepientsLiber })"
         >
+          <i
+            class="icon-btn icon-send"
+            :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          />
           {{ $t('views.dashboard.home.send') }}
         </button>
         <button
@@ -450,19 +459,23 @@ const showWelcomeMessage = computed(() => {
     margin-bottom: 32px;
 
     > .btn {
-      background: $color-grey;
+      background: $color-brand-2-50;
+      color: $color-light-grey-850;
+      box-shadow: 0 2px 4px -3px rgb(64 70 105 / 21%);
       border-radius: 8px;
       padding: 0 16px 0 12px;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 109px;
       height: 40px;
       margin-right: 8px;
-      color: $color-white;
 
       &.-active {
-        background: $color-primary;
+        background: $color-white;
       }
 
       &:last-child {
@@ -568,6 +581,16 @@ const showWelcomeMessage = computed(() => {
 
 .agile {
   width: 100%;
+}
+
+.icon-btn {
+  font-size: 20px;
+  color: $color-light-grey-850;
+  margin-right: 10px;
+
+  &.-active {
+    color: #2862ff;
+  }
 }
 
 @keyframes topToBottom {
