@@ -56,7 +56,9 @@ const pathToImage = computed(() => {
 const pathToStatus = computed(() => {
   const mapper = {
     pending: 'pending',
+    Pending: 'pending',
     failed: 'reverted',
+    Failed: 'reverted',
   };
 
   if (!mapper[props.status as 'pending' | 'failed']) {
