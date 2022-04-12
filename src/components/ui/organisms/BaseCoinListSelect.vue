@@ -27,6 +27,7 @@ import { useCoinsStore } from '@/stores/coins';
 const coinStore = useCoinsStore();
 
 defineEmits(['back-button', 'select-coin']);
+
 const props = defineProps({
   coins: {
     type: Array as PropType<ICoin[]>,
@@ -39,11 +40,16 @@ const allCoins = ref([]) as Ref<ICoin[]>;
 onBeforeMount(async () => {
   if (props.coins?.length) {
     allCoins.value = props.coins;
-  } else {
-    await coinStore.fetchCoins();
-
-    allCoins.value = coinStore.getCoins;
+    return;
   }
+
+  if (coinStore.getCoins.length) {
+    allCoins.value = coinStore.getCoins;
+    return;
+  }
+
+  await coinStore.fetchCoins();
+  allCoins.value = coinStore.getCoins;
 });
 </script>
 
