@@ -4,6 +4,7 @@
       <template v-for="contact in props.contacts" :key="contact.contactId">
         <li
           v-if="activeLetters[getLetter(contact)] === contact.contactId"
+          :id="'letter' + getLetter(contact)"
           class="contact-letter"
         >
           {{ getLetter(contact) }}
@@ -13,7 +14,7 @@
         </li>
       </template>
     </ul>
-    <PhoneContactsAlphabet />
+    <PhoneContactsAlphabet :activeLetters="activeLetters" />
   </div>
 </template>
 
