@@ -12,14 +12,20 @@
           {{ $t(`transactions.operations.${type}`) }}
           {{ code }}
         </h1>
-        <p :class="{ received: sum.startsWith('+') }">{{ sum }} {{ code }}</p>
+        <p
+          :class="{
+            received: sum.startsWith('+'),
+          }"
+        >
+          {{ sum }} {{ code }}
+        </p>
       </div>
       <div class="flex">
         <div class="subtitle">{{ info }}</div>
         <p
           v-if="status"
           :class="{
-            pending: status === ETransactionStatus.pending,
+            pending: props.status === ETransactionStatus.pending,
           }"
           class="status"
         >
