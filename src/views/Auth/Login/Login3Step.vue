@@ -1,9 +1,13 @@
 <template>
   <div v-if="!show2FA">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="prevStep">
+      <top-navigation v-if="!authStore.isLoggedIn" @click:left-icon="prevStep">
         {{ $t('auth.login.step3Title') }}
       </top-navigation>
+      <div class="page-title" v-else>
+        <div>{{ $t('auth.login.step3Title') }}</div>
+        —
+      </div>
     </div>
 
     <base-passcode
@@ -112,5 +116,15 @@ async function handleSuccessVerification(): Promise<void> {
 <style lang="scss">
 .login-passcode {
   margin-top: 108px;
+}
+
+.page-title {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.0038em;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 </style>

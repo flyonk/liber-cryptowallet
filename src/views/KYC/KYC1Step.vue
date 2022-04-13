@@ -32,6 +32,7 @@ import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useKYCStore } from '@/stores/kyc';
+import { useProfileStore } from '@/stores/profile';
 
 import { BaseButton, TopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
@@ -49,6 +50,8 @@ const isCountrySelected = computed(() => {
   return Boolean(country.value);
 });
 
+const pStore = useProfileStore();
+
 const onSignUp = () => {
   emit('next');
 };
@@ -57,9 +60,16 @@ const setCountry = (selectedCountry: string): void => {
   kycStore.changeData('citizenship', selectedCountry);
 };
 
-const prevStep = (): void => {
-  router.push({
-    name: Route.Survey,
-  });
+const prevStep = async () => {
+  if (!pStore.user.id) await pStore.init();
+  if (pStore.user.is2FAConfigured) {
+    router.push({
+      name: Route.AuthPasscode,
+    });
+  } else {
+    router.push({
+      name: Route.Survey,
+    });
+  }
 };
 </script>

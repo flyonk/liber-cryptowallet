@@ -3,15 +3,14 @@
     <top-navigation
       class="navigation"
       left-icon-name="ci-close_big"
-      @click:left-icon="$router.push({ name: Route.Survey })"
+      @click:left-icon="handleSkip"
     >
       <template #top-right>
-        <span
-          class="controller text--headline"
-          @click="$router.push({ name: Route.Survey })"
-          >{{ $t('views.kyc.kyc3step.notNow') }}</span
-        > </template
-      >{{ $t('views.kyc.kyc3step.proofOfIdentity') }}</top-navigation
+        <span class="controller text--headline" @click="handleSkip">
+          {{ $t('views.kyc.kyc3step.notNow') }}
+        </span>
+      </template>
+      {{ $t('views.kyc.kyc3step.proofOfIdentity') }}</top-navigation
     >
     <base-progress-bar :value="getPercentage" class="mb-3" />
     <p class="description">{{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}</p>
@@ -27,11 +26,16 @@ import {
   TopNavigation,
 } from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { useProfileStore } from '@/stores/profile';
+import { useRouter } from 'vue-router';
+
 import { Route } from '@/router/types';
 
 const emit = defineEmits(['next']);
 
 const kycStore = useKYCStore();
+const pStore = useProfileStore();
+const router = useRouter();
 
 const items = ref([
   {
@@ -57,6 +61,19 @@ const onSelect = (proofType: EKYCProofType): void => {
   kycStore.setProofType(proofType);
 
   emit('next');
+};
+
+const handleSkip = async () => {
+  if (!pStore.user.id) await pStore.init();
+  if (pStore.user.is2FAConfigured) {
+    router.push({
+      name: Route.AuthPasscode,
+    });
+  } else {
+    router.push({
+      name: Route.Survey,
+    });
+  }
 };
 </script>
 

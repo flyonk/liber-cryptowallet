@@ -2,7 +2,6 @@
   <auth-credentials
     :key="updateKey"
     :title="$t('auth.login.step1Title')"
-    :text="$t('auth.login.step1Description')"
     :next-title="$t('common.logInCta')"
     :initial-number="number"
     :country-dial-code="countryDialCode"
@@ -11,6 +10,12 @@
     @number-change="numberChange"
     @on-prev="prevStep"
   >
+    <template #text-empty-state>
+      {{ $t('auth.login.step1Description') }}
+    </template>
+    <template #text-valuable-state>
+      {{ $t('auth.login.step1DescriptionValuable') }}
+    </template>
     <template #footer-empty-state>
       <router-link :to="{ name: Route.Restore }" class="link">
         {{ $t('auth.login.step1LostAccess') }}

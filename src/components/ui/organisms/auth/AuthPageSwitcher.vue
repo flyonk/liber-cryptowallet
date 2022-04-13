@@ -31,7 +31,7 @@ const props = defineProps({
 
 watch(
   () => route.query.step,
-  async (step) => {
+  (step) => {
     if (step) {
       authStore.setStep(+step, props.scope);
       return;

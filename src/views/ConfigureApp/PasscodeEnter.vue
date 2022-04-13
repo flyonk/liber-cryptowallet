@@ -1,5 +1,5 @@
 <template>
-  <passcode-enter :redirect-on-success-route="Route.TwoFAApp" />
+  <passcode-enter :redirect-on-success-route="Route.DashboardHome" />
 </template>
 
 <script lang="ts" setup>

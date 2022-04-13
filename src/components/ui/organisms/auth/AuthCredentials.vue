@@ -4,11 +4,20 @@
       {{ title }}
     </top-navigation>
     <div class="description text--body">
-      {{ text }}
-      <br />
-      <template v-if="additionalText">
-        {{ additionalText }}
-      </template>
+      <slot v-if="isInitialStep" name="text-empty-state">
+        {{ text }}
+        <br />
+        <template v-if="additionalText">
+          {{ additionalText }}
+        </template>
+      </slot>
+      <slot v-else name="text-valuable-state">
+        {{ text }}
+        <br />
+        <template v-if="additionalText">
+          {{ additionalText }}
+        </template>
+      </slot>
     </div>
     <div class="grid">
       <div class="col-4">
