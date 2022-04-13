@@ -84,8 +84,9 @@ export const useAuthStore = defineStore('auth', {
         key: EStorageKeys.refreshToken,
       });
 
-      if (token && refreshToken)
+      if (token && refreshToken) {
         this.token = { ...this.token, token, refreshToken };
+      }
     },
 
     setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
@@ -117,8 +118,23 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async refresh(): Promise<void> {
+      //TODO: temporary code
+      const phone = await get(EStorageKeys.phone);
+      const parsedPhone = phone ? JSON.parse(phone) : '';
       try {
         const refreshToken = await get(EStorageKeys.refreshToken);
+        //TODO: temporary log
+        SentryUtil.capture(
+          new Error('Twice refresh'),
+          'refresh',
+          'twice refresh',
+          `refresh token: ${refreshToken}`,
+          { refreshToken, phone },
+          {
+            phone: parsedPhone.phone,
+            refresh: refreshToken,
+          }
+        );
         const data = await authService.refresh({
           refresh_token: refreshToken || '',
         });
@@ -128,7 +144,9 @@ export const useAuthStore = defineStore('auth', {
           err,
           'refresh',
           'authStore',
-          "error can't refresh token"
+          "error can't refresh token",
+          { phone },
+          { phone: parsedPhone.phone }
         );
       }
     },
