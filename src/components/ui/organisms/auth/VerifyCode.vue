@@ -20,6 +20,7 @@ import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
+import { use2faStore } from '@/stores/2fa';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
@@ -35,6 +36,7 @@ const { tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 const pStore = useProfileStore();
+const twoFAStore = use2faStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
 const isError = ref(false) as Ref<boolean>;
@@ -117,6 +119,7 @@ const onComplete = async (data: string) => {
 
       case EUserStatus.registered:
         await pStore.setTwoFASecret(pStore.user.options?.secret_2fa as string);
+        await twoFAStore.set2FADate();
 
         if (passcode) return nextStep();
 
