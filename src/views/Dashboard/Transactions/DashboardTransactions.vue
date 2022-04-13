@@ -87,12 +87,16 @@
             </div>
             <div class="flex">
               <div class="subtitle">{{ transaction.from }}</div>
-              <p
+              <div
                 v-if="transaction.status"
                 :class="{ pending: transaction.status === 'Pending' }"
+                class="flex"
               >
-                {{ transaction.status }}
-              </p>
+                <i class="icon-clock mr-1" />
+                <p>
+                  {{ transaction.status }}
+                </p>
+              </div>
               <p v-else class="sum">{{ transaction.sum }}</p>
             </div>
           </div>
