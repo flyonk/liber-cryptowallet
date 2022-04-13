@@ -1,8 +1,6 @@
 <template>
-  <TopNavigation left-icon-name="ci-close_big" @click="$emit('back-button')">
-    {{ $t('views.deposit.selectCoin.selectCoin') }}
-  </TopNavigation>
   <div class="page-header">
+    <h1 class="title">{{ $t('views.deposit.selectCoin.selectCoin') }}</h1>
     <label class="input-label" for="searchCoin">
       <i class="icon-search" />
       <input
@@ -19,14 +17,15 @@
 
 <script lang="ts" setup>
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { TopNavigation } from '@/components/ui';
-import { onBeforeMount, PropType, Ref, ref } from 'vue';
+import { getCurrentInstance, onBeforeMount, PropType, Ref, ref } from 'vue';
 import { ICoin } from '@/models/coin/coins';
 import { useCoinsStore } from '@/stores/coins';
 
 const coinStore = useCoinsStore();
+const { proxy } = getCurrentInstance();
 
 defineEmits(['back-button', 'select-coin']);
+
 const props = defineProps({
   coins: {
     type: Array as PropType<ICoin[]>,
@@ -39,10 +38,20 @@ const allCoins = ref([]) as Ref<ICoin[]>;
 onBeforeMount(async () => {
   if (props.coins?.length) {
     allCoins.value = props.coins;
-  } else {
-    await coinStore.fetchCoins();
+    return;
+  }
 
+  if (coinStore.getCoins.length) {
     allCoins.value = coinStore.getCoins;
+    return;
+  }
+
+  try {
+    await coinStore.fetchCoins();
+    allCoins.value = coinStore.getCoins;
+  } catch (e) {
+    console.error(e);
+    proxy.$sentry.capture(e, 'BaseCoinListSelect', 'onBeforeMount');
   }
 });
 </script>
@@ -65,6 +74,14 @@ onBeforeMount(async () => {
 
 .page-header {
   margin-bottom: 32px;
+
+  > .title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 16px;
+  }
 }
 
 .input-label {

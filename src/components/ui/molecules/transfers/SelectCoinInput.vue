@@ -10,6 +10,10 @@
         :show-header="false"
         class="p-dialog-maximized"
       >
+        <TopNavigation
+          left-icon-name="icon-app-navigation-close"
+          @click:left-icon="handleCloseModal"
+        />
         <BaseCoinListSelect
           @back-button="showSelectCoinDialog[direction] = false"
           @select-coin="handleSelect($event)"
@@ -26,6 +30,7 @@ import { ICoin } from '@/models/coin/coins';
 import { ICoinForExchange } from '@/stores/funds';
 
 import { BaseCoinListSelect } from '@/components/ui';
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 
 const emit = defineEmits(['on-select-coin']);
 
@@ -48,6 +53,10 @@ const props = defineProps({
 const handleSelect = (coin: ICoin): void => {
   showSelectCoinDialog.value[props.direction] = false;
   emit('on-select-coin', coin, props.direction);
+};
+
+const handleCloseModal = () => {
+  showSelectCoinDialog.value[props.direction] = false;
 };
 </script>
 

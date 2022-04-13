@@ -13,6 +13,7 @@ export const useCoinsStore = defineStore('coins', {
 
   getters: {
     getCoins: (state) => state.coins,
+    getPopularCoins: (state) => state.coins.filter((e) => !!e?.isPopular),
   },
 
   actions: {
