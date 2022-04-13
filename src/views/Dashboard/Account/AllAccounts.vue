@@ -30,7 +30,7 @@
         v-for="(currency, index) in accounts"
         :key="index"
         class="item"
-        @click="$router.push(getCurrencyUrl(currency.code))"
+        @click="$router.replace(getCurrencyUrl(currency.code))"
       >
         <img alt class="icon" :src="currency.imageUrl" />
         <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
