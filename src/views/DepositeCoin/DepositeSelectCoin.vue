@@ -1,5 +1,11 @@
 <template name="DepositeSelectCoin">
   <div class="page-wrapper">
+    <TopNavigation
+      left-icon-name="icon-app-navigation-back"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    >
+      {{ $t('views.deposit.selectCoin.selectCoin') }}</TopNavigation
+    >
     <BaseCoinListSelect
       @back-button="router.push({ name: Route.DashboardHome })"
       @select-coin="selectCoin"
@@ -16,6 +22,7 @@ import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
 import { IAccount } from '@/models/account/account';
 import { ICoin } from '@/models/coin/coins';
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 
 import { BaseCoinListSelect } from '@/components/ui';
 
