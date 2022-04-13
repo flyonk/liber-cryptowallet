@@ -3,9 +3,7 @@
     <TopNavigation
       left-icon-name="icon-app-navigation-back"
       @click:left-icon="$router.push({ name: Route.DashboardHome })"
-    >
-      {{ $t('views.deposit.selectCoin.selectCoin') }}</TopNavigation
-    >
+    />
     <BaseCoinListSelect
       @back-button="router.push({ name: Route.DashboardHome })"
       @select-coin="selectCoin"

@@ -2,10 +2,8 @@
   <div class="add-account">
     <TopNavigation
       left-icon-name="icon-app-navigation-close"
-      @click:left-icon="$router.back()"
-    >
-      {{ $t('views.deposit.selectCoin.selectCoin') }}</TopNavigation
-    >
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    />
     <BaseCoinListSelect :coins="coins" @select-coin="selectCoin" />
   </div>
 </template>
@@ -16,6 +14,7 @@ import { computed } from 'vue';
 import BaseCoinListSelect from '@/components/ui/organisms/BaseCoinListSelect.vue';
 import { useCoinsStore } from '@/stores/coins';
 import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
+import { Route } from '@/router/types';
 
 const coinStore = useCoinsStore();
 

@@ -13,9 +13,7 @@
         <TopNavigation
           left-icon-name="icon-app-navigation-close"
           @click:left-icon="handleCloseModal"
-        >
-          {{ $t('views.deposit.selectCoin.selectCoin') }}</TopNavigation
-        >
+        />
         <BaseCoinListSelect
           @back-button="showSelectCoinDialog[direction] = false"
           @select-coin="handleSelect($event)"
