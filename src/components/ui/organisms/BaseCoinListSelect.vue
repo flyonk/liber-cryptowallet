@@ -1,7 +1,4 @@
 <template>
-  <TopNavigation left-icon-name="ci-close_big" @click="$emit('back-button')">
-    {{ $t('views.deposit.selectCoin.selectCoin') }}
-  </TopNavigation>
   <div class="page-header">
     <label class="input-label" for="searchCoin">
       <i class="icon-search" />
@@ -19,7 +16,6 @@
 
 <script lang="ts" setup>
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { TopNavigation } from '@/components/ui';
 import { onBeforeMount, PropType, Ref, ref } from 'vue';
 import { ICoin } from '@/models/coin/coins';
 import { useCoinsStore } from '@/stores/coins';
