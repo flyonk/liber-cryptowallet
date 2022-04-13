@@ -16,6 +16,25 @@
         :coin-icon-url="balance.imageUrl"
       />
       <!--TODO: move to separated component-->
+      <swiper
+        class="swiper"
+        :slides-per-view="3.5"
+        :space-between="5"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
+        style="padding: 0 5px 10px"
+      >
+        <swiper-slide
+          v-for="(item, index) in carousel"
+          :key="index"
+          class="item-slide"
+          @click="onClick(item)"
+        >
+          <img :src="item.img" alt class="image" />
+          <p class="name">{{ item.name }}</p>
+        </swiper-slide>
+      </swiper>
+      <br />
       <VueAgile
         :nav-buttons="false"
         :slides-to-show="3.5"
@@ -93,6 +112,10 @@ import { useFundsStore } from '@/stores/funds';
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 import { AccountDetails } from '@/components/ui';
+
+// Import Swiper Vue.js components
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -183,6 +206,14 @@ const onClick = (carouselItem: any) => {
       break;
   }
 };
+
+//test
+const onSwiper = (swiper) => {
+  console.log(swiper);
+};
+const onSlideChange = () => {
+  console.log('slide change');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -196,6 +227,10 @@ const onClick = (carouselItem: any) => {
 
   > .header {
     padding: 0 16px;
+
+    > .swiper {
+      padding: 0 5px 10px;
+    }
 
     > .controls {
       display: flex;
