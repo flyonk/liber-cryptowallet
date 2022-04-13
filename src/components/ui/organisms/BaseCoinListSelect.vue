@@ -1,5 +1,6 @@
 <template>
   <div class="page-header">
+    <h1 class="title">{{ $t('views.deposit.selectCoin.selectCoin') }}</h1>
     <label class="input-label" for="searchCoin">
       <i class="icon-search" />
       <input
@@ -73,6 +74,14 @@ onBeforeMount(async () => {
 
 .page-header {
   margin-bottom: 32px;
+
+  > .title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 16px;
+  }
 }
 
 .input-label {
