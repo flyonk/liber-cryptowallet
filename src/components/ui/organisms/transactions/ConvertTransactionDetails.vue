@@ -3,7 +3,7 @@
     <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.amount }}
+          {{ transaction.sum }}
           <span class="currency">
             {{ mainCoin }}
           </span>
@@ -17,7 +17,7 @@
       </template>
     </TopNavigation>
     <div class="header">
-      <h2 class="sendto">{{ transaction.info }}</h2>
+      <h2 class="sendto">{{ transaction.detailedInfo }}</h2>
       <p class="date">
         {{ relativeDate }}
       </p>
@@ -72,10 +72,7 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import {
-  EDirection,
-  IConvertTransaction,
-} from '@/models/transaction/transaction';
+import { EDirection, INetTransaction } from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
@@ -88,7 +85,7 @@ import {
 defineEmits(['copy']);
 const props = defineProps({
   transaction: {
-    type: Object as PropType<IConvertTransaction>,
+    type: Object as PropType<INetTransaction>,
     required: true,
   },
 
@@ -107,10 +104,14 @@ const feeRate = computed(
     ' = ' +
     props.transaction.rate +
     ' ' +
-    props.transaction.feeCode.toUpperCase()
+    props.transaction.feeCode?.toUpperCase()
 );
 
 const relativeDate = computed(() => {
-  return getRelativeDate(props.transaction.relativeDate);
+  return getRelativeDate(
+    props.transaction.finishDate
+      ? (props.transaction.finishDate as string)
+      : (props.transaction.startDate as string)
+  );
 });
 </script>

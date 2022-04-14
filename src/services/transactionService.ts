@@ -5,9 +5,6 @@ import transactionMapper, {
   INetTransaction,
   TTransaction,
 } from '@/models/transaction/transaction';
-import convertTransactionMapper, {
-  IConvertTransaction,
-} from '@/models/transaction/convert';
 
 // import { TSuccessResponse } from '@/types/api';
 
@@ -31,13 +28,11 @@ export default {
   async getTransactionDetailsByCoinAndId(
     id: string,
     coin: string
-  ): Promise<IConvertTransaction> {
+  ): Promise<TTransaction> {
     const response = await axios.get(
       apiService.transactions.transactionDetailsByCoin(coin, id)
     );
 
-    return convertTransactionMapper.deserialize(
-      response.data
-    ) as IConvertTransaction;
+    return transactionMapper.deserialize(response.data) as TTransaction;
   },
 };

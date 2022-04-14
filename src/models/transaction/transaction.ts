@@ -22,6 +22,8 @@ export interface INetTransaction {
   startDate?: string;
   finishDate?: string;
   relativeDate?: string;
+  rate?: string;
+  detailedInfo?: string;
 }
 
 export interface IRequestFunds {
@@ -88,13 +90,11 @@ export default {
       sum:
         input.type !== ETransactionType.convert
           ? _transactionAmount2Sum(input.amount, input.type, input.direction)
-          : `+ ${input.amount_to}`,
+          : input.amount,
       status: input.status,
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
-      code: input.code
-        ? input.code?.toUpperCase()
-        : input.code_to.toUpperCase(),
+      code: input.code?.toUpperCase(),
       to:
         input.type === ETransactionType.convert
           ? {
@@ -129,6 +129,13 @@ export default {
         : undefined,
       startDate: input.created_at,
       finishDate: input.finished_at ? input.finished_at : undefined,
+      rate: input.rate ? input.rate : undefined,
+      detailedInfo: _getDetailedInfo(
+        input.type,
+        input.direction,
+        input.code,
+        input.fee_code
+      ) as string,
     };
   },
 
@@ -192,6 +199,21 @@ function _getTransactionIcon(
   return icon;
 }
 
+function _getDetailedInfo(
+  type: string,
+  direction: string,
+  code: string,
+  feeCode: string
+) {
+  if (type === ETransactionType.convert && code && feeCode) {
+    return direction === EDirection.income
+      ? 'Bought ' + code.toUpperCase() + ' with ' + feeCode.toUpperCase()
+      : 'Sold ' + code.toUpperCase() + ' to ' + feeCode.toUpperCase();
+  }
+
+  return null;
+}
+
 function _getTransactionAddress(
   contractor: IContractor,
   code: string,
@@ -212,8 +234,13 @@ function _getTransactionInfo(
   code: string,
   type: string
 ): string {
-  const address = _getTransactionAddress(contractor, code, type);
-  if (direction && direction === EDirection.income) return `From ${address}`;
+  const info = _getTransactionAddress(contractor, code, type);
+
+  if (type === ETransactionType.convert) {
+    return info;
+  }
+
+  if (direction && direction === EDirection.income) return `From ${info}`;
   //TODO: use i18n
-  return type === ETransactionType.convert ? address : `To ${address}`;
+  return type === ETransactionType.convert ? info : `To ${info}`;
 }
