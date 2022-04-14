@@ -24,6 +24,10 @@ export interface INetTransaction {
   relativeDate?: string;
   rate?: string;
   detailedInfo?: string;
+  oppositeCoin?: {
+    amount: string;
+    code: string;
+  };
 }
 
 export interface IRequestFunds {
@@ -90,7 +94,9 @@ export default {
       sum:
         input.type !== ETransactionType.convert
           ? _transactionAmount2Sum(input.amount, input.type, input.direction)
-          : input.amount,
+          : input.direction === EDirection.income
+          ? '+ ' + input.amount
+          : '- ' + input.amount,
       status: input.status,
       type:
         input.type === ETransactionType.transfer ? input.direction : input.type,
@@ -109,6 +115,19 @@ export default {
               amount: input.amount_from,
             }
           : {},
+      oppositeCoin:
+        input.type === ETransactionType.convert
+          ? {
+              amount:
+                input.direction === EDirection.income
+                  ? input.amount_from
+                  : input.amount_to,
+              code:
+                input.direction === EDirection.income
+                  ? input.code_from.toUpperCase()
+                  : input.code_to.toUpperCase(),
+            }
+          : undefined,
       fee: input.fee || '',
       feeCode: input.fee_code || '',
       icon: _getTransactionIcon(input.type, input.direction),
@@ -134,7 +153,7 @@ export default {
         input.type,
         input.direction,
         input.code,
-        input.fee_code
+        input.direction === EDirection.income ? input.code_from : input.code_to
       ) as string,
     };
   },
@@ -203,12 +222,12 @@ function _getDetailedInfo(
   type: string,
   direction: string,
   code: string,
-  feeCode: string
+  oppositeCode: string
 ) {
-  if (type === ETransactionType.convert && code && feeCode) {
+  if (type === ETransactionType.convert && code && oppositeCode) {
     return direction === EDirection.income
-      ? 'Bought ' + code.toUpperCase() + ' with ' + feeCode.toUpperCase()
-      : 'Sold ' + code.toUpperCase() + ' to ' + feeCode.toUpperCase();
+      ? 'Bought ' + code.toUpperCase() + ' with ' + oppositeCode.toUpperCase()
+      : 'Sold ' + code.toUpperCase() + ' to ' + oppositeCode.toUpperCase();
   }
 
   return null;

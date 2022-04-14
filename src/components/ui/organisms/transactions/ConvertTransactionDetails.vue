@@ -62,7 +62,8 @@
         </p>
         <p class="description">
           {{ transaction.direction === EDirection.income ? '-' : '+' }}
-          0.05005 {{ transaction.feeCode.toUpperCase() }}
+          {{ transaction.oppositeCoin.amount }}
+          {{ transaction.oppositeCoin.code }}
         </p>
       </li>
     </ul>
@@ -104,7 +105,7 @@ const feeRate = computed(
     ' = ' +
     props.transaction.rate +
     ' ' +
-    props.transaction.feeCode?.toUpperCase()
+    props.transaction.oppositeCoin?.code
 );
 
 const relativeDate = computed(() => {

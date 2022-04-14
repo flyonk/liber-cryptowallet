@@ -136,12 +136,4 @@ const receiver = computed(() =>
     ? `To ${pStore.user.phone}`
     : props.transaction.info
 );
-
-// async function getTransactionReceiver() {
-//   receiver.value = (
-//     EDirection.income === props.transaction.direction
-//       ? `To ${pStore.user.phone}`
-//       : props.transaction.info
-//   ) as string;
-// }
 </script>
