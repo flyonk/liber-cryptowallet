@@ -30,6 +30,7 @@
         <div class="right">
           <i class="icon-bell notification ml-auto" />
           <img
+            alt
             class="refresh ml-auto"
             src="@/assets/icon/refresh.svg"
             @click="updateDashboardData"
@@ -51,7 +52,10 @@
         <!--TODO: map currencies-->
         <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
         <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
-          <i clas="icon-ic16-arrow-down" :class="{ '-reverted': isMenuOpen }" />
+          <i
+            class="icon-ic16-arrow-down"
+            :class="{ '-reverted': isMenuOpen }"
+          />
           <img
             :class="{ '-reverted': isMenuOpen }"
             class="down"
@@ -114,14 +118,14 @@
       <div class="transactions-header">
         <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
         <span
-          class="button"
           :class="{ '-active': hasTransactions }"
+          class="button"
           @click="$router.push({ name: Route.TransactionsAll })"
           >{{ $t('views.dashboard.home.seeAll') }}</span
         >
       </div>
       <div v-if="hasTransactions">
-        <transactions-list :transactions="transactions" :preview="preview" />
+        <transactions-list :preview="preview" :transactions="transactions" />
       </div>
       <div v-else class="no-transactions">
         <i class="icon-clock mr-2" />
@@ -242,6 +246,7 @@ onMounted(async () => {
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
+    console.debug(transactions.value);
   } catch (error) {
     console.error(error);
     proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');

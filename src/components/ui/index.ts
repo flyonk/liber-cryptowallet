@@ -21,3 +21,5 @@ export { default as AccountListBottomSheet } from './organisms/dashboard/Account
 export { default as AccountDetails } from './organisms/account/AccountDetails.vue';
 export { default as NavBarItem } from './atoms/NavBarItem.vue';
 export { default as BaseCoinListSelect } from './organisms/BaseCoinListSelect.vue';
+export { default as TransactionIconWithStatus } from './molecules/TransactionIconWithStatus.vue';
+export { default as TransactionStatus } from './molecules/TransactionStatus.vue';

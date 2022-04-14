@@ -12,8 +12,8 @@
         :balance="balance.balance"
         :base-conversion-sum="balance.baseBalanceConversion"
         :coin-code="balance.name"
-        :currency="balance.baseBalanceConversionCode"
         :coin-icon-url="balance.imageUrl"
+        :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
       <VueAgile
@@ -67,9 +67,13 @@
         </div>
       </div>
 
-      <div v-if="activeTab === 1">
-        <transactions-list :transactions="transactions" />
-      </div>
+      <transactions-list
+        v-if="activeTab === 1"
+        :main-coin="currentCoin"
+        :show-coin="false"
+        :transactions="transactions"
+        class="transactions-block"
+      />
 
       <div v-if="activeTab === 2" class="wallet">
         <account-details :coin-code="route.params.coin || 'tbtc'" />
@@ -79,7 +83,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -98,10 +102,11 @@ let showControls = ref(false);
 const { tm } = useI18n();
 
 //TODO: write full name accountStore
-const aStore = useAccountStore();
+const accountStore = useAccountStore();
 const profileStore = useProfileStore();
 
 const activeTab = ref(1);
+const currentCoin = ref(null) as Ref<string | null>;
 
 const route = useRoute();
 const router = useRouter();
@@ -110,12 +115,17 @@ const fundsStore = useFundsStore();
 /**
  * Lifecycle
  */
-onMounted(() => {
-  if (route.params.coin) aStore.init(route.params.coin as string);
+onBeforeMount(() => {
+  if (route.params.coin) {
+    const coin = route.params.coin as string;
+
+    accountStore.init(coin);
+    currentCoin.value = coin;
+  }
 });
 
-const transactions = computed(() => aStore.getCoinTransactions);
-const balance = computed(() => aStore.getBalanceByCoin);
+const transactions = computed(() => accountStore.getCoinTransactions);
+const balance = computed(() => accountStore.getBalanceByCoin);
 
 const carousel = [
   {
@@ -188,7 +198,7 @@ const onClick = (carouselItem: any) => {
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: 85%;
+  height: 90%;
   padding: 35px 0 0;
   overflow-x: hidden;
   overflow-y: auto;
@@ -260,6 +270,12 @@ const onClick = (carouselItem: any) => {
     background: $color-white;
     color: $color-brand-secondary;
   }
+}
+
+.transactions-block {
+  height: auto;
+  max-height: 438px;
+  margin-bottom: 0;
 }
 
 .title-currency {

@@ -1,179 +1,87 @@
 <template name="TransactionDetails">
-  <div class="transaction-details">
-    <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.push({ name: Route.DashboardHome })"
-      />
-      <div class="sum">
-        <div class="sum-title">
-          {{ transaction.sum }}
-          <span class="currency">
-            {{ transaction.code }}
-          </span>
-        </div>
-        <div class="arrow">
-          <img alt="right" src="@/assets/icon/short_right.svg" />
-        </div>
-      </div>
-      <h2 class="sendto">{{ transaction.info }}</h2>
-      <p class="date">
-        <!--TODO: diff from now-->
-        {{
-          transaction.finishDate
-            ? transaction.finishDate
-            : transaction.startDate
-        }}
-      </p>
-      <div class="controls">
-        <button v-if="transactionType === 'send'" class="btn -pdf">
-          <img class="icon" src="@/assets/icon/file_pdf.svg" />
-          <p>{{ $t('transactions.downloadState') }}</p>
-        </button>
-        <button v-if="transactionType === 'payment-link'" class="btn -share">
-          <img class="icon" src="@/assets/icon/share.svg" />
-          <p>{{ $t('common.shareCta') }}</p>
-        </button>
-        <button
-          v-if="transactionType === 'payment-link'"
-          class="btn btn -cancel"
-        >
-          <img class="icon" src="@/assets/icon/close_red.svg" />
-          <p>{{ $t('common.cancelCta') }}</p>
-        </button>
-      </div>
-    </div>
-    <ul class="main mb-5">
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.noReference') }}
-        </p>
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('status.title') }}
-        </p>
-        <div
-          v-if="transaction.status"
-          class="status"
-          :class="{
-            pending: transaction.status === ETransactionStatus.pending,
-          }"
-        >
-          {{ $t(`transactions.status.${transaction.status}`) }}
-        </div>
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.paymentTo') }}
-        </p>
-        <div class="item-right">
-          <img class="icon" src="@/assets/icon/green_ok.svg" />
-          <p class="name">{{ receiver }} ∙ {{ transaction.code }}</p>
-        </div>
-      </li>
-      <li v-if="transaction.fee" class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">0,12345678 {{ transaction.code }}</p>
-      </li>
-      <li v-if="transaction.from?.code" class="main-item">
-        <p class="name">
-          {{ $t('transactions.convertTransaction') }}
-        </p>
-        <p class="description">
-          {{ $t('common.from') }}
-          {{ transaction.from?.amount }}
-          {{ transaction.from?.code.toUpperCase() }}
-        </p>
-      </li>
-      <li class="main-item">
-        <div class="inner">
-          <p class="name">
-            {{ $t('transactions.id') }}
-          </p>
-          <p class="transaction">{{ transaction.id }}</p>
-        </div>
-        <div class="inner">
-          <img alt="folders" src="@/assets/icon/folders.svg" />
-        </div>
-      </li>
-    </ul>
-    <h2 class="explorer">
-      {{ $t('common.explorer') }}
-    </h2>
-  </div>
+  <component
+    :is="component"
+    v-if="transaction"
+    :main-coin="mainCoin"
+    :transaction="transaction"
+    @copy="copyToClipboard"
+  />
 </template>
 
 <script lang="ts" setup>
-import { onMounted, Ref, ref } from 'vue';
+import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import transactionService from '@/services/transactionService';
-import { INetTransaction } from '@/models/transaction/transaction';
 import {
-  ETransactionStatus,
-  EDirection,
+  ETransactionType,
+  INetTransaction,
 } from '@/models/transaction/transaction';
-import { useProfileStore } from '@/stores/profile';
+import { Clipboard } from '@capacitor/clipboard';
+import { useToast } from 'primevue/usetoast';
 
-import { Route } from '@/router/types';
+import {
+  ConvertTransactionDetails,
+  DepositTransactionDetails,
+} from '@/components/ui/organisms/transactions';
 
 const route = useRoute();
-const pStore = useProfileStore();
+const { tm } = useI18n();
+const toast = useToast();
 
-const receiver = ref('');
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
-let transactionType = ref('');
+const mainCoin = ref('');
 
-onMounted(async () => {
+onBeforeMount(async () => {
   try {
     if (!route.params.id) return;
     transaction.value = (await transactionService.getTransactionById(
       route.params.id as string
     )) as INetTransaction;
 
-    await getTransactionReceiver();
-    transactionType.value = transaction.value.type;
+    mainCoin.value = route.params.coin ? (route.params.coin as string) : '';
   } catch (err) {
     console.log(err);
   }
 });
 
-async function getTransactionReceiver() {
-  receiver.value = (
-    EDirection.income === transaction.value.direction
-      ? `To ${pStore.user.phone}`
-      : transaction.value.info
-  ) as string;
-}
+const component = computed(() => {
+  switch (transaction.value.type) {
+    case ETransactionType.convert:
+      return ConvertTransactionDetails;
+    default:
+      return DepositTransactionDetails;
+  }
+});
+
+const copyToClipboard = async (data: string) => {
+  try {
+    await Clipboard.write({
+      string: data,
+    });
+
+    toast.add({
+      summary: tm('transactions.transactionIdCopied') as string,
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    console.error(`${tm('transactions.transactionIdCopyFail')} `, err);
+  }
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .transaction-details {
-  padding: 32px 16px 0;
+  padding: 0 16px;
   height: 100%;
 
   > .header {
-    height: 29%;
-
     > .sum {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 4px;
-
-      > .arrow {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        background: $color-light-grey-600;
-      }
+      margin: 20px 0 4px;
     }
 
     > .sendto {
@@ -263,15 +171,20 @@ async function getTransactionReceiver() {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 53px;
   border-bottom: 1px solid rgb(175 179 195 / 30%);
+  padding: 24px 0;
+
+  > .icon {
+    color: $color-primary-500;
+    font-size: 24px;
+  }
 
   &:first-child {
     border-top: 1px solid rgb(175 179 195 / 30%);
   }
 
   > .name {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 16px;
     line-height: 21px;
     display: flex;
@@ -284,8 +197,7 @@ async function getTransactionReceiver() {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 87px;
-    height: 31px;
+    padding: 5px 12px;
     background: $color-yellow-100;
     border-radius: 100px;
     color: $color-yellow-800;
@@ -320,7 +232,7 @@ async function getTransactionReceiver() {
 
   > .inner {
     > .name {
-      font-weight: 500;
+      font-weight: 400;
       font-size: 16px;
       line-height: 21px;
       display: flex;

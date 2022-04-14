@@ -1,5 +1,3 @@
-import { DateTime } from 'luxon';
-
 export type TTransaction = INetTransaction | IRequestFunds;
 
 export type TConvertTransaction = {
@@ -23,6 +21,7 @@ export interface INetTransaction {
   contractor?: IContractor;
   startDate?: string;
   finishDate?: string;
+  relativeDate?: string;
 }
 
 export interface IRequestFunds {
@@ -128,14 +127,8 @@ export default {
             address: input.contragent.address || '',
           }
         : undefined,
-      startDate: DateTime.fromISO(input.created_at).toLocaleString(
-        DateTime.DATETIME_MED
-      ),
-      finishDate: input.finished_at
-        ? DateTime.fromISO(input.finished_at).toLocaleString(
-            DateTime.DATETIME_MED
-          )
-        : undefined,
+      startDate: input.created_at,
+      finishDate: input.finished_at ? input.finished_at : undefined,
     };
   },
 

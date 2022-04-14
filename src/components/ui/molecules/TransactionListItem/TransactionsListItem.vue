@@ -1,47 +1,21 @@
 <template>
-  <div class="transaction-list-item">
-    <img class="icon" :src="icon" />
-    <div class="info">
-      <div class="flex">
-        <h1 class="title">
-          {{
-            !to.amount
-              ? $t(`transactions.operations.${type}`)
-              : `${$t(`transactions.operations.${type}`)}
-              ${$t('common.to')}`
-          }}
-          {{ code }}
-        </h1>
-        <p :class="{ received: sum.startsWith('+') }">
-          {{ sum }}
-        </p>
-      </div>
-      <div class="flex">
-        <div class="subtitle">{{ info }}</div>
-        <p
-          v-if="status"
-          class="status"
-          :class="{
-            pending: status === ETransactionStatus.pending,
-          }"
-        >
-          {{ $t(`transactions.status.${status}`) }}
-        </p>
-        <p v-else class="sum">{{ sum }} {{ code }}</p>
-      </div>
-    </div>
-  </div>
+  <component :is="currentComponent.component" v-bind="currentComponent.props" />
 </template>
 
-<script setup lang="ts">
-import { PropType } from 'vue';
+<script lang="ts" setup>
+import { computed, PropType } from 'vue';
 
 import {
-  ETransactionStatus,
+  ETransactionType,
   TConvertTransaction,
 } from '@/models/transaction/transaction';
 
-defineProps({
+import {
+  ConvertTransactionItem,
+  DepositTransactionItem,
+} from '@/components/ui/molecules/TransactionListItem/index';
+
+const props = defineProps({
   icon: {
     type: String,
     default: '',
@@ -66,6 +40,10 @@ defineProps({
     type: String,
     default: '',
   },
+  mainCoin: {
+    type: String,
+    default: '',
+  },
   to: {
     type: Object as PropType<TConvertTransaction>,
     default: () => ({} as TConvertTransaction),
@@ -74,6 +52,30 @@ defineProps({
     type: Object as PropType<TConvertTransaction>,
     default: () => ({} as TConvertTransaction),
   },
+  showCoin: {
+    type: Boolean,
+    default: true,
+  },
+});
+
+const currentComponent = computed(() => {
+  switch (props.type) {
+    case ETransactionType.convert:
+      return {
+        component: ConvertTransactionItem,
+        props: {
+          icon: props.icon,
+          to: props.to,
+          from: props.from,
+          mainCoin: props.mainCoin,
+        },
+      };
+    default:
+      return {
+        component: DepositTransactionItem,
+        props,
+      };
+  }
 });
 </script>
 
@@ -83,14 +85,9 @@ defineProps({
   width: 100%;
   margin-bottom: 24px;
 
-  > .icon {
-    margin-right: 12px;
-    width: 40px;
-    height: 40px;
-  }
-
   > .info {
     width: 100%;
+    margin-left: 12px;
 
     > .flex {
       width: 100%;
@@ -124,7 +121,7 @@ defineProps({
       }
 
       > .received {
-        color: $color-green-600;
+        color: $color-green-600 !important;
       }
 
       > .sum {
