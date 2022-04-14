@@ -22,7 +22,6 @@
         :space-between="5"
         @swiper="onSwiper"
         @slideChange="onSlideChange"
-        style="padding: 0 5px 10px"
       >
         <swiper-slide
           v-for="(item, index) in carousel"
@@ -34,23 +33,6 @@
           <p class="name">{{ item.name }}</p>
         </swiper-slide>
       </swiper>
-      <br />
-      <VueAgile
-        :nav-buttons="false"
-        :slides-to-show="3.5"
-        :swipe-distance="20"
-        class="carousel-slider"
-      >
-        <div
-          v-for="(item, index) in carousel"
-          :key="index"
-          class="item-slide"
-          @click="onClick(item)"
-        >
-          <img :src="item.img" alt class="image" />
-          <p class="name">{{ item.name }}</p>
-        </div>
-      </VueAgile>
       <div v-if="showControls" class="controls">
         <button class="btn">
           <img alt class="label" src="@/assets/icon/plus.svg" />{{
@@ -99,7 +81,6 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
-import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
@@ -115,7 +96,6 @@ import { AccountDetails } from '@/components/ui';
 
 // Import Swiper Vue.js components
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import 'swiper/css';
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -229,7 +209,7 @@ const onSlideChange = () => {
     padding: 0 16px;
 
     > .swiper {
-      padding: 0 5px 10px;
+      padding: 0 5px 10px 7px;
     }
 
     > .controls {
