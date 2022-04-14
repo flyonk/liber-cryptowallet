@@ -25,22 +25,35 @@ import {
   ConvertTransactionDetails,
   DepositTransactionDetails,
 } from '@/components/ui/organisms/transactions';
+import { IConvertTransaction } from '@/models/transaction/convert';
 
 const route = useRoute();
 const { tm } = useI18n();
 const toast = useToast();
 
-let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+let transaction: Ref<INetTransaction | IConvertTransaction> = ref(
+  {} as INetTransaction
+);
 const mainCoin = ref('');
 
 onBeforeMount(async () => {
   try {
     if (!route.params.id) return;
+
+    if (route.params.coin !== 'default') {
+      transaction.value =
+        (await transactionService.getTransactionDetailsByCoinAndId(
+          route.params.id as string,
+          route.params.coin as string
+        )) as IConvertTransaction;
+      mainCoin.value = route.params.coin as string;
+
+      return;
+    }
+
     transaction.value = (await transactionService.getTransactionById(
       route.params.id as string
     )) as INetTransaction;
-
-    mainCoin.value = route.params.coin ? (route.params.coin as string) : '';
   } catch (err) {
     console.log(err);
   }

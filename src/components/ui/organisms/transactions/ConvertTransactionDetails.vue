@@ -3,9 +3,9 @@
     <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
-          {{ amountWithCode.amount }}
+          {{ transaction.amount }}
           <span class="currency">
-            {{ amountWithCode.code }}
+            {{ mainCoin }}
           </span>
         </div>
       </div>
@@ -17,7 +17,7 @@
       </template>
     </TopNavigation>
     <div class="header">
-      <h2 class="sendto">{{ infoText }}</h2>
+      <h2 class="sendto">{{ transaction.info }}</h2>
       <p class="date">
         {{ relativeDate }}
       </p>
@@ -42,49 +42,40 @@
         <p class="name">
           {{ $t('transactions.rate') }}
         </p>
-        <p class="description">0,12345678 {{ amountWithCode.code }}</p>
+        <p class="description">{{ feeRate }}</p>
       </li>
 
       <li class="main-item">
         <p class="name">
           {{ $t('transactions.transferFee') }}
         </p>
-        <p class="description">0,12345678 {{ amountWithCode.code }}</p>
+        <p class="description">- {{ transaction.fee }} {{ mainCoin }}</p>
       </li>
 
       <li class="main-item">
         <p class="name">
           {{
-            direction === EDirection.income
+            transaction.direction === EDirection.income
               ? $t('transactions.cost')
               : $t('transactions.bought')
           }}
         </p>
         <p class="description">
-          {{ oppositeCoinInfo.amount }} {{ oppositeCoinInfo.code }}
+          {{ transaction.direction === EDirection.income ? '-' : '+' }}
+          0.05005 {{ transaction.feeCode.toUpperCase() }}
         </p>
       </li>
-
-      <li class="main-item">
-        <div class="inner">
-          <p class="name">
-            {{ $t('transactions.id') }}
-          </p>
-          <p class="transaction">{{ transaction.id }}</p>
-        </div>
-        <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
-      </li>
     </ul>
-    <h2 class="explorer">
-      {{ $t('common.explorer') }}
-    </h2>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import { EDirection, INetTransaction } from '@/models/transaction/transaction';
+import {
+  EDirection,
+  IConvertTransaction,
+} from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
@@ -97,7 +88,7 @@ import {
 defineEmits(['copy']);
 const props = defineProps({
   transaction: {
-    type: Object as PropType<INetTransaction>,
+    type: Object as PropType<IConvertTransaction>,
     required: true,
   },
 
@@ -107,67 +98,19 @@ const props = defineProps({
   },
 });
 
-const direction = computed(() => {
-  if (props.transaction.to?.code === props.mainCoin) {
-    return EDirection.income;
-  }
+const mainCoin = computed(() => props.transaction.code.toUpperCase());
 
-  return EDirection.outcome;
-});
-
-const isIncome = computed(() => direction.value === EDirection.income);
-
-const infoText = computed(() => {
-  if (isIncome.value) {
-    return (
-      'Bought ' +
-      props.transaction.to?.code?.toUpperCase() +
-      ' with ' +
-      props.transaction.from?.code?.toUpperCase()
-    );
-  }
-
-  return (
-    'Sold from ' +
-    props.transaction.from?.code?.toUpperCase() +
-    ' to ' +
-    props.transaction.to?.code?.toUpperCase()
-  );
-});
-
-const oppositeCoinInfo = computed(() => {
-  if (!isIncome.value) {
-    return {
-      amount: '+ ' + props.transaction.to?.amount,
-      code: props.transaction.to?.code?.toUpperCase(),
-    };
-  }
-
-  return {
-    amount: '- ' + props.transaction.from?.amount,
-    code: props.transaction.from?.code?.toUpperCase(),
-  };
-});
-
-const amountWithCode = computed(() => {
-  if (isIncome.value) {
-    return {
-      amount: '+ ' + props.transaction.to?.amount,
-      code: props.transaction.to?.code?.toUpperCase(),
-    };
-  }
-
-  return {
-    amount: '- ' + props.transaction.from?.amount,
-    code: props.transaction.from?.code?.toUpperCase(),
-  };
-});
+const feeRate = computed(
+  () =>
+    '1 ' +
+    mainCoin.value +
+    ' = ' +
+    props.transaction.rate +
+    ' ' +
+    props.transaction.feeCode.toUpperCase()
+);
 
 const relativeDate = computed(() => {
-  return getRelativeDate(
-    props.transaction.finishDate
-      ? props.transaction.finishDate
-      : (props.transaction.startDate as string)
-  );
+  return getRelativeDate(props.transaction.relativeDate);
 });
 </script>

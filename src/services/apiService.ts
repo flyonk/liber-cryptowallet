@@ -86,6 +86,9 @@ export default {
     requestFunds(): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/request-funds`;
     },
+    transactionDetailsByCoin(coin: string, id: string): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions/coin/${coin}/id/${id}`;
+    },
   },
   account: {
     accountsList(): string {
