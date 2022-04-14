@@ -49,7 +49,7 @@
           }}
         </button>
       </div>
-
+      <h1>HELLO WORLD</h1>
       <div class="main-tabs">
         <div
           :class="{ active: activeTab === 1 }"
@@ -200,8 +200,7 @@ const onClick = (carouselItem: any) => {
   background: $color-light-grey-100;
   height: 90%;
   padding: 35px 0 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   flex-grow: 1;
 
   > .header {
@@ -227,18 +226,6 @@ const onClick = (carouselItem: any) => {
           margin-right: 9px;
         }
       }
-    }
-  }
-
-  > .wallet {
-    display: flex;
-    height: 370px;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 24px;
-
-    > .qr {
-      margin-bottom: 56px;
     }
   }
 }

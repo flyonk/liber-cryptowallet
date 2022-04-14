@@ -87,12 +87,16 @@
             </div>
             <div class="flex">
               <div class="subtitle">{{ transaction.from }}</div>
-              <p
+              <div
                 v-if="transaction.status"
                 :class="{ pending: transaction.status === 'Pending' }"
+                class="flex"
               >
-                {{ transaction.status }}
-              </p>
+                <i class="icon-clock mr-1" />
+                <p>
+                  {{ transaction.status }}
+                </p>
+              </div>
               <p v-else class="sum">{{ transaction.sum }}</p>
             </div>
           </div>
@@ -233,8 +237,7 @@ const shareAddress = async () => {
   background: $color-light-grey-100;
   height: 85%;
   padding: 35px 0 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   flex-grow: 1;
 
   > .header {
@@ -340,17 +343,18 @@ const shareAddress = async () => {
       }
     }
   }
+}
 
-  > .wallet {
-    display: flex;
-    height: 370px;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 24px;
+.wallet {
+  display: flex;
+  height: 370px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24px;
+  overflow-y: auto;
 
-    > .qr {
-      margin-bottom: 56px;
-    }
+  > .qr {
+    margin-bottom: 56px;
   }
 }
 
