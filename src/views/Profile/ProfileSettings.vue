@@ -240,7 +240,9 @@ async function onLogout() {
     ) as string,
   });
 
-  if (confirmed) return;
+  if (!confirmed) {
+    return;
+  }
 
   await authStore.logout(profileStore.getUser.id);
 

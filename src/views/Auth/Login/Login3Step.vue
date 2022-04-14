@@ -4,7 +4,7 @@
       <top-navigation v-if="!authStore.isLoggedIn" @click:left-icon="prevStep">
         {{ $t('auth.login.step3Title') }}
       </top-navigation>
-      <div class="page-title" v-else>
+      <div v-else class="page-title">
         <div>{{ $t('auth.login.step3Title') }}</div>
         —
       </div>
