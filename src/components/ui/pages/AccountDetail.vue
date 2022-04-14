@@ -49,7 +49,7 @@
           }}
         </button>
       </div>
-
+      <h1>HELLO WORLD</h1>
       <div class="main-tabs">
         <div
           :class="{ active: activeTab === 1 }"
@@ -66,12 +66,13 @@
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-
+      <h1>HELLO WORLD</h1>
       <div v-if="activeTab === 1">
         <transactions-list :transactions="transactions" />
       </div>
-
-      <div v-if="activeTab === 2" class="wallet">
+      <h1>HELLO WORLD</h1>
+      <div v-if="activeTab === 2" class="wallet-address">
+        <h1>HELLO WORLD</h1>
         <account-details :coin-code="route.params.coin || 'tbtc'" />
       </div>
     </div>
@@ -216,18 +217,6 @@ const onClick = (carouselItem: any) => {
           margin-right: 9px;
         }
       }
-    }
-  }
-
-  > .wallet {
-    display: flex;
-    height: 370px;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 24px;
-
-    > .qr {
-      margin-bottom: 56px;
     }
   }
 }

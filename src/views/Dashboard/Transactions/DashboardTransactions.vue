@@ -343,17 +343,18 @@ const shareAddress = async () => {
       }
     }
   }
+}
 
-  > .wallet {
-    display: flex;
-    height: 370px;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 24px;
+.wallet {
+  display: flex;
+  height: 370px;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 24px;
+  overflow-y: auto;
 
-    > .qr {
-      margin-bottom: 56px;
-    }
+  > .qr {
+    margin-bottom: 56px;
   }
 }
 
