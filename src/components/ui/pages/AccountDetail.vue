@@ -83,6 +83,7 @@
 import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
@@ -93,9 +94,6 @@ import { useFundsStore } from '@/stores/funds';
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 import { AccountDetails } from '@/components/ui';
-
-// Import Swiper Vue.js components
-import { Swiper, SwiperSlide } from 'swiper/vue';
 
 let showControls = ref(false);
 const { tm } = useI18n();
