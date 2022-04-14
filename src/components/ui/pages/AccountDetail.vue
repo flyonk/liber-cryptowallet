@@ -49,7 +49,6 @@
           }}
         </button>
       </div>
-      <h1>HELLO WORLD</h1>
       <div class="main-tabs">
         <div
           :class="{ active: activeTab === 1 }"
