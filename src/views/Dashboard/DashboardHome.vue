@@ -53,13 +53,8 @@
         <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
         <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
           <i
-            class="icon-ic16-arrow-down"
+            class="down icon-ic16-arrow-down"
             :class="{ '-reverted': isMenuOpen }"
-          />
-          <img
-            :class="{ '-reverted': isMenuOpen }"
-            class="down"
-            src="@/assets/icon/arrow-down.svg"
           />
         </div>
         <img
@@ -431,8 +426,6 @@ const showWelcomeMessage = computed(() => {
       width: 36px;
 
       > .down {
-        width: 10px;
-
         &.-reverted {
           transform: rotate(180deg);
         }
