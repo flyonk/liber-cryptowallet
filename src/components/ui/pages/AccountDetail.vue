@@ -16,13 +16,14 @@
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
-      <VueAgile
-        :nav-buttons="false"
-        :slides-to-show="3.5"
-        :swipe-distance="20"
-        class="carousel-slider"
+      <swiper
+        class="swiper"
+        :slides-per-view="3.5"
+        :space-between="5"
+        @swiper="onSwiper"
+        @slideChange="onSlideChange"
       >
-        <div
+        <swiper-slide
           v-for="(item, index) in carousel"
           :key="index"
           class="item-slide"
@@ -30,8 +31,8 @@
         >
           <img :src="item.img" alt class="image" />
           <p class="name">{{ item.name }}</p>
-        </div>
-      </VueAgile>
+        </swiper-slide>
+      </swiper>
       <div v-if="showControls" class="controls">
         <button class="btn">
           <img alt class="label" src="@/assets/icon/plus.svg" />{{
@@ -84,9 +85,9 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref } from 'vue';
-import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
@@ -193,6 +194,14 @@ const onClick = (carouselItem: any) => {
       break;
   }
 };
+
+//test
+const onSwiper = (swiper) => {
+  console.log(swiper);
+};
+const onSlideChange = () => {
+  console.log('slide change');
+};
 </script>
 
 <style lang="scss" scoped>
@@ -206,6 +215,10 @@ const onClick = (carouselItem: any) => {
 
   > .header {
     padding: 0 16px;
+
+    > .swiper {
+      padding: 0 5px 10px 7px;
+    }
 
     > .controls {
       display: flex;
