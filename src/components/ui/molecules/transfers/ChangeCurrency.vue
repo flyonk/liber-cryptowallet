@@ -16,6 +16,7 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
+            :readonly="isSameCurrencies"
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
@@ -84,6 +85,9 @@
             @on-select-coin="onSelectCoin($event, 'to')"
           />
         </label>
+        <p v-if="isSameCurrencies" class="error-text pt-1">
+          You should choose different currencies for exchange
+        </p>
       </div>
       <BaseButton
         v-if="loading"
@@ -450,5 +454,11 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
       color: $color-red-500;
     }
   }
+}
+
+.error-text {
+  color: $color-red-500;
+  font-size: 12px;
+  line-height: 16px;
 }
 </style>
