@@ -179,8 +179,7 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"
-    }
+      "rateChanged": "Rate have been changed"    }
   },
   "ui": {
     "friends": {
@@ -496,7 +495,8 @@
         "amountCovert": "Amount we’ll covert",
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "sameCurrenciesError": "You should choose different currencies for exchange"
       }
     }
   },

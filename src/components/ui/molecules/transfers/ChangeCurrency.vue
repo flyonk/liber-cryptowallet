@@ -86,7 +86,7 @@
           />
         </label>
         <p v-if="isSameCurrencies" class="error-text pt-1">
-          You should choose different currencies for exchange
+          {{ $t('views.deposit.convert.sameCurrenciesError') }}
         </p>
       </div>
       <BaseButton
