@@ -1,10 +1,6 @@
 <template>
   <div class="">
-    <swiper
-      :modules="[Pagination, Autoplay]"
-      :loop="true"
-      :pagination="pagination"
-    >
+    <swiper :modules="[Pagination]" :loop="true" :pagination="pagination">
       <slot />
     </swiper>
   </div>
@@ -23,20 +19,34 @@ const pagination = {
   type: 'custom',
   renderCustom: function (swiper, current, total) {
     //TODO: implement timeline logic
-    console.log('swiper', swiper.pagination.el);
-    const paginationItem = document.createElement('div');
-    paginationItem.classList.add('test');
-    paginationItem.innerHTML = `${current}/${total}`;
-    swiper.pagination.el.innerHTML = '';
-    swiper.pagination.el.append(paginationItem);
+    const pagItems = [];
 
+    for (let i = 0; i < total; i++) {
+      const item = document.createElement('div');
+      item.classList.add('not-viewed');
+      pagItems.push(item);
+    }
+
+    swiper.pagination.el.innerHTML = '';
+    pagItems.forEach((item) => {
+      swiper.pagination.el.append(item);
+    });
+
+    pagItems[current - 1].classList.add('viewing');
     // return `<div class=''>${current}/${total}</div>`; //other way
   },
 };
 </script>
 
 <style lang="scss" scoped>
-:deep(.test) {
+:deep(.not-viewed) {
+  width: 50px;
+  height: 5px;
+  background-color: green;
+  margin-left: 5px;
+}
+
+:deep(.viewing) {
   background-color: red;
 }
 
