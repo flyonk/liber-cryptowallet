@@ -136,11 +136,11 @@
         }}</span> -->
       </div>
       <div class="carousel">
-        <VueAgile :nav-buttons="false" :slides-to-show="2">
-          <div
+        <swiper class="swiper" :slides-per-view="2.2" :space-between="8">
+          <swiper-slide
             v-for="(item, index) in carousel"
             :key="index"
-            class="carousel-item slide"
+            class="carousel-item"
             @click="$router.push({ name: item.route })"
           >
             <img :src="item.imgSrc" />
@@ -153,8 +153,8 @@
               {{ item.status }}
             </h4>
             <p>{{ item.description }}</p>
-          </div>
-        </VueAgile>
+          </swiper-slide>
+        </swiper>
       </div>
       <!--      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />-->
       <AccountListBottomSheet
@@ -175,8 +175,8 @@ import {
   Ref,
   ref,
 } from 'vue';
-import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
@@ -601,5 +601,9 @@ const showWelcomeMessage = computed(() => {
     bottom: 0;
     opacity: 1;
   }
+}
+
+.swiper {
+  z-index: 0; //hides behind the bottom navigation
 }
 </style>
