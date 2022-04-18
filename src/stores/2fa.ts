@@ -1,15 +1,14 @@
 import { defineStore } from 'pinia';
-import { generateSecret, generateToken, verifyToken } from 'node-2fa';
 import { Storage } from '@capacitor/storage';
+import profileService from '@/services/profileService';
 
-import { useAuthStore } from './auth';
 import { checkExpiration } from '@/helpers/2fa';
 
 import { EStorageKeys } from '@/types/storage';
 
 interface I2faState {
   secret: string;
-  uri: string;
+  url: string;
 }
 
 const getSecret = async () => {
@@ -19,19 +18,12 @@ const getSecret = async () => {
   return value || '';
 };
 
-async function setSecret(secret: string) {
-  await Storage.set({
-    key: EStorageKeys.twofa,
-    value: secret,
-  });
-}
-
 // === 2fa Store ===
 
 export const use2faStore = defineStore('2fa', {
   state: (): I2faState => ({
     secret: '',
-    uri: '',
+    url: '',
   }),
 
   getters: {
@@ -40,27 +32,27 @@ export const use2faStore = defineStore('2fa', {
   },
 
   actions: {
-    generateToken() {
-      generateToken(this.secret);
+    async confirmVerification(code: string) {
+      return await profileService.confirmVerificationApp({
+        secret: this.secret,
+        code,
+      });
     },
 
-    async verify(token: string) {
-      return verifyToken(this.secret, token);
+    async verify(code: string) {
+      const result = await profileService.verificationByApp({ code });
+      return result;
     },
 
     async generateSecret() {
-      const auth = useAuthStore();
-      const { dialCode, phone } = await auth.recoverPhoneFromStorage();
-      const account = `Personal${dialCode}${phone}`;
-      const { secret, uri } = generateSecret({
-        name: 'Liber App',
-        account,
-      });
-
+      const { secret, url } = await profileService.enableVerificationByApp();
       this.secret = secret;
-      this.uri = uri;
+      this.url = url;
 
-      setSecret(secret);
+      return {
+        secret,
+        url,
+      };
     },
 
     async set2FADate(): Promise<void> {

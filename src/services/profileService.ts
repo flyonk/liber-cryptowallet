@@ -38,7 +38,8 @@ export default {
   },
 
   async enableVerificationByApp(): Promise<TConfigureAppData> {
-    return await axios.get(apiService.authenticators.secret());
+    const res = await axios.get(apiService.authenticators.secret());
+    return res.data;
   },
 
   async confirmVerificationApp(data: {

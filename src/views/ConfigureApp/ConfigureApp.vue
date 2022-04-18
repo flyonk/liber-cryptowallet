@@ -33,10 +33,7 @@
   <div style="padding: 15px; padding-bottom: 50px">
     <base-button
       block
-      @click="
-        saveTwoFASecret();
-        $router.push({ name: Route.ConfigureAppVerify });
-      "
+      @click="$router.push({ name: Route.ConfigureAppVerify })"
     >
       {{ $t('common.continueCta') }}
     </base-button>
@@ -57,7 +54,6 @@ import { useToast } from 'primevue/usetoast';
 
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
-import { useProfileStore } from '@/stores/profile';
 
 import { TopNavigation, BaseButton } from '@/components/ui';
 
@@ -66,21 +62,19 @@ import { Route } from '@/router/types';
 const { tm } = useI18n();
 
 const store = use2faStore();
-const pStore = useProfileStore();
 const toast = useToast();
 
 const canvas = ref<HTMLCanvasElement | undefined>();
 let qrCodeValue = ref<string>('');
 
 onMounted(async () => {
-  await store.generateSecret();
-  const { secret, uri } = store;
+  const { secret, url } = await store.generateSecret();
 
   qrCodeValue.value = secret;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
-    content: uri,
+    content: url,
     width: 230,
   });
 
@@ -101,11 +95,6 @@ const copyToClipboard = async () => {
     console.error(`${tm('common.copyFailure')} `, err);
   }
 };
-
-async function saveTwoFASecret(): Promise<void> {
-  const options = { secret_2fa: qrCodeValue.value };
-  pStore.updateUserProfile({ options });
-}
 </script>
 
 <style lang="scss" scoped>
