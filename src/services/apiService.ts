@@ -37,16 +37,16 @@ export default {
   },
   authenticators: {
     disable(): string {
-      return `${BASE_API_URL}/user/2fa/disable`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/disable`;
     },
     enable(): string {
-      return `${BASE_API_URL}/user/2fa/disable`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/enable`;
     },
     secret(): string {
-      return `${BASE_API_URL}/user/2fa/secret`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/secret`;
     },
     verify(): string {
-      return `${BASE_API_URL}/user/2fa/verify`;
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/verify`;
     },
   },
   verification: {
