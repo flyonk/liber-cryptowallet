@@ -33,17 +33,16 @@
           <img class="icon" src="@/assets/icon/file_pdf.svg" />
           <p>{{ $t('transactions.downloadState') }}</p>
         </button>
-        <button v-if="transaction.type === 'payment-link'" class="btn -share">
-          <img class="icon" src="@/assets/icon/share.svg" />
-          <p>{{ $t('common.shareCta') }}</p>
-        </button>
-        <button
-          v-if="transaction.type === 'payment-link'"
-          class="btn btn -cancel"
-        >
-          <img class="icon" src="@/assets/icon/close_red.svg" />
-          <p>{{ $t('common.cancelCta') }}</p>
-        </button>
+        <template v-else-if="transaction.type === 'payment-link'">
+          <button class="btn -share">
+            <img class="icon" alt="" src="@/assets/icon/share.svg" />
+            <p>{{ $t('common.shareCta') }}</p>
+          </button>
+          <button class="btn btn -cancel">
+            <img class="icon" alt="" src="@/assets/icon/close_red.svg" />
+            <p>{{ $t('common.cancelCta') }}</p>
+          </button>
+        </template>
       </div>
     </div>
     <ul class="main mb-5">
@@ -56,52 +55,54 @@
         <p class="name">
           {{ $t('status.title') }}
         </p>
-        <div
-          v-if="transaction.status"
-          :class="{
-            pending: transaction.status === ETransactionStatus.pending,
-          }"
-          class="status"
-        >
-          {{ $t(`transactions.status.${transaction.status}`) }}
-        </div>
+        <TransactionStatus :status="transaction.status" />
       </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.paymentTo') }}
-        </p>
-        <div class="item-right">
-          <img class="icon" src="@/assets/icon/green_ok.svg" />
-          <p class="name">{{ receiver }} ∙ {{ transaction.code }}</p>
-        </div>
-      </li>
-      <li v-if="transaction.fee" class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">0,12345678 {{ transaction.code }}</p>
-      </li>
-      <li v-if="transaction.from?.code" class="main-item">
-        <p class="name">
-          {{ $t('transactions.convertTransaction') }}
-        </p>
-        <p class="description">
-          {{ $t('common.from') }}
-          {{ transaction.from?.amount }}
-          {{ transaction.from?.code.toUpperCase() }}
-        </p>
-      </li>
-      <li class="main-item">
-        <div class="inner">
+      <template v-if="transaction.type !== 'deposit'">
+        <li class="main-item">
           <p class="name">
-            {{ $t('transactions.id') }}
+            {{ $t('transactions.paymentTo') }}
           </p>
-          <p class="transaction">{{ transaction.id }}</p>
-        </div>
-        <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
+          <div class="item-right">
+            <img class="icon" alt="" src="@/assets/icon/green_ok.svg" />
+            <p class="name">{{ receiver }} ∙ {{ transaction.code }}</p>
+          </div>
+        </li>
+        <li v-if="transaction.fee" class="main-item">
+          <p class="name">
+            {{ $t('transactions.transferFee') }}
+          </p>
+          <p class="description">0,12345678 {{ transaction.code }}</p>
+        </li>
+        <li v-if="transaction.from?.code" class="main-item">
+          <p class="name">
+            {{ $t('transactions.convertTransaction') }}
+          </p>
+          <p class="description">
+            {{ $t('common.from') }}
+            {{ transaction.from?.amount }}
+            {{ transaction.from?.code.toUpperCase() }}
+          </p>
+        </li>
+        <li class="main-item">
+          <div class="inner">
+            <p class="name">
+              {{ $t('transactions.id') }}
+            </p>
+            <p class="transaction">{{ transaction.id }}</p>
+          </div>
+          <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
+        </li>
+      </template>
+      <li v-else class="main-item">
+        <p class="name">
+          {{ $t('transactions.statement') }}
+        </p>
+        <base-button size="medium" view="flat">
+          {{ $t('transactions.download') }}
+        </base-button>
       </li>
     </ul>
-    <h2 class="explorer">
+    <h2 v-if="transaction.type !== 'deposit'" class="explorer">
       {{ $t('common.explorer') }}
     </h2>
   </div>
@@ -110,15 +111,16 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import {
-  EDirection,
-  ETransactionStatus,
-  INetTransaction,
-} from '@/models/transaction/transaction';
+import { EDirection, INetTransaction } from '@/models/transaction/transaction';
 import { useProfileStore } from '@/stores/profile';
 import { getRelativeDate } from '@/helpers/datetime';
 
-import { TopNavigation, TransactionIconWithStatus } from '@/components/ui';
+import {
+  BaseButton,
+  TopNavigation,
+  TransactionIconWithStatus,
+  TransactionStatus,
+} from '@/components/ui';
 
 const pStore = useProfileStore();
 
