@@ -1,6 +1,11 @@
 <template>
   <div class="">
-    <swiper :modules="[Pagination]" :loop="true" :pagination="pagination">
+    <swiper
+      :modules="[Pagination, Autoplay]"
+      :loop="true"
+      :pagination="pagination"
+      :autoplay="autoplay"
+    >
       <slot />
     </swiper>
   </div>
@@ -12,46 +17,81 @@ import { Swiper } from 'swiper/vue';
 import 'swiper/css/pagination'; //TODO: move to index.css
 
 // import required modules
-import { Pagination } from 'swiper';
+import { Pagination, Autoplay } from 'swiper';
+import { Ref, ref } from 'vue';
+
+let pagItems: Ref<HTMLDivElement[]> = ref([]);
+
+const autoplay = {
+  delay: 5000,
+  pauseOnMouseEnter: true,
+  disableOnInteraction: false,
+};
 
 const pagination = {
   clickable: true,
   type: 'custom',
-  renderCustom: function (swiper, current, total) {
+  renderCustom: function (swiper, current: number, total: number) {
     //TODO: implement timeline logic
     swiper.pagination.el.classList.add('navigation');
-    const pagItems = [];
-
-    for (let i = 0; i < total; i++) {
-      const item = document.createElement('div');
-      // item.classList.add('not-viewed');
-      item.classList.add('navigation-item');
-      pagItems.push(item);
+    if (!pagItems.value.length) {
+      for (let i = 0; i < total; i++) {
+        const item = document.createElement('div');
+        item.classList.add('navigation-item');
+        pagItems.value.push(item);
+      }
     }
 
-    //current slide
-    pagItems[current - 1].classList.add('viewing');
-
-    //next slides
-    for (let i = current; i < total; i++) {
-      pagItems[i].classList.add('not-viewed');
-    }
-
-    // prev slides
-    for (let i = current - 2; i >= 0; i--) {
-      pagItems[i].classList.add('viewed');
-    }
+    updateStyles(current, total);
 
     //clear items
     swiper.pagination.el.innerHTML = '';
-    pagItems.forEach((item) => {
+
+    pagItems.value.forEach((item) => {
       swiper.pagination.el.append(item);
-      console.log(item.classList);
     });
 
-    // return `<div class=''>${current}/${total}</div>`; //other way
+    handleTouchOnSlide(swiper);
   },
 };
+
+function updateStyles(current: number, total: number) {
+  if (!pagItems.value.length) return;
+
+  // prev slides
+  for (let i = current - 2; i >= 0; i--) {
+    pagItems.value[i].classList.remove('viewing');
+    pagItems.value[i].classList.add('viewed');
+  }
+
+  // current slide
+  pagItems.value[current - 1].classList.remove('not-viewed');
+  pagItems.value[current - 1].classList.remove('viewed');
+  pagItems.value[current - 1].classList.add('viewing');
+
+  //next slides
+  for (let i = current; i < total; i++) {
+    pagItems.value[i].classList.remove('viewed');
+    pagItems.value[i].classList.remove('viewing');
+    pagItems.value[i].classList.add('not-viewed');
+  }
+}
+
+function handleTouchOnSlide(swiper) {
+  const wrapper = document.querySelector('.swiper-wrapper');
+  const viewingSlide = document.querySelector('.viewing') as HTMLElement;
+
+  wrapper?.addEventListener('touchstart', () => {
+    swiper.autoplay.stop();
+    viewingSlide.style.animationPlayState = 'paused';
+  });
+
+  wrapper?.addEventListener('touchend', () => {
+    swiper.autoplay.start();
+    //TODO: implement restart animation
+    viewingSlide.style.animationPlayState = 'running';
+  });
+}
 </script>
 
 <style lang="scss" scoped>
@@ -59,7 +99,7 @@ const pagination = {
   display: flex;
   justify-content: space-around;
   background-color: $color-brand-primary;
-  padding-top: 10px;
+  padding: 10px 24px 0;
 }
 
 :deep(.navigation-item) {
@@ -67,6 +107,10 @@ const pagination = {
   height: 3px;
   margin-left: 4px;
   border-radius: 2px;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 :deep(.not-viewed) {
@@ -74,10 +118,10 @@ const pagination = {
 }
 
 :deep(.viewing) {
+  width: 100%;
+  height: 3px;
   background-color: $color-white;
-  animation: background-filling linear;
-  animation-duration: 3s;
-  animation-fill-mode: forwards;
+  animation: 5s linear 0s forwards background-filling;
 }
 
 :deep(.viewed) {
@@ -93,9 +137,13 @@ const pagination = {
 
 @keyframes background-filling {
   from {
-    background: linear-gradient(to left, $color-dark-grey 50%, $color-white 50%)
-      right;
+    background: linear-gradient(
+      to left,
+      $color-dark-grey 50%,
+      $color-white 50%
+    );
     background-size: 200%;
+    background-position: right;
   }
 
   to {
