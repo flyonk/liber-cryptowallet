@@ -120,8 +120,11 @@ function handleTouchOnSlide(swiper) {
 :deep(.viewing) {
   width: 100%;
   height: 3px;
-  background-color: $color-white;
-  // animation: 5s linear 0s forwards background-filling;
+  background: linear-gradient(to left, $color-dark-grey 50%, $color-white 50%);
+  background-size: 200%;
+  background-position: right;
+  animation: 5s linear 0s background-filling;
+  animation-fill-mode: forwards;
 }
 
 :deep(.viewed) {
@@ -136,16 +139,6 @@ function handleTouchOnSlide(swiper) {
 }
 
 @keyframes background-filling {
-  from {
-    background: linear-gradient(
-      to left,
-      $color-dark-grey 50%,
-      $color-white 50%
-    );
-    background-size: 200%;
-    background-position: right;
-  }
-
   to {
     background-position: left;
   }
