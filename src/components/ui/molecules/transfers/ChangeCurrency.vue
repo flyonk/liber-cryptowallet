@@ -194,15 +194,15 @@ const isSameCurrencies = computed(() => {
 
 const isZeroValues = computed(() => {
   return (
-    +fundsStore.convertInfo.requestAmount === 0 &&
-    +fundsStore.convertInfo.estimatedAmount === 0
+    Number(fundsStore.convertInfo.requestAmount) === 0 &&
+    Number(fundsStore.convertInfo.estimatedAmount) === 0
   );
 });
 
 const preventConvert = computed(() => {
   return (
     loading.value ||
-    +fundsStore.convertInfo.requestAmount === 0 ||
+    Number(fundsStore.convertInfo.requestAmount) === 0 ||
     isSameCurrencies.value ||
     isZeroValues.value
   );
@@ -233,10 +233,7 @@ function changeInfoInterval() {
 
   timer.value = 30;
 
-  if (
-    +fundsStore.convertInfo.requestAmount === 0 &&
-    +fundsStore.convertInfo.estimatedAmount === 0
-  ) {
+  if (isZeroValues.value) {
     componentState.value = 'preview';
     loading.value = true;
     return;
@@ -310,7 +307,7 @@ async function convertFunds() {
     await fundsStore.changeCurrency({
       from: currentSendFromCurrency.value.code,
       to: currentSendToCurrency.value.code,
-      amount: String(+fundsStore.convertInfo.requestAmount),
+      amount: String(Number(fundsStore.convertInfo.requestAmount)),
     });
     fundsStore.$reset();
     router.push({
