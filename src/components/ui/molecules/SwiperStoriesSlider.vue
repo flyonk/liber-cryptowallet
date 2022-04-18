@@ -121,7 +121,7 @@ function handleTouchOnSlide(swiper) {
   width: 100%;
   height: 3px;
   background-color: $color-white;
-  animation: 5s linear 0s forwards background-filling;
+  // animation: 5s linear 0s forwards background-filling;
 }
 
 :deep(.viewed) {
