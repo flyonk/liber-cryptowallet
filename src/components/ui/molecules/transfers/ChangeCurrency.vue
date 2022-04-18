@@ -75,7 +75,6 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
-            :readonly="true"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
@@ -234,12 +233,21 @@ function changeInfoInterval() {
 
   timer.value = 30;
 
+  if (
+    +fundsStore.convertInfo.requestAmount === 0 &&
+    +fundsStore.convertInfo.estimatedAmount === 0
+  ) {
+    componentState.value = 'preview';
+    loading.value = true;
+    return;
+  }
+
   startTimer.value = setInterval(() => {
     if (timer.value > 0) {
       timer.value = timer.value - 1;
     } else {
-      componentState.value = 'refresh';
       timer.value = 30;
+      componentState.value = 'refresh';
       clearInterval(startTimer.value);
     }
   }, 1000) as unknown as number;
@@ -264,21 +272,20 @@ async function previewChangeInfo(direction: 'from' | 'to') {
       request_amount: '',
     };
 
-    if (direction === 'from') {
-      data.from = currentSendFromCurrency.value.code;
-      data.to = currentSendToCurrency.value.code;
-      data.request_amount = String(
-        getCorrectValue(Number(fundsStore.convertInfo.requestAmount))
-      );
-    } else {
-      data.from = currentSendToCurrency.value.code;
-      data.to = currentSendFromCurrency.value.code;
-      data.request_amount = String(
-        getCorrectValue(Number(fundsStore.convertInfo.estimatedAmount))
-      );
-    }
+    data.from = currentSendFromCurrency.value.code;
+    data.to = currentSendToCurrency.value.code;
+    data.request_amount =
+      direction === 'from'
+        ? String(getCorrectValue(Number(fundsStore.convertInfo.requestAmount)))
+        : String(
+            getCorrectValue(Number(fundsStore.convertInfo.estimatedAmount))
+          );
+    data.request_coin =
+      direction === 'from'
+        ? currentSendFromCurrency.value.code
+        : currentSendToCurrency.value.code;
 
-    await fundsStore.checkConvertInfo(data, direction);
+    await fundsStore.checkConvertInfo(data);
   } catch (err) {
     SentryUtil.capture(
       err,
@@ -348,6 +355,7 @@ function onBlur(event: FocusEvent) {
 }
 
 const swapCoins = () => {
+  if (isZeroValues.value) componentState.value = 'preview';
   fundsStore.swapCoins();
 
   previewChangeInfo('from');
