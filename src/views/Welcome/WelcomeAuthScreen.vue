@@ -1,7 +1,7 @@
 <template>
   <section class="welcome-auth" :style="stylePaddings">
     <swiper-stories-slider>
-      <SwiperSlide v-for="item in 15" :key="item"
+      <SwiperSlide v-for="item in 5" :key="item"
         ><stories-slider-example-story
           :base-img="require('@/assets/images/money.svg')"
           :logo-img="require('@/assets/images/full-logo-white.png')"
