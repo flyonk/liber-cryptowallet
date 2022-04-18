@@ -152,6 +152,9 @@
     "cost": "Cost",
     "transactionIdCopied": "Transaction ID is copied successfully",
     "transactionIdCopyFail": "Failed when copy Transaction ID",
+    "boughtCoinInfo": "Bought {mainCoin} with {secondaryCoin}",
+    "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
+    "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "income": "Received",
       "outcome": "Sent",

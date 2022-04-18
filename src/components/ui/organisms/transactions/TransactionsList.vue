@@ -6,7 +6,7 @@
       ) in displayedTransactions"
       :key="index"
       class="item"
-      @click="goToRoute(id)"
+      @click="goToRoute(id, from, type)"
     >
       <transactions-list-item
         :code="code"
@@ -28,7 +28,10 @@
 import { computed, PropType } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { INetTransaction } from '@/models/transaction/transaction';
+import {
+  ETransactionType,
+  INetTransaction,
+} from '@/models/transaction/transaction';
 import { Route } from '@/router/types';
 
 import TransactionsListItem from '@/components/ui/molecules/TransactionListItem/TransactionsListItem.vue';
@@ -56,14 +59,28 @@ const displayedTransactions = computed(() => {
     : props.transactions;
 });
 
-const goToRoute = (id: string) => {
-  router.push({
-    name: Route.TransactionsDetails,
-    params: {
-      id,
-      coin: props.mainCoin ? props.mainCoin : 'default',
-    },
-  });
+const goToRoute = (
+  id: string,
+  from: { code: string; amount: string },
+  type: string
+) => {
+  if (type === ETransactionType.convert) {
+    router.push({
+      name: Route.TransactionsDetails,
+      params: {
+        id,
+        coin: props.mainCoin ? props.mainCoin : from.code.toLowerCase(),
+      },
+    });
+  } else {
+    router.push({
+      name: Route.TransactionsDetails,
+      params: {
+        id,
+        coin: 'default',
+      },
+    });
+  }
 };
 </script>
 
