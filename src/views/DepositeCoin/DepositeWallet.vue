@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <top-navigation
-      left-icon-name="ci-close_big"
+      left-icon-name="icon-app-navigation-back"
       @click:left-icon="$router.push({ name: Route.DashboardHome })"
     >
       {{ $t('views.deposit.wallet.deposit') }} {{ coinCode.toUpperCase() }}
