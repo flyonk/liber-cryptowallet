@@ -368,7 +368,10 @@ function onBlur(event: FocusEvent) {
 }
 
 const swapCoins = () => {
-  if (isZeroValues.value) componentState.value = 'preview';
+  if (isZeroValues.value) {
+    componentState.value = 'preview';
+    return;
+  }
   fundsStore.swapCoins();
 
   previewChangeInfo('from');

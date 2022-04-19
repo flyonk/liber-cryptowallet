@@ -74,7 +74,7 @@ const handleCloseModal = () => {
 
 .select-option {
   display: flex;
-  justify-content: center;
+  padding: 0 16px;
   align-items: center;
   width: 100%;
   height: 100%;
