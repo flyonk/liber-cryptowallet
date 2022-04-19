@@ -16,13 +16,7 @@
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
-      <swiper
-        class="swiper"
-        :slides-per-view="3.5"
-        :space-between="5"
-        @swiper="onSwiper"
-        @slideChange="onSlideChange"
-      >
+      <swiper class="swiper" :slides-per-view="3.5" :space-between="5">
         <swiper-slide
           v-for="(item, index) in carousel"
           :key="index"
@@ -45,7 +39,7 @@
           }}
         </button>
         <button class="btn">
-          <img alt class="label" src="@/assets/icon/repeat.svg" />{{
+          <img alt="Exchange" class="label" src="@/assets/icon/repeat.svg" />{{
             $t('transactions.exchange')
           }}
         </button>
@@ -194,14 +188,6 @@ const onClick = (carouselItem: any) => {
       break;
   }
 };
-
-//test
-const onSwiper = (swiper) => {
-  console.log(swiper);
-};
-const onSlideChange = () => {
-  console.log('slide change');
-};
 </script>
 
 <style lang="scss" scoped>
@@ -215,9 +201,11 @@ const onSlideChange = () => {
 
   > .header {
     padding: 0 16px;
+    position: relative;
 
     > .swiper {
-      padding: 0 5px 10px 7px;
+      padding: 0 7px 10px;
+      left: -7px;
     }
 
     > .controls {
