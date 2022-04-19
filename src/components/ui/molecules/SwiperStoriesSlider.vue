@@ -21,9 +21,11 @@ import { Pagination, Autoplay } from 'swiper';
 import { Ref, ref } from 'vue';
 
 let pagItems: Ref<HTMLDivElement[]> = ref([]);
+let wrapper: HTMLDivElement | null = null;
+const delay = 3000; //ms
 
 const autoplay = {
-  delay: 5000,
+  delay,
   pauseOnMouseEnter: true,
   disableOnInteraction: false,
 };
@@ -31,31 +33,18 @@ const autoplay = {
 const pagination = {
   clickable: true,
   type: 'custom',
+  //renderCustom is called every time the slide is changed
   renderCustom: function (swiper, current: number, total: number) {
-    //TODO: implement timeline logic
-    swiper.pagination.el.classList.add('navigation');
-    if (!pagItems.value.length) {
-      for (let i = 0; i < total; i++) {
-        const item = document.createElement('div');
-        item.classList.add('navigation-item');
-        pagItems.value.push(item);
-      }
-    }
+    swiper.pagination.el.classList.add('pagination');
 
-    updateStyles(current, total);
+    createPaginationItems(total);
+    updatePaginationItemsClasses(current, total);
 
-    //clear items
-    swiper.pagination.el.innerHTML = '';
-
-    pagItems.value.forEach((item) => {
-      swiper.pagination.el.append(item);
-    });
-
-    handleTouchOnSlide(swiper);
+    configurePaginationWrapper(swiper);
   },
 };
 
-function updateStyles(current: number, total: number) {
+function updatePaginationItemsClasses(current: number, total: number) {
   if (!pagItems.value.length) return;
 
   // prev slides
@@ -77,32 +66,72 @@ function updateStyles(current: number, total: number) {
   }
 }
 
-function handleTouchOnSlide(swiper) {
-  const wrapper = document.querySelector('.swiper-wrapper');
-  const viewingSlide = document.querySelector('.viewing') as HTMLElement;
+function configurePaginationWrapper(swiper) {
+  if (wrapper) return;
+  putItemsToSwiperEl(swiper.pagination.el);
+
+  wrapper = document.querySelector('.swiper-wrapper');
 
   wrapper?.addEventListener('touchstart', () => {
     swiper.autoplay.stop();
-    viewingSlide.style.animationPlayState = 'paused';
+
+    const currentVieweingSlide = getCurrentViewingItem();
+    if (currentVieweingSlide)
+      currentVieweingSlide.style.animationPlayState = 'paused';
   });
 
   wrapper?.addEventListener('touchend', () => {
     swiper.autoplay.start();
+
     //TODO: implement restart animation
-    viewingSlide.style.animationPlayState = 'running';
+    const currentVieweingSlide = getCurrentViewingItem();
+    if (currentVieweingSlide)
+      currentVieweingSlide.style.animationPlayState = 'running';
   });
+}
+
+function setPaginationItemAnimationStyles() {
+  pagItems.value.forEach((e: HTMLDivElement) => {
+    e.style.animationDuration = `${delay / 1000}s`; //ms to s
+  });
+}
+
+function getCurrentViewingItem() {
+  return pagItems.value.find((e) => {
+    return e.classList.contains('viewing');
+  });
+}
+
+function createPaginationItems(total: number) {
+  if (!pagItems.value.length) {
+    for (let i = 0; i < total; i++) {
+      const item = document.createElement('div');
+      item.classList.add('pagination-item');
+      pagItems.value.push(item);
+    }
+
+    setPaginationItemAnimationStyles();
+  }
+}
+
+function putItemsToSwiperEl(el: HTMLDivElement) {
+  if (pagItems.value.length) {
+    pagItems.value.forEach((item) => {
+      el.append(item);
+    });
+  }
 }
 </script>
 
 <style lang="scss" scoped>
-:deep(.navigation) {
+:deep(.pagination) {
   display: flex;
   justify-content: space-around;
   background-color: $color-brand-primary;
   padding: 10px 24px 0;
 }
 
-:deep(.navigation-item) {
+:deep(.pagination-item) {
   width: 100%;
   height: 3px;
   margin-left: 4px;
@@ -123,8 +152,11 @@ function handleTouchOnSlide(swiper) {
   background: linear-gradient(to left, $color-dark-grey 50%, $color-white 50%);
   background-size: 200%;
   background-position: right;
-  animation: 5s linear 0s background-filling;
+
+  // animation
+  animation-name: background-filling;
   animation-fill-mode: forwards;
+  animation-timing-function: linear;
 }
 
 :deep(.viewed) {
