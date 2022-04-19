@@ -20,9 +20,13 @@ import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import { getCurrentInstance, onBeforeMount, PropType, Ref, ref } from 'vue';
 import { ICoin } from '@/models/coin/coins';
 import { useCoinsStore } from '@/stores/coins';
+import { useFundsStore } from '@/stores/funds';
 
 const coinStore = useCoinsStore();
 const { proxy } = getCurrentInstance();
+const fundsStore = useFundsStore();
+
+const { from } = fundsStore.getState;
 
 defineEmits(['back-button', 'select-coin']);
 
@@ -36,6 +40,7 @@ const props = defineProps({
 const allCoins = ref([]) as Ref<ICoin[]>;
 
 onBeforeMount(async () => {
+  console.log('yo', from?.code, props.coins);
   if (props.coins?.length) {
     allCoins.value = props.coins;
     return;
@@ -53,6 +58,7 @@ onBeforeMount(async () => {
     console.error(e);
     proxy.$sentry.capture(e, 'BaseCoinListSelect', 'onBeforeMount');
   }
+  allCoins.value = allCoins.value.filter((i) => i.code !== from?.code);
 });
 </script>
 
