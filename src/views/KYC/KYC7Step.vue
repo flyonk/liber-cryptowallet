@@ -1,8 +1,10 @@
 <template>
   <div>
-    <top-navigation left-icon-name="ci-close_big">{{
-      $t('views.kyc.kyc7step.wereVerifyingYourId')
-    }}</top-navigation>
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="$router.push({ name: Route.Survey })"
+      >{{ $t('views.kyc.kyc7step.wereVerifyingYourId') }}</top-navigation
+    >
     <p class="description">{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</p>
     <base-progress-circular :percent="percent" :size="267">
       <span class="percent-slot">
