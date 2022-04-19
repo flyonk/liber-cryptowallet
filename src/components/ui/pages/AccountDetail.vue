@@ -201,11 +201,9 @@ const onClick = (carouselItem: any) => {
 
   > .header {
     padding: 0 16px;
-    position: relative;
 
     > .swiper {
-      padding: 0 7px 10px;
-      left: -7px;
+      overflow: visible;
     }
 
     > .controls {
