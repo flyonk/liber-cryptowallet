@@ -260,8 +260,8 @@ const onClick = (carouselItem: any) => {
 
 .transactions-block {
   height: auto;
-  max-height: 438px;
   margin-bottom: 0;
+  padding-bottom: 10%;
 }
 
 .title-currency {

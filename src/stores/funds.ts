@@ -69,6 +69,14 @@ export const useFundsStore = defineStore('funds', {
       this.convertFunds = val;
     },
 
+    setEmptyCrypto(direction: 'to' | 'from'): void {
+      this[direction] = {
+        name: '---',
+        code: 'empty',
+        img: require('@/assets/icon/currencies/empty_coin.svg'),
+      };
+    },
+
     setCrypto(
       crypto: string,
       code: string,

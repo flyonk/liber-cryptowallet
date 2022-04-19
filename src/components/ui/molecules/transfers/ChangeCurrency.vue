@@ -6,7 +6,7 @@
       @touchmove.prevent
       @scroll.prevent
     >
-      <div class="input-wrapper mb-2 relative m-0">
+      <div class="input-wrapper relative m-0">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
           <input
@@ -16,7 +16,7 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
-            :readonly="isSameCurrencies"
+            :readonly="isSameCurrencies || isOneCoinEmpty"
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
@@ -28,7 +28,15 @@
         </label>
       </div>
       <div class="middle-info flex">
-        <ul class="fees-data">
+        <div v-if="isOneCoinEmpty" class="choose-coin">
+          <img
+            class="icon"
+            src="@/assets/icon/help_circle_outline.svg"
+            alt="help"
+          />
+          <h1 class="title">Select the coin you want to get</h1>
+        </div>
+        <ul v-else class="fees-data">
           <li class="fees-item">
             <div class="circle">-</div>
             <p class="sum">
@@ -64,7 +72,11 @@
             </p>
           </li>
         </ul>
-        <coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
+        <coin-switcher
+          v-if="hasCoinReverse"
+          :disabled="isSameCurrencies"
+          @switch="swapCoins"
+        />
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
@@ -75,6 +87,7 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
+            :readonly="isSameCurrencies || isOneCoinEmpty"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
@@ -84,9 +97,6 @@
             @on-select-coin="onSelectCoin($event, 'to')"
           />
         </label>
-        <p v-if="isSameCurrencies" class="error-text pt-1">
-          {{ $t('views.deposit.convert.sameCurrenciesError') }}
-        </p>
       </div>
       <BaseButton
         v-if="loading"
@@ -135,7 +145,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, Ref, watch } from 'vue';
+import { computed, ref, Ref, watch, onBeforeMount } from 'vue';
 import { debounce } from 'lodash';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -184,6 +194,12 @@ const currentSendFromCurrency = computed(
 );
 const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
+);
+
+const isOneCoinEmpty = computed(
+  () =>
+    currentSendFromCurrency.value.code === 'empty' ||
+    currentSendToCurrency.value.code === 'empty'
 );
 
 const isSameCurrencies = computed(() => {
@@ -359,19 +375,34 @@ const swapCoins = () => {
 };
 
 const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
-  fundsStore.setCrypto(
-    coinInfo.name,
-    coinInfo.code,
-    coinInfo.imageUrl,
-    direction
-  );
+  if (direction === 'from') {
+    currentSendFromCurrency.value.code = coinInfo.code;
+  }
+
+  if (direction === 'to') {
+    currentSendToCurrency.value.code = coinInfo.code;
+  }
+  if (isSameCurrencies.value) {
+    fundsStore.setEmptyCrypto(direction);
+  } else {
+    fundsStore.setCrypto(
+      coinInfo.name,
+      coinInfo.code,
+      coinInfo.imageUrl,
+      direction
+    );
+  }
 
   if (preventConvert.value) {
     return;
   }
 
-  previewChangeInfo('from');
+  previewChangeInfo(direction);
 };
+
+onBeforeMount(() => {
+  fundsStore.setEmptyCrypto('to');
+});
 </script>
 
 <style lang="scss" scoped>
@@ -412,9 +443,6 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 }
 
 .fees-data {
-  border-left: 1px solid $color-primary-50;
-  margin-bottom: 10px;
-  margin-left: 10px;
   width: 100%;
 }
 
@@ -461,9 +489,29 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   }
 }
 
-.error-text {
-  color: $color-red-500;
-  font-size: 12px;
-  line-height: 16px;
+.middle-info {
+  display: flex;
+  justify-content: space-between;
+  min-height: 110px;
+  width: 100%;
+  border-left: 1px solid #eaefff;
+  margin-left: 10px;
+}
+
+.choose-coin {
+  display: flex;
+  align-items: center;
+  margin-left: -12px;
+
+  > .icon {
+    margin-right: 8px;
+  }
+
+  > .title {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-brand-550;
+  }
 }
 </style>

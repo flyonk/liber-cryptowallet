@@ -488,8 +488,7 @@
         "amountCovert": "Amount we’ll covert",
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
-        "refresh": "Refresh",
-        "sameCurrenciesError": "You should choose different currencies for exchange"
+        "refresh": "Refresh"
       }
     }
   },

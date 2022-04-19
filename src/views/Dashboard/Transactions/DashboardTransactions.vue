@@ -53,7 +53,8 @@
           }}
         </button>
       </div>
-
+    </div>
+    <div>
       <div class="main-tabs">
         <div
           :class="{ active: activeTab === 1 }"
@@ -70,7 +71,11 @@
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-      <ul v-if="activeTab === 1" class="transactions">
+      <ul
+        v-if="activeTab === 1"
+        ref="dashboardTransactions"
+        class="dashboard-transactions"
+      >
         <li
           v-for="(transaction, index) in transactions"
           :key="index"
@@ -137,7 +142,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -145,6 +150,17 @@ import { useToast } from 'primevue/usetoast';
 import { check, share } from '@/helpers/nativeShare';
 
 const toast = useToast();
+
+const dashboardTransactions = ref();
+
+onMounted(() => {
+  dashboardTransactions.value.style.maxHeight = `${transactions.length * 40}px`;
+  console.log(
+    'ref onMounted',
+    transactions.length,
+    dashboardTransactions.value.style.maxHeight
+  );
+});
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -239,10 +255,9 @@ const shareAddress = async () => {
   padding: 35px 0 0;
   overflow: hidden;
   flex-grow: 1;
+  padding: 0 16px;
 
   > .header {
-    padding: 0 16px;
-
     > .count {
       > .flex {
         > .icon {
@@ -285,60 +300,59 @@ const shareAddress = async () => {
         }
       }
     }
+  }
+}
 
-    > .transactions {
-      max-height: 360px;
-      overflow-y: auto;
-      padding-right: 10px;
+.dashboard-transactions {
+  overflow-y: auto;
+  padding-right: 10px;
 
-      > .item {
-        display: flex;
+  > .item {
+    display: flex;
+    width: 100%;
+    margin-bottom: 24px;
+
+    > .icon {
+      margin-right: 12px;
+      width: 40px;
+      height: 40px;
+    }
+
+    > .info {
+      width: 100%;
+
+      > .flex {
         width: 100%;
-        margin-bottom: 24px;
+        justify-content: space-between;
 
-        > .icon {
-          margin-right: 12px;
-          width: 40px;
-          height: 40px;
+        > .title {
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 21px;
+          letter-spacing: -0.0031em;
         }
 
-        > .info {
-          width: 100%;
+        > .subtitle {
+          font-size: 13px;
+          line-height: 18px;
+          letter-spacing: -0.0008em;
+          color: $color-dark-grey;
+        }
 
-          > .flex {
-            width: 100%;
-            justify-content: space-between;
+        > .pending {
+          color: $color-yellow-600;
+        }
 
-            > .title {
-              font-weight: 500;
-              font-size: 16px;
-              line-height: 21px;
-              letter-spacing: -0.0031em;
-            }
+        > .received {
+          color: $color-green-600;
+        }
 
-            > .subtitle {
-              font-size: 13px;
-              line-height: 18px;
-              letter-spacing: -0.0008em;
-              color: $color-dark-grey;
-            }
-
-            > .pending {
-              color: $color-yellow-600;
-            }
-
-            > .received {
-              color: $color-green-600;
-            }
-
-            > .sum {
-              font-size: 13px;
-              line-height: 18px;
-              text-align: right;
-              letter-spacing: -0.0008em;
-              color: $color-dark-grey;
-            }
-          }
+        > .sum {
+          font-size: 13px;
+          line-height: 18px;
+          text-align: right;
+          letter-spacing: -0.0008em;
+          color: $color-dark-grey;
         }
       }
     }
