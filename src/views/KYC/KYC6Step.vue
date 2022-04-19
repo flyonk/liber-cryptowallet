@@ -1,8 +1,8 @@
 <template>
   <div class="kyc-6-step">
     <top-navigation
-      @click:left-icon="$emit('prev')"
       left-icon-name="icon-app-navigation-close"
+      @click:left-icon="$emit('prev')"
       >{{ $t('views.kyc.kyc6step.proofOfResidence') }}</top-navigation
     >
     <base-progress-bar class="mb-3" :value="getPercentage" />
