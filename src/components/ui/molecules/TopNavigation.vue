@@ -6,9 +6,9 @@
       </button>
       <slot name="top-right" />
     </div>
-    <div class="header-container">
+    <div v-if="!withoutTitle" class="header-container">
       <h1 class="page-title">
-        <slot />
+        <slot>123</slot>
       </h1>
       <slot name="right"></slot>
     </div>
@@ -20,6 +20,10 @@ defineProps({
   leftIconName: {
     type: String,
     default: 'icon-app-navigation-back',
+  },
+  withoutTitle: {
+    type: Boolean,
+    default: false,
   },
 });
 
