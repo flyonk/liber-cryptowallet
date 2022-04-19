@@ -5,7 +5,7 @@ import { useAuthStore } from '@/stores/auth';
 import { i18n } from '@/i18n';
 import { get } from '@/helpers/storage';
 import router from '@/router';
-// import SentryUtil from '@/helpers/sentryUtil';
+import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
@@ -14,9 +14,9 @@ import { Route } from '@/router/types';
  * This code prevent race condition with multiple parallel API calls
  */
 let _refreshTokenRequest: Promise<void> | null = null;
+let _cleanTokenDataRequest: Promise<void> | null = null;
 
 const _refreshToken = async (): Promise<string | null> => {
-  //TODO: Add refresh token verification - if it is invalid make logout
   let token = await get(EStorageKeys.token);
 
   if (token) {
@@ -59,6 +59,12 @@ const _requestHandler = async (
     }
   } catch (error) {
     console.log('return config erorr', error);
+    SentryUtil.capture(
+      error,
+      'AxiosInterceptor',
+      'requestHandler',
+      "can't refresh token"
+    );
   }
   return config;
 };
@@ -81,7 +87,11 @@ export default function init(): void {
         /*
          * Clear only expired token and refresh token
          */
-        await authStore.clearTokenData();
+        if (_cleanTokenDataRequest === null) {
+          _cleanTokenDataRequest = authStore.clearTokenData();
+        }
+        await _cleanTokenDataRequest;
+        _cleanTokenDataRequest = null;
         router.push({ name: Route.WelcomeLogoScreen });
       }
       //Logger error
