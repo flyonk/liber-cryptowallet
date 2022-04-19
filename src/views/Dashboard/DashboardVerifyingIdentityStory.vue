@@ -1,12 +1,14 @@
 <template name="DashboardVerifyingStory">
   <div class="dashboard-story">
-    <div class="header">
-      <img
-        class="close-btn"
-        src="@/assets/icon/close_big.svg"
-        alt="close"
-        @click="$router.push({ name: Route.DashboardHome })"
+    <div>
+      <top-navigation
+        left-icon-name="icon-app-navigation-close"
+        :without-title="true"
+        @click:left-icon="$router.push({ name: Route.DashboardHome })"
       />
+    </div>
+
+    <div class="header">
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
@@ -37,6 +39,7 @@
 
 <script setup lang="ts">
 import { Route } from '@/router/types';
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 </script>
 
 <style lang="scss" scoped>
@@ -54,7 +57,7 @@ import { Route } from '@/router/types';
     display: flex;
     width: inherit;
     flex-direction: column;
-    margin-bottom: 16px;
+    margin-top: 21px;
 
     > .close-btn {
       height: 24px;
