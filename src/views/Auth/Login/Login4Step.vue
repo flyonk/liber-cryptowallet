@@ -51,9 +51,6 @@ const store = use2faStore();
 const appOptionsStore = useAppOptionsStore();
 
 appOptionsStore.init();
-store.init().then(() => {
-  store.generateToken();
-});
 
 const verificationCode = ref('');
 const showErrorToast = ref(false);

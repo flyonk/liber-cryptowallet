@@ -23,10 +23,6 @@ const emit = defineEmits<{
   (event: 'close'): void;
 }>();
 
-store.init().then(() => {
-  store.generateToken();
-});
-
 const verificationCode = ref('');
 const isError = ref(false);
 
@@ -35,6 +31,7 @@ const onComplete = async (code: string) => {
 
   if (code.length === 6) {
     const result = await store.verify(code);
+    console.log('what is result', result);
     if (result?.delta === 0) {
       emit('success-verification');
     } else {
