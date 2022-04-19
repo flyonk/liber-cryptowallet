@@ -22,6 +22,17 @@ export default {
     const res = await axios.get(
       `${apiService.transactions.transactionsList()}/${id}`
     );
-    return transactionMapper.deserialize(res.data);
+    return transactionMapper.deserialize(res.data) as TTransaction;
+  },
+
+  async getTransactionDetailsByCoinAndId(
+    id: string,
+    coin: string
+  ): Promise<TTransaction> {
+    const response = await axios.get(
+      apiService.transactions.transactionDetailsByCoin(coin, id)
+    );
+
+    return transactionMapper.deserialize(response.data) as TTransaction;
   },
 };

@@ -331,7 +331,7 @@ const showWelcomeMessage = computed(() => {
 
 <style lang="scss" scoped>
 .dashboard-container {
-  padding: 0 15px;
+  padding: 0 15px 150px;
   background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;

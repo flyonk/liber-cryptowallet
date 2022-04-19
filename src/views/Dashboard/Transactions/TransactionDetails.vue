@@ -36,11 +36,21 @@ const mainCoin = ref('');
 onBeforeMount(async () => {
   try {
     if (!route.params.id) return;
+
+    if (route.params.coin !== 'default') {
+      transaction.value =
+        (await transactionService.getTransactionDetailsByCoinAndId(
+          route.params.id as string,
+          route.params.coin as string
+        )) as INetTransaction;
+      mainCoin.value = route.params.coin as string;
+
+      return;
+    }
+
     transaction.value = (await transactionService.getTransactionById(
       route.params.id as string
     )) as INetTransaction;
-
-    mainCoin.value = route.params.coin ? (route.params.coin as string) : '';
   } catch (err) {
     console.log(err);
   }

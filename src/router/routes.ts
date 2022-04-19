@@ -135,7 +135,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: Route.DashboardParent,
     component: Dashboard,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
     children: [
       {
         path: '',
@@ -172,7 +172,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/account',
     name: Route.Account,
     component: Account,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
     children: [
       {
         path: '',
@@ -201,7 +201,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/transactions',
     name: Route.Transactions,
     component: Transactions,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
     children: [
       {
         path: '', //TODO: ref this rout, component is wrong
@@ -227,6 +227,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/contacts',
     name: 'contacts',
+    meta: { authRequired: true },
     component: Contacts,
     children: [
       {
@@ -268,6 +269,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/convert',
     name: Route.ConvertFunds,
+    meta: { authRequired: true },
     component: ChangeCurrency,
   },
 
@@ -276,6 +278,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name: Route.ProfileMainView,
+    meta: { authRequired: true },
     component: Profile,
     children: [
       {
@@ -316,6 +319,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/kyc',
     name: Route.KYCMain,
+    meta: { authRequired: true },
     component: KYCMain,
   },
 
@@ -366,26 +370,29 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/faceid',
     name: Route.FaceId,
-    component: FaceId,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: FaceId,
   },
   {
     path: '/touchid',
     name: Route.TouchId,
-    component: TouchId,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: TouchId,
   },
   {
     path: '/push-notifications',
     name: Route.PushNotifications,
-    component: PushNotifications,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: PushNotifications,
   },
 
   // == Select Coin ==
@@ -393,6 +400,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/choose_coin',
     name: Route.ChooseCoin,
+    meta: { authRequired: true },
     component: () => import('@/views/Contacts/SelectCoin.vue'),
   },
 
@@ -401,6 +409,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/deposit',
     name: Route.Deposit,
+    meta: { authRequired: true },
     component: DepositeIndex,
     children: DepositeRoutes,
   },
@@ -410,8 +419,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/recepients',
     name: Route.Recepients,
+    meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
-    meta: { layout: 'navbar' },
     beforeEnter: checkContactsLoaded,
     children: RecepientsRoutes,
   },
@@ -421,10 +430,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/requestcontacts',
     name: Route.LoadContacts,
-    component: RequestContacts,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: RequestContacts,
   },
 
   // === Invite ===
@@ -433,7 +443,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/invite',
     name: Route.Invite,
     component: Recipients,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
   },
 ];
 

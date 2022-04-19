@@ -55,11 +55,8 @@ export const useFundsStore = defineStore('funds', {
   },
 
   actions: {
-    async checkConvertInfo(
-      data: Omit<TConvertData, 'amount'>,
-      dir: 'from' | 'to'
-    ): Promise<void> {
-      this.convertInfo = await fundsService.convertInfo(data, dir);
+    async checkConvertInfo(data: Omit<TConvertData, 'amount'>): Promise<void> {
+      this.convertInfo = await fundsService.convertInfo(data);
     },
 
     async changeCurrency(
