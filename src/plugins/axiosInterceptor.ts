@@ -5,30 +5,31 @@ import { useAuthStore } from '@/stores/auth';
 import { i18n } from '@/i18n';
 import { get } from '@/helpers/storage';
 import router from '@/router';
-import SentryUtil from '@/helpers/sentryUtil';
+// import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
 
 /*
- * Multiple parallel API calls handling
+ * This code prevent race condition with multiple parallel API calls
  */
-let _isRefreshing = false;
-let _refreshQueue = [] as Array<(token: string) => void>;
+let _refreshTokenRequest: Promise<void> | null = null;
 
-const _subscribeTokenRefresh = (cb: (token: string) => void) => {
-  _refreshQueue.push(cb);
-};
+const _refreshToken = async (): Promise<string | null> => {
+  //TODO: Add refresh token verification - if it is invalid make logout
+  let token = await get(EStorageKeys.token);
 
-const _onRefreshed = (token: string) => {
-  _refreshQueue.map((cb) => cb(token));
-};
-
-const _refreshToken = async (token: string): Promise<string> => {
-  const authStore = useAuthStore();
-  if (await authStore.verifyToken()) {
-    await authStore.refresh();
-    return (await get(EStorageKeys.token)) as string;
+  if (token) {
+    const authStore = useAuthStore();
+    //Check invalid token
+    if (await authStore.verifyToken()) {
+      if (_refreshTokenRequest === null) {
+        _refreshTokenRequest = authStore.refresh();
+      }
+      await _refreshTokenRequest;
+      _refreshTokenRequest = null;
+      token = await get(EStorageKeys.token);
+    }
   }
   return token;
 };
@@ -51,20 +52,13 @@ const _requestHandler = async (
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
-  /*
-   * TODO: set authorized API calls logic
-   */
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-      const token = await get(EStorageKeys.token);
-
-      if (token && !_isRefreshing) {
-        const newToken = await _refreshToken(token);
-        config.headers['Authorization'] = `Bearer ${newToken}`;
-      }
+      const token = await _refreshToken();
+      if (token) config.headers['Authorization'] = `Bearer ${token}`;
     }
   } catch (error) {
-    console.log('return config error', error);
+    console.log('return config erorr', error);
   }
   return config;
 };
@@ -82,43 +76,13 @@ export default function init(): void {
       return response;
     },
     async (error) => {
-      const {
-        config,
-        response: { status },
-      } = error;
-      if (config && status && status === 401) {
-        // console.log('STATUS', status);
-        if (!_isRefreshing) {
-          _isRefreshing = true;
-          const token = await get(EStorageKeys.token);
-          if (token) {
-            const newToken = await _refreshToken(token);
-            _isRefreshing = false;
-            _onRefreshed(newToken);
-            _refreshQueue = [];
-          } else {
-            SentryUtil.capture(
-              error,
-              'refresh token',
-              'async parallel calls',
-              'token absent',
-              { config }
-            );
-            router.push({ name: Route.WelcomeLogoScreen });
-          }
-        }
-        return new Promise((resolve) => {
-          _subscribeTokenRefresh((token) => {
-            config.headers.Authorization = `Bearer ${token}`;
-            resolve(axios(config));
-          });
-        });
-        // const authStore = useAuthStore();
-        // /*
-        //  * Clear only expired token and refresh token
-        //  */
-        // await authStore.clearTokenData();
-        // router.push({ name: Route.WelcomeLogoScreen });
+      if (error.response.status === 401) {
+        const authStore = useAuthStore();
+        /*
+         * Clear only expired token and refresh token
+         */
+        await authStore.clearTokenData();
+        router.push({ name: Route.WelcomeLogoScreen });
       }
       //Logger error
       return Promise.reject(error);
