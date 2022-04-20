@@ -1,12 +1,11 @@
 <template name="DashboardStory">
   <div class="dashboard-story">
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      :without-title="true"
+      @click:left-icon="$router.push({ name: DashboardHome })"
+    />
     <header class="header">
-      <img
-        class="close-btn"
-        src="@/assets/icon/close_big.svg"
-        alt="close"
-        @click="$router.push({ name: DashboardHome })"
-      />
       <img
         class="image"
         src="@/assets/icon/todo/empty-profile.svg"
@@ -34,6 +33,7 @@
 </template>
 
 <script setup lang="ts">
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 import { Route } from '@/router/types';
 const { DashboardHome } = Route;
 </script>
@@ -53,6 +53,7 @@ const { DashboardHome } = Route;
   > .header {
     display: flex;
     flex-direction: column;
+    margin-top: 21px;
     margin-bottom: 16px;
 
     > .close-btn {
@@ -95,7 +96,7 @@ const { DashboardHome } = Route;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 200px;
+    margin-top: 50px;
 
     > .btn {
       display: flex;

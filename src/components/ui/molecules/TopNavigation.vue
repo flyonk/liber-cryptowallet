@@ -8,7 +8,7 @@
     </div>
     <div v-if="!withoutTitle" class="header-container">
       <h1 class="page-title">
-        <slot>123</slot>
+        <slot />
       </h1>
       <slot name="right"></slot>
     </div>

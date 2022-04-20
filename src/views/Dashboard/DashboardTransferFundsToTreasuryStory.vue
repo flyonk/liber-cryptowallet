@@ -1,12 +1,11 @@
 <template name="DashboardTransferFundsToTreasuryStory">
   <div class="dashboard-story">
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      :without-title="true"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    />
     <header class="header">
-      <img
-        class="close-btn"
-        src="@/assets/icon/close_big.svg"
-        alt="close"
-        @click="$router.push({ name: Route.DashboardHome })"
-      />
       <img class="image" src="@/assets/images/euro-coin.svg" alt="Euro logo" />
     </header>
     <main class="main">
@@ -38,6 +37,7 @@
 </template>
 
 <script setup lang="ts">
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 import { Route } from '@/router/types';
 </script>
 
@@ -50,6 +50,7 @@ import { Route } from '@/router/types';
   > .header {
     display: flex;
     flex-direction: column;
+    margin-top: 21px;
     margin-bottom: 16px;
 
     > .close-btn {
