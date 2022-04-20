@@ -26,7 +26,7 @@ const coinStore = useCoinsStore();
 const { proxy } = getCurrentInstance();
 const fundsStore = useFundsStore();
 
-const { from } = fundsStore.getState;
+const { from, to } = fundsStore.getState;
 
 defineEmits(['back-button', 'select-coin']);
 
@@ -35,22 +35,15 @@ const props = defineProps({
     type: Array as PropType<ICoin[]>,
     default: () => [],
   },
+  direction: {
+    type: String as PropType<'from' | 'to'>,
+    default: 'from',
+  },
 });
 
 const allCoins = ref([]) as Ref<ICoin[]>;
 
 onBeforeMount(async () => {
-  console.log('yo', from?.code, props.coins);
-  if (props.coins?.length) {
-    allCoins.value = props.coins;
-    return;
-  }
-
-  if (coinStore.getCoins.length) {
-    allCoins.value = coinStore.getCoins;
-    return;
-  }
-
   try {
     await coinStore.fetchCoins();
     allCoins.value = coinStore.getCoins;
@@ -58,7 +51,11 @@ onBeforeMount(async () => {
     console.error(e);
     proxy.$sentry.capture(e, 'BaseCoinListSelect', 'onBeforeMount');
   }
-  allCoins.value = allCoins.value.filter((i) => i.code !== from?.code);
+  const extraCurrency = props.direction === 'from' ? to?.code : from?.code;
+  allCoins.value = allCoins.value.filter((i) => {
+    console.log(i.code, extraCurrency, i.code === extraCurrency);
+    return i.code !== extraCurrency;
+  });
 });
 </script>
 

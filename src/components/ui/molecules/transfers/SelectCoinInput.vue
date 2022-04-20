@@ -15,6 +15,7 @@
           @click:left-icon="handleCloseModal"
         />
         <BaseCoinListSelect
+          :direction="direction"
           @back-button="showSelectCoinDialog[direction] = false"
           @select-coin="handleSelect($event)"
         />
