@@ -1,12 +1,7 @@
 <template name="AllAccounts">
-  <div class="all-accounts">
-    <div class="accounts-header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.back()"
-      />
+  <t-top-navigation @click:left-icon="$router.back()">
+    <template #title>{{ $t('views.account.allAccounts') }}</template>
+    <template #top-right>
       <i
         class="icon-plus_circle add"
         @click="
@@ -15,30 +10,34 @@
           })
         "
       />
-    </div>
-    <h1 class="title">{{ $t('views.account.allAccounts') }}</h1>
-    <ul class="currencies">
-      <li class="item" @click="$router.push({ name: Route.DashboardHome })">
-        <img alt class="icon" src="@/assets/icon/currencies/euro.svg" />
-        <h4 class="title">{{ totalBalance.currency }}</h4>
-        <p class="description">{{ $t('views.account.allAccounts') }}</p>
-        <h5 class="sum">
-          {{ getSymbolByCode(totalBalance.currency) }} {{ totalBalance.sum }}
-        </h5>
-      </li>
-      <li
-        v-for="(currency, index) in accounts"
-        :key="index"
-        class="item"
-        @click="$router.push(getCurrencyUrl(currency.code))"
-      >
-        <img alt class="icon" :src="currency.imageUrl" />
-        <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
-        <p class="description">{{ currency.name }}</p>
-        <h5 class="sum">{{ currency.balance }}</h5>
-      </li>
-    </ul>
-  </div>
+    </template>
+    <template #content
+      ><div class="all-accounts">
+        <ul class="currencies">
+          <li class="item" @click="$router.push({ name: Route.DashboardHome })">
+            <img alt class="icon" src="@/assets/icon/currencies/euro.svg" />
+            <h4 class="title">{{ totalBalance.currency }}</h4>
+            <p class="description">{{ $t('views.account.allAccounts') }}</p>
+            <h5 class="sum">
+              {{ getSymbolByCode(totalBalance.currency) }}
+              {{ totalBalance.sum }}
+            </h5>
+          </li>
+          <li
+            v-for="(currency, index) in accounts"
+            :key="index"
+            class="item"
+            @click="$router.push(getCurrencyUrl(currency.code))"
+          >
+            <img alt class="icon" :src="currency.imageUrl" />
+            <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
+            <p class="description">{{ currency.name }}</p>
+            <h5 class="sum">{{ currency.balance }}</h5>
+          </li>
+        </ul>
+      </div></template
+    >
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -48,6 +47,8 @@ import { useAccountStore } from '@/stores/account';
 import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
 import { IAccount } from '@/models/account/account';
+
+import TTopNavigation from '@/components/templates/TTopNavigation.vue';
 
 const accountStore = useAccountStore();
 
@@ -72,7 +73,6 @@ function getCurrencyUrl(code: string): string {
 <style lang="scss" scoped>
 .all-accounts {
   height: 100%;
-  padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
 
@@ -137,10 +137,10 @@ function getCurrencyUrl(code: string): string {
   display: flex;
   justify-content: space-between;
   margin-bottom: 20px;
+}
 
-  > .add {
-    font-size: 38px;
-    color: blue;
-  }
+.add {
+  font-size: 38px;
+  color: blue;
 }
 </style>
