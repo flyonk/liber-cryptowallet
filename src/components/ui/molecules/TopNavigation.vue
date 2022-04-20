@@ -10,6 +10,9 @@
       <h1 class="page-title">
         <slot />
       </h1>
+      <h1 class="page-subtitle">
+        <slot name="subtitle" />
+      </h1>
       <slot name="right"></slot>
     </div>
   </header>
@@ -48,6 +51,15 @@ defineEmits(['click:left-icon']);
       letter-spacing: 0.0038em;
       margin-bottom: 10px;
       margin-top: 20px;
+    }
+
+    > .page-subtitle {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 22px;
+      letter-spacing: -0.0043em;
+      color: $color-brand-primary;
     }
   }
 
