@@ -53,7 +53,6 @@ onBeforeMount(async () => {
   }
   const extraCurrency = props.direction === 'from' ? to?.code : from?.code;
   allCoins.value = allCoins.value.filter((i) => {
-    console.log(i.code, extraCurrency, i.code === extraCurrency);
     return i.code !== extraCurrency;
   });
 });
