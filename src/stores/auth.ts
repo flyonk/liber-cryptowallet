@@ -238,11 +238,16 @@ export const useAuthStore = defineStore('auth', {
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
       ]);
-      await passcodeService.delete();
+
+      if ((await get(EStorageKeys.passcode)) === 'true') {
+        await passcodeService.delete();
+      }
 
       SecureStoragePlugin.remove({ key: SStorageKeys.user });
 
-      authService.logout({ user_id: userId });
+      if (this.token.token) {
+        authService.logout({ user_id: userId });
+      }
 
       this.token = { token: null, refreshToken: null };
 
