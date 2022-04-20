@@ -178,7 +178,7 @@ const onScan = async () => {
         > .camera-video {
           height: 100% !important;
           width: 100%;
-          border-radius: 12px;
+          border-radius: 3px;
           object-fit: cover;
         }
       }
