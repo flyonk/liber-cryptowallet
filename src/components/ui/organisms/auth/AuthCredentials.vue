@@ -1,8 +1,6 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      {{ title }}
-    </top-navigation>
+    <h1 class="title">{{ title }}</h1>
     <div class="description text--body">
       <slot v-if="isInitialStep" name="text-empty-state">
         {{ text }}
@@ -72,12 +70,7 @@ import { computed } from '@vue/reactivity';
 import { Ref, ref } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
-import {
-  BaseButton,
-  BaseCountryPhoneInput,
-  BaseInput,
-  TopNavigation,
-} from '@/components/ui';
+import { BaseButton, BaseCountryPhoneInput, BaseInput } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
@@ -91,7 +84,8 @@ const emits = defineEmits([
 const props = defineProps({
   title: {
     type: String,
-    required: true,
+    required: false,
+    default: '',
   },
   text: {
     type: String,
@@ -158,10 +152,6 @@ const handleStep = () => {
   emits('handleStep', phone);
 };
 
-const prevStep = () => {
-  emits('onPrev');
-};
-
 const clearNumber = () => {
   number.value = null;
 };
@@ -181,6 +171,20 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
+.auth-page-container {
+  margin-top: 20px;
+
+  > .title {
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    color: $color-black;
+  }
+}
+
 .footer {
   > span {
     color: $color-brand-2-300;
