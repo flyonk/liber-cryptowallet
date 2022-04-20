@@ -1,33 +1,36 @@
 <template>
-  <auth-credentials
-    :key="updateKey"
-    :title="$t('auth.login.step1Title')"
-    :next-title="$t('common.logInCta')"
-    :initial-number="number"
-    :country-dial-code="countryDialCode"
-    @handle-select-country="handleSelectCountry"
-    @handle-step="nextStep"
-    @number-change="numberChange"
-    @on-prev="prevStep"
-  >
-    <template #text-empty-state>
-      {{ $t('auth.login.step1Description') }}
-    </template>
-    <template #text-valuable-state>
-      {{ $t('auth.login.step1DescriptionValuable') }}
-    </template>
-    <template #footer-empty-state>
-      <router-link :to="{ name: Route.Restore }" class="link">
-        {{ $t('auth.login.step1LostAccess') }}
-      </router-link>
-    </template>
-    <template #footer-valuable-state>
-      {{ $t('auth.login.step1AccountExists') }}
-      <router-link :to="{ name: Route.SignUp }" class="link">
-        {{ $t('auth.login.step1AccountExistsLink') }}
-      </router-link>
-    </template>
-  </auth-credentials>
+  <t-top-navigation :nav-without-title="true" @click:left-icon="prevStep">
+    <template #content
+      ><auth-credentials
+        :key="updateKey"
+        :title="$t('auth.login.step1Title')"
+        :next-title="$t('common.logInCta')"
+        :initial-number="number"
+        :country-dial-code="countryDialCode"
+        @handle-select-country="handleSelectCountry"
+        @handle-step="nextStep"
+        @number-change="numberChange"
+      >
+        <template #text-empty-state>
+          {{ $t('auth.login.step1Description') }}
+        </template>
+        <template #text-valuable-state>
+          {{ $t('auth.login.step1DescriptionValuable') }}
+        </template>
+        <template #footer-empty-state>
+          <router-link :to="{ name: Route.Restore }" class="link">
+            {{ $t('auth.login.step1LostAccess') }}
+          </router-link>
+        </template>
+        <template #footer-valuable-state>
+          {{ $t('auth.login.step1AccountExists') }}
+          <router-link :to="{ name: Route.SignUp }" class="link">
+            {{ $t('auth.login.step1AccountExistsLink') }}
+          </router-link>
+        </template>
+      </auth-credentials></template
+    >
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -39,6 +42,7 @@ import { useAuthStore } from '@/stores/auth';
 import { Route } from '@/router/types';
 
 import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
+import TTopNavigation from '@/components/templates/TTopNavigation.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();

@@ -285,7 +285,7 @@ async function onLogout() {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding-top: 21px;
+  padding-top: 10px;
   flex-grow: 1;
   overflow: auto;
 
