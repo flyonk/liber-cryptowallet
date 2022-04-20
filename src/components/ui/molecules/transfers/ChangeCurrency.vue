@@ -387,6 +387,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   }
   if (isSameCurrencies.value) {
     fundsStore.setEmptyCrypto(direction);
+    componentState.value = 'preview';
   } else {
     fundsStore.setCrypto(
       coinInfo.name,
