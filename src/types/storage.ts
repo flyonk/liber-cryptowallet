@@ -1,5 +1,5 @@
 export enum EStorageKeys {
-  passcode = 'liber-app-passcode',
+  passcode = 'liber-app-passcode-enabled',
   twofa = 'liber-app-2fa',
   twofaDate = '2fa-date',
   notifications = 'liber-app-push-notifications',

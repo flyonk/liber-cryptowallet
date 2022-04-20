@@ -8,6 +8,7 @@ import authService from '@/services/authService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 import SentryUtil from '@/helpers/sentryUtil';
+import passcodeService from '@/services/passcodeService';
 
 import { EStorageKeys, SStorageKeys } from '@/types/storage';
 import { EStepDirection } from '@/types/base-component';
@@ -118,23 +119,8 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async refresh(): Promise<void> {
-      //TODO: temporary code
-      const phone = await get(EStorageKeys.phone);
-      const parsedPhone = phone ? JSON.parse(phone) : '';
       try {
         const refreshToken = await get(EStorageKeys.refreshToken);
-        //TODO: temporary log
-        SentryUtil.capture(
-          new Error('Twice refresh'),
-          'refresh',
-          'twice refresh',
-          `refresh token: ${refreshToken}`,
-          { refreshToken, phone },
-          {
-            phone: parsedPhone.phone,
-            refresh: refreshToken,
-          }
-        );
         const data = await authService.refresh({
           refresh_token: refreshToken || '',
         });
@@ -144,9 +130,7 @@ export const useAuthStore = defineStore('auth', {
           err,
           'refresh',
           'authStore',
-          "error can't refresh token",
-          { phone },
-          { phone: parsedPhone.phone }
+          "error can't refresh token"
         );
       }
     },
@@ -254,6 +238,8 @@ export const useAuthStore = defineStore('auth', {
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
       ]);
+      await passcodeService.delete();
+
       SecureStoragePlugin.remove({ key: SStorageKeys.user });
 
       authService.logout({ user_id: userId });
