@@ -106,7 +106,7 @@ const onComplete = async (data: string) => {
   try {
     await authStore.signInProceed({ phone: phone.value, otp });
     await pStore.init();
-    const passcode = await get(EStorageKeys.passcode);
+    const passcode = (await get(EStorageKeys.passcode)) === 'true';
 
     switch (pStore.getUser.status) {
       case EUserStatus.authenticated:
@@ -129,7 +129,9 @@ const onComplete = async (data: string) => {
     }
 
     if (pStore.getUser.kycStatus > EKYCStatus.not_started) {
-      if (await get(EStorageKeys.passcode)) {
+      const passcode = (await get(EStorageKeys.passcode)) === 'true';
+
+      if (passcode) {
         return nextStep();
       } else {
         return await router.push({
