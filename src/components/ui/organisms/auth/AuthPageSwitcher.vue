@@ -82,7 +82,7 @@ const prevStep = () => {
 
 <style lang="scss">
 .auth-page-container {
-  padding: 0 16px;
+  // padding: 0 16px;
 
   > .description {
     padding: 0 0 24px;
