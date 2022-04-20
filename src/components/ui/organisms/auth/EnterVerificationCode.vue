@@ -1,9 +1,5 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="onPrev">
-      {{ title }}
-    </top-navigation>
-
     <p class="text-default">
       {{ text }}
     </p>
@@ -62,7 +58,6 @@ import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 
 import {
-  TopNavigation,
   BaseButton,
   BaseVerificationCodeInput,
   BaseToast,
@@ -132,15 +127,10 @@ const onResend = (): void => {
 const onTimeIsUp = (): void => {
   emit('onTimeIsUp');
 };
-
-const onPrev = (): void => {
-  emit('onPrev');
-};
 </script>
 
 <style lang="scss" scoped>
 .page-wrapper {
-  margin: 15px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
