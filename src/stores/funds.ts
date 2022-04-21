@@ -68,13 +68,9 @@ export const useFundsStore = defineStore('funds', {
     setConvertFunds(val: boolean): void {
       this.convertFunds = val;
     },
-    // TODO replace logic to component - there is set to null
+    // TODO replace logic to component - there is set to
     setEmptyCrypto(direction: 'to' | 'from'): void {
-      this[direction] = {
-        name: '---',
-        code: 'empty',
-        img: require('@/assets/icon/currencies/empty_coin.svg'),
-      };
+      this[direction] = null;
     },
 
     setCrypto(

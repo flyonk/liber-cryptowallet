@@ -377,7 +377,6 @@ const swapCoins = () => {
   previewChangeInfo('from');
 };
 
-// TODO replace it to actions in store
 const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   if (direction === 'from') {
     currentSendFromCurrency.value.code = coinInfo.code;
@@ -387,6 +386,12 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     currentSendToCurrency.value.code = coinInfo.code;
   }
   if (isSameCurrencies.value) {
+    fundsStore.setCrypto(
+      '---',
+      'empty',
+      '@/assets/icon/currencies/empty_coin.svg',
+      direction
+    );
     fundsStore.setEmptyCrypto(direction);
     componentState.value = 'preview';
   } else {
