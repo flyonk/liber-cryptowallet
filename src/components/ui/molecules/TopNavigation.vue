@@ -12,15 +12,19 @@
       </button>
       <slot name="top-right" />
     </div>
-    <div v-if="!withoutTitle" class="header-container">
-      <h1 class="page-title">
-        <slot />
-      </h1>
-      <h1 class="page-subtitle">
-        <slot name="subtitle" />
-      </h1>
-      <slot name="right"></slot>
-    </div>
+    <template v-if="!withoutTitle">
+      <div class="header-container">
+        <div class="left">
+          <h1 class="page-title">
+            <slot />
+          </h1>
+          <h1 class="page-subtitle">
+            <slot name="subtitle" />
+          </h1>
+        </div>
+        <slot name="right"></slot>
+      </div>
+    </template>
   </header>
 </template>
 
@@ -53,7 +57,7 @@ defineEmits(['click:left-icon']);
     justify-content: space-between;
     align-items: center;
 
-    > .page-title {
+    > .left > .page-title {
       font-style: normal;
       font-weight: 800;
       font-size: 28px;
@@ -63,7 +67,7 @@ defineEmits(['click:left-icon']);
       margin-top: 20px;
     }
 
-    > .page-subtitle {
+    > .left > .page-subtitle {
       font-style: normal;
       font-weight: 400;
       font-size: 17px;
