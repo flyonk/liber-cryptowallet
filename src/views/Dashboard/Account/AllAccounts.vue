@@ -47,8 +47,7 @@ import { useAccountStore } from '@/stores/account';
 import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
 import { IAccount } from '@/models/account/account';
-
-import TTopNavigation from '@/components/templates/TTopNavigation.vue';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const accountStore = useAccountStore();
 
