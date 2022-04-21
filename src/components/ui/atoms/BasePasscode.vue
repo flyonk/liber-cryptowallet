@@ -35,11 +35,15 @@
 
 <script lang="ts" setup>
 import { onBeforeMount, PropType, ref } from 'vue';
-import { get, set } from '@/helpers/storage';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
-import { EPasscodeActions } from '@/types/base-component';
+import { usePasscodeStore } from '@/stores/passcode';
+import { set } from '@/helpers/storage';
+
 import { EStorageKeys } from '@/types/storage';
+import { EPasscodeActions } from '@/types/base-component';
+
+const passcodeStore = usePasscodeStore();
 
 const props = defineProps({
   actionType: {
@@ -52,21 +56,18 @@ const props = defineProps({
   },
 });
 
-const getStoredPasscode = async () => {
-  const value = await get(EStorageKeys.passcode);
-  return value || '0000';
-};
-
 async function checkPasscode(passcode: string) {
-  const storedPassCode = await getStoredPasscode();
-  return storedPassCode === passcode;
+  return await passcodeStore.verify({ pass_code: passcode });
 }
 
 async function setPasscode(passcode: string) {
+  await passcodeStore.create({ pass_code: passcode });
+
   await set({
     key: EStorageKeys.passcode,
-    value: passcode,
+    value: 'true',
   });
+
   return true;
 }
 
