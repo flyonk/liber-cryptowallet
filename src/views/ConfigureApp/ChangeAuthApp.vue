@@ -2,34 +2,22 @@
   <div class="page-wrapper">
     <top-navigation
       @click:left-icon="$router.push({ name: Route.ProfileSettings })"
-    />
-
-    <p class="text-default">
+    >
       {{ $t('common.googleAuthenticator') }}
-    </p>
+    </top-navigation>
 
-    <p class="auth-item" style="margin-bottom: 15px">
-      <img
-        src="@/assets/brands/ga.png"
-        alt="Google Authenticator"
-        class="auth-app-icon"
-      />
-    </p>
-
-    <a href="https://apps.apple.com/lb/app" class="store-link">
-      <img
-        class="store-link-img"
-        src="@/assets/brands/appstore.png"
-        alt="App Store"
-      />
-    </a>
-    <a href="https://play.google.com/store/apps" class="store-link">
-      <img
-        class="store-link-img"
-        src="@/assets/brands/googleplay.png"
-        alt="Google play"
-      />
-    </a>
+    <div class="content-wrapper">
+      <p class="auth-item" style="margin-bottom: 15px">
+        <img
+          src="@/assets/brands/ga.png"
+          alt="Google Authenticator"
+          class="auth-app-icon"
+        />
+      </p>
+      <p class="text-default">
+        {{ $t('common.googleAuthenticator') }}
+      </p>
+    </div>
   </div>
 
   <div style="padding: 15px; padding-bottom: 50px">
@@ -54,6 +42,8 @@ import { Route } from '@/router/types';
 .page-wrapper {
   margin: 15px;
   flex-grow: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .text-default {
@@ -63,27 +53,24 @@ import { Route } from '@/router/types';
   line-height: 22px;
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
-  margin-bottom: 40px;
-}
-
-.store-link {
-  display: block;
-  max-width: 180px;
-  margin-bottom: 20px;
-}
-
-.store-link-img {
-  vertical-align: top;
-  width: 100%;
+  text-align: center;
 }
 
 .auth-item {
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .auth-app-icon {
-  max-width: 40px;
-  margin-right: 10px;
+  max-width: 120px;
+}
+
+.content-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
 }
 </style>

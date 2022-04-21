@@ -105,6 +105,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/change-authapp',
     name: Route.ChangeAuthapp,
     component: ChagneAuthApp,
+    meta: {
+      classLayout: '-full-height',
+    },
   },
 
   {
