@@ -138,6 +138,7 @@
           </p>
         </div>
       </div>
+      <!-- TODO: fix close account behavior -->
       <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
     </template>
   </t-top-navigation>
@@ -165,7 +166,7 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
-import TTopNavigation from '@/components/templates/TTopNavigation.vue';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const route = useRouter();
 const authStore = useAuthStore();
