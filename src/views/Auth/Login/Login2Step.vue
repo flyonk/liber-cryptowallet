@@ -9,9 +9,9 @@
 
 <script lang="ts" setup>
 import VerifyCode from '@/components/ui/organisms/auth/VerifyCode.vue';
-import TTopNavigation from '@/components/templates/TTopNavigation.vue';
 
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 defineEmits(['prev']);
 </script>

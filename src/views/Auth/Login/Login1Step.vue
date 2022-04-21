@@ -1,9 +1,14 @@
 <template>
-  <t-top-navigation :nav-without-title="true" @click:left-icon="prevStep">
+  <t-top-navigation @click:left-icon="prevStep">
+    <template #title>{{ $t('auth.login.step1Title') }}</template>
+    <template #subtitle>
+      <div class="description">
+        {{ $t('auth.login.step1Description') }}
+      </div>
+    </template>
     <template #content
       ><auth-credentials
         :key="updateKey"
-        :title="$t('auth.login.step1Title')"
         :next-title="$t('common.logInCta')"
         :initial-number="number"
         :country-dial-code="countryDialCode"
@@ -42,7 +47,7 @@ import { useAuthStore } from '@/stores/auth';
 import { Route } from '@/router/types';
 
 import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
-import TTopNavigation from '@/components/templates/TTopNavigation.vue';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
@@ -92,5 +97,8 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
-// ...
+.description {
+  width: 65%;
+  // line-height: 22px;
+}
 </style>
