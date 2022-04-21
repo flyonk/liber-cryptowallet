@@ -15,14 +15,14 @@
         />
       </p>
       <p class="text-default">
-        {{ $t('common.googleAuthenticator') }}
+        {{ $t('configureApp.changeAppMessage') }}
       </p>
     </div>
   </div>
 
   <div style="padding: 15px; padding-bottom: 50px">
     <base-button block @click="$router.push({ name: Route.ConfigureApp })">{{
-      $t('common.continueCta')
+      $t('configureApp.changeAppCTA')
     }}</base-button>
   </div>
 </template>
@@ -54,6 +54,7 @@ import { Route } from '@/router/types';
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   text-align: center;
+  max-width: 16em;
 }
 
 .auth-item {
