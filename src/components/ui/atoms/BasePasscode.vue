@@ -61,14 +61,16 @@ async function checkPasscode(passcode: string) {
 }
 
 async function setPasscode(passcode: string) {
-  await passcodeStore.create({ pass_code: passcode });
+  const isCreated = await passcodeStore.create({ pass_code: passcode });
 
-  await set({
-    key: EStorageKeys.passcode,
-    value: 'true',
-  });
+  if (isCreated) {
+    await set({
+      key: EStorageKeys.passcode,
+      value: 'true',
+    });
+  }
 
-  return true;
+  return isCreated;
 }
 
 function getSubmitFunction(actionType: string) {
