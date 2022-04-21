@@ -1,13 +1,11 @@
 <template>
   <div v-if="!show2FA">
     <div class="auth-page-container">
-      <top-navigation v-if="!authStore.isLoggedIn" @click:left-icon="prevStep">
+      <top-navigation @click:left-icon="prevStep">
         {{ $t('auth.login.step3Title') }}
-      </top-navigation>
-      <div v-else class="page-title">
-        <div>{{ $t('auth.login.step3Title') }}</div>
+        <br />
         —
-      </div>
+      </top-navigation>
     </div>
 
     <base-passcode
@@ -95,7 +93,12 @@ async function onSubmit(success: boolean): Promise<void> {
 }
 
 function prevStep(): void {
-  authStore.setStep(1, 'login');
+  if (show2FA.value) {
+    authStore.setStep(1, 'login');
+
+    return;
+  }
+  authStore.setStep(0, 'login');
 }
 
 function onClose() {
