@@ -180,11 +180,9 @@ const onSwitcherChange = async () => {
       message: tm(
         'views.profile.profileSettings.confirmNativeVerification'
       ) as string,
-      okButtonTitle: tm(
-        'views.profile.profileSettings.logoutDecline'
-      ) as string,
+      okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
       cancelButtonTitle: tm(
-        'views.profile.profileSettings.logoutAccept'
+        'views.profile.profileSettings.logoutDecline'
       ) as string,
     });
 
@@ -236,9 +234,9 @@ async function onLogout() {
       'views.profile.profileSettings.logoutConfirmationTitle'
     ) as string,
     message: tm('views.profile.profileSettings.logoutConfirmation') as string,
-    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
     cancelButtonTitle: tm(
-      'views.profile.profileSettings.logoutAccept'
+      'views.profile.profileSettings.logoutDecline'
     ) as string,
   });
 
