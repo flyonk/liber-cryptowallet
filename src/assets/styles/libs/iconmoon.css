@@ -1,3 +1,7 @@
+/* // TODO: need add refresh icon (like in right side of header in dashboard home page)
+// TODO: need add a lot of icons for Profile Settings display. '/profile' route
+// TODO: fix down icon
+// TODO: FIX icon left - now its icon right */
 @font-face {
   font-family: 'icomoon';
   src: url('@/assets/fonts/icomoon.eot?pv9b07');
@@ -27,117 +31,151 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-// TODO: need add refresh icon (like in right side of header in dashboard home page)
-// TODO: need add a lot of icons for Profile Settings display. '/profile' route
+.icon-log_out:before {
+  content: '\e900';
+  color: #2e3a59;
+}
 
 .icon-all-accounts:before {
-  content: '\e900';
-}
-.icon-app-navigation-back:before {
   content: '\e901';
 }
-.icon-app-navigation-close:before {
+
+.icon-app-navigation-back:before {
   content: '\e902';
 }
-.icon-ask-for-funds:before {
+
+.icon-app-navigation-close:before {
   content: '\e903';
 }
-.icon-bell:before {
+
+.icon-ask-for-funds:before {
   content: '\e904';
 }
-.icon-borrow:before {
+
+.icon-bell:before {
   content: '\e905';
 }
-.icon-check:before {
+
+.icon-borrow:before {
   content: '\e906';
 }
-// TODO: FIX icon left - now its icon right
-.icon-chevron-left:before {
+
+.icon-check:before {
   content: '\e907';
 }
-.icon-clock-fill:before {
+
+.icon-chevron-left:before {
   content: '\e908';
 }
-.icon-clock:before {
+
+.icon-clock-fill:before {
   content: '\e909';
 }
-.icon-convert:before {
+
+.icon-clock:before {
   content: '\e90a';
 }
-.icon-copy:before {
+
+.icon-convert:before {
   content: '\e90b';
 }
-.icon-credit-card-off:before {
+
+.icon-copy:before {
   content: '\e90c';
 }
-.icon-credit-card-on:before {
+
+.icon-credit-card-off:before {
   content: '\e90d';
 }
-.icon-faceid:before {
+
+.icon-credit-card-on:before {
   content: '\e90e';
 }
-.icon-gift-off:before {
+
+.icon-faceid:before {
   content: '\e90f';
 }
-.icon-gift-on:before {
+
+.icon-gift-off:before {
   content: '\e910';
 }
-.icon-home-off:before {
+
+.icon-gift-on:before {
   content: '\e911';
 }
-.icon-home-on:before {
+
+.icon-home-off:before {
   content: '\e912';
 }
-// TODO: fix down icon
-.icon-ic16-arrow-down:before {
+
+.icon-home-on:before {
   content: '\e913';
 }
-.icon-ic16-arrow-up:before {
+
+.icon-ic16-arrow-down:before {
   content: '\e914';
 }
-.icon-input-field-eye:before {
+
+.icon-ic16-arrow-up:before {
   content: '\e915';
 }
-.icon-input-field-help-circle:before {
+
+.icon-input-field-eye:before {
   content: '\e916';
 }
-.icon-link:before {
+
+.icon-input-field-help-circle:before {
   content: '\e917';
 }
-.icon-main:before {
+
+.icon-link:before {
   content: '\e918';
 }
 
-.icon-plus_circle:before {
+.icon-main:before {
   content: '\e919';
 }
-.icon-repeat:before {
+
+.icon-plus_circle:before {
   content: '\e91a';
 }
-.icon-search:before {
+
+.icon-repeat:before {
   content: '\e91b';
 }
-.icon-send:before {
+
+.icon-search:before {
   content: '\e91c';
 }
-.icon-touch-ID:before {
+
+.icon-send:before {
   content: '\e91d';
 }
-.icon-transaction-small-in-progress:before {
+
+.icon-touch-ID:before {
   content: '\e91e';
 }
-.icon-transaction-small-reverted:before {
+
+.icon-transaction-small-in-progress:before {
   content: '\e91f';
 }
-.icon-users-off:before {
+
+.icon-transaction-small-reverted:before {
   content: '\e920';
 }
-.icon-users-on:before {
+
+.icon-users-off:before {
   content: '\e921';
 }
-.icon-verification:before {
+
+.icon-users-on:before {
   content: '\e922';
 }
-.icon-withdraw:before {
+
+.icon-verification:before {
   content: '\e923';
+}
+
+.icon-withdraw:before {
+  content: '\e924';
 }
