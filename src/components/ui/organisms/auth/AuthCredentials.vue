@@ -1,7 +1,7 @@
 <template>
   <div class="auth-page-container">
     <h1 class="title">{{ title }}</h1>
-    <div class="description text--body">
+    <!-- <div class="description text--body">
       <slot v-if="isInitialStep" name="text-empty-state">
         {{ text }}
         <br />
@@ -16,7 +16,7 @@
           {{ additionalText }}
         </template>
       </slot>
-    </div>
+    </div> -->
     <div class="grid">
       <div class="col-4">
         <base-country-phone-input
@@ -84,12 +84,11 @@ const emits = defineEmits([
 const props = defineProps({
   title: {
     type: String,
-    required: false,
     default: '',
   },
   text: {
     type: String,
-    required: true,
+    default: '',
   },
   additionalText: {
     type: String,
