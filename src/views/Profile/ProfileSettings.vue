@@ -180,9 +180,11 @@ const onSwitcherChange = async () => {
       message: tm(
         'views.profile.profileSettings.confirmNativeVerification'
       ) as string,
-      okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
-      cancelButtonTitle: tm(
+      okButtonTitle: tm(
         'views.profile.profileSettings.logoutDecline'
+      ) as string,
+      cancelButtonTitle: tm(
+        'views.profile.profileSettings.logoutAccept'
       ) as string,
     });
 
