@@ -1,5 +1,5 @@
 <template>
-  <top-navigation>
+  <top-navigation @click:left-icon="$router.back()">
     {{ $t('views.deposit.selectNetwork.chooseNetwork') }}
   </top-navigation>
 
