@@ -1,7 +1,13 @@
 <template>
   <header class="page-header">
     <div class="header-top">
-      <button class="controls" type="button" @click="$emit('click:left-icon')">
+      <template v-if="withCustomTopLeft"> <slot name="top-left" /> </template>
+      <button
+        v-else
+        class="controls"
+        type="button"
+        @click="$emit('click:left-icon')"
+      >
         <i :class="leftIconName" class="icon-header" />
       </button>
       <slot name="top-right" />
@@ -25,6 +31,10 @@ defineProps({
     default: 'icon-app-navigation-back',
   },
   withoutTitle: {
+    type: Boolean,
+    default: false,
+  },
+  withCustomTopLeft: {
     type: Boolean,
     default: false,
   },
