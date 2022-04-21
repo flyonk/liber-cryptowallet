@@ -1,61 +1,61 @@
 <template>
-  <div class="auth-page-container">
-    <TopNavigation @click:left-icon="$emit('prev')">
-      {{ $t('auth.signup.step4Title') }}
-    </TopNavigation>
-    <div class="description text--body">
-      {{ $t('auth.signup.step4Description1') }}
-      <br />
-      {{ $t('auth.signup.step4Description2') }}
-    </div>
-    <base-input
-      v-model="firstname"
-      @focus="showClearFirstNameBtn"
-      @blur="closeClearFirstNameBtn"
-      @input.stop="firstNamePreventExtraCharacters"
+  <t-top-navigation @click:left-icon="$emit('prev')">
+    <template #title> {{ $t('auth.signup.step4Title') }}</template>
+    <template #subtitle>
+      {{ $t('auth.signup.step4Description') }}
+    </template>
+    <template #content>
+      <div class="auth-page-container">
+        <base-input
+          v-model="firstname"
+          @focus="showClearFirstNameBtn"
+          @blur="closeClearFirstNameBtn"
+          @input.stop="firstNamePreventExtraCharacters"
+        >
+          <template #label>
+            {{ $t('common.firstName') }}
+          </template>
+          <template v-if="isClearFirstNameBtnShown" #append>
+            <i
+              class="ci-off_outline_close"
+              @click="clearFirstName"
+              @touchend="clearFirstName"
+            />
+          </template>
+        </base-input>
+        <base-input
+          v-model="lastname"
+          @focus="showClearLastNameBtn"
+          @blur="closeClearLastNameBtn"
+          @input.stop="lastNamePreventExtraCharacters"
+        >
+          <template #label>
+            {{ $t('common.lastName') }}
+          </template>
+          <template v-if="isClearLastNameBtnShown" #append>
+            <i
+              class="ci-off_outline_close"
+              @click="clearLastName"
+              @touchend="clearLastName"
+            />
+          </template>
+        </base-input>
+        <div class="sign-button-wrapper">
+          <BaseButton block :disabled="isFullNameInvalid" @click="nextStep">
+            {{ $t('common.nextStep') }}
+          </BaseButton>
+        </div>
+      </div></template
     >
-      <template #label>
-        {{ $t('common.firstName') }}
-      </template>
-      <template v-if="isClearFirstNameBtnShown" #append>
-        <i
-          class="ci-off_outline_close"
-          @click="clearFirstName"
-          @touchend="clearFirstName"
-        />
-      </template>
-    </base-input>
-    <base-input
-      v-model="lastname"
-      @focus="showClearLastNameBtn"
-      @blur="closeClearLastNameBtn"
-      @input.stop="lastNamePreventExtraCharacters"
-    >
-      <template #label>
-        {{ $t('common.lastName') }}
-      </template>
-      <template v-if="isClearLastNameBtnShown" #append>
-        <i
-          class="ci-off_outline_close"
-          @click="clearLastName"
-          @touchend="clearLastName"
-        />
-      </template>
-    </base-input>
-    <div class="sign-button-wrapper">
-      <BaseButton block :disabled="isFullNameInvalid" @click="nextStep">
-        {{ $t('common.nextStep') }}
-      </BaseButton>
-    </div>
-  </div>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue-demi';
 
-import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
+import { BaseButton, BaseInput } from '@/components/ui';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { computed } from '@vue/reactivity';
-
 import { useProfileStore } from '@/stores/profile';
 
 const pStore = useProfileStore();
