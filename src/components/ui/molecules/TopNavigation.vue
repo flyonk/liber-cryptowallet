@@ -6,7 +6,7 @@
       </button>
       <slot name="top-right" />
     </div>
-    <div class="header-container">
+    <div v-if="$slots.default" class="header-container">
       <h1 class="page-title">
         <slot />
       </h1>
