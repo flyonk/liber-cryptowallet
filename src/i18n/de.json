@@ -488,7 +488,8 @@
         "amountCovert": "Amount we’ll covert",
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },

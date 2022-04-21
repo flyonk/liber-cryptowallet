@@ -26,7 +26,6 @@ import { useRouter } from 'vue-router';
 import { useFundsStore } from '@/stores/funds';
 import { useAccountStore } from '@/stores/account';
 import { IAccount } from '@/models/account/account';
-import { STATIC_BASE_URL } from '@/constants';
 
 const router = useRouter();
 
@@ -44,24 +43,13 @@ const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
 function onClick() {
-  console.log('balance', accounts.value);
   fundStore.setCrypto(
-    getCorrectCurrencyName(accounts.value[0].name),
+    accounts.value[0].name.toUpperCase(),
     accounts.value[0].code,
-    _getSrcImageUrl(accounts.value[0].code),
+    accounts.value[0].imageUrl,
     'from'
   );
   router.push('/convert');
-}
-
-function _getSrcImageUrl(name: string) {
-  //TODO change to real image from service
-  return `${STATIC_BASE_URL}/currencies/${name.toLowerCase()}.svg`;
-}
-
-function getCorrectCurrencyName(name: string) {
-  if (name === 'tbtc') return 'BTC';
-  if (name === 'tltc') return 'LTC';
 }
 </script>
 

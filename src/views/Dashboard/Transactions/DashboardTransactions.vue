@@ -155,11 +155,6 @@ const dashboardTransactions = ref();
 
 onMounted(() => {
   dashboardTransactions.value.style.maxHeight = `${transactions.length * 40}px`;
-  console.log(
-    'ref onMounted',
-    transactions.length,
-    dashboardTransactions.value.style.maxHeight
-  );
 });
 
 let showControls = ref(false);

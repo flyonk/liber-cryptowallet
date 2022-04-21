@@ -68,7 +68,7 @@ export const useFundsStore = defineStore('funds', {
     setConvertFunds(val: boolean): void {
       this.convertFunds = val;
     },
-
+    // TODO replace logic to component - there is set to null
     setEmptyCrypto(direction: 'to' | 'from'): void {
       this[direction] = {
         name: '---',

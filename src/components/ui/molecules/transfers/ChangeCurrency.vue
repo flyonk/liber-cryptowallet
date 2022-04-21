@@ -34,7 +34,7 @@
             src="@/assets/icon/help_circle_outline.svg"
             alt="help"
           />
-          <h1 class="title">Select the coin you want to get</h1>
+          <h1 class="title">{{ $t('views.deposit.convert.selectCoin') }}</h1>
         </div>
         <ul v-else class="fees-data">
           <li class="fees-item">
@@ -377,6 +377,7 @@ const swapCoins = () => {
   previewChangeInfo('from');
 };
 
+// TODO replace it to actions in store
 const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   if (direction === 'from') {
     currentSendFromCurrency.value.code = coinInfo.code;
