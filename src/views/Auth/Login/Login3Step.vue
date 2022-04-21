@@ -1,20 +1,8 @@
 <template>
-  <t-top-navigation @click:left-icon="prevStep">
+  <t-top-navigation left-icon-name="icon-log_out" @click:left-icon="prevStep">
     <template #title>{{ $t('auth.login.step3Title') }}</template>
     <template #content>
       <div v-if="!show2FA">
-        <div class="auth-page-container">
-          <top-navigation
-            v-if="!authStore.isLoggedIn"
-            @click:left-icon="prevStep"
-          >
-          </top-navigation>
-          <div v-else class="page-title">
-            <div>{{ $t('auth.login.step3Title') }}</div>
-            —
-          </div>
-        </div>
-
         <base-passcode
           :show-touch-faceid="showNativeVerification"
           class="login-passcode"
@@ -60,7 +48,7 @@ import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
+import { BasePasscode, BaseToast } from '@/components/ui';
 import TTopNavigation from '@/components/templates/TTopNavigation.vue';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 
