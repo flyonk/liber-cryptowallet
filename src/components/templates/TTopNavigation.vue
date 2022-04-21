@@ -4,8 +4,10 @@
       class="top-navigation"
       :left-icon-name="leftIconName"
       :without-title="navWithoutTitle"
+      :with-custom-top-left="navWithCustomTopLeft"
       @click:left-icon="$emit('click:left-icon')"
       ><slot name="title" />
+      <template #top-left><slot name="top-left" /></template>
       <template #top-right><slot name="top-right" /></template
     ></top-navigation>
     <slot name="content" />
@@ -22,6 +24,11 @@ defineProps({
   },
 
   navWithoutTitle: {
+    type: Boolean,
+    default: false,
+  },
+
+  navWithCustomTopLeft: {
     type: Boolean,
     default: false,
   },
