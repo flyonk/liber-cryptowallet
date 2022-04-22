@@ -1,30 +1,29 @@
 <template>
-  <div class="auth-page-container">
-    <top-navigation @click:left-icon="$router.back()">
-      {{ title }}
-    </top-navigation>
-  </div>
-  <div class="page-wrapper">
-    <p class="text-default">{{ $t('configureApp.createPassCode') }}</p>
+  <t-top-navigation @click:left-icon="$router.back()">
+    <template #title> {{ title }}</template>
+    <template #subtitle>{{ $t('configureApp.createPassCode') }}</template>
+    <template #content
+      ><div class="page-wrapper">
+        <base-passcode
+          v-if="actionType === EPasscodeActions.store"
+          :action-type="actionType"
+          :show-touch-faceid="false"
+          @submit="onCreate"
+        />
 
-    <base-passcode
-      v-if="actionType === EPasscodeActions.store"
-      :action-type="actionType"
-      :show-touch-faceid="false"
-      @submit="onCreate"
-    />
-
-    <base-passcode
-      v-if="actionType === EPasscodeActions.compare"
-      :show-touch-faceid="false"
-      @submit="onSubmit"
-    />
-  </div>
-  <base-toast v-model:visible="showErrorToast" severity="error">
-    <template #description>
-      <div>{{ $t('configureApp.invalidPassCode') }}</div>
-    </template>
-  </base-toast>
+        <base-passcode
+          v-if="actionType === EPasscodeActions.compare"
+          :show-touch-faceid="false"
+          @submit="onSubmit"
+        />
+      </div>
+      <base-toast v-model:visible="showErrorToast" severity="error">
+        <template #description>
+          <div>{{ $t('configureApp.invalidPassCode') }}</div>
+        </template>
+      </base-toast></template
+    >
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -35,7 +34,7 @@ export default {
 
 <script lang="ts" setup>
 import { computed, Ref, ref } from 'vue';
-import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
+import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -89,7 +88,7 @@ function onSubmit(success: boolean): void {
 
 <style lang="scss" scoped>
 .page-wrapper {
-  margin: 15px;
+  margin-top: 80px;
   flex-grow: 1;
 }
 
