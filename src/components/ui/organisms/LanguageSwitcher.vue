@@ -14,7 +14,6 @@
 import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { getFullList } from '@/services/country-phone';
 import { set } from '@/helpers/storage';
 import { setLocale } from '@/i18n';
 
@@ -28,7 +27,6 @@ const { locale, availableLocales } = useI18n({ useScope: 'global' });
 const list = ref([]) as Ref<ICountryInformation[]>;
 
 const emit = defineEmits(['close']);
-
 const selectedEntity = computed(() => {
   return list.value.find(
     (item) => item.isoCode.toLocaleLowerCase() === locale.value.toLowerCase()
@@ -36,7 +34,19 @@ const selectedEntity = computed(() => {
 });
 
 onBeforeMount(async (): Promise<void> => {
-  const countries = await getFullList();
+  // TODO: get later from api
+  const countries = [
+    {
+      name: 'Germany',
+      isoCode: 'DE',
+      localPath: '/img/flags/DE.svg',
+    },
+    {
+      name: 'English',
+      isoCode: 'EN',
+      localPath: '/img/flags/GB.svg',
+    },
+  ];
   list.value = countries.filter((item) => {
     return availableLocales.includes(item.isoCode.toLocaleLowerCase());
   });
