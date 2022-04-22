@@ -10,13 +10,22 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, PropType } from 'vue';
 
 import { use2faStore } from '@/stores/2fa';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
+import { EActionTypes } from './types';
+
 const store = use2faStore();
+
+const props = defineProps({
+  actionType: {
+    type: String as PropType<EActionTypes>,
+    default: EActionTypes.verify,
+  },
+});
 
 const emit = defineEmits<{
   (event: 'success-verification'): void;
@@ -30,7 +39,7 @@ const onComplete = async (code: string) => {
   verificationCode.value = code;
 
   if (code.length === 6) {
-    const result = await store.verify(code);
+    const result = await store[props.actionType](code);
 
     if (!result) {
       // there are not errors

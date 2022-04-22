@@ -58,6 +58,7 @@
     <auth2-f-a-verification-component
       @success-verification="handleSuccessVerification"
       @close="onClose"
+      action-type="disable"
     />
   </div>
 </template>
