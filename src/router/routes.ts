@@ -27,7 +27,6 @@ import DashboardTransferFundsToTreasuryStory from '@/views/Dashboard/DashboardTr
 
 import Account from '@/views/Dashboard/Account/index.vue';
 import AllAccounts from '@/views/Dashboard/Account/AllAccounts.vue';
-import AddAccount from '@/views/Dashboard/Account/AddAccount.vue';
 
 import Transactions from '@/views/Dashboard/Transactions/index.vue';
 import DashboardTransactions from '@/views/Dashboard/Transactions/DashboardTransactions.vue';
@@ -68,6 +67,8 @@ import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
 
 import RequestContacts from '@/views/Contacts/RequestContacts.vue';
 import Recipients from '@/views/Contacts/Recepients.vue';
+import AddAccount from '@/views/Dashboard/Account/AddAccount/Index.vue';
+import AddAccountRoutes from '@/router/routesAddAccount';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -169,6 +170,15 @@ const routes: Array<RouteRecordRaw> = [
   // === Account ===
 
   {
+    path: '/account/add',
+    name: Route.AccountAdd,
+    component: AddAccount,
+    meta: { authRequired: true },
+    redirect: { name: Route.AccountAddSelectCoin },
+    children: AddAccountRoutes,
+  },
+
+  {
     path: '/account',
     name: Route.Account,
     component: Account,
@@ -186,11 +196,6 @@ const routes: Array<RouteRecordRaw> = [
           import(
             /* webpackChunkName: "dashboard" */ '@/components/ui/pages/AccountDetail.vue'
           ),
-      },
-      {
-        path: 'add',
-        name: Route.AccountAdd,
-        component: AddAccount,
       },
     ],
   },

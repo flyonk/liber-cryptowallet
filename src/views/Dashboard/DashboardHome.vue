@@ -5,6 +5,7 @@
       <div class="header flex mb-4">
         <div class="left">
           <img
+            alt
             src="@/assets/images/avatar.png"
             @click="$router.push('/profile')"
           />
@@ -50,7 +51,9 @@
       </ul>
       <div class="currencies flex items-center">
         <!--TODO: map currencies-->
-        <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
+        <h1 class="title">
+          {{ currentAccount.code }} {{ currentAccount.balance }}
+        </h1>
         <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
           <i
             class="down icon-ic16-arrow-down"
@@ -58,9 +61,9 @@
           />
         </div>
         <img
-          alt="eurounion"
+          alt="currency"
           class="ml-auto"
-          src="@/assets/icon/currencies/euro.svg"
+          :src="currentAccount.imgSrc"
           @click="$router.push({ name: Route.AccountMain })"
         />
       </div>
@@ -143,7 +146,7 @@
             class="carousel-item slide"
             @click="$router.push({ name: item.route })"
           >
-            <img :src="item.imgSrc" />
+            <img :src="item.imgSrc" alt />
             <h4
               :class="{
                 'text-green': item.text === 'green',
@@ -161,6 +164,7 @@
         v-if="isMenuOpen"
         :accounts="accounts"
         @close="closeMenu"
+        @select="onSelectAccount"
       />
     </div>
   </div>
@@ -206,11 +210,16 @@ const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
 const totalBalance = computed(() => accountStore.getTotalBalance);
-const isDashboardSkeletonReady = computed(() => {
-  return (
-    !!accountStore.accountList[0]?.baseBalanceConversion &&
-    !!accountStore.totalBalance?.sum
-  );
+
+const allAccountInfo = ref({
+  code: '€',
+  imgSrc: require('@/assets/icon/currencies/euro.svg'),
+});
+
+const currentAccount = ref({
+  code: '',
+  balance: '',
+  imgSrc: '',
 });
 
 const { tm } = useI18n();
@@ -225,23 +234,22 @@ const { proxy } = getCurrentInstance();
  * Lifecycle
  */
 onMounted(async () => {
+  loading.value = true;
+
   await profileStore.init();
   const { kycStatus } = profileStore.getUser;
 
   VerificationStatus.value = kycStatus;
 
-  if (!isDashboardSkeletonReady.value) {
-    loading.value = true;
-  }
-
   try {
     const [, , _transactions] = await Promise.all([
-      accountStore.getAccountList(),
       accountStore.getAccountBalance(),
+      accountStore.getAccountList(),
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
-    console.debug(transactions.value);
+
+    setCurrentAccount('all');
   } catch (error) {
     console.error(error);
     proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');
@@ -250,9 +258,39 @@ onMounted(async () => {
   }
 });
 
+const setCurrentAccount = (coinCode: string) => {
+  if (coinCode === 'all') {
+    currentAccount.value = {
+      balance: totalBalance.value.sum,
+      code: allAccountInfo.value.code,
+      imgSrc: allAccountInfo.value.imgSrc,
+    };
+
+    return;
+  }
+
+  const {
+    code,
+    balance,
+    imageUrl: imgSrc,
+  } = accounts.value.find(({ code }) => coinCode === code) as IAccount;
+
+  currentAccount.value = {
+    code: code.toUpperCase(),
+    imgSrc,
+    balance,
+  };
+};
+
 function closeMenu() {
   isMenuOpen.value = false;
 }
+
+const onSelectAccount = (coinCode: string) => {
+  setCurrentAccount(coinCode);
+
+  isMenuOpen.value = false;
+};
 
 // Temporary update method
 const updateDashboardData = async () => {
@@ -319,10 +357,6 @@ const carousel = [
 ];
 
 const hasTransactions = computed(() => transactions.value.length > 0);
-
-const totalCurrency = computed(() =>
-  totalBalance.value.currency === 'EUR' ? '€' : `${totalBalance.value.currency}`
-);
 
 const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
@@ -423,7 +457,9 @@ const showWelcomeMessage = computed(() => {
       justify-content: center;
       align-items: center;
       height: 36px;
+      min-height: 36px;
       width: 36px;
+      min-width: 36px;
 
       > .down {
         &.-reverted {

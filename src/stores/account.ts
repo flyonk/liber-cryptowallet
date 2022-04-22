@@ -9,27 +9,34 @@ import { IAccount } from '@/models/account/account';
 import { IAccountTotal } from '@/models/account/IAccountTotal';
 import { INetTransaction } from '@/models/transaction/transaction';
 
+export interface INewAccountParams {
+  network: string;
+  coin: string | null;
+}
+
 // === Account Types ===
 
 export interface IAccountState {
-  address: string;
-  token?: string;
   accountList: IAccount[];
   totalBalance: IAccountTotal;
   balanceByCoin: IAccount;
   coinTransactions: INetTransaction[];
+  newAccountParams: INewAccountParams;
 }
 
 // === Account Store ===
 
 export const useAccountStore = defineStore('account', {
   state: (): IAccountState => ({
-    address: '',
-    token: undefined,
     accountList: [],
     balanceByCoin: <IAccount>{},
     totalBalance: <IAccountTotal>{},
     coinTransactions: [],
+
+    newAccountParams: {
+      network: 'default',
+      coin: null,
+    },
   }),
 
   getters: {
@@ -37,6 +44,8 @@ export const useAccountStore = defineStore('account', {
     getTotalBalance: (state) => state.totalBalance,
     getCoinTransactions: (state) => state.coinTransactions,
     getBalanceByCoin: (state) => state.balanceByCoin,
+
+    getNewAccountParams: (state) => state.newAccountParams,
   },
 
   actions: {
@@ -100,6 +109,10 @@ export const useAccountStore = defineStore('account', {
           'error on creating account'
         );
       }
+    },
+
+    setNewAccountParams(property: keyof INewAccountParams, value: string) {
+      this.newAccountParams[property] = value;
     },
   },
 });

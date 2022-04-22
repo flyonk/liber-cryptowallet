@@ -20,6 +20,9 @@ export enum Route {
   AccountMain = 'account-main',
   AccountDetail = 'account-detail',
   AccountAdd = 'account-add',
+  AccountAddSelectNetwork = 'account-add-select-network',
+  AccountAddShowWallet = 'account-add-show-wallet',
+  AccountAddSelectCoin = 'account-add-select-coin',
 
   Transactions = 'transactions',
   TransactionsMain = 'transactions-main',

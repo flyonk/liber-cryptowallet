@@ -11,7 +11,7 @@
         class="icon-plus_circle add"
         @click="
           $router.push({
-            name: Route.DepositCoin,
+            name: Route.AccountAdd,
           })
         "
       />

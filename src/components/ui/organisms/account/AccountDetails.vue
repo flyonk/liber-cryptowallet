@@ -1,5 +1,7 @@
 <template>
-  <div v-if="wallet">
+  <AccountDetailsSkeleton v-if="!wallet" />
+
+  <div v-else>
     <div class="qr-code-container">
       <qr-code
         :background-options="{ color: 'transparent' }"
@@ -99,6 +101,7 @@ import { check, share } from '@/helpers/nativeShare';
 
 import QrCode from 'qrcode-vue3';
 import { BaseButton } from '@/components/ui';
+import AccountDetailsSkeleton from './AccountDetailsSkeleton.vue';
 
 const toast = useToast();
 const { tm } = useI18n();
@@ -123,6 +126,8 @@ onBeforeMount(async () => {
 
 const createAndSetAccount = async () => {
   try {
+    wallet.value = null;
+
     const data = await accountStore.createAccount(props.coinCode as string, {
       network: 'default',
       force: true,
