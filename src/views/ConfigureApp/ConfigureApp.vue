@@ -1,46 +1,49 @@
 <template>
-  <div class="page-wrapper" onclick="void(0);">
-    <top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
-      {{ $t('configureApp.configTitle') }}
-    </top-navigation>
+  <t-top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
+    <template #title> {{ $t('configureApp.configTitle') }}</template>
+    <template #subtitle>{{ $t('configureApp.scanQRMessage') }}</template>
+    <template #content>
+      <div class="page-wrapper" onclick="void(0);">
+        <div>
+          <canvas ref="canvas" class="qr-code-canvas" />
+        </div>
 
-    <p class="text-default" style="margin-bottom: 0">
-      {{ $t('configureApp.scanQRMessage') }}
-    </p>
+        <label class="default-input-wrapper" @click="copyToClipboard">
+          <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
+          <input
+            v-model="qrCodeValue"
+            class="default-input"
+            type="text"
+            readonly
+          />
+          <img
+            class="default-input-icon"
+            src="@/assets/images/copy-to-clipboard.svg"
+            alt="copy"
+            @click.stop
+          />
+        </label>
 
-    <div>
-      <canvas ref="canvas" class="qr-code-canvas" />
-    </div>
-
-    <label class="default-input-wrapper" @click="copyToClipboard">
-      <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
-      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
-      <img
-        class="default-input-icon"
-        src="@/assets/images/copy-to-clipboard.svg"
-        alt="copy"
-        @click.stop
-      />
-    </label>
-
-    <p class="text-default">
-      {{ $t('configureApp.backupCodeMessage') }}
-    </p>
-    <p class="text-default">
-      {{ $t('configureApp.verifyIdentityMessage') }}
-    </p>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button
-      block
-      @click="
-        saveTwoFASecret();
-        $router.push({ name: Route.ConfigureAppVerify });
-      "
-    >
-      {{ $t('common.continueCta') }}
-    </base-button>
-  </div>
+        <p class="text-default">
+          {{ $t('configureApp.backupCodeMessage') }}
+        </p>
+        <p class="text-default">
+          {{ $t('configureApp.verifyIdentityMessage') }}
+        </p>
+      </div>
+      <div style="padding: 15px; padding-bottom: 50px">
+        <base-button
+          block
+          @click="
+            saveTwoFASecret();
+            $router.push({ name: Route.ConfigureAppVerify });
+          "
+        >
+          {{ $t('common.continueCta') }}
+        </base-button>
+      </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -59,7 +62,7 @@ import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
 import { useProfileStore } from '@/stores/profile';
 
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation, BaseButton } from '@/components/ui';
 
 import { Route } from '@/router/types';
 

@@ -1,51 +1,53 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
-      {{ $t('configureApp.installAppTitle') }}
-    </top-navigation>
+  <t-top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
+    <template #title> {{ $t('configureApp.installAppTitle') }}</template>
+    <template #subtitle>
+      {{ $t('configureApp.installAppDescription') }}</template
+    >
+    <template #content>
+      <div class="page-wrapper">
+        <p class="auth-item" style="margin-bottom: 15px">
+          <img
+            src="@/assets/brands/ga.png"
+            alt="Google Authenticator"
+            class="auth-app-icon"
+          />
+          <span>{{ $t('common.googleAuthenticator') }}</span>
+        </p>
+        <p class="auth-item" style="margin-bottom: 50px">
+          <img
+            src="@/assets/brands/ma.svg"
+            alt="Microsoft Authenticator"
+            class="auth-app-icon"
+          />
+          <span>{{ $t('common.microsoftAuthenticator') }}</span>
+        </p>
 
-    <p class="text-default">
-      {{ $t('configureApp.installAppDescription') }}
-    </p>
+        <a href="https://apps.apple.com/lb/app" class="store-link">
+          <img
+            class="store-link-img"
+            src="@/assets/brands/appstore.png"
+            alt="App Store"
+          />
+        </a>
+        <a href="https://play.google.com/store/apps" class="store-link">
+          <img
+            class="store-link-img"
+            src="@/assets/brands/googleplay.png"
+            alt="Google play"
+          />
+        </a>
+      </div>
 
-    <p class="auth-item" style="margin-bottom: 15px">
-      <img
-        src="@/assets/brands/ga.png"
-        alt="Google Authenticator"
-        class="auth-app-icon"
-      />
-      <span>{{ $t('common.googleAuthenticator') }}</span>
-    </p>
-    <p class="auth-item" style="margin-bottom: 50px">
-      <img
-        src="@/assets/brands/ma.svg"
-        alt="Microsoft Authenticator"
-        class="auth-app-icon"
-      />
-      <span>{{ $t('common.microsoftAuthenticator') }}</span>
-    </p>
-
-    <a href="https://apps.apple.com/lb/app" class="store-link">
-      <img
-        class="store-link-img"
-        src="@/assets/brands/appstore.png"
-        alt="App Store"
-      />
-    </a>
-    <a href="https://play.google.com/store/apps" class="store-link">
-      <img
-        class="store-link-img"
-        src="@/assets/brands/googleplay.png"
-        alt="Google play"
-      />
-    </a>
-  </div>
-
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="$router.push({ name: Route.ConfigureApp })">{{
-      $t('common.continueCta')
-    }}</base-button>
-  </div>
+      <div style="padding: 15px; padding-bottom: 50px">
+        <base-button
+          block
+          @click="$router.push({ name: Route.ConfigureApp })"
+          >{{ $t('common.continueCta') }}</base-button
+        >
+      </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -55,7 +57,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation, BaseButton } from '@/components/ui';
 import { Route } from '@/router/types';
 </script>
 
