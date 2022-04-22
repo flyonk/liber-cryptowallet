@@ -1,13 +1,10 @@
 <template>
+  <t-top-navigation @click:left-icon="prevStep">
+    <template #title> {{ $t('configureApp.twoFATitle') }}</template>
+    <template #subtitle> {{ $t('configureApp.twoFADescription') }}</template>
+    <template #content></template>
+  </t-top-navigation>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="prevStep">
-      {{ $t('configureApp.twoFATitle') }}
-    </top-navigation>
-
-    <p class="text-default">
-      {{ $t('configureApp.twoFADescription') }}
-    </p>
-
     <div class="flex-center">
       <img alt="keys" src="@/assets/images/2fa-keys.svg" />
     </div>
@@ -32,7 +29,7 @@ import { onMounted } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
