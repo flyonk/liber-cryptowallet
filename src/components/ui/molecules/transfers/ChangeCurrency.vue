@@ -392,7 +392,6 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
       '@/assets/icon/currencies/empty_coin.svg',
       direction
     );
-    fundsStore.setEmptyCrypto(direction);
     componentState.value = 'preview';
   } else {
     fundsStore.setCrypto(
@@ -411,7 +410,12 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 };
 
 onBeforeMount(() => {
-  fundsStore.setEmptyCrypto('to');
+  fundsStore.setCrypto(
+    '---',
+    'empty',
+    '@/assets/icon/currencies/empty_coin.svg',
+    'to'
+  );
 });
 </script>
 
