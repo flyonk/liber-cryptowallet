@@ -109,6 +109,7 @@
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
           :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
+          @click="openActionsSwiper"
         >
           ...
         </button>
@@ -185,6 +186,7 @@ import { useI18n } from 'vue-i18n';
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useUIStore } from '@/stores/ui';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
@@ -205,6 +207,7 @@ const loading = ref(false);
 
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
+const uiStore = useUIStore();
 
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
@@ -257,6 +260,10 @@ onMounted(async () => {
     loading.value = false;
   }
 });
+
+const openActionsSwiper = () => {
+  uiStore.setStateModal('sendMenu', true);
+};
 
 const setCurrentAccount = (coinCode: string) => {
   if (coinCode === 'all') {
