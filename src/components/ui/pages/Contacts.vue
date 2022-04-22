@@ -70,19 +70,27 @@ const props = defineProps({
 const filteredContacts = computed(() => {
   if (props.filter) {
     const filterStr = props.filter.toLowerCase();
-    return contacts.filter((contact: Contact) => {
-      const name = contact.displayName?.toLowerCase() || '';
-      if (name.includes(filterStr)) {
-        return true;
-      }
-      let phone = getContactPhone(contact);
-      const regex = / |-|\(|\)|\+/g;
-      phone = phone.replace(regex, '');
-      if (phone.includes(filterStr)) {
-        return true;
-      }
-      return false;
-    });
+    return contacts
+      .filter((contact: Contact) => {
+        const name = contact.displayName?.toLowerCase() || '';
+        if (name.includes(filterStr)) {
+          return true;
+        }
+        let phone = getContactPhone(contact);
+        const regex = / |-|\(|\)|\+/g;
+        phone = phone.replace(regex, '');
+        if (phone.includes(filterStr)) {
+          return true;
+        }
+        return false;
+      })
+      .sort((a: Contact) => {
+        // show liber friend in top of list
+        if (a.isFriend) {
+          return -1;
+        }
+        return 1;
+      });
   }
   return contacts;
 });

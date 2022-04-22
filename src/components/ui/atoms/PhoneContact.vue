@@ -1,5 +1,8 @@
 <template>
-  <ContactInitials :name="props.contact.displayName" />
+  <ContactInitials
+    :name="props.contact.displayName"
+    :is-friend="props.contact.isFriend"
+  />
   <router-link
     :to="{
       name: Route.ContactsSend,

@@ -86,11 +86,23 @@ export const useRecepientsStore = defineStore('recepients', {
           this.contacts = contacts;
         }
         this.friends = await loadFriends();
+        this.contacts = this.contacts.map((c: Contact) => {
+          if (this.friends.has(c.contactId)) {
+            c.isFriend = true;
+          }
+          return c;
+        });
         return true;
       } catch (error: any) {
         if (error?.code === CAPACITOR_WEB_ERROR) {
           this.contacts = mockedContacts;
           this.friends = await loadFriends();
+          this.contacts = this.contacts.map((c: Contact) => {
+            if (this.friends.has(c.contactId)) {
+              c.isFriend = true;
+            }
+            return c;
+          });
         }
       }
     },
@@ -104,6 +116,7 @@ export const useRecepientsStore = defineStore('recepients', {
           };
         }),
         emails: [],
+        isFriend: true,
       };
       this.contacts.push(newContact);
       this.friends.add(newContact.contactId);
@@ -111,6 +124,12 @@ export const useRecepientsStore = defineStore('recepients', {
     },
     async addFriend(contact: Contact) {
       this.friends.add(contact.contactId);
+      this.contacts = this.contacts.map((c: Contact) => {
+        if (c.contactId === contact.contactId) {
+          c.isFriend = true;
+        }
+        return c;
+      });
       const newFriend = {
         id: contact.contactId,
         name: contact.displayName || '',
