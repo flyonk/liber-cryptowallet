@@ -11,13 +11,6 @@ interface I2faState {
   url: string;
 }
 
-const getSecret = async () => {
-  const { value } = await Storage.get({
-    key: EStorageKeys.twofa,
-  });
-  return value || '';
-};
-
 // === 2fa Store ===
 
 export const use2faStore = defineStore('2fa', {
@@ -41,6 +34,11 @@ export const use2faStore = defineStore('2fa', {
 
     async verify(code: string) {
       const result = await profileService.verificationByApp({ code });
+      return result;
+    },
+
+    async disable(code: string) {
+      const result = await profileService.disableVerificationApp({ code });
       return result;
     },
 
@@ -70,10 +68,6 @@ export const use2faStore = defineStore('2fa', {
        * Return true if expired
        */
       return checkExpiration(timestamp, 3);
-    },
-
-    async init() {
-      this.secret = await getSecret();
     },
   },
 });
