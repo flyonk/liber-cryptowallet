@@ -6,6 +6,7 @@ export interface ICoin {
   imageUrl: string;
   networks: string[];
   minimalDepositValue: string;
+  isPopular?: boolean;
 }
 
 export default {
@@ -17,6 +18,7 @@ export default {
       imageUrl: _getSrcImageUrl(input.name),
       networks: input.networks,
       minimalDepositValue: input.minimal_deposit_value,
+      isPopular: input.is_popular,
     };
   },
 };

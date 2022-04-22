@@ -1,14 +1,17 @@
 <template>
   <header class="page-header">
     <div class="header-top">
-      <button type="button" class="controls" @click="$emit('click:left-icon')">
-        <i class="icon-header" :class="leftIconName" />
+      <button class="controls" type="button" @click="$emit('click:left-icon')">
+        <i :class="leftIconName" class="icon-header" />
       </button>
       <slot name="top-right" />
     </div>
-    <h1 class="page-title">
-      <slot />
-    </h1>
+    <div v-if="$slots.default" class="header-container">
+      <h1 class="page-title">
+        <slot />
+      </h1>
+      <slot name="right"></slot>
+    </div>
   </header>
 </template>
 
@@ -28,6 +31,22 @@ defineEmits(['click:left-icon']);
   margin-top: 30px;
   margin-bottom: 8px;
 
+  > .header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    > .page-title {
+      font-style: normal;
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 34px;
+      letter-spacing: 0.0038em;
+      margin-bottom: 10px;
+      margin-top: 20px;
+    }
+  }
+
   > .header-top {
     display: flex;
     justify-content: space-between;
@@ -43,16 +62,6 @@ defineEmits(['click:left-icon']);
     width: $size;
     height: $size;
     font-size: $size;
-  }
-
-  > .page-title {
-    font-style: normal;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 10px;
-    margin-top: 20px;
   }
 }
 </style>

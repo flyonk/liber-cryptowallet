@@ -46,6 +46,7 @@
     "login": {
       "step1Title": "Log in to Liber",
       "step1Description": "Enter your registered mobile number to log in",
+      "step1DescriptionValuable": "We will send verification code to this number.",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
       "step1AccountExists": "Don’t have an account?",
@@ -138,12 +139,22 @@
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
-    "transferFee": "Transfer Fee",
+    "transferFee": "Fee",
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
+    "statement": "Statement",
+    "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
+    "rate": "Rate",
+    "bought": "Bought",
+    "cost": "Cost",
+    "transactionIdCopied": "Transaction ID is copied successfully",
+    "transactionIdCopyFail": "Failed when copy Transaction ID",
+    "boughtCoinInfo": "Bought {mainCoin} with {secondaryCoin}",
+    "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
+    "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "income": "Received",
       "outcome": "Sent",
@@ -156,7 +167,7 @@
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
-      "finished": "Finished",
+      "finished": "Completed",
       "cancelled": "Cancelled"
     },
     "carousel": {
@@ -171,8 +182,7 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"
-    }
+      "rateChanged": "Rate have been changed"    }
   },
   "ui": {
     "friends": {
@@ -488,7 +498,8 @@
         "amountCovert": "Amount we’ll covert",
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "sameCurrenciesError": "You should choose different currencies for exchange"
       }
     }
   },

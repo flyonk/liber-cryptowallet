@@ -1,6 +1,9 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation left-icon-name="ci-close_big" @click:left-icon="closePage">
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="closePage"
+    >
       {{ title }}
     </top-navigation>
 
@@ -129,7 +132,7 @@ const selectAnswer = (id: number | string) => {
     const userAnswers = getSelectedAnswers();
     saveAnswers(userAnswers).then(() => {
       router.push({
-        name: Route.AuthPasscode,
+        name: Route.TwoFAApp,
       });
     });
     return;
@@ -140,7 +143,7 @@ const selectAnswer = (id: number | string) => {
 
 const closePage = () => {
   router.push({
-    name: Route.AuthPasscode,
+    name: Route.TwoFAApp,
   });
 };
 

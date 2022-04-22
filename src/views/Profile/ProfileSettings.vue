@@ -234,13 +234,15 @@ async function onLogout() {
       'views.profile.profileSettings.logoutConfirmationTitle'
     ) as string,
     message: tm('views.profile.profileSettings.logoutConfirmation') as string,
-    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
     cancelButtonTitle: tm(
-      'views.profile.profileSettings.logoutAccept'
+      'views.profile.profileSettings.logoutDecline'
     ) as string,
   });
 
-  if (confirmed) return;
+  if (!confirmed) {
+    return;
+  }
 
   await authStore.logout(profileStore.getUser.id);
 

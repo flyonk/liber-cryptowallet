@@ -23,7 +23,7 @@
       </div>
 
       <div class="menu-list">
-        <div class="item" @click="$router.push('/account')">
+        <div class="item" @click="$emit('select', 'all')">
           <div class="image-wrap">
             <img alt="all" src="@/assets/icon/all-accounts.svg" />
           </div>
@@ -39,6 +39,7 @@
           v-for="(account, index) in filteredList"
           :key="index"
           :data="account"
+          @click="$emit('select', account.code)"
         />
       </div>
     </div>
@@ -59,7 +60,7 @@ import { BaseAccount, BaseBottomSheet, BaseSearchInput } from '@/components/ui';
 const accountStore = useAccountStore();
 const router = useRouter();
 
-defineEmits(['close']);
+defineEmits(['close', 'select']);
 
 const props = defineProps({
   accounts: {

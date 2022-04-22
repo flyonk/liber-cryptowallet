@@ -5,11 +5,38 @@ import { useAuthStore } from '@/stores/auth';
 import { i18n } from '@/i18n';
 import { get } from '@/helpers/storage';
 import router from '@/router';
+import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
 
-//TODO: what API calls should be authorized
+/*
+ * This code prevent race condition with multiple parallel API calls
+ */
+let _refreshTokenRequest: Promise<void> | null = null;
+let _cleanTokenDataRequest: Promise<void> | null = null;
+
+const _refreshToken = async (): Promise<string | null> => {
+  let token = await get(EStorageKeys.token);
+
+  if (token) {
+    const authStore = useAuthStore();
+    //Check invalid token
+    if (await authStore.verifyToken()) {
+      if (_refreshTokenRequest === null) {
+        _refreshTokenRequest = authStore.refresh();
+      }
+      await _refreshTokenRequest;
+      _refreshTokenRequest = null;
+      token = await get(EStorageKeys.token);
+    }
+  }
+  return token;
+};
+
+/*
+ * Not protected routes list
+ */
 const _notAuthorizedRoutes = (): string[] => {
   return [
     ...Object.values(apiService.auth).map((item) => item()),
@@ -25,24 +52,19 @@ const _requestHandler = async (
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
-  /*
-   * TODO: set authorized API calls logic
-   */
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
-      let token = await get(EStorageKeys.token);
-
-      if (token) {
-        const authStore = useAuthStore();
-        if (await authStore.verifyToken()) {
-          await authStore.refresh();
-          token = await get(EStorageKeys.token);
-        }
-        config.headers['Authorization'] = `Bearer ${token}`;
-      }
+      const token = await _refreshToken();
+      if (token) config.headers['Authorization'] = `Bearer ${token}`;
     }
   } catch (error) {
     console.log('return config erorr', error);
+    SentryUtil.capture(
+      error,
+      'AxiosInterceptor',
+      'requestHandler',
+      "can't refresh token"
+    );
   }
   return config;
 };
@@ -61,13 +83,15 @@ export default function init(): void {
     },
     async (error) => {
       if (error.response.status === 401) {
-        //TODO: define scenarios
-        //TODO: clear only token data
         const authStore = useAuthStore();
         /*
          * Clear only expired token and refresh token
          */
-        await authStore.clearTokenData();
+        if (_cleanTokenDataRequest === null) {
+          _cleanTokenDataRequest = authStore.clearTokenData();
+        }
+        await _cleanTokenDataRequest;
+        _cleanTokenDataRequest = null;
         router.push({ name: Route.WelcomeLogoScreen });
       }
       //Logger error

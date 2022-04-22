@@ -1,5 +1,5 @@
 <template>
-  <section class="base-account">
+  <section class="base-account" @click="$emit('click', data)">
     <div class="image-wrap">
       <img alt="" :src="data.imageUrl" />
     </div>
@@ -27,6 +27,7 @@ import { PropType } from 'vue';
 import { IAccount } from '@/models/account/account';
 import { getSymbolByCode } from '@/helpers/currency';
 
+defineEmits(['click']);
 defineProps({
   data: {
     type: Object as PropType<IAccount>,

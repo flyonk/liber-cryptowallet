@@ -1,40 +1,22 @@
 <template name="AddAccount">
   <div class="add-account">
-    <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.back()"
-      />
-      <h1 class="title">{{ $t('common.coinSelect') }}</h1>
-      <label class="input-label">
-        <i class="icon-search" />
-        <input
-          :placeholder="$t('common.searchCoin')"
-          class="search"
-          name="searchCoin"
-          type="text"
-        />
-      </label>
-    </div>
-    <div class="main">
-      <SelectCoin :coins="coins" @select-coin="selectCoin" />
-    </div>
+    <TopNavigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    />
+    <BaseCoinListSelect :coins="coins" @select-coin="selectCoin" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount } from 'vue';
+import { computed } from 'vue';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+import BaseCoinListSelect from '@/components/ui/organisms/BaseCoinListSelect.vue';
 import { useCoinsStore } from '@/stores/coins';
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
+import { Route } from '@/router/types';
 
 const coinStore = useCoinsStore();
-
-onBeforeMount(async () => {
-  await coinStore.fetchCoins();
-});
 
 const coins = computed(() => coinStore.getCoins);
 

@@ -15,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed, onUpdated } from 'vue';
+import { computed, onUpdated, ref, toRefs } from 'vue';
 
 import CommunicationMenu from '@/components/ui/bottom-swipe-menu/inner-views/CommunicationMenu.vue';
 import DashboardHomeMenu from '@/components/ui/bottom-swipe-menu/inner-views/DashboardHomeMenu.vue';
@@ -91,8 +91,8 @@ onUpdated(() => {
       break;
     case 'send':
       if (!menu.value) return;
-      menu.value.style.minHeight = `40vh`;
-      menu.value.style.maxHeight = `60vh`;
+      menu.value.style.minHeight = `45vh`;
+      menu.value.style.maxHeight = `80vh`;
       break;
     case 'add_contact':
       if (!menu.value) return;

@@ -27,9 +27,22 @@ import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitche
 //TODO: use profile store instead
 import { useAccountStore } from './stores/account';
 
+import SentryUtil from '@/helpers/sentryUtil';
 import SwipeBack from '@/plugins/swipe-capacitor';
 
-SwipeBack.enable();
+SwipeBack.enable()
+  .then()
+  .catch((error) => {
+    const { code } = error;
+    if (code !== 'UNIMPLEMENTED') {
+      SentryUtil.capture(
+        error,
+        'App',
+        'SwipeBack',
+        'Capacitor SwipeBack plugin error'
+      );
+    }
+  });
 
 const store = useAccountStore();
 store.init();

@@ -138,7 +138,7 @@ const classes = computed(() => [
   }
 
   &.-flat {
-    padding: 13px 0;
+    padding: 0;
     background: transparent;
 
     > .container {
