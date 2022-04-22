@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation>
+  <t-top-navigation @click:left-icon="prevStep">
     <template #title>{{ $t('auth.signup.step1Title') }}</template>
     <template #subtitle>{{ $t('auth.signup.step1Description') }} </template>
     <template #content>
@@ -37,7 +37,7 @@ import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
 import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { TTopNavigation } from '@/components/ui';
 
 const router = useRouter();
 
