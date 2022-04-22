@@ -155,6 +155,7 @@ import { ICoinForExchange, useFundsStore } from '@/stores/funds';
 import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
 import { ICoin } from '@/models/coin/coins';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
@@ -238,8 +239,8 @@ function getCorrectValue(value: number) {
   return Math.min(v1, 100000000);
 }
 
-function getEmptyCoinImage() {
-  return require('@/assets/icon/currencies/empty_coin.svg');
+function getEmptyCoinImageSrc() {
+  return `${STATIC_BASE_URL}/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
@@ -390,7 +391,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     currentSendToCurrency.value.code = coinInfo.code;
   }
   if (isSameCurrencies.value) {
-    fundsStore.setCrypto('---', 'empty', getEmptyCoinImage(), direction);
+    fundsStore.setCrypto('---', 'empty', getEmptyCoinImageSrc(), direction);
     componentState.value = 'preview';
   } else {
     fundsStore.setCrypto(
@@ -409,7 +410,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 };
 
 onBeforeMount(() => {
-  fundsStore.setCrypto('---', 'empty', getEmptyCoinImage(), 'to');
+  fundsStore.setCrypto('---', 'empty', getEmptyCoinImageSrc(), 'to');
 });
 </script>
 
