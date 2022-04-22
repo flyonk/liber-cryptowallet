@@ -1,9 +1,15 @@
 import { string2ISO } from '@/helpers/filters';
+import { formatPhoneNumber } from '@/helpers/auth';
+
+type TAnyObjectType = Record<string, string | boolean | number | null>;
 
 export enum EUserStatus {
   unregistered = 10, //UserStatusNew
-  active = 20, //UserStatusActive
-  block = 30, //UserStatusBlock
+  authenticated = 20, //UserStatusAuth
+  registered = 30, //UserStatusRegistered
+  active = 40, //UserStatusActive
+  block = 50, //UserStatusBlock
+  closed = 60, //UserStatusClosed
 }
 
 export enum EKYCStatus {
@@ -20,7 +26,10 @@ export type TMarketing = {
 };
 
 export interface IProfile
-  extends Record<string, string | boolean | number | TMarketing | undefined> {
+  extends Record<
+    string,
+    string | boolean | number | TMarketing | undefined | TAnyObjectType
+  > {
   id: string;
   status: number;
   phone: string;
@@ -35,6 +44,8 @@ export interface IProfile
   optionalAddress?: string;
   postalCode?: string;
   birthDate?: string;
+  options?: TAnyObjectType;
+  is2FAConfigured?: boolean;
   marketing: TMarketing;
   kycStatus: EKYCStatus;
 }
@@ -58,6 +69,9 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       kycStatus: input.kycStatus || EKYCStatus.success,
+      is2FAConfigured:
+        input.is_2fa_configured || !!input.options?.secret_2fa || false, //TODO: temporary hack for 2FA
+      options: input.options || {},
       marketing: {
         isEmail: false,
         isPushNotification: false,
@@ -68,23 +82,23 @@ export default {
 
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   requestSerialize(input: Partial<IProfile>): any {
-    const address =
-      input.street && input.homeNum ? `${input.street} ${input.homeNum}` : null;
-    const birthDate = input.birthDate ? string2ISO(input.birthDate) : null;
-    return {
+    const request = {
       status: input.status,
-      phone: input.phone,
+      phone: input?.phone ? formatPhoneNumber(input.phone) : input.phone,
       is_verified: input.isVerified,
       block_reason: input.blockReason,
       first_name: input.firstName,
       last_name: input.lastName,
       email: input.email,
       country: input.country,
-      street_and_number: address,
       optionalAddress: input.optionalAddress,
       postal_code: input.postalCode,
-      birthdate: birthDate,
       is_send_news: !!input.marketing?.isEmail,
-    };
+      options: input.options,
+    } as Partial<IProfile>;
+    if (input.birthDate) request.birthdate = string2ISO(input.birthDate);
+    if (input.street && input.homeNum)
+      request.street_and_number = `${input.street} ${input.homeNum}`;
+    return request;
   },
 };

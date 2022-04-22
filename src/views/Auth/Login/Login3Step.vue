@@ -1,12 +1,20 @@
 <template>
   <div v-if="!show2FA">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="prevStep">
+      <top-navigation v-if="!authStore.isLoggedIn" @click:left-icon="prevStep">
         {{ $t('auth.login.step3Title') }}
       </top-navigation>
+      <div v-else class="page-title">
+        <div>{{ $t('auth.login.step3Title') }}</div>
+        —
+      </div>
     </div>
 
-    <base-passcode class="login-passcode" @submit="onSubmit" />
+    <base-passcode
+      :show-touch-faceid="showNativeVerification"
+      class="login-passcode"
+      @submit="onSubmit"
+    />
 
     <base-toast v-model:visible="showErrorToast" severity="error">
       <template #description>
@@ -23,16 +31,22 @@
       </template>
     </base-toast>
   </div>
-  <div v-if="show2FA">
+  <div v-else>
     <auth2-f-a-verification-component
-      @success-verification="handleSuccessVerification"
       @close="onClose"
+      @success-verification="handleSuccessVerification"
     />
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
@@ -55,17 +69,26 @@ const show2FA = ref(false);
 
 appOptionsStore.init();
 
+const showNativeVerification = computed(() => {
+  const { faceid, touchid } = appOptionsStore.getOptions;
+  return faceid || touchid;
+});
+
 async function onSubmit(success: boolean): Promise<void> {
   if (success) {
     /*
      * Check 2fa auth state
      * If more than 3 days 2FA requested
      */
-    (await twoFAStore.check2FAExpire())
-      ? (show2FA.value = true)
-      : router.push({
-          name: Route.DashboardHome,
-        });
+    const is2FAIsExpired = await twoFAStore.check2FAExpire();
+
+    if (is2FAIsExpired) {
+      show2FA.value = true;
+    } else {
+      await router.push({
+        name: Route.DashboardHome,
+      });
+    }
   } else {
     showErrorToast.value = true;
   }
@@ -93,5 +116,15 @@ async function handleSuccessVerification(): Promise<void> {
 <style lang="scss">
 .login-passcode {
   margin-top: 108px;
+}
+
+.page-title {
+  font-style: normal;
+  font-weight: 800;
+  font-size: 28px;
+  line-height: 34px;
+  letter-spacing: 0.0038em;
+  margin-bottom: 10px;
+  margin-top: 20px;
 }
 </style>

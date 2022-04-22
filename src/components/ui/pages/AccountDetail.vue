@@ -12,12 +12,14 @@
         :balance="balance.balance"
         :base-conversion-sum="balance.baseBalanceConversion"
         :coin-code="balance.name"
+        :coin-icon-url="balance.imageUrl"
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
       <VueAgile
         :nav-buttons="false"
-        :slides-to-show="2"
+        :slides-to-show="3.5"
+        :swipe-distance="20"
         class="carousel-slider"
       >
         <div
@@ -26,28 +28,27 @@
           class="item-slide"
           @click="onClick(item)"
         >
-          <img :src="item.img" class="image" />
+          <img :src="item.img" alt class="image" />
           <p class="name">{{ item.name }}</p>
         </div>
       </VueAgile>
       <div v-if="showControls" class="controls">
         <button class="btn">
-          <img class="label" src="@/assets/icon/plus.svg" />{{
+          <img alt class="label" src="@/assets/icon/plus.svg" />{{
             $t('transactions.deposit')
           }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />{{
+          <img alt class="label" src="@/assets/icon/arrow-right-white.svg" />{{
             $t('transactions.send')
           }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />{{
+          <img alt class="label" src="@/assets/icon/repeat.svg" />{{
             $t('transactions.exchange')
           }}
         </button>
       </div>
-
       <div class="main-tabs">
         <div
           :class="{ active: activeTab === 1 }"
@@ -65,9 +66,13 @@
         </div>
       </div>
 
-      <div v-if="activeTab === 1">
-        <transactions-list :transactions="transactions" />
-      </div>
+      <transactions-list
+        v-if="activeTab === 1"
+        :main-coin="currentCoin"
+        :show-coin="false"
+        :transactions="transactions"
+        class="transactions-block"
+      />
 
       <div v-if="activeTab === 2" class="wallet">
         <account-details :coin-code="route.params.coin || 'tbtc'" />
@@ -77,7 +82,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
 import { useI18n } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
@@ -86,6 +91,7 @@ import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useFundsStore } from '@/stores/funds';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
@@ -95,23 +101,30 @@ let showControls = ref(false);
 const { tm } = useI18n();
 
 //TODO: write full name accountStore
-const aStore = useAccountStore();
+const accountStore = useAccountStore();
 const profileStore = useProfileStore();
 
 const activeTab = ref(1);
+const currentCoin = ref(null) as Ref<string | null>;
 
 const route = useRoute();
 const router = useRouter();
+const fundsStore = useFundsStore();
 
 /**
  * Lifecycle
  */
-onMounted(() => {
-  if (route.params.coin) aStore.init(route.params.coin as string);
+onBeforeMount(() => {
+  if (route.params.coin) {
+    const coin = route.params.coin as string;
+
+    accountStore.init(coin);
+    currentCoin.value = coin;
+  }
 });
 
-const transactions = computed(() => aStore.getCoinTransactions);
-const balance = computed(() => aStore.getBalanceByCoin);
+const transactions = computed(() => accountStore.getCoinTransactions);
+const balance = computed(() => accountStore.getBalanceByCoin);
 
 const carousel = [
   {
@@ -131,6 +144,24 @@ const carousel = [
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
+    callback() {
+      if (balance.value.code === 'tbtc') return;
+      console.log('balance value', balance.value);
+      const { from } = fundsStore.getState;
+      // from balance
+      fundsStore.setCrypto(
+        from?.name || 'BTC',
+        from?.code || 'tbtc',
+        from?.img || ' ',
+        'to'
+      );
+      fundsStore.setCrypto(
+        balance.value.name,
+        balance.value.code,
+        balance.value.imageUrl,
+        'from'
+      );
+    },
   },
   {
     name: tm('transactions.carousel.withdraw'),
@@ -144,6 +175,9 @@ const onClick = (carouselItem: any) => {
   const { kycStatus } = profileStore.getUser;
   switch (kycStatus) {
     case EKYCStatus.success:
+      if (carouselItem.callback) {
+        carouselItem.callback();
+      }
       router.push({
         name: carouselItem.successRoute,
       });
@@ -163,10 +197,9 @@ const onClick = (carouselItem: any) => {
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: 85%;
+  height: 90%;
   padding: 35px 0 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  overflow: hidden;
   flex-grow: 1;
 
   > .header {
@@ -194,18 +227,6 @@ const onClick = (carouselItem: any) => {
       }
     }
   }
-
-  > .wallet {
-    display: flex;
-    height: 370px;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 24px;
-
-    > .qr {
-      margin-bottom: 56px;
-    }
-  }
 }
 
 .main-tabs {
@@ -216,6 +237,7 @@ const onClick = (carouselItem: any) => {
   border-radius: 8px;
   background: $color-light-grey;
   margin-bottom: 30px;
+  margin-top: 24px;
 
   > .tab {
     width: 49%;
@@ -236,6 +258,12 @@ const onClick = (carouselItem: any) => {
   }
 }
 
+.transactions-block {
+  height: auto;
+  max-height: 438px;
+  margin-bottom: 0;
+}
+
 .title-currency {
   & > .currency {
     font-weight: 600;
@@ -245,18 +273,15 @@ const onClick = (carouselItem: any) => {
   }
 }
 
-.carousel-slider {
-  margin-bottom: 24px;
-}
-
 .item-slide {
   width: 104px;
   height: 104px;
   padding: 12px;
   background: $color-white;
-  box-shadow: 0 2px 24px -12px rgb(0 0 0 / 34%);
-  border-radius: 13px;
-  margin-left: 5px;
+  border: 1px solid #eef0fb;
+  box-shadow: 0 4px 12px -8px $carousel-item-shadow;
+  border-radius: 8px;
+  margin-right: 5px;
 
   > .image {
     margin-bottom: 8px;
@@ -339,6 +364,14 @@ const onClick = (carouselItem: any) => {
         color: $color-white;
       }
     }
+  }
+}
+
+:deep(.agile) {
+  height: 115px;
+
+  > .agile__list {
+    height: 100%;
   }
 }
 </style>

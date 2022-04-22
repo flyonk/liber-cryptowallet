@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
+import { use2faStore } from '@/stores/2fa';
 import profileService from '@/services/profileService';
 import { IProfile, TMarketing } from '@/models/profile/profile';
 import { clearAll, get, set } from '@/helpers/storage';
@@ -8,7 +9,7 @@ import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys, SStorageKeys } from '@/types/storage';
 
-interface IUserProfile {
+export interface IUserProfile {
   user: IProfile;
 }
 
@@ -29,6 +30,7 @@ export const useProfileStore = defineStore('profile', {
       this.user = await this.getUserProfile();
       if (this.user.id) {
         this.syncUserDataInStorage();
+        SentryUtil.setUser();
       }
     },
 
@@ -97,6 +99,13 @@ export const useProfileStore = defineStore('profile', {
         isPushNotification: false,
         isSocialMedia: false,
       };
+    },
+
+    //TODO: temporary solution until backend twoFA not implemented
+    async setTwoFASecret(secret: string): Promise<void> {
+      const twoFAStore = use2faStore();
+      twoFAStore.secret = secret;
+      await set({ key: EStorageKeys.twofa, value: secret });
     },
   },
 });

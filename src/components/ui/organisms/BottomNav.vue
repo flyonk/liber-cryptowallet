@@ -2,16 +2,16 @@
   <div class="bottom-nav">
     <ul class="navbar-list">
       <NavBarItem
-        :routeName="Route.DashboardHome"
+        :route-name="Route.DashboardHome"
         :label="$t('bottomNav.home')"
-        activeHashTag="home-active"
-        hashTag="home"
+        active-hash-tag="home-active"
+        hash-tag="home"
       />
       <NavBarItem
-        :routeName="Route.AccountMain"
+        :route-name="Route.AccountMain"
         :label="$t('bottomNav.account')"
-        activeHashTag="account-active"
-        hashTag="account"
+        active-hash-tag="account-active"
+        hash-tag="account"
       />
       <li class="item" @click="openMenu">
         <img
@@ -24,16 +24,16 @@
         </p>
       </li>
       <NavBarItem
-        :routeName="Route.RecepientsPhone"
+        :route-name="Route.RecepientsPhone"
         :label="$t('bottomNav.recipients')"
-        activeHashTag="recipients-active"
-        hashTag="recipients"
+        active-hash-tag="recipients-active"
+        hash-tag="recipients"
       />
       <NavBarItem
-        :routeName="Route.Invite"
+        :route-name="Route.Invite"
         :label="$t('bottomNav.invite')"
-        activeHashTag="gift-active"
-        hashTag="gift"
+        active-hash-tag="gift-active"
+        hash-tag="gift"
       />
     </ul>
     <bottom-swipe-menu
@@ -45,20 +45,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { Route } from '@/router/types';
 
 import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
-let isMenuOpen = ref(false);
+import { useUIStore } from '@/stores/ui';
+
+const uiStore = useUIStore();
+
+let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
 
 function openMenu() {
-  isMenuOpen.value = true;
+  uiStore.setStateModal('sendMenu', true);
 }
 
 function closeMenu() {
-  isMenuOpen.value = false;
+  uiStore.setStateModal('sendMenu', false);
 }
 </script>
 

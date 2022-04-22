@@ -86,6 +86,9 @@ export default {
     requestFunds(): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/request-funds`;
     },
+    transactionDetailsByCoin(coin: string, id: string): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions/coin/${coin}/id/${id}`;
+    },
   },
   account: {
     accountsList(): string {
@@ -99,13 +102,23 @@ export default {
     },
   },
   transfer: {
-    transfer(coin: string): string {
+    send(coin: string): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/transfer/coin/${coin}`;
     },
   },
   localData: {
     countryDial(): string {
       return `/country_dial_info.json`;
+    },
+  },
+  coin: {
+    getCoins(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/coins`;
+    },
+  },
+  passcode: {
+    global(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/passcode`;
     },
   },
 };

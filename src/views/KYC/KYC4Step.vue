@@ -80,8 +80,6 @@ const scanText = computed(() => {
 
 onMounted(() => {
   kycStore.setPercentage(0.2);
-
-  startCamera();
 });
 
 watch(
@@ -97,9 +95,13 @@ watch(
 );
 
 const startCamera = async () => {
-  await CameraPreview.start(cameraPreviewOptions);
+  try {
+    await CameraPreview.start(cameraPreviewOptions);
+  } catch (e) {
+    await CameraPreview.stop();
 
-  console.debug(document.querySelector('video'));
+    await CameraPreview.start(cameraPreviewOptions);
+  }
 };
 
 const captureCamera = async () => {
@@ -108,15 +110,14 @@ const captureCamera = async () => {
   const { platform } = await Device.getInfo();
 
   if (platform === 'ios') {
-    cropImage(
+    const croppedImage = await cropImage(
       `data:image/jpeg;base64,${result.value}`,
       150,
       600,
       800,
       550
-    ).then((cropped_image: string) => {
-      kycStore.setImage(cropped_image, scanningSide.value);
-    });
+    );
+    kycStore.setImage(croppedImage, scanningSide.value);
   } else {
     kycStore.setImage(
       `data:image/jpeg;base64,${result.value}`,
@@ -126,7 +127,12 @@ const captureCamera = async () => {
 };
 
 const stopCamera = () => {
-  CameraPreview.stop();
+  // eslint-disable-next-line no-useless-catch
+  try {
+    CameraPreview.stop();
+  } catch (e) {
+    throw e;
+  }
 };
 
 const onScan = async () => {
@@ -152,6 +158,8 @@ const onScan = async () => {
     stopCamera();
 
     kycStore.setPercentage(0.6);
+
+    scanningSide.value = EDocumentSide.front;
     emit('next');
   }
 };
@@ -170,7 +178,7 @@ const onScan = async () => {
         > .camera-video {
           height: 100% !important;
           width: 100%;
-          border-radius: 12px;
+          border-radius: 3px;
           object-fit: cover;
         }
       }

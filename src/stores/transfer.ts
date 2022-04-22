@@ -47,9 +47,7 @@ export const useTransferStore = defineStore('transfer', {
     },
 
     clearTransferData(): void {
-      this.amount = '';
-      this.recipient = { id: '', phone: '' };
-      this.coin = '';
+      this.$reset();
     },
 
     setRecipient(data: TRecipient = { id: '', phone: '' }): void {

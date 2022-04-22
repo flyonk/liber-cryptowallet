@@ -136,13 +136,13 @@ function showCryptoList(listId: number) {
 function handleChangeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name;
+    currentSendFromCurrency.code.value = currencies[index].code;
     currentSendFromCurrency.img = currencies[index].img;
 
     // now API allows send X to X currency
     _setCurrentSendToCurrency(index);
     //
-
-    transferStore.coin = currentSendFromCurrency.name.value;
+    transferStore.coin = currentSendFromCurrency.code.value;
   }
 
   if (type === 'to') {
@@ -191,6 +191,7 @@ const currencies = [
 const _setCurrentSendToCurrency = (index: number) => {
   currentSendToCurrency.name.value = currencies[index].name;
   currentSendToCurrency.img = currencies[index].img;
+  currentSendFromCurrency.code.value = currencies[index].code;
 };
 
 const onBlur = (event: any) => {
@@ -231,7 +232,7 @@ const onBlur = (event: any) => {
     font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-550;
 
     &:focus {
       border: 1px solid $color-primary-500;
@@ -244,7 +245,7 @@ const onBlur = (event: any) => {
     top: 4px;
     width: 114px;
     height: 64px;
-    background: #edf0fb;
+    background: $color-white-light;
     border-radius: 13px;
     border: 0;
   }
@@ -268,7 +269,7 @@ const onBlur = (event: any) => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 18px;
   }
 }
@@ -278,7 +279,7 @@ const onBlur = (event: any) => {
   top: 70px;
   width: 100%;
   right: 0;
-  background: #edf0fb;
+  background: $color-white-light;
   border-radius: 13px;
   padding: 10px 18px;
   z-index: 2;
@@ -306,7 +307,7 @@ const onBlur = (event: any) => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 18px;
   }
 }
@@ -343,7 +344,7 @@ const onBlur = (event: any) => {
     line-height: 16px;
     display: flex;
     align-items: center;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 8px;
   }
 

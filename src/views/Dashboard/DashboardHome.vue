@@ -5,6 +5,7 @@
       <div class="header flex mb-4">
         <div class="left">
           <img
+            alt
             src="@/assets/images/avatar.png"
             @click="$router.push('/profile')"
           />
@@ -28,8 +29,9 @@
           </div>
         </div>
         <div class="right">
-          <img class="notification ml-auto" src="@/assets/icon/bell.svg" />
+          <i class="icon-bell notification ml-auto" />
           <img
+            alt
             class="refresh ml-auto"
             src="@/assets/icon/refresh.svg"
             @click="updateDashboardData"
@@ -49,18 +51,19 @@
       </ul>
       <div class="currencies flex items-center">
         <!--TODO: map currencies-->
-        <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
+        <h1 class="title">
+          {{ currentAccount.code }} {{ currentAccount.balance }}
+        </h1>
         <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
-          <img
+          <i
+            class="down icon-ic16-arrow-down"
             :class="{ '-reverted': isMenuOpen }"
-            class="down"
-            src="@/assets/icon/arrow-down.svg"
           />
         </div>
         <img
-          alt="eurounion"
+          alt="currency"
           class="ml-auto"
-          src="@/assets/icon/currencies/euro.svg"
+          :src="currentAccount.imgSrc"
           @click="$router.push({ name: Route.AccountMain })"
         />
       </div>
@@ -84,31 +87,57 @@
           class="btn"
           @click="$router.push('/deposit')"
         >
+          <i
+            class="icon-btn icon-plus_circle"
+            :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          />
           {{ $t('views.dashboard.home.deposit') }}
         </button>
         <button
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
           :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
+          @click="$router.push({ name: Route.PayRecepientsLiber })"
         >
+          <i
+            class="icon-btn icon-send"
+            :class="{ '-active': VerificationStatus === EKYCStatus.success }"
+          />
           {{ $t('views.dashboard.home.send') }}
         </button>
         <button
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
           :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
+          @click="openActionsSwiper"
         >
           ...
         </button>
       </div>
+      <div class="transactions-header">
+        <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
+        <span
+          :class="{ '-active': hasTransactions }"
+          class="button"
+          @click="$router.push({ name: Route.TransactionsAll })"
+          >{{ $t('views.dashboard.home.seeAll') }}</span
+        >
+      </div>
       <div v-if="hasTransactions">
-        <transactions-list :transactions="transactions" />
+        <transactions-list :preview="preview" :transactions="transactions" />
       </div>
       <div v-else class="no-transactions">
-        <img class="mr-2" src="@/assets/icon/clock.svg" />
+        <i class="icon-clock mr-2" />
         <p class="text-dark-gray">
           {{ $t('views.dashboard.home.noTransactions') }}
         </p>
+      </div>
+      <div class="carousel-header">
+        <span class="title">{{ $t('views.dashboard.home.todo') }}</span>
+        <!-- TODO: Uncomment seeAll when the card screen is ready -->
+        <!-- <span class="button" :class="{ '-active': hasTransactions }">{{
+          $t('views.dashboard.home.seeAll')
+        }}</span> -->
       </div>
       <div class="carousel">
         <VueAgile :nav-buttons="false" :slides-to-show="2">
@@ -118,7 +147,7 @@
             class="carousel-item slide"
             @click="$router.push({ name: item.route })"
           >
-            <img :src="item.imgSrc" />
+            <img :src="item.imgSrc" alt />
             <h4
               :class="{
                 'text-green': item.text === 'green',
@@ -136,6 +165,7 @@
         v-if="isMenuOpen"
         :accounts="accounts"
         @close="closeMenu"
+        @select="onSelectAccount"
       />
     </div>
   </div>
@@ -156,6 +186,7 @@ import { useI18n } from 'vue-i18n';
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useUIStore } from '@/stores/ui';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
@@ -176,22 +207,29 @@ const loading = ref(false);
 
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
+const uiStore = useUIStore();
 
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
 const totalBalance = computed(() => accountStore.getTotalBalance);
-const isDashboardSkeletonReady = computed(() => {
-  return (
-    !!accountStore.accountList[0]?.baseBalanceConversion &&
-    !!accountStore.totalBalance?.sum
-  );
+
+const allAccountInfo = ref({
+  code: '€',
+  imgSrc: require('@/assets/icon/currencies/euro.svg'),
+});
+
+const currentAccount = ref({
+  code: '',
+  balance: '',
+  imgSrc: '',
 });
 
 const { tm } = useI18n();
 
 //TODO: Put to store
 let transactions: Ref<INetTransaction[]> = ref([]);
+let preview = ref(3);
 
 const { proxy } = getCurrentInstance();
 
@@ -199,22 +237,22 @@ const { proxy } = getCurrentInstance();
  * Lifecycle
  */
 onMounted(async () => {
+  loading.value = true;
+
   await profileStore.init();
   const { kycStatus } = profileStore.getUser;
 
   VerificationStatus.value = kycStatus;
 
-  if (!isDashboardSkeletonReady.value) {
-    loading.value = true;
-  }
-
   try {
     const [, , _transactions] = await Promise.all([
-      accountStore.getAccountList(),
       accountStore.getAccountBalance(),
+      accountStore.getAccountList(),
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
+
+    setCurrentAccount('all');
   } catch (error) {
     console.error(error);
     proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');
@@ -223,9 +261,43 @@ onMounted(async () => {
   }
 });
 
+const openActionsSwiper = () => {
+  uiStore.setStateModal('sendMenu', true);
+};
+
+const setCurrentAccount = (coinCode: string) => {
+  if (coinCode === 'all') {
+    currentAccount.value = {
+      balance: totalBalance.value.sum,
+      code: allAccountInfo.value.code,
+      imgSrc: allAccountInfo.value.imgSrc,
+    };
+
+    return;
+  }
+
+  const {
+    code,
+    balance,
+    imageUrl: imgSrc,
+  } = accounts.value.find(({ code }) => coinCode === code) as IAccount;
+
+  currentAccount.value = {
+    code: code.toUpperCase(),
+    imgSrc,
+    balance,
+  };
+};
+
 function closeMenu() {
   isMenuOpen.value = false;
 }
+
+const onSelectAccount = (coinCode: string) => {
+  setCurrentAccount(coinCode);
+
+  isMenuOpen.value = false;
+};
 
 // Temporary update method
 const updateDashboardData = async () => {
@@ -293,10 +365,6 @@ const carousel = [
 
 const hasTransactions = computed(() => transactions.value.length > 0);
 
-const totalCurrency = computed(() =>
-  totalBalance.value.currency === 'EUR' ? '€' : `${totalBalance.value.currency}`
-);
-
 const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
 });
@@ -304,7 +372,7 @@ const showWelcomeMessage = computed(() => {
 
 <style lang="scss" scoped>
 .dashboard-container {
-  padding: 0 15px;
+  padding: 0 15px 150px;
   background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;
@@ -349,8 +417,8 @@ const showWelcomeMessage = computed(() => {
 
     > .right {
       > .notification {
-        opacity: 0.5;
         margin-right: 35px;
+        font-size: 24px;
       }
     }
   }
@@ -396,11 +464,11 @@ const showWelcomeMessage = computed(() => {
       justify-content: center;
       align-items: center;
       height: 36px;
+      min-height: 36px;
       width: 36px;
+      min-width: 36px;
 
       > .down {
-        width: 10px;
-
         &.-reverted {
           transform: rotate(180deg);
         }
@@ -432,19 +500,23 @@ const showWelcomeMessage = computed(() => {
     margin-bottom: 32px;
 
     > .btn {
-      background: $color-grey;
+      background: $color-brand-2-50;
+      color: $color-light-grey-850;
+      box-shadow: 0 2px 4px -3px rgb(64 70 105 / 21%);
       border-radius: 8px;
       padding: 0 16px 0 12px;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 18px;
       display: flex;
       justify-content: center;
       align-items: center;
       width: 109px;
       height: 40px;
       margin-right: 8px;
-      color: $color-white;
 
       &.-active {
-        background: $color-primary;
+        background: $color-white;
       }
 
       &:last-child {
@@ -452,6 +524,46 @@ const showWelcomeMessage = computed(() => {
         height: 40px;
         margin: 0;
       }
+    }
+  }
+
+  > .transactions-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    margin-bottom: 16px;
+
+    > .title {
+      color: $color-dark-grey;
+    }
+
+    > .button {
+      color: $color-brand-2-200;
+
+      &.-active {
+        color: $color-primary;
+      }
+    }
+  }
+
+  > .carousel-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    margin-bottom: 16px;
+
+    > .title {
+      color: $color-dark-grey;
+    }
+
+    > .button {
+      color: $color-brand-2-200;
     }
   }
 
@@ -510,6 +622,16 @@ const showWelcomeMessage = computed(() => {
 
 .agile {
   width: 100%;
+}
+
+.icon-btn {
+  font-size: 20px;
+  color: $color-light-grey-850;
+  margin-right: 10px;
+
+  &.-active {
+    color: #2862ff;
+  }
 }
 
 @keyframes topToBottom {

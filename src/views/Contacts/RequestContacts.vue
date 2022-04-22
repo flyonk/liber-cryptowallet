@@ -1,6 +1,9 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation left-icon-name="ci-close_big" @click:left-icon="onCancel">
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="onCancel"
+    >
       {{ $t('views.requestcontacts.title') }}
     </top-navigation>
 
@@ -28,6 +31,12 @@
     </base-button>
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router';

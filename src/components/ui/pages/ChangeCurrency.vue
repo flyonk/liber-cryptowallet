@@ -10,7 +10,7 @@
       <h4 class="username"></h4>
     </div>
     <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">Convert Funds</h1>
+      <h1 class="title">{{ $t('transactions.convert.title') }}</h1>
     </div>
     <div class="sendto-main">
       <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
@@ -64,6 +64,12 @@
     />
   </div>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script setup lang="ts">
 import { ref } from 'vue';
@@ -132,18 +138,6 @@ function onClose() {
     line-height: 34px;
     letter-spacing: 0.0038em;
   }
-
-  > .initials {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: $color-yellow-100;
-    width: 40px;
-    height: 40px;
-    color: $color-yellow-700;
-    margin-right: 12px;
-  }
 }
 
 .popup-description {
@@ -155,7 +149,7 @@ function onClose() {
     line-height: 34px;
     text-align: center;
     letter-spacing: -0.0026em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-bottom: 8px;
   }
 

@@ -75,6 +75,8 @@ const currentImage = computed(() => {
 
       > .image {
         color: $color-red;
+        width: 50px;
+        height: 50px;
       }
     }
 

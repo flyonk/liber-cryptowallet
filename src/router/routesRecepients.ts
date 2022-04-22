@@ -9,6 +9,9 @@ export default [
   {
     path: 'liber',
     name: Route.RecepientsLiber,
-    component: () => import('@/views/Contacts/childrenviews/LiberFriends.vue'),
+    component: () => import('@/views/Contacts/childrenviews/PhoneContacts.vue'),
+    meta: {
+      friends: true,
+    },
   },
 ];

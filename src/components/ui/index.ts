@@ -20,3 +20,8 @@ export { default as BaseAccount } from './molecules/base-account/BaseAccount.vue
 export { default as AccountListBottomSheet } from './organisms/dashboard/AccountList.vue';
 export { default as AccountDetails } from './organisms/account/AccountDetails.vue';
 export { default as NavBarItem } from './atoms/NavBarItem.vue';
+export { default as BaseCoinListSelect } from './organisms/BaseCoinListSelect.vue';
+export { default as TransactionIconWithStatus } from './molecules/TransactionIconWithStatus.vue';
+export { default as TransactionStatus } from './molecules/TransactionStatus.vue';
+export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswer.vue';
+export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';

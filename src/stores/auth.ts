@@ -1,14 +1,16 @@
 import { Storage } from '@capacitor/storage';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
 import authService from '@/services/authService';
-import { clearAll, get, set, remove } from '@/helpers/storage';
+import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 import SentryUtil from '@/helpers/sentryUtil';
+import passcodeService from '@/services/passcodeService';
 
-import { EStorageKeys } from '@/types/storage';
+import { EStorageKeys, SStorageKeys } from '@/types/storage';
 import { EStepDirection } from '@/types/base-component';
 
 // === Auth Types ===
@@ -40,15 +42,15 @@ export interface IAuthState {
 }
 
 // === Auth Store ===
-// TODO: Save to Storage phone number
 // TODO: Restore from Storage saved phone number
+// TODO: make a unique object from registration and login
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
       registration: 0,
       login: 0,
       recover: 0,
-      kyc: 0,
+      kyc: 2,
     },
     registration: {
       dialCode: '+7',
@@ -83,8 +85,9 @@ export const useAuthStore = defineStore('auth', {
         key: EStorageKeys.refreshToken,
       });
 
-      if (token && refreshToken)
+      if (token && refreshToken) {
         this.token = { ...this.token, token, refreshToken };
+      }
     },
 
     setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
@@ -97,9 +100,12 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async signIn(_data: { phone: string }): Promise<void> {
+    async signIn(_data: {
+      phone: string;
+      flow: 'login' | 'signup';
+    }): Promise<void> {
       await authService.signIn(_data);
-      this.savePhone('login');
+      this.savePhone(_data.flow);
     },
 
     async signInProceed(_data: {
@@ -108,7 +114,7 @@ export const useAuthStore = defineStore('auth', {
     }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 
-      this.setToken(data);
+      await this.setToken(data);
       return true;
     },
 
@@ -118,7 +124,7 @@ export const useAuthStore = defineStore('auth', {
         const data = await authService.refresh({
           refresh_token: refreshToken || '',
         });
-        this.setToken(data);
+        await this.setToken(data);
       } catch (err) {
         SentryUtil.capture(
           err,
@@ -173,10 +179,16 @@ export const useAuthStore = defineStore('auth', {
       });
     },
 
+    async recoverPhoneFromStorage(): Promise<Record<string, string>> {
+      const json = await get(EStorageKeys.phone);
+      return json ? JSON.parse(json) : { dialCode: '', phone: '' };
+    },
+
     async getDevices() {
       return await authService.devices();
     },
 
+    //TODO: rename method ex: getPhoneFromStorage
     async getFromStorage() {
       const [dialCode, phone] = await Promise.all([
         get('dialCode'),
@@ -198,7 +210,7 @@ export const useAuthStore = defineStore('auth', {
       // this.login.dialCode = dialCode || '+7';
     },
 
-    async setToStorage() {
+    async setPhoneToStorage() {
       await Promise.all([
         set({
           key: 'dialCode',
@@ -219,14 +231,20 @@ export const useAuthStore = defineStore('auth', {
       this.login.dialCode = dialCode;
     },
 
-    async logout() {
-      const [dialCode, phone, access_token] = await Promise.all([
+    async logout(userId: string) {
+      const [dialCode, phone, touchId, faceId] = await Promise.all([
         get('dialCode'),
         get('phone'),
-        get('access_token'),
+        get(EStorageKeys.touchid),
+        get(EStorageKeys.faceid),
       ]);
+      await passcodeService.delete();
 
-      authService.logout({ access_token: access_token as string });
+      SecureStoragePlugin.remove({ key: SStorageKeys.user });
+
+      authService.logout({ user_id: userId });
+
+      this.token = { token: null, refreshToken: null };
 
       await clearAll();
 
@@ -240,6 +258,16 @@ export const useAuthStore = defineStore('auth', {
           value: phone as string,
         }),
       ]);
+      if (touchId)
+        await set({
+          key: EStorageKeys.touchid,
+          value: touchId,
+        });
+      if (faceId)
+        await set({
+          key: EStorageKeys.faceid,
+          value: faceId,
+        });
     },
 
     async clearTokenData(): Promise<void> {
@@ -248,6 +276,7 @@ export const useAuthStore = defineStore('auth', {
         remove(EStorageKeys.refreshToken),
         remove(EStorageKeys.tokenExpire),
       ]);
+      this.$reset();
     },
   },
 });

@@ -56,7 +56,7 @@ const props = defineProps({
   align-items: center;
   min-width: 114px;
   height: 40px;
-  background: #edf0fb;
+  background: $color-white-light;
   font-weight: 600;
   font-size: 13px;
   line-height: 18px;

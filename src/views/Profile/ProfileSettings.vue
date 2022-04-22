@@ -20,7 +20,7 @@
           >-->
         </div>
       </div>
-      <div class="right">{{ nameInitials }}</div>
+      <ContactInitials :name="accountName" />
     </div>
     <!-- TODO: Implement menu controls -->
     <div class="controls" style="display: none">
@@ -83,23 +83,15 @@
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
         </router-link>
-        <li v-if="touchFaceIdSwitcher" class="item">
+        <li v-if="touchFaceIdSwitcher" class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch
-            v-model="isTouchIdOn"
-            class="switcher"
-            @change="onSwitcherChange"
-          />
+          <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
-        <li v-else class="item" disabled>
+        <li v-else class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch
-            v-model="isTouchIdOn"
-            :disabled="true"
-            class="switcher"
-          />
+          <InputSwitch v-model="isTouchIdOn" class="switcher" />
         </li>
       </ul>
       <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
@@ -122,19 +114,26 @@
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script lang="ts" setup>
-import { computed, getCurrentInstance, onMounted, ref } from 'vue';
+import { getCurrentInstance, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useAppOptionsStore } from '@/stores/appOptions';
-import { getSupportedOptions } from '@/helpers/identification';
+import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
 import { EStorageKeys } from '@/types/storage';
 import { showConfirm } from '@/helpers/nativeDialog';
 
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
 
@@ -159,13 +158,39 @@ const { faceid, touchid } = appOptionsStore.getOptions;
 const isTouchIdOn = ref(faceid || touchid);
 const touchFaceIdSwitcher = ref('');
 
-const onSwitcherChange = () => {
+const onSwitcherChange = async () => {
   const value = isTouchIdOn.value ? 'true' : '';
-  if (touchFaceIdSwitcher.value === 'face-id') {
-    appOptionsStore.setOptions(value, EStorageKeys.faceid);
-  }
-  if (touchFaceIdSwitcher.value === 'touch-id') {
-    appOptionsStore.setOptions(value, EStorageKeys.touchid);
+
+  const key =
+    touchFaceIdSwitcher.value === 'face-id'
+      ? EStorageKeys.faceid
+      : EStorageKeys.touchid;
+
+  if (!isTouchIdOn.value) {
+    await verifyIdentity();
+
+    appOptionsStore.setOptions(value, key);
+
+    isTouchIdOn.value = true;
+  } else {
+    const submitted = await showConfirm({
+      title: tm(
+        'views.profile.profileSettings.confirmNativeVerificationTitle'
+      ) as string,
+      message: tm(
+        'views.profile.profileSettings.confirmNativeVerification'
+      ) as string,
+      okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
+      cancelButtonTitle: tm(
+        'views.profile.profileSettings.logoutDecline'
+      ) as string,
+    });
+
+    if (submitted) {
+      appOptionsStore.setOptions('', key);
+    }
+
+    isTouchIdOn.value = false;
   }
 };
 
@@ -199,11 +224,6 @@ onMounted(async () => {
     }
 });
 
-const nameInitials = computed(() => {
-  let parts = accountName.value.split(' ');
-  return parts[0][0] + parts[1][0];
-});
-
 function closeMenu() {
   showCloseAccount.value = false;
 }
@@ -214,15 +234,17 @@ async function onLogout() {
       'views.profile.profileSettings.logoutConfirmationTitle'
     ) as string,
     message: tm('views.profile.profileSettings.logoutConfirmation') as string,
-    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
     cancelButtonTitle: tm(
-      'views.profile.profileSettings.logoutAccept'
+      'views.profile.profileSettings.logoutDecline'
     ) as string,
   });
 
-  if (confirmed) return;
+  if (!confirmed) {
+    return;
+  }
 
-  await authStore.logout();
+  await authStore.logout(profileStore.getUser.id);
 
   await route.push({ name: Route.WelcomeLogoScreen });
 }
@@ -263,17 +285,6 @@ async function onLogout() {
         letter-spacing: -0.0045em;
         color: $color-dark-grey;
       }
-    }
-
-    > .right {
-      height: 56px;
-      width: 56px;
-      background: $color-yellow-100;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      border-radius: 50%;
-      align-self: center;
     }
   }
 

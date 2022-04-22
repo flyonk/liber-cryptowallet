@@ -1,31 +1,24 @@
 <template name="AddAccount">
   <div class="add-account">
-    <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.back()"
-      />
-      <h1 class="title">{{ $t('common.coinSelect') }}</h1>
-      <label class="input-label">
-        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
-        <input
-          class="search"
-          type="text"
-          name="searchCoin"
-          :placeholder="$t('common.searchCoin')"
-        />
-      </label>
-    </div>
-    <div class="main">
-      <SelectCoin @select-coin="selectCoin" />
-    </div>
+    <TopNavigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    />
+    <BaseCoinListSelect :coins="coins" @select-coin="selectCoin" />
   </div>
 </template>
 
-<script setup lang="ts">
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+<script lang="ts" setup>
+import { computed } from 'vue';
+
+import BaseCoinListSelect from '@/components/ui/organisms/BaseCoinListSelect.vue';
+import { useCoinsStore } from '@/stores/coins';
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
+import { Route } from '@/router/types';
+
+const coinStore = useCoinsStore();
+
+const coins = computed(() => coinStore.getCoins);
 
 function selectCoin() {
   console.log('select coin');
@@ -75,9 +68,10 @@ function selectCoin() {
         outline: none;
       }
 
-      > .icon {
+      > .icon-search {
+        font-size: 20px;
         position: absolute;
-        top: 10px;
+        top: 12px;
         left: 10px;
         z-index: 1;
       }

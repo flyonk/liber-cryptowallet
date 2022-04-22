@@ -46,8 +46,11 @@
     "login": {
       "step1Title": "Log in to Liber",
       "step1Description": "Enter your registered mobile number to log in",
+      "step1DescriptionValuable": "We will send verification code to this number.",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
+      "step1AccountExists": "Don’t have an account?",
+      "step1AccountExistsLink": "Sign up",
       "step2Description": "To sign up, enter the security code we've sent to",
       "step2ResendTitle": "Resend code in",
       "step2ResendCta": "Resend",
@@ -136,11 +139,22 @@
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
-    "transferFee": "Transfer Fee",
+    "transferFee": "Fee",
+    "convertTransaction": "Convert",
     "paymentTo": "Payment to",
+    "statement": "Statement",
+    "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
+    "rate": "Rate",
+    "bought": "Bought",
+    "cost": "Cost",
+    "transactionIdCopied": "Transaction ID is copied successfully",
+    "transactionIdCopyFail": "Failed when copy Transaction ID",
+    "boughtCoinInfo": "Bought {mainCoin} with {secondaryCoin}",
+    "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
+    "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "income": "Received",
       "outcome": "Sent",
@@ -153,7 +167,7 @@
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
-      "finished": "Finished",
+      "finished": "Completed",
       "cancelled": "Cancelled"
     },
     "carousel": {
@@ -161,7 +175,14 @@
       "sendFunds": "Send Funds",
       "convert": "Convert",
       "withdraw": "Withdraw"
-    }
+    },
+    "convert": {
+      "title": "Convert Funds",
+      "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "preview": "Preview",
+      "convertNow": "Convert Now",
+      "updating": "Updating...",
+      "rateChanged": "Rate have been changed"    }
   },
   "ui": {
     "friends": {
@@ -197,6 +218,9 @@
     "sendfunds": {
       "whopay": "Who To Pay"
     },
+    "newcontact": {
+      "additionalphone": "Additional phone or email"
+    },
     "requestcontacts": {
       "title": "Find your friends",
       "description": "Send and request money from your friends more easily, split bills and much more.",
@@ -204,7 +228,8 @@
       "contactsCTA": "Allow access to contacts"
     },
     "recepients": {
-      "recepients": "Recepients"
+      "recepients": "Recepients",
+      "add": "Add a new contact"
     },
     "aboutpage": {
       "home": "Home",
@@ -252,7 +277,7 @@
         "newMessages": "You have new messages."
       },
       "kyc3step": {
-        "notNow": "Not now",
+        "notNow": "Not Now",
         "proofOfIdentity": "Proof of Identity",
         "yourDocumentPhoto": "Your document photo helps us prove your identity. It should match the information you have provided in the previous steps."
       },
@@ -379,7 +404,9 @@
         "logoutConfirmationTitle": "Log out",
         "logoutConfirmation": "Are you sure to logging out from this account?",
         "logoutAccept": "Yes",
-        "logoutDecline": "No"
+        "logoutDecline": "No",
+        "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
+        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -469,9 +496,10 @@
         "convertExactly": "You convert exactly",
         "fee": "Convertion Fee",
         "amountCovert": "Amount we’ll covert",
-        "guarantedRate": "Guaranted Rate",
+        "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
-        "refresh": "Refresh"
+        "refresh": "Refresh",
+        "sameCurrenciesError": "You should choose different currencies for exchange"
       }
     }
   },

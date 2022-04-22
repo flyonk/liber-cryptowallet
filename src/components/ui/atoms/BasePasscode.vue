@@ -4,8 +4,8 @@
       <div
         v-for="circle in 4"
         :key="circle"
-        class="circle-wrapper"
         :class="{ '-active': passcode.length >= circle }"
+        class="circle-wrapper"
       />
     </div>
 
@@ -20,26 +20,30 @@
       </div>
       <div class="number-button" @click="showTouchId">
         <template v-if="props.showTouchFaceid">
-          <img v-if="identificationIcon" :src="identificationIcon" />
+          <img v-if="identificationIcon" :src="identificationIcon" alt />
         </template>
       </div>
       <div class="number-button text--large-title" @click="setNumber('0')">
         0
       </div>
       <div class="number-button" @click="clear">
-        <img src="@/assets/icon/clear-button.svg" />
+        <img alt src="@/assets/icon/clear-button.svg" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, PropType } from 'vue';
-import { Storage } from '@capacitor/storage';
+import { onBeforeMount, PropType, ref } from 'vue';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
-import { EPasscodeActions } from '@/types/base-component';
+import { usePasscodeStore } from '@/stores/passcode';
+import { set } from '@/helpers/storage';
+
 import { EStorageKeys } from '@/types/storage';
+import { EPasscodeActions } from '@/types/base-component';
+
+const passcodeStore = usePasscodeStore();
 
 const props = defineProps({
   actionType: {
@@ -52,23 +56,18 @@ const props = defineProps({
   },
 });
 
-const getStoredPasscode = async () => {
-  const { value } = await Storage.get({
-    key: EStorageKeys.passcode,
-  });
-  return value || '0000';
-};
-
 async function checkPasscode(passcode: string) {
-  const storedPassCode = await getStoredPasscode();
-  return storedPassCode === passcode;
+  return await passcodeStore.verify({ pass_code: passcode });
 }
 
 async function setPasscode(passcode: string) {
-  await Storage.set({
+  await passcodeStore.create({ pass_code: passcode });
+
+  await set({
     key: EStorageKeys.passcode,
-    value: passcode,
+    value: 'true',
   });
+
   return true;
 }
 
@@ -113,7 +112,7 @@ onBeforeMount(async (): Promise<void> => {
 });
 
 /**
- * emit true vqlue if passcode is correct
+ * emit true value if passcode is correct
  * emit false value if passcode is wrong
  */
 const emit = defineEmits(['submit']);
@@ -125,9 +124,11 @@ function setNumber(number: string): void {
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
         .then((result: boolean) => {
+          if (!result) passcode.value = '';
           emit('submit', result);
         })
         .catch(() => {
+          passcode.value = '';
           emit('submit', false);
         });
     }

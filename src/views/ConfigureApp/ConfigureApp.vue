@@ -33,35 +33,51 @@
   <div style="padding: 15px; padding-bottom: 50px">
     <base-button
       block
-      @click="$router.push({ name: Route.ConfigureAppVerify })"
+      @click="
+        saveTwoFASecret();
+        $router.push({ name: Route.ConfigureAppVerify });
+      "
     >
       {{ $t('common.continueCta') }}
     </base-button>
   </div>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/ui';
 import { onMounted, ref } from 'vue';
-import QrCodeWithLogo from 'qrcode-with-logos';
-import { useToast } from 'primevue/usetoast';
-import { use2faStore } from '@/stores/2fa';
-import { useI18n } from 'vue-i18n';
-import { Route } from '@/router/types';
 import { Clipboard } from '@capacitor/clipboard';
+import { useI18n } from 'vue-i18n';
+import { useToast } from 'primevue/usetoast';
+
+import QrCodeWithLogo from 'qrcode-with-logos';
+import { use2faStore } from '@/stores/2fa';
+import { useProfileStore } from '@/stores/profile';
+
+import { TopNavigation, BaseButton } from '@/components/ui';
+
+import { Route } from '@/router/types';
 
 const { tm } = useI18n();
 
 const store = use2faStore();
+const pStore = useProfileStore();
 const toast = useToast();
 
-store.generateSecret();
-const { secret, uri } = store;
-
 const canvas = ref<HTMLCanvasElement | undefined>();
-let qrCodeValue = ref<string>(secret);
+let qrCodeValue = ref<string>('');
 
-onMounted(() => {
+onMounted(async () => {
+  await store.generateSecret();
+  const { secret, uri } = store;
+
+  qrCodeValue.value = secret;
+
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: uri,
@@ -85,6 +101,11 @@ const copyToClipboard = async () => {
     console.error(`${tm('common.copyFailure')} `, err);
   }
 };
+
+async function saveTwoFASecret(): Promise<void> {
+  const options = { secret_2fa: qrCodeValue.value };
+  pStore.updateUserProfile({ options });
+}
 </script>
 
 <style lang="scss" scoped>

@@ -34,8 +34,7 @@ const onComplete = async (code: string) => {
   verificationCode.value = code;
 
   if (code.length === 6) {
-    const result = store.verify(code);
-
+    const result = await store.verify(code);
     if (result?.delta === 0) {
       emit('success-verification');
     } else {

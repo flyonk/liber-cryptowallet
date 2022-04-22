@@ -1,7 +1,5 @@
 <template>
-  <div class="initials">
-    {{ getContactInitials(props.contact.displayName) }}
-  </div>
+  <ContactInitials :name="props.contact.displayName" />
   <router-link
     :to="{
       name: Route.ContactsSend,
@@ -20,10 +18,17 @@
   </router-link>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
 import { PropType } from 'vue';
 
-import { getContactInitials, getContactPhone } from '@/helpers/contacts';
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
@@ -36,25 +41,13 @@ const props = defineProps({
 </script>
 
 <style lang="scss" scoped>
-.initials {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50%;
-  background: $color-yellow-100;
-  width: 40px;
-  height: 40px;
-  color: $color-yellow-700;
-  margin-right: 12px;
-}
-
 .user-contact {
   > .name {
     font-weight: 500;
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #0d1f3c;
+    color: $color-brand-550;
   }
 
   > .phone {

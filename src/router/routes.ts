@@ -27,11 +27,11 @@ import DashboardTransferFundsToTreasuryStory from '@/views/Dashboard/DashboardTr
 
 import Account from '@/views/Dashboard/Account/index.vue';
 import AllAccounts from '@/views/Dashboard/Account/AllAccounts.vue';
-import AddAccount from '@/views/Dashboard/Account/AddAccount.vue';
 
 import Transactions from '@/views/Dashboard/Transactions/index.vue';
 import DashboardTransactions from '@/views/Dashboard/Transactions/DashboardTransactions.vue';
 import TransactionDetails from '@/views/Dashboard/Transactions/TransactionDetails.vue';
+import TransactionsAll from '@/views/Dashboard/Transactions/TransactionsAll.vue';
 
 import Contacts from '@/views/Contacts/index.vue';
 import WhoToPay from '@/views/Contacts/WhoToPay.vue';
@@ -67,6 +67,8 @@ import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
 
 import RequestContacts from '@/views/Contacts/RequestContacts.vue';
 import Recipients from '@/views/Contacts/Recepients.vue';
+import AddAccount from '@/views/Dashboard/Account/AddAccount/Index.vue';
+import AddAccountRoutes from '@/router/routesAddAccount';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -134,7 +136,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: Route.DashboardParent,
     component: Dashboard,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
     children: [
       {
         path: '',
@@ -168,10 +170,19 @@ const routes: Array<RouteRecordRaw> = [
   // === Account ===
 
   {
+    path: '/account/add',
+    name: Route.AccountAdd,
+    component: AddAccount,
+    meta: { authRequired: true },
+    redirect: { name: Route.AccountAddSelectCoin },
+    children: AddAccountRoutes,
+  },
+
+  {
     path: '/account',
     name: Route.Account,
     component: Account,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
     children: [
       {
         path: '',
@@ -186,11 +197,6 @@ const routes: Array<RouteRecordRaw> = [
             /* webpackChunkName: "dashboard" */ '@/components/ui/pages/AccountDetail.vue'
           ),
       },
-      {
-        path: 'add',
-        name: Route.AccountAdd,
-        component: AddAccount,
-      },
     ],
   },
 
@@ -200,7 +206,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/transactions',
     name: Route.Transactions,
     component: Transactions,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
     children: [
       {
         path: '', //TODO: ref this rout, component is wrong
@@ -208,9 +214,15 @@ const routes: Array<RouteRecordRaw> = [
         component: DashboardTransactions,
       },
       {
-        path: 'details/:id',
+        path: 'details/:id/:coin',
         name: Route.TransactionsDetails,
+        meta: { layout: 'default' },
         component: TransactionDetails,
+      },
+      {
+        path: 'all',
+        name: Route.TransactionsAll,
+        component: TransactionsAll,
       },
     ],
   },
@@ -220,6 +232,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/contacts',
     name: 'contacts',
+    meta: { authRequired: true },
     component: Contacts,
     children: [
       {
@@ -261,6 +274,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/convert',
     name: Route.ConvertFunds,
+    meta: { authRequired: true },
     component: ChangeCurrency,
   },
 
@@ -269,6 +283,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name: Route.ProfileMainView,
+    meta: { authRequired: true },
     component: Profile,
     children: [
       {
@@ -309,6 +324,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/kyc',
     name: Route.KYCMain,
+    meta: { authRequired: true },
     component: KYCMain,
   },
 
@@ -359,26 +375,29 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/faceid',
     name: Route.FaceId,
-    component: FaceId,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: FaceId,
   },
   {
     path: '/touchid',
     name: Route.TouchId,
-    component: TouchId,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: TouchId,
   },
   {
     path: '/push-notifications',
     name: Route.PushNotifications,
-    component: PushNotifications,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: PushNotifications,
   },
 
   // == Select Coin ==
@@ -386,6 +405,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/choose_coin',
     name: Route.ChooseCoin,
+    meta: { authRequired: true },
     component: () => import('@/views/Contacts/SelectCoin.vue'),
   },
 
@@ -394,6 +414,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/deposit',
     name: Route.Deposit,
+    meta: { authRequired: true },
     component: DepositeIndex,
     children: DepositeRoutes,
   },
@@ -403,8 +424,8 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/recepients',
     name: Route.Recepients,
+    meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
-    meta: { layout: 'navbar' },
     beforeEnter: checkContactsLoaded,
     children: RecepientsRoutes,
   },
@@ -414,10 +435,11 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/requestcontacts',
     name: Route.LoadContacts,
-    component: RequestContacts,
     meta: {
       classLayout: '-full-height',
+      authRequired: true,
     },
+    component: RequestContacts,
   },
 
   // === Invite ===
@@ -426,7 +448,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/invite',
     name: Route.Invite,
     component: Recipients,
-    meta: { layout: 'navbar' },
+    meta: { layout: 'navbar', authRequired: true },
   },
 ];
 

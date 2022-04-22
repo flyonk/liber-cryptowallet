@@ -12,7 +12,11 @@ const alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ#';
 
 <style lang="scss" scoped>
 .alphabet-list {
-  > .symbol {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  & > .letter {
     font-style: normal;
     margin-bottom: 3px;
     font-weight: 500;

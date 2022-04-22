@@ -1,6 +1,6 @@
 <template name="CoinItem">
-  <li class="coin-item" :class="{ 'coin-disabled': available }">
-    <img class="image" :src="getSrcImage" alt="" />
+  <li :class="{ 'coin-disabled': !available }" class="coin-item">
+    <img :src="icon" alt="" class="image" />
     <p class="title">
       {{ fullName }}
       <span class="sub-title">{{ shortName }}</span>
@@ -8,8 +8,8 @@
   </li>
 </template>
 
-<script setup lang="ts">
-import { toRefs, computed, ref } from 'vue';
+<script lang="ts" setup>
+import { ref, toRefs } from 'vue';
 
 const props = defineProps({
   icon: {
@@ -30,11 +30,7 @@ const props = defineProps({
   },
 });
 
-const { icon, fullName, shortName } = toRefs(props);
-
-const getSrcImage = computed(() => {
-  return icon.value;
-});
+const { fullName, shortName } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>
@@ -42,6 +38,7 @@ const getSrcImage = computed(() => {
   display: flex;
   align-items: center;
   margin-bottom: 24px;
+  cursor: pointer;
 
   > .image {
     margin-right: 16px;

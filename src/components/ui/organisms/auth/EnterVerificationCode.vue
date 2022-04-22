@@ -51,6 +51,12 @@
   </base-toast>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';

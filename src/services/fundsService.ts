@@ -6,13 +6,14 @@ import convertInfoMapper, {
   IConvertInfo,
   TConvertData,
 } from '@/models/funds/convertInfo';
-import coinMapper, { ICoin } from '@/models/funds/coin';
+import coinMapper, { IFoundsCoin } from '@/models/funds/coin';
 
 import { TSuccessResponse } from '@/types/api';
 import { TRecipient } from '@/stores/transfer';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 export default {
-  async getCoins(): Promise<ICoin[]> {
+  async getCoins(): Promise<IFoundsCoin[]> {
     const res = await axios.get(apiService.funds.coins());
     return res.data.map(coinMapper.deserialize);
   },
@@ -29,13 +30,6 @@ export default {
     return convertInfoMapper.deserialize(res.data, data);
   },
 
-  async convertInfoBack(
-    data: Omit<TConvertData, 'amount'>
-  ): Promise<IConvertInfo> {
-    const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserializeBack(res.data, data);
-  },
-
   async convert(
     data: Omit<TConvertData, 'request_amount'>
   ): Promise<TSuccessResponse> {
@@ -46,6 +40,8 @@ export default {
     coin: string,
     payload: { recipient: TRecipient; amount: string }
   ): Promise<number> {
-    return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
+    payload.recipient.phone = formatPhoneNumber(payload.recipient.phone);
+
+    return (await axios.post(apiService.transfer.send(coin), payload)).data;
   },
 };

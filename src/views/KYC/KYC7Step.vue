@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top-navigation left-icon-name="ci-close_big">{{
+    <top-navigation left-icon-name="icon-app-navigation-close">{{
       $t('views.kyc.kyc7step.wereVerifyingYourId')
     }}</top-navigation>
     <p class="description">{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</p>
@@ -11,15 +11,9 @@
       </span>
     </base-progress-circular>
     <div class="footer">
-      <base-button
-        block
-        @click="
-          $router.push({
-            name: Route.Survey,
-          })
-        "
-        >{{ $t('views.kyc.kyc7step.continue') }}</base-button
-      >
+      <base-button block @click="handleComplete">
+        {{ $t('views.kyc.kyc7step.continue') }}
+      </base-button>
     </div>
   </div>
 </template>
@@ -27,13 +21,31 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {
+  BaseButton,
   BaseProgressCircular,
   TopNavigation,
-  BaseButton,
 } from '@/components/ui';
+import { useProfileStore } from '@/stores/profile';
+import { useRouter } from 'vue-router';
+
 import { Route } from '@/router/types';
 
 const percent = ref(50);
+const router = useRouter();
+const pStore = useProfileStore();
+
+const handleComplete = async () => {
+  if (!pStore.user.id) await pStore.init();
+  if (pStore.user.is2FAConfigured) {
+    router.push({
+      name: Route.AuthPasscode,
+    });
+  } else {
+    router.push({
+      name: Route.Survey,
+    });
+  }
+};
 </script>
 
 <style scoped lang="scss">

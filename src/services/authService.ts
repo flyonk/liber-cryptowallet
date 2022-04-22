@@ -4,9 +4,12 @@ import apiService from '@/services/apiService';
 import signInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
 import { IUserDevice } from '@/models/auth/devices';
+import { formatPhoneNumber } from '@/helpers/auth';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
+    data.phone = formatPhoneNumber(data.phone);
+
     return (await axios.post(apiService.auth.signIn(), data)).data;
   },
 
@@ -14,11 +17,13 @@ export default {
     phone: string;
     otp: string;
   }): Promise<ISuccessSignIn> {
+    data.phone = formatPhoneNumber(data.phone);
+
     const res = await axios.post(apiService.auth.signInProceed(), data);
     return signInMapper.deserialize(res.data);
   },
 
-  async logout(data: { access_token: string }): Promise<TSuccessResponse> {
+  async logout(data: { user_id: string }): Promise<TSuccessResponse> {
     return (await axios.post(apiService.auth.logout(), data)).data;
   },
 

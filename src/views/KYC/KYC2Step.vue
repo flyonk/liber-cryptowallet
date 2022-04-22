@@ -7,7 +7,7 @@
     <base-input v-model="form.street">
       <template #label>{{ $t('views.kyc.kyc2step.streetAndNumber') }}</template>
     </base-input>
-    <base-input v-model="form.flat" type="number">
+    <base-input v-model="form.flat">
       <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
       <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
     </base-input>
@@ -50,7 +50,13 @@ const form = reactive({
 
 const isFormValid = computed(() => {
   // TODO: need to clarify validation conditions for every field
-  return Object.values(form).every((value) => Boolean(value));
+  return Object.entries(form).every((item) => {
+    const [key, value] = item;
+    if (key === 'flat') {
+      return true;
+    }
+    return Boolean(value);
+  });
 });
 
 const onContinue = () => {

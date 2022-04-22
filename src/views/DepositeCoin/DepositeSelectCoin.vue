@@ -1,24 +1,13 @@
 <template name="DepositeSelectCoin">
   <div class="page-wrapper">
     <TopNavigation
-      left-icon-name="ci-close_big"
-      @click="router.push({ name: Route.DashboardHome })"
-    >
-      {{ $t('views.deposit.selectCoin.selectCoin') }}
-    </TopNavigation>
-    <div class="page-header">
-      <label class="input-label" for="searchCoin">
-        <img alt="search" class="icon" src="@/assets/icon/search.svg" />
-        <input
-          id="searchCoin"
-          :placeholder="$t('views.deposit.selectCoin.searchCoin')"
-          class="search"
-          name="searchCoin"
-          type="text"
-        />
-      </label>
-    </div>
-    <SelectCoin @select-coin="selectCoin" />
+      left-icon-name="icon-app-navigation-back"
+      @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    />
+    <BaseCoinListSelect
+      @back-button="router.push({ name: Route.DashboardHome })"
+      @select-coin="selectCoin"
+    />
   </div>
 </template>
 
@@ -29,30 +18,26 @@ import { onBeforeMount } from 'vue';
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
-import { ICryptocurrencyItem } from '@/types/currency';
 import { IAccount } from '@/models/account/account';
+import { ICoin } from '@/models/coin/coins';
+import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { TopNavigation } from '@/components/ui';
+import { BaseCoinListSelect } from '@/components/ui';
 
 const router = useRouter();
 const accountStore = useAccountStore();
 const depositStore = useDepositStore();
 
 onBeforeMount(async () => {
-  await accountStore.getAccountList();
+  await Promise.all([accountStore.getAccountList()]);
 });
 
 const selectAccount = (coinCode: string) => {
   return accountStore.getAccounts.find(({ code }) => code === coinCode);
 };
 
-const selectCoin = async (selectedAccount: ICryptocurrencyItem) => {
-  console.log('selected coin ->', selectedAccount);
-  console.log('creating account with -> ', 'tbtc');
-
-  // TODO: later, change to selected account code
-  depositStore.setAccountInfo(selectAccount('tbtc') as IAccount);
+const selectCoin = async (selectedAccount: ICoin) => {
+  depositStore.setAccountInfo(selectAccount(selectedAccount.code) as IAccount);
 
   await router.push({
     name: Route.DepositNetwork,

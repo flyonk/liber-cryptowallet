@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="$router.back()">{{
-      title
-    }}</top-navigation>
+    <top-navigation @click:left-icon="$router.back()">
+      {{ title }}
+    </top-navigation>
   </div>
   <div class="page-wrapper">
     <p class="text-default">{{ $t('configureApp.createPassCode') }}</p>
@@ -20,13 +20,18 @@
       @submit="onSubmit"
     />
   </div>
-
   <base-toast v-model:visible="showErrorToast" severity="error">
     <template #description>
       <div>{{ $t('configureApp.invalidPassCode') }}</div>
     </template>
   </base-toast>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script lang="ts" setup>
 import { computed, Ref, ref } from 'vue';
@@ -39,10 +44,8 @@ import { PropType } from 'vue-demi';
 
 const props = defineProps({
   redirectOnSuccessRoute: {
-    redirectOnSuccessRoute: {
-      type: String as PropType<Route>,
-      required: true,
-    },
+    type: String as PropType<Route>,
+    required: true,
   },
   toCreate: {
     type: Boolean,

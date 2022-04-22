@@ -2,6 +2,7 @@ import { defineStore } from 'pinia';
 import { generateSecret, generateToken, verifyToken } from 'node-2fa';
 import { Storage } from '@capacitor/storage';
 
+import { useAuthStore } from './auth';
 import { checkExpiration } from '@/helpers/2fa';
 
 import { EStorageKeys } from '@/types/storage';
@@ -35,6 +36,7 @@ export const use2faStore = defineStore('2fa', {
 
   getters: {
     getSecret: (state) => state.secret,
+    getState: (state) => state,
   },
 
   actions: {
@@ -42,15 +44,17 @@ export const use2faStore = defineStore('2fa', {
       generateToken(this.secret);
     },
 
-    verify(token: string) {
+    async verify(token: string) {
       return verifyToken(this.secret, token);
     },
 
-    generateSecret() {
-      // TODO: Add phone number to secret generation
+    async generateSecret() {
+      const auth = useAuthStore();
+      const { dialCode, phone } = await auth.recoverPhoneFromStorage();
+      const account = `Personal${dialCode}${phone}`;
       const { secret, uri } = generateSecret({
         name: 'Liber App',
-        account: 'Personal',
+        account,
       });
 
       this.secret = secret;
