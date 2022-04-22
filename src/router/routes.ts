@@ -66,8 +66,8 @@ import DepositeIndex from '@/views/DepositeCoin/DepositeIndex.vue';
 import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
 
 import RequestContacts from '@/views/Contacts/RequestContacts.vue';
-import Recipients from '@/views/Contacts/Recepients.vue';
-import AddAccount from '@/views/Dashboard/Account/AddAccount/Index.vue';
+import Recipients from '@/views/Contacts/RecepientsView.vue';
+import AddAccount from '@/views/Dashboard/Account/AddAccount/IndexView.vue';
 import AddAccountRoutes from '@/router/routesAddAccount';
 
 // Routes
