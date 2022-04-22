@@ -56,9 +56,9 @@
 
   <div v-if="show2FA">
     <auth2-f-a-verification-component
+      action-type="disable"
       @success-verification="handleSuccessVerification"
       @close="onClose"
-      action-type="disable"
     />
   </div>
 </template>
