@@ -1,19 +1,21 @@
 <template>
-  <div class="kyc-4-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      {{ scanText.title }}
-    </top-navigation>
-    <base-progress-bar :value="getPercentage" class="mb-3" />
-    <p class="description">{{ scanText.description }}</p>
-    <scan-animation class="p-0">
-      <div id="camera" class="camera" />
-    </scan-animation>
-    <div class="footer">
-      <base-button block @click="onScan">
-        {{ $t('views.kyc.kyc4step.scanNow') }}
-      </base-button>
-    </div>
-  </div>
+  <t-top-navigation @click:left-icon="$emit('prev')">
+    <template #title>{{ scanText.title }}</template>
+    <template #content>
+      <div class="kyc-4-step">
+        <base-progress-bar :value="getPercentage" class="mb-3" />
+        <p class="description">{{ scanText.description }}</p>
+        <scan-animation class="p-0">
+          <div id="camera" class="camera" />
+        </scan-animation>
+        <div class="footer">
+          <base-button block @click="onScan">
+            {{ $t('views.kyc.kyc4step.scanNow') }}
+          </base-button>
+        </div>
+      </div></template
+    >
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -29,7 +31,7 @@ import { useRoute } from 'vue-router';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
+import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
@@ -168,6 +170,8 @@ const onScan = async () => {
 <style lang="scss">
 .kyc-4-step {
   > .scan-animation {
+    margin-top: 80px;
+
     > .inner {
       > .camera {
         width: 100%;

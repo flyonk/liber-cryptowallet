@@ -1,12 +1,17 @@
 <template>
-  <div class="kyc-6-step">
-    <top-navigation
-      left-icon-name="icon-app-navigation-close"
-      @click:left-icon="$emit('prev')"
-      >{{ $t('views.kyc.kyc6step.proofOfResidence') }}</top-navigation
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$emit('prev')"
+  >
+    <template #title>{{ $t('views.kyc.kyc6step.proofOfResidence') }}</template>
+    <template #subtitle>
+      <base-progress-bar class="mb-3" :value="getPercentage" />{{
+        $t('views.kyc.kyc6step.provideOneOf')
+      }}</template
     >
-    <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">{{ $t('views.kyc.kyc6step.provideOneOf') }}</p>
+    <template #content></template>
+  </t-top-navigation>
+  <div class="kyc-6-step">
     <ul class="list" type="disc">
       <li class="item">
         <div class="disc" />
@@ -35,7 +40,7 @@ import { computed } from 'vue';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
 
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { TTopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 

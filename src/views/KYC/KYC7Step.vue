@@ -1,11 +1,15 @@
 <template>
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$router.push({ name: Route.Survey })"
+  >
+    <template #title>{{
+      $t('views.kyc.kyc7step.wereVerifyingYourId')
+    }}</template>
+    <template #subtitle>{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</template>
+    <template #content></template>
+  </t-top-navigation>
   <div>
-    <top-navigation
-      left-icon-name="icon-app-navigation-close"
-      @click:left-icon="$router.push({ name: Route.Survey })"
-      >{{ $t('views.kyc.kyc7step.wereVerifyingYourId') }}</top-navigation
-    >
-    <p class="description">{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</p>
     <base-progress-circular :percent="percent" :size="267">
       <span class="percent-slot">
         <span class="text">{{ percent }}</span>
@@ -24,8 +28,8 @@
 import { ref } from 'vue';
 import {
   BaseProgressCircular,
-  TopNavigation,
   BaseButton,
+  TTopNavigation,
 } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
