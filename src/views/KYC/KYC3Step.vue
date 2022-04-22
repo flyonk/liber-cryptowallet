@@ -1,21 +1,26 @@
 <template>
-  <div class="kyc-3-step">
-    <top-navigation
-      class="navigation"
-      left-icon-name="icon-app-navigation-close"
-      @click:left-icon="handleSkip"
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="handleSkip"
+  >
+    <template #top-right>
+      <span class="controller text--headline" @click="handleSkip">
+        {{ $t('views.kyc.kyc3step.notNow') }}
+      </span>
+    </template>
+    <template #title>
+      {{ $t('views.kyc.kyc3step.proofOfIdentity') }}
+    </template>
+    <template #subtitle>
+      <base-progress-bar :value="getPercentage" class="mb-3" />
+      {{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}</template
     >
-      <template #top-right>
-        <span class="controller text--headline" @click="handleSkip">
-          {{ $t('views.kyc.kyc3step.notNow') }}
-        </span>
-      </template>
-      {{ $t('views.kyc.kyc3step.proofOfIdentity') }}</top-navigation
-    >
-    <base-progress-bar :value="getPercentage" class="mb-3" />
-    <p class="description">{{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}</p>
-    <base-radio-select :items="items" @input="onSelect" />
-  </div>
+    <template #content>
+      <div class="kyc-3-step">
+        <base-radio-select :items="items" @input="onSelect" />
+      </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -23,7 +28,7 @@ import { computed, ref } from 'vue';
 import {
   BaseProgressBar,
   BaseRadioSelect,
-  TopNavigation,
+  TTopNavigation,
 } from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
@@ -81,5 +86,9 @@ const handleSkip = async () => {
 .controller {
   color: $color-primary;
   user-select: none;
+}
+
+.kyc-3-step {
+  margin-top: 80px;
 }
 </style>
