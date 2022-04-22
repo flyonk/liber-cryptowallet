@@ -20,7 +20,7 @@ export const useTransactionStore = defineStore('transaction', {
   },
 
   actions: {
-    async init(id?: string) {
+    async init(id?: string): Promise<void> {
       this.transactions = await transactionService.getTransactionList(id);
     },
   },
