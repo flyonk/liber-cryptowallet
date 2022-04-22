@@ -238,6 +238,10 @@ function getCorrectValue(value: number) {
   return Math.min(v1, 100000000);
 }
 
+function getEmptyCoinImage() {
+  return require('@/assets/icon/currencies/empty_coin.svg');
+}
+
 function onRefresh() {
   previewChangeInfo('from');
   timer.value = 30;
@@ -386,12 +390,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     currentSendToCurrency.value.code = coinInfo.code;
   }
   if (isSameCurrencies.value) {
-    fundsStore.setCrypto(
-      '---',
-      'empty',
-      '@/assets/icon/currencies/empty_coin.svg',
-      direction
-    );
+    fundsStore.setCrypto('---', 'empty', getEmptyCoinImage(), direction);
     componentState.value = 'preview';
   } else {
     fundsStore.setCrypto(
@@ -410,12 +409,7 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 };
 
 onBeforeMount(() => {
-  fundsStore.setCrypto(
-    '---',
-    'empty',
-    '@/assets/icon/currencies/empty_coin.svg',
-    'to'
-  );
+  fundsStore.setCrypto('---', 'empty', getEmptyCoinImage(), 'to');
 });
 </script>
 
