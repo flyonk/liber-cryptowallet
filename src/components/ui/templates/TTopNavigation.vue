@@ -12,6 +12,7 @@
         <template #subtitle><slot name="subtitle" /></template
       ></top-navigation>
     </div>
+
     <div class="content">
       <slot name="content" />
     </div>
@@ -41,8 +42,9 @@ defineProps({
 defineEmits(['click:left-icon']);
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .template-top-navigation {
+  height: 100%;
   padding: 30px 16px 0;
 
   > .content {

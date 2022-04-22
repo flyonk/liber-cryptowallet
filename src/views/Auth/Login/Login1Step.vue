@@ -99,6 +99,5 @@ const forceUpdate = () => {
 <style lang="scss" scoped>
 .description {
   width: 65%;
-  // line-height: 22px;
 }
 </style>

@@ -154,9 +154,8 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
+//
 .auth-page-container {
-  margin-top: 20px;
-
   > .title {
     margin-bottom: 8px;
     font-style: normal;
@@ -166,14 +165,14 @@ const forceUpdate = () => {
     letter-spacing: 0.0038em;
     color: $color-black;
   }
-}
 
-.footer {
-  > span {
-    color: $color-brand-2-300;
+  > .footer {
+    > span {
+      color: $color-brand-2-300;
 
-    > :deep(.link) {
-      color: $color-primary-500;
+      > :deep(.link) {
+        color: $color-primary-500;
+      }
     }
   }
 }

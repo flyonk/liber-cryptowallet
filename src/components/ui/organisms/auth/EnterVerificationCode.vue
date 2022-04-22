@@ -33,7 +33,7 @@
       </div>
     </slot>
   </div>
-  <div style="padding: 15px; padding-bottom: 50px">
+  <div class="sign-button-wrapper">
     <base-button block @click="pasteFromClipboard">
       {{ $t('common.pasteCta') }}
     </base-button>
@@ -153,5 +153,12 @@ const onTimeIsUp = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+}
+
+.sign-button-wrapper {
+  position: fixed;
+  bottom: 50px;
+  left: 16px;
+  right: 16px;
 }
 </style>
