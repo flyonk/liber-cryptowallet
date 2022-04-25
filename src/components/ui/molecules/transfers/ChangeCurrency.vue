@@ -150,8 +150,6 @@ import { debounce } from 'lodash';
 import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-// import { useAccountStore } from '@/stores/account';
-// import { IAccount } from '@/models/account/account';
 
 import { ICoinForExchange, useFundsStore } from '@/stores/funds';
 import { useCoinsStore } from '@/stores/coins';
@@ -228,6 +226,14 @@ const preventConvert = computed(() => {
     isSameCurrencies.value ||
     isZeroValues.value
   );
+});
+
+const emptyCryptoState = computed(() => {
+  return {
+    name: '---',
+    code: 'empty',
+    img: getEmptyCoinImageSrc(),
+  };
 });
 
 watch(isSameCurrencies, (val) => {
@@ -396,15 +402,17 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     currentSendToCurrency.value.code = coinInfo.code;
   }
   if (isSameCurrencies.value) {
-    fundsStore.setCrypto('---', 'empty', getEmptyCoinImageSrc(), direction);
+    direction === 'from'
+      ? (currentSendFromCurrency.value = emptyCryptoState.value)
+      : (currentSendToCurrency.value = emptyCryptoState.value);
     componentState.value = 'preview';
   } else {
-    fundsStore.setCrypto(
-      coinInfo.name,
-      coinInfo.code,
-      coinInfo.imageUrl,
-      direction
-    );
+    const coin = {
+      name: coinInfo.name,
+      code: coinInfo.code,
+      img: coinInfo.imageUrl,
+    };
+    fundsStore.setCrypto(coin, direction);
   }
 
   if (preventConvert.value) {
@@ -427,14 +435,14 @@ onBeforeMount(async () => {
     allCoins.value = allCoins.value.filter((i) => {
       return i.code === route.params.code;
     });
-    fundsStore.setCrypto(
-      allCoins.value[0].name,
-      allCoins.value[0].code,
-      allCoins.value[0].imageUrl,
-      'from'
-    );
+    const coin: ICoinForExchange = {
+      name: allCoins.value[0].name,
+      code: allCoins.value[0].code,
+      img: allCoins.value[0].imageUrl,
+    };
+    fundsStore.setCrypto(coin, 'from');
   }
-  fundsStore.setCrypto('---', 'empty', getEmptyCoinImageSrc(), 'to');
+  currentSendToCurrency.value = emptyCryptoState.value;
 });
 </script>
 
