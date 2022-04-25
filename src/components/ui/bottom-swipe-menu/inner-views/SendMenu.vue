@@ -4,10 +4,16 @@
       <i class="icon icon-send" />
       <p class="text">Send Funds</p>
     </router-link>
-    <li class="menu-item" @click="onClick">
+    <router-link
+      class="menu-item"
+      :to="{
+        name: Route.ConvertFunds,
+        params: { code: accounts[0].code },
+      }"
+    >
       <i class="icon icon-convert" />
       <p class="text">{{ $t('transactions.convert.title') }}</p>
-    </li>
+    </router-link>
     <li class="menu-item">
       <i class="icon icon-ask-for-funds" />
       <p class="text">Ask for Funds</p>
@@ -22,14 +28,9 @@
 <script setup lang="ts">
 import { Route } from '@/router/types';
 import { onMounted, computed, ComputedRef } from 'vue';
-import { useRouter } from 'vue-router';
-import { useFundsStore } from '@/stores/funds';
 import { useAccountStore } from '@/stores/account';
 import { IAccount } from '@/models/account/account';
 
-const router = useRouter();
-
-const fundStore = useFundsStore();
 const accountStore = useAccountStore();
 
 onMounted(async () => {
@@ -42,15 +43,6 @@ onMounted(async () => {
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
-function onClick() {
-  fundStore.setCrypto(
-    accounts.value[0].name.toUpperCase(),
-    accounts.value[0].code,
-    accounts.value[0].imageUrl,
-    'from'
-  );
-  router.push('/convert');
-}
 </script>
 
 <style lang="scss" scoped>

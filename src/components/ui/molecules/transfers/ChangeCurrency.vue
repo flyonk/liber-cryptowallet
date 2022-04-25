@@ -147,11 +147,14 @@
 <script lang="ts" setup>
 import { computed, ref, Ref, watch, onBeforeMount } from 'vue';
 import { debounce } from 'lodash';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+// import { useAccountStore } from '@/stores/account';
+// import { IAccount } from '@/models/account/account';
 
 import { ICoinForExchange, useFundsStore } from '@/stores/funds';
+import { useCoinsStore } from '@/stores/coins';
 import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
 import { ICoin } from '@/models/coin/coins';
@@ -174,10 +177,12 @@ defineProps({
   },
 });
 
+const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
 const router = useRouter();
+const route = useRoute();
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -409,7 +414,26 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   previewChangeInfo(direction);
 };
 
-onBeforeMount(() => {
+const allCoins = ref([]) as Ref<ICoin[]>;
+
+onBeforeMount(async () => {
+  try {
+    await coinStore.fetchCoins();
+    allCoins.value = coinStore.getCoins;
+  } catch (e) {
+    console.error(e);
+  }
+  if (route.params.code) {
+    allCoins.value = allCoins.value.filter((i) => {
+      return i.code === route.params.code;
+    });
+    fundsStore.setCrypto(
+      allCoins.value[0].name,
+      allCoins.value[0].code,
+      allCoins.value[0].imageUrl,
+      'from'
+    );
+  }
   fundsStore.setCrypto('---', 'empty', getEmptyCoinImageSrc(), 'to');
 });
 </script>

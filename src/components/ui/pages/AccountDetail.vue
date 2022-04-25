@@ -91,7 +91,7 @@ import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
-import { useFundsStore } from '@/stores/funds';
+// import { useFundsStore } from '@/stores/funds';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
@@ -109,17 +109,18 @@ const currentCoin = ref(null) as Ref<string | null>;
 
 const route = useRoute();
 const router = useRouter();
-const fundsStore = useFundsStore();
 
 /**
  * Lifecycle
  */
+const coin = ref('');
+
 onBeforeMount(() => {
   if (route.params.coin) {
-    const coin = route.params.coin as string;
+    coin.value = route.params.coin as string;
 
-    accountStore.init(coin);
-    currentCoin.value = coin;
+    accountStore.init(coin.value);
+    currentCoin.value = coin.value;
   }
 });
 
@@ -145,22 +146,8 @@ const carousel = [
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
     callback() {
-      if (balance.value.code === 'tbtc') return;
-      console.log('balance value', balance.value);
-      const { from } = fundsStore.getState;
-      // from balance
-      fundsStore.setCrypto(
-        from?.name || 'BTC',
-        from?.code || 'tbtc',
-        from?.img || ' ',
-        'to'
-      );
-      fundsStore.setCrypto(
-        balance.value.name,
-        balance.value.code,
-        balance.value.imageUrl,
-        'from'
-      );
+      const params = { code: coin.value };
+      router.push({ name: Route.ConvertFunds, params: params });
     },
   },
   {
@@ -180,6 +167,7 @@ const onClick = (carouselItem: any) => {
       }
       router.push({
         name: carouselItem.successRoute,
+        params: { code: coin.value },
       });
       break;
     case EKYCStatus.not_started:
