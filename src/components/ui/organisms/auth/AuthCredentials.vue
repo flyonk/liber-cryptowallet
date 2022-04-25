@@ -154,7 +154,6 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
-//
 .auth-page-container {
   > .title {
     margin-bottom: 8px;
