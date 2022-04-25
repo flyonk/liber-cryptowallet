@@ -45,8 +45,8 @@ const allCoins = ref([]) as Ref<ICoin[]>;
 
 onBeforeMount(async () => {
   try {
-    await coinStore.fetchCoins();
-    allCoins.value = coinStore.getCoins;
+    // await coinStore.fetchCoins();
+    // allCoins.value = coinStore.getCoins;
   } catch (e) {
     console.error(e);
     proxy.$sentry.capture(e, 'BaseCoinListSelect', 'onBeforeMount');
