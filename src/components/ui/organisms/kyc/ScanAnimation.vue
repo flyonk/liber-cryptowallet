@@ -9,7 +9,7 @@
 
 <script setup lang="ts"></script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .scan-animation {
   // FIXME: https://app.asana.com/0/1202027391732065/1202029229041328/f
   //background-image: url('@/assets/images/kyc-camera-border.svg');
@@ -23,7 +23,8 @@
   justify-content: center;
   padding: 21px 24px;
   border-radius: 20px;
-  box-shadow: 0 0 0 99999px #fff;
+  box-shadow: 0 0 0 99999px $color-white; //TODO:clarify
+  z-index: -100;
 
   > .inner {
     width: 100%;
