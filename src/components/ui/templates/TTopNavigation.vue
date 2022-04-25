@@ -53,15 +53,16 @@ defineEmits(['click:left-icon']);
 
 <style lang="scss" scoped>
 .template-top-navigation {
+  // display: flex;
+  // flex-direction: column;
   height: 100%;
   padding: 30px 16px 0;
 
   > .content {
     margin-top: 25px;
-    // flex-grow: 1;
-    // overflow: auto;
-    // display: flex;
-    // flex-direction: column;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   > .footer {
