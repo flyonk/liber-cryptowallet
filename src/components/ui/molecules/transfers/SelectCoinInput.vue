@@ -16,6 +16,7 @@
         />
         <BaseCoinListSelect
           :direction="direction"
+          :coins="coins"
           @back-button="showSelectCoinDialog[direction] = false"
           @select-coin="handleSelect($event)"
         />
@@ -48,6 +49,10 @@ const props = defineProps({
   direction: {
     type: String as PropType<'from' | 'to'>,
     default: 'from',
+  },
+  coins: {
+    type: Array,
+    default: () => [],
   },
 });
 

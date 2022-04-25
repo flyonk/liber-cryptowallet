@@ -92,6 +92,7 @@
             @input="debounceChangeInfo('to')"
           />
           <select-coin-input
+            :coins="toCoins"
             :direction="'to'"
             :current-send-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
@@ -145,9 +146,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, Ref, watch, onBeforeMount } from 'vue';
+import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
 import { debounce } from 'lodash';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
@@ -394,13 +395,24 @@ const swapCoins = () => {
 };
 
 const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
-  if (direction === 'from') {
-    currentSendFromCurrency.value.code = coinInfo.code;
-  }
+  // if (direction === 'from') {
+  //   currentSendFromCurrency.value.code = coinInfo.code;
+  //
+  // }
+  //
+  //
+  // if (direction === 'to') {
+  //   currentSendToCurrency.value.code = coinInfo.code;
+  // }
+  fundsStore.setCrypto(
+    {
+      name: coinInfo.name,
+      code: coinInfo.code,
+      img: coinInfo.imageUrl as string,
+    },
+    direction
+  );
 
-  if (direction === 'to') {
-    currentSendToCurrency.value.code = coinInfo.code;
-  }
   if (isSameCurrencies.value) {
     direction === 'from'
       ? (currentSendFromCurrency.value = emptyCryptoState.value)
@@ -424,6 +436,13 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 
 const allCoins = ref([]) as Ref<ICoin[]>;
 
+const fromCoins = computed(() =>
+  allCoins.value.filter(
+    (coin) => coin.code !== currentSendToCurrency.value.code
+  )
+);
+const toCoins = computed(() => {});
+
 onBeforeMount(async () => {
   try {
     await coinStore.fetchCoins();
@@ -431,15 +450,33 @@ onBeforeMount(async () => {
   } catch (e) {
     console.error(e);
   }
+
+  if (route.query.tralala) {
+    const fromCoin = allCoins.value.find(
+      (coin) => coin.code === route.query.tralala
+    );
+
+    fundsStore.setCrypto(fromCoin, 'from');
+  }
+
   if (route.params.code) {
     allCoins.value = allCoins.value.filter((i) => {
       return i.code === route.params.code;
     });
-    const coin: ICoinForExchange = {
-      name: allCoins.value[0].name,
-      code: allCoins.value[0].code,
-      img: allCoins.value[0].imageUrl,
+    const [firstCoin] = allCoins.value;
+
+    const coin = {
+      name: firstCoin.name,
+      code: firstCoin.code,
+      img: firstCoin.imageUrl as string,
     };
+
+    // const coin: ICoinForExchange = {
+    //   name: allCoins.value[0].name,
+    //   code: allCoins.value[0].code,
+    //   img: allCoins.value[0].imageUrl,
+    // };
+
     fundsStore.setCrypto(coin, 'from');
   }
   currentSendToCurrency.value = emptyCryptoState.value;
