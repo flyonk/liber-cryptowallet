@@ -1,5 +1,6 @@
 <template>
   <t-top-navigation
+    with-fixed-footer
     left-icon-name="icon-app-navigation-close"
     @click:left-icon="$emit('prev')"
   >
@@ -9,30 +10,30 @@
         $t('views.kyc.kyc6step.provideOneOf')
       }}</template
     >
-    <template #content></template>
-  </t-top-navigation>
-  <div class="kyc-6-step">
-    <ul class="list" type="disc">
-      <li class="item">
-        <div class="disc" />
-        {{ $t('views.kyc.kyc6step.utilityBills') }}
-      </li>
-      <li class="item">
-        <div class="disc" />
-        {{ $t('views.kyc.kyc6step.bankAccountStatement') }}
-      </li>
-      <li class="item">
-        <div class="disc" />
-        {{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}
-      </li>
-    </ul>
-
-    <div class="footer">
+    <template #content>
+      <div class="kyc-6-step">
+        <ul class="list" type="disc">
+          <li class="item">
+            <div class="disc" />
+            {{ $t('views.kyc.kyc6step.utilityBills') }}
+          </li>
+          <li class="item">
+            <div class="disc" />
+            {{ $t('views.kyc.kyc6step.bankAccountStatement') }}
+          </li>
+          <li class="item">
+            <div class="disc" />
+            {{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}
+          </li>
+        </ul>
+      </div></template
+    >
+    <template #fixed-footer>
       <base-button block class="footer-button" @click="selectPicture">{{
         $t('views.kyc.kyc6step.upload')
-      }}</base-button>
-    </div>
-  </div>
+      }}</base-button></template
+    >
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">

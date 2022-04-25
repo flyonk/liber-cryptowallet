@@ -1,4 +1,5 @@
 <template>
+  <!-- <button @click="$emit('prev')">back</button> for testing prev steps-->
   <t-top-navigation
     left-icon-name="icon-app-navigation-close"
     @click:left-icon="handleSkip"

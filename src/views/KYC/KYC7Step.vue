@@ -1,5 +1,6 @@
 <template>
   <t-top-navigation
+    with-fixed-footer
     left-icon-name="icon-app-navigation-close"
     @click:left-icon="$router.push({ name: Route.Survey })"
   >
@@ -7,21 +8,22 @@
       $t('views.kyc.kyc7step.wereVerifyingYourId')
     }}</template>
     <template #subtitle>{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</template>
-    <template #content></template>
-  </t-top-navigation>
-  <div>
-    <base-progress-circular :percent="percent" :size="267">
-      <span class="percent-slot">
-        <span class="text">{{ percent }}</span>
-        <span class="text--large-title">%</span>
-      </span>
-    </base-progress-circular>
-    <div class="footer">
+    <template #content>
+      <div>
+        <base-progress-circular :percent="percent" :size="267">
+          <span class="percent-slot">
+            <span class="text">{{ percent }}</span>
+            <span class="text--large-title">%</span>
+          </span>
+        </base-progress-circular>
+      </div></template
+    >
+    <template #fixed-footer>
       <base-button block @click="handleComplete">
         {{ $t('views.kyc.kyc7step.continue') }}
       </base-button>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">

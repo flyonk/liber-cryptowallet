@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
     <template #title> {{ $t('views.kyc.kyc2step.homeAddress') }}</template>
     <template #subtitle> {{ $t('views.kyc.kyc2step.byLawWe') }}</template>
     <template #content>
@@ -25,12 +25,12 @@
       <base-input v-model="form.city">
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
       </base-input>
-      <div class="footer">
-        <base-button block :disabled="!isFormValid" @click="onContinue">{{
-          $t('views.kyc.kyc2step.continue')
-        }}</base-button>
-      </div>
     </template>
+    <template #fixed-footer
+      ><base-button block :disabled="!isFormValid" @click="onContinue">{{
+        $t('views.kyc.kyc2step.continue')
+      }}</base-button></template
+    >
   </t-top-navigation>
 </template>
 

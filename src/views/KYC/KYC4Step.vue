@@ -1,19 +1,19 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
     <template #title>{{ scanText.title }}</template>
+    <template #subtitle>
+      <base-progress-bar :value="getPercentage" class="mb-3" />
+      {{ scanText.description }}</template
+    >
     <template #content>
-      <div class="kyc-4-step">
-        <base-progress-bar :value="getPercentage" class="mb-3" />
-        <p class="description">{{ scanText.description }}</p>
-        <scan-animation class="p-0">
-          <div id="camera" class="camera" />
-        </scan-animation>
-        <div class="footer">
-          <base-button block @click="onScan">
-            {{ $t('views.kyc.kyc4step.scanNow') }}
-          </base-button>
-        </div>
-      </div></template
+      <scan-animation class="p-0">
+        <div id="camera" class="camera" />
+      </scan-animation>
+    </template>
+    <template #fixed-footer>
+      <base-button block @click="onScan">
+        {{ $t('views.kyc.kyc4step.scanNow') }}
+      </base-button></template
     >
   </t-top-navigation>
 </template>
@@ -31,7 +31,9 @@ import { useRoute } from 'vue-router';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
@@ -52,6 +54,7 @@ const cameraPreviewOptions: CameraPreviewOptions = {
   disableAudio: true,
 };
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
 const isProofTypePassport = computed(
@@ -167,26 +170,33 @@ const onScan = async () => {
 };
 </script>
 
-<style lang="scss">
-.kyc-4-step {
-  > .scan-animation {
-    margin-top: 80px;
+<style lang="scss" scoped>
+// .kyc-4-step {
+//   > .scan-animation {
+//     margin-top: 80px;
 
-    > .inner {
-      > .camera {
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-        max-height: 100%;
+//     > .inner {
+//       > .camera {
+//         width: 100%;
+//         height: 100%;
+//         max-width: 100%;
+//         max-height: 100%;
 
-        > .camera-video {
-          height: 100% !important;
-          width: 100%;
-          border-radius: 12px;
-          object-fit: cover;
-        }
-      }
-    }
-  }
+//         > .camera-video {
+//           height: 100% !important;
+//           width: 100%;
+//           border-radius: 12px;
+//           object-fit: cover;
+//         }
+//       }
+//     }
+//   }
+// }
+
+.camera {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 }
 </style>

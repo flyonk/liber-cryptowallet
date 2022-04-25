@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
     <template #title> {{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
     <template #subtitle>
       <base-progress-bar :value="getPercentage" class="mb-3" />
@@ -30,12 +30,13 @@
             </base-button>
           </div>
         </template>
-
-        <base-button block class="footer-button" @click="onNext">{{
-          $t('views.kyc.kyc5step.upload')
-        }}</base-button>
       </div></template
     >
+    <template #fixed-footer>
+      <base-button block class="footer-button" @click="onNext">{{
+        $t('views.kyc.kyc5step.upload')
+      }}</base-button>
+    </template>
   </t-top-navigation>
 </template>
 

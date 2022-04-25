@@ -1,5 +1,6 @@
 <template>
   <t-top-navigation
+    with-fixed-footer
     left-icon-name="icon-app-navigation-close"
     @click:left-icon="prevStep"
   >
@@ -15,20 +16,23 @@
         :only-european="true"
         @update:model-value="setCountry"
       />
-      <div class="footer">
+    </template>
+    <template #fixed-footer>
+      <div class="info">
         <p class="heading-dark-gray-md font-weight--semibold text">
           {{ $t('views.kyc.kyc1step.byPressingSign') }}
           <a class="link" href="http://">{{
             $t('views.kyc.kyc1step.termsAmpConditions')
-          }}</a
-          >{{ $t('views.kyc.kyc1step.and') }}
-          <a class="link" href="http://"> Privacy Policy </a
-          >{{ $t('views.kyc.kyc1step.privacyPolicy') }}
+          }}</a>
+          {{ $t('views.kyc.kyc1step.and') }}
+          <a class="link" href="http://">
+            {{ $t('views.kyc.kyc1step.privacyPolicy') }}
+          </a>
         </p>
-        <base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
-          $t('views.kyc.kyc1step.signUpSecurely')
-        }}</base-button>
       </div>
+      <base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
+        $t('views.kyc.kyc1step.signUpSecurely')
+      }}</base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -80,3 +84,9 @@ const prevStep = async () => {
   }
 };
 </script>
+
+<style lang="scss" scoped>
+.info {
+  margin-bottom: 32px;
+}
+</style>
