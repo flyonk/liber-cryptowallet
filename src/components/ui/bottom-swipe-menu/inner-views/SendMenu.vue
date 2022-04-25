@@ -4,16 +4,10 @@
       <i class="icon icon-send" />
       <p class="text">Send Funds</p>
     </router-link>
-    <router-link
-      class="menu-item"
-      :to="{
-        name: Route.ConvertFunds,
-        query: { code: accounts[0].code },
-      }"
-    >
+    <li class="menu-item" @click="goToRoute">
       <i class="icon icon-convert" />
       <p class="text">{{ $t('transactions.convert.title') }}</p>
-    </router-link>
+    </li>
     <li class="menu-item">
       <i class="icon icon-ask-for-funds" />
       <p class="text">Ask for Funds</p>
@@ -26,12 +20,16 @@
 </template>
 
 <script setup lang="ts">
+import { computed, ComputedRef, onMounted } from 'vue';
+
 import { Route } from '@/router/types';
-import { onMounted, computed, ComputedRef } from 'vue';
+import { useRouter } from 'vue-router';
+
 import { useAccountStore } from '@/stores/account';
 import { IAccount } from '@/models/account/account';
 
 const accountStore = useAccountStore();
+const router = useRouter();
 
 onMounted(async () => {
   await Promise.all([
@@ -43,6 +41,17 @@ onMounted(async () => {
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
+
+const goToRoute = () => {
+  const [{ code: firstAccountCode }] = accounts.value;
+
+  router.push({
+    name: Route.ConvertFunds,
+    query: {
+      code: firstAccountCode ? firstAccountCode : 'tbtc',
+    },
+  });
+};
 </script>
 
 <style lang="scss" scoped>

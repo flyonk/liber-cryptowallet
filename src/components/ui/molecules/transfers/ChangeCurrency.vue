@@ -264,7 +264,7 @@ onBeforeMount(async () => {
     );
   }
 
-  currentSendToCurrency.value = emptyCryptoState.value;
+  fundsStore.setCrypto(emptyCryptoState.value, 'to');
 });
 
 function getCorrectValue(value: number) {
@@ -418,13 +418,6 @@ const swapCoins = () => {
 };
 
 const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
-  if (direction === 'from') {
-    currentSendFromCurrency.value.code = coinInfo.code;
-  }
-
-  if (direction === 'to') {
-    currentSendToCurrency.value.code = coinInfo.code;
-  }
   fundsStore.setCrypto(
     {
       name: coinInfo.name,
@@ -434,7 +427,11 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     direction
   );
 
-  if (preventConvert.value) {
+  const isAnyDirectionClear =
+    currentSendToCurrency.value.code === 'empty' ||
+    currentSendFromCurrency.value.code === 'empty';
+
+  if (preventConvert.value || isAnyDirectionClear) {
     return;
   }
 

@@ -84,18 +84,24 @@
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { VueAgile } from 'vue-agile';
-import { useI18n } from 'vue-i18n';
+import { LocaleMessageValue, useI18n, VueMessageType } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
-// import { useFundsStore } from '@/stores/funds';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 import { AccountDetails } from '@/components/ui';
+
+interface ICarouselItem {
+  name: LocaleMessageValue<VueMessageType>;
+  img: string;
+  successRoute: string;
+  failRoute: string;
+}
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -127,7 +133,7 @@ onBeforeMount(() => {
 const transactions = computed(() => accountStore.getCoinTransactions);
 const balance = computed(() => accountStore.getBalanceByCoin);
 
-const carousel = [
+const carousel: ICarouselItem[] = [
   {
     name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
@@ -145,9 +151,6 @@ const carousel = [
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
-    callback() {
-      router.push({ name: Route.ConvertFunds, query: { code: coin.value } });
-    },
   },
   {
     name: tm('transactions.carousel.withdraw'),
@@ -157,16 +160,13 @@ const carousel = [
   },
 ];
 
-const onClick = (carouselItem: any) => {
+const onClick = (carouselItem: ICarouselItem) => {
   const { kycStatus } = profileStore.getUser;
   switch (kycStatus) {
     case EKYCStatus.success:
-      if (carouselItem.callback) {
-        carouselItem.callback();
-      }
       router.push({
         name: carouselItem.successRoute,
-        params: { code: coin.value },
+        query: { code: coin.value },
       });
       break;
     case EKYCStatus.not_started:
