@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation @click:left-icon="prevStep">
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title> {{ $t('auth.signup.step3Title') }}</template>
     <template #content>
       <div class="auth-page-container">
@@ -21,12 +21,12 @@
         <base-switch v-model="sendNews" class="switch">
           {{ $t('auth.signup.step3SendNews') }}
         </base-switch>
-        <div class="sign-button-wrapper">
-          <base-button :disabled="isEmailInvalid" block @click="nextStep">
-            {{ $t('common.nextStep') }}
-          </base-button>
-        </div>
       </div>
+    </template>
+    <template #fixed-footer>
+      <base-button :disabled="isEmailInvalid" block @click="nextStep">
+        {{ $t('common.nextStep') }}
+      </base-button>
     </template>
   </t-top-navigation>
 </template>

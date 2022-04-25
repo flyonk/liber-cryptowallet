@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
     <template #title> {{ $t('auth.signup.step5Title') }}</template>
     <template #subtitle> {{ $t('auth.signup.step4Description') }}</template>
     <template #content
@@ -24,15 +24,13 @@
               @touchend="clearDate"
             />
           </template>
-        </base-input>
-        <!-- TODO: move to a separated component -->
-        <div class="sign-button-wrapper">
-          <BaseButton block :disabled="isDateInvalid" @click="nextStep">
-            {{ $t('common.nextStep') }}
-          </BaseButton>
-        </div>
-      </div></template
-    >
+        </base-input></div
+    ></template>
+    <template #fixed-footer>
+      <base-button block :disabled="isDateInvalid" @click="nextStep">
+        {{ $t('common.nextStep') }}
+      </base-button>
+    </template>
   </t-top-navigation>
 </template>
 

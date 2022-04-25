@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
     <template #title> {{ $t('auth.signup.step4Title') }}</template>
     <template #subtitle>
       {{ $t('auth.signup.step4Description') }}
@@ -39,14 +39,13 @@
               @touchend="clearLastName"
             />
           </template>
-        </base-input>
-        <div class="sign-button-wrapper">
-          <BaseButton block :disabled="isFullNameInvalid" @click="nextStep">
-            {{ $t('common.nextStep') }}
-          </BaseButton>
-        </div>
-      </div></template
-    >
+        </base-input></div
+    ></template>
+    <template #fixed-footer>
+      <base-button block :disabled="isFullNameInvalid" @click="nextStep">
+        {{ $t('common.nextStep') }}
+      </base-button>
+    </template>
   </t-top-navigation>
 </template>
 

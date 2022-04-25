@@ -8,7 +8,6 @@
           class="login-passcode"
           @submit="onSubmit"
         />
-
         <base-toast v-model:visible="showErrorToast" severity="error">
           <template #description>
             <div>
