@@ -37,6 +37,7 @@ import { ref, watch } from 'vue';
 import { use2faStore } from '@/stores/2fa';
 import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { useErrorsStore } from '@/stores/errors';
 import { getSupportedOptions } from '@/helpers/identification';
 import { Route } from '@/router/types';
 import { Clipboard } from '@capacitor/clipboard';
@@ -49,6 +50,7 @@ import { Clipboard } from '@capacitor/clipboard';
 const authStore = useAuthStore();
 const store = use2faStore();
 const appOptionsStore = useAppOptionsStore();
+const errorsStore = useErrorsStore();
 
 appOptionsStore.init();
 store.init().then(() => {
@@ -67,7 +69,12 @@ const pasteFromClipboard = async () => {
       verificationCode.value = content.value;
     }
   } catch (err) {
-    console.error('Async: Could not read text: ', err);
+    errorsStore.handle(
+      err,
+      'Login4Step',
+      'pasteFromClipboard',
+      'Could not read text from clipboard'
+    );
   }
 };
 

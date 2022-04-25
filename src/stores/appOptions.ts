@@ -74,7 +74,7 @@ export const useAppOptionsStore = defineStore('appOptions', {
     },
 
     async checkPassCode(): Promise<boolean> {
-      return !!(await get(EStorageKeys.passcode));
+      return (await get(EStorageKeys.passcode)) === 'true';
     },
   },
 });

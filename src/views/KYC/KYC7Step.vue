@@ -1,6 +1,6 @@
 <template>
   <div>
-    <top-navigation left-icon-name="ci-close_big">{{
+    <top-navigation left-icon-name="icon-app-navigation-close">{{
       $t('views.kyc.kyc7step.wereVerifyingYourId')
     }}</top-navigation>
     <p class="description">{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</p>
@@ -21,9 +21,9 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {
+  BaseButton,
   BaseProgressCircular,
   TopNavigation,
-  BaseButton,
 } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';

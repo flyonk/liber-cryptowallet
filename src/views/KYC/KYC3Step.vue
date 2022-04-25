@@ -2,7 +2,7 @@
   <div class="kyc-3-step">
     <top-navigation
       class="navigation"
-      left-icon-name="ci-close_big"
+      left-icon-name="icon-app-navigation-close"
       @click:left-icon="handleSkip"
     >
       <template #top-right>

@@ -25,12 +25,9 @@ export default {
     return depositMapper.deserialize(res.data);
   },
 
-  async convertInfo(
-    data: Omit<TConvertData, 'amount'>,
-    dir: 'from' | 'to'
-  ): Promise<IConvertInfo> {
+  async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
     const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserialize(res.data, data, dir);
+    return convertInfoMapper.deserialize(res.data, data);
   },
 
   async convert(
