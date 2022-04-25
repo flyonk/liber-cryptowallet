@@ -1,48 +1,49 @@
 <template>
-  <t-top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.InstallApp })"
+  >
     <template #title> {{ $t('configureApp.configTitle') }}</template>
     <template #subtitle>{{ $t('configureApp.scanQRMessage') }}</template>
     <template #content>
-      <div class="page-wrapper" onclick="void(0);">
-        <div>
-          <canvas ref="canvas" class="qr-code-canvas" />
-        </div>
-
-        <label class="default-input-wrapper" @click="copyToClipboard">
-          <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
-          <input
-            v-model="qrCodeValue"
-            class="default-input"
-            type="text"
-            readonly
-          />
-          <img
-            class="default-input-icon"
-            src="@/assets/images/copy-to-clipboard.svg"
-            alt="copy"
-            @click.stop
-          />
-        </label>
-
-        <p class="text-default">
-          {{ $t('configureApp.backupCodeMessage') }}
-        </p>
-        <p class="text-default">
-          {{ $t('configureApp.verifyIdentityMessage') }}
-        </p>
+      <div>
+        <canvas ref="canvas" class="qr-code-canvas" />
       </div>
-      <div style="padding: 15px; padding-bottom: 50px">
-        <base-button
-          block
-          @click="
-            saveTwoFASecret();
-            $router.push({ name: Route.ConfigureAppVerify });
-          "
-        >
-          {{ $t('common.continueCta') }}
-        </base-button>
-      </div>
+
+      <label class="default-input-wrapper" @click="copyToClipboard">
+        <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
+        <input
+          v-model="qrCodeValue"
+          class="default-input"
+          type="text"
+          readonly
+        />
+        <img
+          class="default-input-icon"
+          src="@/assets/images/copy-to-clipboard.svg"
+          alt="copy"
+          @click.stop
+        />
+      </label>
+
+      <p class="text-default">
+        {{ $t('configureApp.backupCodeMessage') }}
+      </p>
+      <p class="text-default">
+        {{ $t('configureApp.verifyIdentityMessage') }}
+      </p>
     </template>
+    <template #fixed-footer
+      ><base-button
+        block
+        @click="
+          saveTwoFASecret();
+          $router.push({ name: Route.ConfigureAppVerify });
+        "
+      >
+        {{ $t('common.continueCta') }}
+      </base-button></template
+    >
   </t-top-navigation>
 </template>
 

@@ -1,5 +1,8 @@
 <template>
-  <t-top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.TwoFAApp })"
+  >
     <template #title> {{ $t('configureApp.installAppTitle') }}</template>
     <template #subtitle>
       {{ $t('configureApp.installAppDescription') }}</template
@@ -38,15 +41,12 @@
           />
         </a>
       </div>
-
-      <div style="padding: 15px; padding-bottom: 50px">
-        <base-button
-          block
-          @click="$router.push({ name: Route.ConfigureApp })"
-          >{{ $t('common.continueCta') }}</base-button
-        >
-      </div>
     </template>
+    <template #fixed-footer>
+      <base-button block @click="$router.push({ name: Route.ConfigureApp })">{{
+        $t('common.continueCta')
+      }}</base-button></template
+    >
   </t-top-navigation>
 </template>
 
@@ -62,11 +62,6 @@ import { Route } from '@/router/types';
 </script>
 
 <style lang="scss" scoped>
-.page-wrapper {
-  margin: 15px;
-  flex-grow: 1;
-}
-
 .text-default {
   font-style: normal;
   font-weight: normal;

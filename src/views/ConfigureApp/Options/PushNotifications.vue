@@ -1,5 +1,6 @@
 <template>
   <t-top-navigation
+    with-fixed-footer
     @click:left-icon="$router.push({ name: Route.ConfigureAppVerify })"
   >
     <template #title> {{ $t('configureApp.pushNotificationsTitle') }}</template>
@@ -16,15 +17,15 @@
           </p>
         </div>
       </div>
-      <div style="padding: 15px; padding-bottom: 50px">
-        <base-button block class="mb-3" @click="onEnable">
-          {{ $t('configureApp.enablePushNotifications') }}
-        </base-button>
-        <base-button block view="transparent" @click="onCancel">
-          {{ $t('common.notNowCta') }}
-        </base-button>
-      </div></template
-    >
+    </template>
+    <template #fixed-footer>
+      <base-button block class="mb-3" @click="onEnable">
+        {{ $t('configureApp.enablePushNotifications') }}
+      </base-button>
+      <base-button block view="transparent" @click="onCancel">
+        {{ $t('common.notNowCta') }}
+      </base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -67,10 +68,11 @@ const onCancel = (): void => {
 <style lang="scss" scoped>
 .page-wrapper {
   margin: 15px;
+  margin-top: 150px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .text-default {

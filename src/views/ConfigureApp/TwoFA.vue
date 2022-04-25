@@ -1,20 +1,20 @@
 <template>
-  <t-top-navigation @click:left-icon="prevStep">
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title> {{ $t('configureApp.twoFATitle') }}</template>
     <template #subtitle> {{ $t('configureApp.twoFADescription') }}</template>
-    <template #content></template>
+    <template #content>
+      <div class="page-wrapper">
+        <div class="flex-center">
+          <img alt="keys" src="@/assets/images/2fa-keys.svg" />
+        </div>
+      </div>
+    </template>
+    <template #fixed-footer
+      ><base-button block @click="installApp">
+        {{ $t('common.continueCta') }}
+      </base-button></template
+    >
   </t-top-navigation>
-  <div class="page-wrapper">
-    <div class="flex-center">
-      <img alt="keys" src="@/assets/images/2fa-keys.svg" />
-    </div>
-  </div>
-
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="installApp">
-      {{ $t('common.continueCta') }}
-    </base-button>
-  </div>
 </template>
 
 <script lang="ts">
@@ -67,6 +67,7 @@ function installApp(): void {
   overflow: auto;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .text-default {
@@ -83,6 +84,6 @@ function installApp(): void {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
+  // flex-grow: 1;
 }
 </style>
