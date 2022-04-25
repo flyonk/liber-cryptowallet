@@ -8,7 +8,7 @@
       class="menu-item"
       :to="{
         name: Route.ConvertFunds,
-        params: { code: accounts[0].code },
+        query: { code: accounts[0].code },
       }"
     >
       <i class="icon icon-convert" />

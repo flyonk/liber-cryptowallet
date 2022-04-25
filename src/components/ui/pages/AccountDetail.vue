@@ -146,8 +146,7 @@ const carousel = [
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
     callback() {
-      const params = { code: coin.value };
-      router.push({ name: Route.ConvertFunds, params: params });
+      router.push({ name: Route.ConvertFunds, query: { code: coin.value } });
     },
   },
   {

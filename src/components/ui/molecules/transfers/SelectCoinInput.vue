@@ -51,7 +51,7 @@ const props = defineProps({
     default: 'from',
   },
   coins: {
-    type: Array,
+    type: Array as PropType<ICoin[]>,
     default: () => [],
   },
 });

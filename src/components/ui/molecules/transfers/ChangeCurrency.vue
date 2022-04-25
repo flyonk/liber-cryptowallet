@@ -16,11 +16,12 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
-            :readonly="isSameCurrencies || isOneCoinEmpty"
+            :readonly="isOneCoinEmpty"
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
           <select-coin-input
+            :coins="fromCoins"
             :direction="'from'"
             :current-send-currency="currentSendFromCurrency"
             @on-select-coin="onSelectCoin($event, 'from')"
@@ -72,11 +73,7 @@
             </p>
           </li>
         </ul>
-        <coin-switcher
-          v-if="hasCoinReverse"
-          :disabled="isSameCurrencies"
-          @switch="swapCoins"
-        />
+        <coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
@@ -87,7 +84,7 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
-            :readonly="isSameCurrencies || isOneCoinEmpty"
+            :readonly="isOneCoinEmpty"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
@@ -158,12 +155,12 @@ import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
 import { ICoin } from '@/models/coin/coins';
 import { STATIC_BASE_URL } from '@/constants';
+import { TConvertData } from '@/models/funds/convertInfo';
 
 import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
-import { TConvertData } from '@/models/funds/convertInfo';
 
 const emit = defineEmits<{
   (event: 'show-2fa'): void;
@@ -194,6 +191,8 @@ const startTimer = ref(0) as Ref<number>;
 const convertInfo = computed(() => fundsStore.getConvertInfo);
 const convert = computed(() => fundsStore.getConvertFunds);
 
+const allCoins = ref([]) as Ref<ICoin[]>;
+
 const currentSendFromCurrency = computed(
   () => fundsStore.getState.from as ICoinForExchange
 );
@@ -207,12 +206,6 @@ const isOneCoinEmpty = computed(
     currentSendToCurrency.value.code === 'empty'
 );
 
-const isSameCurrencies = computed(() => {
-  return (
-    currentSendFromCurrency.value.code === currentSendToCurrency.value.code
-  );
-});
-
 const isZeroValues = computed(() => {
   return (
     Number(fundsStore.convertInfo.requestAmount) === 0 &&
@@ -224,7 +217,6 @@ const preventConvert = computed(() => {
   return (
     loading.value ||
     Number(fundsStore.convertInfo.requestAmount) === 0 ||
-    isSameCurrencies.value ||
     isZeroValues.value
   );
 });
@@ -237,12 +229,42 @@ const emptyCryptoState = computed(() => {
   };
 });
 
-watch(isSameCurrencies, (val) => {
-  if (val) componentState.value = 'preview';
-});
+const fromCoins = computed(() =>
+  allCoins.value.filter(
+    (coin) => coin.code !== currentSendToCurrency.value.code
+  )
+);
 
-watch(isZeroValues, (val) => {
-  if (val) componentState.value = 'preview';
+const toCoins = computed(() =>
+  allCoins.value.filter(
+    (coin) => coin.code !== currentSendFromCurrency.value.code
+  )
+);
+
+onBeforeMount(async () => {
+  try {
+    await coinStore.fetchCoins();
+    allCoins.value = coinStore.getCoins;
+  } catch (e) {
+    console.error(e);
+  }
+
+  if (route.query.code) {
+    const fromCoin = allCoins.value.find(
+      (coin) => coin.code === route.query.code
+    );
+
+    fundsStore.setCrypto(
+      {
+        name: fromCoin?.name as string,
+        code: fromCoin?.code as string,
+        img: fromCoin?.imageUrl as string,
+      },
+      'from'
+    );
+  }
+
+  currentSendToCurrency.value = emptyCryptoState.value;
 });
 
 function getCorrectValue(value: number) {
@@ -389,21 +411,20 @@ const swapCoins = () => {
     componentState.value = 'preview';
     return;
   }
+
   fundsStore.swapCoins();
 
   previewChangeInfo('from');
 };
 
 const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
-  // if (direction === 'from') {
-  //   currentSendFromCurrency.value.code = coinInfo.code;
-  //
-  // }
-  //
-  //
-  // if (direction === 'to') {
-  //   currentSendToCurrency.value.code = coinInfo.code;
-  // }
+  if (direction === 'from') {
+    currentSendFromCurrency.value.code = coinInfo.code;
+  }
+
+  if (direction === 'to') {
+    currentSendToCurrency.value.code = coinInfo.code;
+  }
   fundsStore.setCrypto(
     {
       name: coinInfo.name,
@@ -413,20 +434,6 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
     direction
   );
 
-  if (isSameCurrencies.value) {
-    direction === 'from'
-      ? (currentSendFromCurrency.value = emptyCryptoState.value)
-      : (currentSendToCurrency.value = emptyCryptoState.value);
-    componentState.value = 'preview';
-  } else {
-    const coin = {
-      name: coinInfo.name,
-      code: coinInfo.code,
-      img: coinInfo.imageUrl,
-    };
-    fundsStore.setCrypto(coin, direction);
-  }
-
   if (preventConvert.value) {
     return;
   }
@@ -434,52 +441,8 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
   previewChangeInfo(direction);
 };
 
-const allCoins = ref([]) as Ref<ICoin[]>;
-
-const fromCoins = computed(() =>
-  allCoins.value.filter(
-    (coin) => coin.code !== currentSendToCurrency.value.code
-  )
-);
-const toCoins = computed(() => {});
-
-onBeforeMount(async () => {
-  try {
-    await coinStore.fetchCoins();
-    allCoins.value = coinStore.getCoins;
-  } catch (e) {
-    console.error(e);
-  }
-
-  if (route.query.tralala) {
-    const fromCoin = allCoins.value.find(
-      (coin) => coin.code === route.query.tralala
-    );
-
-    fundsStore.setCrypto(fromCoin, 'from');
-  }
-
-  if (route.params.code) {
-    allCoins.value = allCoins.value.filter((i) => {
-      return i.code === route.params.code;
-    });
-    const [firstCoin] = allCoins.value;
-
-    const coin = {
-      name: firstCoin.name,
-      code: firstCoin.code,
-      img: firstCoin.imageUrl as string,
-    };
-
-    // const coin: ICoinForExchange = {
-    //   name: allCoins.value[0].name,
-    //   code: allCoins.value[0].code,
-    //   img: allCoins.value[0].imageUrl,
-    // };
-
-    fundsStore.setCrypto(coin, 'from');
-  }
-  currentSendToCurrency.value = emptyCryptoState.value;
+watch(isZeroValues, (val) => {
+  if (val) componentState.value = 'preview';
 });
 </script>
 
