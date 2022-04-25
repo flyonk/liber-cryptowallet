@@ -16,6 +16,10 @@
     <div class="content">
       <slot name="content" />
     </div>
+
+    <div v-if="withFixedFooter" class="footer">
+      <slot name="fixed-footer" />
+    </div>
   </div>
 </template>
 
@@ -37,18 +41,34 @@ defineProps({
     type: Boolean,
     default: false,
   },
+
+  withFixedFooter: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits(['click:left-icon']);
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .template-top-navigation {
   height: 100%;
   padding: 30px 16px 0;
 
   > .content {
     margin-top: 25px;
+    // flex-grow: 1;
+    // overflow: auto;
+    // display: flex;
+    // flex-direction: column;
+  }
+
+  > .footer {
+    position: fixed;
+    bottom: 50px;
+    left: 16px;
+    right: 16px;
   }
 }
 </style>
