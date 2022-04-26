@@ -1,24 +1,26 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
-      {{ $t('configureApp.faceIdTitle') }}
-    </top-navigation>
-
-    <div class="page-content">
-      <img alt="Face id" class="mb-3" src="@/assets/images/face-icon.svg" />
-      <p class="text-default">
-        {{ $t('configureApp.faceIdDescription') }}
-      </p>
-    </div>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block class="mb-3" @click="onEnable">
-      {{ $t('configureApp.enableFaceId') }}
-    </base-button>
-    <base-button block view="transparent" @click="onCancel">
-      {{ $t('common.notNowCta') }}
-    </base-button>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.TwoFAApp })"
+  >
+    <template #title> {{ $t('configureApp.faceIdTitle') }}</template>
+    <template #content>
+      <div class="page-content">
+        <img alt="Face id" class="mb-3" src="@/assets/images/face-icon.svg" />
+        <p class="text-default">
+          {{ $t('configureApp.faceIdDescription') }}
+        </p>
+      </div></template
+    >
+    <template #fixed-footer>
+      <base-button block class="mb-3" @click="onEnable">
+        {{ $t('configureApp.enableFaceId') }}
+      </base-button>
+      <base-button block view="transparent" @click="onCancel">
+        {{ $t('common.notNowCta') }}
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -26,7 +28,7 @@ import { useRouter } from 'vue-router';
 
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BaseButton, TopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
@@ -70,6 +72,7 @@ const onCancel = (): void => {
 
 .page-content {
   flex-grow: 1;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;
