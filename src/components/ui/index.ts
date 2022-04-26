@@ -24,3 +24,4 @@ export { default as BaseCoinListSelect } from './organisms/BaseCoinListSelect.vu
 export { default as TransactionIconWithStatus } from './molecules/TransactionIconWithStatus.vue';
 export { default as TransactionStatus } from './molecules/TransactionStatus.vue';
 export { default as TTopNavigation } from './templates/TTopNavigation.vue';
+export { default as TransactionsList } from './organisms/transactions/TransactionsList.vue';
