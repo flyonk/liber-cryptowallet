@@ -509,6 +509,9 @@
   },
   "errors": {
     "requestTimeout": "Request timeout",
-    "serviceUnavailable": "Service unavailable"
+    "serviceUnavailable": "Service unavailable",
+    "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
+    "gotIt": "Got it",
+    "details": "Details"
   }
 }

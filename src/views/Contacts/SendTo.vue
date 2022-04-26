@@ -106,12 +106,11 @@ import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
-import SentryUtil from '@/helpers/sentryUtil';
+import { useErrorsStore } from '@/stores/errors';
 import { getContactPhone } from '@/helpers/contacts';
 import { useRouter, useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
-
 import { formatPhoneNumber } from '@/helpers/auth';
 
 const showSuccessPopup = ref(false);
@@ -121,6 +120,7 @@ const popupStatus = ref('confirmation');
 
 const transferStore = useTransferStore();
 const recepientsStore = useRecepientsStore();
+const errorsStore = useErrorsStore();
 
 const router = useRouter();
 const route = useRoute();
@@ -156,8 +156,10 @@ const sendTransaction = async () => {
       });
       transferStore.clearTransferData();
     } catch (err) {
+      // todo: not required handling
       showFailurePopup.value = true;
-      SentryUtil.capture(
+
+      errorsStore.handle(
         err,
         'SendTo',
         'sendTransaction',

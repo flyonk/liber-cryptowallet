@@ -97,7 +97,7 @@ watch(
 const startCamera = async () => {
   try {
     await CameraPreview.start(cameraPreviewOptions);
-  } catch (e) {
+  } catch (err) {
     await CameraPreview.stop();
 
     await CameraPreview.start(cameraPreviewOptions);
@@ -130,8 +130,8 @@ const stopCamera = () => {
   // eslint-disable-next-line no-useless-catch
   try {
     CameraPreview.stop();
-  } catch (e) {
-    throw e;
+  } catch (err) {
+    throw err;
   }
 };
 

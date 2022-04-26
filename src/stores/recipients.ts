@@ -10,6 +10,7 @@ import { EStorageKeys } from '@/types/storage';
 
 import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
+import { useErrorsStore } from '@/stores/errors';
 
 interface IRecepients {
   contacts: Contact[];
@@ -86,12 +87,34 @@ export const useRecepientsStore = defineStore('recepients', {
           this.contacts = contacts;
         }
         this.friends = await loadFriends();
+        this.contacts = this.contacts.map((c: Contact) => {
+          if (this.friends.has(c.contactId)) {
+            c.isFriend = true;
+          }
+          return c;
+        });
         return true;
-      } catch (error: any) {
-        if (error?.code === CAPACITOR_WEB_ERROR) {
+      } catch (err: any) {
+        if (err?.code === CAPACITOR_WEB_ERROR) {
+          // todo: remove mocked contacts import
           this.contacts = mockedContacts;
           this.friends = await loadFriends();
+          this.contacts = this.contacts.map((c: Contact) => {
+            if (this.friends.has(c.contactId)) {
+              c.isFriend = true;
+            }
+            return c;
+          });
         }
+
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
+          err,
+          'recipients.ts',
+          'getPhoneContacts',
+          "error can't get phone contacts"
+        );
       }
     },
     async addNewContact(contact: any) {
@@ -104,6 +127,7 @@ export const useRecepientsStore = defineStore('recepients', {
           };
         }),
         emails: [],
+        isFriend: true,
       };
       this.contacts.push(newContact);
       this.friends.add(newContact.contactId);
@@ -111,6 +135,12 @@ export const useRecepientsStore = defineStore('recepients', {
     },
     async addFriend(contact: Contact) {
       this.friends.add(contact.contactId);
+      this.contacts = this.contacts.map((c: Contact) => {
+        if (c.contactId === contact.contactId) {
+          c.isFriend = true;
+        }
+        return c;
+      });
       const newFriend = {
         id: contact.contactId,
         name: contact.displayName || '',
