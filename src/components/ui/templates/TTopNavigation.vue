@@ -9,8 +9,9 @@
         ><slot name="title" />
         <template #top-left><slot name="top-left" /></template>
         <template #top-right><slot name="top-right" /></template>
-        <template #subtitle><slot name="subtitle" /></template
-      ></top-navigation>
+        <template #subtitle><slot name="subtitle" /></template>
+        <template #right><slot name="right" /></template>
+      </top-navigation>
     </div>
 
     <div class="content">
