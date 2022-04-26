@@ -31,9 +31,7 @@ import { useRoute } from 'vue-router';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
@@ -54,7 +52,6 @@ const cameraPreviewOptions: CameraPreviewOptions = {
   disableAudio: true,
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
 const isProofTypePassport = computed(
@@ -171,32 +168,17 @@ const onScan = async () => {
 </script>
 
 <style lang="scss" scoped>
-// .kyc-4-step {
-//   > .scan-animation {
-//     margin-top: 80px;
-
-//     > .inner {
-//       > .camera {
-//         width: 100%;
-//         height: 100%;
-//         max-width: 100%;
-//         max-height: 100%;
-
-//         > .camera-video {
-//           height: 100% !important;
-//           width: 100%;
-//           border-radius: 12px;
-//           object-fit: cover;
-//         }
-//       }
-//     }
-//   }
-// }
-
 .camera {
   width: 100%;
   height: 100%;
   max-width: 100%;
   max-height: 100%;
+
+  > :deep(.camera-video) {
+    height: 100% !important;
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
+  }
 }
 </style>
