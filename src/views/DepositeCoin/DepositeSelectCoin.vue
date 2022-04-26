@@ -1,17 +1,18 @@
 <template name="DepositeSelectCoin">
-  <div class="page-wrapper">
-    <TopNavigation
-      left-icon-name="icon-app-navigation-back"
-      :without-title="true"
-      @click:left-icon="$router.push({ name: Route.DashboardHome })"
-    />
-    <div class="select-coin">
-      <BaseCoinListSelect
-        @back-button="router.push({ name: Route.DashboardHome })"
-        @select-coin="selectCoin"
-      />
-    </div>
-  </div>
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-back"
+    nav-without-title
+    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+  >
+    <template #title></template>
+    <template #content
+      ><div class="select-coin">
+        <base-coin-list-select
+          @back-button="router.push({ name: Route.DashboardHome })"
+          @select-coin="selectCoin"
+        /></div
+    ></template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -23,9 +24,8 @@ import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
 import { IAccount } from '@/models/account/account';
 import { ICoin } from '@/models/coin/coins';
-import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 
-import { BaseCoinListSelect } from '@/components/ui';
+import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 
 const router = useRouter();
 const accountStore = useAccountStore();
