@@ -1,4 +1,4 @@
-<template name="Recepients">
+<template name="RecepientsView">
   <div class="who-topay">
     <contacts-header :avatar-icon="true" :route-back="Route.ProfileSettings" />
     <h1 class="title">

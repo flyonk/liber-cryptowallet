@@ -1,8 +1,10 @@
 <template>
   <div>
-    <top-navigation left-icon-name="ci-close_big" @click:left-icon="prevStep">{{
-      $t('views.kyc.kyc1step.countryOfResidence')
-    }}</top-navigation>
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="prevStep"
+      >{{ $t('views.kyc.kyc1step.countryOfResidence') }}</top-navigation
+    >
     <p class="description">{{ $t('views.kyc.kyc1step.theTermsAnd') }}</p>
     <base-country-select
       v-model="country"

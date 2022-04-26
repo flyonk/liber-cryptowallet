@@ -6,6 +6,7 @@
     }"
   >
     {{ initials }}
+    <i v-if="props.isFriend" class="icon-verification"></i>
   </div>
 </template>
 
@@ -15,6 +16,10 @@ import { getContactInitials } from '@/helpers/contacts';
 const props = defineProps({
   name: {
     type: String,
+  },
+  isFriend: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -37,5 +42,13 @@ const color = `#${Math.floor(letterValue).toString(16)}`;
   height: 40px;
   color: rgb(255 255 255 / 50%);
   margin-right: 12px;
+  position: relative;
+
+  > .icon-verification {
+    position: absolute;
+    color: $color-green-400;
+    right: -3px;
+    bottom: -3px;
+  }
 }
 </style>

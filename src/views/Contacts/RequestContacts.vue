@@ -1,6 +1,9 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation left-icon-name="ci-close_big" @click:left-icon="onCancel">
+    <top-navigation
+      left-icon-name="icon-app-navigation-close"
+      @click:left-icon="onCancel"
+    >
       {{ $t('views.requestcontacts.title') }}
     </top-navigation>
 

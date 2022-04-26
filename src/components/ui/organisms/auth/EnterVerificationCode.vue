@@ -60,6 +60,7 @@ export default {
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
+import { useErrorsStore } from '@/stores/errors';
 
 import {
   TopNavigation,
@@ -68,6 +69,8 @@ import {
   BaseToast,
   BaseCountdown,
 } from '@/components/ui';
+
+const errorsStore = useErrorsStore();
 
 const { tm } = useI18n();
 
@@ -113,7 +116,12 @@ const pasteFromClipboard = async () => {
       emit('onComplete', content.value);
     }
   } catch (err) {
-    console.error(`${tm('common.readFailure')} `, err);
+    errorsStore.handle(
+      err,
+      'EnterVerificationCode',
+      'pasteFromClipboard',
+      tm('common.readFailure')
+    );
   }
 };
 

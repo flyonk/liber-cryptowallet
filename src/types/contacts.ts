@@ -57,6 +57,7 @@ export interface Contact {
   organizationName?: string;
   organizationRole?: string;
   birthday?: string;
+  isFriend?: boolean;
 }
 
 /**

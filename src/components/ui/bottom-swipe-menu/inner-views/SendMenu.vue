@@ -8,13 +8,26 @@
       <i class="icon icon-convert" />
       <p class="text">{{ $t('transactions.convert.title') }}</p>
     </li>
-    <li class="menu-item">
-      <i class="icon icon-ask-for-funds" />
-      <p class="text">Ask for Funds</p>
-    </li>
-    <li class="menu-item">
+
+    <li class="menu-item" @click="onClick('borrow')">
       <i class="icon icon-borrow" />
-      <p class="text">Borrow Coin</p>
+      <p class="text">Borrow stablecoin</p>
+    </li>
+    <li class="menu-item" @click="onClick('ask')">
+      <i class="icon icon-ask-for-funds" />
+      <p class="text">Ask a user for funds</p>
+    </li>
+    <li class="menu-item" @click="onClick('withdraw')">
+      <i class="icon icon-withdraw" />
+      <p class="text">Withdraw</p>
+    </li>
+    <li class="menu-item" @click="onClick('download')">
+      <i class="icon icon-send" />
+      <p class="text">Download Statement</p>
+    </li>
+    <li class="menu-item" @click="onClick('add')">
+      <i class="icon icon-convert" />
+      <p class="text">Add account</p>
     </li>
   </ul>
 </template>
@@ -24,13 +37,13 @@ import { computed, ComputedRef, onMounted } from 'vue';
 
 import { Route } from '@/router/types';
 import { useRouter } from 'vue-router';
-
+import { useUIStore } from '@/stores/ui';
 import { useAccountStore } from '@/stores/account';
 import { IAccount } from '@/models/account/account';
 
 const accountStore = useAccountStore();
 const router = useRouter();
-
+const uiStore = useUIStore();
 onMounted(async () => {
   await Promise.all([
     accountStore.getAccountList(),
@@ -52,6 +65,26 @@ const goToRoute = () => {
     },
   });
 };
+
+const onClick = (action: string) => {
+  switch (action) {
+    case 'borrow':
+      break;
+    case 'ask':
+      break;
+    case 'withdraw':
+      break;
+    case 'download':
+      break;
+    case 'add':
+      router.push({ name: Route.AccountAdd });
+      break;
+    default:
+      break;
+  }
+
+  uiStore.setStateModal('sendMenu', false);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -70,7 +103,7 @@ const goToRoute = () => {
 
   > .icon {
     margin-right: 20px;
-    color: blue;
+    color: $color-primary-500;
     font-size: 40px;
   }
 
