@@ -21,6 +21,7 @@
   </app-layout-switcher>
 
   <errors-toast />
+  <multi-factor-authorization />
 </template>
 
 <script setup lang="ts">
@@ -32,6 +33,7 @@ import { useAccountStore } from './stores/account';
 import SentryUtil from '@/helpers/sentryUtil';
 import SwipeBack from '@/plugins/swipe-capacitor';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
+import MultiFactorAuthorization from '@/components/ui/organisms/mfa/MultiFactorAuthorization.vue';
 
 SwipeBack.enable()
   .then()

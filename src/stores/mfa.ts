@@ -15,6 +15,7 @@
 import { defineStore } from 'pinia';
 
 interface IMfaState {
+  shown: boolean;
   twofa: boolean;
   passcode: boolean;
   opt: boolean;
@@ -22,16 +23,24 @@ interface IMfaState {
 
 // === 2fa Store ===
 
-export const use2faStore = defineStore('mfa', {
+export const useMfaStore = defineStore('mfa', {
   state: (): IMfaState => ({
+    shown: false,
     twofa: false,
     passcode: false,
     opt: false,
   }),
 
   getters: {
-    getState: (state) => state,
+    enabled: (state) => state.shown,
   },
 
-  actions: {},
+  actions: {
+    show() {
+      this.shown = true;
+    },
+    hide() {
+      this.shown = false;
+    },
+  },
 });
