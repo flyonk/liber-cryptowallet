@@ -4,7 +4,7 @@
       left-icon-name="icon-app-navigation-back"
       @click:left-icon="
         $router.push({
-          name: Route.ContactsWhoToPay,
+          name: Route.PayRecepientsLiber,
         })
       "
     >
