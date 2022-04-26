@@ -1,32 +1,30 @@
 <template>
-  <template v-if="!show2FA">
-    <div class="page-wrapper">
-      <top-navigation
-        @click:left-icon="$router.push({ name: Route.ProfileSettings })"
-      >
-        {{ $t('common.googleAuthenticator') }}
-      </top-navigation>
+  <div class="page-wrapper">
+    <top-navigation
+      @click:left-icon="$router.push({ name: Route.ProfileSettings })"
+    >
+      {{ $t('common.googleAuthenticator') }}
+    </top-navigation>
 
-      <div class="content-wrapper">
-        <p class="auth-item" style="margin-bottom: 15px">
-          <img
-            src="@/assets/brands/ga.png"
-            alt="Google Authenticator"
-            class="auth-app-icon"
-          />
-        </p>
-        <p class="text-default">
-          {{ $t('configureApp.changeAppMessage') }}
-        </p>
-      </div>
+    <div class="content-wrapper">
+      <p class="auth-item" style="margin-bottom: 15px">
+        <img
+          src="@/assets/brands/ga.png"
+          alt="Google Authenticator"
+          class="auth-app-icon"
+        />
+      </p>
+      <p class="text-default">
+        {{ $t('configureApp.changeAppMessage') }}
+      </p>
     </div>
+  </div>
 
-    <div style="padding: 15px; padding-bottom: 50px">
-      <base-button block @click="onContinue">{{
-        $t('configureApp.changeAppCTA')
-      }}</base-button>
-    </div>
-  </template>
+  <div style="padding: 15px; padding-bottom: 50px">
+    <base-button block @click="onContinue">{{
+      $t('configureApp.changeAppCTA')
+    }}</base-button>
+  </div>
 
   <base-toast v-model:visible="showPopup" :severity="'attention'">
     <template #description>
@@ -53,14 +51,6 @@
       </div>
     </template>
   </base-toast>
-
-  <div v-if="show2FA">
-    <auth2-f-a-verification-component
-      action-type="disable"
-      @success-verification="handleSuccessVerification"
-      @close="onClose"
-    />
-  </div>
 </template>
 
 <script lang="ts">
@@ -71,16 +61,14 @@ export default {
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { TopNavigation, BaseButton, BaseToast } from '@/components/ui';
-import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import { Route } from '@/router/types';
 
-const router = useRouter();
+import { useMfaStore } from '@/stores/mfa';
 
+const mfaStore = useMfaStore();
 const showPopup = ref(false);
-const show2FA = ref(false);
 
 const onContinue = () => {
   showPopup.value = true;
@@ -88,15 +76,7 @@ const onContinue = () => {
 
 const onConfirm = () => {
   showPopup.value = false;
-  show2FA.value = true;
-};
-
-const handleSuccessVerification = () => {
-  router.push({ name: Route.InstallApp });
-};
-
-const onClose = () => {
-  show2FA.value = false;
+  mfaStore.show();
 };
 </script>
 
