@@ -1,8 +1,8 @@
 <template>
   <div class="kyc-6-step">
-    <top-navigation @click:left-icon="$emit('prev')">{{
-      $t('views.kyc.kyc6step.proofOfResidence')
-    }}</top-navigation>
+    <top-navigation @click:left-icon="$emit('prev')">
+      {{ $t('views.kyc.kyc6step.proofOfResidence') }}
+    </top-navigation>
     <base-progress-bar class="mb-3" :value="getPercentage" />
     <p class="description">{{ $t('views.kyc.kyc6step.provideOneOf') }}</p>
     <ul class="list" type="disc">
@@ -21,9 +21,9 @@
     </ul>
 
     <div class="footer">
-      <base-button block class="footer-button" @click="selectPicture">{{
-        $t('views.kyc.kyc6step.upload')
-      }}</base-button>
+      <base-button block class="footer-button" @click="selectPicture">
+        {{ $t('views.kyc.kyc6step.upload') }}
+      </base-button>
     </div>
   </div>
 </template>

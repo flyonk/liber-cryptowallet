@@ -1,8 +1,8 @@
 <template>
   <div class="kyc-5-step">
-    <top-navigation @click:left-icon="$emit('prev')">{{
-      $t('views.kyc.kyc5step.proofOfIdentity')
-    }}</top-navigation>
+    <top-navigation @click:left-icon="$emit('prev')">
+      {{ $t('views.kyc.kyc5step.proofOfIdentity') }}
+    </top-navigation>
     <base-progress-bar :value="getPercentage" class="mb-3" />
     <p class="description">{{ $t('views.kyc.kyc5step.haveAFinal') }}</p>
 
@@ -13,9 +13,9 @@
             {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
           </div>
           <img :src="image" alt="front" class="image" />
-          <base-button block view="secondary" @click="onScanAgain">{{
-            $t('views.kyc.kyc5step.scanAgain')
-          }}</base-button>
+          <base-button block view="secondary" @click="onScanAgain">
+            {{ $t('views.kyc.kyc5step.scanAgain') }}
+          </base-button>
         </template>
       </div>
     </template>
@@ -30,9 +30,9 @@
       </div>
     </template>
 
-    <base-button block class="footer-button" @click="onNext">{{
-      $t('views.kyc.kyc5step.upload')
-    }}</base-button>
+    <base-button block class="footer-button" @click="onNext">
+      {{ $t('views.kyc.kyc5step.upload') }}
+    </base-button>
   </div>
 </template>
 
@@ -82,6 +82,7 @@ const onNext = () => {
 
   > .footer-button {
     margin-top: 32px;
+    margin-bottom: 48px;
   }
 }
 </style>
