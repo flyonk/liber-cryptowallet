@@ -1,19 +1,12 @@
 <template>
-  <t-top-navigation
-    @click:left-icon="$router.push({ name: Route.ConfigureApp })"
-  >
-    <template #title>{{ $t('auth.login.step4Title') }}</template>
-    <template #subtitle>{{
-      `${$t('auth.login.step4Description')} ${phone}`
-    }}</template>
-    <template #content>
-      <EnterVerificationCode
-        :is-error="isError"
-        @on-hide="onHideError"
-        @on-complete="onComplete"
-      />
-    </template>
-  </t-top-navigation>
+  <EnterVerificationCode
+    :title="$t('auth.login.step4Title')"
+    :text="`${$t('auth.login.step4Description')} ${phone}`"
+    :is-error="isError"
+    @on-hide="onHideError"
+    @on-complete="onComplete"
+    @on-prev="$router.push({ name: Route.ConfigureApp })"
+  />
 </template>
 
 <script setup lang="ts">
@@ -24,7 +17,6 @@ import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
 import { formatPhone } from '@/helpers/2fa';
 import { useAuthStore } from '@/stores/auth';
-import { TTopNavigation } from '@/components/ui';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
