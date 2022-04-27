@@ -1,7 +1,8 @@
 export type TTransaction =
   | INetTransaction
   | IRequestFunds
-  | IConvertTransaction;
+  | IConvertTransaction
+  | ITransferTransaction;
 
 export type TConvertTransaction = {
   code?: string;
@@ -102,10 +103,10 @@ export interface IDirectionInfo {
 
 export interface ITransactionDefault {
   id: string;
-  status: string;
+  status: ETransactionStatus;
   amount: string;
   date: string;
-  type: string;
+  type: ETransactionType;
   code: string;
 }
 
@@ -120,6 +121,17 @@ export interface IConvertTransaction extends ITransactionDefault {
   };
   to: IDirectionInfo;
   from: IDirectionInfo;
+}
+
+export interface ITransferTransaction extends ITransactionDefault {
+  direction: string;
+  statement?: object;
+  rate?: string;
+  fee: IFeeInfo;
+  contragent: {
+    id: string;
+    phone: string;
+  };
 }
 
 export default {
@@ -159,6 +171,27 @@ export default {
           amount: input.amount_to,
         },
       } as IConvertTransaction;
+    }
+
+    if (input.type === ETransactionType.transfer) {
+      return {
+        id: input.id,
+        status: 'failed',
+        amount: input.amount,
+        date: input.finished_at ? input.finished_at : input.created_at,
+        type: input.type,
+        code: input.code,
+
+        direction: input.direction,
+        fee: {
+          amount: input.fee ? input.fee : '0.0001',
+          code: input.fee_code ? input.fee_code : input.code,
+        },
+        contragent: {
+          id: input.contragent.id,
+          phone: input.contragent.phone,
+        },
+      } as ITransferTransaction;
     }
     return {
       id: input.id,

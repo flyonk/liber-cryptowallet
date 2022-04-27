@@ -25,7 +25,7 @@ import { useErrorsStore } from '@/stores/errors';
 import {
   ConvertTransactionDetails,
   ExternalTransactionDetails,
-  InnerTransactionDetails,
+  TransferTransactionDetails,
 } from '@/components/ui/organisms/transactions';
 
 const route = useRoute();
@@ -66,7 +66,7 @@ const component = computed(() => {
     case ETransactionType.deposit:
       return ExternalTransactionDetails;
     default:
-      return InnerTransactionDetails;
+      return TransferTransactionDetails;
   }
 });
 
@@ -150,8 +150,19 @@ const copyToClipboard = async (data: string) => {
 
         &.-cancel {
           width: 104px;
+          margin-left: 8px;
           background: $color-red-50;
-          color: $color-red;
+
+          > .container {
+            > i {
+              color: $color-red-500;
+              font-size: 18px;
+            }
+
+            > .label {
+              color: $color-red-500;
+            }
+          }
         }
 
         > .icon {
@@ -191,8 +202,11 @@ const copyToClipboard = async (data: string) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(175 179 195 / 30%);
   padding: 24px 0;
+
+  &:not(:last-child) {
+    border-bottom: 1px solid rgb(175 179 195 / 30%);
+  }
 
   > .button {
     min-width: 0;
@@ -201,10 +215,6 @@ const copyToClipboard = async (data: string) => {
   > .icon {
     color: $color-brand-primary;
     font-size: 24px;
-  }
-
-  &:first-child {
-    border-top: 1px solid rgb(175 179 195 / 30%);
   }
 
   > .name {

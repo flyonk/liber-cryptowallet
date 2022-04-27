@@ -58,13 +58,11 @@
       <li class="main-item">
         <p class="name">
           {{
-            transaction.direction === EDirection.income
-              ? $t('transactions.cost')
-              : $t('transactions.bought')
+            isIncome.value ? $t('transactions.cost') : $t('transactions.bought')
           }}
         </p>
         <p class="description">
-          {{ transaction.direction === EDirection.income ? '-' : '+' }}
+          {{ isIncome.value ? '-' : '+' }}
           {{ transaction.counter.amount }}
           {{ transaction.counter.code.toUpperCase() }}
         </p>
@@ -103,13 +101,14 @@ const props = defineProps({
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());
-
-const directionSign = computed(() =>
-  props.transaction.direction === EDirection.income ? '+' : '-'
+const isIncome = computed(
+  () => props.transaction.direction === EDirection.income
 );
 
+const directionSign = computed(() => (isIncome.value ? '+' : '-'));
+
 const detailedInfo = computed(() =>
-  props.transaction.direction === EDirection.outcome
+  !isIncome.value
     ? 'Sold ' +
       mainCoin.value +
       ' to ' +

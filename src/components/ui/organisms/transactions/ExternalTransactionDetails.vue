@@ -58,6 +58,7 @@
             {{ $t('transactions.address') }}
           </p>
           <span class="transaction">
+            <!--TODO Change mock data-->
             1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l
           </span>
         </div>

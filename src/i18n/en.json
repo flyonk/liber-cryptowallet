@@ -144,6 +144,7 @@
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
     "statement": "Statement",
+    "paymentLinkExpires": "Payment link will expire in 6 days",
     "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
