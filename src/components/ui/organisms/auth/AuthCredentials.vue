@@ -37,6 +37,7 @@
           :mask="mask"
           :unmask="true"
           :auto-clear="false"
+          inputmode="tel"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
