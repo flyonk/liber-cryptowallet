@@ -406,7 +406,10 @@
         "logoutAccept": "Yes",
         "logoutDecline": "No",
         "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
-        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?"
+        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?",
+        "appearance": "Appearance",
+        "language": "Language",
+        "selectLanguage": "Select Language"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
