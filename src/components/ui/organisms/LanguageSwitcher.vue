@@ -16,6 +16,7 @@ import { useI18n } from 'vue-i18n';
 
 import { set } from '@/helpers/storage';
 import { setLocale } from '@/i18n';
+import { languages } from '../../../../tests/unit/mocks';
 
 import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 
@@ -35,19 +36,7 @@ const selectedEntity = computed(() => {
 
 onBeforeMount(async (): Promise<void> => {
   // TODO: get later from api
-  const countries = [
-    {
-      name: 'Germany',
-      isoCode: 'DE',
-      localPath: '/img/flags/DE.svg',
-    },
-    {
-      name: 'English',
-      isoCode: 'EN',
-      localPath: '/img/flags/GB.svg',
-    },
-  ];
-  list.value = countries.filter((item) => {
+  list.value = languages.filter((item) => {
     return availableLocales.includes(item.isoCode.toLocaleLowerCase());
   });
 });
