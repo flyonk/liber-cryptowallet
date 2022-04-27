@@ -30,11 +30,6 @@
               alt="50% completed"
             />
           </div>
-          <footer class="footer">
-            <button class="btn">
-              {{ $t('views.dashboard.verifyingIdentity.gotIt') }}
-            </button>
-          </footer>
         </div>
       </template>
       <template #fixed-footer>
@@ -95,6 +90,25 @@ import { TTopNavigation } from '@/components/ui';
   > .image {
     height: 64px;
     width: 64px;
+  }
+}
+
+.footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25%;
+
+  > .btn {
+    width: 343px;
+    height: 48px;
+    background: $color-primary;
+    border-radius: 13px;
+    color: $color-white;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    margin-top: 50px;
   }
 }
 </style>
