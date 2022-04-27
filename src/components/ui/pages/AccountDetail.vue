@@ -1,12 +1,10 @@
 <template name="AccountDetail">
   <div class="account-transactions">
+    <t-top-navigation
+      nav-without-title
+      @click:left-icon="$router.push({ name: Route.AccountMain })"
+    />
     <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.push({ name: Route.AccountMain })"
-      />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
         :balance="balance.balance"
@@ -92,9 +90,14 @@ import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
 
-import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
-import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
-import { AccountDetails } from '@/components/ui';
+// import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
+
+import {
+  AccountDetails,
+  TransactionsList,
+  TTopNavigation,
+  TotalAccountBalanceByCoin,
+} from '@/components/ui';
 
 interface ICarouselItem {
   name: LocaleMessageValue<VueMessageType>;
