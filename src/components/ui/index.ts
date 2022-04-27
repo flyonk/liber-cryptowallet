@@ -27,3 +27,4 @@ export { default as TTopNavigation } from './templates/TTopNavigation.vue';
 export { default as TransactionsList } from './organisms/transactions/TransactionsList.vue';
 export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswer.vue';
 export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';
+export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
