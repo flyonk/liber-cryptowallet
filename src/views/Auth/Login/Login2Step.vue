@@ -1,17 +1,15 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
-    <template #title>{{ $t('common.codeInput') }}</template>
-    <template #content>
-      <VerifyCode v-bind="$attrs" :flow="VerifyCodeFlow.Login" />
-    </template>
-  </t-top-navigation>
+  <VerifyCode
+    v-bind="$attrs"
+    :flow="VerifyCodeFlow.Login"
+    @prev="$emit('prev')"
+  />
 </template>
 
 <script lang="ts" setup>
 import VerifyCode from '@/components/ui/organisms/auth/VerifyCode.vue';
 
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
-import { TTopNavigation } from '@/components/ui';
 
 defineEmits(['prev']);
 </script>
@@ -30,8 +28,6 @@ defineEmits(['prev']);
   }
 
   > .footer {
-    margin-top: 1rem;
-
     > .footnote {
       color: $color-dark-grey;
 
