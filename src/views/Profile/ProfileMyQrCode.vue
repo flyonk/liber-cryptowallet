@@ -40,15 +40,23 @@
 </template>
 
 <script setup lang="ts">
+import { onBeforeMount, computed } from 'vue';
+
 import { useProfileStore } from '@/stores/profile';
+
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 
 const profileStore = useProfileStore();
-let { phone, firstName, lastName } = profileStore.getUser;
 
-const accountName = `${firstName} ${lastName}`;
-const link = accountName.replaceAll(' ', '');
-const accountID = phone;
+const accountName = computed(
+  () => `${profileStore.user.firstName} ${profileStore.user.lastName}`
+);
+const link = computed(() => accountName.value.replaceAll(' ', ''));
+const accountID = computed(() => profileStore.user.phone);
+
+onBeforeMount(() => {
+  if (!profileStore.user.id) profileStore.init();
+});
 </script>
 
 <style lang="scss" scoped>
