@@ -1,4 +1,7 @@
-export type TTransaction = INetTransaction | IRequestFunds;
+export type TTransaction =
+  | INetTransaction
+  | IRequestFunds
+  | IConvertTransaction;
 
 export type TConvertTransaction = {
   code?: string;
@@ -24,6 +27,7 @@ export interface INetTransaction {
   relativeDate?: string;
   rate?: string;
   detailedInfo?: string;
+  txid?: string;
   oppositeCoin?: {
     amount: string;
     code: string;
@@ -86,9 +90,76 @@ export enum EDirection {
   guard = '',
 }
 
+export interface IFeeInfo {
+  amount: string;
+  code: string;
+}
+
+export interface IDirectionInfo {
+  code: string;
+  amount: string;
+}
+
+export interface ITransactionDefault {
+  id: string;
+  status: string;
+  amount: string;
+  date: string;
+  type: string;
+  code: string;
+}
+
+export interface IConvertTransaction extends ITransactionDefault {
+  direction: string;
+  statement?: object;
+  rate: string;
+  fee: IFeeInfo;
+  counter: {
+    amount: string;
+    code: string;
+  };
+  to: IDirectionInfo;
+  from: IDirectionInfo;
+}
+
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any): TTransaction {
+    if (input.type === ETransactionType.convert) {
+      return {
+        id: input.id,
+        code: input.code,
+        type: input.type,
+        amount: input.amount,
+        direction: input.direction,
+        date: input.finished_at ? input.finished_at : input.created_at,
+        status: input.status,
+        statement: undefined,
+        rate: input.rate,
+        fee: {
+          amount: input.fee,
+          code: input.fee_code,
+        },
+        counter: {
+          amount:
+            input.direction === EDirection.income
+              ? input.amount_from
+              : input.amount_to,
+          code:
+            input.direction === EDirection.income
+              ? input.code_from
+              : input.code_to,
+        },
+        from: {
+          code: input.code_from,
+          amount: input.amount_from,
+        },
+        to: {
+          code: input.code_to,
+          amount: input.amount_to,
+        },
+      } as IConvertTransaction;
+    }
     return {
       id: input.id,
       sum:
@@ -149,31 +220,13 @@ export default {
       startDate: input.created_at,
       finishDate: input.finished_at ? input.finished_at : undefined,
       rate: input.rate ? input.rate : undefined,
+      txid: input.txid ? input.txid : undefined,
       detailedInfo: _getDetailedInfo(
         input.type,
         input.direction,
         input.code,
         input.direction === EDirection.income ? input.code_from : input.code_to
       ) as string,
-    };
-  },
-
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: TTransaction): any {
-    return {
-      id: input.id,
-      amount: (input as INetTransaction).sum || (input as IRequestFunds).amount,
-      status: input.status,
-      type: input.type,
-      code: input.code,
-      contragent: input.contractor
-        ? {
-            id: input.contractor.id,
-            phone: input.contractor.phone,
-            email: input.contractor.email,
-            address: input.contractor.address,
-          }
-        : undefined,
     };
   },
 };

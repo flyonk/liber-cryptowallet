@@ -24,7 +24,8 @@ import { useErrorsStore } from '@/stores/errors';
 
 import {
   ConvertTransactionDetails,
-  DepositTransactionDetails,
+  ExternalTransactionDetails,
+  InnerTransactionDetails,
 } from '@/components/ui/organisms/transactions';
 
 const route = useRoute();
@@ -62,8 +63,10 @@ const component = computed(() => {
   switch (transaction.value.type) {
     case ETransactionType.convert:
       return ConvertTransactionDetails;
+    case ETransactionType.deposit:
+      return ExternalTransactionDetails;
     default:
-      return DepositTransactionDetails;
+      return InnerTransactionDetails;
   }
 });
 
@@ -191,8 +194,12 @@ const copyToClipboard = async (data: string) => {
   border-bottom: 1px solid rgb(175 179 195 / 30%);
   padding: 24px 0;
 
+  > .button {
+    min-width: 0;
+  }
+
   > .icon {
-    color: $color-primary-500;
+    color: $color-brand-primary;
     font-size: 24px;
   }
 
@@ -262,6 +269,7 @@ const copyToClipboard = async (data: string) => {
       font-weight: 500;
       font-size: 16px;
       line-height: 21px;
+      word-break: break-all;
       letter-spacing: -0.0031em;
     }
   }

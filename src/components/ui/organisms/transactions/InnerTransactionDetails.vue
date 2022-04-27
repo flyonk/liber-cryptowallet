@@ -1,4 +1,4 @@
-<template name="TransactionDetails">
+<template>
   <div class="transaction-details">
     <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
@@ -57,7 +57,7 @@
         </p>
         <TransactionStatus :status="transaction.status" />
       </li>
-      <template v-if="transaction.type !== 'deposit'">
+      <template>
         <li class="main-item">
           <p class="name">
             {{ $t('transactions.paymentTo') }}
@@ -71,7 +71,9 @@
           <p class="name">
             {{ $t('transactions.transferFee') }}
           </p>
-          <p class="description">0,12345678 {{ transaction.code }}</p>
+          <p class="description">
+            {{ transaction.fee }} {{ transaction.code }}
+          </p>
         </li>
         <li v-if="transaction.from?.code" class="main-item">
           <p class="name">
@@ -93,16 +95,16 @@
           <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
         </li>
       </template>
-      <li v-else class="main-item">
+      <li class="main-item">
         <p class="name">
-          {{ $t('transactions.statement') }}
+          {{ $t('views.deposit.wallet.network') }}
         </p>
-        <base-button size="medium" view="flat">
-          {{ $t('transactions.download') }}
-        </base-button>
+        <span class="text--callout font-weight--medium">
+          {{ transaction.code }}
+        </span>
       </li>
     </ul>
-    <h2 v-if="transaction.type !== 'deposit'" class="explorer">
+    <h2 class="explorer">
       {{ $t('common.explorer') }}
     </h2>
   </div>
@@ -116,7 +118,6 @@ import { useProfileStore } from '@/stores/profile';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
-  BaseButton,
   TopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,

@@ -51,6 +51,10 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  showCoin: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 const displayedTransactions = computed(() => {
@@ -84,7 +88,7 @@ const goToRoute = (
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .transactions {
   // max-height: 360px;
   overflow-y: auto;

@@ -132,6 +132,7 @@
     "complete": "Complete"
   },
   "transactions": {
+    "address": "Address",
     "id": "Transaction ID",
     "walletAddress": "Wallet Address",
     "deposit": "Deposit",
