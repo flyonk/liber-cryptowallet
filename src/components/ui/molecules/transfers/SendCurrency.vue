@@ -75,20 +75,11 @@
         </div>
       </label>
     </div>
-    <base-button
-      class="send-button"
-      size="large"
-      view="simple"
-      @click="$emit('send-transaction')"
-    >
-      Send
-    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import { BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 
 const props = defineProps({
