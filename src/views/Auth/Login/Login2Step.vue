@@ -11,7 +11,7 @@
 import VerifyCode from '@/components/ui/organisms/auth/VerifyCode.vue';
 
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { TTopNavigation } from '@/components/ui';
 
 defineEmits(['prev']);
 </script>

@@ -47,8 +47,7 @@ import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BasePasscode, BaseToast } from '@/components/ui';
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 
 import { Route } from '@/router/types';
