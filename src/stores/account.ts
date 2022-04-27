@@ -3,33 +3,40 @@ import { defineStore } from 'pinia';
 import { STORE_AUTH_KEY } from '@/constants';
 import accountService from '@/services/accountService';
 import transactionService from '@/services/transactionService';
-import SentryUtil from '@/helpers/sentryUtil';
 
 import { IAccount } from '@/models/account/account';
 import { IAccountTotal } from '@/models/account/IAccountTotal';
 import { INetTransaction } from '@/models/transaction/transaction';
+import { useErrorsStore } from '@/stores/errors';
+
+export interface INewAccountParams {
+  network: string;
+  coin: string | null;
+}
 
 // === Account Types ===
 
 export interface IAccountState {
-  address: string;
-  token?: string;
   accountList: IAccount[];
   totalBalance: IAccountTotal;
   balanceByCoin: IAccount;
   coinTransactions: INetTransaction[];
+  newAccountParams: INewAccountParams;
 }
 
 // === Account Store ===
 
 export const useAccountStore = defineStore('account', {
   state: (): IAccountState => ({
-    address: '',
-    token: undefined,
     accountList: [],
     balanceByCoin: <IAccount>{},
     totalBalance: <IAccountTotal>{},
     coinTransactions: [],
+
+    newAccountParams: {
+      network: 'default',
+      coin: null,
+    },
   }),
 
   getters: {
@@ -37,6 +44,8 @@ export const useAccountStore = defineStore('account', {
     getTotalBalance: (state) => state.totalBalance,
     getCoinTransactions: (state) => state.coinTransactions,
     getBalanceByCoin: (state) => state.balanceByCoin,
+
+    getNewAccountParams: (state) => state.newAccountParams,
   },
 
   actions: {
@@ -51,9 +60,11 @@ export const useAccountStore = defineStore('account', {
           ? await transactionService.getTransactionList(coin)
           : [];
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
-          'AccountDetail',
+          'account.ts',
           'getAccountData',
           "error can't retrieve account data"
         );
@@ -64,9 +75,11 @@ export const useAccountStore = defineStore('account', {
       try {
         this.accountList = await accountService.getAccounts();
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
-          'dashboard',
+          'account.ts',
           'getAccountList',
           "error can't retrieve accounts list"
         );
@@ -77,9 +90,11 @@ export const useAccountStore = defineStore('account', {
       try {
         this.totalBalance = await accountService.getAccountsTotalBalance();
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
-          'dashboard',
+          'account.ts',
           'getAccountBalance',
           "error can't retrieve account balance"
         );
@@ -93,13 +108,19 @@ export const useAccountStore = defineStore('account', {
       try {
         return await accountService.createAccount(coinCode, data);
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
-          'dashboard',
+          'account.ts',
           'createAccount',
           'error on creating account'
         );
       }
+    },
+
+    setNewAccountParams(property: keyof INewAccountParams, value: string) {
+      this.newAccountParams[property] = value;
     },
   },
 });

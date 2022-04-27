@@ -151,13 +151,15 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { getCurrentInstance, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { useErrorsStore } from '@/stores/errors';
+
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
 import { EStorageKeys } from '@/types/storage';
@@ -171,6 +173,7 @@ import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 const route = useRouter();
 const authStore = useAuthStore();
 const appOptionsStore = useAppOptionsStore();
+const errorsStore = useErrorsStore();
 const { tm } = useI18n();
 
 const profileStore = useProfileStore();
@@ -225,8 +228,6 @@ const onSwitcherChange = async () => {
   }
 };
 
-const { proxy } = getCurrentInstance();
-
 /**
  * Lifecycles
  */
@@ -251,7 +252,7 @@ onMounted(async () => {
         touchFaceIdSwitcher.value = option;
       }
     } catch (err) {
-      proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
+      errorsStore.handle(err, 'ProfileSettings', 'onMounted');
     }
 });
 
@@ -265,9 +266,9 @@ async function onLogout() {
       'views.profile.profileSettings.logoutConfirmationTitle'
     ) as string,
     message: tm('views.profile.profileSettings.logoutConfirmation') as string,
-    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
     cancelButtonTitle: tm(
-      'views.profile.profileSettings.logoutAccept'
+      'views.profile.profileSettings.logoutDecline'
     ) as string,
   });
 

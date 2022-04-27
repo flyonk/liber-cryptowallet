@@ -25,3 +25,5 @@ export { default as TransactionIconWithStatus } from './molecules/TransactionIco
 export { default as TransactionStatus } from './molecules/TransactionStatus.vue';
 export { default as TTopNavigation } from './templates/TTopNavigation.vue';
 export { default as TransactionsList } from './organisms/transactions/TransactionsList.vue';
+export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswer.vue';
+export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';

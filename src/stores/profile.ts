@@ -8,6 +8,7 @@ import { clearAll, get, set } from '@/helpers/storage';
 import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys, SStorageKeys } from '@/types/storage';
+import { useErrorsStore } from '@/stores/errors';
 
 export interface IUserProfile {
   user: IProfile;
@@ -42,7 +43,7 @@ export const useProfileStore = defineStore('profile', {
       });
     },
 
-    async closeAccount() {
+    async closeAccount(): Promise<void> {
       // TODO Wait for response when API is ready
       profileService.closeProfile();
 
@@ -53,12 +54,15 @@ export const useProfileStore = defineStore('profile', {
       try {
         return await profileService.getProfile();
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
+          'profile.ts',
           'getUserProfile',
-          'Login3Step',
           "error can't retrieve user data"
         );
+
         return {} as IProfile;
       }
     },
@@ -71,16 +75,18 @@ export const useProfileStore = defineStore('profile', {
         await profileService.updateProfile(this.user);
         this.syncUserDataInStorage();
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
+          'profile.ts',
           'updateUserProfile',
-          'Signup',
           "error can't update user data"
         );
       }
     },
 
-    async setMarketingToStorage() {
+    async setMarketingToStorage(): Promise<void> {
       await set({
         key: EStorageKeys.marketing,
         value: JSON.stringify(this.getMarketing),

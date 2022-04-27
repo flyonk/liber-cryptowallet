@@ -58,7 +58,7 @@ const _requestHandler = async (
       if (token) config.headers['Authorization'] = `Bearer ${token}`;
     }
   } catch (error) {
-    console.log('return config erorr', error);
+    console.log('return config error', error);
     SentryUtil.capture(
       error,
       'AxiosInterceptor',

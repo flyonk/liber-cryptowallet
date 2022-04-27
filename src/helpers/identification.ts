@@ -1,5 +1,5 @@
 import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
-import SentryUtil from '@/helpers/sentryUtil';
+import { useErrorsStore } from '@/stores/errors';
 
 export function verifyIdentity() {
   return NativeBiometric.verifyIdentity();
@@ -21,13 +21,16 @@ export async function getSupportedOptions() {
       return 'touch-id';
     }
     return '';
-  } catch (error) {
-    SentryUtil.capture(
-      error,
+  } catch (err) {
+    const errorsStore = useErrorsStore();
+
+    errorsStore.handle(
+      err,
       'identification',
       'getSupportedOptions',
       'error to define native biometrics'
     );
+
     return '';
   }
 }

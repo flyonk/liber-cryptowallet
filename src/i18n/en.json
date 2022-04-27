@@ -497,12 +497,15 @@
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh",
-        "sameCurrenciesError": "You should choose different currencies for exchange"
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },
   "errors": {
     "requestTimeout": "Request timeout",
-    "serviceUnavailable": "Service unavailable"
+    "serviceUnavailable": "Service unavailable",
+    "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
+    "gotIt": "Got it",
+    "details": "Details"
   }
 }

@@ -29,8 +29,8 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 import {
-  BaseProgressCircular,
   BaseButton,
+  BaseProgressCircular,
   TTopNavigation,
 } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';

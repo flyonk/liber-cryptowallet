@@ -8,6 +8,7 @@
     <template #content
       ><div class="select-coin">
         <base-coin-list-select
+          :coins="coins"
           @back-button="router.push({ name: Route.DashboardHome })"
           @select-coin="selectCoin"
         /></div
@@ -17,11 +18,12 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { onBeforeMount } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
+import { useCoinsStore } from '@/stores/coins';
 import { IAccount } from '@/models/account/account';
 import { ICoin } from '@/models/coin/coins';
 
@@ -30,9 +32,12 @@ import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 const router = useRouter();
 const accountStore = useAccountStore();
 const depositStore = useDepositStore();
+const coinsStore = useCoinsStore();
+
+const coins = computed(() => coinsStore.coins);
 
 onBeforeMount(async () => {
-  await Promise.all([accountStore.getAccountList()]);
+  await Promise.all([accountStore.getAccountList(), coinsStore.fetchCoins()]);
 });
 
 const selectAccount = (coinCode: string) => {

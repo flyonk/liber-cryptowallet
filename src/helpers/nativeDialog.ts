@@ -13,7 +13,7 @@ export const showConfirm = async (options: ConfirmOptions) => {
     const { value } = await Dialog.confirm(options);
 
     return value;
-  } catch (e) {
+  } catch (err) {
     return false;
   }
 };

@@ -3,6 +3,7 @@ import { Device } from '@capacitor/device';
 import { Storage } from '@capacitor/storage';
 
 import { EStorageKeys } from '@/types/storage';
+import { useErrorsStore } from '@/stores/errors';
 
 /**
  * Return messages for each json locale file
@@ -38,8 +39,9 @@ export const setLocale = async (): Promise<void> => {
     i18n.global.locale.value =
       (await Storage.get({ key: EStorageKeys.language })).value ||
       (await Device.getLanguageCode()).value.substr(0, 2);
-  } catch (e) {
-    //TODO: Logger err to Sentry
-    console.error(e);
+  } catch (err) {
+    const errorsStore = useErrorsStore();
+
+    errorsStore.handle(err, 'src/i18n/index.ts', 'setLocale');
   }
 };
