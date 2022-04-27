@@ -191,7 +191,7 @@ const title = computed(() => {
 
 .radio-btn {
   border: 1px solid $color-brand-2-50;
-  padding: 15px 20px;
+  padding: 20px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
