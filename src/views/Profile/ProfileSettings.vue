@@ -1,24 +1,26 @@
 <template name="AccountSettings">
   <t-top-navigation
     left-icon-name="icon-app-navigation-close"
-    :nav-without-title="true"
     @click:left-icon="$router.push({ name: Route.DashboardHome })"
   >
-    <template #title />
+    <template #title>
+      <div class="left">
+        <h1 class="title">{{ accountName }}</h1>
+        <div class="flex">
+          <p class="account">
+            My ID:
+            <a class="link">{{ accountID }}</a>
+          </p>
+        </div>
+      </div>
+    </template>
+    <template #right>
+      <div class="initials-wrapper">
+        <ContactInitials :name="accountName" />
+      </div>
+    </template>
     <template #content>
       <div class="account-settings">
-        <div class="header">
-          <div class="left">
-            <h1 class="title">{{ accountName }}</h1>
-            <div class="flex">
-              <p class="account">
-                My ID:
-                <a class="link">{{ accountID }}</a>
-              </p>
-            </div>
-          </div>
-          <ContactInitials :name="accountName" />
-        </div>
         <!-- TODO: Implement menu controls -->
         <div class="controls" style="display: none">
           <button class="btn -blue">
@@ -415,5 +417,38 @@ async function onLogout() {
       }
     }
   }
+}
+
+.left {
+  > .back {
+    margin-bottom: 20px;
+  }
+
+  > .title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 8px;
+  }
+
+  > .flex > .account {
+    font-size: 20px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.0045em;
+    color: $color-dark-grey;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+  }
+}
+
+.initials-wrapper > :deep(.initials) {
+  width: 56px;
+  height: 56px;
 }
 </style>
