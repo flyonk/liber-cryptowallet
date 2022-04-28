@@ -5,7 +5,7 @@
         alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        @click="$router.push({ name: Route.AccountMain })"
+        @click="$router.replace({ name: Route.AccountMain })"
       />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
