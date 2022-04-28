@@ -22,7 +22,9 @@
             <slot name="subtitle" />
           </h1>
         </div>
-        <slot name="right"></slot>
+        <div class="right">
+          <slot name="right"></slot>
+        </div>
       </div>
     </template>
   </header>
@@ -74,6 +76,7 @@ defineEmits(['click:left-icon']);
       line-height: 22px;
       letter-spacing: -0.0043em;
       color: $color-brand-primary;
+      width: 100%;
     }
   }
 
