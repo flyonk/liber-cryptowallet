@@ -1,65 +1,63 @@
 <template name="PrivacySettings">
-  <div class="privacy-settings">
-    <header class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/profile')"
-      />
-    </header>
-    <h1 class="title">{{ $t('views.profile.profilePrivacy.privacy') }}</h1>
-    <main class="main">
-      <h6 class="subtitle">
-        {{ $t('views.profile.profilePrivacy.marketing') }}
-      </h6>
-      <section class="section">
-        <div class="header">
-          <h3 class="title">
-            {{ $t('views.profile.profilePrivacy.marketingEmails') }}
-          </h3>
-          <BaseSwitch
-            class="switch"
-            :model-value="_isEmail"
-            @update:model-value="handleEmailUpdate"
-          />
-        </div>
-        <div class="description">
-          {{ $t('views.profile.profilePrivacy.receiveEmails') }}
-        </div>
-      </section>
-      <hr class="separator" />
-      <section class="section">
-        <div class="header">
-          <h3 class="title">
-            {{ $t('views.profile.profilePrivacy.marketingPushes') }}
-          </h3>
-          <BaseSwitch
-            class="switch"
-            :model-value="_isPushNotification"
-            @update:model-value="handlePushesUpdate"
-          />
-        </div>
-        <div class="description">
-          {{ $t('views.profile.profilePrivacy.receivePushNotifications') }}
-        </div>
-      </section>
-      <hr class="separator" />
-      <section class="section">
-        <div class="header">
-          <h3 class="title">{{ $t('views.profile.profilePrivacy.social') }}</h3>
-          <BaseSwitch
-            class="switch"
-            :model-value="_isSocialMedia"
-            @update:model-value="handleSocialMediaUpdate"
-          />
-        </div>
-        <div class="description">
-          {{ $t('views.profile.profilePrivacy.shareInformation') }}
-        </div>
-      </section>
-    </main>
-  </div>
+  <t-top-navigation @click:left-icon="$router.push('/profile')">
+    <template #title>{{ $t('views.profile.profilePrivacy.privacy') }}</template>
+    <template #content
+      ><div class="privacy-settings">
+        <main class="main">
+          <h6 class="subtitle">
+            {{ $t('views.profile.profilePrivacy.marketing') }}
+          </h6>
+          <section class="section">
+            <div class="header">
+              <h3 class="title">
+                {{ $t('views.profile.profilePrivacy.marketingEmails') }}
+              </h3>
+              <BaseSwitch
+                class="switch"
+                :model-value="_isEmail"
+                @update:model-value="handleEmailUpdate"
+              />
+            </div>
+            <div class="description">
+              {{ $t('views.profile.profilePrivacy.receiveEmails') }}
+            </div>
+          </section>
+          <hr class="separator" />
+          <section class="section">
+            <div class="header">
+              <h3 class="title">
+                {{ $t('views.profile.profilePrivacy.marketingPushes') }}
+              </h3>
+              <BaseSwitch
+                class="switch"
+                :model-value="_isPushNotification"
+                @update:model-value="handlePushesUpdate"
+              />
+            </div>
+            <div class="description">
+              {{ $t('views.profile.profilePrivacy.receivePushNotifications') }}
+            </div>
+          </section>
+          <hr class="separator" />
+          <section class="section">
+            <div class="header">
+              <h3 class="title">
+                {{ $t('views.profile.profilePrivacy.social') }}
+              </h3>
+              <BaseSwitch
+                class="switch"
+                :model-value="_isSocialMedia"
+                @update:model-value="handleSocialMediaUpdate"
+              />
+            </div>
+            <div class="description">
+              {{ $t('views.profile.profilePrivacy.shareInformation') }}
+            </div>
+          </section>
+        </main>
+      </div></template
+    >
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -67,6 +65,8 @@ import { BaseSwitch } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { ref } from 'vue';
 import { onMounted } from 'vue-demi';
+
+import { TTopNavigation } from '@/components/ui';
 
 const profileStore = useProfileStore();
 let _isEmail = ref(false);
@@ -107,7 +107,6 @@ const handleSocialMediaUpdate = async () => {
 <style lang="scss">
 .privacy-settings {
   height: 100%;
-  padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
 
