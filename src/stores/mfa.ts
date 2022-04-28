@@ -6,6 +6,12 @@ interface IMfaState {
   config?: AxiosRequestConfig<any> | null;
 }
 
+export enum EMfaHeaders {
+  otp = 'x-otp-header',
+  totp = 'x-totp-header',
+  passcode = 'x-passcode-header',
+}
+
 // type for record event occur time
 type TMfaData = {
   otp?: string;
@@ -46,8 +52,17 @@ export const useMfaStore = defineStore('mfa', {
     },
     async checkMfa(data: TMfaData) {
       if (this.config) {
-        const _data = this.config.data || {};
-        this.config.data = Object.assign(_data, data);
+        const _headers = this.config.headers || {};
+        this.config.headers = Object.assign(_headers, {});
+        if (data.otp) {
+          this.config.headers[EMfaHeaders.otp] = data.otp;
+        }
+        if (data.totp) {
+          this.config.headers[EMfaHeaders.totp] = data.totp;
+        }
+        if (data.passcode) {
+          this.config.headers[EMfaHeaders.passcode] = data.passcode;
+        }
         const res = await axios.request(this.config);
         return res;
       }

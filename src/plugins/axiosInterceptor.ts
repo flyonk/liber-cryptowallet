@@ -48,8 +48,15 @@ const _notAuthorizedRoutes = (): string[] => {
 const _requestHandler = async (
   config: AxiosRequestConfig
 ): Promise<AxiosRequestConfig | null> => {
+  // mfa headers
+  // const headers = {
+  //   [EMfaHeaders.otp]: config.headers?.[EMfaHeaders.otp],
+  //   [EMfaHeaders.totp]: config.headers?.[EMfaHeaders.totp],
+  //   [EMfaHeaders.passcode]: config.headers?.[EMfaHeaders.passcode],
+  // };
+  const headers = {};
   config.timeout = 30000;
-  config.headers = <AxiosRequestHeaders>{};
+  config.headers = <AxiosRequestHeaders>headers;
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
