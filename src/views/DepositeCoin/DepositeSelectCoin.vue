@@ -5,6 +5,7 @@
       @click:left-icon="$router.push({ name: Route.DashboardHome })"
     />
     <BaseCoinListSelect
+      :coins="coins"
       @back-button="router.push({ name: Route.DashboardHome })"
       @select-coin="selectCoin"
     />
@@ -13,11 +14,12 @@
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { onBeforeMount } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
+import { useCoinsStore } from '@/stores/coins';
 import { IAccount } from '@/models/account/account';
 import { ICoin } from '@/models/coin/coins';
 import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
@@ -27,9 +29,12 @@ import { BaseCoinListSelect } from '@/components/ui';
 const router = useRouter();
 const accountStore = useAccountStore();
 const depositStore = useDepositStore();
+const coinsStore = useCoinsStore();
+
+const coins = computed(() => coinsStore.coins);
 
 onBeforeMount(async () => {
-  await Promise.all([accountStore.getAccountList()]);
+  await Promise.all([accountStore.getAccountList(), coinsStore.fetchCoins()]);
 });
 
 const selectAccount = (coinCode: string) => {

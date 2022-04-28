@@ -412,7 +412,10 @@
         "logoutAccept": "Yes",
         "logoutDecline": "No",
         "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
-        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?"
+        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?",
+        "appearance": "Appearance",
+        "language": "Language",
+        "selectLanguage": "Select Language"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -505,7 +508,7 @@
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh",
-        "sameCurrenciesError": "You should choose different currencies for exchange"
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },

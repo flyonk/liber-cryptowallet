@@ -3,9 +3,9 @@ import { STATIC_BASE_URL } from '@/constants';
 export interface ICoin {
   name: string;
   code: string;
-  imageUrl: string;
-  networks: string[];
-  minimalDepositValue: string;
+  imageUrl?: string;
+  networks?: string[];
+  minimalDepositValue?: string;
   isPopular?: boolean;
 }
 

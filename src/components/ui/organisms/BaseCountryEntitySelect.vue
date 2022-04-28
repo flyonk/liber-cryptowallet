@@ -1,5 +1,6 @@
 <template>
   <BaseBottomSheetV v-if="showList" position="bottom" @close="$emit('close')">
+    <h1 v-if="title" class="page-title">{{ title }}</h1>
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
@@ -29,8 +30,15 @@
           <div class="code col-2">
             {{ country[entity] }}
           </div>
-          <div class="title col-8">
+          <div class="title col-7">
             {{ country.name }}
+          </div>
+          <div class="title col-1">
+            <img
+              v-if="isSelectedCountry(country)"
+              class="icon"
+              src="@/assets/icon/check.svg"
+            />
           </div>
         </div>
       </div>
@@ -63,6 +71,10 @@ const props = defineProps({
   selectedData: {
     type: Object as PropType<ICountryInformation | null>,
     default: null,
+  },
+  title: {
+    type: String,
+    default: '',
   },
 });
 

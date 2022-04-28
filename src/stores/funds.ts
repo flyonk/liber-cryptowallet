@@ -42,9 +42,9 @@ export const useFundsStore = defineStore('funds', {
       img: `${STATIC_BASE_URL}/currencies/btc.svg`,
     },
     to: {
-      name: 'LTC',
-      code: 'tltc',
-      img: `${STATIC_BASE_URL}/currencies/ltc.svg`,
+      name: '---',
+      code: 'empty',
+      img: `${STATIC_BASE_URL}/currencies/empty_token.svg`,
     },
   }),
 
@@ -69,17 +69,16 @@ export const useFundsStore = defineStore('funds', {
       this.convertFunds = val;
     },
 
-    setCrypto(
-      crypto: string,
-      code: string,
-      img: string,
-      direction: 'to' | 'from'
-    ): void {
-      this[direction] = {
-        name: crypto,
-        code: code,
-        img: img,
-      };
+    setCrypto(coin: ICoinForExchange | null, direction: 'to' | 'from'): void {
+      if (!coin) {
+        this[direction] = null;
+      } else {
+        this[direction] = {
+          name: coin.name,
+          code: coin.code,
+          img: coin.img,
+        };
+      }
     },
 
     swapCoins(): void {
