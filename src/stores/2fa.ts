@@ -2,6 +2,8 @@ import { defineStore } from 'pinia';
 import { Storage } from '@capacitor/storage';
 import profileService from '@/services/profileService';
 
+import { useMfaStore } from '@/stores/mfa';
+
 import { checkExpiration } from '@/helpers/2fa';
 
 import { EStorageKeys } from '@/types/storage';
@@ -37,7 +39,9 @@ export const use2faStore = defineStore('2fa', {
       return result;
     },
 
-    async disable(code: string) {
+    async disable(code = '') {
+      const mfaStore = useMfaStore();
+      mfaStore.show();
       const result = await profileService.disableVerificationApp({ code });
       return result;
     },

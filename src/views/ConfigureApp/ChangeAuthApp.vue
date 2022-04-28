@@ -65,9 +65,9 @@ import { ref } from 'vue';
 import { TopNavigation, BaseButton, BaseToast } from '@/components/ui';
 import { Route } from '@/router/types';
 
-import { useMfaStore } from '@/stores/mfa';
+import { use2faStore } from '@/stores/2fa';
 
-const mfaStore = useMfaStore();
+const twofaStore = use2faStore();
 const showPopup = ref(false);
 
 const onContinue = () => {
@@ -76,7 +76,7 @@ const onContinue = () => {
 
 const onConfirm = () => {
   showPopup.value = false;
-  mfaStore.show();
+  twofaStore.disable();
 };
 </script>
 

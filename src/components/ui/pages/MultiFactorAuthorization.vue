@@ -73,7 +73,11 @@ const onComplete = async (code: string) => {
   oneTimeCode.value = code;
 
   if (code.length === 6 && passcode.value.length === 4) {
-    // check mfa here
+    const data = {
+      passcode: passcode.value,
+      [pStore.user.is2FAConfigured ? 'totp' : 'otp']: code,
+    };
+    mfaStore.checkMfa(data);
   }
 };
 
@@ -81,7 +85,11 @@ const onCompletePasscode = async (code: string) => {
   passcode.value = code;
 
   if (code.length === 4 && oneTimeCode.value.length === 6) {
-    // check mfa here
+    const data = {
+      passcode: code,
+      [pStore.user.is2FAConfigured ? 'totp' : 'otp']: oneTimeCode.value,
+    };
+    mfaStore.checkMfa(data);
   }
 };
 
