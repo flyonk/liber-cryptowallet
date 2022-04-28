@@ -188,7 +188,6 @@ const onClick = (carouselItem: ICarouselItem) => {
 .account-transactions {
   background: $color-light-grey-100;
   height: 90%;
-  padding: 35px 0 0;
   overflow: hidden;
   flex-grow: 1;
 
