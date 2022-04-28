@@ -13,7 +13,7 @@
   </p-toast>
   <app-layout-switcher>
     <multi-factor-authorization v-if="showMfa" />
-    <router-view v-slot="{ Component, route }" class="router-view" v-else>
+    <router-view v-else v-slot="{ Component, route }" class="router-view">
       <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
       <!-- <transition> -->
       <component :is="Component" :key="route.path" />
