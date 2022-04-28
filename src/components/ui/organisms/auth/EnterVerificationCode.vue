@@ -36,6 +36,8 @@
         </span>
       </div>
     </slot>
+
+    <slot name="additionalContent" />
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
     <base-button block @click="pasteFromClipboard">

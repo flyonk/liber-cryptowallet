@@ -308,7 +308,8 @@
     "passcodeEnter": {
       "createPasscode": "Create passcode",
       "confirmPasscode": "Confirm passcode",
-      "changePasscode": "Change passcode"
+      "changePasscode": "Change passcode",
+      "currentPasscode": "Current passcode"
     },
     "dashboard": {
       "home": {

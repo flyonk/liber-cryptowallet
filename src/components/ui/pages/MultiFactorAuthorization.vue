@@ -11,7 +11,22 @@
     @on-hide="onHideError"
     @on-complete="onComplete"
     @on-prev="onClose"
-  />
+  >
+    <template #additionalContent>
+      <div class="passcode-container">
+        <p class="text-default">
+          {{ $t('views.passcodeEnter.currentPasscode') }}
+        </p>
+        <div class="passcode">
+          <base-verification-code-input
+            :value="passcode"
+            :fields="4"
+            @complete="onCompletePasscode"
+          />
+        </div>
+      </div>
+    </template>
+  </EnterVerificationCode>
 </template>
 
 <script lang="ts" setup>
@@ -21,6 +36,7 @@ import { useI18n } from 'vue-i18n';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
+import { BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const mfaStore = useMfaStore();
@@ -61,6 +77,14 @@ const onComplete = async (code: string) => {
   }
 };
 
+const onCompletePasscode = async (code: string) => {
+  passcode.value = code;
+
+  if (code.length === 4 && oneTimeCode.value.length === 6) {
+    // check mfa here
+  }
+};
+
 const onClose = async () => {
   mfaStore.hide();
 };
@@ -70,4 +94,23 @@ const onHideError = () => {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.passcode-container {
+  width: 100%;
+  margin-top: 25px;
+
+  & > .passcode {
+    width: 67%;
+  }
+}
+
+.text-default {
+  font-style: normal;
+  font-weight: normal;
+  font-size: 17px;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+  color: $color-brand-primary;
+  margin-bottom: 20px;
+}
+</style>
