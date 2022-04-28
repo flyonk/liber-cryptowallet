@@ -41,7 +41,7 @@ export const use2faStore = defineStore('2fa', {
 
     async disable(code = '') {
       const mfaStore = useMfaStore();
-      mfaStore.show();
+      mfaStore.show({});
       const result = await profileService.disableVerificationApp({ code });
       return result;
     },

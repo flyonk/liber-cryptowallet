@@ -3,6 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 interface IMfaState {
   shown: boolean;
+  btnTitle: string;
   config?: AxiosRequestConfig<any> | null;
 }
 
@@ -24,20 +25,24 @@ type TMfaData = {
 export const useMfaStore = defineStore('mfa', {
   state: (): IMfaState => ({
     shown: false,
+    btnTitle: '',
     config: null,
   }),
 
   getters: {
     enabled: (state) => state.shown,
+    getBtnTitle: (state) => state.btnTitle,
   },
 
   actions: {
-    show() {
+    show({ title }: any) {
+      if (title) {
+        this.btnTitle = title;
+      }
       this.shown = true;
     },
     hide() {
-      this.config = null;
-      this.shown = false;
+      this.$reset();
     },
     saveConfig(config: AxiosRequestConfig<any>) {
       this.config = config;

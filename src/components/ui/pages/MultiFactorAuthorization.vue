@@ -24,20 +24,29 @@
         </div>
       </div>
     </template>
+
+    <template #ctaBtn>
+      <base-button block>
+        {{ ctaBtnText }}
+      </base-button>
+    </template>
   </EnterVerificationCode>
 </template>
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue';
 import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
+import { Route } from '@/router/types';
 
-import { BaseVerificationCodeInput } from '@/components/ui';
+import { BaseVerificationCodeInput, BaseButton } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
+const router = useRouter();
 const errorsStore = useErrorsStore();
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
@@ -51,6 +60,10 @@ const text = computed(() => {
     return tm('common.codeInput');
   }
   return tm('auth.login.step4Description');
+});
+
+const ctaBtnText = computed(() => {
+  return tm(mfaStore.getBtnTitle || 'common.continueCta');
 });
 
 const withCountdown = computed(() => {
@@ -77,6 +90,10 @@ const onComplete = async (code: string) => {
     };
     try {
       await mfaStore.checkMfa(data);
+      mfaStore.hide();
+      router.push({
+        name: Route.DashboardHome,
+      });
     } catch (err) {
       const description = err.response?.data?.message || null;
       errorsStore.handle(
@@ -99,6 +116,10 @@ const onCompletePasscode = async (code: string) => {
     };
     try {
       await mfaStore.checkMfa(data);
+      mfaStore.hide();
+      router.push({
+        name: Route.DashboardHome,
+      });
     } catch (err) {
       const description = err.response?.data?.message || null;
       errorsStore.handle(

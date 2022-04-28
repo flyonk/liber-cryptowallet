@@ -40,9 +40,11 @@
     <slot name="additionalContent" />
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="pasteFromClipboard">
-      {{ $t('common.pasteCta') }}
-    </base-button>
+    <slot name="ctaBtn">
+      <base-button block @click="pasteFromClipboard">
+        {{ $t('common.pasteCta') }}
+      </base-button>
+    </slot>
   </div>
   <base-toast :visible="isError" severity="error" @update:visible="onHide">
     <template #description>
