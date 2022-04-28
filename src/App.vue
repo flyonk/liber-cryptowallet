@@ -36,7 +36,7 @@ import { useMfaStore } from '@/stores/mfa';
 import SentryUtil from '@/helpers/sentryUtil';
 import SwipeBack from '@/plugins/swipe-capacitor';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
-import MultiFactorAuthorization from '@/components/ui/organisms/mfa/MultiFactorAuthorization.vue';
+import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 
 const mfaStore = useMfaStore();
 

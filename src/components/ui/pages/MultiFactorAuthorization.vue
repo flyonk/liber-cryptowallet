@@ -3,7 +3,7 @@
     :is-error="isError"
     :text="text"
     :title="$t('common.confirmChanging')"
-    leftIconName="icon-app-navigation-close"
+    left-icon-name="icon-app-navigation-close"
     :with-countdown="withCountdown"
     :show-countdown="showCountdown"
     @on-time-is-up="onTimeIsUp"
