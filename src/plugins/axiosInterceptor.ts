@@ -101,6 +101,11 @@ export default function init(): void {
       return response;
     },
     async (error) => {
+      const mfaStore = useMfaStore();
+      // mfa cancel errro case
+      if (mfaStore.enabled && error instanceof TypeError) {
+        return false;
+      }
       if (error?.response?.status === 401) {
         const authStore = useAuthStore();
         /*
