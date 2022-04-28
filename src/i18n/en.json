@@ -30,7 +30,8 @@
     "daysAgo": "days ago",
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
-    "paymentoptions": "Payment Options"
+    "paymentoptions": "Payment Options",
+    "confirmChanging": "Confirm changing"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"

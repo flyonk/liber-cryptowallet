@@ -1,6 +1,6 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="onPrev">
+    <top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
       {{ title }}
     </top-navigation>
 
@@ -15,7 +15,7 @@
     />
 
     <slot name="footer">
-      <div v-if="props.withCountdown" class="footer">
+      <div v-if="withCountdown" class="footer">
         <span class="text--footnote font-weight--semibold">
           <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
             <template #countdown="{ minute, second }">
@@ -58,6 +58,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 import { useErrorsStore } from '@/stores/errors';
@@ -107,6 +108,14 @@ const props = defineProps({
     type: String,
     default: '',
   },
+  leftIconName: {
+    type: String,
+    default: 'icon-app-navigation-back',
+  },
+});
+
+const withCountdown = computed(() => {
+  return props.withCountdown;
 });
 
 const pasteFromClipboard = async () => {
