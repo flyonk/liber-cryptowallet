@@ -27,9 +27,8 @@ const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
 
-const otp = ref('');
-const totp = ref('');
-// const passcode = ref('');
+const oneTimeCode = ref('');
+const passcode = ref('');
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
@@ -55,10 +54,9 @@ const resend = async () => {
 const isError = ref(false);
 
 const onComplete = async (code: string) => {
-  otp.value = code;
-  totp.value = code;
+  oneTimeCode.value = code;
 
-  if (code.length === 6) {
+  if (code.length === 6 && passcode.value.length === 4) {
     // check mfa here
   }
 };
