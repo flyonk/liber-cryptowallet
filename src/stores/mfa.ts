@@ -48,7 +48,8 @@ export const useMfaStore = defineStore('mfa', {
       if (this.config) {
         const _data = this.config.data || {};
         this.config.data = Object.assign(_data, data);
-        await axios.request(this.config);
+        const res = await axios.request(this.config);
+        return res;
       }
       return data;
     },

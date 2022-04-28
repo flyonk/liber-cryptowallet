@@ -1,6 +1,5 @@
 <template>
   <EnterVerificationCode
-    :is-error="isError"
     :text="text"
     :title="$t('common.confirmChanging')"
     left-icon-name="icon-app-navigation-close"
@@ -8,7 +7,6 @@
     :show-countdown="showCountdown"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
-    @on-hide="onHideError"
     @on-complete="onComplete"
     @on-prev="onClose"
   >
@@ -35,10 +33,12 @@ import { useI18n } from 'vue-i18n';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
+import { useErrorsStore } from '@/stores/errors';
 
 import { BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
+const errorsStore = useErrorsStore();
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
@@ -67,8 +67,6 @@ const resend = async () => {
   showCountdown.value = true;
 };
 
-const isError = ref(false);
-
 const onComplete = async (code: string) => {
   oneTimeCode.value = code;
 
@@ -77,7 +75,17 @@ const onComplete = async (code: string) => {
       passcode: passcode.value,
       [pStore.user.is2FAConfigured ? 'totp' : 'otp']: code,
     };
-    mfaStore.checkMfa(data);
+    try {
+      await mfaStore.checkMfa(data);
+    } catch (err) {
+      const description = err.response?.data?.message || null;
+      errorsStore.handle(
+        err,
+        'MultiFactorAuthorization',
+        'onCompletePasscode',
+        description
+      );
+    }
   }
 };
 
@@ -89,16 +97,22 @@ const onCompletePasscode = async (code: string) => {
       passcode: code,
       [pStore.user.is2FAConfigured ? 'totp' : 'otp']: oneTimeCode.value,
     };
-    mfaStore.checkMfa(data);
+    try {
+      await mfaStore.checkMfa(data);
+    } catch (err) {
+      const description = err.response?.data?.message || null;
+      errorsStore.handle(
+        err,
+        'MultiFactorAuthorization',
+        'onCompletePasscode',
+        description
+      );
+    }
   }
 };
 
 const onClose = async () => {
   mfaStore.hide();
-};
-
-const onHideError = () => {
-  isError.value = false;
 };
 </script>
 
