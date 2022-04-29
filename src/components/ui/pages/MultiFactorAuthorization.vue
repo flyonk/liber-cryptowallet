@@ -8,7 +8,7 @@
     :show-paste-btn="true"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
-    @on-complete="onComplete"
+    @on-complete="onCompleteCode"
     @on-prev="onClose"
   >
     <template #additionalContent>
@@ -27,7 +27,7 @@
     </template>
 
     <template #ctaBtn>
-      <base-button block>
+      <base-button block :disabled="isDisabled" @click="onComplete">
         {{ ctaBtnText }}
       </base-button>
     </template>
@@ -81,38 +81,10 @@ const resend = async () => {
   showCountdown.value = true;
 };
 
-const onComplete = async (code: string) => {
-  oneTimeCode.value = code;
-
-  if (code.length === 6 && passcode.value.length === 4) {
+const onComplete = async () => {
+  if (oneTimeCode.value.length === 6 && passcode.value.length === 4) {
     const data = {
       passcode: passcode.value,
-      [pStore.user.is2FAConfigured ? 'totp' : 'otp']: code,
-    };
-    try {
-      await mfaStore.checkMfa(data);
-      mfaStore.hide();
-      router.push({
-        name: mfaStore.data?.successRoute || Route.DashboardHome,
-      });
-    } catch (err) {
-      const description = err.response?.data?.message || null;
-      errorsStore.handle(
-        err,
-        'MultiFactorAuthorization',
-        'onCompletePasscode',
-        description
-      );
-    }
-  }
-};
-
-const onCompletePasscode = async (code: string) => {
-  passcode.value = code;
-
-  if (code.length === 4 && oneTimeCode.value.length === 6) {
-    const data = {
-      passcode: code,
       [pStore.user.is2FAConfigured ? 'totp' : 'otp']: oneTimeCode.value,
     };
     try {
@@ -133,9 +105,23 @@ const onCompletePasscode = async (code: string) => {
   }
 };
 
+const onCompleteCode = async (code: string) => {
+  oneTimeCode.value = code;
+  onComplete();
+};
+
+const onCompletePasscode = async (code: string) => {
+  passcode.value = code;
+  onComplete();
+};
+
 const onClose = async () => {
   mfaStore.hide();
 };
+
+const isDisabled = computed(() => {
+  return oneTimeCode.value.length !== 6 || passcode.value.length !== 4;
+});
 </script>
 
 <style lang="scss" scoped>
