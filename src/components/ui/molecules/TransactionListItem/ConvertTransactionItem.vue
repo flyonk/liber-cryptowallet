@@ -27,44 +27,37 @@ import { computed, PropType, ref } from 'vue';
 
 import {
   EDirection,
-  TConvertTransaction,
+  IConvertTransaction,
 } from '@/models/transaction/transaction';
+import { toUpperCase } from '@/helpers/filters';
 
 import { TransactionIconWithStatus } from '@/components/ui';
 
 const props = defineProps({
-  icon: {
+  mainCode: {
     type: String,
     default: '',
   },
-  to: {
-    type: Object as PropType<TConvertTransaction>,
-    default: () => ({} as TConvertTransaction),
-  },
-  from: {
-    type: Object as PropType<TConvertTransaction>,
-    default: () => ({} as TConvertTransaction),
-  },
-  mainCoin: {
-    type: String,
+  transaction: {
+    type: Object as PropType<IConvertTransaction>,
     required: true,
   },
 });
 
-const fromCode = ref(props.from.code?.toUpperCase());
-const toCode = ref(props.to.code?.toUpperCase());
+const fromCode = ref(toUpperCase(props.transaction.from.code));
+const toCode = ref(toUpperCase(props.transaction.to.code));
 
 const subtitle = ref('Converted ' + fromCode.value + ' to ' + toCode.value);
 
 const amounts = ref({
-  from: props.from?.amount,
-  to: props.to?.amount,
+  from: props.transaction.from.amount,
+  to: props.transaction.to.amount,
 });
 
 const direction = computed((): EDirection => {
-  if (fromCode.value === props.mainCoin.toUpperCase()) {
+  if (fromCode.value === toUpperCase(props.mainCode)) {
     return EDirection.outcome;
-  } else if (toCode.value === props.mainCoin.toUpperCase()) {
+  } else if (toCode.value === toUpperCase(props.mainCode)) {
     return EDirection.income;
   }
 
@@ -72,7 +65,7 @@ const direction = computed((): EDirection => {
 });
 
 const title = computed(() => {
-  if (props.mainCoin) {
+  if (props.mainCode) {
     return direction.value === EDirection.outcome
       ? 'Sold ' + fromCode.value
       : 'Bought ' + toCode.value;
@@ -82,7 +75,7 @@ const title = computed(() => {
 });
 
 const total = computed(() => {
-  if (props.mainCoin) {
+  if (props.mainCode) {
     return direction.value === EDirection.outcome
       ? '- ' + amounts.value.from + ' ' + fromCode.value
       : '+ ' + amounts.value.to + ' ' + toCode.value;

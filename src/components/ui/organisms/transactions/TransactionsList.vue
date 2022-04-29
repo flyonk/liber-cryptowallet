@@ -1,24 +1,16 @@
 <template name="TransactionsList">
   <ul class="transactions">
     <li
-      v-for="(
-        { icon, sum, info, status, code, type, id, to, from }, index
-      ) in displayedTransactions"
+      v-for="(transaction, index) in displayedTransactions"
       :key="index"
       class="item"
-      @click="goToRoute(id, from, type)"
+      @click="goToRoute(transaction.id, transaction.from, transaction.type)"
     >
-      <transactions-list-item
-        :code="code"
-        :from="from"
-        :icon="icon"
-        :info="info"
-        :main-coin="mainCoin"
-        :show-coin="$attrs['show-coin']"
-        :status="status"
-        :sum="sum"
-        :to="to"
-        :type="type"
+      <component
+        :is="selectComponent(transaction.type)"
+        :transaction="transaction"
+        :main-code="mainCoin"
+        :show-coin="showCoin"
       />
     </li>
   </ul>
@@ -33,8 +25,11 @@ import {
   INetTransaction,
 } from '@/models/transaction/transaction';
 import { Route } from '@/router/types';
-
-import TransactionsListItem from '@/components/ui/molecules/TransactionListItem/TransactionsListItem.vue';
+import {
+  ConvertTransactionItem,
+  ExternalTransactionItem,
+  TransferTransactionItem,
+} from '@/components/ui/molecules/TransactionListItem';
 
 const router = useRouter();
 
@@ -86,6 +81,17 @@ const goToRoute = (
     });
   }
 };
+
+const selectComponent = (type: string) => {
+  switch (type) {
+    case ETransactionType.convert:
+      return ConvertTransactionItem;
+    case ETransactionType.transfer:
+      return TransferTransactionItem;
+    default:
+      return ExternalTransactionItem;
+  }
+};
 </script>
 
 <style lang="scss">
@@ -98,7 +104,63 @@ const goToRoute = (
   > .item {
     display: flex;
     width: 100%;
-    margin-bottom: 24px;
+  }
+}
+</style>
+
+<style lang="scss">
+.transaction-list-item {
+  display: flex;
+  width: 100%;
+  margin-bottom: 24px;
+
+  > .info {
+    width: 100%;
+    margin-left: 12px;
+
+    > .flex {
+      width: 100%;
+      justify-content: space-between;
+
+      > .title {
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.0031em;
+        color: $color-black;
+      }
+
+      > .subtitle {
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: -0.0008em;
+        color: $color-dark-grey;
+      }
+
+      > .status {
+        font-weight: 400;
+        font-size: 13px;
+        line-height: 18px;
+        text-align: right;
+        letter-spacing: -0.0008em;
+      }
+      // TODO:fix linter element rules and create variants from pending and received
+      > .pending {
+        color: $color-yellow-600;
+      }
+
+      > .received {
+        color: $color-green-600 !important;
+      }
+
+      > .sum {
+        font-size: 13px;
+        line-height: 18px;
+        text-align: right;
+        letter-spacing: -0.0008em;
+        color: $color-dark-grey;
+      }
+    }
   }
 }
 </style>

@@ -3,7 +3,7 @@
     <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
-          - {{ transaction.amount }}
+          {{ directionSign }} {{ transaction.amount }}
           <span class="currency">
             {{ $filters.toUpperCase(transaction.code) }}
           </span>
@@ -18,7 +18,7 @@
       </template>
     </TopNavigation>
     <div class="header">
-      <h2 class="sendto">{{ $t('common.from') }} {{ contragent }}</h2>
+      <h2 class="sendto">{{ titleText }} {{ contragent }}</h2>
       <p class="date">
         {{ getRelativeDate(transaction.date) }}
       </p>
@@ -64,25 +64,29 @@
         </p>
       </li>
     </ul>
-    <div v-if="isPendingStatus" class="report-block">
-      <span class="font-weight--medium">Report an issue</span>
-      <i class="ci-chevron_big_right" />
-    </div>
-    <div v-else class="button-container">
-      <base-button v-if="isFailedStatus" block view="secondary">
-        Retry Transaction
-      </base-button>
-      <base-button v-else block view="secondary">
-        Repeat Transaction
-      </base-button>
-    </div>
+    <template v-if="isIncome">
+      <div v-if="isPendingStatus" class="report-block">
+        <span class="font-weight--medium">Report an issue</span>
+        <i class="ci-chevron_big_right" />
+      </div>
+      <div v-else class="button-container">
+        <base-button v-if="isFailedStatus" block view="secondary">
+          Retry Transaction
+        </base-button>
+        <base-button v-else block view="secondary">
+          Repeat Transaction
+        </base-button>
+      </div>
+    </template>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
+import { useI18n } from 'vue-i18n';
 
 import {
+  EDirection,
   ETransactionStatus,
   ITransferTransaction,
 } from '@/models/transaction/transaction';
@@ -95,6 +99,8 @@ import {
   TransactionStatus,
 } from '@/components/ui';
 
+const { tm } = useI18n();
+
 defineEmits(['copy']);
 
 const props = defineProps({
@@ -103,6 +109,15 @@ const props = defineProps({
     required: true,
   },
 });
+
+const isIncome = computed(
+  () => props.transaction.direction === EDirection.income
+);
+
+const directionSign = computed(() => (isIncome.value ? '+' : '-'));
+const titleText = computed(() =>
+  isIncome.value ? tm('common.from') : tm('common.to')
+);
 
 const isPendingStatus = computed(
   () => props.transaction.status === ETransactionStatus.pending

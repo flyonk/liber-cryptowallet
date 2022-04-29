@@ -3,9 +3,9 @@
     <TopNavigation class="header" @click:left-icon="$router.back()">
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.sum }}
+          {{ transaction.amount }}
           <span class="currency">
-            {{ transaction.code }}
+            {{ $filters.toUpperCase(transaction.code) }}
           </span>
         </div>
       </div>
@@ -18,15 +18,11 @@
       </template>
     </TopNavigation>
     <div class="header">
-      <h2 class="sendto">{{ transaction.info }}</h2>
+      <h2 class="sendto">
+        From {{ $filters.toUpperCase(transaction.code) }} wallet
+      </h2>
       <p class="date">
-        {{
-          getRelativeDate(
-            transaction.finishDate
-              ? transaction.finishDate
-              : transaction.startDate
-          )
-        }}
+        {{ getRelativeDate(transaction.date) }}
       </p>
     </div>
     <ul class="main mb-5">
@@ -49,7 +45,7 @@
           {{ $t('views.deposit.wallet.network') }}
         </p>
         <span class="text--callout font-weight--medium">
-          {{ transaction.code }}
+          {{ $filters.toUpperCase(transaction.code) }}
         </span>
       </li>
       <li class="main-item">
@@ -59,10 +55,10 @@
           </p>
           <span class="transaction">
             <!--TODO Change mock data-->
-            1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l
+            {{ transaction.address }}
           </span>
         </div>
-        <i class="icon ci-copy" @click="$emit('copy', transaction.id)" />
+        <i class="icon ci-copy" @click="$emit('copy', transaction.address)" />
       </li>
       <li class="main-item">
         <div class="inner">
@@ -85,7 +81,7 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 
-import { INetTransaction } from '@/models/transaction/transaction';
+import { IDepositTransaction } from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
@@ -99,7 +95,7 @@ defineEmits(['copy']);
 
 defineProps({
   transaction: {
-    type: Object as PropType<INetTransaction>,
+    type: Object as PropType<IDepositTransaction>,
     required: true,
   },
 });
