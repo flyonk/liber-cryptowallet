@@ -29,6 +29,12 @@ export const useProfileStore = defineStore('profile', {
   actions: {
     async init(): Promise<void> {
       this.user = await this.getUserProfile();
+      const { isPasscodeEnabled } = this.user;
+
+      await set({
+        value: isPasscodeEnabled ? 'true' : 'false',
+        key: EStorageKeys.passcode,
+      });
       if (this.user.id) {
         this.syncUserDataInStorage();
         SentryUtil.setUser();

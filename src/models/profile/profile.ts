@@ -46,6 +46,7 @@ export interface IProfile
   birthDate?: string;
   options?: TAnyObjectType;
   is2FAConfigured?: boolean;
+  isPasscodeEnabled: boolean;
   marketing: TMarketing;
   kycStatus: EKYCStatus;
 }
@@ -72,6 +73,7 @@ export default {
       is2FAConfigured:
         input.is_2fa_configured || !!input.options?.secret_2fa || false, //TODO: temporary hack for 2FA
       options: input.options || {},
+      isPasscodeEnabled: input.is_pass_code_enabled,
       marketing: {
         isEmail: false,
         isPushNotification: false,

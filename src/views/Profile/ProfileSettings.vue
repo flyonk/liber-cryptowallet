@@ -14,10 +14,6 @@
             My ID:
             <a class="link">{{ accountID }}</a>
           </p>
-          <!-- <img
-            src="@/assets/icon/edit.svg"
-            alt="edit"
-          >-->
         </div>
       </div>
       <ContactInitials :name="accountName" />
