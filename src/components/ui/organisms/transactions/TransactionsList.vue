@@ -86,15 +86,17 @@ const goToRoute = (
 
 <style lang="scss" scoped>
 .transactions {
-  // max-height: 360px;
   overflow-y: auto;
   padding: 0;
-  margin-bottom: 40px;
 
   > .item {
     display: flex;
     width: 100%;
     margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
   }
 }
 </style>
