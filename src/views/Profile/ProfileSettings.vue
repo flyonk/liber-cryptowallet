@@ -20,7 +20,7 @@
       </div>
     </template>
     <template #content>
-      <div class="account-settings">
+      <div v-if="!showCloseAccount" class="account-settings">
         <!-- TODO: Implement menu controls -->
         <div class="controls" style="display: none">
           <button class="btn -blue">

@@ -63,6 +63,7 @@ const onCloseAccount = async () => {
   height: 90%;
   position: absolute;
   bottom: 0;
+  left: 0;
 
   > .logo {
     height: 55px;
