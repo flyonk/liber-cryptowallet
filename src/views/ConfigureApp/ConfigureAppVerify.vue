@@ -61,14 +61,18 @@ const onComplete = async (code: string) => {
   verificationCode.value = code;
 
   if (code.length === 6) {
-    const result = await store.confirmVerification(code);
-    if (result) {
-      store.set2FADate();
-      const name = await getSupportedIdentificationWay();
-      router.push({
-        name,
-      });
-    } else {
+    try {
+      const result = await store.confirmVerification(code);
+      if (result) {
+        store.set2FADate();
+        const name = await getSupportedIdentificationWay();
+        router.push({
+          name,
+        });
+      } else {
+        isError.value = true;
+      }
+    } catch (error) {
       isError.value = true;
     }
   }
