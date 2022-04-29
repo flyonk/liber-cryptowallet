@@ -15,6 +15,8 @@
           @click:left-icon="handleCloseModal"
         />
         <BaseCoinListSelect
+          :direction="direction"
+          :coins="coins"
           @back-button="showSelectCoinDialog[direction] = false"
           @select-coin="handleSelect($event)"
         />
@@ -48,6 +50,10 @@ const props = defineProps({
     type: String as PropType<'from' | 'to'>,
     default: 'from',
   },
+  coins: {
+    type: Array as PropType<ICoin[]>,
+    default: () => [],
+  },
 });
 
 const handleSelect = (coin: ICoin): void => {
@@ -74,7 +80,7 @@ const handleCloseModal = () => {
 
 .select-option {
   display: flex;
-  justify-content: center;
+  padding: 0 16px;
   align-items: center;
   width: 100%;
   height: 100%;

@@ -506,7 +506,7 @@
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh",
-        "sameCurrenciesError": "You should choose different currencies for exchange"
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },

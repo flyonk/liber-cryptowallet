@@ -97,10 +97,8 @@ const selectComponent = (type: string) => {
 
 <style lang="scss">
 .transactions {
-  // max-height: 360px;
   overflow-y: auto;
   padding: 0;
-  margin-bottom: 40px;
 
   > .item {
     display: flex;
@@ -161,6 +159,12 @@ const selectComponent = (type: string) => {
         letter-spacing: -0.0008em;
         color: $color-dark-grey;
       }
+    }
+
+    margin-bottom: 24px;
+
+    &:last-child {
+      margin-bottom: 0;
     }
   }
 }
