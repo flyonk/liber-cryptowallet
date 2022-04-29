@@ -12,7 +12,8 @@
     </template>
   </p-toast>
   <app-layout-switcher>
-    <router-view v-slot="{ Component, route }" class="router-view">
+    <multi-factor-authorization v-if="showMfa" />
+    <router-view v-else v-slot="{ Component, route }" class="router-view">
       <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
       <!-- <transition> -->
       <component :is="Component" :key="route.path" />
@@ -24,14 +25,20 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 //TODO: use profile store instead
 import { useAccountStore } from './stores/account';
+import { useMfaStore } from '@/stores/mfa';
 
 import SentryUtil from '@/helpers/sentryUtil';
 import SwipeBack from '@/plugins/swipe-capacitor';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
+import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
+
+const mfaStore = useMfaStore();
 
 SwipeBack.enable()
   .then()
@@ -49,6 +56,10 @@ SwipeBack.enable()
 
 const store = useAccountStore();
 store.init();
+
+const showMfa = computed(() => {
+  return mfaStore.enabled;
+});
 </script>
 
 <style lang="scss">
