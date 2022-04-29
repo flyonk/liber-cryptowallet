@@ -69,12 +69,12 @@
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
-        <li class="item" disabled>
+        <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
           <img class="icon" src="@/assets/icon/google.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
-        </li>
+        </router-link>
         <router-link class="item" disabled to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>

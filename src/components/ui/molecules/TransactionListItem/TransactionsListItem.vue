@@ -12,15 +12,12 @@ import {
 
 import {
   ConvertTransactionItem,
-  DepositTransactionItem,
+  ExternalTransactionItem,
+  TransferTransactionItem,
 } from '@/components/ui/molecules/TransactionListItem/index';
 
 const props = defineProps({
-  icon: {
-    type: String,
-    default: '',
-  },
-  sum: {
+  amount: {
     type: String,
     default: '',
   },
@@ -56,6 +53,14 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  direction: {
+    type: String,
+    default: 'income',
+  },
+  date: {
+    type: String,
+    default: '',
+  },
 });
 
 const currentComponent = computed(() => {
@@ -64,15 +69,19 @@ const currentComponent = computed(() => {
       return {
         component: ConvertTransactionItem,
         props: {
-          icon: props.icon,
           to: props.to,
           from: props.from,
           mainCoin: props.mainCoin,
         },
       };
+    case ETransactionType.transfer:
+      return {
+        component: TransferTransactionItem,
+        props,
+      };
     default:
       return {
-        component: DepositTransactionItem,
+        component: ExternalTransactionItem,
         props,
       };
   }

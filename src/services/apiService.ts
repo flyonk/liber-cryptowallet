@@ -36,19 +36,22 @@ export default {
     },
   },
   authenticators: {
-    configure(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/authenticators/configure`;
+    disable(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/disable`;
     },
-    change(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/authenticators/change`;
+    enable(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/enable`;
+    },
+    secret(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/secret`;
+    },
+    verify(): string {
+      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/verify`;
     },
   },
   verification: {
     bySMS(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/verification-by-sms`;
-    },
-    byApp(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/verification-by-auth-app`;
     },
   },
   recipients: {
