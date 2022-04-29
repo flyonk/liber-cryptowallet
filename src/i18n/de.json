@@ -46,6 +46,7 @@
     "login": {
       "step1Title": "Log in to Liber",
       "step1Description": "Enter your registered mobile number to log in",
+      "step1DescriptionValuable": "We will send verification code to this number.",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
       "step1AccountExists": "Don’t have an account?",
@@ -128,22 +129,36 @@
   "status": {
     "title": "Status",
     "pending": "Pending",
-    "complete": "Complete"
+    "complete": "Complete",
+    "failed": "Reverted"
   },
   "transactions": {
+    "address": "Address",
     "id": "Transaction ID",
     "walletAddress": "Wallet Address",
     "deposit": "Deposit",
+    "deposited": "Deposited",
     "send": "Send",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
-    "transferFee": "Transfer Fee",
+    "transferFee": "Fee",
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
+    "statement": "Statement",
+    "paymentLinkExpires": "Payment link will expire in 6 days",
+    "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
+    "rate": "Rate",
+    "bought": "Bought",
+    "cost": "Cost",
+    "transactionIdCopied": "Transaction ID is copied successfully",
+    "transactionIdCopyFail": "Failed when copy Transaction ID",
+    "boughtCoinInfo": "Bought {mainCoin} with {secondaryCoin}",
+    "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
+    "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "income": "Received",
       "outcome": "Sent",
@@ -151,13 +166,16 @@
       "deposit": "Deposit",
       "withdraw": "Withdraw",
       "convert": "Convert",
-      "send": "Send"
+      "send": "Send",
+      "buy": "Buy",
+      "sell": "Sell"
     },
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
-      "finished": "Finished",
-      "cancelled": "Cancelled"
+      "finished": "Completed",
+      "cancelled": "Cancelled",
+      "failed": "Reverted"
     },
     "carousel": {
       "deposit": "Deposit",
@@ -171,8 +189,7 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"
-    }
+      "rateChanged": "Rate have been changed"    }
   },
   "ui": {
     "friends": {

@@ -129,12 +129,15 @@
   "status": {
     "title": "Status",
     "pending": "Pending",
-    "complete": "Complete"
+    "complete": "Complete",
+    "failed": "Reverted"
   },
   "transactions": {
+    "address": "Address",
     "id": "Transaction ID",
     "walletAddress": "Wallet Address",
     "deposit": "Deposit",
+    "deposited": "Deposited",
     "send": "Send",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
@@ -143,6 +146,7 @@
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
     "statement": "Statement",
+    "paymentLinkExpires": "Payment link will expire in 6 days",
     "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
@@ -162,13 +166,16 @@
       "deposit": "Deposit",
       "withdraw": "Withdraw",
       "convert": "Convert",
-      "send": "Send"
+      "send": "Send",
+      "buy": "Buy",
+      "sell": "Sell"
     },
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
       "finished": "Completed",
-      "cancelled": "Cancelled"
+      "cancelled": "Cancelled",
+      "failed": "Reverted"
     },
     "carousel": {
       "deposit": "Deposit",
