@@ -87,6 +87,7 @@ defineEmits(['click:left-icon']);
 
   > .header-top > .controls {
     background: transparent;
+    display: flex;
   }
 
   > .header-top > .controls > .icon-header {
