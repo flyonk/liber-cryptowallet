@@ -34,7 +34,7 @@ import { toUpperCase } from '@/helpers/filters';
 import { TransactionIconWithStatus } from '@/components/ui';
 
 const props = defineProps({
-  mainCode: {
+  mainCoin: {
     type: String,
     default: '',
   },
@@ -55,9 +55,9 @@ const amounts = ref({
 });
 
 const direction = computed((): EDirection => {
-  if (fromCode.value === toUpperCase(props.mainCode)) {
+  if (fromCode.value === toUpperCase(props.mainCoin)) {
     return EDirection.outcome;
-  } else if (toCode.value === toUpperCase(props.mainCode)) {
+  } else if (toCode.value === toUpperCase(props.mainCoin)) {
     return EDirection.income;
   }
 
@@ -65,7 +65,7 @@ const direction = computed((): EDirection => {
 });
 
 const title = computed(() => {
-  if (props.mainCode) {
+  if (props.mainCoin) {
     return direction.value === EDirection.outcome
       ? 'Sold ' + fromCode.value
       : 'Bought ' + toCode.value;
@@ -75,7 +75,7 @@ const title = computed(() => {
 });
 
 const total = computed(() => {
-  if (props.mainCode) {
+  if (props.mainCoin) {
     return direction.value === EDirection.outcome
       ? '- ' + amounts.value.from + ' ' + fromCode.value
       : '+ ' + amounts.value.to + ' ' + toCode.value;

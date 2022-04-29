@@ -1,6 +1,5 @@
 <template>
   <div class="transaction-list-item">
-    {{ mainCoin }}
     <transaction-icon-with-status
       :img-path="icon"
       :is-currency="showCoin"
@@ -54,7 +53,7 @@ import { TransactionIconWithStatus } from '@/components/ui';
 const { tm } = useI18n();
 
 const props = defineProps({
-  mainCode: {
+  mainCoin: {
     type: String,
     default: '',
   },
@@ -69,7 +68,7 @@ const props = defineProps({
 });
 
 const icon = computed(() => {
-  if (!props.mainCode) {
+  if (!props.mainCoin) {
     return props.transaction.code.toLowerCase();
   }
 

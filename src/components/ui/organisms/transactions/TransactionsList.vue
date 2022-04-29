@@ -9,7 +9,7 @@
       <component
         :is="selectComponent(transaction.type)"
         :transaction="transaction"
-        :main-code="mainCoin"
+        :main-coin="mainCoin"
         :show-coin="showCoin"
       />
     </li>
@@ -68,6 +68,8 @@ const goToRoute = (
       name: Route.TransactionsDetails,
       params: {
         id,
+      },
+      query: {
         coin: props.mainCoin ? props.mainCoin : from.code.toLowerCase(),
       },
     });
@@ -76,7 +78,6 @@ const goToRoute = (
       name: Route.TransactionsDetails,
       params: {
         id,
-        coin: 'default',
       },
     });
   }

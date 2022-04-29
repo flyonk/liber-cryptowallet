@@ -1,11 +1,12 @@
 <template name="TransactionDetails">
-  <component
-    :is="component"
-    v-if="transaction"
-    :main-coin="mainCoin"
-    :transaction="transaction"
-    @copy="copyToClipboard"
-  />
+  <template v-if="transaction">
+    <component
+      :is="component"
+      :main-coin="mainCoin"
+      :transaction="transaction"
+      @copy="copyToClipboard"
+    />
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -40,11 +41,11 @@ onBeforeMount(async () => {
   try {
     if (!route.params.id) return;
 
-    if (route.params.coin !== 'default') {
+    if (route.query.coin) {
       transaction.value =
         (await transactionService.getTransactionDetailsByCoinAndId(
           route.params.id as string,
-          route.params.coin as string
+          route.query.coin as string
         )) as INetTransaction;
       mainCoin.value = route.params.coin as string;
 

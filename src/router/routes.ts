@@ -214,7 +214,7 @@ const routes: Array<RouteRecordRaw> = [
         component: DashboardTransactions,
       },
       {
-        path: 'details/:id/:coin',
+        path: 'details/:id/',
         name: Route.TransactionsDetails,
         meta: { layout: 'default' },
         component: TransactionDetails,
