@@ -55,4 +55,9 @@ const filterContacts = ref('');
     margin-bottom: 24px;
   }
 }
+
+.circle-add {
+  font-size: 33px;
+  color: $color-primary;
+}
 </style>
