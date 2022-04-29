@@ -1,7 +1,6 @@
 import { defineStore } from 'pinia';
 
 import fundsService from '@/services/fundsService';
-import { useMfaStore } from '@/stores/mfa';
 
 interface ITransferState {
   coin: string;
@@ -41,8 +40,6 @@ export const useTransferStore = defineStore('transfer', {
 
   actions: {
     async transfer(): Promise<void> {
-      const mfaStore = useMfaStore();
-      mfaStore.show({ title: 'transactions.send' });
       await fundsService.transfer(this.coin, {
         amount: this.amount,
         recipient: this.recipient as TRecipient,

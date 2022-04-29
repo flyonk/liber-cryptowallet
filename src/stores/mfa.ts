@@ -75,6 +75,9 @@ export const useMfaStore = defineStore('mfa', {
           this.config.headers[EMfaHeaders.passcode] = data.passcode;
         }
         const res = await axios.request(this.config);
+        if (this.data?.callback) {
+          this.data.callback();
+        }
         return res;
       }
       return data;
