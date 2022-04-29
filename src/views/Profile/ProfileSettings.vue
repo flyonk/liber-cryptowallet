@@ -91,7 +91,7 @@
         <li v-else class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch v-model="isTouchIdOn" class="switcher" />
+          <InputSwitch :model-value="isTouchIdOn" class="switcher" />
         </li>
       </ul>
       <h6 class="subtitle">
