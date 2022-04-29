@@ -1,3 +1,47 @@
+export interface IContractorDto {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+export interface ITransactionDto {
+  id: string;
+  amount?: string;
+  timestamp?: string;
+  status: ERequestFundsStatus | ETransactionStatus;
+  code: string;
+  fee?: string;
+  feeCode?: string;
+  type: ERequestFundsType | ETransactionType;
+  contragent?: IContractorDto;
+}
+
+export interface INetTransactionDto {
+  id: string;
+  sum: string;
+  code: string;
+  to?: TConvertTransaction;
+  from?: TConvertTransaction;
+  icon?: string;
+  info?: string;
+  direction: EDirection;
+  fee?: string;
+  feeCode?: string;
+  status: ETransactionStatus;
+  type: ETransactionType;
+  contractor?: IContractor;
+  startDate?: string;
+  finishDate?: string;
+  relativeDate?: string;
+  rate?: string;
+  detailedInfo?: string;
+  oppositeCoin?: {
+    amount: string;
+    code: string;
+  };
+}
+
 export type TTransaction = INetTransaction | IRequestFunds;
 
 export type TConvertTransaction = {
@@ -87,7 +131,6 @@ export enum EDirection {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   deserialize(input: any): TTransaction {
     return {
       id: input.id,
@@ -157,9 +200,7 @@ export default {
       ) as string,
     };
   },
-
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: TTransaction): any {
+  requestSerialize(input: TTransaction): ITransactionDto {
     return {
       id: input.id,
       amount: (input as INetTransaction).sum || (input as IRequestFunds).amount,

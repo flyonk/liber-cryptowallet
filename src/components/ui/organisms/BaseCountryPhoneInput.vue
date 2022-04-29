@@ -54,7 +54,7 @@ onBeforeMount(async (): Promise<void> => {
     list.value = await getFullList();
   }
 
-  const _selectedCode = list.value.filter((item: any) => {
+  const _selectedCode = list.value.filter((item) => {
     return item.dialCode === props.dialCode;
   });
 

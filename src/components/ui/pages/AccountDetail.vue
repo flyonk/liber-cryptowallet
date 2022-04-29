@@ -170,8 +170,11 @@ const onClick = (carouselItem: ICarouselItem) => {
       });
       break;
     case EKYCStatus.not_started:
+      break;
     case EKYCStatus.pending:
+      break;
     case EKYCStatus.rejected:
+      break;
     default:
       router.push({
         name: carouselItem.failRoute,

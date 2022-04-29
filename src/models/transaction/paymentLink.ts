@@ -1,3 +1,9 @@
+export interface IPaymentLinkDto {
+  id: string;
+  link?: string;
+  expire?: string;
+}
+
 export interface IPaymentLink {
   id: string;
   link: string;
@@ -5,8 +11,7 @@ export interface IPaymentLink {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IPaymentLink {
+  deserialize(input: IPaymentLinkDto): IPaymentLink {
     return {
       id: input.id,
       link: input.link || '',
@@ -14,8 +19,7 @@ export default {
     };
   },
 
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IPaymentLink): any {
+  requestSerialize(input: IPaymentLink): IPaymentLinkDto {
     return {
       id: input.id,
       link: input.link,

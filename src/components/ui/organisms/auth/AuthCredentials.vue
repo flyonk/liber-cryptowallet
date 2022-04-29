@@ -87,6 +87,7 @@ const emits = defineEmits([
   'handleSelectCountry',
   'handleStep',
   'numberChange',
+  'onPrev',
 ]);
 
 const props = defineProps({
