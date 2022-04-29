@@ -5,7 +5,17 @@
     </top-navigation>
 
     <p class="text-default">
-      {{ text }}
+      <span>{{ text }}</span>
+      <template v-if="showPasteBtn">
+        <BaseButton
+          class="resend-button"
+          size="medium"
+          view="flat"
+          @click="pasteFromClipboard"
+        >
+          {{ $t('common.pasteCta') }}
+        </BaseButton>
+      </template>
     </p>
 
     <base-verification-code-input
@@ -108,6 +118,10 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showPasteBtn: {
+    type: Boolean,
+    default: false,
+  },
   verificationCode: {
     type: String,
     default: '',
@@ -184,5 +198,12 @@ const onPrev = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  > :deep(.base-button .container) {
+    justify-content: flex-end;
+  }
 }
 </style>

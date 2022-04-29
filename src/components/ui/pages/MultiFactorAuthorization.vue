@@ -5,6 +5,7 @@
     left-icon-name="icon-app-navigation-close"
     :with-countdown="withCountdown"
     :show-countdown="showCountdown"
+    :show-paste-btn="true"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
     @on-complete="onComplete"
