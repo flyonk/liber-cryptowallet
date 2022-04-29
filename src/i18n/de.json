@@ -30,7 +30,8 @@
     "daysAgo": "days ago",
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
-    "paymentoptions": "Payment Options"
+    "paymentoptions": "Payment Options",
+    "confirmChanging": "Confirm changing"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -123,7 +124,11 @@
     "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure.",
     "copySuccess": "Copying to clipboard was successful!",
     "copyFailure": "Async: Could not copy text:",
-    "readFailure": "Async: Could not read text:"
+    "readFailure": "Async: Could not read text:",
+    "changeAppMessage": "Google Authenticator app protects your withdrawals and Liber account",
+    "changeAppCTA": "Change Authenticator",
+    "ChangeAppMessage": "Withdrawals and P2P transactions will be disabled for 24 hours after  changing Liber / Google Authenticator to ensure the safety of your accounts.",
+    "ChangeAppPopupTitle": "Are you sure you want to change Liber/Google Authentication?"
   },
   "status": {
     "title": "Status",
@@ -303,7 +308,8 @@
     "passcodeEnter": {
       "createPasscode": "Create passcode",
       "confirmPasscode": "Confirm passcode",
-      "changePasscode": "Change passcode"
+      "changePasscode": "Change passcode",
+      "currentPasscode": "Current passcode"
     },
     "dashboard": {
       "home": {

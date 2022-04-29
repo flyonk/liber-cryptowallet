@@ -37,14 +37,22 @@ export default {
     return (await axios.post(apiService.profile.close())).data;
   },
 
-  async configureApp(): Promise<TConfigureAppData> {
-    return await axios.get(apiService.authenticators.configure());
+  async enableVerificationByApp(): Promise<TConfigureAppData> {
+    const res = await axios.get(apiService.authenticators.secret());
+    return res.data;
   },
 
-  async changeAuthenticator(data: {
-    targetAuthenticator: string;
+  async confirmVerificationApp(data: {
+    secret: string;
+    code: string;
   }): Promise<TSuccessResponse> {
-    return (await axios.post(apiService.authenticators.change(), data)).data;
+    return (await axios.post(apiService.authenticators.enable(), data)).data;
+  },
+
+  async disableVerificationApp(data: {
+    code: string;
+  }): Promise<TSuccessResponse> {
+    return (await axios.post(apiService.authenticators.disable(), data)).data;
   },
 
   async verificationBySMS(data: { otp: string }): Promise<TVerification> {
@@ -52,7 +60,7 @@ export default {
   },
 
   async verificationByApp(data: { code: string }): Promise<TVerification> {
-    return (await axios.post(apiService.verification.byApp(), data)).data;
+    return (await axios.post(apiService.authenticators.verify(), data)).data;
   },
 
   //TODO: fix any

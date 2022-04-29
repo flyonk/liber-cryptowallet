@@ -9,6 +9,8 @@ import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
+// import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
+import { useMfaStore } from '@/stores/mfa';
 
 /*
  * This code prevent race condition with multiple parallel API calls
@@ -46,9 +48,16 @@ const _notAuthorizedRoutes = (): string[] => {
 
 const _requestHandler = async (
   config: AxiosRequestConfig
-): Promise<AxiosRequestConfig> => {
+): Promise<AxiosRequestConfig | null> => {
+  // mfa headers
+  // const headers = {
+  //   [EMfaHeaders.otp]: config.headers?.[EMfaHeaders.otp],
+  //   [EMfaHeaders.totp]: config.headers?.[EMfaHeaders.totp],
+  //   [EMfaHeaders.passcode]: config.headers?.[EMfaHeaders.passcode],
+  // };
+  const headers = {};
   config.timeout = 30000;
-  config.headers = <AxiosRequestHeaders>{};
+  config.headers = <AxiosRequestHeaders>headers;
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
@@ -56,9 +65,19 @@ const _requestHandler = async (
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
       const token = await _refreshToken();
       if (token) config.headers['Authorization'] = `Bearer ${token}`;
+      const mfaStore = useMfaStore();
+      if (mfaStore.enabled) {
+        if (config.data?.isMfaRequest) {
+          // remove temprorary flag
+          delete config.data.isMfaRequest;
+        } else {
+          // Store config and cancel requets
+          mfaStore.saveConfig(config);
+          return null;
+        }
+      }
     }
   } catch (error) {
-    console.log('return config error', error);
     SentryUtil.capture(
       error,
       'AxiosInterceptor',
@@ -82,7 +101,12 @@ export default function init(): void {
       return response;
     },
     async (error) => {
-      if (error.response.status === 401) {
+      const mfaStore = useMfaStore();
+      // mfa cancel errro case
+      if (mfaStore.enabled && error instanceof TypeError) {
+        return false;
+      }
+      if (error?.response?.status === 401) {
         const authStore = useAuthStore();
         /*
          * Clear only expired token and refresh token

@@ -69,8 +69,7 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       kycStatus: input.kycStatus || EKYCStatus.success,
-      is2FAConfigured:
-        input.is_2fa_configured || !!input.options?.secret_2fa || false, //TODO: temporary hack for 2FA
+      is2FAConfigured: input.is_2fa_configured || false,
       options: input.options || {},
       marketing: {
         isEmail: false,
