@@ -91,7 +91,7 @@ const handleAddContact = () => {
     emails: [],
   });
 
-  router.push({ name: Route.ContactsSend, params: { id: newContactId } });
+  router.push({ name: Route.PayRecepientsLiber, params: { id: newContactId } });
 };
 
 const isDisabled = computed(() => {
