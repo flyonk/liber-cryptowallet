@@ -92,7 +92,7 @@ const onComplete = async (code: string) => {
       await mfaStore.checkMfa(data);
       mfaStore.hide();
       router.push({
-        name: Route.DashboardHome,
+        name: mfaStore.data?.successRoute || Route.DashboardHome,
       });
     } catch (err) {
       const description = err.response?.data?.message || null;
@@ -118,7 +118,7 @@ const onCompletePasscode = async (code: string) => {
       await mfaStore.checkMfa(data);
       mfaStore.hide();
       router.push({
-        name: Route.DashboardHome,
+        name: mfaStore.data?.successRoute || Route.DashboardHome,
       });
     } catch (err) {
       const description = err.response?.data?.message || null;

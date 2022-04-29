@@ -1,10 +1,17 @@
 import { defineStore } from 'pinia';
 import axios, { AxiosRequestConfig } from 'axios';
 
+type TMfaCallbackData = {
+  title?: string;
+  successRoute?: string;
+  callback?: any;
+};
+
 interface IMfaState {
   shown: boolean;
   btnTitle: string;
   config?: AxiosRequestConfig<any> | null;
+  data?: TMfaCallbackData;
 }
 
 export enum EMfaHeaders {
@@ -31,14 +38,13 @@ export const useMfaStore = defineStore('mfa', {
 
   getters: {
     enabled: (state) => state.shown,
-    getBtnTitle: (state) => state.btnTitle,
+    getBtnTitle: (state) => state.data?.title,
   },
 
   actions: {
-    show({ title }: any) {
-      if (title) {
-        this.btnTitle = title;
-      }
+    show(data: TMfaCallbackData) {
+      this.$reset();
+      this.data = data;
       this.shown = true;
     },
     hide() {
