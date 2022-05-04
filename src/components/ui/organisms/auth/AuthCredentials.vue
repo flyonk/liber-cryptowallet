@@ -126,6 +126,15 @@ const isInitialStep = ref(true) as Ref<boolean>;
 
 const isNumberInvalid = computed(() => {
   if (!number.value) return true;
+
+  /**
+   * Check the number of '9' in the mask,
+   * if the length of the entered number is less,
+   * then the button is disabled
+   */
+  const numOfDigits = mask.value.replace(new RegExp(/\D/, 'g'), '').length;
+  if (number.value.length < numOfDigits) return true;
+
   return new RegExp(/_/).test(number.value);
 });
 
