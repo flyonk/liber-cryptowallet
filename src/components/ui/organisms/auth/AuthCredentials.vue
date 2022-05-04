@@ -126,7 +126,6 @@ const isInitialStep = ref(true) as Ref<boolean>;
 
 const isNumberInvalid = computed(() => {
   if (!number.value) return true;
-
   /**
    * Check the number of '9' in the mask,
    * if the length of the entered number is less,
@@ -135,10 +134,19 @@ const isNumberInvalid = computed(() => {
   const numOfDigits = mask.value.replace(new RegExp(/\D/, 'g'), '').length;
   if (number.value.length < numOfDigits) return true;
 
+  /**
+   * For the only country from the list of European countries without a mask (UK),
+   * the limit is 10 digits
+   */
+  if (props.countryDialCode === '+44' && (number.value + '').length !== 10)
+    return true;
+
   return new RegExp(/_/).test(number.value);
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
+  number.value = null;
+
   const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
 
   type.value = TypeBaseInput.Number;
@@ -163,7 +171,7 @@ const handleSelectCountry = (data: ICountryInformation) => {
 const handleStep = () => {
   if (!number.value) return;
 
-  const phone = formatPhoneNumber(number.value);
+  const phone = formatPhoneNumber(number.value + '');
 
   emits('handleStep', phone);
 };

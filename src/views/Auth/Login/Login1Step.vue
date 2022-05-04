@@ -61,6 +61,8 @@ onMounted(async () => {
 });
 
 const handleSelectCountry = (dialCode: string) => {
+  // need for sync data with AuthCredentials isNumberInvalid function
+  countryDialCode.value = dialCode;
   authStore.setDialCode(dialCode);
 };
 
