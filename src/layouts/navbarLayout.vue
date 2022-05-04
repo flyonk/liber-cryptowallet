@@ -11,13 +11,16 @@
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
 
+import { useMfaStore } from '@/stores/mfa';
+
 import { Route } from '@/router/types';
 
 import BottomNav from '@/components/ui/organisms/BottomNav.vue';
 
 const route = useRouter();
+const mfaStore = useMfaStore();
 
-let showNavBar = ref(true);
+let showNavBar = ref(true && !mfaStore.enabled);
 let path = route.currentRoute.value.name;
 
 if (path === Route.DashboardVerification) showNavBar.value = false;
@@ -26,7 +29,7 @@ watch(route.currentRoute, (val) => {
   if (val.name === Route.DashboardVerification) {
     showNavBar.value = false;
   } else {
-    showNavBar.value = true;
+    showNavBar.value = true && !mfaStore.enabled;
   }
 });
 </script>
