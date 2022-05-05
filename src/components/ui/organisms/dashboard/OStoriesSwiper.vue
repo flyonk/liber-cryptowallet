@@ -13,18 +13,9 @@
 
 <script setup lang="ts">
 import { Swiper, SwiperSlide } from 'swiper/vue';
-import { stories } from '@/mock/dashboardStories';
+
+import { stories } from './../../../../../tests/mock/dashboardStories';
 import MStoriesSwiperItem from '@/components/ui/molecules/MStoriesSwiperItem.vue';
 </script>
 
-<style lang="scss" scoped>
-.stories-swiper {
-  // &:nth-child(3) {
-  //   background: $color-green-50;
-  // }
-
-  // &:last-child {
-  //   background: $color-yellow-50;
-  // }
-}
-</style>
+<style lang="scss" scoped></style>
