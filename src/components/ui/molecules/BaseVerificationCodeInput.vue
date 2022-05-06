@@ -55,13 +55,19 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  value: {
+    type: String,
+    default: '',
+  },
 });
 
 const emit = defineEmits(['change', 'complete', 'update:modelValue']);
 
 const inputs = ref([]) as Ref<HTMLElement[]>;
 
-const activationCode = ref([]) as Ref<string[]>;
+const activationCode = ref(props.value ? props.value.split('') : []) as Ref<
+  string[]
+>;
 
 const errorsStore = useErrorsStore();
 
@@ -154,6 +160,14 @@ const onPaste = async (): Promise<void> => {
 
 watch(
   () => props.isError,
+  (newValue, oldValue) => {
+    if (!newValue && oldValue) {
+      activationCode.value = [];
+    }
+  }
+);
+watch(
+  () => props.value,
   (newValue, oldValue) => {
     if (!newValue && oldValue) {
       activationCode.value = [];

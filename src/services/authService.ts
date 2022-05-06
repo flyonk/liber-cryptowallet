@@ -16,6 +16,7 @@ export default {
   async signInProceed(data: {
     phone: string;
     otp: string;
+    code_2fa: string;
   }): Promise<ISuccessSignIn> {
     data.phone = formatPhoneNumber(data.phone);
 
