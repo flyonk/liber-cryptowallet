@@ -78,7 +78,9 @@ const onContinue = () => {
 const onConfirm = () => {
   showPopup.value = false;
   const mfaStore = useMfaStore();
-  mfaStore.show({});
+  mfaStore.show({
+    successRoute: Route.InstallApp,
+  });
   twofaStore.disable();
 };
 </script>
