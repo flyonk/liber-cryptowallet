@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 
 import apiService from '@/services/apiService';
 import { useAuthStore } from '@/stores/auth';
@@ -49,21 +49,19 @@ const _notAuthorizedRoutes = (): string[] => {
 const _requestHandler = async (
   config: AxiosRequestConfig
 ): Promise<AxiosRequestConfig | null> => {
-  console.log('Before reset headers', config.headers);
   // mfa headers
   // const headers = {
   //   [EMfaHeaders.otp]: config.headers?.[EMfaHeaders.otp],
   //   [EMfaHeaders.totp]: config.headers?.[EMfaHeaders.totp],
   //   [EMfaHeaders.passcode]: config.headers?.[EMfaHeaders.passcode],
   // };
-  const headers = {};
+  if (!config.headers) return null;
+
   config.timeout = 30000;
-  config.headers = <AxiosRequestHeaders>headers;
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
 
-  console.log('After reset headers', config.headers);
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
       const token = await _refreshToken();
