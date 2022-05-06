@@ -2,7 +2,7 @@
   <VerifyCode
     v-bind="$attrs"
     :flow="VerifyCodeFlow.Login"
-    @prev="$emit('prev')"
+    @next="$emit('next')"
   />
 </template>
 
@@ -11,7 +11,7 @@ import VerifyCode from '@/components/ui/organisms/auth/VerifyCode.vue';
 
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
 
-defineEmits(['prev']);
+defineEmits(['next']);
 </script>
 
 <style lang="scss">

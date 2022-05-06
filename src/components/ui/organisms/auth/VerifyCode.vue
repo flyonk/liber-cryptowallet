@@ -99,7 +99,6 @@ const onComplete = async (data: string) => {
           query: { step: 2 },
         });
       case EUserStatus.registered:
-        await pStore.setTwoFASecret(pStore.user.options?.secret_2fa as string);
         await twoFAStore.set2FADate();
         if (passcode) return nextStep();
         return await router.push({

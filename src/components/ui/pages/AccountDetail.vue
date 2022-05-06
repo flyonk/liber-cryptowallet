@@ -2,7 +2,7 @@
   <div class="account-transactions">
     <t-top-navigation
       nav-without-title
-      @click:left-icon="$router.push({ name: Route.AccountMain })"
+      @click:left-icon="$router.replace({ name: Route.AccountMain })"
     />
     <div class="header">
       <!--TODO: get this stuff from call-->
@@ -14,13 +14,8 @@
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
-      <VueAgile
-        :nav-buttons="false"
-        :slides-to-show="3.5"
-        :swipe-distance="20"
-        class="carousel-slider"
-      >
-        <div
+      <swiper class="swiper" :slides-per-view="3.5" :space-between="5">
+        <swiper-slide
           v-for="(item, index) in carousel"
           :key="index"
           class="item-slide"
@@ -28,8 +23,8 @@
         >
           <img :src="item.img" alt class="image" />
           <p class="name">{{ item.name }}</p>
-        </div>
-      </VueAgile>
+        </swiper-slide>
+      </swiper>
       <div v-if="showControls" class="controls">
         <button class="btn">
           <img alt class="label" src="@/assets/icon/plus.svg" />{{
@@ -42,7 +37,7 @@
           }}
         </button>
         <button class="btn">
-          <img alt class="label" src="@/assets/icon/repeat.svg" />{{
+          <img alt="Exchange" class="label" src="@/assets/icon/repeat.svg" />{{
             $t('transactions.exchange')
           }}
         </button>
@@ -81,9 +76,9 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref } from 'vue';
-import { VueAgile } from 'vue-agile';
 import { LocaleMessageValue, useI18n, VueMessageType } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
@@ -193,6 +188,10 @@ const onClick = (carouselItem: ICarouselItem) => {
 
   > .header {
     padding: 0 16px;
+
+    > .swiper {
+      overflow: visible;
+    }
 
     > .controls {
       display: flex;

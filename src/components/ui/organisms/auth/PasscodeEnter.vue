@@ -33,13 +33,15 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, Ref, ref } from 'vue';
+import { computed, Ref, ref, onBeforeMount } from 'vue';
 import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { PropType } from 'vue-demi';
+import { get } from '@/helpers/storage';
+import { EStorageKeys } from '@/types/storage';
 
 const props = defineProps({
   redirectOnSuccessRoute: {
@@ -68,6 +70,14 @@ const title = computed(() => {
 
     default:
       return tm('views.passcodeEnter.createPasscode');
+  }
+});
+
+onBeforeMount(async () => {
+  const isExists = (await get(EStorageKeys.passcode)) === 'true';
+
+  if (isExists) {
+    actionType.value = EPasscodeActions.compare;
   }
 });
 

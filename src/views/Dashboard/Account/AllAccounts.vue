@@ -15,7 +15,7 @@
       ><div class="all-accounts">
         <ul class="currencies">
           <li class="item" @click="$router.push({ name: Route.DashboardHome })">
-            <img alt class="icon" src="@/assets/icon/currencies/euro.svg" />
+            <img class="icon" src="@/assets/icon/currencies/euro.svg" />
             <h4 class="title">{{ totalBalance.currency }}</h4>
             <p class="description">{{ $t('views.account.allAccounts') }}</p>
             <h5 class="sum">
@@ -27,9 +27,9 @@
             v-for="(currency, index) in accounts"
             :key="index"
             class="item"
-            @click="$router.push(getCurrencyUrl(currency.code))"
+            @click="$router.replace(getCurrencyUrl(currency.code))"
           >
-            <img alt class="icon" :src="currency.imageUrl" />
+            <img class="icon" :src="currency.imageUrl" />
             <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
             <p class="description">{{ currency.name }}</p>
             <h5 class="sum">{{ currency.balance }}</h5>
@@ -47,7 +47,7 @@ import { useAccountStore } from '@/stores/account';
 import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
 import { IAccount } from '@/models/account/account';
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { TTopNavigation } from '@/components/ui';
 
 const accountStore = useAccountStore();
 

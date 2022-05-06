@@ -43,7 +43,7 @@ async function setOptions(value: string, key: EStorageKeys) {
   });
 }
 
-// === 2fa Store ===
+// === Options Store ===
 
 export const useAppOptionsStore = defineStore('appOptions', {
   state: (): IappOptionsState => ({

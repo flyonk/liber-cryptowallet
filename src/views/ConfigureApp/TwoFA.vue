@@ -41,8 +41,6 @@ const pStore = useProfileStore();
 onMounted(async () => {
   if (!pStore.user.id) await pStore.init();
   if (pStore.user.is2FAConfigured) {
-    //TODO: temporary solution
-    await pStore.setTwoFASecret(pStore.user.options?.secret_2fa as string);
     router.push({
       name: Route.ConfigureAppVerify,
     });

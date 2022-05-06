@@ -16,10 +16,16 @@
           :key="index"
           class="invite-item"
         >
-          <BaseInput v-model="newContacts[index].name.value" type="text">
+          <BaseInput
+            v-model="newContacts[index].name"
+            :type="TypeBaseInput.Text"
+          >
             <template #label> Name </template>
           </BaseInput>
-          <BaseInput v-model="newContacts[index].email.value" type="text">
+          <BaseInput
+            v-model="newContacts[index].email"
+            :type="TypeBaseInput.Text"
+          >
             <template #label> Email </template>
           </BaseInput>
           <p class="add" @click="addExtraContact">
@@ -38,9 +44,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
 import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 const newContacts = ref([
   {
@@ -54,17 +61,16 @@ function addExtraContact() {
     name: '',
     email: '',
   });
-  console.log(newContacts);
 }
 
-function isBtnDisabled() {
-  let result = true;
+const isBtnDisabled = computed(() => {
+  let result = false;
   newContacts.value.forEach((i) => {
-    if (i.name === '' || i.email === '') result = false;
+    if (i.name == '' || i.email === '') result = true;
     return i;
   });
   return result;
-}
+});
 </script>
 
 <style lang="scss" scoped>
@@ -73,6 +79,10 @@ function isBtnDisabled() {
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
+
+  > .btn {
+    width: 100%;
+  }
 }
 
 .invite-header {

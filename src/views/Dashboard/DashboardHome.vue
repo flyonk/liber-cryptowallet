@@ -167,14 +167,14 @@
         }}</span> -->
             </div>
             <div class="carousel">
-              <VueAgile :nav-buttons="false" :slides-to-show="2">
-                <div
+              <swiper class="swiper" :slides-per-view="2.2" :space-between="8">
+                <swiper-slide
                   v-for="(item, index) in carousel"
                   :key="index"
-                  class="carousel-item slide"
+                  class="carousel-item"
                   @click="$router.push({ name: item.route })"
                 >
-                  <img :src="item.imgSrc" alt />
+                  <img :src="item.imgSrc" />
                   <h4
                     :class="{
                       'text-green': item.text === 'green',
@@ -184,8 +184,8 @@
                     {{ item.status }}
                   </h4>
                   <p>{{ item.description }}</p>
-                </div>
-              </VueAgile>
+                </swiper-slide>
+              </swiper>
             </div>
             <!--      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />-->
             <AccountListBottomSheet
@@ -202,8 +202,9 @@
 
 <script lang="ts" setup>
 import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
-import { VueAgile } from 'vue-agile';
+
 import { useI18n } from 'vue-i18n';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
@@ -214,9 +215,14 @@ import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
 
-import { AccountListBottomSheet, TTopNavigation } from '@/components/ui';
+import {
+  AccountListBottomSheet,
+  TTopNavigation,
+  TransactionsList,
+} from '@/components/ui';
+
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
-import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
@@ -713,5 +719,9 @@ const showWelcomeMessage = computed(() => {
     bottom: 0;
     opacity: 1;
   }
+}
+
+.swiper {
+  z-index: 0; //hides behind the bottom navigation
 }
 </style>

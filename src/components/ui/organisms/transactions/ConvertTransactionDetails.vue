@@ -3,7 +3,7 @@
     <template #title>
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.sum }}
+          {{ directionSign }} {{ transaction.amount }}
           <span class="currency">
             {{ mainCoin }}
           </span>
@@ -18,7 +18,7 @@
     <template #content>
       <div class="transaction-details">
         <div class="header">
-          <h2 class="sendto">{{ transaction.detailedInfo }}</h2>
+          <h2 class="sendto">{{ detailedInfo }}</h2>
           <p class="date">
             {{ relativeDate }}
           </p>
@@ -50,21 +50,22 @@
             <p class="name">
               {{ $t('transactions.transferFee') }}
             </p>
-            <p class="description">- {{ transaction.fee }} {{ mainCoin }}</p>
+            <p class="description">
+              - {{ transaction.fee.amount }}
+              {{ transaction.fee.code.toUpperCase() }}
+            </p>
           </li>
 
           <li class="main-item">
             <p class="name">
               {{
-                transaction.direction === EDirection.income
-                  ? $t('transactions.cost')
-                  : $t('transactions.bought')
+                isIncome ? $t('transactions.cost') : $t('transactions.bought')
               }}
             </p>
             <p class="description">
-              {{ transaction.direction === EDirection.income ? '-' : '+' }}
-              {{ transaction.oppositeCoin.amount }}
-              {{ transaction.oppositeCoin.code }}
+              {{ isIncome ? '-' : '+' }}
+              {{ transaction.counter.amount }}
+              {{ transaction.counter.code.toUpperCase() }}
             </p>
           </li>
         </ul>
@@ -76,7 +77,10 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import { EDirection, INetTransaction } from '@/models/transaction/transaction';
+import {
+  EDirection,
+  IConvertTransaction,
+} from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
@@ -89,7 +93,7 @@ import {
 defineEmits(['copy']);
 const props = defineProps({
   transaction: {
-    type: Object as PropType<INetTransaction>,
+    type: Object as PropType<IConvertTransaction>,
     required: true,
   },
 
@@ -100,6 +104,23 @@ const props = defineProps({
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());
+const isIncome = computed(
+  () => props.transaction.direction === EDirection.income
+);
+
+const directionSign = computed(() => (isIncome.value ? '+' : '-'));
+
+const detailedInfo = computed(() =>
+  !isIncome.value
+    ? 'Sold ' +
+      mainCoin.value +
+      ' to ' +
+      props.transaction.counter.code.toUpperCase()
+    : 'Bought ' +
+      mainCoin.value +
+      ' with ' +
+      props.transaction.counter.code.toUpperCase()
+);
 
 const feeRate = computed(
   () =>
@@ -108,14 +129,10 @@ const feeRate = computed(
     ' = ' +
     props.transaction.rate +
     ' ' +
-    props.transaction.oppositeCoin?.code
+    props.transaction.counter.code.toUpperCase()
 );
 
 const relativeDate = computed(() => {
-  return getRelativeDate(
-    props.transaction.finishDate
-      ? (props.transaction.finishDate as string)
-      : (props.transaction.startDate as string)
-  );
+  return getRelativeDate(props.transaction.date);
 });
 </script>

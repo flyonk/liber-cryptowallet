@@ -84,12 +84,12 @@
                 {{ $t('views.profile.profileSettings.privacy') }}
               </p>
             </li>
-            <li class="item" disabled>
+            <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
               <img class="icon" src="@/assets/icon/google.svg" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.2FAGoogle') }}
               </p>
-            </li>
+            </router-link>
             <router-link class="item" disabled to="/profile/devices">
               <img class="icon" src="@/assets/icon/devices.svg" />
               <p class="text">
@@ -112,7 +112,23 @@
               <p class="text">
                 {{ $t('views.profile.profileSettings.signIn') }}
               </p>
-              <InputSwitch v-model="isTouchIdOn" class="switcher" />
+              <InputSwitch :model-value="isTouchIdOn" class="switcher" />
+            </li>
+          </ul>
+          <h6 class="subtitle">
+            {{ $t('views.profile.profileSettings.appearance') }}
+          </h6>
+          <ul class="list label--profile">
+            <li
+              class="item"
+              @click="showLanguageSelect = true"
+              @close="showLanguageSelect = false"
+            >
+              <img class="icon" src="@/assets/icon/world.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.language') }}
+              </p>
+              <p class="text selected-language">{{ locale }}</p>
             </li>
           </ul>
           <h6 class="subtitle">
@@ -139,6 +155,10 @@
             {{ $t('views.profile.profileSettings.copyright') }}
           </p>
         </div>
+        <LanguageSwitcher
+          v-if="showLanguageSelect"
+          @close="showLanguageSelect = false"
+        />
       </div>
       <!-- TODO: fix close account behavior -->
       <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
@@ -170,7 +190,8 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { TTopNavigation } from '@/components/ui';
+import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 
 const route = useRouter();
 const authStore = useAuthStore();
@@ -193,6 +214,8 @@ const showCloseAccount = ref(false);
 const { faceid, touchid } = appOptionsStore.getOptions;
 const isTouchIdOn = ref(faceid || touchid);
 const touchFaceIdSwitcher = ref('');
+const showLanguageSelect = ref(false);
+const { locale } = useI18n({ useScope: 'global' });
 
 const onSwitcherChange = async () => {
   const value = isTouchIdOn.value ? 'true' : '';
@@ -396,6 +419,10 @@ async function onLogout() {
         }
 
         > .switcher {
+          margin-left: auto;
+        }
+
+        > .selected-language {
           margin-left: auto;
         }
       }

@@ -1,29 +1,16 @@
 import { defineStore } from 'pinia';
-import { generateSecret, generateToken, verifyToken } from 'node-2fa';
 import { Storage } from '@capacitor/storage';
+import profileService from '@/services/profileService';
 
-import { useAuthStore } from './auth';
+import { useMfaStore } from '@/stores/mfa';
+
 import { checkExpiration } from '@/helpers/2fa';
 
 import { EStorageKeys } from '@/types/storage';
 
 interface I2faState {
   secret: string;
-  uri: string;
-}
-
-const getSecret = async () => {
-  const { value } = await Storage.get({
-    key: EStorageKeys.twofa,
-  });
-  return value || '';
-};
-
-async function setSecret(secret: string) {
-  await Storage.set({
-    key: EStorageKeys.twofa,
-    value: secret,
-  });
+  url: string;
 }
 
 // === 2fa Store ===
@@ -31,7 +18,7 @@ async function setSecret(secret: string) {
 export const use2faStore = defineStore('2fa', {
   state: (): I2faState => ({
     secret: '',
-    uri: '',
+    url: '',
   }),
 
   getters: {
@@ -40,27 +27,34 @@ export const use2faStore = defineStore('2fa', {
   },
 
   actions: {
-    generateToken() {
-      generateToken(this.secret);
+    async confirmVerification(code: string) {
+      return await profileService.confirmVerificationApp({
+        secret: this.secret,
+        code,
+      });
     },
 
-    async verify(token: string) {
-      return verifyToken(this.secret, token);
+    async verify(code: string) {
+      const result = await profileService.verificationByApp({ code });
+      return result;
+    },
+
+    async disable(code = '') {
+      const mfaStore = useMfaStore();
+      mfaStore.show({});
+      const result = await profileService.disableVerificationApp({ code });
+      return result;
     },
 
     async generateSecret() {
-      const auth = useAuthStore();
-      const { dialCode, phone } = await auth.recoverPhoneFromStorage();
-      const account = `Personal${dialCode}${phone}`;
-      const { secret, uri } = generateSecret({
-        name: 'Liber App',
-        account,
-      });
-
+      const { secret, url } = await profileService.enableVerificationByApp();
       this.secret = secret;
-      this.uri = uri;
+      this.url = url;
 
-      setSecret(secret);
+      return {
+        secret,
+        url,
+      };
     },
 
     async set2FADate(): Promise<void> {
@@ -78,10 +72,6 @@ export const use2faStore = defineStore('2fa', {
        * Return true if expired
        */
       return checkExpiration(timestamp, 3);
-    },
-
-    async init() {
-      this.secret = await getSecret();
     },
   },
 });

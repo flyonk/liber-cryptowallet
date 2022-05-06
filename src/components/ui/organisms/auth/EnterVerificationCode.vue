@@ -54,6 +54,7 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 import { useErrorsStore } from '@/stores/errors';
@@ -94,10 +95,23 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showPasteBtn: {
+    type: Boolean,
+    default: false,
+  },
   verificationCode: {
     type: String,
     default: '',
   },
+  leftIconName: {
+    type: String,
+    default: 'icon-app-navigation-back',
+  },
+});
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const withCountdown = computed(() => {
+  return props.withCountdown;
 });
 const pasteFromClipboard = async () => {
   try {
@@ -156,6 +170,13 @@ const onPrev = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  > :deep(.base-button .container) {
+    justify-content: flex-end;
+  }
 }
 
 .footer {
