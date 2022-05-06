@@ -5,6 +5,7 @@ import signInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
 import { IUserDevice } from '@/models/auth/devices';
 import { formatPhoneNumber } from '@/helpers/auth';
+import { EMfaHeaders } from '@/stores/mfa';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
@@ -18,10 +19,11 @@ export default {
     otp: string;
   }): Promise<ISuccessSignIn> {
     data.phone = formatPhoneNumber(data.phone);
+    const { phone, otp } = data;
 
-    const res = await axios.post(apiService.auth.signInProceed(), data, {
+    const res = await axios.post(apiService.auth.signInProceed(), phone, {
       headers: {
-        'x-otp-code': data.otp,
+        [EMfaHeaders.otp]: otp,
       },
     });
 
