@@ -182,8 +182,8 @@ const onClick = (carouselItem: ICarouselItem) => {
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: 90%;
-  overflow: hidden;
+  height: calc(100% - 95px);
+  overflow: scroll;
   flex-grow: 1;
 
   > .header {
