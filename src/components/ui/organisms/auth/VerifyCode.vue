@@ -4,7 +4,7 @@
     :show-countdown="showCountdown"
     :text="text"
     :title="title"
-    :verificationCode="verificationCode"
+    :verification-code="verificationCode"
     :with-countdown="withCountdown"
     @on-hide="onHideError"
     @on-time-is-up="onTimeIsUp"

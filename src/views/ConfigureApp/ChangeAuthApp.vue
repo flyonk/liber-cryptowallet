@@ -66,6 +66,7 @@ import { TopNavigation, BaseButton, BaseToast } from '@/components/ui';
 import { Route } from '@/router/types';
 
 import { use2faStore } from '@/stores/2fa';
+import { useMfaStore } from '@/stores/mfa';
 
 const twofaStore = use2faStore();
 const showPopup = ref(false);
@@ -76,6 +77,8 @@ const onContinue = () => {
 
 const onConfirm = () => {
   showPopup.value = false;
+  const mfaStore = useMfaStore();
+  mfaStore.show({});
   twofaStore.disable();
 };
 </script>
