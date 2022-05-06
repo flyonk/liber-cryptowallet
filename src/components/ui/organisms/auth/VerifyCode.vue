@@ -3,8 +3,9 @@
     :is-error="isError"
     :show-countdown="showCountdown"
     :text="text"
-    :title="$t('common.codeInput')"
-    with-countdown
+    :title="title"
+    :verificationCode="verificationCode"
+    :with-countdown="withCountdown"
     @on-hide="onHideError"
     @on-time-is-up="onTimeIsUp"
     @on-complete="onComplete"
@@ -14,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, Ref, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import router from '@/router';
@@ -40,9 +41,11 @@ const pStore = useProfileStore();
 const twoFAStore = use2faStore();
 const errorsStore = useErrorsStore();
 
-const showCountdown = ref(true) as Ref<boolean>;
-const isError = ref(false) as Ref<boolean>;
-// const verificationCode = ref('');
+const showCountdown = ref(true);
+const isError = ref(false);
+const is2fa = ref(false);
+const verificationCode = ref('');
+const _otp = ref('');
 
 const props = defineProps({
   flow: {
@@ -82,10 +85,28 @@ onMounted(async () => {
 });
 
 const text = computed(() => {
+  if (is2fa.value) {
+    return tm('auth.login.step4Description');
+  }
   return `${tm('auth.login.step2Description')} ${formatPhone()}`;
 });
 
+const title = computed(() => {
+  if (is2fa.value) {
+    return tm('auth.login.step4Title');
+  }
+  return tm('common.codeInput');
+});
+
+const withCountdown = computed(() => {
+  return is2fa.value;
+});
+
 const prevStep = () => {
+  if (is2fa.value) {
+    is2fa.value = false;
+    return;
+  }
   emit('prev');
 };
 
@@ -102,10 +123,12 @@ const onTimeIsUp = () => {
 };
 
 const onComplete = async (data: string) => {
-  const otp = data;
+  const otp = is2fa.value ? _otp.value : data;
+  const totp = is2fa.value ? data : '';
+  verificationCode.value = otp;
 
   try {
-    await authStore.signInProceed({ phone: phone.value, otp });
+    await authStore.signInProceed({ phone: phone.value, otp, code_2fa: totp });
     await pStore.init();
     const passcode = (await get(EStorageKeys.passcode)) === 'true';
 
@@ -141,7 +164,17 @@ const onComplete = async (data: string) => {
     } else {
       nextStep();
     }
-  } catch (err) {
+  } catch (err: AxiosError | Error | unknown) {
+    const code = err.response?.status;
+    if (code === 406) {
+      // new device case
+      // use 2fa
+      _otp.value = otp;
+      is2fa.value = true;
+      verificationCode.value = '';
+      return;
+    }
+
     isError.value = true;
   }
 };
