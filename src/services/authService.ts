@@ -19,7 +19,12 @@ export default {
   }): Promise<ISuccessSignIn> {
     data.phone = formatPhoneNumber(data.phone);
 
-    const res = await axios.post(apiService.auth.signInProceed(), data);
+    const res = await axios.post(apiService.auth.signInProceed(), data, {
+      headers: {
+        'x-otp-code': data.otp,
+      },
+    });
+
     return signInMapper.deserialize(res.data);
   },
 

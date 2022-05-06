@@ -49,6 +49,7 @@ const _notAuthorizedRoutes = (): string[] => {
 const _requestHandler = async (
   config: AxiosRequestConfig
 ): Promise<AxiosRequestConfig | null> => {
+  console.log('Before reset headers', config.headers);
   // mfa headers
   // const headers = {
   //   [EMfaHeaders.otp]: config.headers?.[EMfaHeaders.otp],
@@ -61,6 +62,8 @@ const _requestHandler = async (
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
+
+  console.log('After reset headers', config.headers);
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
       const token = await _refreshToken();
@@ -68,7 +71,7 @@ const _requestHandler = async (
       const mfaStore = useMfaStore();
       if (mfaStore.enabled) {
         if (config.data?.isMfaRequest) {
-          // remove temprorary flag
+          // remove temporary flag
           delete config.data.isMfaRequest;
         } else {
           // Store config and cancel requets
@@ -102,7 +105,7 @@ export default function init(): void {
     },
     async (error) => {
       const mfaStore = useMfaStore();
-      // mfa cancel errro case
+      // mfa cancel error case
       if (mfaStore.enabled && error instanceof TypeError) {
         return false;
       }
