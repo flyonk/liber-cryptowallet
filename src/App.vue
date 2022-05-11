@@ -28,27 +28,28 @@ import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 //TODO: use profile store instead
 import { useAccountStore } from './stores/account';
-
-import SentryUtil from '@/helpers/sentryUtil';
+import { useErrorsStore } from '@/stores/errors';
 import SwipeBack from '@/plugins/swipe-capacitor';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 
+const store = useAccountStore();
+store.init();
+
+const errorsStore = useErrorsStore();
+
 SwipeBack.enable()
   .then()
-  .catch((error) => {
-    const { code } = error;
+  .catch((err) => {
+    const { code } = err;
     if (code !== 'UNIMPLEMENTED') {
-      SentryUtil.capture(
-        error,
+      errorsStore.handle(
+        err,
         'App',
         'SwipeBack',
         'Capacitor SwipeBack plugin error'
       );
     }
   });
-
-const store = useAccountStore();
-store.init();
 </script>
 
 <style lang="scss">
