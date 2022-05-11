@@ -54,6 +54,7 @@ defineProps({
   margin-bottom: 32px;
 
   > .title {
+    font-family: Inter, sans-serif;
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;

@@ -1,68 +1,67 @@
 <template name="send-to">
-  <div v-if="!show2FA" class="send-to">
-    <div class="header sendto-header">
-      <img
-        class="back mr-2"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push({ name: Route.DashboardHome })"
-      />
-      <h4 class="username"></h4>
-    </div>
-    <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">{{ $t('transactions.convert.title') }}</h1>
-    </div>
-    <div class="sendto-main">
-      <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
-    </div>
-  </div>
-  <base-toast
-    v-if="popupStatus === 'attention'"
-    v-model:visible="showPopup"
-    :severity="'attention'"
+  <t-top-navigation
+    @click:left-icon="$router.push({ name: Route.DashboardHome })"
   >
-    <template #description>
-      <div class="popup-description">
-        <h1 class="title">Do you know and trust this payee?</h1>
-        <p class="description">
-          If you're unsure, don't pay them, as we may not be able to help you
-          get your money back. Remember, fraudsters can impersonate others, and
-          we will never ask you to make a payment
-        </p>
+    <template #title>{{ $t('transactions.convert.title') }}</template>
+    <template #content>
+      <div v-if="!show2FA" class="send-to">
+        <div class="sendto-main">
+          <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
+        </div>
+      </div>
+      <base-toast
+        v-if="popupStatus === 'attention'"
+        v-model:visible="showPopup"
+        :severity="'attention'"
+      >
+        <template #description>
+          <div class="popup-description">
+            <h1 class="title">Do you know and trust this payee?</h1>
+            <p class="description">
+              If you're unsure, don't pay them, as we may not be able to help
+              you get your money back. Remember, fraudsters can impersonate
+              others, and we will never ask you to make a payment
+            </p>
+          </div>
+        </template>
+        <template #footer>
+          <div class="popup-footer">
+            <BaseButton
+              class="btn mb-3"
+              size="large"
+              @click="showPopup = false"
+            >
+              No, go back
+            </BaseButton>
+            <BaseButton class="btn" size="large" view="secondary">
+              Yes, continue
+            </BaseButton>
+          </div>
+        </template>
+      </base-toast>
+      <base-toast
+        v-if="popupStatus === 'confirmation'"
+        v-model:visible="showPopup"
+        :severity="'confirmation'"
+        @click="showPopup = false"
+      >
+        <template #description>
+          <div class="popup-description">
+            <p class="description">
+              $1 will be sent once Andrey Verbitsky (andrey@gmail.com) accepts
+              the payment
+            </p>
+          </div>
+        </template>
+      </base-toast>
+      <div v-if="show2FA">
+        <auth2-f-a-verification-component
+          @success-verification="handleConvert"
+          @close="onClose"
+        />
       </div>
     </template>
-    <template #footer>
-      <div class="popup-footer">
-        <BaseButton class="btn mb-3" size="large" @click="showPopup = false">
-          No, go back
-        </BaseButton>
-        <BaseButton class="btn" size="large" view="secondary">
-          Yes, continue
-        </BaseButton>
-      </div>
-    </template>
-  </base-toast>
-  <base-toast
-    v-if="popupStatus === 'confirmation'"
-    v-model:visible="showPopup"
-    :severity="'confirmation'"
-    @click="showPopup = false"
-  >
-    <template #description>
-      <div class="popup-description">
-        <p class="description">
-          $1 will be sent once Andrey Verbitsky (andrey@gmail.com) accepts the
-          payment
-        </p>
-      </div>
-    </template>
-  </base-toast>
-  <div v-if="show2FA">
-    <auth2-f-a-verification-component
-      @success-verification="handleConvert"
-      @close="onClose"
-    />
-  </div>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -77,7 +76,7 @@ import { ref } from 'vue';
 import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import { Route } from '@/router/types';
-import { BaseToast, BaseButton } from '@/components/ui';
+import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
 import { useFundsStore } from '@/stores/funds';
 
 const showPopup = ref(false);
@@ -103,7 +102,7 @@ function onClose() {
 <style lang="scss" scoped>
 .send-to {
   height: 100vh;
-  padding: 60px 16px 0;
+  padding: 0 16px;
   flex-grow: 1;
   overflow: auto;
 }

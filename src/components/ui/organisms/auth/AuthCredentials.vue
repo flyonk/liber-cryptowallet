@@ -1,24 +1,6 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      {{ title }}
-    </top-navigation>
-    <div class="description text--body">
-      <slot v-if="isInitialStep" name="text-empty-state">
-        {{ text }}
-        <br />
-        <template v-if="additionalText">
-          {{ additionalText }}
-        </template>
-      </slot>
-      <slot v-else name="text-valuable-state">
-        {{ text }}
-        <br />
-        <template v-if="additionalText">
-          {{ additionalText }}
-        </template>
-      </slot>
-    </div>
+    <h1 class="title">{{ title }}</h1>
     <div class="grid">
       <div class="col-4">
         <base-country-phone-input
@@ -73,12 +55,7 @@ import { computed } from '@vue/reactivity';
 import { Ref, ref } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
-import {
-  BaseButton,
-  BaseCountryPhoneInput,
-  BaseInput,
-  TopNavigation,
-} from '@/components/ui';
+import { BaseButton, BaseCountryPhoneInput, BaseInput } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
@@ -92,11 +69,11 @@ const emits = defineEmits([
 const props = defineProps({
   title: {
     type: String,
-    required: true,
+    default: '',
   },
   text: {
     type: String,
-    required: true,
+    default: '',
   },
   additionalText: {
     type: String,
@@ -159,10 +136,6 @@ const handleStep = () => {
   emits('handleStep', phone);
 };
 
-const prevStep = () => {
-  emits('onPrev');
-};
-
 const clearNumber = () => {
   number.value = null;
 };
@@ -182,12 +155,24 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  > span {
-    color: $color-brand-2-300;
+.auth-page-container {
+  > .title {
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    color: $color-black;
+  }
 
-    > :deep(.link) {
-      color: $color-primary-500;
+  > .footer {
+    > span {
+      color: $color-brand-2-300;
+
+      > :deep(.link) {
+        color: $color-primary-500;
+      }
     }
   }
 }

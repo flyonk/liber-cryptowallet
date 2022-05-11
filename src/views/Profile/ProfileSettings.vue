@@ -1,13 +1,10 @@
 <template name="AccountSettings">
-  <div class="account-settings">
-    <div class="header">
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+  >
+    <template #title>
       <div class="left">
-        <img
-          alt="arrow-left"
-          class="back"
-          src="@/assets/icon/arrow-left.svg"
-          @click="$router.push({ name: Route.DashboardHome })"
-        />
         <h1 class="title">{{ accountName }}</h1>
         <div class="flex">
           <p class="account">
@@ -16,116 +13,157 @@
           </p>
         </div>
       </div>
-      <ContactInitials :name="accountName" />
-    </div>
-    <!-- TODO: Implement menu controls -->
-    <div class="controls" style="display: none">
-      <button class="btn -blue">
-        <img class="icon" src="@/assets/icon/user_heart.svg" />
-        {{ $t('views.profile.profileSettings.invite') }}
-      </button>
-      <button class="btn -white">
-        {{ $t('views.profile.profileSettings.copy') }}
-      </button>
-    </div>
-    <div class="main">
-      <h6 class="subtitle">
-        {{ $t('views.profile.profileSettings.profile') }}
-      </h6>
-      <ul class="list list--profile">
-        <li class="item" @click="$router.push({ name: Route.ProfileMyQrCode })">
-          <img class="icon" src="@/assets/icon/qr-mini.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.QRCode') }}</p>
-        </li>
-        <router-link
-          :to="{ name: Route.ProfileEdit, params: { id: '1' } }"
-          class="item"
-        >
-          <img class="icon" src="@/assets/icon/user_circle.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.details') }}</p>
-        </router-link>
-        <router-link :to="{ name: Route.AccountMain }" class="item">
-          <img class="icon" src="@/assets/icon/data.svg" />
+    </template>
+    <template #right>
+      <div class="initials-wrapper">
+        <ContactInitials :name="accountName" />
+      </div>
+    </template>
+    <template #content>
+      <div v-if="!showCloseAccount" class="account-settings">
+        <!-- TODO: Implement menu controls -->
+        <div class="controls" style="display: none">
+          <button class="btn -blue">
+            <img class="icon" src="@/assets/icon/user_heart.svg" />
+            {{ $t('views.profile.profileSettings.invite') }}
+          </button>
+          <button class="btn -white">
+            {{ $t('views.profile.profileSettings.copy') }}
+          </button>
+        </div>
+        <div class="main">
+          <h6 class="subtitle">
+            {{ $t('views.profile.profileSettings.profile') }}
+          </h6>
+          <ul class="list list--profile">
+            <li
+              class="item"
+              @click="$router.push({ name: Route.ProfileMyQrCode })"
+            >
+              <img class="icon" src="@/assets/icon/qr-mini.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.QRCode') }}
+              </p>
+            </li>
+            <router-link
+              :to="{ name: Route.ProfileEdit, params: { id: '1' } }"
+              class="item"
+            >
+              <img class="icon" src="@/assets/icon/user_circle.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.details') }}
+              </p>
+            </router-link>
+            <router-link :to="{ name: Route.AccountMain }" class="item">
+              <img class="icon" src="@/assets/icon/data.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.allAccounts') }}
+              </p>
+            </router-link>
+            <router-link :to="{ name: Route.ProfileHelp }" class="item">
+              <img class="icon" src="@/assets/icon/help_circle.svg" />
+              <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
+            </router-link>
+          </ul>
+          <h6 class="subtitle">
+            {{ $t('views.profile.profileSettings.security') }}
+          </h6>
+          <ul class="list security--profile">
+            <router-link :to="{ name: Route.ChangePasscode }" class="item">
+              <img class="icon" src="@/assets/icon/lock.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.changePasscode') }}
+              </p>
+            </router-link>
+            <li
+              class="item"
+              @click="$router.push({ name: Route.ProfilePrivacy })"
+            >
+              <img class="icon" src="@/assets/icon/shield.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.privacy') }}
+              </p>
+            </li>
+            <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
+              <img class="icon" src="@/assets/icon/google.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.2FAGoogle') }}
+              </p>
+            </router-link>
+            <router-link class="item" disabled to="/profile/devices">
+              <img class="icon" src="@/assets/icon/devices.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.devices') }}
+              </p>
+            </router-link>
+            <li
+              v-if="touchFaceIdSwitcher"
+              class="item"
+              @click="onSwitcherChange"
+            >
+              <img class="icon" src="@/assets/icon/touchid.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.signIn') }}
+              </p>
+              <InputSwitch v-model="isTouchIdOn" class="switcher" />
+            </li>
+            <li v-else class="item" @click="onSwitcherChange">
+              <img class="icon" src="@/assets/icon/touchid.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.signIn') }}
+              </p>
+              <InputSwitch :model-value="isTouchIdOn" class="switcher" />
+            </li>
+          </ul>
+          <h6 class="subtitle">
+            {{ $t('views.profile.profileSettings.appearance') }}
+          </h6>
+          <ul class="list label--profile">
+            <li
+              class="item"
+              @click="showLanguageSelect = true"
+              @close="showLanguageSelect = false"
+            >
+              <img class="icon" src="@/assets/icon/world.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.language') }}
+              </p>
+              <p class="text selected-language">{{ locale }}</p>
+            </li>
+          </ul>
+          <h6 class="subtitle">
+            {{ $t('views.profile.profileSettings.system') }}
+          </h6>
+          <ul class="list label--profile">
+            <li class="item" @click="showCloseAccount = true">
+              <img class="icon" src="@/assets/icon/circle_close.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.close') }}
+              </p>
+            </li>
+            <li class="item" @click="onLogout">
+              <img class="icon" src="@/assets/icon/log_out.svg" />
+              <p class="text">
+                {{ $t('views.profile.profileSettings.logOut') }}
+              </p>
+            </li>
+          </ul>
+        </div>
+        <div class="footer">
+          <p class="text">{{ $t('views.profile.profileSettings.version') }}</p>
           <p class="text">
-            {{ $t('views.profile.profileSettings.allAccounts') }}
+            {{ $t('views.profile.profileSettings.copyright') }}
           </p>
-        </router-link>
-        <router-link :to="{ name: Route.ProfileHelp }" class="item">
-          <img class="icon" src="@/assets/icon/help_circle.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
-        </router-link>
-      </ul>
-      <h6 class="subtitle">
-        {{ $t('views.profile.profileSettings.security') }}
-      </h6>
-      <ul class="list security--profile">
-        <router-link :to="{ name: Route.ChangePasscode }" class="item">
-          <img class="icon" src="@/assets/icon/lock.svg" />
-          <p class="text">
-            {{ $t('views.profile.profileSettings.changePasscode') }}
-          </p>
-        </router-link>
-        <li class="item" @click="$router.push({ name: Route.ProfilePrivacy })">
-          <img class="icon" src="@/assets/icon/shield.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
-        </li>
-        <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
-          <img class="icon" src="@/assets/icon/google.svg" />
-          <p class="text">
-            {{ $t('views.profile.profileSettings.2FAGoogle') }}
-          </p>
-        </router-link>
-        <router-link class="item" disabled to="/profile/devices">
-          <img class="icon" src="@/assets/icon/devices.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
-        </router-link>
-        <li v-if="touchFaceIdSwitcher" class="item" @click="onSwitcherChange">
-          <img class="icon" src="@/assets/icon/touchid.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch v-model="isTouchIdOn" class="switcher" />
-        </li>
-        <li v-else class="item" @click="onSwitcherChange">
-          <img class="icon" src="@/assets/icon/touchid.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch :model-value="isTouchIdOn" class="switcher" />
-        </li>
-      </ul>
-      <h6 class="subtitle">
-        {{ $t('views.profile.profileSettings.appearance') }}
-      </h6>
-      <ul class="list label--profile">
-        <li
-          class="item"
-          @click="showLanguageSelect = true"
+        </div>
+        <LanguageSwitcher
+          v-if="showLanguageSelect"
           @close="showLanguageSelect = false"
-        >
-          <img class="icon" src="@/assets/icon/world.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.language') }}</p>
-          <p class="text selected-language">{{ locale }}</p>
-        </li>
-      </ul>
-      <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
-      <ul class="list label--profile">
-        <li class="item" @click="showCloseAccount = true">
-          <img class="icon" src="@/assets/icon/circle_close.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.close') }}</p>
-        </li>
-        <li class="item" @click="onLogout">
-          <img class="icon" src="@/assets/icon/log_out.svg" />
-          <p class="text">{{ $t('views.profile.profileSettings.logOut') }}</p>
-        </li>
-      </ul>
-    </div>
-    <div class="footer">
-      <p class="text">{{ $t('views.profile.profileSettings.version') }}</p>
-      <p class="text">{{ $t('views.profile.profileSettings.copyright') }}</p>
-    </div>
-  </div>
-  <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
-  <LanguageSwitcher
-    v-if="showLanguageSelect"
-    @close="showLanguageSelect = false"
-  />
+        />
+      </div>
+      <!-- TODO: fix close account behavior -->
+      <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -152,6 +190,7 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
+import { TTopNavigation } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 
 const route = useRouter();
@@ -273,7 +312,7 @@ async function onLogout() {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 60px 16px 50px;
+  padding-top: 10px;
   flex-grow: 1;
   overflow: auto;
 
@@ -405,5 +444,38 @@ async function onLogout() {
       }
     }
   }
+}
+
+.left {
+  > .back {
+    margin-bottom: 20px;
+  }
+
+  > .title {
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    margin-bottom: 8px;
+  }
+
+  > .flex > .account {
+    font-size: 20px;
+    line-height: 25px;
+    display: flex;
+    align-items: center;
+    letter-spacing: -0.0045em;
+    color: $color-dark-grey;
+    font-family: Inter, sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 25px;
+  }
+}
+
+.initials-wrapper > :deep(.initials) {
+  width: 56px;
+  height: 56px;
 }
 </style>

@@ -1,45 +1,42 @@
 <template>
-  <div class="auth-page-container">
-    <TopNavigation @click:left-icon="$emit('prev')">
-      {{ $t('auth.signup.step5Title') }}
-    </TopNavigation>
-    <div class="description text--body">
-      {{ $t('auth.signup.step4Description1') }}
-      <br />
-      {{ $t('auth.signup.step4Description2') }}
-    </div>
-    <base-input
-      v-model="birth"
-      mask="99.99.9999"
-      :placeholder="$t('auth.signup.ddmmyyyy')"
-      pattern="\d*"
-      type="mask"
-      slot-char="dd.mm.yyyy"
-      @focus="showClearBtn"
-      @blur="closeClearBtn"
-    >
-      <template v-if="isClearBtnShown" #label>
-        {{ $t('auth.signup.date') }}
-      </template>
-      <template v-if="isClearBtnShown" #append>
-        <i
-          class="ci-off_outline_close"
-          @click="clearDate"
-          @touchend="clearDate"
-        />
-      </template>
-    </base-input>
-    <!-- TODO: move to a separated component -->
-    <div class="sign-button-wrapper">
-      <BaseButton block :disabled="isDateInvalid" @click="nextStep">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
+    <template #title> {{ $t('auth.signup.step5Title') }}</template>
+    <template #subtitle> {{ $t('auth.signup.step4Description') }}</template>
+    <template #content
+      ><div class="auth-page-container">
+        <base-input
+          v-model="birth"
+          mask="99.99.9999"
+          :placeholder="$t('auth.signup.ddmmyyyy')"
+          pattern="\d*"
+          type="mask"
+          slot-char="dd.mm.yyyy"
+          @focus="showClearBtn"
+          @blur="closeClearBtn"
+        >
+          <template v-if="isClearBtnShown" #label>
+            {{ $t('auth.signup.date') }}
+          </template>
+          <template v-if="isClearBtnShown" #append>
+            <i
+              class="ci-off_outline_close"
+              @click="clearDate"
+              @touchend="clearDate"
+            />
+          </template>
+        </base-input></div
+    ></template>
+    <template #fixed-footer>
+      <base-button block :disabled="isDateInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
-      </BaseButton>
-    </div>
-  </div>
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseButton, BaseInput } from '@/components/ui';
+import { BaseButton, BaseInput } from '@/components/ui';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { Route } from '@/router/types';
 import { ref } from 'vue-demi';
 import { computed } from '@vue/reactivity';

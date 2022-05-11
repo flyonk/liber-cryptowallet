@@ -168,11 +168,17 @@ const routes: Array<RouteRecordRaw> = [
         path: 'verifying-identity',
         name: Route.DashboardVerifyingStory,
         component: DashboardVerifyingIdentityStory,
+        meta: {
+          layout: 'default',
+        },
       },
       {
         path: 'transfer-funds-to-treasury',
         name: Route.DashboardTransferFundsToTreasuryStory,
         component: DashboardTransferFundsToTreasuryStory,
+        meta: {
+          layout: 'default',
+        },
       },
     ],
   },

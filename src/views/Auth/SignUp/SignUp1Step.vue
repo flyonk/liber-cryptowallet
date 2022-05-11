@@ -1,29 +1,32 @@
 <template>
-  <auth-credentials
-    :title="$t('auth.signup.step1Title')"
-    :text="$t('auth.signup.step1Description1')"
-    :additional-text="$t('auth.signup.step1Description2')"
-    :next-title="$t('common.signUpCta')"
-    :initial-number="number"
-    :country-dial-code="countryDialCode"
-    @handle-select-country="handleSelectCountry"
-    @handle-step="handleStep"
-    @number-change="numberChange"
-    @on-prev="prevStep"
-  >
-    <template #footer-empty-state>
-      {{ $t('auth.signup.step1ExistingAcc') }}
-      <router-link :to="{ name: Route.Login }" class="link">
-        {{ $t('common.logInCta') }}
-      </router-link>
+  <t-top-navigation @click:left-icon="prevStep">
+    <template #title>{{ $t('auth.signup.step1Title') }}</template>
+    <template #subtitle>{{ $t('auth.signup.step1Description') }} </template>
+    <template #content>
+      <auth-credentials
+        :next-title="$t('common.signUpCta')"
+        :initial-number="number"
+        :country-dial-code="countryDialCode"
+        @handle-select-country="handleSelectCountry"
+        @handle-step="handleStep"
+        @number-change="numberChange"
+        @on-prev="prevStep"
+      >
+        <template #footer-empty-state>
+          {{ $t('auth.signup.step1ExistingAcc') }}
+          <router-link :to="{ name: Route.Login }" class="link">
+            {{ $t('common.logInCta') }}
+          </router-link>
+        </template>
+        <template #footer-valuable-state>
+          {{ $t('auth.signup.step1ExistingAcc') }}
+          <router-link :to="{ name: Route.Login }" class="link">
+            {{ $t('common.logInCta') }}
+          </router-link>
+        </template>
+      </auth-credentials>
     </template>
-    <template #footer-valuable-state>
-      {{ $t('auth.signup.step1ExistingAcc') }}
-      <router-link :to="{ name: Route.Login }" class="link">
-        {{ $t('common.logInCta') }}
-      </router-link>
-    </template>
-  </auth-credentials>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -34,6 +37,7 @@ import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
 import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
+import { TTopNavigation } from '@/components/ui';
 
 const router = useRouter();
 

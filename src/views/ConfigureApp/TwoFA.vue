@@ -1,23 +1,20 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation @click:left-icon="prevStep">
-      {{ $t('configureApp.twoFATitle') }}
-    </top-navigation>
-
-    <p class="text-default">
-      {{ $t('configureApp.twoFADescription') }}
-    </p>
-
-    <div class="flex-center">
-      <img alt="keys" src="@/assets/images/2fa-keys.svg" />
-    </div>
-  </div>
-
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="installApp">
-      {{ $t('common.continueCta') }}
-    </base-button>
-  </div>
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
+    <template #title> {{ $t('configureApp.twoFATitle') }}</template>
+    <template #subtitle> {{ $t('configureApp.twoFADescription') }}</template>
+    <template #content>
+      <div class="page-wrapper">
+        <div class="flex-center">
+          <img alt="keys" src="@/assets/images/2fa-keys.svg" />
+        </div>
+      </div>
+    </template>
+    <template #fixed-footer
+      ><base-button block @click="installApp">
+        {{ $t('common.continueCta') }}
+      </base-button></template
+    >
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -32,7 +29,7 @@ import { onMounted } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
@@ -68,6 +65,7 @@ function installApp(): void {
   overflow: auto;
   display: flex;
   flex-direction: column;
+  height: 100%;
 }
 
 .text-default {
@@ -84,6 +82,6 @@ function installApp(): void {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
+  // flex-grow: 1;
 }
 </style>
