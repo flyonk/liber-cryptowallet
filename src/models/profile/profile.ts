@@ -65,6 +65,7 @@ export interface IProfile
   birthDate?: string;
   options?: TAnyObjectType;
   is2FAConfigured?: boolean;
+  isPasscodeEnabled: boolean;
   marketing: TMarketing;
   kycStatus: EKYCStatus;
 }
@@ -87,9 +88,9 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       kycStatus: input.kycStatus || EKYCStatus.success,
-      is2FAConfigured:
-        input.is_2fa_configured || !!input.options?.secret_2fa || false, //TODO: temporary hack for 2FA
+      is2FAConfigured: input.is_2_fa_configured || false,
       options: input.options || {},
+      isPasscodeEnabled: input.is_pass_code_enabled,
       marketing: {
         isEmail: false,
         isPushNotification: false,

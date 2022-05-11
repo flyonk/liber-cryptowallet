@@ -48,6 +48,11 @@ import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
+import { useProfileStore } from '@/stores/profile';
+import { useAuthStore } from '@/stores/auth';
+
+const pStore = useProfileStore();
+const authStore = useAuthStore();
 
 const { tm } = useI18n();
 
@@ -130,10 +135,18 @@ const selectAnswer = (id: number | string) => {
   if (maxValue <= activeQuestion.value + 1) {
     markAnswerAsSelected(id);
     const userAnswers = getSelectedAnswers();
-    saveAnswers(userAnswers).then(() => {
-      router.push({
-        name: Route.TwoFAApp,
-      });
+    saveAnswers(userAnswers).then(async () => {
+      if (!pStore.user.id) await pStore.init();
+      if (pStore.user.is2FAConfigured) {
+        authStore.setStep(2, 'login');
+        router.push({
+          name: Route.Login,
+        });
+      } else {
+        router.push({
+          name: Route.TwoFAApp,
+        });
+      }
     });
     return;
   }

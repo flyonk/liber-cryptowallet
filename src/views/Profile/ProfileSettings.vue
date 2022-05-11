@@ -14,10 +14,6 @@
             My ID:
             <a class="link">{{ accountID }}</a>
           </p>
-          <!-- <img
-            src="@/assets/icon/edit.svg"
-            alt="edit"
-          >-->
         </div>
       </div>
       <ContactInitials :name="accountName" />
@@ -73,12 +69,12 @@
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
-        <li class="item" disabled>
+        <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
           <img class="icon" src="@/assets/icon/google.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
-        </li>
+        </router-link>
         <router-link class="item" disabled to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
@@ -91,7 +87,7 @@
         <li v-else class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch v-model="isTouchIdOn" class="switcher" />
+          <InputSwitch :model-value="isTouchIdOn" class="switcher" />
         </li>
       </ul>
       <h6 class="subtitle">
