@@ -17,7 +17,8 @@ export interface IProfileDto {
   birthdate?: string;
   options?: TAnyObjectType;
   kycStatus: EKYCStatus;
-  is_2fa_configured?: boolean;
+  is_2_fa_configured?: boolean;
+  is_pass_code_enabled: boolean;
 }
 
 type TAnyObjectType = Record<string, string | boolean | number | null>;
