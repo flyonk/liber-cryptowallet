@@ -79,7 +79,6 @@ function getSubmitFunction(actionType: string) {
       return setPasscode;
     case EPasscodeActions.compare:
       return checkPasscode;
-
     default:
       return checkPasscode;
   }
@@ -124,6 +123,11 @@ function setNumber(number: string): void {
     passcode.value = passcode.value + number;
 
     if (passcode.value.length === 4) {
+      if (props.actionType === EPasscodeActions.show) {
+        emit('submit', passcode.value);
+        return;
+      }
+
       onSubmit(passcode.value)
         .then((result: boolean) => {
           if (!result) passcode.value = '';

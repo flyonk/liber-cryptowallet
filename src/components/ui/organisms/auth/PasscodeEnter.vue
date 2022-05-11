@@ -1,6 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="$router.back()">
+    <top-navigation
+      @click:left-icon="emitOnBack ? $emit('back') : $router.back()"
+    >
       {{ title }}
     </top-navigation>
   </div>
@@ -44,10 +46,15 @@ import { PropType } from 'vue-demi';
 import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 
+defineEmits(['back']);
 const props = defineProps({
   redirectOnSuccessRoute: {
     type: String as PropType<Route>,
     required: true,
+  },
+  emitOnBack: {
+    type: Boolean,
+    default: false,
   },
   toCreate: {
     type: Boolean,

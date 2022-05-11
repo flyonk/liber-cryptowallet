@@ -18,6 +18,7 @@
         </p>
         <div class="passcode">
           <base-verification-code-input
+            type="password"
             :value="passcode"
             :fields="4"
             @complete="onCompletePasscode"
@@ -35,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter } from 'vue-router';
 
@@ -44,7 +45,7 @@ import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
 import { Route } from '@/router/types';
 
-import { BaseVerificationCodeInput, BaseButton } from '@/components/ui';
+import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const router = useRouter();

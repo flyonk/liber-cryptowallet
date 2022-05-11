@@ -100,6 +100,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/change-passcode',
     name: Route.ChangePasscode,
     component: ChangePasscode,
+    meta: { layout: 'default' },
   },
 
   {
