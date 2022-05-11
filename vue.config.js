@@ -5,6 +5,8 @@ const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
+const useSentryPlugin = process.env.VUE_APP_SENTRY_ENABLED === '1';
+
 module.exports = {
   configureWebpack: {
     plugins: [
@@ -14,10 +16,14 @@ module.exports = {
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      new SentryWebpackPlugin({
-        include: './dist',
-        ignore: ['node_modules', 'vue.config.js'],
-      }),
+      ...(useSentryPlugin
+        ? [
+            new SentryWebpackPlugin({
+              include: './dist',
+              ignore: ['node_modules', 'vue.config.js'],
+            }),
+          ]
+        : []),
       // new webpack.ProvidePlugin({
       //   process: 'process/browser',
       // }),

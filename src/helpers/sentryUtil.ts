@@ -1,4 +1,4 @@
-import { setUser, captureException } from '@sentry/browser';
+import { captureException, setUser } from '@sentry/browser';
 import { cloneDeep } from 'lodash';
 
 import { useProfileStore } from '@/stores/profile';
@@ -34,10 +34,9 @@ export default {
     if (error.message) {
       tags.originalMessage = error.message;
 
-      const message = description
+      error.message = description
         ? `${component}: ${description} | Original description: ${error.message}`
         : `${component}: ${error.message}`;
-      error.message = message;
     }
 
     // for xhr errors we have 3 cases to handle:
