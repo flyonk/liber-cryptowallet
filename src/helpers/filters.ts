@@ -13,7 +13,15 @@ export const string2ISO = (date: string): string => {
   return DateTime.fromFormat(date, 'dd.LL.yyyy').toISO();
 };
 
-const filters = { timestampToDate };
+export const toUpperCase = (string: string): string => {
+  if (!string) {
+    return '';
+  }
+
+  return string.toUpperCase();
+};
+
+const filters = { timestampToDate, toUpperCase };
 
 export default {
   install(app: App) {

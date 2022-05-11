@@ -18,30 +18,65 @@ export default {
     error: any,
     componentName: string,
     componentContext: string,
-    description = '',
+    description?: string,
     _extra = {},
     _tags = {}
   ): void {
-    const response = error.response;
-
+    // additional information
     const extra = cloneDeep(_extra) as any;
     const tags = cloneDeep(_tags) as any;
-    tags.api = false;
 
+    tags.api = false;
+    tags.isAxiosError = error.isAxiosError;
     const component = `${componentName}@${componentContext}`;
     tags.component = component;
-    const message = description ? `${component} - ${description}` : component;
 
-    if (response) {
-      if (response.status) {
+    if (error.message) {
+      tags.originalMessage = error.message;
+
+      const message = description
+        ? `${component}: ${description} | Original description: ${error.message}`
+        : `${component}: ${error.message}`;
+      error.message = message;
+    }
+
+    // for xhr errors we have 3 cases to handle:
+    // case #1:
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    // It contains `error.response` property at least
+    // case #2:
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser
+    // case #3:
+    // Something happened in setting up the request that triggered an Error
+    if (error.response) {
+      // case 1
+      if (error.response?.status && error.response?.config) {
         tags.api = true;
-        extra.method = response.config.method;
-        extra.url = response.config.url;
-        extra.params = JSON.parse(response.config.data);
+        extra.method = error.response.config.method;
+        extra.url = error.response.config.url;
       }
 
-      if (response.data && response.data.errorCode) {
-        tags.errorCode = response.data.errorCode;
+      if (error.response?.config?.data) {
+        extra.params = JSON.parse(error.response.config.data);
+      }
+
+      if (error.response.data && error.response.data.errorCode) {
+        tags.errorCode = error.response.data.errorCode;
+      }
+    } else if (error.request) {
+      // case #2
+      if (error.request) {
+        tags.api = true;
+      }
+
+      if (error.request?.errorCode) {
+        tags.errorCode = error.request.errorCode;
+      }
+
+      if (error.request?.responseURL) {
+        extra.url = error.request.responseURL;
       }
     }
 
@@ -50,7 +85,6 @@ export default {
       tags,
     };
 
-    error.message = message;
     captureException(error, context);
   },
 };

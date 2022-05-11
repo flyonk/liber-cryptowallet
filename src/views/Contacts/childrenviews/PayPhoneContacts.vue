@@ -3,5 +3,5 @@
 </template>
 
 <script setup lang="ts">
-import Contacts from '@/components/ui/pages/Contacts.vue';
+import Contacts from '@/components/ui/pages/ContactsPage.vue';
 </script>

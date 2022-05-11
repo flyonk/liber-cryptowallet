@@ -22,7 +22,7 @@
   align-items: center;
   justify-content: center;
   padding: 21px 24px;
-  border-radius: 20px;
+  border-radius: 12px;
   box-shadow: 0 0 0 99999px #fff;
 
   > .inner {

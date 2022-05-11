@@ -5,7 +5,7 @@
         alt="arrow-left"
         class="back"
         src="@/assets/icon/arrow-left.svg"
-        @click="$router.push({ name: Route.AccountMain })"
+        @click="$router.replace({ name: Route.AccountMain })"
       />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
@@ -16,13 +16,8 @@
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
-      <VueAgile
-        :nav-buttons="false"
-        :slides-to-show="3.5"
-        :swipe-distance="20"
-        class="carousel-slider"
-      >
-        <div
+      <swiper class="swiper" :slides-per-view="3.5" :space-between="5">
+        <swiper-slide
           v-for="(item, index) in carousel"
           :key="index"
           class="item-slide"
@@ -30,8 +25,8 @@
         >
           <img :src="item.img" alt class="image" />
           <p class="name">{{ item.name }}</p>
-        </div>
-      </VueAgile>
+        </swiper-slide>
+      </swiper>
       <div v-if="showControls" class="controls">
         <button class="btn">
           <img alt class="label" src="@/assets/icon/plus.svg" />{{
@@ -44,7 +39,7 @@
           }}
         </button>
         <button class="btn">
-          <img alt class="label" src="@/assets/icon/repeat.svg" />{{
+          <img alt="Exchange" class="label" src="@/assets/icon/repeat.svg" />{{
             $t('transactions.exchange')
           }}
         </button>
@@ -83,19 +78,25 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref } from 'vue';
-import { VueAgile } from 'vue-agile';
-import { useI18n } from 'vue-i18n';
+import { LocaleMessageValue, useI18n, VueMessageType } from 'vue-i18n';
 import { useRoute, useRouter } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
-import { useFundsStore } from '@/stores/funds';
 
 import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
 import { AccountDetails } from '@/components/ui';
+
+interface ICarouselItem {
+  name: LocaleMessageValue<VueMessageType>;
+  img: string;
+  successRoute: string;
+  failRoute: string;
+}
 
 let showControls = ref(false);
 const { tm } = useI18n();
@@ -109,24 +110,25 @@ const currentCoin = ref(null) as Ref<string | null>;
 
 const route = useRoute();
 const router = useRouter();
-const fundsStore = useFundsStore();
 
 /**
  * Lifecycle
  */
+const coin = ref('');
+
 onBeforeMount(() => {
   if (route.params.coin) {
-    const coin = route.params.coin as string;
+    coin.value = route.params.coin as string;
 
-    accountStore.init(coin);
-    currentCoin.value = coin;
+    accountStore.init(coin.value);
+    currentCoin.value = coin.value;
   }
 });
 
 const transactions = computed(() => accountStore.getCoinTransactions);
 const balance = computed(() => accountStore.getBalanceByCoin);
 
-const carousel = [
+const carousel: ICarouselItem[] = [
   {
     name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
@@ -144,24 +146,6 @@ const carousel = [
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
-    callback() {
-      if (balance.value.code === 'tbtc') return;
-      console.log('balance value', balance.value);
-      const { from } = fundsStore.getState;
-      // from balance
-      fundsStore.setCrypto(
-        from?.name || 'BTC',
-        from?.code || 'tbtc',
-        from?.img || ' ',
-        'to'
-      );
-      fundsStore.setCrypto(
-        balance.value.name,
-        balance.value.code,
-        balance.value.imageUrl,
-        'from'
-      );
-    },
   },
   {
     name: tm('transactions.carousel.withdraw'),
@@ -171,15 +155,13 @@ const carousel = [
   },
 ];
 
-const onClick = (carouselItem: any) => {
+const onClick = (carouselItem: ICarouselItem) => {
   const { kycStatus } = profileStore.getUser;
   switch (kycStatus) {
     case EKYCStatus.success:
-      if (carouselItem.callback) {
-        carouselItem.callback();
-      }
       router.push({
         name: carouselItem.successRoute,
+        query: { code: coin.value },
       });
       break;
     case EKYCStatus.not_started:
@@ -204,6 +186,10 @@ const onClick = (carouselItem: any) => {
 
   > .header {
     padding: 0 16px;
+
+    > .swiper {
+      overflow: visible;
+    }
 
     > .controls {
       display: flex;
@@ -260,8 +246,8 @@ const onClick = (carouselItem: any) => {
 
 .transactions-block {
   height: auto;
-  max-height: 438px;
   margin-bottom: 0;
+  padding-bottom: 10%;
 }
 
 .title-currency {

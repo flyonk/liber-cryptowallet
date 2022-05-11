@@ -32,17 +32,11 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  onBeforeUpdate,
-  Ref,
-  ref,
-  getCurrentInstance,
-  watch,
-} from 'vue';
+import { computed, onBeforeUpdate, Ref, ref, watch } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { BaseButton } from '@/components/ui';
+import { useErrorsStore } from '@/stores/errors';
 
 const props = defineProps({
   type: {
@@ -69,7 +63,7 @@ const inputs = ref([]) as Ref<HTMLElement[]>;
 
 const activationCode = ref([]) as Ref<string[]>;
 
-const { proxy } = getCurrentInstance();
+const errorsStore = useErrorsStore();
 
 onBeforeUpdate(() => {
   inputs.value = [];
@@ -153,9 +147,8 @@ const onPaste = async (): Promise<void> => {
 
       activationCode.value = [...substringValue];
     }
-  } catch (e) {
-    console.error(e);
-    proxy.$sentry.capture(e, 'BaseVerificationCodeInput', 'onPaste');
+  } catch (err) {
+    errorsStore.handle(err, 'BaseVerificationCodeInput', 'onPaste');
   }
 };
 

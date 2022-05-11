@@ -30,7 +30,8 @@
     "daysAgo": "days ago",
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
-    "paymentoptions": "Payment Options"
+    "paymentoptions": "Payment Options",
+    "confirmChanging": "Confirm changing"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -46,6 +47,7 @@
     "login": {
       "step1Title": "Log in to Liber",
       "step1Description": "Enter your registered mobile number to log in",
+      "step1DescriptionValuable": "We will send verification code to this number.",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
       "step1AccountExists": "Don’t have an account?",
@@ -123,27 +125,45 @@
     "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure.",
     "copySuccess": "Copying to clipboard was successful!",
     "copyFailure": "Async: Could not copy text:",
-    "readFailure": "Async: Could not read text:"
+    "readFailure": "Async: Could not read text:",
+    "changeAppMessage": "Google Authenticator app protects your withdrawals and Liber account",
+    "changeAppCTA": "Change Authenticator",
+    "ChangeAppMessage": "Withdrawals and P2P transactions will be disabled for 24 hours after  changing Liber / Google Authenticator to ensure the safety of your accounts.",
+    "ChangeAppPopupTitle": "Are you sure you want to change Liber/Google Authentication?"
   },
   "status": {
     "title": "Status",
     "pending": "Pending",
-    "complete": "Complete"
+    "complete": "Complete",
+    "failed": "Reverted"
   },
   "transactions": {
+    "address": "Address",
     "id": "Transaction ID",
     "walletAddress": "Wallet Address",
     "deposit": "Deposit",
+    "deposited": "Deposited",
     "send": "Send",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
-    "transferFee": "Transfer Fee",
+    "transferFee": "Fee",
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
+    "statement": "Statement",
+    "paymentLinkExpires": "Payment link will expire in 6 days",
+    "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
+    "rate": "Rate",
+    "bought": "Bought",
+    "cost": "Cost",
+    "transactionIdCopied": "Transaction ID is copied successfully",
+    "transactionIdCopyFail": "Failed when copy Transaction ID",
+    "boughtCoinInfo": "Bought {mainCoin} with {secondaryCoin}",
+    "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
+    "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "income": "Received",
       "outcome": "Sent",
@@ -151,13 +171,16 @@
       "deposit": "Deposit",
       "withdraw": "Withdraw",
       "convert": "Convert",
-      "send": "Send"
+      "send": "Send",
+      "buy": "Buy",
+      "sell": "Sell"
     },
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
-      "finished": "Finished",
-      "cancelled": "Cancelled"
+      "finished": "Completed",
+      "cancelled": "Cancelled",
+      "failed": "Reverted"
     },
     "carousel": {
       "deposit": "Deposit",
@@ -171,8 +194,7 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"
-    }
+      "rateChanged": "Rate have been changed"    }
   },
   "ui": {
     "friends": {
@@ -303,7 +325,8 @@
     "passcodeEnter": {
       "createPasscode": "Create passcode",
       "confirmPasscode": "Confirm passcode",
-      "changePasscode": "Change passcode"
+      "changePasscode": "Change passcode",
+      "currentPasscode": "Current passcode"
     },
     "dashboard": {
       "home": {
@@ -489,12 +512,15 @@
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh",
-        "sameCurrenciesError": "You should choose different currencies for exchange"
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },
   "errors": {
     "requestTimeout": "Request timeout",
-    "serviceUnavailable": "Service unavailable"
+    "serviceUnavailable": "Service unavailable",
+    "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
+    "gotIt": "Got it",
+    "details": "Details"
   }
 }

@@ -45,20 +45,24 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { Route } from '@/router/types';
 
 import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
-let isMenuOpen = ref(false);
+import { useUIStore } from '@/stores/ui';
+
+const uiStore = useUIStore();
+
+let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
 
 function openMenu() {
-  isMenuOpen.value = true;
+  uiStore.setStateModal('sendMenu', true);
 }
 
 function closeMenu() {
-  isMenuOpen.value = false;
+  uiStore.setStateModal('sendMenu', false);
 }
 </script>
 

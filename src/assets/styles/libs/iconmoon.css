@@ -27,8 +27,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-// TODO: need add refresh icon (like in right side of header in dashboard home page)
-// TODO: need add a lot of icons for Profile Settings display. '/profile' route
+/* TODO: need add refresh icon (like in right side of header in dashboard home page)*/
+/* TODO: need add a lot of icons for Profile Settings display. '/profile' route*/
+/* TODO add some icons from dashboard ... action */
+/* TODO: FIX icon left - now its icon right*/
+/* TODO: fix down icon*/
 
 .icon-all-accounts:before {
   content: '\e900';
@@ -51,7 +54,6 @@
 .icon-check:before {
   content: '\e906';
 }
-// TODO: FIX icon left - now its icon right
 .icon-chevron-left:before {
   content: '\e907';
 }
@@ -88,7 +90,6 @@
 .icon-home-on:before {
   content: '\e912';
 }
-// TODO: fix down icon
 .icon-ic16-arrow-down:before {
   content: '\e913';
 }

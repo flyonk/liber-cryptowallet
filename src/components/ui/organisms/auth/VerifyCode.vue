@@ -21,6 +21,7 @@ import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { use2faStore } from '@/stores/2fa';
+import { useErrorsStore } from '@/stores/errors';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
@@ -37,6 +38,7 @@ const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 const pStore = useProfileStore();
 const twoFAStore = use2faStore();
+const errorsStore = useErrorsStore();
 
 const showCountdown = ref(true) as Ref<boolean>;
 const isError = ref(false) as Ref<boolean>;
@@ -75,8 +77,7 @@ onMounted(async () => {
   try {
     await authStore.signIn({ phone: phone.value, flow: props.flow });
   } catch (err) {
-    console.log(err);
-    //TODO: show error notification, log error to Sentry
+    errorsStore.handle(err, 'VerifyCode.vue', 'onMounted');
   }
 });
 
@@ -118,7 +119,6 @@ const onComplete = async (data: string) => {
         });
 
       case EUserStatus.registered:
-        await pStore.setTwoFASecret(pStore.user.options?.secret_2fa as string);
         await twoFAStore.set2FADate();
 
         if (passcode) return nextStep();
@@ -162,7 +162,7 @@ const resend = async () => {
     //TODO: use right method - response 403 forbidden
     authStore.signIn({ phone: phone.value, flow: props.flow });
   } catch (err) {
-    console.log(err);
+    errorsStore.handle(err, 'VerifyCode.vue', 'resend');
   }
 };
 </script>

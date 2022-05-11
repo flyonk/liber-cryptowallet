@@ -1,11 +1,12 @@
 <template name="TransactionDetails">
-  <component
-    :is="component"
-    v-if="transaction"
-    :main-coin="mainCoin"
-    :transaction="transaction"
-    @copy="copyToClipboard"
-  />
+  <template v-if="transaction">
+    <component
+      :is="component"
+      :main-coin="mainCoin"
+      :transaction="transaction"
+      @copy="copyToClipboard"
+    />
+  </template>
 </template>
 
 <script lang="ts" setup>
@@ -20,14 +21,17 @@ import {
 } from '@/models/transaction/transaction';
 import { Clipboard } from '@capacitor/clipboard';
 import { useToast } from 'primevue/usetoast';
+import { useErrorsStore } from '@/stores/errors';
 
 import {
   ConvertTransactionDetails,
-  DepositTransactionDetails,
+  ExternalTransactionDetails,
+  TransferTransactionDetails,
 } from '@/components/ui/organisms/transactions';
 
 const route = useRoute();
-const { tm } = useI18n();
+const errorsStore = useErrorsStore();
+const { t } = useI18n();
 const toast = useToast();
 
 let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
@@ -37,11 +41,11 @@ onBeforeMount(async () => {
   try {
     if (!route.params.id) return;
 
-    if (route.params.coin !== 'default') {
+    if (route.query.coin) {
       transaction.value =
         (await transactionService.getTransactionDetailsByCoinAndId(
           route.params.id as string,
-          route.params.coin as string
+          route.query.coin as string
         )) as INetTransaction;
       mainCoin.value = route.params.coin as string;
 
@@ -52,7 +56,7 @@ onBeforeMount(async () => {
       route.params.id as string
     )) as INetTransaction;
   } catch (err) {
-    console.log(err);
+    errorsStore.handle(err, 'TransactionDetails', 'onMounted');
   }
 });
 
@@ -60,8 +64,10 @@ const component = computed(() => {
   switch (transaction.value.type) {
     case ETransactionType.convert:
       return ConvertTransactionDetails;
+    case ETransactionType.deposit:
+      return ExternalTransactionDetails;
     default:
-      return DepositTransactionDetails;
+      return TransferTransactionDetails;
   }
 });
 
@@ -72,12 +78,17 @@ const copyToClipboard = async (data: string) => {
     });
 
     toast.add({
-      summary: tm('transactions.transactionIdCopied') as string,
+      summary: t('transactions.transactionIdCopied'),
       life: 3000,
       closable: false,
     });
   } catch (err) {
-    console.error(`${tm('transactions.transactionIdCopyFail')} `, err);
+    errorsStore.handle(
+      err,
+      'TransactionDetails.vue',
+      'copyToClipboard',
+      t('transactions.transactionIdCopyFail')
+    );
   }
 };
 </script>
@@ -140,8 +151,19 @@ const copyToClipboard = async (data: string) => {
 
         &.-cancel {
           width: 104px;
+          margin-left: 8px;
           background: $color-red-50;
-          color: $color-red;
+
+          > .container {
+            > i {
+              color: $color-red-500;
+              font-size: 18px;
+            }
+
+            > .label {
+              color: $color-red-500;
+            }
+          }
         }
 
         > .icon {
@@ -181,16 +203,19 @@ const copyToClipboard = async (data: string) => {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px solid rgb(175 179 195 / 30%);
   padding: 24px 0;
 
-  > .icon {
-    color: $color-primary-500;
-    font-size: 24px;
+  &:not(:last-child) {
+    border-bottom: 1px solid rgb(175 179 195 / 30%);
   }
 
-  &:first-child {
-    border-top: 1px solid rgb(175 179 195 / 30%);
+  > .button {
+    min-width: 0;
+  }
+
+  > .icon {
+    color: $color-brand-primary;
+    font-size: 24px;
   }
 
   > .name {
@@ -255,6 +280,7 @@ const copyToClipboard = async (data: string) => {
       font-weight: 500;
       font-size: 16px;
       line-height: 21px;
+      word-break: break-all;
       letter-spacing: -0.0031em;
     }
   }

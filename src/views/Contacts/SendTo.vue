@@ -106,12 +106,12 @@ import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseToast, BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
-import SentryUtil from '@/helpers/sentryUtil';
+import { useMfaStore } from '@/stores/mfa';
+import { useErrorsStore } from '@/stores/errors';
 import { getContactPhone } from '@/helpers/contacts';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
-
 import { formatPhoneNumber } from '@/helpers/auth';
 
 const showSuccessPopup = ref(false);
@@ -121,8 +121,8 @@ const popupStatus = ref('confirmation');
 
 const transferStore = useTransferStore();
 const recepientsStore = useRecepientsStore();
+const errorsStore = useErrorsStore();
 
-const router = useRouter();
 const route = useRoute();
 
 const contactId = route.params.id;
@@ -148,16 +148,20 @@ transferStore.recipient = recipient;
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
-      await recepientsStore.addFriend(contact);
-      await transferStore.transfer();
-      showSuccessPopup.value = true;
-      router.push({
-        name: Route.DashboardHome,
+      const mfaStore = useMfaStore();
+      mfaStore.show({
+        title: 'transactions.send',
+        callback: async () => {
+          await recepientsStore.addFriend(contact);
+          transferStore.clearTransferData();
+        },
       });
-      transferStore.clearTransferData();
+      await transferStore.transfer();
     } catch (err) {
+      // todo: not required handling
       showFailurePopup.value = true;
-      SentryUtil.capture(
+
+      errorsStore.handle(
         err,
         'SendTo',
         'sendTransaction',

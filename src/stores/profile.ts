@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
-import { use2faStore } from '@/stores/2fa';
 import profileService from '@/services/profileService';
 import { IProfile, TMarketing } from '@/models/profile/profile';
 import { clearAll, get, set } from '@/helpers/storage';
 import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys, SStorageKeys } from '@/types/storage';
+import { useErrorsStore } from '@/stores/errors';
 
 export interface IUserProfile {
   user: IProfile;
@@ -28,6 +28,12 @@ export const useProfileStore = defineStore('profile', {
   actions: {
     async init(): Promise<void> {
       this.user = await this.getUserProfile();
+      const { isPasscodeEnabled } = this.user;
+
+      await set({
+        value: isPasscodeEnabled ? 'true' : 'false',
+        key: EStorageKeys.passcode,
+      });
       if (this.user.id) {
         this.syncUserDataInStorage();
         SentryUtil.setUser();
@@ -42,7 +48,7 @@ export const useProfileStore = defineStore('profile', {
       });
     },
 
-    async closeAccount() {
+    async closeAccount(): Promise<void> {
       // TODO Wait for response when API is ready
       profileService.closeProfile();
 
@@ -53,12 +59,15 @@ export const useProfileStore = defineStore('profile', {
       try {
         return await profileService.getProfile();
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
+          'profile.ts',
           'getUserProfile',
-          'Login3Step',
           "error can't retrieve user data"
         );
+
         return {} as IProfile;
       }
     },
@@ -71,16 +80,18 @@ export const useProfileStore = defineStore('profile', {
         await profileService.updateProfile(this.user);
         this.syncUserDataInStorage();
       } catch (err) {
-        SentryUtil.capture(
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
           err,
+          'profile.ts',
           'updateUserProfile',
-          'Signup',
           "error can't update user data"
         );
       }
     },
 
-    async setMarketingToStorage() {
+    async setMarketingToStorage(): Promise<void> {
       await set({
         key: EStorageKeys.marketing,
         value: JSON.stringify(this.getMarketing),
@@ -99,13 +110,6 @@ export const useProfileStore = defineStore('profile', {
         isPushNotification: false,
         isSocialMedia: false,
       };
-    },
-
-    //TODO: temporary solution until backend twoFA not implemented
-    async setTwoFASecret(secret: string): Promise<void> {
-      const twoFAStore = use2faStore();
-      twoFAStore.secret = secret;
-      await set({ key: EStorageKeys.twofa, value: secret });
     },
   },
 });

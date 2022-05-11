@@ -5,6 +5,7 @@
       <div class="header flex mb-4">
         <div class="left">
           <img
+            alt
             src="@/assets/images/avatar.png"
             @click="$router.push('/profile')"
           />
@@ -50,7 +51,9 @@
       </ul>
       <div class="currencies flex items-center">
         <!--TODO: map currencies-->
-        <h1 class="title">{{ totalCurrency }} {{ totalBalance.sum }}</h1>
+        <h1 class="title">
+          {{ currentAccount.code }} {{ currentAccount.balance }}
+        </h1>
         <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
           <i
             class="down icon-ic16-arrow-down"
@@ -58,9 +61,9 @@
           />
         </div>
         <img
-          alt="eurounion"
+          alt="currency"
           class="ml-auto"
-          src="@/assets/icon/currencies/euro.svg"
+          :src="currentAccount.imgSrc"
           @click="$router.push({ name: Route.AccountMain })"
         />
       </div>
@@ -77,6 +80,7 @@
           {{ $t('views.dashboard.home.depositFirstCoins') }}
         </h4>
       </div>
+
       <div class="controls">
         <button
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
@@ -106,6 +110,7 @@
           :class="{ '-active': VerificationStatus === EKYCStatus.success }"
           :disabled="VerificationStatus !== EKYCStatus.success"
           class="btn"
+          @click="openActionsSwiper"
         >
           ...
         </button>
@@ -136,14 +141,14 @@
         }}</span> -->
       </div>
       <div class="carousel">
-        <VueAgile :nav-buttons="false" :slides-to-show="2">
-          <div
+        <swiper class="swiper" :slides-per-view="2.2" :space-between="8">
+          <swiper-slide
             v-for="(item, index) in carousel"
             :key="index"
-            class="carousel-item slide"
+            class="carousel-item"
             @click="$router.push({ name: item.route })"
           >
-            <img :src="item.imgSrc" />
+            <img :src="item.imgSrc" alt />
             <h4
               :class="{
                 'text-green': item.text === 'green',
@@ -153,34 +158,31 @@
               {{ item.status }}
             </h4>
             <p>{{ item.description }}</p>
-          </div>
-        </VueAgile>
+          </swiper-slide>
+        </swiper>
       </div>
       <!--      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />-->
       <AccountListBottomSheet
         v-if="isMenuOpen"
         :accounts="accounts"
         @close="closeMenu"
+        @select="onSelectAccount"
       />
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  ComputedRef,
-  getCurrentInstance,
-  onMounted,
-  Ref,
-  ref,
-} from 'vue';
-import { VueAgile } from 'vue-agile';
+import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
+
 import { useI18n } from 'vue-i18n';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useErrorsStore } from '@/stores/errors';
+import { useUIStore } from '@/stores/ui';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
@@ -201,16 +203,23 @@ const loading = ref(false);
 
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
+const errorsStore = useErrorsStore();
+const uiStore = useUIStore();
 
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
 >;
 const totalBalance = computed(() => accountStore.getTotalBalance);
-const isDashboardSkeletonReady = computed(() => {
-  return (
-    !!accountStore.accountList[0]?.baseBalanceConversion &&
-    !!accountStore.totalBalance?.sum
-  );
+
+const allAccountInfo = ref({
+  code: '€',
+  imgSrc: require('@/assets/icon/currencies/euro.svg'),
+});
+
+const currentAccount = ref({
+  code: '',
+  balance: '',
+  imgSrc: '',
 });
 
 const { tm } = useI18n();
@@ -219,40 +228,70 @@ const { tm } = useI18n();
 let transactions: Ref<INetTransaction[]> = ref([]);
 let preview = ref(3);
 
-const { proxy } = getCurrentInstance();
-
 /**
  * Lifecycle
  */
 onMounted(async () => {
+  loading.value = true;
+
   await profileStore.init();
   const { kycStatus } = profileStore.getUser;
 
   VerificationStatus.value = kycStatus;
 
-  if (!isDashboardSkeletonReady.value) {
-    loading.value = true;
-  }
-
   try {
     const [, , _transactions] = await Promise.all([
-      accountStore.getAccountList(),
       accountStore.getAccountBalance(),
+      accountStore.getAccountList(),
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
-    console.debug(transactions.value);
-  } catch (error) {
-    console.error(error);
-    proxy.$sentry.capture(error, 'DashboardHome', 'onMounted');
+
+    setCurrentAccount('all');
+  } catch (err) {
+    errorsStore.handle(err, 'DashboardHome', 'onMounted');
   } finally {
     loading.value = false;
   }
 });
 
+const openActionsSwiper = () => {
+  uiStore.setStateModal('sendMenu', true);
+};
+
+const setCurrentAccount = (coinCode: string) => {
+  if (coinCode === 'all') {
+    currentAccount.value = {
+      balance: totalBalance.value.sum,
+      code: allAccountInfo.value.code,
+      imgSrc: allAccountInfo.value.imgSrc,
+    };
+
+    return;
+  }
+
+  const {
+    code,
+    balance,
+    imageUrl: imgSrc,
+  } = accounts.value.find(({ code }) => coinCode === code) as IAccount;
+
+  currentAccount.value = {
+    code: code.toUpperCase(),
+    imgSrc,
+    balance,
+  };
+};
+
 function closeMenu() {
   isMenuOpen.value = false;
 }
+
+const onSelectAccount = (coinCode: string) => {
+  setCurrentAccount(coinCode);
+
+  isMenuOpen.value = false;
+};
 
 // Temporary update method
 const updateDashboardData = async () => {
@@ -264,9 +303,8 @@ const updateDashboardData = async () => {
       transactionService.getTransactionList(),
     ]);
     transactions.value = _transactions;
-  } catch (error) {
-    console.error(error);
-    proxy.$sentry.capture(error, 'DashboardHome', 'updateDashboardData');
+  } catch (err) {
+    errorsStore.handle(err, 'DashboardHome.vue', 'updateDashboardData');
   } finally {
     loading.value = false;
   }
@@ -319,10 +357,6 @@ const carousel = [
 ];
 
 const hasTransactions = computed(() => transactions.value.length > 0);
-
-const totalCurrency = computed(() =>
-  totalBalance.value.currency === 'EUR' ? '€' : `${totalBalance.value.currency}`
-);
 
 const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
@@ -423,7 +457,9 @@ const showWelcomeMessage = computed(() => {
       justify-content: center;
       align-items: center;
       height: 36px;
+      min-height: 36px;
       width: 36px;
+      min-width: 36px;
 
       > .down {
         &.-reverted {
@@ -601,5 +637,9 @@ const showWelcomeMessage = computed(() => {
     bottom: 0;
     opacity: 1;
   }
+}
+
+.swiper {
+  z-index: 0; //hides behind the bottom navigation
 }
 </style>

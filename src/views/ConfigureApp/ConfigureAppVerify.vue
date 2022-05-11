@@ -23,7 +23,6 @@ import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificat
 import { Route } from '@/router/types';
 
 const store = use2faStore();
-store.generateToken();
 
 const authStore = useAuthStore();
 
@@ -62,15 +61,18 @@ const onComplete = async (code: string) => {
   verificationCode.value = code;
 
   if (code.length === 6) {
-    // const result = await store.verify(code);
-    const result = { delta: 0 };
-    if (result?.delta === 0) {
-      store.set2FADate();
-      const name = await getSupportedIdentificationWay();
-      router.push({
-        name,
-      });
-    } else {
+    try {
+      const result = await store.confirmVerification(code);
+      if (result) {
+        store.set2FADate();
+        const name = await getSupportedIdentificationWay();
+        router.push({
+          name,
+        });
+      } else {
+        isError.value = true;
+      }
+    } catch (error) {
       isError.value = true;
     }
   }

@@ -14,10 +14,6 @@
             My ID:
             <a class="link">{{ accountID }}</a>
           </p>
-          <!-- <img
-            src="@/assets/icon/edit.svg"
-            alt="edit"
-          >-->
         </div>
       </div>
       <ContactInitials :name="accountName" />
@@ -73,12 +69,12 @@
           <img class="icon" src="@/assets/icon/shield.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.privacy') }}</p>
         </li>
-        <li class="item" disabled>
+        <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
           <img class="icon" src="@/assets/icon/google.svg" />
           <p class="text">
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
-        </li>
+        </router-link>
         <router-link class="item" disabled to="/profile/devices">
           <img class="icon" src="@/assets/icon/devices.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.devices') }}</p>
@@ -91,7 +87,21 @@
         <li v-else class="item" @click="onSwitcherChange">
           <img class="icon" src="@/assets/icon/touchid.svg" />
           <p class="text">{{ $t('views.profile.profileSettings.signIn') }}</p>
-          <InputSwitch v-model="isTouchIdOn" class="switcher" />
+          <InputSwitch :model-value="isTouchIdOn" class="switcher" />
+        </li>
+      </ul>
+      <h6 class="subtitle">
+        {{ $t('views.profile.profileSettings.appearance') }}
+      </h6>
+      <ul class="list label--profile">
+        <li
+          class="item"
+          @click="showLanguageSelect = true"
+          @close="showLanguageSelect = false"
+        >
+          <img class="icon" src="@/assets/icon/world.svg" />
+          <p class="text">{{ $t('views.profile.profileSettings.language') }}</p>
+          <p class="text selected-language">{{ locale }}</p>
         </li>
       </ul>
       <h6 class="subtitle">{{ $t('views.profile.profileSettings.system') }}</h6>
@@ -112,6 +122,10 @@
     </div>
   </div>
   <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
+  <LanguageSwitcher
+    v-if="showLanguageSelect"
+    @close="showLanguageSelect = false"
+  />
 </template>
 
 <script lang="ts">
@@ -121,13 +135,15 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { getCurrentInstance, onMounted, ref } from 'vue';
+import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { useErrorsStore } from '@/stores/errors';
+
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
 import { EStorageKeys } from '@/types/storage';
@@ -136,10 +152,12 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import InputSwitch from 'primevue/inputswitch';
+import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 
 const route = useRouter();
 const authStore = useAuthStore();
 const appOptionsStore = useAppOptionsStore();
+const errorsStore = useErrorsStore();
 const { tm } = useI18n();
 
 const profileStore = useProfileStore();
@@ -157,6 +175,8 @@ const showCloseAccount = ref(false);
 const { faceid, touchid } = appOptionsStore.getOptions;
 const isTouchIdOn = ref(faceid || touchid);
 const touchFaceIdSwitcher = ref('');
+const showLanguageSelect = ref(false);
+const { locale } = useI18n({ useScope: 'global' });
 
 const onSwitcherChange = async () => {
   const value = isTouchIdOn.value ? 'true' : '';
@@ -194,8 +214,6 @@ const onSwitcherChange = async () => {
   }
 };
 
-const { proxy } = getCurrentInstance();
-
 /**
  * Lifecycles
  */
@@ -220,7 +238,7 @@ onMounted(async () => {
         touchFaceIdSwitcher.value = option;
       }
     } catch (err) {
-      proxy.$sentry.capture(err, 'ProfileSettings', 'getProfile');
+      errorsStore.handle(err, 'ProfileSettings', 'onMounted');
     }
 });
 
@@ -234,9 +252,9 @@ async function onLogout() {
       'views.profile.profileSettings.logoutConfirmationTitle'
     ) as string,
     message: tm('views.profile.profileSettings.logoutConfirmation') as string,
-    okButtonTitle: tm('views.profile.profileSettings.logoutDecline') as string,
+    okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
     cancelButtonTitle: tm(
-      'views.profile.profileSettings.logoutAccept'
+      'views.profile.profileSettings.logoutDecline'
     ) as string,
   });
 
@@ -362,6 +380,10 @@ async function onLogout() {
         }
 
         > .switcher {
+          margin-left: auto;
+        }
+
+        > .selected-language {
           margin-left: auto;
         }
       }

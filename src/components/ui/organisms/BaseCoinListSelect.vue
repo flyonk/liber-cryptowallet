@@ -12,47 +12,25 @@
       />
     </label>
   </div>
-  <SelectCoin :coins="allCoins" @select-coin="$emit('select-coin', $event)" />
+  <SelectCoin :coins="coins" @select-coin="$emit('select-coin', $event)" />
 </template>
 
 <script lang="ts" setup>
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { getCurrentInstance, onBeforeMount, PropType, Ref, ref } from 'vue';
+import { PropType } from 'vue';
 import { ICoin } from '@/models/coin/coins';
-import { useCoinsStore } from '@/stores/coins';
-
-const coinStore = useCoinsStore();
-const { proxy } = getCurrentInstance();
 
 defineEmits(['back-button', 'select-coin']);
 
-const props = defineProps({
+defineProps({
   coins: {
     type: Array as PropType<ICoin[]>,
     default: () => [],
   },
-});
-
-const allCoins = ref([]) as Ref<ICoin[]>;
-
-onBeforeMount(async () => {
-  if (props.coins?.length) {
-    allCoins.value = props.coins;
-    return;
-  }
-
-  if (coinStore.getCoins.length) {
-    allCoins.value = coinStore.getCoins;
-    return;
-  }
-
-  try {
-    await coinStore.fetchCoins();
-    allCoins.value = coinStore.getCoins;
-  } catch (e) {
-    console.error(e);
-    proxy.$sentry.capture(e, 'BaseCoinListSelect', 'onBeforeMount');
-  }
+  direction: {
+    type: String as PropType<'from' | 'to'>,
+    default: 'from',
+  },
 });
 </script>
 

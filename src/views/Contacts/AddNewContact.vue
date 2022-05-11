@@ -4,7 +4,7 @@
       left-icon-name="icon-app-navigation-back"
       @click:left-icon="
         $router.push({
-          name: Route.ContactsWhoToPay,
+          name: Route.PayRecepientsLiber,
         })
       "
     >
@@ -91,7 +91,7 @@ const handleAddContact = () => {
     emails: [],
   });
 
-  router.push({ name: Route.ContactsSend, params: { id: newContactId } });
+  router.push({ name: Route.PayRecepientsLiber, params: { id: newContactId } });
 };
 
 const isDisabled = computed(() => {

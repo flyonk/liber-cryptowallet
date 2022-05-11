@@ -24,7 +24,14 @@ const props = defineProps({
     type: String,
     default: 'completed',
     validator: (value: string) =>
-      ['pending', 'failed', 'finished', 'completed'].includes(value),
+      [
+        'pending',
+        'failed',
+        'finished',
+        'completed',
+        'Pending',
+        'Failed',
+      ].includes(value),
   },
 
   isCurrency: {
