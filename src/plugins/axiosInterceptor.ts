@@ -9,8 +9,7 @@ import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
-// import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
-import { useMfaStore } from '@/stores/mfa';
+import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
 
 /*
  * This code prevent race condition with multiple parallel API calls
@@ -49,13 +48,25 @@ const _notAuthorizedRoutes = (): string[] => {
 const _requestHandler = async (
   config: AxiosRequestConfig
 ): Promise<AxiosRequestConfig | null> => {
+  const headers: AxiosRequestHeaders = {};
+
   // mfa headers
-  // const headers = {
-  //   [EMfaHeaders.otp]: config.headers?.[EMfaHeaders.otp],
-  //   [EMfaHeaders.totp]: config.headers?.[EMfaHeaders.totp],
-  //   [EMfaHeaders.passcode]: config.headers?.[EMfaHeaders.passcode],
-  // };
-  const headers = {};
+  const mfaStore = useMfaStore();
+  if (mfaStore.enabled && config.headers) {
+    if (config.headers[EMfaHeaders.otp]) {
+      const otp = String(config.headers[EMfaHeaders.otp]);
+      headers[EMfaHeaders.otp] = otp;
+    }
+    if (config.headers?.[EMfaHeaders.totp]) {
+      const totp = String(config.headers[EMfaHeaders.totp]);
+      headers[EMfaHeaders.totp] = totp;
+    }
+    if (config.headers?.[EMfaHeaders.passcode]) {
+      const passcode = String(config.headers[EMfaHeaders.passcode]);
+      headers[EMfaHeaders.passcode] = passcode;
+    }
+  }
+
   config.timeout = 30000;
   config.headers = <AxiosRequestHeaders>headers;
   config.headers['Content-Type'] = 'application/json';
@@ -65,7 +76,6 @@ const _requestHandler = async (
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
       const token = await _refreshToken();
       if (token) config.headers['Authorization'] = `Bearer ${token}`;
-      const mfaStore = useMfaStore();
       if (mfaStore.enabled) {
         if (config.data?.isMfaRequest) {
           // remove temprorary flag
