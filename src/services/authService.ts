@@ -22,11 +22,15 @@ export default {
     data.phone = formatPhoneNumber(data.phone);
     const { phone, otp } = data;
 
-    const res = await axios.post(apiService.auth.signInProceed(), phone, {
-      headers: {
-        [EMfaHeaders.otp]: otp,
-      },
-    });
+    const res = await axios.post(
+      apiService.auth.signInProceed(),
+      { phone },
+      {
+        headers: {
+          [EMfaHeaders.otp]: otp,
+        },
+      }
+    );
 
     return signInMapper.deserialize(res.data);
   },

@@ -52,7 +52,8 @@ const _requestHandler = async (
 
   // mfa headers
   const mfaStore = useMfaStore();
-  if (mfaStore.enabled && config.headers) {
+  // if (mfaStore.enabled && config.headers) {
+  if (config.headers) {
     if (config.headers[EMfaHeaders.otp]) {
       const otp = String(config.headers[EMfaHeaders.otp]);
       headers[EMfaHeaders.otp] = otp;
