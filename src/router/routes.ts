@@ -17,7 +17,7 @@ import WelcomeAuthScreen from '@/views/Welcome/WelcomeAuthScreen.vue';
 
 import PasscodeEnter from '@/views/ConfigureApp/PasscodeEnter.vue';
 import ChangePasscode from '@/views/ConfigureApp/ChangePasscode.vue';
-import ChagneAuthApp from '@/views/ConfigureApp/ChangeAuthApp.vue';
+import ChangeAuthApp from '@/views/ConfigureApp/ChangeAuthApp.vue';
 
 import Dashboard from '@/views/Dashboard/index.vue';
 import DashboardHome from '@/views/Dashboard/DashboardHome.vue';
@@ -105,7 +105,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/change-authapp',
     name: Route.ChangeAuthapp,
-    component: ChagneAuthApp,
+    component: ChangeAuthApp,
     meta: {
       classLayout: '-full-height',
     },
