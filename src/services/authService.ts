@@ -20,7 +20,7 @@ export default {
     code_2fa: string;
   }): Promise<ISuccessSignIn> {
     data.phone = formatPhoneNumber(data.phone);
-    const { phone, otp } = data;
+    const { phone, otp, code_2fa } = data;
 
     const res = await axios.post(
       apiService.auth.signInProceed(),
@@ -28,6 +28,7 @@ export default {
       {
         headers: {
           [EMfaHeaders.otp]: otp,
+          [EMfaHeaders.totp]: code_2fa,
         },
       }
     );
