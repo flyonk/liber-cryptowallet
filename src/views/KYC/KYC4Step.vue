@@ -1,19 +1,21 @@
 <template>
-  <div class="kyc-4-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      {{ scanText.title }}
-    </top-navigation>
-    <base-progress-bar :value="getPercentage" class="mb-3" />
-    <p class="description">{{ scanText.description }}</p>
-    <scan-animation class="p-0">
-      <div id="camera" class="camera" />
-    </scan-animation>
-    <div class="footer">
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
+    <template #title>{{ scanText.title }}</template>
+    <template #subtitle>
+      <base-progress-bar :value="getPercentage" class="mb-3" />
+      {{ scanText.description }}</template
+    >
+    <template #content>
+      <scan-animation class="p-0">
+        <div id="camera" class="camera" />
+      </scan-animation>
+    </template>
+    <template #fixed-footer>
       <base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
-      </base-button>
-    </div>
-  </div>
+      </base-button></template
+    >
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -29,7 +31,7 @@ import { useRoute } from 'vue-router';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
+import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 
@@ -165,24 +167,18 @@ const onScan = async () => {
 };
 </script>
 
-<style lang="scss">
-.kyc-4-step {
-  > .scan-animation {
-    > .inner {
-      > .camera {
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-        max-height: 100%;
+<style lang="scss" scoped>
+.camera {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 
-        > .camera-video {
-          height: 100% !important;
-          width: 100%;
-          border-radius: 3px;
-          object-fit: cover;
-        }
-      }
-    }
+  > :deep(.camera-video) {
+    height: 100% !important;
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
   }
 }
 </style>

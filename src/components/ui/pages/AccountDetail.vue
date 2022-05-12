@@ -1,12 +1,10 @@
 <template name="AccountDetail">
   <div class="account-transactions">
+    <t-top-navigation
+      nav-without-title
+      @click:left-icon="$router.replace({ name: Route.AccountMain })"
+    />
     <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.replace({ name: Route.AccountMain })"
-      />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
         :balance="balance.balance"
@@ -87,9 +85,14 @@ import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
 
-import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
-import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
-import { AccountDetails } from '@/components/ui';
+// import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
+
+import {
+  AccountDetails,
+  TransactionsList,
+  TTopNavigation,
+  TotalAccountBalanceByCoin,
+} from '@/components/ui';
 
 interface ICarouselItem {
   name: LocaleMessageValue<VueMessageType>;
@@ -179,9 +182,8 @@ const onClick = (carouselItem: ICarouselItem) => {
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: 90%;
-  padding: 35px 0 0;
-  overflow: hidden;
+  height: calc(100% - 95px);
+  overflow: scroll;
   flex-grow: 1;
 
   > .header {

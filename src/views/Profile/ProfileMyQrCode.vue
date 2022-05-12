@@ -1,32 +1,34 @@
 <template name="AccountProfile">
-  <div class="account-profile">
-    <div class="header">
-      <div class="left">
-        <img
-          class="back"
-          src="@/assets/icon/arrow-left.svg"
-          alt="arrow-left"
-          @click="$router.push('/profile')"
-        />
-        <h1 class="title">
-          {{ accountName }}
-        </h1>
-        <div class="flex">
-          <p class="key">
-            My ID: <a class="link-to">{{ accountID }}</a>
-          </p>
-          <img src="@/assets/icon/edit.svg" alt="edit" />
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push('/profile')"
+  >
+    <template #title>{{ accountName }}</template>
+    <template #subtitle>
+      <div class="flex">
+        <p class="key">
+          My ID: <a class="link-to">{{ accountID }}</a>
+        </p>
+        <img src="@/assets/icon/edit.svg" alt="edit" /></div
+    ></template>
+    <template #right
+      ><div class="initials-wrapper">
+        <ContactInitials :name="accountName" />
+      </div>
+    </template>
+    <template #content>
+      <div class="account-profile">
+        <div class="main">
+          <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
+          <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
+          <div class="flex">
+            <a class="link-to"> liber.me/{{ link }}</a>
+            <img src="@/assets/icon/copy.svg" alt="copy" />
+          </div>
         </div>
       </div>
-      <ContactInitials :name="accountName" />
-    </div>
-    <div class="main">
-      <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
-      <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
-      <div class="flex">
-        <a class="link-to"> liber.me/{{ link }}</a>
-        <img src="@/assets/icon/copy.svg" alt="copy" />
-      </div>
+    </template>
+    <template #fixed-footer>
       <div class="controls">
         <button class="btn" type="button">
           {{ $t('views.profile.profileQRCode.scan') }}
@@ -34,9 +36,9 @@
         <button class="btn active" type="button">
           {{ $t('views.profile.profileQRCode.code') }}
         </button>
-      </div>
-    </div>
-  </div>
+      </div></template
+    >
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -45,6 +47,7 @@ import { onBeforeMount, computed } from 'vue';
 import { useProfileStore } from '@/stores/profile';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+import { TTopNavigation } from '@/components/ui';
 
 const profileStore = useProfileStore();
 
@@ -63,7 +66,6 @@ onBeforeMount(() => {
 .account-profile {
   display: flex;
   flex-direction: column;
-  height: 100vh;
   padding: 60px 16px 50px;
   flex-grow: 1;
   overflow: auto;
@@ -98,7 +100,6 @@ onBeforeMount(() => {
   }
 
   > .main {
-    padding-top: 46px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -155,5 +156,43 @@ onBeforeMount(() => {
 .link-to {
   color: $color-primary;
   padding: 0 6px;
+}
+
+.controls {
+  margin-top: auto;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  background: $color-light-grey;
+  border-radius: 8px;
+
+  > .btn {
+    width: 48%;
+    font-size: 16px;
+    line-height: 21px;
+    letter-spacing: -0.0031em;
+    color: $color-brand-primary;
+  }
+
+  > .active {
+    height: 32px;
+    left: 171px;
+    top: 4px;
+    background: $color-brand-primary;
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: -0.0031em;
+  }
+}
+
+.initials-wrapper > :deep(.initials) {
+  width: 56px;
+  height: 56px;
 }
 </style>

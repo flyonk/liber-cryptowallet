@@ -1,52 +1,58 @@
 <template name="ProfileEdit">
-  <div class="profile-edit">
-    <div class="profile-header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/profile')"
-      />
-      <div class="name-info">
-        <h1 class="title">{{ $t('views.profile.profileEdit.editProfile') }}</h1>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push('/profile')"
+  >
+    <template #title>{{
+      $t('views.profile.profileEdit.editProfile')
+    }}</template>
+    <template #right>
+      <div class="initials-wrapper">
         <ContactInitials :name="accountName" />
       </div>
-    </div>
-    <div class="personal-information">
-      <h1 class="subtitle">
-        {{ $t('views.profile.profileEdit.personalInfo') }}
-      </h1>
-      <div class="edit-form">
-        <BaseInput v-model="user.name" type="text">
-          <template #label>
-            {{ $t('views.profile.profileEdit.name') }}
-          </template>
-        </BaseInput>
-        <BaseInput v-model="user.liberID" type="text">
-          <template #label> {{ $t('views.profile.profileEdit.id') }} </template>
-        </BaseInput>
-        <BaseInput v-model="user.date_of_birth" type="text" pattern="\d*">
-          <template #label>
-            {{ $t('views.profile.profileEdit.dateOfBirth') }}
-          </template>
-        </BaseInput>
-        <BaseInput v-model="user.residential_address" type="text">
-          <template #label>
-            {{ $t('views.profile.profileEdit.address') }}
-          </template>
-        </BaseInput>
-        <BaseButton class="btn">
-          {{ $t('views.profile.profileEdit.verify') }}
-        </BaseButton>
-      </div>
-    </div>
-  </div>
+    </template>
+    <template #content>
+      <div class="personal-information">
+        <h1 class="subtitle">
+          {{ $t('views.profile.profileEdit.personalInfo') }}
+        </h1>
+        <div class="edit-form">
+          <BaseInput v-model="user.name" type="text">
+            <template #label>
+              {{ $t('views.profile.profileEdit.name') }}
+            </template>
+          </BaseInput>
+          <BaseInput v-model="user.liberID" type="text">
+            <template #label>
+              {{ $t('views.profile.profileEdit.id') }}
+            </template>
+          </BaseInput>
+          <BaseInput v-model="user.date_of_birth" type="text" pattern="\d*">
+            <template #label>
+              {{ $t('views.profile.profileEdit.dateOfBirth') }}
+            </template>
+          </BaseInput>
+          <BaseInput v-model="user.residential_address" type="text">
+            <template #label>
+              {{ $t('views.profile.profileEdit.address') }}
+            </template>
+          </BaseInput>
+        </div>
+      </div></template
+    >
+    <template #fixed-footer>
+      <BaseButton class="footer-btn">
+        {{ $t('views.profile.profileEdit.verify') }}
+      </BaseButton>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
 import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+import { TTopNavigation } from '@/components/ui';
 
 const accountName = 'Abraham Watson';
 const user = {
@@ -113,9 +119,14 @@ const user = {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
+}
 
-  > .btn {
-    margin-top: auto;
-  }
+.footer-btn {
+  width: 100%;
+}
+
+.initials-wrapper > :deep(.initials) {
+  width: 56px;
+  height: 56px;
 }
 </style>

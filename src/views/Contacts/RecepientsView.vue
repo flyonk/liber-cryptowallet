@@ -1,24 +1,37 @@
 <template name="RecepientsView">
-  <div class="who-topay">
-    <contacts-header :avatar-icon="true" :route-back="Route.ProfileSettings" />
-    <h1 class="title">
-      {{ $t('views.recepients.recepients') }}
-    </h1>
-    <BaseInput v-model="filterContacts" type="text">
-      <template #label> Name, @id, phone, email </template>
-    </BaseInput>
+  <t-top-navigation nav-with-custom-top-left>
+    <template #top-left
+      ><img
+        src="@/assets/images/avatar.png"
+        @click="$router.push({ name: props.routeBack })"
+    /></template>
+    <template #top-right
+      ><div class="flex">
+        <img class="mr-3" src="@/assets/icon/system_qr.svg" alt="circle-add" />
+        <i
+          class="icon-plus_circle circle-add"
+          @click="$router.push({ name: Route.ContactsAddNewContact })"
+        /></div
+    ></template>
+    <template #title>{{ $t('views.recepients.recepients') }}</template>
+    <template #content
+      ><div class="who-topay">
+        <BaseInput v-model="filterContacts" type="text">
+          <template #label> Name, @id, phone, email </template>
+        </BaseInput>
 
-    <constacts-tab-switcher />
+        <constacts-tab-switcher />
 
-    <router-view :filter="filterContacts" />
-  </div>
+        <router-view :filter="filterContacts" /></div
+    ></template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { BaseInput } from '@/components/ui';
-import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
+import { BaseInput, TTopNavigation } from '@/components/ui';
+
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
@@ -30,8 +43,6 @@ const filterContacts = ref('');
 .who-topay {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
   position: relative;
@@ -43,5 +54,10 @@ const filterContacts = ref('');
     letter-spacing: 0.0038em;
     margin-bottom: 24px;
   }
+}
+
+.circle-add {
+  font-size: 33px;
+  color: $color-primary;
 }
 </style>
