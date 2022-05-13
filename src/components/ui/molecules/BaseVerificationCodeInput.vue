@@ -128,8 +128,11 @@ const onChange = (event: Event) => {
       if (currentInput) {
         currentInput.blur();
       }
+    } else {
+      emit('change', activationCodeString.value);
     }
   } else if (value.length === 0) {
+    emit('change', activationCodeString.value);
     focusPrevInput(currentId);
   }
 };

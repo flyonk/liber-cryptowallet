@@ -21,6 +21,7 @@
             type="password"
             :value="passcode"
             :fields="4"
+            @change="onChangePasscode"
             @complete="onCompletePasscode"
           />
         </div>
@@ -114,6 +115,10 @@ const onCompleteCode = async (code: string) => {
 const onCompletePasscode = async (code: string) => {
   passcode.value = code;
   onComplete();
+};
+
+const onChangePasscode = (code: string) => {
+  passcode.value = code;
 };
 
 const onClose = async () => {
