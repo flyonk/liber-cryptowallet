@@ -43,10 +43,15 @@ import { PropType } from 'vue-demi';
 import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 
+defineEmits(['back']);
 const props = defineProps({
   redirectOnSuccessRoute: {
     type: String as PropType<Route>,
     required: true,
+  },
+  emitOnBack: {
+    type: Boolean,
+    default: false,
   },
   toCreate: {
     type: Boolean,

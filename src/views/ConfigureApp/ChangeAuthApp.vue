@@ -83,7 +83,6 @@ const onContinue = () => {
 const onConfirm = () => {
   showPopup.value = false;
   if (pStore.user.is2FAConfigured) {
-    console.log('show mfa store??');
     const mfaStore = useMfaStore();
     mfaStore.show({
       successRoute: Route.InstallApp,

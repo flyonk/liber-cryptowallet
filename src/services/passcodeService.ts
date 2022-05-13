@@ -10,7 +10,6 @@ export interface IPasscodeRequestBody {
 
 export interface IPasscodeUpdateRequestBody {
   new_pass_code: string;
-  old_pass_code: string;
 }
 
 export default {

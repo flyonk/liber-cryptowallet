@@ -89,7 +89,12 @@ async function onSubmit(success: boolean): Promise<void> {
 }
 
 function prevStep(): void {
-  authStore.setStep(1, 'login');
+  if (show2FA.value) {
+    authStore.setStep(1, 'login');
+
+    return;
+  }
+  authStore.setStep(0, 'login');
 }
 
 function onClose() {

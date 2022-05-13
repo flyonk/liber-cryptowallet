@@ -228,6 +228,9 @@
     "sendfunds": {
       "whopay": "Who To Pay"
     },
+    "changePasscode": {
+      "aboutLiber": "Liber app protects your withdrawals and account"
+    },
     "newcontact": {
       "additionalphone": "Additional phone or email"
     },
