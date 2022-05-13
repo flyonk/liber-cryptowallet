@@ -13,7 +13,7 @@
     <main class="main">
       <h1 class="title">{{ props.baseTitle }}</h1>
       <div class="imagecontainer">
-        <img class="image" :src="props.baseImg" />
+        <img class="image" :src="props.baseImg" @contextmenu.prevent.stop />
       </div>
     </main>
     <footer class="footer">
