@@ -1,5 +1,13 @@
 import { STATIC_BASE_URL } from '@/constants';
 
+export interface ICoinDto {
+  name: string;
+  code: string;
+  networks?: string[];
+  minimal_deposit_value?: string;
+  is_popular?: boolean;
+}
+
 export interface ICoin {
   name: string;
   code: string;
@@ -10,8 +18,7 @@ export interface ICoin {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): ICoin {
+  deserialize(input: ICoinDto): ICoin {
     return {
       name: input.name,
       code: input.code,

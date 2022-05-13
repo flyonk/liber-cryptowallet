@@ -1,4 +1,14 @@
-import ClaimFile, { IClaimFile } from '@/models/profile/claimFile';
+import ClaimFile, {
+  IClaimFile,
+  IClaimFileDto,
+} from '@/models/profile/claimFile';
+
+export interface IClaimDto {
+  id: number;
+  user_id: string;
+  status: number;
+  file_list: IClaimFileDto[];
+}
 
 export interface IClaim {
   id: number;
@@ -8,18 +18,15 @@ export interface IClaim {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IClaim {
+  deserialize(input: IClaimDto): IClaim {
     return {
-      id: input.number,
+      id: input.id,
       userId: input.user_id,
       status: input.status,
       fileList: input.file_list.map(ClaimFile.deserialize),
     };
   },
-
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IClaim): any {
+  requestSerialize(input: IClaim): IClaimDto {
     return {
       id: input.id,
       user_id: input.userId,

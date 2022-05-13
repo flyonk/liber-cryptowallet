@@ -35,9 +35,9 @@ const props = defineProps({
   },
 });
 
-const activeLetters: any = {};
+const activeLetters: Record<string, string> = {};
 
-const getLetter = (contact: Contact) => {
+const getLetter = (contact: Contact): string => {
   const initials = getContactInitials(contact.displayName);
   const letter = initials.charAt(0).toUpperCase();
   if (!activeLetters[letter]) {

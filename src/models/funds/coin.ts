@@ -1,3 +1,9 @@
+export interface IFoundsCoinDto {
+  code: string;
+  fullname: string;
+  suggested: boolean;
+}
+
 export interface IFoundsCoin {
   code: string;
   fullname: string;
@@ -5,8 +11,7 @@ export interface IFoundsCoin {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IFoundsCoin {
+  deserialize(input: IFoundsCoinDto): IFoundsCoin {
     return {
       code: input.code,
       fullname: input.fullname,

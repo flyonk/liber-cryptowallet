@@ -5,6 +5,50 @@ export type TTransaction =
   | ITransferTransaction
   | IDepositTransaction;
 
+export interface IContractorDto {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+export interface ITransactionDto {
+  id: string;
+  amount?: string;
+  timestamp?: string;
+  status: ERequestFundsStatus | ETransactionStatus;
+  code: string;
+  fee?: string;
+  feeCode?: string;
+  type: ERequestFundsType | ETransactionType;
+  contragent?: IContractorDto;
+}
+
+export interface INetTransactionDto {
+  id: string;
+  sum: string;
+  code: string;
+  to?: TConvertTransaction;
+  from?: TConvertTransaction;
+  icon?: string;
+  info?: string;
+  direction: EDirection;
+  fee?: string;
+  feeCode?: string;
+  status: ETransactionStatus;
+  type: ETransactionType;
+  contractor?: IContractor;
+  startDate?: string;
+  finishDate?: string;
+  relativeDate?: string;
+  rate?: string;
+  detailedInfo?: string;
+  oppositeCoin?: {
+    amount: string;
+    code: string;
+  };
+}
+
 export type TConvertTransaction = {
   code?: string;
   amount?: string;
