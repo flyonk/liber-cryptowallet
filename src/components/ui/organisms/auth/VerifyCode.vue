@@ -155,7 +155,12 @@ const onComplete = async (data: string) => {
       return;
     }
 
-    isError.value = true;
+    errorsStore.handle(
+      err,
+      'VerifyCode.vue',
+      'onComplete',
+      tm('errors.login2Step')
+    );
   }
 };
 const formatPhone = () => {
