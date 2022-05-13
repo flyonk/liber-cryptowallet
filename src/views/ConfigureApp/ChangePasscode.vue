@@ -43,10 +43,6 @@ import { BaseButton, BasePasscode, TopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 
 const showInfo = ref(true);
-
-const onSubmit = (passcode: string) => {
-  console.debug('passcode', passcode);
-};
 </script>
 
 <style lang="scss" scoped>

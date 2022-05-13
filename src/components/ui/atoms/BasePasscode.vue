@@ -43,6 +43,7 @@ import { set } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
 import { EPasscodeActions } from '@/types/base-component';
+import { Route } from '@/router/types';
 
 const passcodeStore = usePasscodeStore();
 const mfaStore = useMfaStore();
@@ -59,7 +60,9 @@ const props = defineProps({
 });
 
 async function createPassCode(passcode: string) {
-  mfaStore.show({});
+  mfaStore.show({
+    successRoute: Route.ProfileSettings,
+  });
   return await passcodeStore.update({ new_pass_code: passcode });
 }
 
