@@ -22,7 +22,7 @@ import { Ref, ref } from 'vue';
 
 let pagItems: Ref<HTMLDivElement[]> = ref([]);
 let wrapper: HTMLDivElement | null = null;
-const delay = 3000; //ms
+const delay = 5000; //ms
 
 const autoplay = {
   delay,
