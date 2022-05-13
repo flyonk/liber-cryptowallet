@@ -15,7 +15,12 @@ export interface IPasscodeUpdateRequestBody {
 
 export default {
   async create(data: IPasscodeRequestBody): Promise<TSuccessResponse> {
-    const response = await axios.post(apiService.passcode.global(), data);
+    const { pass_code } = data;
+    const response = await axios.post(apiService.passcode.global(), data, {
+      headers: {
+        [EMfaHeaders.passcode]: pass_code,
+      },
+    });
 
     return response.data as TSuccessResponse;
   },
