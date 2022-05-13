@@ -167,5 +167,9 @@ const selectComponent = (type: string) => {
       margin-bottom: 0;
     }
   }
+
+  > .item:last-child {
+    margin-bottom: 0;
+  }
 }
 </style>

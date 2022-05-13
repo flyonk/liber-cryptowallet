@@ -111,6 +111,7 @@ export const useAuthStore = defineStore('auth', {
     async signInProceed(_data: {
       phone: string;
       otp: string;
+      code_2fa: string;
     }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 

@@ -15,9 +15,9 @@ interface IMfaState {
 }
 
 export enum EMfaHeaders {
-  otp = 'x-otp-header',
-  totp = 'x-totp-header',
-  passcode = 'x-passcode-header',
+  otp = 'x-otp-code',
+  totp = 'x-totp-code',
+  passcode = 'x-pass-code',
 }
 
 // type for record event occur time

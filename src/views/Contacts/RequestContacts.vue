@@ -1,35 +1,32 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation
-      left-icon-name="icon-app-navigation-close"
-      @click:left-icon="onCancel"
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    with-fixed-footer
+    @click:left-icon="onCancel"
+  >
+    <template #title>{{ $t('views.requestcontacts.title') }}</template>
+    <template #subtitle>{{ $t('views.requestcontacts.description') }}</template>
+    <template #content
+      ><div class="page-content">
+        <img
+          alt="Puch notifications"
+          class="mb-3"
+          src="@/assets/images/dragndrop-bg.png"
+        />
+        <p class="text-default -annotation">
+          {{ $t('views.requestcontacts.annotation') }}
+        </p>
+      </div></template
     >
-      {{ $t('views.requestcontacts.title') }}
-    </top-navigation>
-
-    <p class="text-default">
-      {{ $t('views.requestcontacts.description') }}
-    </p>
-
-    <div class="page-content">
-      <img
-        alt="Puch notifications"
-        class="mb-3"
-        src="@/assets/images/dragndrop-bg.png"
-      />
-      <p class="text-default -annotation">
-        {{ $t('views.requestcontacts.annotation') }}
-      </p>
-    </div>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block class="mb-3" @click="onEnable">
-      {{ $t('views.requestcontacts.contactsCTA') }}
-    </base-button>
-    <base-button block view="secondary" @click="onCancel">
-      {{ $t('common.notNowCta') }}
-    </base-button>
-  </div>
+    <template #fixed-footer>
+      <base-button block class="mb-3" @click="onEnable">
+        {{ $t('views.requestcontacts.contactsCTA') }}
+      </base-button>
+      <base-button block view="secondary" @click="onCancel">
+        {{ $t('common.notNowCta') }}
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -42,7 +39,7 @@ export default {
 import { useRouter, useRoute } from 'vue-router';
 import { useRecepientsStore } from '@/stores/recipients';
 
-import { BaseButton, TopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
@@ -77,14 +74,6 @@ function nextRoute() {
 </script>
 
 <style lang="scss" scoped>
-.page-wrapper {
-  margin: 15px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .text-default {
   font-style: normal;
   font-weight: 600;

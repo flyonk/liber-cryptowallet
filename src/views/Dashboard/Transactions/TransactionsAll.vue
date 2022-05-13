@@ -1,11 +1,12 @@
 <template>
-  <div class="transaction-all">
-    <top-navigation
-      @click:left-icon="$router.push({ name: Route.DashboardHome })"
-      >Transactions</top-navigation
-    >
-    <transactions-list :transactions="transactions" class="transactions-list" />
-  </div>
+  <t-top-navigation
+    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+  >
+    <template #title>{{ $t('views.dashboard.home.transactions') }}</template>
+    <template #content>
+      <transactions-list :transactions="transactions" class="transactions-list"
+    /></template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -14,8 +15,7 @@ import { onMounted } from 'vue-demi';
 
 import transactionService from '@/services/transactionService';
 
-import { TopNavigation } from '@/components/ui';
-import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+import { TTopNavigation, TransactionsList } from '@/components/ui';
 
 import { INetTransaction } from '@/models/transaction/transaction';
 import { Route } from '@/router/types';

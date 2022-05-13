@@ -59,9 +59,9 @@ const passcode = ref('');
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
-    return tm('common.codeInput');
+    return tm('auth.login.step4Description');
   }
-  return tm('auth.login.step4Description');
+  return tm('common.codeInput');
 });
 
 const ctaBtnText = computed(() => {
@@ -69,7 +69,7 @@ const ctaBtnText = computed(() => {
 });
 
 const withCountdown = computed(() => {
-  return pStore.user.is2FAConfigured;
+  return !pStore.user.is2FAConfigured;
 });
 
 const showCountdown = ref(true);

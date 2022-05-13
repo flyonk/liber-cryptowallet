@@ -76,7 +76,6 @@ import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 import { useErrorsStore } from '@/stores/errors';
-
 import {
   TopNavigation,
   BaseButton,
@@ -84,11 +83,8 @@ import {
   BaseToast,
   BaseCountdown,
 } from '@/components/ui';
-
 const errorsStore = useErrorsStore();
-
 const { tm } = useI18n();
-
 const emit = defineEmits([
   'onComplete',
   'onResend',
@@ -96,7 +92,6 @@ const emit = defineEmits([
   'onPrev',
   'onHide',
 ]);
-
 const props = defineProps({
   isError: {
     type: Boolean,
@@ -131,11 +126,9 @@ const props = defineProps({
     default: 'icon-app-navigation-back',
   },
 });
-
 const withCountdown = computed(() => {
   return props.withCountdown;
 });
-
 const pasteFromClipboard = async () => {
   try {
     const content = await Clipboard.read();
@@ -151,23 +144,18 @@ const pasteFromClipboard = async () => {
     );
   }
 };
-
 const onHide = (): void => {
   emit('onHide');
 };
-
 const onComplete = (value: string): void => {
   emit('onComplete', value);
 };
-
 const onResend = (): void => {
   emit('onResend');
 };
-
 const onTimeIsUp = (): void => {
   emit('onTimeIsUp');
 };
-
 const onPrev = (): void => {
   emit('onPrev');
 };

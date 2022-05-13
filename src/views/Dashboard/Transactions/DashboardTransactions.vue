@@ -1,143 +1,143 @@
 <template name="DashboardTransactions">
-  <div class="account-transactions">
-    <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.push('/home')"
-      />
-      <div class="count">
-        <div class="flex">
-          <h1 class="title title-currency">
-            2.12345678
-            <span class="currency">USDT</span>
-          </h1>
-          <img
-            alt="currency"
-            class="icon"
-            src="@/assets/icon/currencies/tether.svg"
-          />
-        </div>
-        <p class="subtitle heading-gray-md">€594.41</p>
-      </div>
-      <VueAgile
-        :nav-buttons="false"
-        :slides-to-show="2"
-        class="carousel-slider"
-      >
-        <div
-          v-for="(item, index) in carousel"
-          :key="index"
-          class="item-slide"
-          @click="$router.push('/home/story')"
-        >
-          <img :src="item.img" class="image" />
-          <p class="name">{{ item.name }}</p>
-        </div>
-      </VueAgile>
-      <div v-if="showControls" class="controls">
-        <button class="btn">
-          <img class="label" src="@/assets/icon/plus.svg" />{{
-            $t('transactions.deposit')
-          }}
-        </button>
-        <button class="btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />{{
-            $t('transactions.send')
-          }}
-        </button>
-        <button class="btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />{{
-            $t('transactions.exchange')
-          }}
-        </button>
-      </div>
-    </div>
-    <div>
-      <div class="main-tabs">
-        <div
-          :class="{ active: activeTab === 1 }"
-          class="tab"
-          @click="activeTab = 1"
-        >
-          {{ $t('common.history') }}
-        </div>
-        <div
-          :class="{ active: activeTab === 2 }"
-          class="tab"
-          @click="activeTab = 2"
-        >
-          {{ $t('transactions.walletAddress') }}
-        </div>
-      </div>
-      <ul
-        v-if="activeTab === 1"
-        ref="dashboardTransactions"
-        class="dashboard-transactions"
-      >
-        <li
-          v-for="(transaction, index) in transactions"
-          :key="index"
-          class="item"
-          @click="$router.push('/transactions/details')"
-        >
-          <img :src="transaction.img" class="icon" />
-          <div class="info">
-            <div class="flex">
-              <h1 class="title">{{ transaction.info }}</h1>
-              <p :class="{ received: transaction.sum.startsWith('+') }">
-                {{ transaction.sum }}
-              </p>
-            </div>
-            <div class="flex">
-              <div class="subtitle">{{ transaction.from }}</div>
+  <div class="page-wrapper">
+    <t-top-navigation @click:left-icon="$router.push('/home')">
+      <template #title>
+        2.12345678
+        <span class="currency">USDT</span>
+      </template>
+      <template #subtitle> €594.41 </template>
+      <template #right>
+        <img
+          alt="currency"
+          class="icon"
+          width="56"
+          height="56"
+          src="@/assets/icon/currencies/tether.svg"
+      /></template>
+      <template #content>
+        <div class="account-transactions">
+          <div class="header">
+            <VueAgile
+              :nav-buttons="false"
+              :slides-to-show="2"
+              class="carousel-slider"
+            >
               <div
-                v-if="transaction.status"
-                :class="{ pending: transaction.status === 'Pending' }"
-                class="flex"
+                v-for="(item, index) in carousel"
+                :key="index"
+                class="item-slide"
+                @click="$router.push('/home/story')"
               >
-                <i class="icon-clock mr-1" />
-                <p>
-                  {{ transaction.status }}
-                </p>
+                <img :src="item.img" class="image" />
+                <p class="name">{{ item.name }}</p>
               </div>
-              <p v-else class="sum">{{ transaction.sum }}</p>
+            </VueAgile>
+            <div v-if="showControls" class="controls">
+              <button class="btn">
+                <img class="label" src="@/assets/icon/plus.svg" />{{
+                  $t('transactions.deposit')
+                }}
+              </button>
+              <button class="btn">
+                <img
+                  class="label"
+                  src="@/assets/icon/arrow-right-white.svg"
+                />{{ $t('transactions.send') }}
+              </button>
+              <button class="btn">
+                <img class="label" src="@/assets/icon/repeat.svg" />{{
+                  $t('transactions.exchange')
+                }}
+              </button>
             </div>
           </div>
-        </li>
-      </ul>
+          <div>
+            <div class="main-tabs">
+              <div
+                :class="{ active: activeTab === 1 }"
+                class="tab"
+                @click="activeTab = 1"
+              >
+                {{ $t('common.history') }}
+              </div>
+              <div
+                :class="{ active: activeTab === 2 }"
+                class="tab"
+                @click="activeTab = 2"
+              >
+                {{ $t('transactions.walletAddress') }}
+              </div>
+            </div>
+            <ul
+              v-if="activeTab === 1"
+              ref="dashboardTransactions"
+              class="dashboard-transactions"
+            >
+              <li
+                v-for="(transaction, index) in transactions"
+                :key="index"
+                class="item"
+                @click="$router.push('/transactions/details')"
+              >
+                <img :src="transaction.img" class="icon" />
+                <div class="info">
+                  <div class="flex">
+                    <h1 class="title">{{ transaction.info }}</h1>
+                    <p :class="{ received: transaction.sum.startsWith('+') }">
+                      {{ transaction.sum }}
+                    </p>
+                  </div>
+                  <div class="flex">
+                    <div class="subtitle">{{ transaction.from }}</div>
+                    <div
+                      v-if="transaction.status"
+                      :class="{ pending: transaction.status === 'Pending' }"
+                      class="flex"
+                    >
+                      <i class="icon-clock mr-1" />
+                      <p>
+                        {{ transaction.status }}
+                      </p>
+                    </div>
+                    <p v-else class="sum">{{ transaction.sum }}</p>
+                  </div>
+                </div>
+              </li>
+            </ul>
 
-      <div v-if="activeTab === 2" class="wallet">
-        <img alt="qr-code" class="qr" src="@/assets/images/qr-code.png" />
-        <div class="wallet-address">
-          <h4 class="title">
-            {{ $t('transactions.walletAddress') }}
-          </h4>
-          <div class="account">
-            <div class="crypto-number">
-              <p class="text">
-                {{ wallet }}
-                <br />sd21213
-                <span class="bold">Opa139z0l</span>
-              </p>
+            <div v-if="activeTab === 2" class="wallet">
+              <img alt="qr-code" class="qr" src="@/assets/images/qr-code.png" />
+              <div class="wallet-address">
+                <h4 class="title">
+                  {{ $t('transactions.walletAddress') }}
+                </h4>
+                <div class="account">
+                  <div class="crypto-number">
+                    <p class="text">
+                      {{ wallet }}
+                      <br />sd21213
+                      <span class="bold">Opa139z0l</span>
+                    </p>
+                  </div>
+                  <img alt="folders" src="@/assets/icon/folders.svg" />
+                </div>
+                <h2 class="bluetitle">
+                  {{ $t('transactions.generateAddress') }}
+                </h2>
+                <div class="controls">
+                  <button class="btn">
+                    {{ $t('common.saveImage') }}
+                  </button>
+                  <button class="btn" @click="shareAddress">
+                    {{ $t('transactions.shareAddress') }}
+                  </button>
+                </div>
+              </div>
             </div>
-            <img alt="folders" src="@/assets/icon/folders.svg" />
-          </div>
-          <h2 class="bluetitle">
-            {{ $t('transactions.generateAddress') }}
-          </h2>
-          <div class="controls">
-            <button class="btn">
-              {{ $t('common.saveImage') }}
-            </button>
-            <button class="btn" @click="shareAddress">
-              {{ $t('transactions.shareAddress') }}
-            </button>
           </div>
         </div>
-      </div>
-    </div>
+      </template>
+    </t-top-navigation>
   </div>
 </template>
 
@@ -148,6 +148,8 @@ import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
 import { check, share } from '@/helpers/nativeShare';
+
+import { TTopNavigation } from '@/components/ui';
 
 const toast = useToast();
 
@@ -244,13 +246,16 @@ const shareAddress = async () => {
 </script>
 
 <style lang="scss" scoped>
+.page-wrapper {
+  background: $color-light-grey-100;
+  height: 100vh;
+}
+
 .account-transactions {
   background: $color-light-grey-100;
-  height: 85%;
-  padding: 35px 0 0;
+  height: 95%;
   overflow: hidden;
   flex-grow: 1;
-  padding: 0 16px;
 
   > .header {
     > .count {

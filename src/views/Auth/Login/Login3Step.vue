@@ -1,40 +1,36 @@
 <template>
-  <div v-if="!show2FA">
-    <div class="auth-page-container">
-      <top-navigation @click:left-icon="prevStep">
-        {{ $t('auth.login.step3Title') }}
-        <br />
-        —
-      </top-navigation>
-    </div>
-
-    <base-passcode
-      :show-touch-faceid="showNativeVerification"
-      class="login-passcode"
-      @submit="onSubmit"
-    />
-
-    <base-toast v-model:visible="showErrorToast" severity="error">
-      <template #description>
-        <div>
-          {{ $t('auth.login.step3InvalidInput') }}
-          {{ authStore.getLoginPhone }}
-        </div>
-      </template>
-      <template #footer>
-        {{ $t('auth.login.step3FooterTitle') }}
-        <router-link :to="{ name: Route.SignUp }" class="link">
-          {{ $t('auth.login.step3FooterCta') }}
-        </router-link>
-      </template>
-    </base-toast>
-  </div>
-  <div v-else>
-    <auth2-f-a-verification-component
-      @close="onClose"
-      @success-verification="handleSuccessVerification"
-    />
-  </div>
+  <t-top-navigation left-icon-name="icon-log_out" @click:left-icon="prevStep">
+    <template #title>{{ $t('auth.login.step3Title') }}</template>
+    <template #content>
+      <div v-if="!show2FA">
+        <base-passcode
+          :show-touch-faceid="showNativeVerification"
+          class="login-passcode"
+          @submit="onSubmit"
+        />
+        <base-toast v-model:visible="showErrorToast" severity="error">
+          <template #description>
+            <div>
+              {{ $t('auth.login.step3InvalidInput') }}
+              {{ authStore.getLoginPhone }}
+            </div>
+          </template>
+          <template #footer>
+            {{ $t('auth.login.step3FooterTitle') }}
+            <router-link :to="{ name: Route.SignUp }" class="link">
+              {{ $t('auth.login.step3FooterCta') }}
+            </router-link>
+          </template>
+        </base-toast>
+      </div>
+      <div v-else>
+        <auth2-f-a-verification-component
+          @close="onClose"
+          @success-verification="handleSuccessVerification"
+        />
+      </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -51,7 +47,7 @@ import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BasePasscode, BaseToast, TopNavigation } from '@/components/ui';
+import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 
 import { Route } from '@/router/types';

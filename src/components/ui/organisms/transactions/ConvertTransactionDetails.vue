@@ -1,6 +1,6 @@
 <template name="TransactionDetails">
-  <div class="transaction-details">
-    <TopNavigation class="header" @click:left-icon="$router.back()">
+  <t-top-navigation @click:left-icon="$router.back()">
+    <template #title>
       <div class="sum">
         <div class="sum-title">
           {{ directionSign }} {{ transaction.amount }}
@@ -8,67 +8,70 @@
             {{ mainCoin }}
           </span>
         </div>
+      </div></template
+    >
+    <template #right
+      ><TransactionIconWithStatus
+        :status="transaction.status"
+        img-path="convert"
+    /></template>
+    <template #content>
+      <div class="transaction-details">
+        <div class="header">
+          <h2 class="sendto">{{ detailedInfo }}</h2>
+          <p class="date">
+            {{ relativeDate }}
+          </p>
+        </div>
+        <ul class="main mb-5">
+          <li class="main-item">
+            <p class="name">
+              {{ $t('status.title') }}
+            </p>
+            <TransactionStatus :status="transaction.status" />
+          </li>
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.statement') }}
+            </p>
+            <base-button size="medium" view="flat">
+              {{ $t('transactions.download') }}
+            </base-button>
+          </li>
+
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.rate') }}
+            </p>
+            <p class="description">{{ feeRate }}</p>
+          </li>
+
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.transferFee') }}
+            </p>
+            <p class="description">
+              - {{ transaction.fee.amount }}
+              {{ transaction.fee.code.toUpperCase() }}
+            </p>
+          </li>
+
+          <li class="main-item">
+            <p class="name">
+              {{
+                isIncome ? $t('transactions.cost') : $t('transactions.bought')
+              }}
+            </p>
+            <p class="description">
+              {{ isIncome ? '-' : '+' }}
+              {{ transaction.counter.amount }}
+              {{ transaction.counter.code.toUpperCase() }}
+            </p>
+          </li>
+        </ul>
       </div>
-      <template #right>
-        <TransactionIconWithStatus
-          :status="transaction.status"
-          img-path="convert"
-        />
-      </template>
-    </TopNavigation>
-    <div class="header">
-      <h2 class="sendto">{{ detailedInfo }}</h2>
-      <p class="date">
-        {{ relativeDate }}
-      </p>
-    </div>
-    <ul class="main mb-5">
-      <li class="main-item">
-        <p class="name">
-          {{ $t('status.title') }}
-        </p>
-        <TransactionStatus :status="transaction.status" />
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.statement') }}
-        </p>
-        <base-button size="medium" view="flat">
-          {{ $t('transactions.download') }}
-        </base-button>
-      </li>
-
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.rate') }}
-        </p>
-        <p class="description">{{ feeRate }}</p>
-      </li>
-
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">
-          - {{ transaction.fee.amount }}
-          {{ transaction.fee.code.toUpperCase() }}
-        </p>
-      </li>
-
-      <li class="main-item">
-        <p class="name">
-          {{
-            isIncome.value ? $t('transactions.cost') : $t('transactions.bought')
-          }}
-        </p>
-        <p class="description">
-          {{ isIncome.value ? '-' : '+' }}
-          {{ transaction.counter.amount }}
-          {{ transaction.counter.code.toUpperCase() }}
-        </p>
-      </li>
-    </ul>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -82,7 +85,7 @@ import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  TopNavigation,
+  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
 } from '@/components/ui';

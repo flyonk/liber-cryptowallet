@@ -1,32 +1,34 @@
 <template>
-  <div class="auth-page-container">
-    <top-navigation class="header" @click:left-icon="prevStep">
-      {{ $t('auth.signup.step3Title') }}
-    </top-navigation>
-    <base-input
-      v-model="email"
-      type="email"
-      @focus="showClearBtn"
-      @blur="closeClearBtn"
-    >
-      <template #label> {{ $t('common.email') }} </template>
-      <template v-if="isClearBtnShown" #append>
-        <i
-          class="ci-off_outline_close"
-          @click="clearEmail"
-          @touchend="clearEmail"
-        />
-      </template>
-    </base-input>
-    <base-switch v-model="sendNews" class="switch">
-      {{ $t('auth.signup.step3SendNews') }}
-    </base-switch>
-    <div class="sign-button-wrapper">
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
+    <template #title> {{ $t('auth.signup.step3Title') }}</template>
+    <template #content>
+      <div class="auth-page-container">
+        <base-input
+          v-model="email"
+          type="email"
+          @focus="showClearBtn"
+          @blur="closeClearBtn"
+        >
+          <template #label> {{ $t('common.email') }} </template>
+          <template v-if="isClearBtnShown" #append>
+            <i
+              class="ci-off_outline_close"
+              @click="clearEmail"
+              @touchend="clearEmail"
+            />
+          </template>
+        </base-input>
+        <base-switch v-model="sendNews" class="switch">
+          {{ $t('auth.signup.step3SendNews') }}
+        </base-switch>
+      </div>
+    </template>
+    <template #fixed-footer>
       <base-button :disabled="isEmailInvalid" block @click="nextStep">
         {{ $t('common.nextStep') }}
       </base-button>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -36,12 +38,8 @@ import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 
-import {
-  TopNavigation,
-  BaseInput,
-  BaseSwitch,
-  BaseButton,
-} from '@/components/ui';
+import { BaseInput, BaseSwitch, BaseButton } from '@/components/ui';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();

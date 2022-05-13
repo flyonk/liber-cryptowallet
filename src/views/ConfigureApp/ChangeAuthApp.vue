@@ -63,11 +63,17 @@ export default {
 import { ref } from 'vue';
 
 import { TopNavigation, BaseButton, BaseToast } from '@/components/ui';
+import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
 import { use2faStore } from '@/stores/2fa';
+import { useMfaStore } from '@/stores/mfa';
+import { useProfileStore } from '@/stores/profile';
+
+const router = useRouter();
 
 const twofaStore = use2faStore();
+const pStore = useProfileStore();
 const showPopup = ref(false);
 
 const onContinue = () => {
@@ -76,7 +82,18 @@ const onContinue = () => {
 
 const onConfirm = () => {
   showPopup.value = false;
-  twofaStore.disable();
+  if (pStore.user.is2FAConfigured) {
+    console.log('show mfa store??');
+    const mfaStore = useMfaStore();
+    mfaStore.show({
+      successRoute: Route.InstallApp,
+    });
+    twofaStore.disable();
+  } else {
+    router.push({
+      name: Route.InstallApp,
+    });
+  }
 };
 </script>
 

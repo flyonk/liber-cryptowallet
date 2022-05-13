@@ -1,30 +1,32 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation
-      @click:left-icon="$router.push({ name: Route.ConfigureAppVerify })"
-    >
-      {{ $t('configureApp.pushNotificationsTitle') }}
-    </top-navigation>
-
-    <div class="page-content">
-      <img
-        alt="Puch notifications"
-        class="mb-3"
-        src="@/assets/images/pushnotification-icon.svg"
-      />
-      <p class="text-default">
-        {{ $t('configureApp.pushNotificationsDescription') }}
-      </p>
-    </div>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block class="mb-3" @click="onEnable">
-      {{ $t('configureApp.enablePushNotifications') }}
-    </base-button>
-    <base-button block view="transparent" @click="onCancel">
-      {{ $t('common.notNowCta') }}
-    </base-button>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.ConfigureAppVerify })"
+  >
+    <template #title> {{ $t('configureApp.pushNotificationsTitle') }}</template>
+    <template #content>
+      <div class="page-wrapper">
+        <div class="page-content">
+          <img
+            alt="Puch notifications"
+            class="mb-3"
+            src="@/assets/images/pushnotification-icon.svg"
+          />
+          <p class="text-default">
+            {{ $t('configureApp.pushNotificationsDescription') }}
+          </p>
+        </div>
+      </div>
+    </template>
+    <template #fixed-footer>
+      <base-button block class="mb-3" @click="onEnable">
+        {{ $t('configureApp.enablePushNotifications') }}
+      </base-button>
+      <base-button block view="transparent" @click="onCancel">
+        {{ $t('common.notNowCta') }}
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -37,7 +39,7 @@ export default {
 import { useRouter } from 'vue-router';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BaseButton, TopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
@@ -66,10 +68,11 @@ const onCancel = (): void => {
 <style lang="scss" scoped>
 .page-wrapper {
   margin: 15px;
+  margin-top: 150px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
 }
 
 .text-default {

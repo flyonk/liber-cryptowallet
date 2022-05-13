@@ -10,13 +10,14 @@
       I this list, you can find contact with which you make transactions. Add
       contact to make the first transfer.
     </p>
+    <br />
     <BaseButton
       class="btn"
       size="large"
       view="simple"
       @click="isMenuOpen = !isMenuOpen"
     >
-      Add new contact
+      + Add
     </BaseButton>
   </div>
   <bottom-swipe-menu
@@ -81,6 +82,7 @@ function closeMenu() {
   > .btn {
     margin-top: auto;
     margin-bottom: 20px;
+    width: 100%;
   }
 }
 </style>
