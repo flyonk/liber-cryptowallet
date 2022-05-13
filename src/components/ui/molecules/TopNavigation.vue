@@ -1,17 +1,32 @@
 <template>
   <header class="page-header">
     <div class="header-top">
-      <button class="controls" type="button" @click="$emit('click:left-icon')">
+      <template v-if="withCustomTopLeft"> <slot name="top-left" /> </template>
+      <button
+        v-else
+        class="controls"
+        type="button"
+        @click="$emit('click:left-icon')"
+      >
         <i :class="leftIconName" class="icon-header" />
       </button>
       <slot name="top-right" />
     </div>
-    <div v-if="$slots.default" class="header-container">
-      <h1 class="page-title">
-        <slot />
-      </h1>
-      <slot name="right"></slot>
-    </div>
+    <template v-if="!withoutTitle">
+      <div class="header-container">
+        <div class="left">
+          <h1 class="page-title">
+            <slot />
+          </h1>
+          <h1 class="page-subtitle">
+            <slot name="subtitle" />
+          </h1>
+        </div>
+        <div class="right">
+          <slot name="right"></slot>
+        </div>
+      </div>
+    </template>
   </header>
 </template>
 
@@ -20,6 +35,14 @@ defineProps({
   leftIconName: {
     type: String,
     default: 'icon-app-navigation-back',
+  },
+  withoutTitle: {
+    type: Boolean,
+    default: false,
+  },
+  withCustomTopLeft: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -36,7 +59,7 @@ defineEmits(['click:left-icon']);
     justify-content: space-between;
     align-items: center;
 
-    > .page-title {
+    > .left > .page-title {
       font-style: normal;
       font-weight: 800;
       font-size: 28px;
@@ -44,6 +67,16 @@ defineEmits(['click:left-icon']);
       letter-spacing: 0.0038em;
       margin-bottom: 10px;
       margin-top: 20px;
+    }
+
+    > .left > .page-subtitle {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 17px;
+      line-height: 22px;
+      letter-spacing: -0.0043em;
+      color: $color-brand-primary;
+      width: 100%;
     }
   }
 
@@ -54,6 +87,7 @@ defineEmits(['click:left-icon']);
 
   > .header-top > .controls {
     background: transparent;
+    display: flex;
   }
 
   > .header-top > .controls > .icon-header {

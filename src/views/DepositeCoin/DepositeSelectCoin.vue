@@ -1,35 +1,43 @@
 <template name="DepositeSelectCoin">
-  <div class="page-wrapper">
-    <TopNavigation
-      left-icon-name="icon-app-navigation-back"
-      @click:left-icon="$router.push({ name: Route.DashboardHome })"
-    />
-    <BaseCoinListSelect
-      @back-button="router.push({ name: Route.DashboardHome })"
-      @select-coin="selectCoin"
-    />
-  </div>
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-back"
+    nav-without-title
+    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+  >
+    <template #title></template>
+    <template #content
+      ><div class="select-coin">
+        <base-coin-list-select
+          :coins="coins"
+          @back-button="router.push({ name: Route.DashboardHome })"
+          @select-coin="selectCoin"
+        /></div
+    ></template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
-import { onBeforeMount } from 'vue';
+import { computed, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
+import { useCoinsStore } from '@/stores/coins';
 import { IAccount } from '@/models/account/account';
 import { ICoin } from '@/models/coin/coins';
-import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
 
-import { BaseCoinListSelect } from '@/components/ui';
+import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 
 const router = useRouter();
 const accountStore = useAccountStore();
 const depositStore = useDepositStore();
+const coinsStore = useCoinsStore();
+
+const coins = computed(() => coinsStore.coins);
 
 onBeforeMount(async () => {
-  await Promise.all([accountStore.getAccountList()]);
+  await Promise.all([accountStore.getAccountList(), coinsStore.fetchCoins()]);
 });
 
 const selectAccount = (coinCode: string) => {
@@ -49,62 +57,9 @@ const selectCoin = async (selectedAccount: ICoin) => {
 .page-wrapper {
   margin: 15px;
   flex-grow: 1;
-}
 
-.main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
-
-.page-header {
-  margin-bottom: 32px;
-}
-
-.input-label {
-  position: relative;
-  display: block;
-  overflow: hidden;
-  border-radius: 12px;
-
-  > .search {
-    background: $color-light-grey;
-    color: $color-dark-grey;
-    width: 100%;
-    height: 44px;
-    padding-left: 40px;
-    font-size: 16px;
-    line-height: 21px;
-    align-items: center;
-    letter-spacing: -0.0031em;
-    border: 0;
-    outline: none;
+  > .select-coin {
+    margin-top: 21px;
   }
-
-  > .icon {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    z-index: 1;
-  }
-}
-
-.page-main {
-  > .title {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-brand-primary;
-    margin-bottom: 16px;
-  }
-}
-
-.coin-list {
-  margin-bottom: 40px;
 }
 </style>

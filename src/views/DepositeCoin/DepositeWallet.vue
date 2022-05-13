@@ -1,13 +1,17 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation
-      left-icon-name="icon-app-navigation-close"
+    <t-top-navigation
+      left-icon-name="icon-app-navigation-back"
       @click:left-icon="$router.push({ name: Route.DashboardHome })"
     >
-      {{ $t('views.deposit.wallet.deposit') }} {{ coinCode.toUpperCase() }}
-    </top-navigation>
-
-    <account-details :coin-code="coinCode" />
+      <template #title>
+        {{ $t('views.deposit.wallet.deposit') }}
+        {{ coinCode.toUpperCase() }}</template
+      >
+      <template #content>
+        <account-details :coin-code="coinCode" />
+      </template>
+    </t-top-navigation>
   </div>
 </template>
 
@@ -17,7 +21,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { Route } from '@/router/types';
 import { useDepositStore } from '@/stores/deposit';
 
-import { AccountDetails, TopNavigation } from '@/components/ui';
+import { AccountDetails, TTopNavigation } from '@/components/ui';
 
 const depositStore = useDepositStore();
 
@@ -34,7 +38,7 @@ const coinCode = computed((): string => {
 
 <style lang="scss" scoped>
 .page-wrapper {
-  padding: 0 15px;
+  padding: 0;
   flex-grow: 1;
   background-color: $color-light-grey-200;
   display: flex;

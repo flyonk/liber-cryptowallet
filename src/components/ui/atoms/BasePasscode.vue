@@ -38,12 +38,15 @@ import { onBeforeMount, PropType, ref } from 'vue';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { usePasscodeStore } from '@/stores/passcode';
+import { useMfaStore } from '@/stores/mfa';
 import { set } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
 import { EPasscodeActions } from '@/types/base-component';
+import { Route } from '@/router/types';
 
 const passcodeStore = usePasscodeStore();
+const mfaStore = useMfaStore();
 
 const props = defineProps({
   actionType: {
@@ -56,19 +59,28 @@ const props = defineProps({
   },
 });
 
+async function updatePassCode(passcode: string) {
+  mfaStore.show({
+    successRoute: Route.ProfileSettings,
+  });
+  return await passcodeStore.update({ new_pass_code: passcode });
+}
+
 async function checkPasscode(passcode: string) {
   return await passcodeStore.verify({ pass_code: passcode });
 }
 
 async function setPasscode(passcode: string) {
-  await passcodeStore.create({ pass_code: passcode });
+  const isCreated = await passcodeStore.create({ pass_code: passcode });
 
-  await set({
-    key: EStorageKeys.passcode,
-    value: 'true',
-  });
+  if (isCreated) {
+    await set({
+      key: EStorageKeys.passcode,
+      value: 'true',
+    });
+  }
 
-  return true;
+  return isCreated;
 }
 
 function getSubmitFunction(actionType: string) {
@@ -77,7 +89,8 @@ function getSubmitFunction(actionType: string) {
       return setPasscode;
     case EPasscodeActions.compare:
       return checkPasscode;
-
+    case EPasscodeActions.update:
+      return updatePassCode;
     default:
       return checkPasscode;
   }

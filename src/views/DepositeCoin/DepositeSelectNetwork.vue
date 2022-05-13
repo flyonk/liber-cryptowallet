@@ -1,47 +1,48 @@
 <template name="DepositeWallet">
-  <div class="page-wrapper">
-    <TopNavigation @click:left-icon="router.push({ name: Route.DepositCoin })">
-      {{ title }}
-    </TopNavigation>
-    <div v-if="dictionary[activeQuestion]">
-      <p class="text-default">
-        {{ description }}
-      </p>
-
-      <div>
-        <template
-          v-for="answer in dictionary[activeQuestion].answers"
-          :key="answer.id"
-        >
-          <label
-            :class="{
-              '-selected': answer.isSelected,
-              '-disabled': answer.disabled,
-            }"
-            class="radio-btn"
-          >
-            <input
-              :id="answer.id"
-              :value="answer.id"
-              name="surveyAnswer"
-              style="display: none"
-              type="radio"
-              @change="selectAnswer(answer)"
-            />
-            <span :class="{ '-selected': answer.isSelected }" class="title">{{
-              answer.body
-            }}</span>
-            <img
-              v-if="answer.isSelected"
-              alt="right arrow"
-              src="@/assets/images/arrow-white.svg"
-            />
-            <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
-          </label>
-        </template>
+  <t-top-navigation @click:left-icon="router.push({ name: Route.DepositCoin })">
+    <template #title>{{ title }}</template>
+    <template #subtitle> {{ description }}</template>
+    <template #content>
+      <div class="page-wrapper">
+        <div v-if="dictionary[activeQuestion]">
+          <div>
+            <template
+              v-for="answer in dictionary[activeQuestion].answers"
+              :key="answer.id"
+            >
+              <label
+                :class="{
+                  '-selected': answer.isSelected,
+                  '-disabled': answer.disabled,
+                }"
+                class="radio-btn"
+              >
+                <input
+                  :id="answer.id"
+                  :value="answer.id"
+                  name="surveyAnswer"
+                  style="display: none"
+                  type="radio"
+                  @change="selectAnswer(answer)"
+                />
+                <span
+                  :class="{ '-selected': answer.isSelected }"
+                  class="title"
+                  >{{ answer.body }}</span
+                >
+                <img
+                  v-if="answer.isSelected"
+                  alt="right arrow"
+                  src="@/assets/images/arrow-white.svg"
+                />
+                <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
+              </label>
+            </template>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -52,7 +53,7 @@ import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { useDepositStore } from '@/stores/deposit';
 
-import { TopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 const { tm } = useI18n();
 

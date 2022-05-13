@@ -1,3 +1,12 @@
+export interface ICreateAccountDto {
+  id: string;
+  network: string;
+  address: string;
+  minimum_deposit: string;
+  expected_arrival: string;
+  expected_unlock: string;
+}
+
 export interface ICreateAccount {
   id: string;
   network: string;
@@ -8,8 +17,7 @@ export interface ICreateAccount {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): ICreateAccount {
+  deserialize(input: ICreateAccountDto): ICreateAccount {
     return {
       id: input.id,
       network: input.network,

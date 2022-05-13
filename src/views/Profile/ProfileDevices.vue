@@ -1,48 +1,50 @@
 <template name="AccountDevices">
-  <div class="account-devices">
-    <top-navigation @click:left-icon="$router.push('/profile')">
-      {{ $t('views.profile.profileDevices.devices') }}
-    </top-navigation>
-
-    <p class="description">
-      {{ $t('views.profile.profileDevices.allowedDevices') }}
-    </p>
-
-    <div class="main">
-      <ul v-for="device in devices" :key="device.id" class="list">
-        <li class="item">
-          <p class="name -first">
-            {{ device.deviceName }}
-          </p>
-          <img :alt="device.agent_type" :src="getImage(device.agentType)" />
-        </li>
-        <li class="item">
-          <p class="name">
-            {{ $t('views.profile.profileDevices.date') }}
-          </p>
-          <p class="description">
-            {{ $filters.timestampToDate(device.loggedAt) }}
-          </p>
-        </li>
-        <li class="item">
-          <p class="name">
-            {{ $t('views.profile.profileDevices.location') }}
-          </p>
-          <p class="description">
-            {{ device.location }}
-          </p>
-        </li>
-        <li class="item">
-          <p class="name">
-            {{ $t('views.profile.profileDevices.ip') }}
-          </p>
-          <p class="description">
-            {{ device.ip }}
-          </p>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <t-top-navigation @click:left-icon="$router.push('/profile')">
+    <template #title>
+      {{ $t('views.profile.profileDevices.devices') }}</template
+    >
+    <template #subtitle>
+      {{ $t('views.profile.profileDevices.allowedDevices') }}</template
+    >
+    <template #content>
+      <div class="account-devices">
+        <div class="main">
+          <ul v-for="device in devices" :key="device.id" class="list">
+            <li class="item">
+              <p class="name -first">
+                {{ device.deviceName }}
+              </p>
+              <img :alt="device.agent_type" :src="getImage(device.agentType)" />
+            </li>
+            <li class="item">
+              <p class="name">
+                {{ $t('views.profile.profileDevices.date') }}
+              </p>
+              <p class="description">
+                {{ $filters.timestampToDate(device.loggedAt) }}
+              </p>
+            </li>
+            <li class="item">
+              <p class="name">
+                {{ $t('views.profile.profileDevices.location') }}
+              </p>
+              <p class="description">
+                {{ device.location }}
+              </p>
+            </li>
+            <li class="item">
+              <p class="name">
+                {{ $t('views.profile.profileDevices.ip') }}
+              </p>
+              <p class="description">
+                {{ device.ip }}
+              </p>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -51,7 +53,7 @@ import { onBeforeMount, ref, Ref } from 'vue';
 import { IUserDevice, TAgentType } from '@/models/auth/devices';
 import { useAuthStore } from '@/stores/auth';
 
-import { TopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 const authStore = useAuthStore();
 
@@ -75,16 +77,8 @@ function getImage(agentType: TAgentType): string {
   display: flex;
   flex-direction: column;
   height: 100vh;
-  padding: 0 16px 50px;
   flex-grow: 1;
   overflow: auto;
-
-  > .description {
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-    margin-bottom: 40px;
-  }
 
   > .main {
     > .list {

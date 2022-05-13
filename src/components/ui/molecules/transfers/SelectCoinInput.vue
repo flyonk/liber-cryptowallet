@@ -9,15 +9,21 @@
         v-model:visible="showSelectCoinDialog[direction]"
         :show-header="false"
         class="p-dialog-maximized"
+        style="padding: 0 !important"
       >
-        <TopNavigation
+        <t-top-navigation
           left-icon-name="icon-app-navigation-close"
           @click:left-icon="handleCloseModal"
-        />
-        <BaseCoinListSelect
-          @back-button="showSelectCoinDialog[direction] = false"
-          @select-coin="handleSelect($event)"
-        />
+        >
+          <template #content>
+            <BaseCoinListSelect
+              :direction="direction"
+              :coins="coins"
+              @back-button="showSelectCoinDialog[direction] = false"
+              @select-coin="handleSelect($event)"
+            />
+          </template>
+        </t-top-navigation>
       </p-dialog>
     </div>
   </div>
@@ -29,8 +35,7 @@ import { PropType, ref } from 'vue';
 import { ICoin } from '@/models/coin/coins';
 import { ICoinForExchange } from '@/stores/funds';
 
-import { BaseCoinListSelect } from '@/components/ui';
-import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
+import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 
 const emit = defineEmits(['on-select-coin']);
 
@@ -48,6 +53,10 @@ const props = defineProps({
     type: String as PropType<'from' | 'to'>,
     default: 'from',
   },
+  coins: {
+    type: Array as PropType<ICoin[]>,
+    default: () => [],
+  },
 });
 
 const handleSelect = (coin: ICoin): void => {
@@ -60,7 +69,12 @@ const handleCloseModal = () => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+//TODO: Hide under scoped
+.p-dialog-content {
+  padding: 0 !important;
+}
+
 .select {
   position: absolute;
   right: 4px;
@@ -74,7 +88,7 @@ const handleCloseModal = () => {
 
 .select-option {
   display: flex;
-  justify-content: center;
+  padding: 0 16px;
   align-items: center;
   width: 100%;
   height: 100%;

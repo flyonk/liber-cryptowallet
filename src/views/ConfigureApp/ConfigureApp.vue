@@ -1,46 +1,47 @@
 <template>
-  <div class="page-wrapper" onclick="void(0);">
-    <top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
-      {{ $t('configureApp.configTitle') }}
-    </top-navigation>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.InstallApp })"
+  >
+    <template #title> {{ $t('configureApp.configTitle') }}</template>
+    <template #subtitle>{{ $t('configureApp.scanQRMessage') }}</template>
+    <template #content>
+      <div>
+        <canvas ref="canvas" class="qr-code-canvas" />
+      </div>
 
-    <p class="text-default" style="margin-bottom: 0">
-      {{ $t('configureApp.scanQRMessage') }}
-    </p>
+      <label class="default-input-wrapper" @click="copyToClipboard">
+        <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
+        <input
+          v-model="qrCodeValue"
+          class="default-input"
+          type="text"
+          readonly
+        />
+        <img
+          class="default-input-icon"
+          src="@/assets/images/copy-to-clipboard.svg"
+          alt="copy"
+          @click.stop
+        />
+      </label>
 
-    <div>
-      <canvas ref="canvas" class="qr-code-canvas" />
-    </div>
-
-    <label class="default-input-wrapper" @click="copyToClipboard">
-      <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
-      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
-      <img
-        class="default-input-icon"
-        src="@/assets/images/copy-to-clipboard.svg"
-        alt="copy"
-        @click.stop
-      />
-    </label>
-
-    <p class="text-default">
-      {{ $t('configureApp.backupCodeMessage') }}
-    </p>
-    <p class="text-default">
-      {{ $t('configureApp.verifyIdentityMessage') }}
-    </p>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button
-      block
-      @click="
-        saveTwoFASecret();
-        $router.push({ name: Route.ConfigureAppVerify });
-      "
+      <p class="text-default">
+        {{ $t('configureApp.backupCodeMessage') }}
+      </p>
+      <p class="text-default">
+        {{ $t('configureApp.verifyIdentityMessage') }}
+      </p>
+    </template>
+    <template #fixed-footer
+      ><base-button
+        block
+        @click="$router.push({ name: Route.ConfigureAppVerify })"
+      >
+        {{ $t('common.continueCta') }}
+      </base-button></template
     >
-      {{ $t('common.continueCta') }}
-    </base-button>
-  </div>
+  </t-top-navigation>
 </template>
 
 <script lang="ts">
@@ -57,9 +58,8 @@ import { useToast } from 'primevue/usetoast';
 
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
-import { useProfileStore } from '@/stores/profile';
 
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation, BaseButton } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
@@ -67,7 +67,6 @@ import { useErrorsStore } from '@/stores/errors';
 const { tm } = useI18n();
 
 const store = use2faStore();
-const pStore = useProfileStore();
 const errorsStore = useErrorsStore();
 const toast = useToast();
 
@@ -75,14 +74,13 @@ const canvas = ref<HTMLCanvasElement | undefined>();
 let qrCodeValue = ref<string>('');
 
 onMounted(async () => {
-  await store.generateSecret();
-  const { secret, uri } = store;
+  const { secret, url } = await store.generateSecret();
 
   qrCodeValue.value = secret;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
-    content: uri,
+    content: url,
     width: 230,
   });
 
@@ -108,11 +106,6 @@ const copyToClipboard = async () => {
     );
   }
 };
-
-async function saveTwoFASecret(): Promise<void> {
-  const options = { secret_2fa: qrCodeValue.value };
-  pStore.updateUserProfile({ options });
-}
 </script>
 
 <style lang="scss" scoped>

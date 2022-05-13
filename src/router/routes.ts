@@ -17,6 +17,7 @@ import WelcomeAuthScreen from '@/views/Welcome/WelcomeAuthScreen.vue';
 
 import PasscodeEnter from '@/views/ConfigureApp/PasscodeEnter.vue';
 import ChangePasscode from '@/views/ConfigureApp/ChangePasscode.vue';
+import ChangeAuthApp from '@/views/ConfigureApp/ChangeAuthApp.vue';
 
 import Dashboard from '@/views/Dashboard/index.vue';
 import DashboardHome from '@/views/Dashboard/DashboardHome.vue';
@@ -99,6 +100,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/change-passcode',
     name: Route.ChangePasscode,
     component: ChangePasscode,
+    meta: { layout: 'default' },
+  },
+
+  {
+    path: '/change-authapp',
+    name: Route.ChangeAuthapp,
+    component: ChangeAuthApp,
+    meta: {
+      classLayout: '-full-height',
+    },
   },
 
   {
@@ -158,11 +169,17 @@ const routes: Array<RouteRecordRaw> = [
         path: 'verifying-identity',
         name: Route.DashboardVerifyingStory,
         component: DashboardVerifyingIdentityStory,
+        meta: {
+          layout: 'default',
+        },
       },
       {
         path: 'transfer-funds-to-treasury',
         name: Route.DashboardTransferFundsToTreasuryStory,
         component: DashboardTransferFundsToTreasuryStory,
+        meta: {
+          layout: 'default',
+        },
       },
     ],
   },
@@ -214,7 +231,7 @@ const routes: Array<RouteRecordRaw> = [
         component: DashboardTransactions,
       },
       {
-        path: 'details/:id/:coin',
+        path: 'details/:id/',
         name: Route.TransactionsDetails,
         meta: { layout: 'default' },
         component: TransactionDetails,

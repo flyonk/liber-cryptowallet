@@ -1,26 +1,47 @@
 <template name="send-to">
-  <div class="send-to">
-    <div class="header sendto-header">
-      <img
-        class="back mr-2"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push({ name: Route.PayRecepientsPhone })"
-      />
-      <h4 class="username">{{ recepient.phone }}</h4>
-    </div>
-    <div class="user-info flex justify-between align-items-center">
+  <t-top-navigation
+    with-fixed-footer
+    nav-with-custom-top-left
+    @click:left-icon="$router.push({ name: Route.PayRecepientsPhone })"
+  >
+    <template #top-left>
+      <div class="header sendto-header">
+        <img
+          class="back mr-2"
+          src="@/assets/icon/arrow-left.svg"
+          alt="arrow-left"
+          @click="$router.push({ name: Route.PayRecepientsPhone })"
+        />
+        <h4 class="username">{{ recepient.phone }}</h4>
+      </div>
+    </template>
+    <template #title>
       <h1 class="title">{{ recepient.displayName }}</h1>
-      <ContactInitials :name="recepient.displayName" />
-    </div>
-    <div class="sendto-main">
-      <send-currency
-        :contact-name="recepient.displayName"
-        :has-coin-reverse="true"
-        @send-transaction="sendTransaction"
-      />
-    </div>
-  </div>
+    </template>
+    <template #right>
+      <ContactInitials :name="recepient.displayName"
+    /></template>
+    <template #content
+      ><div class="send-to">
+        <div class="sendto-main">
+          <send-currency
+            :contact-name="recepient.displayName"
+            :has-coin-reverse="true"
+            @send-transaction="sendTransaction"
+          />
+        </div></div
+    ></template>
+    <template #fixed-footer
+      ><base-button
+        class="send-button"
+        size="large"
+        view="simple"
+        @click="sendTransaction"
+      >
+        Send
+      </base-button></template
+    >
+  </t-top-navigation>
   <!--TODO: make toasts logic-->
   <base-toast
     v-if="popupStatus === 'attention'"
@@ -103,12 +124,13 @@ import { ref, computed } from 'vue';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
-import { BaseToast, BaseButton } from '@/components/ui';
+import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
+import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { getContactPhone } from '@/helpers/contacts';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
@@ -122,7 +144,6 @@ const transferStore = useTransferStore();
 const recepientsStore = useRecepientsStore();
 const errorsStore = useErrorsStore();
 
-const router = useRouter();
 const route = useRoute();
 
 const contactId = route.params.id;
@@ -148,13 +169,15 @@ transferStore.recipient = recipient;
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
-      await recepientsStore.addFriend(contact);
-      await transferStore.transfer();
-      showSuccessPopup.value = true;
-      router.push({
-        name: Route.DashboardHome,
+      const mfaStore = useMfaStore();
+      mfaStore.show({
+        title: 'transactions.send',
+        callback: async () => {
+          await recepientsStore.addFriend(contact);
+          transferStore.clearTransferData();
+        },
       });
-      transferStore.clearTransferData();
+      await transferStore.transfer();
     } catch (err) {
       // todo: not required handling
       showFailurePopup.value = true;
@@ -173,13 +196,6 @@ const sendTransaction = async () => {
 </script>
 
 <style lang="scss" scoped>
-.send-to {
-  height: 100vh;
-  padding: 60px 16px 0;
-  flex-grow: 1;
-  overflow: auto;
-}
-
 .sendto-header {
   display: flex;
   align-items: center;
@@ -233,5 +249,9 @@ const sendTransaction = async () => {
     letter-spacing: -0.0043em;
     color: $color-brand-2-300;
   }
+}
+
+.send-button {
+  width: 100%;
 }
 </style>

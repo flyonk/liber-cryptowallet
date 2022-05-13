@@ -26,6 +26,7 @@ export const useErrorsStore = defineStore('errors', {
 
   actions: {
     async handle(
+      /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
       err: AxiosError | Error | any,
       name: string,
       ctx: string,
@@ -36,6 +37,7 @@ export const useErrorsStore = defineStore('errors', {
     },
 
     async multiErrorHandler(
+      /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
       errors: Array<AxiosError | Error | any>,
       name: string,
       ctx: string,

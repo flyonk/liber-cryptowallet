@@ -18,6 +18,17 @@ interface IRecepients {
   friends: Set<string>;
 }
 
+interface IPhoneNumber {
+  value: string;
+}
+
+interface IContact {
+  id: string;
+  name: string;
+  phones: IPhoneNumber[];
+  emails: [];
+}
+
 const getStoredOption = async (key: EStorageKeys) => {
   const { value } = await Storage.get({
     key,
@@ -25,7 +36,7 @@ const getStoredOption = async (key: EStorageKeys) => {
   return value ? JSON.parse(value) : [];
 };
 
-async function setOptions(value: any, key: EStorageKeys) {
+async function setOptions(value: string[], key: EStorageKeys) {
   await Storage.set({
     key,
     value: JSON.stringify(value),
@@ -34,18 +45,35 @@ async function setOptions(value: any, key: EStorageKeys) {
 
 async function loadFriends() {
   const transactions = await transactionService.getTransactionList();
+  const contacts = <any>[];
   const userIds =
     transactions
       ?.map((transaction) => {
         const id = transaction.contractor?.id;
+        if (id) {
+          contacts.push({
+            contactId: transaction.contractor?.id || '',
+            displayName: '',
+            phoneNumbers: transaction.contractor?.phone
+              ? [transaction.contractor?.phone]
+              : [],
+            emails: transaction.contractor?.email
+              ? [transaction.contractor?.email]
+              : [],
+            isFriend: true,
+          });
+        }
         return id || '';
       })
       .filter((id) => id !== '') || [];
   const friends = await getStoredOption(EStorageKeys.friends);
+  const filteredContacts = contacts.filter(
+    (c: any) => c.id && c.phoneNumbers.length
+  );
   if (friends && friends.length) {
-    return new Set<string>([...friends, ...userIds]);
+    return [new Set<string>([...friends, ...userIds]), filteredContacts];
   }
-  return new Set<string>(userIds);
+  return [new Set<string>(userIds), filteredContacts];
 }
 
 // === Phone contacts Store ===
@@ -81,29 +109,43 @@ export const useRecepientsStore = defineStore('recepients', {
       try {
         const result = await Contacts.getPermissions();
         const { granted } = result;
-        this.permission = !!granted;
+        this.permission = Boolean(granted);
         if (granted) {
           const { contacts } = await Contacts.getContacts();
           this.contacts = contacts;
         }
-        this.friends = await loadFriends();
+        const [friends, contacts] = await loadFriends();
+        this.friends = friends;
         this.contacts = this.contacts.map((c: Contact) => {
           if (this.friends.has(c.contactId)) {
             c.isFriend = true;
           }
           return c;
         });
+        const contactIds = this.contacts.map((c: Contact) => c.contactId);
+        contacts.forEach((c: Contact) => {
+          if (!contactIds.includes(c.contactId)) {
+            this.contacts.push(c);
+          }
+        });
         return true;
       } catch (err: any) {
         if (err?.code === CAPACITOR_WEB_ERROR) {
           // todo: remove mocked contacts import
           this.contacts = mockedContacts;
-          this.friends = await loadFriends();
+          const [friends, contacts] = await loadFriends();
+          this.friends = friends;
           this.contacts = this.contacts.map((c: Contact) => {
             if (this.friends.has(c.contactId)) {
               c.isFriend = true;
             }
             return c;
+          });
+          const contactIds = this.contacts.map((c: Contact) => c.contactId);
+          contacts.forEach((c: Contact) => {
+            if (!contactIds.includes(c.contactId)) {
+              this.contacts.push(c);
+            }
           });
         }
 
@@ -117,11 +159,11 @@ export const useRecepientsStore = defineStore('recepients', {
         );
       }
     },
-    async addNewContact(contact: any) {
+    async addNewContact(contact: IContact) {
       const newContact: Contact = {
         contactId: contact.id || '',
         displayName: contact.name || '',
-        phoneNumbers: contact.phones.map((item: any) => {
+        phoneNumbers: contact.phones.map((item) => {
           return {
             number: item.value,
           };
@@ -154,8 +196,15 @@ export const useRecepientsStore = defineStore('recepients', {
       };
       try {
         await contactsService.createContact(newFriend);
-      } catch (error) {
-        console.log('friend add error', error);
+      } catch (err) {
+        const errorsStore = useErrorsStore();
+
+        errorsStore.handle(
+          err,
+          'recipients.ts',
+          'addFriend',
+          "error can't add new contact"
+        );
       }
       setOptions(Array.from(this.friends), EStorageKeys.friends);
     },

@@ -1,46 +1,53 @@
 <template name="send-invite">
-  <div class="send-invite">
-    <div class="header invite-header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/contacts')"
-      />
-      <h1 class="title">Send Invite</h1>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push('/contacts')"
+  >
+    <template #title>Send Invite</template>
+    <template #subtitle>
       <p class="userinfo">
         liber.com/@abrahamwatson-xa..
-        <img src="@/assets/icon/copy.svg" class="ml-auto" />
-      </p>
-    </div>
-    <ul class="invite-list">
-      <li
-        v-for="(contact, index) in newContacts"
-        :key="index"
-        class="invite-item"
-      >
-        <BaseInput v-model="newContacts[index].name.value" type="text">
-          <template #label> Name </template>
-        </BaseInput>
-        <BaseInput v-model="newContacts[index].email.value" type="text">
-          <template #label> Email </template>
-        </BaseInput>
-        <p class="add" @click="addExtraContact">
-          <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
-          Additional phone or email
-        </p>
-      </li>
-    </ul>
-    <BaseButton class="btn" size="large" :disabled="isBtnDisabled">
-      Sent
-    </BaseButton>
-  </div>
+        <img src="@/assets/icon/copy.svg" class="ml-auto" /></p
+    ></template>
+    <template #content>
+      <ul class="invite-list">
+        <li
+          v-for="(contact, index) in newContacts"
+          :key="index"
+          class="invite-item"
+        >
+          <BaseInput
+            v-model="newContacts[index].name"
+            :type="TypeBaseInput.Text"
+          >
+            <template #label> Name </template>
+          </BaseInput>
+          <BaseInput
+            v-model="newContacts[index].email"
+            :type="TypeBaseInput.Text"
+          >
+            <template #label> Email </template>
+          </BaseInput>
+          <p class="add" @click="addExtraContact">
+            <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
+            Additional phone or email
+          </p>
+        </li>
+      </ul></template
+    >
+    <template #fixed-footer>
+      <BaseButton class="footer-btn" size="large" :disabled="isBtnDisabled">
+        Sent
+      </BaseButton>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
-import { BaseButton, BaseInput } from '@/components/ui';
+import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 const newContacts = ref([
   {
@@ -54,17 +61,16 @@ function addExtraContact() {
     name: '',
     email: '',
   });
-  console.log(newContacts);
 }
 
-function isBtnDisabled() {
-  let result = true;
+const isBtnDisabled = computed(() => {
+  let result = false;
   newContacts.value.forEach((i) => {
-    if (i.name === '' || i.email === '') result = false;
+    if (i.name == '' || i.email === '') result = true;
     return i;
   });
   return result;
-}
+});
 </script>
 
 <style lang="scss" scoped>
@@ -73,6 +79,10 @@ function isBtnDisabled() {
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
+
+  > .btn {
+    width: 100%;
+  }
 }
 
 .invite-header {
@@ -117,5 +127,19 @@ function isBtnDisabled() {
     letter-spacing: -0.0043em;
     color: $color-primary-500;
   }
+}
+
+.userinfo {
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  letter-spacing: -0.0043em;
+  color: $color-primary-500;
+}
+
+.footer-btn {
+  width: 100%;
 }
 </style>

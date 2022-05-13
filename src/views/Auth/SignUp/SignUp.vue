@@ -1,5 +1,5 @@
 <template>
-  <AuthPageSwitcher :components="components" scope="registration" />
+  <auth-page-switcher :components="components" scope="registration" />
 </template>
 
 <script lang="ts" setup>

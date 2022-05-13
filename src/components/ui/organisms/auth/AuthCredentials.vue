@@ -1,24 +1,6 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="prevStep">
-      {{ title }}
-    </top-navigation>
-    <div class="description text--body">
-      <slot v-if="isInitialStep" name="text-empty-state">
-        {{ text }}
-        <br />
-        <template v-if="additionalText">
-          {{ additionalText }}
-        </template>
-      </slot>
-      <slot v-else name="text-valuable-state">
-        {{ text }}
-        <br />
-        <template v-if="additionalText">
-          {{ additionalText }}
-        </template>
-      </slot>
-    </div>
+    <h1 class="title">{{ title }}</h1>
     <div class="grid">
       <div class="col-4">
         <base-country-phone-input
@@ -37,6 +19,7 @@
           :mask="mask"
           :unmask="true"
           :auto-clear="false"
+          inputmode="tel"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
@@ -72,12 +55,7 @@ import { computed } from '@vue/reactivity';
 import { Ref, ref } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
-import {
-  BaseButton,
-  BaseCountryPhoneInput,
-  BaseInput,
-  TopNavigation,
-} from '@/components/ui';
+import { BaseButton, BaseCountryPhoneInput, BaseInput } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
@@ -86,16 +64,17 @@ const emits = defineEmits([
   'handleSelectCountry',
   'handleStep',
   'numberChange',
+  'onPrev',
 ]);
 
 const props = defineProps({
   title: {
     type: String,
-    required: true,
+    default: '',
   },
   text: {
     type: String,
-    required: true,
+    default: '',
   },
   additionalText: {
     type: String,
@@ -125,10 +104,27 @@ const isInitialStep = ref(true) as Ref<boolean>;
 
 const isNumberInvalid = computed(() => {
   if (!number.value) return true;
+  /**
+   * Check the number of '9' in the mask,
+   * if the length of the entered number is less,
+   * then the button is disabled
+   */
+  const numOfDigits = mask.value.replace(new RegExp(/\D/, 'g'), '').length;
+  if (number.value.length < numOfDigits) return true;
+
+  /**
+   * For the only country from the list of European countries without a mask (UK),
+   * the limit is 10 digits
+   */
+  if (props.countryDialCode === '+44' && (number.value + '').length !== 10)
+    return true;
+
   return new RegExp(/_/).test(number.value);
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
+  number.value = null;
+
   const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
 
   type.value = TypeBaseInput.Number;
@@ -153,13 +149,9 @@ const handleSelectCountry = (data: ICountryInformation) => {
 const handleStep = () => {
   if (!number.value) return;
 
-  const phone = formatPhoneNumber(number.value);
+  const phone = formatPhoneNumber(number.value + '');
 
   emits('handleStep', phone);
-};
-
-const prevStep = () => {
-  emits('onPrev');
 };
 
 const clearNumber = () => {
@@ -181,12 +173,24 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
-.footer {
-  > span {
-    color: $color-brand-2-300;
+.auth-page-container {
+  > .title {
+    margin-bottom: 8px;
+    font-style: normal;
+    font-weight: 800;
+    font-size: 28px;
+    line-height: 34px;
+    letter-spacing: 0.0038em;
+    color: $color-black;
+  }
 
-    > :deep(.link) {
-      color: $color-primary-500;
+  > .footer {
+    > span {
+      color: $color-brand-2-300;
+
+      > :deep(.link) {
+        color: $color-primary-500;
+      }
     }
   }
 }

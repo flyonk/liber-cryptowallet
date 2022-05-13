@@ -2,13 +2,13 @@
   <div class="verification-input">
     <div class="input-container">
       <template v-for="(v, index) in fields" :key="`input-${index}`">
-        <div class="input-wrapper">
+        <div class="input-wrapper" :class="{ '-dash': fields === 6 }">
           <input
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
             class="input-item text--title-1"
             :data-id="index"
             pattern="\d*"
-            type="number"
+            :type="type"
             :value="activationCode[index]"
             min="0"
             max="9"
@@ -55,13 +55,19 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  value: {
+    type: String,
+    default: '',
+  },
 });
 
 const emit = defineEmits(['change', 'complete', 'update:modelValue']);
 
 const inputs = ref([]) as Ref<HTMLElement[]>;
 
-const activationCode = ref([]) as Ref<string[]>;
+const activationCode = ref(props.value ? props.value.split('') : []) as Ref<
+  string[]
+>;
 
 const errorsStore = useErrorsStore();
 
@@ -122,8 +128,11 @@ const onChange = (event: Event) => {
       if (currentInput) {
         currentInput.blur();
       }
+    } else {
+      emit('change', activationCodeString.value);
     }
   } else if (value.length === 0) {
+    emit('change', activationCodeString.value);
     focusPrevInput(currentId);
   }
 };
@@ -160,6 +169,14 @@ watch(
     }
   }
 );
+watch(
+  () => props.value,
+  (newValue, oldValue) => {
+    if (!newValue && oldValue) {
+      activationCode.value = [];
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
@@ -187,7 +204,7 @@ watch(
     margin-right: 12px;
   }
 
-  &:nth-child(3) {
+  &.-dash:nth-child(3) {
     margin-right: 25px;
     position: relative;
 

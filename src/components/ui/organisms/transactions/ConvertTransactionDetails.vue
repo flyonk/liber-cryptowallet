@@ -1,84 +1,91 @@
 <template name="TransactionDetails">
-  <div class="transaction-details">
-    <TopNavigation class="header" @click:left-icon="$router.back()">
+  <t-top-navigation @click:left-icon="$router.back()">
+    <template #title>
       <div class="sum">
         <div class="sum-title">
-          {{ transaction.sum }}
+          {{ directionSign }} {{ transaction.amount }}
           <span class="currency">
             {{ mainCoin }}
           </span>
         </div>
+      </div></template
+    >
+    <template #right
+      ><TransactionIconWithStatus
+        :status="transaction.status"
+        img-path="convert"
+    /></template>
+    <template #content>
+      <div class="transaction-details">
+        <div class="header">
+          <h2 class="sendto">{{ detailedInfo }}</h2>
+          <p class="date">
+            {{ relativeDate }}
+          </p>
+        </div>
+        <ul class="main mb-5">
+          <li class="main-item">
+            <p class="name">
+              {{ $t('status.title') }}
+            </p>
+            <TransactionStatus :status="transaction.status" />
+          </li>
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.statement') }}
+            </p>
+            <base-button size="medium" view="flat">
+              {{ $t('transactions.download') }}
+            </base-button>
+          </li>
+
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.rate') }}
+            </p>
+            <p class="description">{{ feeRate }}</p>
+          </li>
+
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.transferFee') }}
+            </p>
+            <p class="description">
+              - {{ transaction.fee.amount }}
+              {{ transaction.fee.code.toUpperCase() }}
+            </p>
+          </li>
+
+          <li class="main-item">
+            <p class="name">
+              {{
+                isIncome ? $t('transactions.cost') : $t('transactions.bought')
+              }}
+            </p>
+            <p class="description">
+              {{ isIncome ? '-' : '+' }}
+              {{ transaction.counter.amount }}
+              {{ transaction.counter.code.toUpperCase() }}
+            </p>
+          </li>
+        </ul>
       </div>
-      <template #right>
-        <TransactionIconWithStatus
-          :status="transaction.status"
-          img-path="convert"
-        />
-      </template>
-    </TopNavigation>
-    <div class="header">
-      <h2 class="sendto">{{ transaction.detailedInfo }}</h2>
-      <p class="date">
-        {{ relativeDate }}
-      </p>
-    </div>
-    <ul class="main mb-5">
-      <li class="main-item">
-        <p class="name">
-          {{ $t('status.title') }}
-        </p>
-        <TransactionStatus :status="transaction.status" />
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.statement') }}
-        </p>
-        <base-button size="medium" view="flat">
-          {{ $t('transactions.download') }}
-        </base-button>
-      </li>
-
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.rate') }}
-        </p>
-        <p class="description">{{ feeRate }}</p>
-      </li>
-
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">- {{ transaction.fee }} {{ mainCoin }}</p>
-      </li>
-
-      <li class="main-item">
-        <p class="name">
-          {{
-            transaction.direction === EDirection.income
-              ? $t('transactions.cost')
-              : $t('transactions.bought')
-          }}
-        </p>
-        <p class="description">
-          {{ transaction.direction === EDirection.income ? '-' : '+' }}
-          {{ transaction.oppositeCoin.amount }}
-          {{ transaction.oppositeCoin.code }}
-        </p>
-      </li>
-    </ul>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import { EDirection, INetTransaction } from '@/models/transaction/transaction';
+import {
+  EDirection,
+  IConvertTransaction,
+} from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  TopNavigation,
+  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
 } from '@/components/ui';
@@ -86,7 +93,7 @@ import {
 defineEmits(['copy']);
 const props = defineProps({
   transaction: {
-    type: Object as PropType<INetTransaction>,
+    type: Object as PropType<IConvertTransaction>,
     required: true,
   },
 
@@ -97,6 +104,23 @@ const props = defineProps({
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());
+const isIncome = computed(
+  () => props.transaction.direction === EDirection.income
+);
+
+const directionSign = computed(() => (isIncome.value ? '+' : '-'));
+
+const detailedInfo = computed(() =>
+  !isIncome.value
+    ? 'Sold ' +
+      mainCoin.value +
+      ' to ' +
+      props.transaction.counter.code.toUpperCase()
+    : 'Bought ' +
+      mainCoin.value +
+      ' with ' +
+      props.transaction.counter.code.toUpperCase()
+);
 
 const feeRate = computed(
   () =>
@@ -105,14 +129,10 @@ const feeRate = computed(
     ' = ' +
     props.transaction.rate +
     ' ' +
-    props.transaction.oppositeCoin?.code
+    props.transaction.counter.code.toUpperCase()
 );
 
 const relativeDate = computed(() => {
-  return getRelativeDate(
-    props.transaction.finishDate
-      ? (props.transaction.finishDate as string)
-      : (props.transaction.startDate as string)
-  );
+  return getRelativeDate(props.transaction.date);
 });
 </script>

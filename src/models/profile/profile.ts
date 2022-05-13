@@ -1,6 +1,26 @@
 import { string2ISO } from '@/helpers/filters';
 import { formatPhoneNumber } from '@/helpers/auth';
 
+export interface IProfileDto {
+  id: string;
+  status: number;
+  phone: string;
+  is_verified?: boolean;
+  block_reason?: string;
+  first_name: string;
+  last_name: string;
+  email: string;
+  country?: string;
+  street_and_number?: string;
+  optional_address?: string;
+  postal_code?: string;
+  birthdate?: string;
+  options?: TAnyObjectType;
+  kycStatus: EKYCStatus;
+  is_2_fa_configured?: boolean;
+  is_pass_code_enabled: boolean;
+}
+
 type TAnyObjectType = Record<string, string | boolean | number | null>;
 
 export enum EUserStatus {
@@ -46,13 +66,13 @@ export interface IProfile
   birthDate?: string;
   options?: TAnyObjectType;
   is2FAConfigured?: boolean;
+  isPasscodeEnabled: boolean;
   marketing: TMarketing;
   kycStatus: EKYCStatus;
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IProfile {
+  deserialize(input: IProfileDto): IProfile {
     return {
       id: input.id,
       status: input.status || 0,
@@ -69,9 +89,9 @@ export default {
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',
       kycStatus: input.kycStatus || EKYCStatus.success,
-      is2FAConfigured:
-        input.is_2fa_configured || !!input.options?.secret_2fa || false, //TODO: temporary hack for 2FA
+      is2FAConfigured: input.is_2_fa_configured || false,
       options: input.options || {},
+      isPasscodeEnabled: input.is_pass_code_enabled,
       marketing: {
         isEmail: false,
         isPushNotification: false,

@@ -1,14 +1,16 @@
 import SentryUtil from '@/helpers/sentryUtil';
 import { AxiosError, AxiosResponse } from 'axios';
+import { Primitive } from '@sentry/types/types/misc';
 
 export default {
   async logError(
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
     error: AxiosError | Error | any,
     componentName: string,
     componentContext: string,
     description?: string,
-    _extra?: any,
-    _tags?: any
+    _extra?: Record<string, unknown>,
+    _tags?: Record<string, Primitive>
   ): Promise<void> {
     SentryUtil.capture(
       error,

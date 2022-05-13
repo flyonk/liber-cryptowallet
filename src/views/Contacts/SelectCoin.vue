@@ -44,7 +44,12 @@ onBeforeMount(async () => {
 const coins = computed(() => coinsStore.getCoins);
 
 const selectCoin = (item: ICoin) => {
-  fundsStore.setCrypto(item.name, item.code, item.imageUrl, route.params.type);
+  const coin = {
+    name: item.name,
+    code: item.code,
+    img: item.imageUrl as string,
+  };
+  fundsStore.setCrypto(coin, route.params.type);
   router.go(-1);
 };
 </script>

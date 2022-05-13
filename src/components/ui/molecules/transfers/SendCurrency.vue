@@ -75,20 +75,11 @@
         </div>
       </label>
     </div>
-    <base-button
-      class="send-button"
-      size="large"
-      view="simple"
-      @click="$emit('send-transaction')"
-    >
-      Send
-    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import { BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 
 const props = defineProps({
@@ -194,7 +185,9 @@ const _setCurrentSendToCurrency = (index: number) => {
   currentSendFromCurrency.code.value = currencies[index].code;
 };
 
-const onBlur = (event: any) => {
+// todo: type FocusEvent not describes event as expected
+/* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+const onBlur = (event: FocusEvent | any) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {

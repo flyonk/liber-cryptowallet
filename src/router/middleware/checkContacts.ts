@@ -1,11 +1,15 @@
-import { RouteLocation } from 'vue-router';
+import {
+  NavigationGuardNext,
+  RouteLocation,
+  LocationAsRelativeRaw,
+} from 'vue-router';
 import { useRecepientsStore } from '@/stores/recipients';
 import { Route } from '@/router/types';
 
 function checkContactsLoaded(
   to: RouteLocation,
   from: RouteLocation,
-  next: any
+  next: NavigationGuardNext
 ) {
   const store = useRecepientsStore();
   if (to.params?.next === 'true') {
@@ -13,12 +17,13 @@ function checkContactsLoaded(
   } else if (store.getContacts.length) {
     next();
   } else {
-    next({
+    const loc: LocationAsRelativeRaw = {
       name: Route.LoadContacts,
       params: {
-        back: to.name,
+        back: String(to.name),
       },
-    });
+    };
+    next(loc);
   }
 }
 

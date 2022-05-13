@@ -1,21 +1,29 @@
 <template>
-  <div>
-    <top-navigation left-icon-name="icon-app-navigation-close">{{
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$router.push({ name: Route.Survey })"
+  >
+    <template #title>{{
       $t('views.kyc.kyc7step.wereVerifyingYourId')
-    }}</top-navigation>
-    <p class="description">{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</p>
-    <base-progress-circular :percent="percent" :size="267">
-      <span class="percent-slot">
-        <span class="text">{{ percent }}</span>
-        <span class="text--large-title">%</span>
-      </span>
-    </base-progress-circular>
-    <div class="footer">
+    }}</template>
+    <template #subtitle>{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</template>
+    <template #content>
+      <div>
+        <base-progress-circular :percent="percent" :size="267">
+          <span class="percent-slot">
+            <span class="text">{{ percent }}</span>
+            <span class="text--large-title">%</span>
+          </span>
+        </base-progress-circular>
+      </div></template
+    >
+    <template #fixed-footer>
       <base-button block @click="handleComplete">
         {{ $t('views.kyc.kyc7step.continue') }}
       </base-button>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -23,7 +31,7 @@ import { ref } from 'vue';
 import {
   BaseButton,
   BaseProgressCircular,
-  TopNavigation,
+  TTopNavigation,
 } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';

@@ -1,7 +1,31 @@
 import { formatPhoneNumber } from '@/helpers/auth';
 
+interface ICommunicationInfoDto {
+  value: string;
+  is_primary?: boolean;
+}
+
+interface ILiberContactDto {
+  id: string;
+  name: string;
+  phones: ICommunicationInfoDto[];
+  emails: ICommunicationInfoDto[];
+}
+
+interface INewLiberContactDto {
+  name: string;
+  phones?: ICommunicationInfoDto[];
+  emails?: ICommunicationInfoDto[];
+}
+
 export interface ILiberContact {
   id: string;
+  name: string;
+  phones: TCommunicationInfo[];
+  emails: TCommunicationInfo[];
+}
+
+export interface INewLiberContact {
   name: string;
   phones: TCommunicationInfo[];
   emails: TCommunicationInfo[];
@@ -13,8 +37,7 @@ type TCommunicationInfo = {
 };
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): ILiberContact {
+  deserialize(input: ILiberContactDto): ILiberContact {
     return {
       id: input.id,
       name: input.name || '',
@@ -22,8 +45,7 @@ export default {
       emails: deserializeCommunicationInfoAdaptor(input.emails),
     };
   },
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: Partial<ILiberContact>): any {
+  requestSerialize(input: INewLiberContact): INewLiberContactDto {
     return {
       name: input.name,
       phones: input.phones
@@ -37,9 +59,9 @@ export default {
 };
 
 const deserializeCommunicationInfoAdaptor = (
-  input: any
+  input: ICommunicationInfoDto[]
 ): TCommunicationInfo[] => {
-  return input.map((e: any) => {
+  return input.map((e) => {
     const { value, is_primary } = e;
     return { value, isPrimary: is_primary };
   });
@@ -47,8 +69,8 @@ const deserializeCommunicationInfoAdaptor = (
 
 const requestSerializeCommunicationInfoAdaptor = (
   input: TCommunicationInfo[]
-): any => {
-  return input.map((e: TCommunicationInfo) => {
+): ICommunicationInfoDto[] => {
+  return input.map((e) => {
     const { value, isPrimary } = e;
     return { value: formatPhoneNumber(value), is_primary: isPrimary };
   });

@@ -1,3 +1,16 @@
+export interface IDepositInfoDataDto {
+  netWork: string;
+  address: string;
+  minimumDeposite: string;
+  expectedArrival: number;
+  expectedUnlock: number;
+}
+
+export interface IDepositInfoDto {
+  QRCode: File;
+  data: IDepositInfoDataDto;
+}
+
 export interface IDepositInfo {
   qrCode: File;
   netWork: string;
@@ -8,8 +21,7 @@ export interface IDepositInfo {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IDepositInfo {
+  deserialize(input: IDepositInfoDto): IDepositInfo {
     return {
       qrCode: input.QRCode,
       netWork: input.data.netWork,

@@ -1,11 +1,21 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="onPrev">
+    <top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
       {{ title }}
     </top-navigation>
 
     <p class="text-default">
-      {{ text }}
+      <span>{{ text }}</span>
+      <template v-if="showPasteBtn">
+        <BaseButton
+          class="resend-button"
+          size="medium"
+          view="flat"
+          @click="pasteFromClipboard"
+        >
+          {{ $t('common.pasteCta') }}
+        </BaseButton>
+      </template>
     </p>
 
     <base-verification-code-input
@@ -15,7 +25,7 @@
     />
 
     <slot name="footer">
-      <div v-if="props.withCountdown" class="footer">
+      <div v-if="withCountdown" class="footer">
         <span class="text--footnote font-weight--semibold">
           <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
             <template #countdown="{ minute, second }">
@@ -36,11 +46,15 @@
         </span>
       </div>
     </slot>
+
+    <slot name="additionalContent" />
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="pasteFromClipboard">
-      {{ $t('common.pasteCta') }}
-    </base-button>
+    <slot name="ctaBtn">
+      <base-button block @click="pasteFromClipboard">
+        {{ $t('common.pasteCta') }}
+      </base-button>
+    </slot>
   </div>
   <base-toast :visible="isError" severity="error" @update:visible="onHide">
     <template #description>
@@ -58,10 +72,10 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 import { useErrorsStore } from '@/stores/errors';
-
 import {
   TopNavigation,
   BaseButton,
@@ -69,11 +83,8 @@ import {
   BaseToast,
   BaseCountdown,
 } from '@/components/ui';
-
 const errorsStore = useErrorsStore();
-
 const { tm } = useI18n();
-
 const emit = defineEmits([
   'onComplete',
   'onResend',
@@ -81,7 +92,6 @@ const emit = defineEmits([
   'onPrev',
   'onHide',
 ]);
-
 const props = defineProps({
   isError: {
     type: Boolean,
@@ -103,12 +113,22 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showPasteBtn: {
+    type: Boolean,
+    default: false,
+  },
   verificationCode: {
     type: String,
     default: '',
   },
+  leftIconName: {
+    type: String,
+    default: 'icon-app-navigation-back',
+  },
 });
-
+const withCountdown = computed(() => {
+  return props.withCountdown;
+});
 const pasteFromClipboard = async () => {
   try {
     const content = await Clipboard.read();
@@ -124,23 +144,18 @@ const pasteFromClipboard = async () => {
     );
   }
 };
-
 const onHide = (): void => {
   emit('onHide');
 };
-
 const onComplete = (value: string): void => {
   emit('onComplete', value);
 };
-
 const onResend = (): void => {
   emit('onResend');
 };
-
 const onTimeIsUp = (): void => {
   emit('onTimeIsUp');
 };
-
 const onPrev = (): void => {
   emit('onPrev');
 };
@@ -171,5 +186,12 @@ const onPrev = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  > :deep(.base-button .container) {
+    justify-content: flex-end;
+  }
 }
 </style>

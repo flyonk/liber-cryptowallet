@@ -2,6 +2,7 @@ import axios from 'axios';
 
 import { TSuccessResponse } from '@/types/api';
 import apiService from '@/services/apiService';
+import { EMfaHeaders } from '@/stores/mfa';
 
 export interface IPasscodeRequestBody {
   pass_code: string;
@@ -9,20 +10,30 @@ export interface IPasscodeRequestBody {
 
 export interface IPasscodeUpdateRequestBody {
   new_pass_code: string;
-  old_pass_code: string;
 }
 
 export default {
   async create(data: IPasscodeRequestBody): Promise<TSuccessResponse> {
-    const response = await axios.post(apiService.passcode.global(), data);
+    const { pass_code } = data;
+    const response = await axios.post(apiService.passcode.global(), data, {
+      headers: {
+        [EMfaHeaders.passcode]: pass_code,
+      },
+    });
 
     return response.data as TSuccessResponse;
   },
 
   async verify(data: IPasscodeRequestBody): Promise<TSuccessResponse> {
+    const { pass_code } = data;
     const response = await axios.post(
       `${apiService.passcode.global()}/verify`,
-      data
+      {},
+      {
+        headers: {
+          [EMfaHeaders.passcode]: pass_code,
+        },
+      }
     );
 
     return response.data as TSuccessResponse;

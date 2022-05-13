@@ -30,7 +30,8 @@
     "daysAgo": "days ago",
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
-    "paymentoptions": "Payment Options"
+    "paymentoptions": "Payment Options",
+    "confirmChanging": "Confirm changing"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -82,14 +83,12 @@
     },
     "signup": {
       "step1Title": "Enter phone number",
-      "step1Description1": "We will send verification code",
-      "step1Description2": "to this number.",
+      "step1Description": "We will send verification code to this number.",
       "step1ExistingAcc": "Already have an account?",
       "step3Title": "Sign up to Liber",
       "step3SendNews": "Keep me up to date with Liber news and offers",
       "step4Title": "Name",
-      "step4Description1": "As started on your official ID. We need",
-      "step4Description2": "your name to verify your identity.",
+      "step4Description": "As started on your official ID. We need your name to verify your identity.",
       "step5Title": "Date of birth",
       "ddmmyyyy": "dd.mm.yyyy",
       "date": "Date",
@@ -124,17 +123,24 @@
     "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure.",
     "copySuccess": "Copying to clipboard was successful!",
     "copyFailure": "Async: Could not copy text:",
-    "readFailure": "Async: Could not read text:"
+    "readFailure": "Async: Could not read text:",
+    "changeAppMessage": "Google Authenticator app protects your withdrawals and Liber account",
+    "changeAppCTA": "Change Authenticator",
+    "ChangeAppMessage": "Withdrawals and P2P transactions will be disabled for 24 hours after  changing Liber / Google Authenticator to ensure the safety of your accounts.",
+    "ChangeAppPopupTitle": "Are you sure you want to change Liber/Google Authentication?"
   },
   "status": {
     "title": "Status",
     "pending": "Pending",
-    "complete": "Complete"
+    "complete": "Complete",
+    "failed": "Reverted"
   },
   "transactions": {
+    "address": "Address",
     "id": "Transaction ID",
     "walletAddress": "Wallet Address",
     "deposit": "Deposit",
+    "deposited": "Deposited",
     "send": "Send",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
@@ -143,6 +149,7 @@
     "convertTransaction": "Convert",
     "paymentTo": "Payment to",
     "statement": "Statement",
+    "paymentLinkExpires": "Payment link will expire in 6 days",
     "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
@@ -162,13 +169,16 @@
       "deposit": "Deposit",
       "withdraw": "Withdraw",
       "convert": "Convert",
-      "send": "Send"
+      "send": "Send",
+      "buy": "Buy",
+      "sell": "Sell"
     },
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
       "finished": "Completed",
-      "cancelled": "Cancelled"
+      "cancelled": "Cancelled",
+      "failed": "Reverted"
     },
     "carousel": {
       "deposit": "Deposit",
@@ -217,6 +227,9 @@
   "views": {
     "sendfunds": {
       "whopay": "Who To Pay"
+    },
+    "changePasscode": {
+      "aboutLiber": "Liber app protects your withdrawals and account"
     },
     "newcontact": {
       "additionalphone": "Additional phone or email"
@@ -313,7 +326,8 @@
     "passcodeEnter": {
       "createPasscode": "Create passcode",
       "confirmPasscode": "Confirm passcode",
-      "changePasscode": "Change passcode"
+      "changePasscode": "Change passcode",
+      "currentPasscode": "Current passcode"
     },
     "dashboard": {
       "home": {
@@ -406,7 +420,10 @@
         "logoutAccept": "Yes",
         "logoutDecline": "No",
         "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
-        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?"
+        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?",
+        "appearance": "Appearance",
+        "language": "Language",
+        "selectLanguage": "Select Language"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -499,7 +516,7 @@
         "guaranteedRate": "Guaranteed Rate",
         "youWillGet": "You will get",
         "refresh": "Refresh",
-        "sameCurrenciesError": "You should choose different currencies for exchange"
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },

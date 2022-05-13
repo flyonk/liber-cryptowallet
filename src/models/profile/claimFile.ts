@@ -1,3 +1,16 @@
+export interface IClaimFileDto {
+  id: number;
+  claim_id: number;
+  type?: number;
+  name?: string;
+  extension?: string;
+  link?: string;
+  size?: number;
+  created_at: string;
+  updated_at?: string;
+  deleted_at?: string;
+}
+
 export interface IClaimFile {
   id: number;
   claimId: number;
@@ -12,8 +25,7 @@ export interface IClaimFile {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IClaimFile {
+  deserialize(input: IClaimFileDto): IClaimFile {
     return {
       id: input.id,
       claimId: input.claim_id,
@@ -27,9 +39,7 @@ export default {
       deletedAt: input.deleted_at || '',
     };
   },
-
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IClaimFile): any {
+  requestSerialize(input: IClaimFile): IClaimFileDto {
     return {
       id: input.id,
       claim_id: input.claimId,

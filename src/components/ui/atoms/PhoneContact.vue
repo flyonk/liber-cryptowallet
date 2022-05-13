@@ -39,6 +39,7 @@ import { Route } from '@/router/types';
 const props = defineProps({
   contact: {
     type: Object as PropType<Contact>,
+    required: true,
   },
 });
 </script>

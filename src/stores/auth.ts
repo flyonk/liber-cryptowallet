@@ -5,9 +5,9 @@ import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
 import authService from '@/services/authService';
+import passcodeService from '@/services/passcodeService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
-import passcodeService from '@/services/passcodeService';
 
 import { EStorageKeys, SStorageKeys } from '@/types/storage';
 import { EStepDirection } from '@/types/base-component';
@@ -111,6 +111,7 @@ export const useAuthStore = defineStore('auth', {
     async signInProceed(_data: {
       phone: string;
       otp: string;
+      code_2fa: string;
     }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 
@@ -240,11 +241,16 @@ export const useAuthStore = defineStore('auth', {
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
       ]);
-      await passcodeService.delete();
+
+      if ((await get(EStorageKeys.passcode)) === 'true') {
+        await passcodeService.delete();
+      }
 
       SecureStoragePlugin.remove({ key: SStorageKeys.user });
 
-      authService.logout({ user_id: userId });
+      if (this.token.token) {
+        authService.logout({ user_id: userId });
+      }
 
       this.token = { token: null, refreshToken: null };
 

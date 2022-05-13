@@ -1,49 +1,51 @@
 <template name="add-contact">
-  <div class="add-contact">
-    <top-navigation
-      left-icon-name="icon-app-navigation-back"
-      @click:left-icon="
-        $router.push({
-          name: Route.ContactsWhoToPay,
-        })
-      "
-    >
-      {{ $t('views.recepients.add') }}
-    </top-navigation>
-
-    <ul class="invite-list">
-      <BaseInput v-model="newContact.name" autofocus type="text">
-        <template #label> Name </template>
-        <template v-if="newContact.name.length > 2" #append>
-          <i class="ci-off_outline_close" @click="clearName" />
-        </template>
-      </BaseInput>
-      <li
-        v-for="(contact, index) in newContact.phone"
-        :key="index"
-        class="invite-item"
-      >
-        <BaseInput v-model="contact.value" type="text">
-          <template #label> Email or Phone </template>
-          <template v-if="newContact.phone.length > 1" #append>
-            <i class="ci-trash_full" @click="removeContact(index)" />
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-app-navigation-back"
+    @click:left-icon="
+      $router.push({
+        name: Route.ContactsWhoToPay,
+      })
+    "
+  >
+    <template #title> {{ $t('views.recepients.add') }}</template>
+    <template #content>
+      <ul class="invite-list">
+        <base-input v-model="newContact.name" autofocus type="text">
+          <template #label> Name </template>
+          <template v-if="newContact.name.length > 2" #append>
+            <i class="ci-off_outline_close" @click="clearName" />
           </template>
-        </BaseInput>
-      </li>
-      <BaseButton view="flat" icon-left="ci-plus" @click="addExtraContact">
-        {{ $t('views.newcontact.additionalphone') }}
-      </BaseButton>
-    </ul>
-    <BaseButton
-      size="large"
-      view="simple"
-      block
-      :disabled="isDisabled"
-      @click="handleAddContact"
+        </base-input>
+        <li
+          v-for="(contact, index) in newContact.phone"
+          :key="index"
+          class="invite-item"
+        >
+          <base-input v-model="contact.value" type="text">
+            <template #label> Email or Phone </template>
+            <template v-if="newContact.phone.length > 1" #append>
+              <i class="ci-trash_full" @click="removeContact(index)" />
+            </template>
+          </base-input>
+        </li>
+        <base-button view="flat" icon-left="ci-plus" @click="addExtraContact">
+          {{ $t('views.newcontact.additionalphone') }}
+        </base-button>
+      </ul>
+    </template>
+    <template #fixed-footer
+      ><base-button
+        size="large"
+        view="simple"
+        block
+        :disabled="isDisabled"
+        @click="handleAddContact"
+      >
+        {{ $t('common.continueCta') }}
+      </base-button></template
     >
-      {{ $t('common.continueCta') }}
-    </BaseButton>
-  </div>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -52,7 +54,7 @@ import { useRouter } from 'vue-router';
 
 import { useRecepientsStore } from '@/stores/recipients';
 
-import { BaseButton, BaseInput, TopNavigation } from '@/components/ui';
+import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 
 import { v4 as uuidv4 } from 'uuid';
@@ -62,7 +64,11 @@ const recepientsStore = useRecepientsStore();
 
 type TNewContact = {
   name: string;
-  phone: any[];
+  phone: TPhoneNumber[];
+};
+
+type TPhoneNumber = {
+  value: string;
 };
 
 const newContact = ref({
@@ -91,7 +97,7 @@ const handleAddContact = () => {
     emails: [],
   });
 
-  router.push({ name: Route.ContactsSend, params: { id: newContactId } });
+  router.push({ name: Route.PayRecepientsLiber, params: { id: newContactId } });
 };
 
 const isDisabled = computed(() => {
@@ -123,7 +129,6 @@ const removeContact = (index: number) => {
 }
 
 .invite-list {
-  margin-top: 30px;
   margin-bottom: 20px;
   overflow: auto;
   flex-grow: 1;

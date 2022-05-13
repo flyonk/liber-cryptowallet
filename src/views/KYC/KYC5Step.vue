@@ -1,45 +1,52 @@
 <template>
-  <div class="kyc-5-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      {{ $t('views.kyc.kyc5step.proofOfIdentity') }}
-    </top-navigation>
-    <base-progress-bar :value="getPercentage" class="mb-3" />
-    <p class="description">{{ $t('views.kyc.kyc5step.haveAFinal') }}</p>
-
-    <template v-if="proofType !== EKYCProofType.passport">
-      <div v-for="(image, side) in getImage" :key="side" class="block">
-        <template v-if="image">
-          <div class="title heading-black-lg">
-            {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
+  <t-top-navigation @click:left-icon="$emit('prev')">
+    <template #title> {{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
+    <template #subtitle>
+      <base-progress-bar :value="getPercentage" class="mb-3" />
+      {{ $t('views.kyc.kyc5step.haveAFinal') }}</template
+    >
+    <template #content>
+      <div class="kyc-5-step">
+        <template v-if="proofType !== EKYCProofType.passport">
+          <div v-for="(image, side) in getImage" :key="side" class="block">
+            <template v-if="image">
+              <div class="title heading-black-lg">
+                {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
+              </div>
+              <img :src="image" alt="front" class="image" />
+              <base-button block view="secondary" @click="onScanAgain">{{
+                $t('views.kyc.kyc5step.scanAgain')
+              }}</base-button>
+            </template>
           </div>
-          <img :src="image" alt="front" class="image" />
-          <base-button block view="secondary" @click="onScanAgain">
-            {{ $t('views.kyc.kyc5step.scanAgain') }}
-          </base-button>
+        </template>
+
+        <template v-else>
+          <div class="block">
+            <div class="title heading-black-lg">Passport</div>
+            <img :src="getImage.front" alt="passport" class="image" />
+            <base-button block view="secondary" @click="onScanAgain">
+              {{ $t('views.kyc.kyc5step.scanAgain') }}
+            </base-button>
+          </div>
         </template>
       </div>
+      <base-button block class="footer-button" @click="onNext">{{
+        $t('views.kyc.kyc5step.upload')
+      }}</base-button></template
+    >
+    <template #fixed-footer>
+      <base-button block class="footer-button" @click="onNext">{{
+        $t('views.kyc.kyc5step.upload')
+      }}</base-button>
     </template>
-
-    <template v-else>
-      <div class="block">
-        <div class="title heading-black-lg">Passport</div>
-        <img :src="getImage.front" alt="passport" class="image" />
-        <base-button block view="secondary" @click="onScanAgain">
-          {{ $t('views.kyc.kyc5step.scanAgain') }}
-        </base-button>
-      </div>
-    </template>
-
-    <base-button block class="footer-button" @click="onNext">
-      {{ $t('views.kyc.kyc5step.upload') }}
-    </base-button>
-  </div>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { BaseButton, BaseProgressBar, TopNavigation } from '@/components/ui';
+import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 // import { EStepDirection } from '@/types/base-component';
@@ -66,7 +73,7 @@ const onNext = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .kyc-5-step {
   > .block {
     > .title {
@@ -79,10 +86,9 @@ const onNext = () => {
       border-radius: 12px;
     }
   }
+}
 
-  > .footer-button {
-    margin-top: 32px;
-    margin-bottom: 48px;
-  }
+.footer-button {
+  margin: 32px 0;
 }
 </style>
