@@ -3,6 +3,7 @@ import apiService from '@/services/apiService';
 
 import profileMapper, { IProfile } from '@/models/profile/profile';
 import claimMapper, { IClaim } from '@/models/profile/claim';
+import { EMfaHeaders } from '@/stores/mfa';
 
 import {
   TConfigureAppData,
@@ -46,7 +47,11 @@ export default {
     secret: string;
     code: string;
   }): Promise<TSuccessResponse> {
-    return (await axios.post(apiService.authenticators.enable(), data)).data;
+    return await axios.post(apiService.authenticators.enable(), data, {
+      headers: {
+        [EMfaHeaders.totp]: data.code,
+      },
+    });
   },
 
   async disableVerificationApp(data: {
