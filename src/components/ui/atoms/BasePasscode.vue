@@ -38,12 +38,14 @@ import { onBeforeMount, PropType, ref } from 'vue';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { usePasscodeStore } from '@/stores/passcode';
+import { useMfaStore } from '@/stores/mfa';
 import { set } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
 import { EPasscodeActions } from '@/types/base-component';
 
 const passcodeStore = usePasscodeStore();
+const mfaStore = useMfaStore();
 
 const props = defineProps({
   actionType: {
@@ -55,6 +57,11 @@ const props = defineProps({
     default: true,
   },
 });
+
+async function createPassCode(passcode: string) {
+  mfaStore.show({});
+  return await passcodeStore.update({ new_pass_code: passcode });
+}
 
 async function checkPasscode(passcode: string) {
   return await passcodeStore.verify({ pass_code: passcode });
@@ -79,6 +86,8 @@ function getSubmitFunction(actionType: string) {
       return setPasscode;
     case EPasscodeActions.compare:
       return checkPasscode;
+    case EPasscodeActions.create:
+      return createPassCode;
     default:
       return checkPasscode;
   }
@@ -123,11 +132,6 @@ function setNumber(number: string): void {
     passcode.value = passcode.value + number;
 
     if (passcode.value.length === 4) {
-      if (props.actionType === EPasscodeActions.show) {
-        emit('submit', passcode.value);
-        return;
-      }
-
       onSubmit(passcode.value)
         .then((result: boolean) => {
           if (!result) passcode.value = '';

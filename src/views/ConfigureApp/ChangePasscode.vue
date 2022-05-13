@@ -26,7 +26,10 @@
         Enter new passcode
       </top-navigation>
       <div class="passcode">
-        <base-passcode action-type="show" @submit="onSubmit" />
+        <base-passcode
+          :action-type="EPasscodeActions.create"
+          @submit="onSubmit"
+        />
       </div>
     </div>
   </div>
@@ -35,17 +38,14 @@
 <script lang="ts" setup>
 import { ref } from 'vue';
 
-import { useMfaStore } from '@/stores/mfa';
-
 import { BaseButton, BasePasscode, TopNavigation } from '@/components/ui';
 
-const mfaStore = useMfaStore();
+import { EPasscodeActions } from '@/types/base-component';
 
 const showInfo = ref(true);
 
 const onSubmit = (passcode: string) => {
   console.debug('passcode', passcode);
-  mfaStore.show({});
 };
 </script>
 
