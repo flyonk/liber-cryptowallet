@@ -1,43 +1,61 @@
 <template>
-  <t-top-navigation with-fixed-footer @click:left-icon="onPrev">
-    <template #title> {{ title }}</template>
-    <template #subtitle> {{ text }}</template>
-    <template #content
-      ><base-verification-code-input
-        :value="verificationCode"
-        :is-error="isError"
-        @complete="onComplete"
-      />
+  <div class="page-wrapper">
+    <top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
+      {{ title }}
+    </top-navigation>
 
-      <slot name="footer">
-        <div v-if="props.withCountdown" class="footer">
-          <span class="text--footnote font-weight--semibold">
-            <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
-              <template #countdown="{ minute, second }">
-                {{ $t('auth.login.step2ResendTitle') }}
-                {{ minute }}:{{ second }}
-              </template>
-            </BaseCountdown>
-            <template v-else>
-              <BaseButton
-                class="resend-button"
-                size="medium"
-                view="flat"
-                @click="onResend"
-              >
-                {{ $t('auth.login.step2ResendCta') }}
-              </BaseButton>
+    <p class="text-default">
+      <span>{{ text }}</span>
+      <template v-if="showPasteBtn">
+        <BaseButton
+          class="resend-button"
+          size="medium"
+          view="flat"
+          @click="pasteFromClipboard"
+        >
+          {{ $t('common.pasteCta') }}
+        </BaseButton>
+      </template>
+    </p>
+
+    <base-verification-code-input
+      :value="verificationCode"
+      :is-error="isError"
+      @complete="onComplete"
+    />
+
+    <slot name="footer">
+      <div v-if="withCountdown" class="footer">
+        <span class="text--footnote font-weight--semibold">
+          <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
+            <template #countdown="{ minute, second }">
+              {{ $t('auth.login.step2ResendTitle') }}
+              {{ minute }}:{{ second }}
             </template>
-          </span>
-        </div>
-      </slot></template
-    >
-    <template #fixed-footer>
+          </BaseCountdown>
+          <template v-else>
+            <BaseButton
+              class="resend-button"
+              size="medium"
+              view="flat"
+              @click="onResend"
+            >
+              {{ $t('auth.login.step2ResendCta') }}
+            </BaseButton>
+          </template>
+        </span>
+      </div>
+    </slot>
+
+    <slot name="additionalContent" />
+  </div>
+  <div style="padding: 15px; padding-bottom: 50px">
+    <slot name="ctaBtn">
       <base-button block @click="pasteFromClipboard">
         {{ $t('common.pasteCta') }}
-      </base-button></template
-    >
-  </t-top-navigation>
+      </base-button>
+    </slot>
+  </div>
   <base-toast :visible="isError" severity="error" @update:visible="onHide">
     <template #description>
       <div>
@@ -59,7 +77,7 @@ import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 import { useErrorsStore } from '@/stores/errors';
 import {
-  TTopNavigation,
+  TopNavigation,
   BaseButton,
   BaseVerificationCodeInput,
   BaseToast,
@@ -108,8 +126,6 @@ const props = defineProps({
     default: 'icon-app-navigation-back',
   },
 });
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const withCountdown = computed(() => {
   return props.withCountdown;
 });
@@ -177,9 +193,5 @@ const onPrev = (): void => {
   > :deep(.base-button .container) {
     justify-content: flex-end;
   }
-}
-
-.footer {
-  margin-top: 20px;
 }
 </style>
