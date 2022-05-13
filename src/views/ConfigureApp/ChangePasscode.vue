@@ -27,7 +27,7 @@
       </top-navigation>
       <div class="passcode">
         <base-passcode
-          :action-type="EPasscodeActions.create"
+          :action-type="EPasscodeActions.update"
           @submit="onSubmit"
         />
       </div>

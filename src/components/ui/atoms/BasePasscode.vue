@@ -59,7 +59,7 @@ const props = defineProps({
   },
 });
 
-async function createPassCode(passcode: string) {
+async function updatePassCode(passcode: string) {
   mfaStore.show({
     successRoute: Route.ProfileSettings,
   });
@@ -89,8 +89,8 @@ function getSubmitFunction(actionType: string) {
       return setPasscode;
     case EPasscodeActions.compare:
       return checkPasscode;
-    case EPasscodeActions.create:
-      return createPassCode;
+    case EPasscodeActions.update:
+      return updatePassCode;
     default:
       return checkPasscode;
   }

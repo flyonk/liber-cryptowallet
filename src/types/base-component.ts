@@ -23,7 +23,7 @@ export enum EPasscodeActions {
   receive = 'receive',
   compare = 'compare',
   clear = 'clear',
-  create = 'create',
+  update = 'update',
 }
 
 export interface IValueItem {
