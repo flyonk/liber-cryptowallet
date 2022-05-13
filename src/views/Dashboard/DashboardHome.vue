@@ -167,25 +167,7 @@
         }}</span> -->
             </div>
             <div class="carousel">
-              <swiper class="swiper" :slides-per-view="2.2" :space-between="8">
-                <swiper-slide
-                  v-for="(item, index) in carousel"
-                  :key="index"
-                  class="carousel-item"
-                  @click="$router.push({ name: item.route })"
-                >
-                  <img :src="item.imgSrc" />
-                  <h4
-                    :class="{
-                      'text-green': item.text === 'green',
-                      'text-black': item.text === 'black',
-                    }"
-                  >
-                    {{ item.status }}
-                  </h4>
-                  <p>{{ item.description }}</p>
-                </swiper-slide>
-              </swiper>
+              <stories-swiper />
             </div>
             <!--      <bottom-swipe-menu :is-menu-open="isMenuOpen" @close-menu="closeMenu" />-->
             <AccountListBottomSheet
@@ -204,7 +186,6 @@
 import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
-import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { useAccountStore } from '@/stores/account';
@@ -225,6 +206,7 @@ import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
+import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
 
 let activeTab = ref(1);
 const VerificationStatus = ref(EKYCStatus.success);
@@ -355,37 +337,6 @@ const tabs = [
   {
     id: 3,
     name: tm('views.dashboard.home.tabs.loans'),
-  },
-];
-
-const carousel = [
-  {
-    status: tm('views.dashboard.home.carousel.inProgress'),
-    description: tm('views.dashboard.home.carousel.verifying'),
-    imgSrc: require('@/assets/icon/todo/empty-profile.svg'),
-    text: 'blue',
-    route: Route.DashboardVerifyingStory,
-  },
-  {
-    status: tm('views.dashboard.home.carousel.required'),
-    description: tm('views.dashboard.home.carousel.verify'),
-    imgSrc: require('@/assets/icon/todo/mail.svg'),
-    text: 'blue',
-    route: Route.DashboardStory,
-  },
-  {
-    status: tm('views.dashboard.home.carousel.recommend'),
-    description: tm('views.dashboard.home.carousel.getYourCryptoProperty'),
-    imgSrc: require('@/assets/icon/todo/wallet.svg'),
-    text: 'green',
-    route: Route.DashboardHome,
-  },
-  {
-    status: '_',
-    description: tm('views.dashboard.home.carousel.reach'),
-    imgSrc: require('@/assets/icon/todo/mail.svg'),
-    text: 'black',
-    route: Route.DashboardTransferFundsToTreasuryStory,
   },
 ];
 
@@ -597,7 +548,6 @@ const showWelcomeMessage = computed(() => {
   }
 
   > .transactions-container {
-    // max-height: 360px;
     overflow-y: auto;
     padding-right: 10px;
     width: 100%;
