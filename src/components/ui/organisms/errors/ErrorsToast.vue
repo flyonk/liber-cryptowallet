@@ -38,7 +38,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
-import { BaseToast, BaseButton } from '@/components/ui';
+import { BaseButton, BaseToast } from '@/components/ui';
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);

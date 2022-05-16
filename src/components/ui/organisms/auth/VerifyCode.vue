@@ -29,6 +29,8 @@ import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { PropType } from 'vue-demi';
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
+import { AxiosError } from 'axios';
+
 const { tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
@@ -145,7 +147,7 @@ const onComplete = async (data: string) => {
       nextStep();
     }
   } catch (err: AxiosError | Error | unknown) {
-    const code = err.response?.status;
+    const code = (err as AxiosError).response?.status;
     if (code === 406) {
       // new device case
       // use 2fa

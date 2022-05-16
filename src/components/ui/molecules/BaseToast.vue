@@ -80,6 +80,10 @@ const currentImage = computed(() => {
       }
     }
 
+    > .description {
+      margin: 0 0 20px;
+    }
+
     > .footer {
       margin-top: 42px;
       color: $color-dark-grey;
