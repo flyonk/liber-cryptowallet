@@ -10,8 +10,4 @@ import useSafeAreaPaddings from '@/helpers/safeArea';
 const { stylePaddings } = useSafeAreaPaddings();
 </script>
 
-<style lang="scss" scoped>
-.add-account {
-  margin: 0 15px;
-}
-</style>
+<style lang="scss" scoped></style>
