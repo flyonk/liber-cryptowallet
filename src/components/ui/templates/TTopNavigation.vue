@@ -6,7 +6,8 @@
         :without-title="navWithoutTitle"
         :with-custom-top-left="navWithCustomTopLeft"
         @click:left-icon="$emit('click:left-icon')"
-        ><slot name="title" />
+      >
+        <slot name="title" />
         <template #top-left><slot name="top-left" /></template>
         <template #top-right><slot name="top-right" /></template>
         <template #subtitle><slot name="subtitle" /></template>
