@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "vue-cli-service build",
+    "build": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service build",
     "format": "yarn prettier && yarn lint:all:fix",
     "ios:open": "npx cap open ios",
     "ios:run": "npx cap run ios",
