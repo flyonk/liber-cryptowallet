@@ -159,7 +159,7 @@ const onComplete = async (data: string) => {
       err,
       'VerifyCode.vue',
       'onComplete',
-      tm('errors.login2Step')
+      tm('configureApp.invalidPassCode')
     );
   }
 };

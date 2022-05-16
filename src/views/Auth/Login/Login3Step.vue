@@ -16,10 +16,12 @@
             </div>
           </template>
           <template #footer>
-            {{ $t('auth.login.step3FooterTitle') }}
-            <router-link :to="{ name: Route.SignUp }" class="link">
-              {{ $t('auth.login.step3FooterCta') }}
-            </router-link>
+            <div class="base-toast-footer">
+              {{ $t('auth.login.step3FooterTitle') }}
+              <router-link :to="{ name: Route.SignUp }" class="link">
+                {{ $t('auth.login.step3FooterCta') }}
+              </router-link>
+            </div>
           </template>
         </base-toast>
       </div>
@@ -125,5 +127,9 @@ async function handleSuccessVerification(): Promise<void> {
   letter-spacing: 0.0038em;
   margin-bottom: 10px;
   margin-top: 20px;
+}
+
+.base-toast-footer {
+  padding-bottom: 32px;
 }
 </style>
