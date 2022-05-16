@@ -1,8 +1,8 @@
 <template>
   <section class="welcome-auth" :style="stylePaddings">
     <swiper-stories-slider>
-      <SwiperSlide v-for="item in 2" :key="item"
-        ><stories-slider-example-story
+      <SwiperSlide v-for="item in 2" :key="item">
+        <stories-slider-example-story
           :base-img="require('@/assets/images/money.svg')"
           :logo-img="require('@/assets/images/full-logo-white.png')"
           :header-title="$t('auth.signup.welcomeAuth.title')"
@@ -11,10 +11,10 @@
           :sign-up-title="$t('auth.signup.welcomeAuth.signUp')"
           @login="$router.push({ name: Route.Login })"
           @signup="$router.push({ name: Route.SignUp })"
-      /></SwiperSlide>
-      <!-- <SwiperSlide><div>456</div></SwiperSlide> -->
-      ></swiper-stories-slider
-    >
+        />
+      </SwiperSlide>
+      <!-- <SwiperSlide><div>next example slide</div></SwiperSlide> -->
+    </swiper-stories-slider>
   </section>
 </template>
 
