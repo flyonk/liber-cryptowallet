@@ -78,6 +78,7 @@ import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAV
 import { Route } from '@/router/types';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
 import { useFundsStore } from '@/stores/funds';
+import { useMfaStore } from '@/stores/mfa';
 
 const showPopup = ref(false);
 const show2FA = ref(false);
@@ -85,8 +86,18 @@ const popupStatus = ref('confirmation');
 
 const fStore = useFundsStore();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const mfaStore = useMfaStore();
+
 function handle2FA() {
-  show2FA.value = true;
+  // show2FA.value = true;
+  mfaStore.show({
+    title: 'transactions.send',
+    callback: async () => {
+      await console.log('test');
+      fStore.setConvertFunds(true);
+    },
+  });
 }
 
 function handleConvert() {
