@@ -4,7 +4,7 @@
   >
     <template #title>{{ $t('transactions.convert.title') }}</template>
     <template #content>
-      <div v-if="!show2FA" class="send-to">
+      <div class="send-to">
         <div class="sendto-main">
           <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
         </div>
@@ -54,12 +54,6 @@
           </div>
         </template>
       </base-toast>
-      <div v-if="show2FA">
-        <auth2-f-a-verification-component
-          @success-verification="handleConvert"
-          @close="onClose"
-        />
-      </div>
     </template>
   </t-top-navigation>
 </template>
@@ -74,7 +68,6 @@ export default {
 import { ref } from 'vue';
 
 import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
-import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import { Route } from '@/router/types';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
 import { useFundsStore } from '@/stores/funds';
@@ -86,27 +79,25 @@ const popupStatus = ref('confirmation');
 
 const fStore = useFundsStore();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const mfaStore = useMfaStore();
-
 function handle2FA() {
-  // show2FA.value = true;
+  console.log('handle2FA');
+  const mfaStore = useMfaStore();
+
   mfaStore.show({
-    title: 'transactions.send',
+    title: 'transactions.convertTransaction',
     callback: async () => {
-      await console.log('test');
-      fStore.setConvertFunds(true);
+      console.log(JSON.stringify('test callback'));
     },
   });
-}
 
-function handleConvert() {
-  show2FA.value = false;
+  console.log('set convert funds');
   fStore.setConvertFunds(true);
 }
 
-function onClose() {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+function handleConvert() {
   show2FA.value = false;
+  fStore.setConvertFunds(true);
 }
 </script>
 
