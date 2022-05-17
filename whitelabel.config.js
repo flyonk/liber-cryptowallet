@@ -12,7 +12,7 @@ module.exports = {
   },
   dark: {
     brand: 'Dark',
-    theme: '../src/styles/whitelabel-variables/dark',
+    theme: '../src/assets/styles/common/dark',
     backgroundURL: '',
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
