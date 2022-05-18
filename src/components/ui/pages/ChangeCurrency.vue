@@ -6,7 +6,7 @@
     <template #content>
       <div class="send-to">
         <div class="sendto-main">
-          <change-currency :has-coin-reverse="true" @show-2fa="handleMFA" />
+          <change-currency :has-coin-reverse="true" />
         </div>
       </div>
       <base-toast
@@ -70,23 +70,9 @@ import { ref } from 'vue';
 import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
 import { Route } from '@/router/types';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
-import { useMfaStore } from '@/stores/mfa';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { useFundsStore } from '@/stores/funds';
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');
-
-const handleMFA = () => {
-  console.log('handleMFA');
-  const mfaStore = useMfaStore();
-  mfaStore.show({
-    title: 'transactions.convertTransaction',
-    callback: async () => {
-      console.log('callback handleMFA');
-    },
-  });
-};
 </script>
 
 <style lang="scss" scoped>

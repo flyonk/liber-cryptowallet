@@ -359,18 +359,13 @@ async function previewChangeInfo(direction: 'from' | 'to') {
 const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
-  emit('show-2fa');
-  // const mfaStore = useMfaStore();
-  // mfaStore.show({
-  //   title: 'transactions.convertTransaction',
-  //   callback: async () => {
-  //     //
-  //   },
-  // });
-  // convertFunds();
-}
-
-if (convert.value) {
+  const mfaStore = useMfaStore();
+  mfaStore.show({
+    title: 'transactions.convertTransaction',
+    callback: async () => {
+      //
+    },
+  });
   convertFunds();
 }
 
