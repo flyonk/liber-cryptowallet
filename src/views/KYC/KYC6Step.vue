@@ -6,10 +6,9 @@
   >
     <template #title>{{ $t('views.kyc.kyc6step.proofOfResidence') }}</template>
     <template #subtitle>
-      <base-progress-bar class="mb-3" :value="getPercentage" />{{
-        $t('views.kyc.kyc6step.provideOneOf')
-      }}</template
-    >
+      <base-progress-bar class="mb-3" :value="getPercentage" />
+      {{ $t('views.kyc.kyc6step.provideOneOf') }}
+    </template>
     <template #content>
       <div class="kyc-6-step">
         <ul class="list" type="disc">
@@ -26,13 +25,13 @@
             {{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}
           </li>
         </ul>
-      </div></template
-    >
+      </div>
+    </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="selectPicture">{{
-        $t('views.kyc.kyc6step.upload')
-      }}</base-button></template
-    >
+      <base-button block class="footer-button" @click="selectPicture">
+        {{ $t('views.kyc.kyc6step.upload') }}
+      </base-button>
+    </template>
   </t-top-navigation>
 </template>
 

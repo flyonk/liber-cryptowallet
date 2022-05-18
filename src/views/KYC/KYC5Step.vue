@@ -1,22 +1,22 @@
 <template>
-  <t-top-navigation @click:left-icon="$emit('prev')">
-    <template #title> {{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
+  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
+    <template #title>{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
     <template #subtitle>
       <base-progress-bar :value="getPercentage" class="mb-3" />
-      {{ $t('views.kyc.kyc5step.haveAFinal') }}</template
-    >
+      {{ $t('views.kyc.kyc5step.haveAFinal') }}
+    </template>
     <template #content>
       <div class="kyc-5-step">
         <template v-if="proofType !== EKYCProofType.passport">
           <div v-for="(image, side) in getImage" :key="side" class="block">
             <template v-if="image">
               <div class="title heading-black-lg">
-                {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
+                {{ documentSideLabel(side) }}
               </div>
               <img :src="image" alt="front" class="image" />
-              <base-button block view="secondary" @click="onScanAgain">{{
-                $t('views.kyc.kyc5step.scanAgain')
-              }}</base-button>
+              <base-button block view="secondary" @click="onScanAgain">
+                {{ $t('views.kyc.kyc5step.scanAgain') }}
+              </base-button>
             </template>
           </div>
         </template>
@@ -31,14 +31,11 @@
           </div>
         </template>
       </div>
-      <base-button block class="footer-button" @click="onNext">{{
-        $t('views.kyc.kyc5step.upload')
-      }}</base-button></template
-    >
+    </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="onNext">{{
-        $t('views.kyc.kyc5step.upload')
-      }}</base-button>
+      <base-button block class="footer-button" @click="onNext">
+        {{ $t('views.kyc.kyc5step.upload') }}
+      </base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -51,6 +48,9 @@ import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 // import { EStepDirection } from '@/types/base-component';
 import { EDocumentSide } from '@/types/document';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const emit = defineEmits(['prev', 'next']);
 
@@ -66,6 +66,12 @@ const proofType = computed(() => kycStore.getProofType);
 
 const getImage = computed(() => kycStore.getImage);
 
+function documentSideLabel(side: EDocumentSide) {
+  return side === EDocumentSide.front
+    ? t('views.kyc.kyc5step.frontSide')
+    : t('views.kyc.kyc5step.backSide');
+}
+
 const onNext = () => {
   emit('next');
 
@@ -75,6 +81,9 @@ const onNext = () => {
 
 <style lang="scss" scoped>
 .kyc-5-step {
+  max-height: 55vh;
+  overflow-y: scroll;
+
   > .block {
     > .title {
       margin-bottom: 8px;
@@ -89,6 +98,6 @@ const onNext = () => {
 }
 
 .footer-button {
-  margin: 32px 0;
+  margin: 0;
 }
 </style>

@@ -307,7 +307,9 @@
         "proofOfIdentity": "Proof of Identity",
         "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
         "scanAgain": "Scan Again",
-        "upload": "Upload"
+        "upload": "Upload",
+        "frontSide": "Front Side",
+        "backSide": "Back Side"
       },
       "kyc6step": {
         "proofOfResidence": "Proof of Residence",
