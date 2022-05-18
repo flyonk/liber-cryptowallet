@@ -6,7 +6,7 @@
     <template #content>
       <div class="send-to">
         <div class="sendto-main">
-          <change-currency :has-coin-reverse="true" @show-2fa="handle2FA" />
+          <change-currency :has-coin-reverse="true" @show-2fa="handleMFA" />
         </div>
       </div>
       <base-toast
@@ -70,35 +70,23 @@ import { ref } from 'vue';
 import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
 import { Route } from '@/router/types';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
-import { useFundsStore } from '@/stores/funds';
 import { useMfaStore } from '@/stores/mfa';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { useFundsStore } from '@/stores/funds';
 
 const showPopup = ref(false);
-const show2FA = ref(false);
 const popupStatus = ref('confirmation');
 
-const fStore = useFundsStore();
-
-function handle2FA() {
-  console.log('handle2FA');
+const handleMFA = () => {
+  console.log('handleMFA');
   const mfaStore = useMfaStore();
-
   mfaStore.show({
     title: 'transactions.convertTransaction',
     callback: async () => {
-      console.log(JSON.stringify('test callback'));
+      console.log('callback handleMFA');
     },
   });
-
-  console.log('set convert funds');
-  fStore.setConvertFunds(true);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function handleConvert() {
-  show2FA.value = false;
-  fStore.setConvertFunds(true);
-}
+};
 </script>
 
 <style lang="scss" scoped>
