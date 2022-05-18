@@ -162,13 +162,11 @@ import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 import { useErrorsStore } from '@/stores/errors';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { useMfaStore } from '@/stores/mfa';
 
 const errorsStore = useErrorsStore();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const emit = defineEmits<{
+defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
