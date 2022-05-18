@@ -1,7 +1,7 @@
 <template>
   <div
     class="kyc-status-badge text--callout font-weight--medium"
-    :class="`-${type}`"
+    :class="`-${type.replaceAll('_', '-')}`"
   >
     {{ title }}
   </div>
