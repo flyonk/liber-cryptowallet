@@ -160,6 +160,8 @@ const onPrev = (): void => {
   align-items: flex-start;
 
   > .footer {
+    margin-top: 23px;
+
     > span {
       > .resend-button {
         padding: 0;
