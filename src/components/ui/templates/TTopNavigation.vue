@@ -54,7 +54,7 @@ defineEmits(['click:left-icon']);
 
 <style lang="scss" scoped>
 .template-top-navigation {
-  padding: 30px 16px 0;
+  padding: 10px 16px 0;
 
   > .content {
     margin-top: 25px;
