@@ -18,4 +18,12 @@ module.exports = {
     contactEmail: '',
     storageUrl: '',
   },
+  exampleBrand: {
+    brand: 'exampleBrand',
+    theme: '../src/assets/styles/common/liber',
+    backgroundURL: '',
+    logoURL: '/img/logo.82b9c7a5.png',
+    contactEmail: '',
+    storageUrl: '',
+  },
 };
