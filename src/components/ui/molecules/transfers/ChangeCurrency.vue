@@ -248,8 +248,13 @@ onBeforeMount(async () => {
   try {
     await coinStore.fetchCoins();
     allCoins.value = coinStore.getCoins;
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    errorsStore.handle(
+      err,
+      'ChangeCurrency',
+      'onBeforeMount',
+      'fetch coins error'
+    );
   }
 
   if (route.query.code) {
