@@ -1,5 +1,5 @@
 <template>
-  <VerifyCode
+  <verify-code
     v-bind="$attrs"
     :flow="VerifyCodeFlow.Login"
     @next="$emit('next')"

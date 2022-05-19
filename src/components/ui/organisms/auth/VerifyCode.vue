@@ -29,6 +29,8 @@ import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { PropType } from 'vue-demi';
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { AxiosError } from 'axios';
 const { tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
@@ -90,7 +92,7 @@ const title = computed(() => {
 });
 
 const withCountdown = computed(() => {
-  return is2fa.value;
+  return !is2fa.value;
 });
 
 const prevStep = () => {
@@ -127,7 +129,9 @@ const onComplete = async (data: string) => {
         });
       case EUserStatus.registered:
         await twoFAStore.set2FADate();
-        if (passcode) return nextStep();
+        if (passcode) {
+          return nextStep();
+        }
         return await router.push({
           name: Route.KYCMain,
         });
@@ -152,6 +156,12 @@ const onComplete = async (data: string) => {
       _otp.value = otp;
       is2fa.value = true;
       verificationCode.value = '';
+      errorsStore.handle(
+        err,
+        'VerifyCode.vue',
+        'onComplete',
+        tm('auth.login.step4VerificationError')
+      );
       return;
     }
 
@@ -159,7 +169,7 @@ const onComplete = async (data: string) => {
       err,
       'VerifyCode.vue',
       'onComplete',
-      tm('configureApp.invalidPassCode')
+      tm('auth.login.step4VerificationError')
     );
   }
 };
