@@ -1,7 +1,7 @@
 <template>
   <t-top-navigation
     with-fixed-footer
-    @click:left-icon="$router.push({ name: Route.TwoFAApp })"
+    @click:left-icon="$router.push({ name: prevRouteName })"
   >
     <template #title> {{ $t('configureApp.installAppTitle') }}</template>
     <template #subtitle>
@@ -43,9 +43,17 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="$router.push({ name: Route.ConfigureApp })">{{
-        $t('common.continueCta')
-      }}</base-button></template
+      <base-button
+        block
+        @click="
+          $router.push({
+            name: Route.ConfigureApp,
+            hash: nextRouteHash,
+          })
+        "
+      >
+        {{ $t('common.continueCta') }}
+      </base-button></template
     >
   </t-top-navigation>
 </template>
@@ -57,8 +65,32 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import { TTopNavigation, BaseButton } from '@/components/ui';
 import { Route } from '@/router/types';
+
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+
+const prevRouteName = computed(() => {
+  const fromRoutePath = router.options.history.state.back;
+  const twoFAAppRoutePath = router.resolve({ name: Route.TwoFAApp }).path;
+  if (fromRoutePath === twoFAAppRoutePath) {
+    return Route.TwoFAApp;
+  }
+  return Route.ChangeAuthapp;
+});
+
+const nextRouteHash = computed(() => {
+  const fromRoutePath = router.options.history.state.back;
+  const twoFAAppRoutePath = router.resolve({ name: Route.TwoFAApp }).path;
+  if (fromRoutePath === twoFAAppRoutePath) {
+    return '';
+  }
+  return '#settings';
+});
 </script>
 
 <style lang="scss" scoped>
