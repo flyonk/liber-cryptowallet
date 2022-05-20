@@ -66,7 +66,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { BaseButton, BaseToast } from '@/components/ui';
@@ -105,6 +105,24 @@ const onConfirm = () => {
     });
   }
 };
+
+watch(is2FAConfigured, (val) => {
+  if (val) {
+    onContinue();
+  } else {
+    if (pStore.user.is2FAConfigured) {
+      const mfaStore = useMfaStore();
+      mfaStore.show({
+        successRoute: Route.ProfileSettings,
+        async callback() {
+          // update profile info about 2fa is enabled or not
+          await pStore.init();
+        },
+      });
+      twofaStore.disable();
+    }
+  }
+});
 </script>
 
 <style lang="scss" scoped>
