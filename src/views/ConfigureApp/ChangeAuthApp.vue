@@ -1,30 +1,29 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation
-      @click:left-icon="$router.push({ name: Route.ProfileSettings })"
-    >
-      {{ $t('common.googleAuthenticator') }}
-    </top-navigation>
-
-    <div class="content-wrapper">
-      <p class="auth-item" style="margin-bottom: 15px">
-        <img
-          src="@/assets/brands/ga.png"
-          alt="Google Authenticator"
-          class="auth-app-icon"
-        />
-      </p>
-      <p class="text-default">
-        {{ $t('configureApp.changeAppMessage') }}
-      </p>
-    </div>
-  </div>
-
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="onContinue">{{
-      $t('configureApp.changeAppCTA')
-    }}</base-button>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.ProfileSettings })"
+  >
+    <template #title> {{ $t('common.googleAuthenticator') }}</template>
+    <template #content>
+      <div class="content-wrapper">
+        <p class="auth-item" style="margin-bottom: 15px">
+          <img
+            src="@/assets/brands/ga.png"
+            alt="Google Authenticator"
+            class="auth-app-icon"
+          />
+        </p>
+        <p class="text-default">
+          {{ $t('configureApp.changeAppMessage') }}
+        </p>
+      </div>
+    </template>
+    <template #fixed-footer>
+      <base-button block @click="onContinue">{{
+        $t('configureApp.changeAppCTA')
+      }}</base-button>
+    </template>
+  </t-top-navigation>
 
   <base-toast v-model:visible="showPopup" :severity="'attention'">
     <template #description>
@@ -62,7 +61,8 @@ export default {
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { TopNavigation, BaseButton, BaseToast } from '@/components/ui';
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { BaseButton, BaseToast } from '@/components/ui';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
