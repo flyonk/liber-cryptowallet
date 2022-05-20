@@ -1,0 +1,114 @@
+@import "https://static.demo.liber.casa/build/styles/common/liber/variables.css";
+
+//System colors
+$color-white: var(--color-white);
+$color-white-light: var(--color-white-light);
+
+$color-black: var(--color-black);
+
+//Palette colors
+$color-brand-50: var(--color-brand-50);
+$color-brand-100: var(--color-brand-100);
+$color-brand-200: var(--color-brand-200);
+$color-brand-300: var(--color-brand-300);
+$color-brand-400: var(--color-brand-400);
+$color-brand-500: var(--color-brand-500);
+$color-brand-550: var(--color-brand-550);
+$color-brand-600: var(--color-brand-600);
+$color-brand-700: var(--color-brand-700);
+$color-brand-800: var(--color-brand-800);
+$color-brand-900: var(--color-brand-900);
+$color-primary-50: var(--color-primary-50);
+$color-primary-100: var(--color-primary-100);
+$color-primary-200: var(--color-primary-200);
+$color-primary-300: var(--color-primary-300);
+$color-primary-400: var(--color-primary-400);
+$color-primary-500: var(--color-primary-500);
+$color-primary-600: var(--color-primary-600);
+$color-primary-700: var(--color-primary-700);
+$color-primary-800: var(--color-primary-800);
+$color-primary-900: var(--color-primary-900);
+
+$color-brand-2-50: var(--color-brand-2-50);
+$color-brand-2-100: var(--color-brand-2-100);
+$color-brand-2-200: var(--color-brand-2-200);
+$color-brand-2-300: var(--color-brand-2-300);
+$color-brand-2-400: var(--color-brand-2-400);
+$color-brand-2-500: var(--color-brand-2-500);
+$color-brand-2-600: var(--color-brand-2-600);
+$color-brand-2-700: var(--color-brand-2-700);
+$color-brand-2-800: var(--color-brand-2-800);
+$color-brand-2-900: var(--color-brand-2-900);
+
+$color-grey-50: var(--color-grey-50);
+$color-grey-100: var(--color-grey-100);
+$color-grey-200: var(--color-grey-200);
+$color-grey-300: var(--color-grey-300);
+$color-grey-400: var(--color-grey-400);
+$color-grey-500: var(--color-grey-500);
+$color-grey-600: var(--color-grey-600);
+$color-grey-700: var(--color-grey-700);
+$color-grey-800: var(--color-grey-800);
+$color-grey-900: var(--color-grey-900);
+
+$color-light-grey-50: var(--color-light-grey-50);
+$color-light-grey-100: var(--color-light-grey-100);
+$color-light-grey-200: var(--color-light-grey-200);
+$color-light-grey-300: var(--color-light-grey-300);
+$color-light-grey-400: var(--color-light-grey-400);
+$color-light-grey-500: var(--color-light-grey-500);
+$color-light-grey-600: var(--color-light-grey-600);
+$color-light-grey-700: var(--color-light-grey-700);
+$color-light-grey-800: var(--color-light-grey-800);
+$color-light-grey-850: var(--color-light-grey-850);
+$color-light-grey-900: var(--color-light-grey-900);
+
+$surface: var(--surface);
+
+$color-green-50: var(--color-green-50);
+$color-green-100: var(--color-green-100);
+$color-green-200: var(--color-green-200);
+$color-green-300: var(--color-green-300);
+$color-green-400: var(--color-green-400);
+$color-green-500: var(--color-green-500);
+$color-green-600: var(--color-green-600);
+$color-green-700: var(--color-green-700);
+$color-green-800: var(--color-green-800);
+$color-green-900: var(--color-green-900);
+
+$color-red-50: var(--color-red-50);
+$color-red-100: var(--color-red-100);
+$color-red-200: var(--color-red-200);
+$color-red-300: var(--color-red-300);
+$color-red-400: var(--color-red-400);
+$color-red-500: var(--color-red-500);
+$color-red-600: var(--color-red-600);
+$color-red-700: var(--color-red-700);
+$color-red-800: var(--color-red-800);
+$color-red-900: var(--color-red-900);
+
+$color-yellow-50: var(--color-yellow-50);
+$color-yellow-100: var(--color-yellow-100);
+$color-yellow-200: var(--color-yellow-200);
+$color-yellow-300: var(--color-yellow-300);
+$color-yellow-400: var(--color-yellow-400);
+$color-yellow-500: var(--color-yellow-500);
+$color-yellow-600: var(--color-yellow-600);
+$color-yellow-700: var(--color-yellow-700);
+$color-yellow-800: var(--color-yellow-800);
+$color-yellow-900: var(--color-yellow-900);
+
+//Palette aliases
+$color-brand-primary: $color-brand-500;
+$color-brand-secondary: $color-brand-2-500;
+$color-dark-grey: $color-brand-2-300;
+$color-grey: $color-grey-500;
+$color-light-grey: $color-light-grey-500;
+$color-primary: $color-primary-500;
+$color-green: $color-green-500;
+$color-red: $color-red-500;
+$color-yellow: $color-yellow-500;
+$carousel-item-shadow: var(--carousel-item-shadow);
+
+//Programmers aliases
+$color-input-bg: $color-grey-100;
