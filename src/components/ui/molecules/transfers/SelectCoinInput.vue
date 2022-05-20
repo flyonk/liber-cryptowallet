@@ -71,10 +71,6 @@ const handleCloseModal = () => {
 
 <style lang="scss">
 //TODO: Hide under scoped
-.p-dialog-content {
-  padding: 0 !important;
-}
-
 .select {
   position: absolute;
   right: 4px;
