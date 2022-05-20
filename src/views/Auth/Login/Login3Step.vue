@@ -8,7 +8,7 @@
           class="login-passcode"
           @submit="onSubmit"
         />
-        <base-toast v-model:visible="showErrorToast" severity="error">
+        <!-- <base-toast v-model:visible="showErrorToast" severity="error">
           <template #description>
             <div>
               {{ $t('auth.login.step3InvalidInput') }}
@@ -23,7 +23,7 @@
               </router-link>
             </div>
           </template>
-        </base-toast>
+        </base-toast> -->
       </div>
       <div v-else>
         <auth2-f-a-verification-component
@@ -49,10 +49,13 @@ import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
+import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscodeError.vue';
 
 import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
 
 const router = useRouter();
 
@@ -60,6 +63,7 @@ const authStore = useAuthStore();
 const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const showErrorToast = ref(false);
 const show2FA = ref(false);
 
@@ -86,7 +90,15 @@ async function onSubmit(success: boolean): Promise<void> {
       });
     }
   } else {
-    showErrorToast.value = true;
+    // showErrorToast.value = true;
+    const errorsStore = useErrorsStore();
+    errorsStore.handle(
+      new Error('test'),
+      'Login3Step',
+      'onSubmit',
+      'something wrong in onSubmit',
+      Login3StepPasscodeErrorVue
+    );
   }
 }
 
