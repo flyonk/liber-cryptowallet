@@ -16,6 +16,13 @@
         <p class="text-default">
           {{ $t('configureApp.changeAppMessage') }}
         </p>
+        <div class="flex">
+          <img class="icon" src="@/assets/icon/google.svg" />
+          <p class="text">
+            {{ $t('views.profile.profileSettings.2FAGoogle') }}
+          </p>
+          <InputSwitch v-model="is2FAConfigured" class="switcher" />
+        </div>
       </div>
     </template>
     <template #fixed-footer>
@@ -70,11 +77,15 @@ import { use2faStore } from '@/stores/2fa';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
+import InputSwitch from 'primevue/inputswitch';
+
 const router = useRouter();
 
 const twofaStore = use2faStore();
 const pStore = useProfileStore();
 const showPopup = ref(false);
+
+const is2FAConfigured = ref(pStore.user.is2FAConfigured);
 
 const onContinue = () => {
   showPopup.value = true;
@@ -159,5 +170,12 @@ const onConfirm = () => {
 .popup-footer {
   display: flex;
   flex-direction: column;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
 }
 </style>
