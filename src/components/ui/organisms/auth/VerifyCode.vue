@@ -29,6 +29,7 @@ import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { PropType } from 'vue-demi';
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AxiosError } from 'axios';
 const { tm } = useI18n();
@@ -129,9 +130,7 @@ const onComplete = async (data: string) => {
         });
       case EUserStatus.registered:
         await twoFAStore.set2FADate();
-        if (passcode) {
-          return nextStep();
-        }
+        if (passcode) return nextStep();
         return await router.push({
           name: Route.KYCMain,
         });
@@ -149,7 +148,7 @@ const onComplete = async (data: string) => {
       nextStep();
     }
   } catch (err: AxiosError | Error | unknown) {
-    const code = err.response?.status;
+    const code = (err as AxiosError).response?.status;
     if (code === 406) {
       // new device case
       // use 2fa
@@ -171,6 +170,9 @@ const onComplete = async (data: string) => {
       'onComplete',
       tm('auth.login.step4VerificationError')
     );
+    isError.value = true;
+
+    errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');
   }
 };
 const formatPhone = () => {

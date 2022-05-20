@@ -1,16 +1,18 @@
+export interface IAvatarDto {
+  avatar?: string;
+}
+
 export interface IAvatar {
   url: string;
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IAvatar {
+  deserialize(input: IAvatarDto): IAvatar {
     return {
       url: input.avatar || '',
     };
   },
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IAvatar): any {
+  requestSerialize(input: IAvatar): IAvatarDto {
     return {
       avatar: input.url,
     };

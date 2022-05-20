@@ -34,9 +34,11 @@ import { ref } from 'vue';
 const props = defineProps({
   routeName: {
     type: String,
+    required: true,
   },
   label: {
     type: String,
+    required: true,
   },
   iconSrc: {
     type: String,

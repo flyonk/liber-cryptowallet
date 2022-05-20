@@ -1,3 +1,9 @@
+export interface IIPhoneContactDto {
+  name: string;
+  emails?: string[];
+  phones?: string[];
+}
+
 export interface IIPhoneContact {
   name: string;
   emails: string[];
@@ -5,8 +11,7 @@ export interface IIPhoneContact {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IIPhoneContact {
+  deserialize(input: IIPhoneContactDto): IIPhoneContact {
     return {
       name: input.name,
       emails: input.emails || [],
@@ -14,8 +19,7 @@ export default {
     };
   },
 
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IIPhoneContact): any {
+  requestSerialize(input: IIPhoneContact): IIPhoneContactDto {
     return {
       name: input.name,
       emails: input.emails,

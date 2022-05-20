@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div class="swiper-container">
     <swiper
       :modules="[Pagination, Autoplay]"
       :loop="true"
@@ -124,6 +124,14 @@ function putItemsToSwiperEl(el: HTMLDivElement) {
 </script>
 
 <style lang="scss" scoped>
+.swiper-container {
+  height: 100%;
+
+  & > .swiper {
+    height: 100%;
+  }
+}
+
 :deep(.pagination) {
   display: flex;
   justify-content: space-around;

@@ -21,7 +21,6 @@
     </template>
     <template #content>
       <div v-if="!showCloseAccount" class="account-settings">
-        <!-- TODO: Implement menu controls -->
         <div class="controls" style="display: none">
           <button class="btn -blue">
             <img class="icon" src="@/assets/icon/user_heart.svg" />
@@ -311,7 +310,7 @@ async function onLogout() {
 .account-settings {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: 75vh;
   padding-top: 10px;
   flex-grow: 1;
   overflow: auto;

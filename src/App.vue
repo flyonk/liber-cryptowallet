@@ -32,30 +32,31 @@ import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitche
 //TODO: use profile store instead
 import { useAccountStore } from './stores/account';
 import { useMfaStore } from '@/stores/mfa';
-
-import SentryUtil from '@/helpers/sentryUtil';
+import { useErrorsStore } from '@/stores/errors';
 import SwipeBack from '@/plugins/swipe-capacitor';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 
 const mfaStore = useMfaStore();
 
+const store = useAccountStore();
+store.init();
+
+const errorsStore = useErrorsStore();
+
 SwipeBack.enable()
   .then()
-  .catch((error) => {
-    const { code } = error;
+  .catch((err) => {
+    const { code } = err;
     if (code !== 'UNIMPLEMENTED') {
-      SentryUtil.capture(
-        error,
+      errorsStore.handle(
+        err,
         'App',
         'SwipeBack',
         'Capacitor SwipeBack plugin error'
       );
     }
   });
-
-const store = useAccountStore();
-store.init();
 
 const showMfa = computed(() => {
   return mfaStore.enabled;

@@ -185,7 +185,9 @@ const _setCurrentSendToCurrency = (index: number) => {
   currentSendFromCurrency.code.value = currencies[index].code;
 };
 
-const onBlur = (event: any) => {
+// todo: type FocusEvent not describes event as expected
+/* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+const onBlur = (event: FocusEvent | any) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {

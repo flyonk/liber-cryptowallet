@@ -26,16 +26,18 @@ export const useErrorsStore = defineStore('errors', {
 
   actions: {
     async handle(
+      /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
       err: AxiosError | Error | any,
       name: string,
       ctx: string,
       description?: string
     ): Promise<void> {
       this.errors.push({ err, name, ctx, description });
-      await errorService.logError(err, name, ctx, description);
+      // await errorService.logError(err, name, ctx, description);
     },
 
     async multiErrorHandler(
+      /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
       errors: Array<AxiosError | Error | any>,
       name: string,
       ctx: string,
@@ -58,8 +60,10 @@ export const useErrorsStore = defineStore('errors', {
       }
     },
 
-    getErrorMessage() {
-      return errorService.makeErrorMessage(this.errors?.[0]?.description);
+    getErrorMessage(): string {
+      return this.errors.length > 0
+        ? errorService.makeErrorMessage(this.errors?.[0])
+        : '';
     },
   },
 });

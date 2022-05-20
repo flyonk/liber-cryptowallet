@@ -3,6 +3,9 @@ import { cloneDeep } from 'lodash';
 
 import { useProfileStore } from '@/stores/profile';
 import { IProfile } from '@/models/profile/profile';
+import { CaptureContext } from '@sentry/types/types/scope';
+import { Primitive } from '@sentry/types/types/misc';
+import { AxiosError } from 'axios';
 
 export default {
   setUser(): void {
@@ -15,16 +18,17 @@ export default {
     setUser(user);
   },
   capture(
-    error: any,
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+    error: Error | AxiosError | any,
     componentName: string,
     componentContext: string,
     description?: string,
-    _extra = {},
-    _tags = {}
+    _extra: Record<string, unknown> = {},
+    _tags: Record<string, Primitive> = {}
   ): void {
     // additional information
-    const extra = cloneDeep(_extra) as any;
-    const tags = cloneDeep(_tags) as any;
+    const extra = cloneDeep(_extra);
+    const tags = cloneDeep(_tags);
 
     tags.api = false;
     tags.isAxiosError = error.isAxiosError;
@@ -79,7 +83,7 @@ export default {
       }
     }
 
-    const context = {
+    const context: CaptureContext = {
       extra,
       tags,
     };

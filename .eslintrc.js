@@ -27,6 +27,7 @@ module.exports = {
     'vue/script-setup-uses-vars': 'error',
     '@typescript-eslint/no-explicit-any': ['warn'],
     '@typescript-eslint/no-unused-vars': ['error'],
+    '@typescript-eslint/no-var-requires': 'off',
     'vue/multi-word-component-names': [
       'error',
       {

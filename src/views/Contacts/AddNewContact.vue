@@ -64,7 +64,11 @@ const recepientsStore = useRecepientsStore();
 
 type TNewContact = {
   name: string;
-  phone: any[];
+  phone: TPhoneNumber[];
+};
+
+type TPhoneNumber = {
+  value: string;
 };
 
 const newContact = ref({
