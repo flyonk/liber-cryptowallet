@@ -93,16 +93,6 @@
             </div>
 
             <div class="controls">
-              <button class="btn -active" @click="triggerFakeErr">
-                TRIGGER 1 ERR
-              </button>
-              <button class="btn -active" @click="triggerFakeErrN2">
-                TRIGGER 2 ERR
-              </button>
-              <button class="btn -active">...</button>
-            </div>
-
-            <div class="controls">
               <button
                 :class="{
                   '-active': VerificationStatus === EKYCStatus.success,
@@ -217,7 +207,6 @@ import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
-import axios from 'axios';
 
 let activeTab = ref(1);
 const VerificationStatus = ref(EKYCStatus.success);
@@ -280,26 +269,6 @@ onMounted(async () => {
     loading.value = false;
   }
 });
-
-async function triggerFakeErr() {
-  try {
-    const instance = axios.create();
-    await instance.get(
-      `https://api.dev.liber.casa/coin/api/v1/accounts/total`,
-      { headers: { Authorization: `Bearer wrong Bearer for fake error` } }
-    );
-  } catch (err) {
-    errorsStore.handle(err, 'DashboardHome.vue', 'triggerFakeErr');
-  }
-}
-
-async function triggerFakeErrN2() {
-  try {
-    await axios.get(`https://api.dev.liber.casa/coin/api/v1/transactions/2`);
-  } catch (err) {
-    errorsStore.handle(err, 'DashboardHome.vue', 'triggerFakeErr2');
-  }
-}
 
 const openActionsSwiper = () => {
   uiStore.setStateModal('sendMenu', true);
