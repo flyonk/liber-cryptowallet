@@ -6,7 +6,7 @@
     <template #content>
       <div class="send-to">
         <div class="sendto-main">
-          <change-currency :has-coin-reverse="true" />
+          <o-change-currency :has-coin-reverse="true" />
         </div>
       </div>
       <base-toast
@@ -67,7 +67,7 @@ export default {
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import ChangeCurrency from '@/components/ui/molecules/transfers/ChangeCurrency.vue';
+import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
 import { Route } from '@/router/types';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
 
