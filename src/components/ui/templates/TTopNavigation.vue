@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
+import { TopNavigation } from '@/components/ui';
 
 defineProps({
   leftIconName: {
