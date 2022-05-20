@@ -68,8 +68,7 @@ export default {
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { TTopNavigation, BaseButton, BaseToast } from '@/components/ui';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
