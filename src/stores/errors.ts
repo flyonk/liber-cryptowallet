@@ -7,6 +7,7 @@ interface IError {
   name: string;
   ctx: string;
   description?: string;
+  customErrorComponent?: any;
 }
 
 interface IErrors {
@@ -22,6 +23,8 @@ export const useErrorsStore = defineStore('errors', {
     displayCurrent: (state: IErrors) => state.errors.length > 0,
     isSingleError: (state: IErrors) => state.errors.length === 1,
     isMultipleErrors: (state: IErrors) => state.errors.length > 1,
+    getCustomComponent: (state: IErrors) =>
+      state.errors[0].customErrorComponent,
   },
 
   actions: {
@@ -30,9 +33,11 @@ export const useErrorsStore = defineStore('errors', {
       err: AxiosError | Error | any,
       name: string,
       ctx: string,
-      description?: string
+      description?: string,
+      customErrorComponent?: any
     ): Promise<void> {
-      this.errors.push({ err, name, ctx, description });
+      console.log(customErrorComponent);
+      this.errors.push({ err, name, ctx, description, customErrorComponent });
       // await errorService.logError(err, name, ctx, description);
     },
 
