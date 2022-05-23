@@ -1,5 +1,6 @@
 // --- Only imports ---
 @import './common/reset';
+@import 'https://static.demo.liber.casa/build/fonts/liber/iconmoon.css';
 
 // Common
 //@import './common/variables';
@@ -16,7 +17,7 @@
 @import 'floating-vue/dist/style.css';
 @import 'swiper/css';
 
-@import './libs/coolicons';
+// @import './libs/coolicons';
 
 // ui
 @import './theme/index';

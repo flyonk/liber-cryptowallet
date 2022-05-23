@@ -173,10 +173,13 @@ const sendTransaction = async () => {
       mfaStore.show({
         title: 'transactions.send',
         callback: async () => {
+          console.log(JSON.stringify('test callback 1'));
           await recepientsStore.addFriend(contact);
+          console.log('test callback 2');
           transferStore.clearTransferData();
         },
       });
+      console.log('transferStore.transfer()');
       await transferStore.transfer();
     } catch (err) {
       // todo: not required handling
