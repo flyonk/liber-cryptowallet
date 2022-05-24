@@ -54,8 +54,8 @@ function goToAuthPasscode() {
   });
 }
 
-const onEnable = (): void => {
-  setOptions('true', EStorageKeys.notifications);
+const onEnable = async () => {
+  await setOptions('true', EStorageKeys.notifications);
   goToAuthPasscode();
 };
 

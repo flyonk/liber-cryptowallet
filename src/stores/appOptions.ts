@@ -35,7 +35,7 @@ const getStoredOption = async (key: EStorageKeys) => {
 
 async function setOptions(value: string, key: EStorageKeys) {
   if (value && key === EStorageKeys.notifications) {
-    registerNotification();
+    await registerNotification();
   }
   await Storage.set({
     key,
