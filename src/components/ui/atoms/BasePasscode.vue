@@ -149,9 +149,15 @@ function setNumber(number: string): void {
           if (!result) passcode.value = '';
           emit('submit', result);
         })
-        .catch(() => {
+        .catch((err) => {
           passcode.value = '';
           emit('submit', false);
+          errorsStore.handle(
+            err,
+            'BasePasscode',
+            'setNumber',
+            'passcode error'
+          );
         });
     }
   }
