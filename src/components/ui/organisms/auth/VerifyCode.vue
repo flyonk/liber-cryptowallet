@@ -70,6 +70,7 @@ const dialCode = computed(() => {
       return '';
   }
 });
+
 onMounted(async () => {
   try {
     await authStore.signIn({ phone: phone.value, flow: props.flow });
@@ -77,6 +78,7 @@ onMounted(async () => {
     errorsStore.handle(err, 'VerifyCode.vue', 'onMounted');
   }
 });
+
 const text = computed(() => {
   if (is2fa.value) {
     return tm('auth.login.step4Description');
