@@ -40,6 +40,7 @@ import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { usePasscodeStore } from '@/stores/passcode';
 import { useMfaStore } from '@/stores/mfa';
 import { set } from '@/helpers/storage';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { EStorageKeys } from '@/types/storage';
 import { EPasscodeActions } from '@/types/base-component';
@@ -129,7 +130,7 @@ onBeforeMount(async (): Promise<void> => {
     identificationIcon.value = require('@/assets/icon/faceid.svg');
   }
   if (option === 'touch-id') {
-    identificationIcon.value = require('@/assets/icon/touchid.svg');
+    identificationIcon.value = `${STATIC_BASE_URL}/static/menu/touchid.svg`;
   }
 });
 
