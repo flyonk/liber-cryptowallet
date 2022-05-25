@@ -244,6 +244,11 @@ async function onLogout() {
   flex-grow: 1;
   overflow: auto;
 
+  //Hide scroll-bar on mobile device
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
   > .header {
     display: flex;
     justify-content: space-between;
