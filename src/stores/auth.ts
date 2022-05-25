@@ -5,7 +5,6 @@ import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
 import authService from '@/services/authService';
-import passcodeService from '@/services/passcodeService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
@@ -241,10 +240,6 @@ export const useAuthStore = defineStore('auth', {
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
       ]);
-
-      if ((await get(EStorageKeys.passcode)) === 'true') {
-        await passcodeService.delete();
-      }
 
       SecureStoragePlugin.remove({ key: SStorageKeys.user });
 

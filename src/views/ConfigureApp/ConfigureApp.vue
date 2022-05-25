@@ -101,7 +101,7 @@ const copyToClipboard = async () => {
       string: qrCodeValue.value,
     });
     toast.add({
-      summary: tm('common.copySuccess'),
+      summary: tm('common.copySuccess') as string,
       life: 3000,
       closable: false,
     });
@@ -110,7 +110,7 @@ const copyToClipboard = async () => {
       err,
       'ConfigureApp',
       'copyToClipboard',
-      tm('common.copyFailure')
+      tm('common.copyFailure') as string
     );
   }
 };

@@ -33,7 +33,7 @@ export const useErrorsStore = defineStore('errors', {
       description?: string
     ): Promise<void> {
       this.errors.push({ err, name, ctx, description });
-      await errorService.logError(err, name, ctx, description);
+      // await errorService.logError(err, name, ctx, description);
     },
 
     async multiErrorHandler(
@@ -60,8 +60,10 @@ export const useErrorsStore = defineStore('errors', {
       }
     },
 
-    getErrorMessage() {
-      return errorService.makeErrorMessage(this.errors?.[0]?.description);
+    getErrorMessage(): string {
+      return this.errors.length > 0
+        ? errorService.makeErrorMessage(this.errors?.[0])
+        : '';
     },
   },
 });
