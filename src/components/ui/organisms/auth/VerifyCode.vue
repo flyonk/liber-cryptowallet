@@ -155,13 +155,14 @@ const onComplete = async (data: string) => {
       // use 2fa
       _otp.value = otp;
       is2fa.value = true;
-      verificationCode.value = '';
       return;
     }
 
     isError.value = true;
 
     errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');
+  } finally {
+    verificationCode.value = '';
   }
 };
 const formatPhone = () => {
