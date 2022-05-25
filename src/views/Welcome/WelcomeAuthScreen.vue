@@ -3,7 +3,7 @@
     <swiper-stories-slider>
       <SwiperSlide v-for="item in 2" :key="item">
         <stories-slider-example-story
-          :base-img="require('@/assets/images/money.svg')"
+          :base-img="`${STATIC_BASE_URL}/static/illustrations/onboarding/step-1.png`"
           :logo-img="`${STATIC_BASE_URL}/static/media/logo-white.png`"
           :header-title="$t('auth.signup.welcomeAuth.title')"
           :base-title="$t('auth.signup.welcomeAuth.transfer')"

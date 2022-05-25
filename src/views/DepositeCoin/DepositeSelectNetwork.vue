@@ -35,7 +35,11 @@
                   alt="right arrow"
                   src="@/assets/images/arrow-white.svg"
                 />
-                <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
+                <img
+                  v-else
+                  alt="right arrow"
+                  :src="`${STATIC_BASE_URL}/static/menu/arrow.svg`"
+                />
               </label>
             </template>
           </div>

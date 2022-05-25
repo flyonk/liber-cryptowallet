@@ -27,7 +27,7 @@
         0
       </div>
       <div class="number-button" @click="clear">
-        <img alt src="@/assets/icon/clear-button.svg" />
+        <img alt :src="`${STATIC_BASE_URL}/statis/media/clear-button.svg`" />
       </div>
     </div>
   </div>
@@ -127,7 +127,7 @@ onBeforeMount(async (): Promise<void> => {
   const option = await getSupportedOptions();
 
   if (option === 'face-id') {
-    identificationIcon.value = require('@/assets/icon/faceid.svg');
+    identificationIcon.value = `${STATIC_BASE_URL}/static/media/faceid.svg`;
   }
   if (option === 'touch-id') {
     identificationIcon.value = `${STATIC_BASE_URL}/static/menu/touchid.svg`;
