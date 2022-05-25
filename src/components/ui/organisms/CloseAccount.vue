@@ -1,6 +1,10 @@
 <template name="CloseAccount">
   <div v-if="showMenu" class="close-account">
-    <img alt="logo" class="logo" :src="`${STATIC_BASE_URL}/brand/logo.png`" />
+    <img
+      alt="logo"
+      class="logo"
+      :src="`${STATIC_BASE_URL}/static/brand/logo.png`"
+    />
     <h5 class="title">
       {{ $t('views.profile.profileSettings.preventClosingAccount') }}
     </h5>
