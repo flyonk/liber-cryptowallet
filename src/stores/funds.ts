@@ -63,7 +63,6 @@ export const useFundsStore = defineStore('funds', {
       data: Omit<TConvertData, 'request_amount'>
     ): Promise<void> {
       await fundsService.convert(data);
-      console.log('changeCurrency');
     },
 
     setConvertFunds(val: boolean): void {
