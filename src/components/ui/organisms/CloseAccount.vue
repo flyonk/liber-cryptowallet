@@ -3,7 +3,7 @@
     <img
       alt="logo"
       class="logo"
-      :src="`${STATIC_BASE_URL}/static/brand/logo.png`"
+      :src="`${STATIC_BASE_URL}/static/media/logo.png`"
     />
     <h5 class="title">
       {{ $t('views.profile.profileSettings.preventClosingAccount') }}
