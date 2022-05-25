@@ -1,6 +1,6 @@
 <template name="CloseAccount">
   <div v-if="showMenu" class="close-account">
-    <img alt="logo" class="logo" src="@/assets/images/liber-logo.png" />
+    <img alt="logo" class="logo" :src="`${STATIC_BASE_URL}/brand/logo.png`" />
     <h5 class="title">
       {{ $t('views.profile.profileSettings.preventClosingAccount') }}
     </h5>
@@ -24,6 +24,8 @@ import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
 import { Route } from '@/router/types';
+
+import { STATIC_BASE_URL } from '@/constants';
 
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
 
