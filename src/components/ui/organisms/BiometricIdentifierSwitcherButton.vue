@@ -113,6 +113,7 @@ onBeforeMount(async () => {
 
   > .switcher {
     margin-left: auto;
+    margin-right: 12px;
   }
 
   > .selected-language {

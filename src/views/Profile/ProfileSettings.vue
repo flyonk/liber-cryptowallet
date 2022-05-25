@@ -351,12 +351,9 @@ async function onLogout() {
           color: $color-brand-primary;
         }
 
-        > .switcher {
-          margin-left: auto;
-        }
-
         > .selected-language {
           margin-left: auto;
+          margin-right: 12px;
         }
       }
     }
