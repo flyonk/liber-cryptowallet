@@ -44,9 +44,12 @@ import { set } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { EPasscodeActions } from '@/types/base-component';
 import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
 
 const passcodeStore = usePasscodeStore();
 const mfaStore = useMfaStore();
+
+const errorsStore = useErrorsStore();
 
 const props = defineProps({
   actionType: {
@@ -104,8 +107,14 @@ const showTouchId = () => {
       .then(() => {
         emit('submit', true);
       })
-      .catch(() => {
+      .catch((err) => {
         emit('submit', false);
+        errorsStore.handle(
+          err,
+          'BasePasscode',
+          'showTouchId',
+          'verify identity error'
+        );
       });
   }
 };
@@ -140,9 +149,15 @@ function setNumber(number: string): void {
           if (!result) passcode.value = '';
           emit('submit', result);
         })
-        .catch(() => {
+        .catch((err) => {
           passcode.value = '';
           emit('submit', false);
+          errorsStore.handle(
+            err,
+            'BasePasscode',
+            'setNumber',
+            'passcode error'
+          );
         });
     }
   }

@@ -158,6 +158,8 @@ const onComplete = async (data: string) => {
     }
 
     isError.value = true;
+
+    errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');
   }
 };
 const formatPhone = () => {

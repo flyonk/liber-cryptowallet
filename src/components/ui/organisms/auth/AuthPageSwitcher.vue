@@ -5,12 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue';
-import { IAuthSteps } from '@/stores/auth';
-import { computed, PropType } from 'vue-demi';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, PropType, watch } from 'vue';
 
-import { useAuthStore } from '@/stores/auth';
+import { IAuthSteps, useAuthStore } from '@/stores/auth';
+import { useRoute, useRouter } from 'vue-router';
 import { EStepDirection } from '@/types/base-component';
 
 const route = useRoute();
@@ -58,6 +56,20 @@ const nextStep = () => {
 
 const prevStep = () => {
   authStore.setStep(EStepDirection.prev, props.scope);
+
+  if (
+    props.scope === 'registration' &&
+    authStore.getState.steps.registration === 1
+  ) {
+    router.push({
+      path: router.currentRoute.value.path,
+      query: {
+        step: 0,
+      },
+    });
+
+    return;
+  }
 
   if (step.value) {
     router.push({

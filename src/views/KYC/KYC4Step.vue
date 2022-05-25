@@ -34,6 +34,7 @@ import { cropImage } from '@/helpers/image';
 import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
+import { useErrorsStore } from '@/stores/errors';
 
 const emit = defineEmits(['next', 'prev']);
 
@@ -41,6 +42,7 @@ const kycStore = useKYCStore();
 
 const { tm } = useI18n();
 const route = useRoute();
+const errorsStore = useErrorsStore();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
 
@@ -103,6 +105,8 @@ const startCamera = async () => {
     await CameraPreview.stop();
 
     await CameraPreview.start(cameraPreviewOptions);
+
+    errorsStore.handle(err, 'KYC4step', 'startCamera', 'start camera error');
   }
 };
 
@@ -133,6 +137,7 @@ const stopCamera = () => {
   try {
     CameraPreview.stop();
   } catch (err) {
+    errorsStore.handle(err, 'KYC4step', 'stopCamera', 'stop camera error');
     throw err;
   }
 };

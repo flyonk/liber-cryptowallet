@@ -17,6 +17,7 @@ import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
 import { formatPhone } from '@/helpers/2fa';
 import { useAuthStore } from '@/stores/auth';
+import { useErrorsStore } from '@/stores/errors';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
@@ -72,8 +73,16 @@ const onComplete = async (code: string) => {
       } else {
         isError.value = true;
       }
-    } catch (error) {
+    } catch (err) {
       isError.value = true;
+      const errorsStore = useErrorsStore();
+
+      errorsStore.handle(
+        err,
+        'ConfigureAppVuetify',
+        'onComplete',
+        'confirm verification code incorrect'
+      );
     }
   }
 };

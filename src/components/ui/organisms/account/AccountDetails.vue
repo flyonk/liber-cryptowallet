@@ -156,7 +156,7 @@ const copyToClipboard = async () => {
       err,
       'AccountDetails',
       'copyToClipboard',
-      tm('views.deposit.wallet.copyFailure')
+      tm('views.deposit.wallet.copyFailure') as string
     );
   }
 };
