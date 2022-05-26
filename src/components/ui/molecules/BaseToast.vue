@@ -6,9 +6,10 @@
     class="base-toast"
     v-bind="$attrs"
     dismissable-mask
+    @update:visible="$emit('update:visible', $event)"
   >
     <div class="close-wrapper" />
-    <div class="image-block">
+    <div class="image-block" @click="onSeverityIconClick">
       <img :src="currentImage" :alt="severity" class="image" />
     </div>
     <div class="header">
@@ -35,6 +36,12 @@ const props = defineProps({
     default: 'error',
   },
 });
+
+const emit = defineEmits(['update:visible']);
+
+const onSeverityIconClick = () => {
+  emit('update:visible');
+};
 
 const currentImage = computed(() => {
   switch (props.severity) {
