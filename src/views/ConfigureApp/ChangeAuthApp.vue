@@ -17,7 +17,10 @@
           {{ $t('configureApp.changeAppMessage') }}
         </p>
         <div class="flex">
-          <img class="icon" src="@/assets/icon/google.svg" />
+          <img
+            class="icon"
+            :src="`${STATIC_BASE_URL}/static/menu/google.svg`"
+          />
           <p class="text">
             {{ $t('views.profile.profileSettings.2FAGoogle') }}
           </p>
@@ -75,6 +78,7 @@ import { Route } from '@/router/types';
 import { use2faStore } from '@/stores/2fa';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
+import { STATIC_BASE_URL } from '@/constants';
 
 import InputSwitch from 'primevue/inputswitch';
 
