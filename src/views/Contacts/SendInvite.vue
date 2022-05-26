@@ -7,7 +7,10 @@
     <template #subtitle>
       <p class="userinfo">
         liber.com/@abrahamwatson-xa..
-        <img src="@/assets/icon/copy.svg" class="ml-auto" /></p
+        <img
+          :src="`${STATIC_BASE_URL}/static/menu/copy.svg`"
+          class="ml-auto"
+        /></p
     ></template>
     <template #content>
       <ul class="invite-list">
@@ -48,6 +51,8 @@ import { computed, ref } from 'vue';
 
 import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+
+import { STATIC_BASE_URL } from '@/constants';
 
 const newContacts = ref([
   {

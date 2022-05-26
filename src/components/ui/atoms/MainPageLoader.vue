@@ -1,10 +1,12 @@
 <template>
   <div class="main-loader">
-    <img src="@/assets/icon/logomark.svg" class="rotating" />
+    <img :src="`${STATIC_BASE_URL}/static/media/logomark.svg`" />
   </div>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { STATIC_BASE_URL } from '@/constants';
+</script>
 
 <style lang="scss" scoped>
 .main-loader {

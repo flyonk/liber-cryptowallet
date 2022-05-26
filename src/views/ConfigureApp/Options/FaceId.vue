@@ -33,22 +33,19 @@ import { BaseButton, TTopNavigation } from '@/components/ui';
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
 import { verifyIdentity } from '@/helpers/identification';
-import { useErrorsStore } from '@/stores/errors';
 
-const errorsStore = useErrorsStore();
 const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
-const onEnable = (): void => {
-  verifyIdentity()
-    .then(() => {
-      setOptions('true', EStorageKeys.faceid);
-      router.push({ name: Route.PushNotifications });
-    })
-    .catch((err) => {
-      errorsStore.handle(err, 'FaceId', 'onEnable', 'verify identity error');
-    });
+const onEnable = async (): Promise<void> => {
+  const state = await verifyIdentity();
+
+  if (state) {
+    await setOptions('true', EStorageKeys.faceid);
+  }
+
+  await router.push({ name: Route.PushNotifications });
 };
 
 const onCancel = (): void => {

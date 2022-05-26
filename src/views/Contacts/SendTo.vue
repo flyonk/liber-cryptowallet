@@ -8,7 +8,7 @@
       <div class="header sendto-header">
         <img
           class="back mr-2"
-          src="@/assets/icon/arrow-left.svg"
+          :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
           alt="arrow-left"
           @click="$router.push({ name: Route.PayRecepientsPhone })"
         />
@@ -134,6 +134,7 @@ import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
+import { STATIC_BASE_URL } from '@/constants';
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);

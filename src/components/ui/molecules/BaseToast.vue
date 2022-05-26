@@ -29,6 +29,8 @@
 <script setup lang="ts">
 import { computed } from 'vue-demi';
 
+import { STATIC_BASE_URL } from '@/constants';
+
 const props = defineProps({
   severity: {
     type: String,
@@ -39,13 +41,13 @@ const props = defineProps({
 const currentImage = computed(() => {
   switch (props.severity) {
     case 'error':
-      return require('@/assets/images/sapphire-error.svg');
+      return `${STATIC_BASE_URL}/static/media/sapphire-error.svg`;
     case 'confirmation':
-      return require('@/assets/images/confirmation.svg');
+      return `${STATIC_BASE_URL}/static/media/confirmation.svg`;
     case 'attention':
-      return require('@/assets/images/attention.svg');
+      return `${STATIC_BASE_URL}/static/media/attention.svg`;
     default:
-      return require('@/assets/images/sapphire-error.svg');
+      return `${STATIC_BASE_URL}/static/media/sapphire-error.svg`;
   }
 });
 </script>

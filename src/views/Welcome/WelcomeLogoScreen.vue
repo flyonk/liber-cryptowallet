@@ -1,7 +1,7 @@
 <template>
   <div class="welcome-screen" :style="stylePaddings">
     <main-page-loader v-if="loading" />
-    <img v-else src="@/assets/images/liber-logo.png" alt="logo" />
+    <img v-else :src="`${STATIC_BASE_URL}/static/media/logo.png`" alt="logo" />
   </div>
 </template>
 
@@ -13,6 +13,7 @@ import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
+import { STATIC_BASE_URL } from '@/constants';
 import MainPageLoader from '@/components/ui/atoms/MainPageLoader.vue';
 
 import { Route } from '@/router/types';

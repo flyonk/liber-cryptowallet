@@ -244,15 +244,6 @@
       "recepients": "Recepients",
       "add": "Add a new contact"
     },
-    "aboutpage": {
-      "home": "Home",
-      "about": "About",
-      "thisIsAn": "This is an about page"
-    },
-    "homepage": {
-      "home": "Home",
-      "about": "About"
-    },
     "depositecoin": {
       "depositewalletprint": {
         "depositBtc": "Deposit BTC",
@@ -421,8 +412,8 @@
         "logoutConfirmation": "Are you sure to logging out from this account?",
         "logoutAccept": "Yes",
         "logoutDecline": "No",
-        "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
-        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?",
+        "confirmNativeVerificationTitle": "Disable",
+        "confirmNativeVerification": "Are you sure to disable",
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language"
@@ -528,5 +519,11 @@
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
     "details": "Details"
+  },
+  "biometricConfirmation": {
+    "title": "Change settings",
+    "descriptionFirstPart": "To enable",
+    "descriptionSecondPart": "please, toggle on Application Settings",
+    "descriptionThirdPart": "option"
   }
 }
