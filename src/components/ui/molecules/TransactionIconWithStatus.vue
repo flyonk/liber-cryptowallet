@@ -57,7 +57,7 @@ const styles = computed(() => ({
 const pathToImage = computed(() => {
   const directory = props.isCurrency ? 'currencies' : 'transactions';
 
-  return `${STATIC_BASE_URL}/${directory}/${props.imgPath}.svg`;
+  return `${STATIC_BASE_URL}/static/${directory}/${props.imgPath}.svg`;
 });
 
 const pathToStatus = computed(() => {

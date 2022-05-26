@@ -27,7 +27,7 @@
         0
       </div>
       <div class="number-button" @click="clear">
-        <img alt src="@/assets/icon/clear-button.svg" />
+        <img alt :src="`${STATIC_BASE_URL}/statis/media/clear-button.svg`" />
       </div>
     </div>
   </div>
@@ -40,6 +40,7 @@ import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { usePasscodeStore } from '@/stores/passcode';
 import { useMfaStore } from '@/stores/mfa';
 import { set } from '@/helpers/storage';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { EStorageKeys } from '@/types/storage';
 import { EPasscodeActions } from '@/types/base-component';
@@ -126,10 +127,10 @@ onBeforeMount(async (): Promise<void> => {
   const option = await getSupportedOptions();
 
   if (option === 'face-id') {
-    identificationIcon.value = require('@/assets/icon/faceid.svg');
+    identificationIcon.value = `${STATIC_BASE_URL}/static/media/faceid.svg`;
   }
   if (option === 'touch-id') {
-    identificationIcon.value = require('@/assets/icon/touchid.svg');
+    identificationIcon.value = `${STATIC_BASE_URL}/static/menu/touchid.svg`;
   }
 });
 

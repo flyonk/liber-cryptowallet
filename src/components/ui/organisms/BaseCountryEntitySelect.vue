@@ -37,7 +37,7 @@
             <img
               v-if="isSelectedCountry(country)"
               class="icon"
-              src="@/assets/icon/check.svg"
+              :src="`${STATIC_BASE_URL}/static/menu/check.svg`"
             />
           </div>
         </div>
@@ -52,6 +52,7 @@ import { PropType } from 'vue-demi';
 
 import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
 import BaseSearchInput from '@/components/ui/atoms/BaseSearchInput.vue';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 

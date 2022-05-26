@@ -23,7 +23,7 @@
       <div v-if="!showCloseAccount" class="account-settings">
         <div class="controls" style="display: none">
           <button class="btn -blue">
-            <img class="icon" src="@/assets/icon/user_heart.svg" />
+            <img class="icon" :src="`${menuStaticFolder}user_heart.svg`" />
             {{ $t('views.profile.profileSettings.invite') }}
           </button>
           <button class="btn -white">
@@ -39,7 +39,7 @@
               class="item"
               @click="$router.push({ name: Route.ProfileMyQrCode })"
             >
-              <img class="icon" src="@/assets/icon/qr-mini.svg" />
+              <img class="icon" :src="`${menuStaticFolder}qr-mini.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.QRCode') }}
               </p>
@@ -48,19 +48,19 @@
               :to="{ name: Route.ProfileEdit, params: { id: '1' } }"
               class="item"
             >
-              <img class="icon" src="@/assets/icon/user_circle.svg" />
+              <img class="icon" :src="`${menuStaticFolder}user_circle.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.details') }}
               </p>
             </router-link>
             <router-link :to="{ name: Route.AccountMain }" class="item">
-              <img class="icon" src="@/assets/icon/data.svg" />
+              <img class="icon" :src="`${menuStaticFolder}data.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.allAccounts') }}
               </p>
             </router-link>
             <router-link :to="{ name: Route.ProfileHelp }" class="item">
-              <img class="icon" src="@/assets/icon/help_circle.svg" />
+              <img class="icon" :src="`${menuStaticFolder}help_circle.svg`" />
               <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
             </router-link>
           </ul>
@@ -69,7 +69,7 @@
           </h6>
           <ul class="list security--profile">
             <router-link :to="{ name: Route.ChangePasscode }" class="item">
-              <img class="icon" src="@/assets/icon/lock.svg" />
+              <img class="icon" :src="`${menuStaticFolder}lock.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.changePasscode') }}
               </p>
@@ -78,19 +78,19 @@
               class="item"
               @click="$router.push({ name: Route.ProfilePrivacy })"
             >
-              <img class="icon" src="@/assets/icon/shield.svg" />
+              <img class="icon" :src="`${menuStaticFolder}shield.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.privacy') }}
               </p>
             </li>
             <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
-              <img class="icon" src="@/assets/icon/google.svg" />
+              <img class="icon" :src="`${menuStaticFolder}google.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.2FAGoogle') }}
               </p>
             </router-link>
             <router-link class="item" disabled to="/profile/devices">
-              <img class="icon" src="@/assets/icon/devices.svg" />
+              <img class="icon" :src="`${menuStaticFolder}devices.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.devices') }}
               </p>
@@ -100,14 +100,14 @@
               class="item"
               @click="onSwitcherChange"
             >
-              <img class="icon" src="@/assets/icon/touchid.svg" />
+              <img class="icon" :src="`${menuStaticFolder}touchid.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.signIn') }}
               </p>
               <InputSwitch v-model="isTouchIdOn" class="switcher" />
             </li>
             <li v-else class="item" @click="onSwitcherChange">
-              <img class="icon" src="@/assets/icon/touchid.svg" />
+              <img class="icon" :src="`${menuStaticFolder}touchid.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.signIn') }}
               </p>
@@ -123,7 +123,7 @@
               @click="showLanguageSelect = true"
               @close="showLanguageSelect = false"
             >
-              <img class="icon" src="@/assets/icon/world.svg" />
+              <img class="icon" :src="`${menuStaticFolder}world.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.language') }}
               </p>
@@ -135,13 +135,13 @@
           </h6>
           <ul class="list label--profile">
             <li class="item" @click="showCloseAccount = true">
-              <img class="icon" src="@/assets/icon/circle_close.svg" />
+              <img class="icon" :src="`${menuStaticFolder}circle_close.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.close') }}
               </p>
             </li>
             <li class="item" @click="onLogout">
-              <img class="icon" src="@/assets/icon/log_out.svg" />
+              <img class="icon" :src="`${menuStaticFolder}log_out.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.logOut') }}
               </p>
@@ -180,6 +180,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useAppOptionsStore } from '@/stores/appOptions';
 import { useErrorsStore } from '@/stores/errors';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
@@ -197,6 +198,8 @@ const authStore = useAuthStore();
 const appOptionsStore = useAppOptionsStore();
 const errorsStore = useErrorsStore();
 const { tm } = useI18n();
+
+const menuStaticFolder = ref(`${STATIC_BASE_URL}/static/menu/`);
 
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;

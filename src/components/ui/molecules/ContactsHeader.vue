@@ -7,12 +7,16 @@
     />
     <img
       v-else
-      src="@/assets/icon/arrow-left.svg"
+      :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
       alt="arrow-left"
       @click="$router.push({ name: props.routeBack })"
     />
     <div class="flex">
-      <img class="mr-3" src="@/assets/icon/system_qr.svg" alt="circle-add" />
+      <img
+        class="mr-3"
+        :src="`${STATIC_BASE_URL}/static/menu/system_qr.svg`"
+        alt="circle-add"
+      />
       <i
         class="icon-plus_circle circle-add"
         @click="$router.push({ name: Route.ContactsAddNewContact })"
@@ -23,6 +27,8 @@
 
 <script lang="ts" setup>
 import { Route } from '@/router/types';
+
+import { STATIC_BASE_URL } from '@/constants';
 
 const props = defineProps({
   avatarIcon: {
