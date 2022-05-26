@@ -7,7 +7,7 @@ import { openIosAppSettings } from '@/helpers/settings';
 /**
  * Function tries to get permission from native settings
  *
- * @returns {void}
+ * @returns {boolean}
  */
 async function _getPermission() {
   const identifier = await getSupportedOptions();
@@ -31,7 +31,10 @@ async function _getPermission() {
   if (approve) {
     //TODO after returning to app click face id toggle again
     await openIosAppSettings();
+    return true;
   }
+
+  return false;
 }
 
 /**
@@ -50,9 +53,7 @@ export async function verifyIdentity(): Promise<boolean | undefined> {
       error.errorMessage &&
       error.errorMessage === 'Authentication not available'
     ) {
-      await _getPermission();
-
-      return false;
+      return await _getPermission();
     }
   }
 }

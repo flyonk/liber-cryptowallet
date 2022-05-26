@@ -45,7 +45,9 @@ const onEnable = async (): Promise<void> => {
     await setOptions('true', EStorageKeys.faceid);
   }
 
-  await router.push({ name: Route.PushNotifications });
+  if (state !== false) {
+    router.push({ name: Route.PushNotifications });
+  }
 };
 
 const onCancel = (): void => {
