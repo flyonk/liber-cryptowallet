@@ -6,20 +6,27 @@
   <ul class="menu-list">
     <li class="item" @click="$router.push('/account')">
       <div class="image-wrap">
-        <img src="@/assets/icon/all-accounts.svg" alt="all" />
+        <img
+          :src="`${STATIC_BASE_URL}/static/currencies/all-accounts.svg`"
+          alt="all"
+        />
       </div>
       <p class="name">All Accounts</p>
       <p class="price">€2.00</p>
     </li>
     <li class="item" @click="$router.push('/home')">
       <div class="image-wrap">
-        <img src="@/assets/icon/currencies/btc.svg" alt="btc" />
+        <img :src="`${STATIC_BASE_URL}/static/currencies/btc.svg`" alt="btc" />
       </div>
       <p class="name">BTC</p>
       <p class="price">0.001</p>
     </li>
   </ul>
 </template>
+
+<script setup lang="ts">
+import { STATIC_BASE_URL } from '@/constants';
+</script>
 
 <style lang="scss" scoped>
 .menu-header {

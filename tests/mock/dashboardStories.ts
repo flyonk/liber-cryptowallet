@@ -14,7 +14,7 @@ export const stories: TDashboardStory[] = [
   {
     status: 'In Progress',
     description: 'We’re verifying your ID',
-    imgSrc: `${STATIC_BASE_URL}/todo/empty-profile.svg`,
+    imgSrc: `${STATIC_BASE_URL}/static/todo/empty-profile.svg`,
     text: 'blue',
     route: Route.DashboardVerifyingStory,
     color: 'blue',
@@ -22,7 +22,7 @@ export const stories: TDashboardStory[] = [
   {
     status: 'Required',
     description: 'Verify your email address',
-    imgSrc: `${STATIC_BASE_URL}/todo/mail.svg`,
+    imgSrc: `${STATIC_BASE_URL}/static/todo/mail.svg`,
     text: 'blue',
     route: Route.DashboardStory,
     color: 'blue',
@@ -30,7 +30,7 @@ export const stories: TDashboardStory[] = [
   {
     status: 'Recommend',
     description: 'Get your first crypto property',
-    imgSrc: `${STATIC_BASE_URL}/todo/wallet.svg`,
+    imgSrc: `${STATIC_BASE_URL}/static/todo/wallet.svg`,
     text: 'green',
     route: Route.DashboardHome,
     color: 'green',
@@ -38,7 +38,7 @@ export const stories: TDashboardStory[] = [
   {
     status: '_',
     description: 'How can we reach you?',
-    imgSrc: `${STATIC_BASE_URL}/todo/mail.svg`,
+    imgSrc: `${STATIC_BASE_URL}/static/todo/mail.svg`,
     text: 'black',
     route: Route.DashboardTransferFundsToTreasuryStory,
     color: 'yellow',

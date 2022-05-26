@@ -47,7 +47,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css"; @import "${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/libs/iconmoon.css"; @import "${process.env.VUE_APP_STATIC_BASE_URL}/build/fonts/${whitelabelConfigPath.brand}/font.css";`,
+        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css";`,
       },
     },
   },

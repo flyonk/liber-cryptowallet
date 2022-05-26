@@ -283,7 +283,7 @@ function getCorrectValue(value: number) {
 }
 
 function getEmptyCoinImageSrc() {
-  return `${STATIC_BASE_URL}/currencies/empty_token.svg`;
+  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
