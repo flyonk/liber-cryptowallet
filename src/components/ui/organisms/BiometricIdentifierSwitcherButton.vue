@@ -43,11 +43,13 @@ const onSwitcherChange = async () => {
     identifierType.value === 'face-id' ? 'Face ID' : 'Touch ID';
 
   if (!isEnabled.value) {
-    await verifyIdentity();
+    const state = await verifyIdentity();
 
-    await appOptionsStore.setOptions('true', key);
+    if (state) {
+      await appOptionsStore.setOptions('true', key);
+    }
 
-    isEnabled.value = true;
+    isEnabled.value = state as boolean;
   } else {
     const submitted = await showConfirm({
       title:

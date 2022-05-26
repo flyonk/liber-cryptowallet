@@ -3563,6 +3563,11 @@ capacitor-native-biometric@^3.0.3:
   dependencies:
     "@capacitor/core" "^3.4.3"
 
+capacitor-native-settings@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/capacitor-native-settings/-/capacitor-native-settings-0.2.0.tgz#4d127c92417e286b0966201c6cba9345bae71d79"
+  integrity sha512-wzrFtCNaI25fwgjLtCZKVZS9fwIJg5CaxBqZ7MbFuBAuyhpmX7kLSh5YXhtfE7wzuMzsguwIghCDnm7qYJ7r9w==
+
 capacitor-plugin-safe-area@^0.0.3:
   version "0.0.3"
   resolved "https://registry.yarnpkg.com/capacitor-plugin-safe-area/-/capacitor-plugin-safe-area-0.0.3.tgz#ca5539390015d80bfdbeb734285f86b9fdd1f706"
