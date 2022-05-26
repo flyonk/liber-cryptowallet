@@ -3,8 +3,8 @@
     <swiper-stories-slider>
       <SwiperSlide v-for="item in 2" :key="item">
         <stories-slider-example-story
-          :base-img="require('@/assets/images/money.svg')"
-          :logo-img="require('@/assets/images/full-logo-white.png')"
+          :base-img="`${STATIC_BASE_URL}/static/illustrations/onboarding/step-1.png`"
+          :logo-img="`${STATIC_BASE_URL}/static/media/logo-white.png`"
           :header-title="$t('auth.signup.welcomeAuth.title')"
           :base-title="$t('auth.signup.welcomeAuth.transfer')"
           :login-title="$t('auth.signup.welcomeAuth.login')"
@@ -21,6 +21,8 @@
 <script setup lang="ts">
 import StoriesSliderExampleStory from '@/components/ui/organisms/StoriesSliderExampleStory.vue';
 import SwiperStoriesSlider from '@/components/ui/molecules/SwiperStoriesSlider.vue';
+
+import { STATIC_BASE_URL } from '@/constants';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import { SwiperSlide } from 'swiper/vue';

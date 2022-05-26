@@ -25,7 +25,10 @@
       <div class="menu-list">
         <div class="item" @click="$emit('select', 'all')">
           <div class="image-wrap">
-            <img alt="all" src="@/assets/icon/all-accounts.svg" />
+            <img
+              :src="`${STATIC_BASE_URL}/static/currencies/all-accounts.svg`"
+              alt="all"
+            />
           </div>
           <p class="name">
             {{ $t('views.dashboard.home.allAccounts') }}
@@ -54,6 +57,7 @@ import { getSymbolByCode } from '@/helpers/currency';
 import { useAccountStore } from '@/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { BaseAccount, BaseBottomSheet, BaseSearchInput } from '@/components/ui';
 

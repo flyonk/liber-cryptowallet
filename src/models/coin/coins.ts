@@ -32,5 +32,5 @@ export default {
 
 function _getSrcImageUrl(name: string) {
   //TODO change to real image from service
-  return `${STATIC_BASE_URL}/currencies/${name.toLowerCase()}.svg`;
+  return `${STATIC_BASE_URL}/static/currencies/${name.toLowerCase()}.svg`;
 }

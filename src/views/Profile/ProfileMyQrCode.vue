@@ -23,7 +23,7 @@
           <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
           <div class="flex">
             <a class="link-to"> liber.me/{{ link }}</a>
-            <img src="@/assets/icon/copy.svg" alt="copy" />
+            <img :src="`${STATIC_BASE_URL}/static/menu/copy.svg`" alt="copy" />
           </div>
         </div>
       </div>
@@ -48,6 +48,7 @@ import { useProfileStore } from '@/stores/profile';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { TTopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
 
 const profileStore = useProfileStore();
 
