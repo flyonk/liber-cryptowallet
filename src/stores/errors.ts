@@ -1,13 +1,14 @@
 import { defineStore } from 'pinia';
 import errorService from '@/services/errorService';
 import { AxiosError } from 'axios';
+import { Component } from 'vue';
 
 interface IError {
   err: AxiosError | Error | unknown;
   name: string;
   ctx: string;
   description?: string;
-  customErrorComponent?: any;
+  customErrorComponent?: Component;
 }
 
 interface IErrors {
@@ -34,11 +35,10 @@ export const useErrorsStore = defineStore('errors', {
       name: string,
       ctx: string,
       description?: string,
-      customErrorComponent?: any
+      customErrorComponent?: Component
     ): Promise<void> {
-      console.log(customErrorComponent);
       this.errors.push({ err, name, ctx, description, customErrorComponent });
-      // await errorService.logError(err, name, ctx, description);
+      await errorService.logError(err, name, ctx, description);
     },
 
     async multiErrorHandler(

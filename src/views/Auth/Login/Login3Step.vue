@@ -8,22 +8,6 @@
           class="login-passcode"
           @submit="onSubmit"
         />
-        <!-- <base-toast v-model:visible="showErrorToast" severity="error">
-          <template #description>
-            <div>
-              {{ $t('auth.login.step3InvalidInput') }}
-              {{ authStore.getLoginPhone }}
-            </div>
-          </template>
-          <template #footer>
-            <div class="base-toast-footer">
-              {{ $t('auth.login.step3FooterTitle') }}
-              <router-link :to="{ name: Route.SignUp }" class="link">
-                {{ $t('auth.login.step3FooterCta') }}
-              </router-link>
-            </div>
-          </template>
-        </base-toast> -->
       </div>
       <div v-else>
         <auth2-f-a-verification-component
@@ -42,29 +26,29 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, markRaw, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
+import { BasePasscode, TTopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscodeError.vue';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+import { useI18n } from 'vue-i18n';
 
 const router = useRouter();
+const { t } = useI18n();
 
 const authStore = useAuthStore();
 const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
+const errorsStore = useErrorsStore();
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const showErrorToast = ref(false);
 const show2FA = ref(false);
 
 appOptionsStore.init();
@@ -90,14 +74,14 @@ async function onSubmit(success: boolean): Promise<void> {
       });
     }
   } else {
-    // showErrorToast.value = true;
-    const errorsStore = useErrorsStore();
+    const errorDescription =
+      t('auth.login.step3InvalidInput') + ' ' + authStore.getLoginPhone;
     errorsStore.handle(
       new Error('test'),
       'Login3Step',
       'onSubmit',
-      'something wrong in onSubmit',
-      Login3StepPasscodeErrorVue
+      errorDescription,
+      markRaw(Login3StepPasscodeErrorVue)
     );
   }
 }
