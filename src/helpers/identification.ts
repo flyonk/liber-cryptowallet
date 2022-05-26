@@ -1,12 +1,64 @@
 import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
-import { useErrorsStore } from '@/stores/errors';
 
-export function verifyIdentity() {
-  return NativeBiometric.verifyIdentity();
+import { useErrorsStore } from '@/stores/errors';
+import { showConfirm } from '@/helpers/nativeDialog';
+import { openIosAppSettings } from '@/helpers/settings';
+
+/**
+ * Function tries to get permission from native settings
+ *
+ * @returns {void}
+ */
+async function _getPermission() {
+  const identifier = await getSupportedOptions();
+
+  const textsForIdentifier = {
+    'face-id': 'Face ID',
+    'touch-id': 'Touch ID',
+  };
+
+  const identifierText =
+    textsForIdentifier[identifier as 'face-id' | 'touch-id'] ||
+    textsForIdentifier['face-id'];
+
+  const approve = await showConfirm({
+    title: 'Change settings',
+    message: `To enable ${identifierText} please, toggle on Application Settings ${identifierText} option`,
+    okButtonTitle: 'Ok',
+    cancelButtonTitle: 'Cancel',
+  });
+
+  if (approve) {
+    //TODO after returning to app click face id toggle again
+    await openIosAppSettings();
+  }
 }
 
 /**
- * Fuction to check support faceId and TouchId
+ * Function tries to enable biometrical identification
+ *
+ * @returns {boolean}
+ */
+export async function verifyIdentity(): Promise<boolean | undefined> {
+  try {
+    await NativeBiometric.verifyIdentity();
+
+    return true;
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (error: any) {
+    if (
+      error.errorMessage &&
+      error.errorMessage === 'Authentication not available'
+    ) {
+      await _getPermission();
+
+      return false;
+    }
+  }
+}
+
+/**
+ * Function to check support faceId and TouchId
  *
  * @returns {string} allowed values: ['touch-id', 'face-id', '']
  */

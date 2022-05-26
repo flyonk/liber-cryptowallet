@@ -105,8 +105,8 @@ const onSubmit = getSubmitFunction(props.actionType);
 const showTouchId = () => {
   if (identificationIcon.value) {
     verifyIdentity()
-      .then(() => {
-        emit('submit', true);
+      .then((state) => {
+        emit('submit', state);
       })
       .catch((err) => {
         emit('submit', false);
