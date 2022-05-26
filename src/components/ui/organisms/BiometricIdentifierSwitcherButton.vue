@@ -1,6 +1,6 @@
 <template>
   <li class="item" @click="onSwitcherChange">
-    <img class="icon" alt src="@/assets/icon/touchid.svg" />
+    <img class="icon" alt :src="`${menuStaticFolder}touchid.svg`" />
     <p class="text">
       {{ $t('views.profile.profileSettings.signIn') }}
     </p>
@@ -18,6 +18,7 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
 import InputSwitch from 'primevue/inputswitch';
+import { STATIC_BASE_URL } from '@/constants';
 
 const { tm } = useI18n();
 const appOptionsStore = useAppOptionsStore();
@@ -32,6 +33,8 @@ const setIdentificationOption = async () => {
     identifierType.value = option;
   }
 };
+
+const menuStaticFolder = ref(`${STATIC_BASE_URL}/static/menu/`);
 
 const onSwitcherChange = async () => {
   const key =
