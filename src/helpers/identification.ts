@@ -23,8 +23,8 @@ async function _getPermission() {
 
   const approve = await showConfirm({
     title: 'Change settings',
-    message: `To enable ${identifierText} please, toggle on Application Settings ${identifierText} option`,
-    okButtonTitle: 'Ok',
+    message: `To enable ${identifierText} please toggle on Application Settings ${identifierText} option`,
+    okButtonTitle: 'OK',
     cancelButtonTitle: 'Cancel',
   });
 
