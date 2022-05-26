@@ -132,10 +132,18 @@ defineProps({
 const pasteFromClipboard = async () => {
   try {
     const content = await Clipboard.read();
-    if (content.type === 'text/plain') {
+
+    if (content && content.type === 'text/plain') {
       emit('onComplete', content.value);
     }
-  } catch (err) {
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (err: any) {
+    if (
+      err.errorMessage &&
+      err.errorMessage === 'There is no data on the clipboard'
+    ) {
+      return;
+    }
     errorsStore.handle(
       err,
       'EnterVerificationCode',

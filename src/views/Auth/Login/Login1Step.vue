@@ -58,7 +58,9 @@ const countryDialCode = ref('');
 
 onMounted(async () => {
   //Check if user is authorized
-  if (await authStore.checkAuthorizedUser()) authStore.setStep(2, 'login');
+  if (await authStore.checkAuthorizedUser()) {
+    authStore.setStep(2, 'login');
+  }
 
   await authStore.getFromStorage();
 

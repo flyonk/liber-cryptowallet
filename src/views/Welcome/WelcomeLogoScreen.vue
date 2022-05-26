@@ -37,7 +37,8 @@ onMounted(() => {
         !(await appOptionsStore.checkPassCode()) //TODO: check user status when backend is ready
           ? (route = Route.SignUp)
           : authStore.setStep(2, 'login');
-        router.push({ name: route });
+
+        await router.push({ name: route });
       } else {
         router.push('/welcome-auth');
       }
