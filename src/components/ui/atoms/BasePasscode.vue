@@ -27,7 +27,7 @@
         0
       </div>
       <div class="number-button" @click="clear">
-        <img alt :src="`${STATIC_BASE_URL}/statis/media/clear-button.svg`" />
+        <img alt :src="`${STATIC_BASE_URL}/static/media/clear-button.svg`" />
       </div>
     </div>
   </div>
