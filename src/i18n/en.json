@@ -398,7 +398,7 @@
         "privacy": "Privacy",
         "2FAGoogle": "2FA: Google Authenticator",
         "devices": "Devices",
-        "signIn": "Sign in with Touch ID",
+        "signIn": "Sign in with Biometrics",
         "label": "Label",
         "system": "System",
         "close": "Close account",
