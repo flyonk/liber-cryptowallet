@@ -41,11 +41,13 @@ const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
-const onEnable = (): void => {
-  setOptions('true', EStorageKeys.touchid);
+const onEnable = async (): Promise<void> => {
+  const state = await verifyIdentity();
 
-  verifyIdentity();
-  router.push({ name: Route.PushNotifications });
+  if (state) {
+    setOptions('true', EStorageKeys.touchid);
+    router.push({ name: Route.PushNotifications });
+  }
 };
 
 const onCancel = (): void => {

@@ -95,24 +95,7 @@
                 {{ $t('views.profile.profileSettings.devices') }}
               </p>
             </router-link>
-            <li
-              v-if="touchFaceIdSwitcher"
-              class="item"
-              @click="onSwitcherChange"
-            >
-              <img class="icon" :src="`${menuStaticFolder}touchid.svg`" />
-              <p class="text">
-                {{ $t('views.profile.profileSettings.signIn') }}
-              </p>
-              <InputSwitch v-model="isTouchIdOn" class="switcher" />
-            </li>
-            <li v-else class="item" @click="onSwitcherChange">
-              <img class="icon" :src="`${menuStaticFolder}touchid.svg`" />
-              <p class="text">
-                {{ $t('views.profile.profileSettings.signIn') }}
-              </p>
-              <InputSwitch :model-value="isTouchIdOn" class="switcher" />
-            </li>
+            <biometric-identifier-switcher-button />
           </ul>
           <h6 class="subtitle">
             {{ $t('views.profile.profileSettings.appearance') }}
@@ -178,24 +161,22 @@ import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
-import { useAppOptionsStore } from '@/stores/appOptions';
 import { useErrorsStore } from '@/stores/errors';
 import { STATIC_BASE_URL } from '@/constants';
 
-import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
-import { EStorageKeys } from '@/types/storage';
 import { showConfirm } from '@/helpers/nativeDialog';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
-import InputSwitch from 'primevue/inputswitch';
-import { TTopNavigation } from '@/components/ui';
+import {
+  TTopNavigation,
+  BiometricIdentifierSwitcherButton,
+} from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 
 const route = useRouter();
 const authStore = useAuthStore();
-const appOptionsStore = useAppOptionsStore();
 const errorsStore = useErrorsStore();
 const { tm } = useI18n();
 
@@ -213,51 +194,8 @@ if (lastName == null) {
 const accountName = ref(`${firstName} ${lastName}`);
 const accountID = ref(`${phone}`);
 const showCloseAccount = ref(false);
-const { faceid, touchid } = appOptionsStore.getOptions;
-const isTouchIdOn = ref(faceid || touchid);
-const touchFaceIdSwitcher = ref('');
 const showLanguageSelect = ref(false);
 const { locale } = useI18n({ useScope: 'global' });
-
-const onSwitcherChange = async () => {
-  const value = isTouchIdOn.value ? 'true' : '';
-
-  const key =
-    touchFaceIdSwitcher.value === 'face-id'
-      ? EStorageKeys.faceid
-      : EStorageKeys.touchid;
-
-  if (!isTouchIdOn.value) {
-    await verifyIdentity();
-
-    appOptionsStore.setOptions(value, key);
-
-    isTouchIdOn.value = true;
-  } else {
-    const submitted = await showConfirm({
-      title: tm(
-        'views.profile.profileSettings.confirmNativeVerificationTitle'
-      ) as string,
-      message: tm(
-        'views.profile.profileSettings.confirmNativeVerification'
-      ) as string,
-      okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
-      cancelButtonTitle: tm(
-        'views.profile.profileSettings.logoutDecline'
-      ) as string,
-    });
-
-    if (submitted) {
-      appOptionsStore.setOptions('', key);
-    }
-
-    isTouchIdOn.value = false;
-  }
-};
-
-/**
- * Lifecycles
- */
 
 onMounted(async () => {
   if (!profileStore.getUser.id)
@@ -269,15 +207,6 @@ onMounted(async () => {
       lastName = user?.lastName;
       accountName.value = `${firstName} ${lastName}`;
       accountID.value = phone;
-
-      await appOptionsStore.init();
-      isTouchIdOn.value =
-        appOptionsStore.getOptions.faceid || appOptionsStore.getOptions.touchid;
-      const option = await getSupportedOptions();
-
-      if (option === 'face-id' || option === 'touch-id') {
-        touchFaceIdSwitcher.value = option;
-      }
     } catch (err) {
       errorsStore.handle(err, 'ProfileSettings', 'onMounted');
     }
@@ -317,6 +246,11 @@ async function onLogout() {
   padding-top: 10px;
   flex-grow: 1;
   overflow: auto;
+
+  //Hide scroll-bar on mobile device
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   > .header {
     display: flex;
@@ -420,12 +354,9 @@ async function onLogout() {
           color: $color-brand-primary;
         }
 
-        > .switcher {
-          margin-left: auto;
-        }
-
         > .selected-language {
           margin-left: auto;
+          margin-right: 12px;
         }
       }
     }

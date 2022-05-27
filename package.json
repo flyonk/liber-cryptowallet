@@ -45,6 +45,7 @@
     "@types/lodash": "^4.14.179",
     "axios": "^0.25.0",
     "capacitor-native-biometric": "^3.0.3",
+    "capacitor-native-settings": "^0.2.0",
     "capacitor-plugin-safe-area": "^0.0.3",
     "capacitor-secure-storage-plugin": "^0.6.2",
     "core-js": "^3.6.5",
