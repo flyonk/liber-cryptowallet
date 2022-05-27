@@ -32,7 +32,8 @@
     "copySuccess": "Success",
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
-    "on": "On"
+    "on": "On",
+    "off": "Off"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"

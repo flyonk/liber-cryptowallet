@@ -88,8 +88,8 @@
               <p class="text">
                 {{ $t('views.profile.profileSettings.2FAGoogle') }}
               </p>
-              <p v-if="is2FAConfigured" class="text selected-language">
-                {{ $t('common.on') }}
+              <p class="text selected-language">
+                {{ is2FAConfigured ? $t('common.on') : $t('common.off') }}
               </p>
             </router-link>
             <router-link class="item" disabled to="/profile/devices">
