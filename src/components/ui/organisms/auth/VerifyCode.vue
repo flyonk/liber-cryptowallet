@@ -29,9 +29,10 @@ import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { PropType } from 'vue-demi';
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
-import { AxiosError } from 'axios';
 
-const { tm } = useI18n();
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { AxiosError } from 'axios';
+const { t, tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 const pStore = useProfileStore();
@@ -94,7 +95,7 @@ const title = computed(() => {
 });
 
 const withCountdown = computed(() => {
-  return is2fa.value;
+  return !is2fa.value;
 });
 
 const prevStep = () => {
@@ -155,9 +156,22 @@ const onComplete = async (data: string) => {
       // use 2fa
       _otp.value = otp;
       is2fa.value = true;
+      verificationCode.value = '';
+      errorsStore.handle(
+        err,
+        'VerifyCode.vue',
+        'onComplete',
+        t('auth.login.step4VerificationError')
+      );
       return;
     }
 
+    errorsStore.handle(
+      err,
+      'VerifyCode.vue',
+      'onComplete',
+      t('auth.login.step4VerificationError')
+    );
     isError.value = true;
 
     errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');

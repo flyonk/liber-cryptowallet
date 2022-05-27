@@ -31,7 +31,8 @@
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
     "paymentoptions": "Payment Options",
-    "confirmChanging": "Confirm changing"
+    "confirmChanging": "Confirm changing",
+    "pasteClipboardError": "An error occurred when pasting from the clipboard"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -518,7 +519,8 @@
     "serviceUnavailable": "Service unavailable",
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
-    "details": "Details"
+    "details": "Details",
+    "login2Step": "Invalid secret code"
   },
   "biometricConfirmation": {
     "title": "Change settings",
