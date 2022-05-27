@@ -15,6 +15,6 @@ const authStore = useAuthStore();
 const components = computed(() => [Login1Step, Login2Step, Login3Step]);
 
 onBeforeUnmount(() => {
-  authStore.setStep(1, 'login');
+  authStore.setStep(0, 'login');
 });
 </script>

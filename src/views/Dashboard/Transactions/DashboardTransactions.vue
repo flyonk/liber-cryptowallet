@@ -12,7 +12,7 @@
           class="icon"
           width="56"
           height="56"
-          src="@/assets/icon/currencies/tether.svg"
+          :src="`${STATIC_BASE_URL}/static/currencies/tether.svg`"
       /></template>
       <template #content>
         <div class="account-transactions">
@@ -150,6 +150,7 @@ import { useToast } from 'primevue/usetoast';
 import { check, share } from '@/helpers/nativeShare';
 
 import { TTopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
 
 const toast = useToast();
 
@@ -171,38 +172,38 @@ const transactions = [
     from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 0.0001 BTC',
     status: 'Pending',
-    img: require('@/assets/icon/transactions/received.svg'),
+    img: `${STATIC_BASE_URL}/static/transactions/received.svg`,
   },
   {
     info: `${tm('transactions.operations.deposit')} BTC`,
     from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 0.0001 BTC',
-    img: require('@/assets/icon/transactions/sent.svg'),
+    img: `${STATIC_BASE_URL}/static/transactions/sent.svg`,
   },
   {
     info: `${tm('transactions.operations.sent')} USDT`,
     from: `${tm('common.to')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
-    img: require('@/assets/icon/transactions/exchange.svg'),
+    img: `${STATIC_BASE_URL}/static/transactions/exchange.svg`,
   },
   {
     info: `${tm('transactions.operations.received')} USDT`,
     from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
     status: tm('transactions.operations.pending'),
-    img: require('@/assets/icon/transactions/received.svg'),
+    img: `${STATIC_BASE_URL}/static/transactions/received.svg`,
   },
   {
     info: `${tm('transactions.operations.deposit')} USDT`,
     from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
-    img: require('@/assets/icon/transactions/sent.svg'),
+    img: `${STATIC_BASE_URL}/static/transactions/sent.svg`,
   },
   {
     info: `${tm('transactions.operations.sent')} USDT`,
     from: `${tm('common.from')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
-    img: require('@/assets/icon/transactions/exchange.svg'),
+    img: `${STATIC_BASE_URL}/static/transactions/exchange.svg`,
   },
 ];
 

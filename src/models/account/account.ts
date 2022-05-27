@@ -28,7 +28,9 @@ export default {
       code: input.code,
       baseBalanceConversion: input.base_balance || '0',
       baseBalanceConversionCode: input.base_balance_code || '€',
-      imageUrl: `${STATIC_BASE_URL}/currencies/${input.code.substring(1)}.svg`, //TODO: hack for testnet
+      imageUrl: `${STATIC_BASE_URL}/static/currencies/${input.code.substring(
+        1
+      )}.svg`, //TODO: hack for testnet
     };
   },
 };

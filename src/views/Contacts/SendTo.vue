@@ -8,7 +8,7 @@
       <div class="header sendto-header">
         <img
           class="back mr-2"
-          src="@/assets/icon/arrow-left.svg"
+          :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
           alt="arrow-left"
           @click="$router.push({ name: Route.PayRecepientsPhone })"
         />
@@ -134,6 +134,7 @@ import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
+import { STATIC_BASE_URL } from '@/constants';
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
@@ -173,10 +174,13 @@ const sendTransaction = async () => {
       mfaStore.show({
         title: 'transactions.send',
         callback: async () => {
+          console.log(JSON.stringify('test callback 1'));
           await recepientsStore.addFriend(contact);
+          console.log('test callback 2');
           transferStore.clearTransferData();
         },
       });
+      console.log('transferStore.transfer()');
       await transferStore.transfer();
     } catch (err) {
       // todo: not required handling

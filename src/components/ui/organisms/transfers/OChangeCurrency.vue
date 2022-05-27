@@ -162,10 +162,11 @@ import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 import { useErrorsStore } from '@/stores/errors';
+import { useMfaStore } from '@/stores/mfa';
 
 const errorsStore = useErrorsStore();
 
-const emit = defineEmits<{
+defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
@@ -282,7 +283,7 @@ function getCorrectValue(value: number) {
 }
 
 function getEmptyCoinImageSrc() {
-  return `${STATIC_BASE_URL}/currencies/empty_token.svg`;
+  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
@@ -361,7 +362,14 @@ async function previewChangeInfo(direction: 'from' | 'to') {
 const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
-  emit('show-2fa');
+  const mfaStore = useMfaStore();
+  mfaStore.show({
+    title: 'transactions.convertTransaction',
+    callback: async () => {
+      //
+    },
+  });
+  convertFunds();
 }
 
 async function convertFunds() {

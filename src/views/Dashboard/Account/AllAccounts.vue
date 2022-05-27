@@ -15,7 +15,10 @@
       ><div class="all-accounts">
         <ul class="currencies">
           <li class="item" @click="$router.push({ name: Route.DashboardHome })">
-            <img class="icon" src="@/assets/icon/currencies/euro.svg" />
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/currencies/euro.svg`"
+            />
             <h4 class="title">{{ totalBalance.currency }}</h4>
             <p class="description">{{ $t('views.account.allAccounts') }}</p>
             <h5 class="sum">
@@ -48,6 +51,8 @@ import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
 import { IAccount } from '@/models/account/account';
 import { TTopNavigation } from '@/components/ui';
+
+import { STATIC_BASE_URL } from '@/constants';
 
 const accountStore = useAccountStore();
 

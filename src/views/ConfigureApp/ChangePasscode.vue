@@ -7,7 +7,7 @@
 
       <div class="illustration">
         <img
-          src="https://static.dev.liber.casa/illustrations/devices.png"
+          :src="`${STATIC_BASE_URL}/static/illustrations/devices.png`"
           alt="devices"
         />
         <span class="text text--title-3 font-weight--semibold">
@@ -39,6 +39,7 @@
 import { ref } from 'vue';
 
 import { BaseButton, BasePasscode, TopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { EPasscodeActions } from '@/types/base-component';
 

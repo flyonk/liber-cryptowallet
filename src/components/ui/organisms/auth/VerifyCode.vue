@@ -32,7 +32,7 @@ import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AxiosError } from 'axios';
-const { tm } = useI18n();
+const { t, tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 const pStore = useProfileStore();
@@ -71,6 +71,7 @@ const dialCode = computed(() => {
       return '';
   }
 });
+
 onMounted(async () => {
   try {
     await authStore.signIn({ phone: phone.value, flow: props.flow });
@@ -78,6 +79,7 @@ onMounted(async () => {
     errorsStore.handle(err, 'VerifyCode.vue', 'onMounted');
   }
 });
+
 const text = computed(() => {
   if (is2fa.value) {
     return tm('auth.login.step4Description');
@@ -159,7 +161,7 @@ const onComplete = async (data: string) => {
         err,
         'VerifyCode.vue',
         'onComplete',
-        tm('auth.login.step4VerificationError')
+        t('auth.login.step4VerificationError')
       );
       return;
     }
@@ -168,11 +170,13 @@ const onComplete = async (data: string) => {
       err,
       'VerifyCode.vue',
       'onComplete',
-      tm('auth.login.step4VerificationError')
+      t('auth.login.step4VerificationError')
     );
     isError.value = true;
 
     errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');
+  } finally {
+    verificationCode.value = '';
   }
 };
 const formatPhone = () => {

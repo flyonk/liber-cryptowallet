@@ -245,15 +245,6 @@
       "recepients": "Recepients",
       "add": "Add a new contact"
     },
-    "aboutpage": {
-      "home": "Home",
-      "about": "About",
-      "thisIsAn": "This is an about page"
-    },
-    "homepage": {
-      "home": "Home",
-      "about": "About"
-    },
     "depositecoin": {
       "depositewalletprint": {
         "depositBtc": "Deposit BTC",

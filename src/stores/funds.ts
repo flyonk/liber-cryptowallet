@@ -39,12 +39,12 @@ export const useFundsStore = defineStore('funds', {
     from: {
       name: 'BTC',
       code: 'tbtc',
-      img: `${STATIC_BASE_URL}/currencies/btc.svg`,
+      img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
     },
     to: {
       name: '---',
       code: 'empty',
-      img: `${STATIC_BASE_URL}/currencies/empty_token.svg`,
+      img: `${STATIC_BASE_URL}/static/currencies/empty_token.svg`,
     },
   }),
 
