@@ -1,30 +1,39 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation
-      @click:left-icon="$router.push({ name: Route.ProfileSettings })"
-    >
-      {{ $t('common.googleAuthenticator') }}
-    </top-navigation>
-
-    <div class="content-wrapper">
-      <p class="auth-item" style="margin-bottom: 15px">
-        <img
-          src="@/assets/brands/ga.png"
-          alt="Google Authenticator"
-          class="auth-app-icon"
-        />
-      </p>
-      <p class="text-default">
-        {{ $t('configureApp.changeAppMessage') }}
-      </p>
-    </div>
-  </div>
-
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="onContinue">{{
-      $t('configureApp.changeAppCTA')
-    }}</base-button>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.ProfileSettings })"
+  >
+    <template #title> {{ $t('common.googleAuthenticator') }}</template>
+    <template #content>
+      <div class="content-wrapper">
+        <p class="auth-item" style="margin-bottom: 15px">
+          <img
+            src="@/assets/brands/ga.png"
+            alt="Google Authenticator"
+            class="auth-app-icon"
+          />
+        </p>
+        <p class="text-default">
+          {{ $t('configureApp.changeAppMessage') }}
+        </p>
+        <div class="flex">
+          <img
+            class="icon"
+            :src="`${STATIC_BASE_URL}/static/menu/google.svg`"
+          />
+          <p class="text">
+            {{ $t('views.profile.profileSettings.2FAGoogle') }}
+          </p>
+          <InputSwitch v-model="is2FAConfigured" class="switcher" />
+        </div>
+      </div>
+    </template>
+    <template #fixed-footer>
+      <base-button block @click="onContinue">{{
+        $t('configureApp.changeAppCTA')
+      }}</base-button>
+    </template>
+  </t-top-navigation>
 
   <base-toast v-model:visible="showPopup" :severity="'attention'">
     <template #description>
@@ -60,21 +69,26 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 
-import { TopNavigation, BaseButton, BaseToast } from '@/components/ui';
+import { TTopNavigation, BaseButton, BaseToast } from '@/components/ui';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
 import { use2faStore } from '@/stores/2fa';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
+import { STATIC_BASE_URL } from '@/constants';
+
+import InputSwitch from 'primevue/inputswitch';
 
 const router = useRouter();
 
 const twofaStore = use2faStore();
 const pStore = useProfileStore();
 const showPopup = ref(false);
+
+const is2FAConfigured = ref(pStore.user.is2FAConfigured);
 
 const onContinue = () => {
   showPopup.value = true;
@@ -94,6 +108,24 @@ const onConfirm = () => {
     });
   }
 };
+
+watch(is2FAConfigured, (val) => {
+  if (val) {
+    onContinue();
+  } else {
+    if (pStore.user.is2FAConfigured) {
+      const mfaStore = useMfaStore();
+      mfaStore.show({
+        successRoute: Route.ProfileSettings,
+        async callback() {
+          // update profile info about 2fa is enabled or not
+          await pStore.init();
+        },
+      });
+      twofaStore.disable();
+    }
+  }
+});
 </script>
 
 <style lang="scss" scoped>
@@ -159,5 +191,12 @@ const onConfirm = () => {
 .popup-footer {
   display: flex;
   flex-direction: column;
+}
+
+.flex {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 50px;
 }
 </style>

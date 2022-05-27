@@ -36,7 +36,9 @@
     <template #fixed-footer
       ><base-button
         block
-        @click="$router.push({ name: Route.ConfigureAppVerify })"
+        @click="
+          $router.push({ name: Route.ConfigureAppVerify, hash: nextRouteHash })
+        "
       >
         {{ $t('common.continueCta') }}
       </base-button></template
@@ -51,10 +53,11 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
+import { useRoute } from 'vue-router';
 
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
@@ -69,6 +72,11 @@ const { tm } = useI18n();
 const store = use2faStore();
 const errorsStore = useErrorsStore();
 const toast = useToast();
+const route = useRoute();
+
+const nextRouteHash = computed(() => {
+  return route.hash;
+});
 
 const canvas = ref<HTMLCanvasElement | undefined>();
 let qrCodeValue = ref<string>('');

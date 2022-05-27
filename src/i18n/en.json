@@ -32,7 +32,9 @@
     "copySuccess": "Success",
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
-    "pasteClipboardError": "An error occurred when pasting from the clipboard"
+    "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "on": "On",
+    "off": "Off"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
