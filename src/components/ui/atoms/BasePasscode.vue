@@ -105,8 +105,8 @@ const onSubmit = getSubmitFunction(props.actionType);
 const showTouchId = () => {
   if (identificationIcon.value) {
     verifyIdentity()
-      .then(() => {
-        emit('submit', true);
+      .then((state) => {
+        emit('submit', state);
       })
       .catch((err) => {
         emit('submit', false);
@@ -150,15 +150,9 @@ function setNumber(number: string): void {
           if (!result) passcode.value = '';
           emit('submit', result);
         })
-        .catch((err) => {
+        .catch(() => {
           passcode.value = '';
           emit('submit', false);
-          errorsStore.handle(
-            err,
-            'BasePasscode',
-            'setNumber',
-            'passcode error'
-          );
         });
     }
   }

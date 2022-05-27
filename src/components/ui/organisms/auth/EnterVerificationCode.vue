@@ -56,13 +56,6 @@
       </base-button>
     </slot>
   </div>
-  <base-toast :visible="isError" severity="error" @update:visible="onHide">
-    <template #description>
-      <div>
-        {{ $t('configureApp.invalidCodeMessage') }}
-      </div>
-    </template>
-  </base-toast>
 </template>
 
 <script lang="ts">
@@ -81,12 +74,11 @@ import {
   TopNavigation,
   BaseButton,
   BaseVerificationCodeInput,
-  BaseToast,
   BaseCountdown,
 } from '@/components/ui';
 
 const errorsStore = useErrorsStore();
-const { tm } = useI18n();
+const { t } = useI18n();
 const emit = defineEmits([
   'onComplete',
   'onResend',
@@ -148,13 +140,11 @@ const pasteFromClipboard = async () => {
       err,
       'EnterVerificationCode',
       'pasteFromClipboard',
-      tm('common.readFailure') as string
+      t('common.pasteClipboardError')
     );
   }
 };
-const onHide = (): void => {
-  emit('onHide');
-};
+
 const onComplete = (value: string): void => {
   emit('onComplete', value);
 };
@@ -178,6 +168,8 @@ const onPrev = (): void => {
   align-items: flex-start;
 
   > .footer {
+    margin-top: 23px;
+
     > span {
       > .resend-button {
         padding: 0;
