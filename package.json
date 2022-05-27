@@ -25,7 +25,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "@capacitor-community/camera-preview": "^2.0.0",
+    "@capacitor-community/camera-preview": "3.0.0",
     "@capacitor-community/contacts": "^1.1.3",
     "@capacitor/app": "^1.1.1",
     "@capacitor/camera": "^1.3.0",

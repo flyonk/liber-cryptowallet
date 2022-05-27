@@ -70,6 +70,7 @@ const dialCode = computed(() => {
       return '';
   }
 });
+
 onMounted(async () => {
   try {
     await authStore.signIn({ phone: phone.value, flow: props.flow });
@@ -77,6 +78,7 @@ onMounted(async () => {
     errorsStore.handle(err, 'VerifyCode.vue', 'onMounted');
   }
 });
+
 const text = computed(() => {
   if (is2fa.value) {
     return tm('auth.login.step4Description');
@@ -153,13 +155,14 @@ const onComplete = async (data: string) => {
       // use 2fa
       _otp.value = otp;
       is2fa.value = true;
-      verificationCode.value = '';
       return;
     }
 
     isError.value = true;
 
     errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');
+  } finally {
+    verificationCode.value = '';
   }
 };
 const formatPhone = () => {

@@ -20,7 +20,7 @@
             <p class="text">{{ $t('views.profile.profileHelp.secure') }}</p>
             <img
               class="right"
-              src="@/assets/icon/arrow-right.svg"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
               alt="right"
             />
           </li>
@@ -30,7 +30,7 @@
             </p>
             <img
               class="right"
-              src="@/assets/icon/arrow-right.svg"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
               alt="right"
             />
           </li>
@@ -38,7 +38,7 @@
             <p class="text">{{ $t('views.profile.profileHelp.process') }}</p>
             <img
               class="right"
-              src="@/assets/icon/arrow-right.svg"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
               alt="right"
             />
           </li>
@@ -48,7 +48,7 @@
             </p>
             <img
               class="right"
-              src="@/assets/icon/arrow-right.svg"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
               alt="right"
             />
           </li>
@@ -58,7 +58,7 @@
             </p>
             <img
               class="right"
-              src="@/assets/icon/arrow-right.svg"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
               alt="right"
             />
           </li>
@@ -72,6 +72,7 @@ import { ref } from 'vue';
 
 import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 import { TTopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { useProfileStore } from '@/stores/profile';
 

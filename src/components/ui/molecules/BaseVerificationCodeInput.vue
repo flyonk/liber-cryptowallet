@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeUpdate, Ref, ref, watch } from 'vue';
+import { computed, Ref, ref, watch } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { BaseButton } from '@/components/ui';
@@ -70,10 +70,6 @@ const activationCode = ref(props.value ? props.value.split('') : []) as Ref<
 >;
 
 const errorsStore = useErrorsStore();
-
-onBeforeUpdate(() => {
-  inputs.value = [];
-});
 
 const focusNextInput = (currentId: number) => {
   const nextInput = inputs.value[currentId + 1] as HTMLElement | undefined;
