@@ -43,9 +43,6 @@ const onEnable = async (): Promise<void> => {
 
   if (state) {
     await setOptions('true', EStorageKeys.faceid);
-  }
-
-  if (state !== false) {
     router.push({ name: Route.PushNotifications });
   }
 };
