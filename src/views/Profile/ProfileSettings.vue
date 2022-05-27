@@ -88,6 +88,9 @@
               <p class="text">
                 {{ $t('views.profile.profileSettings.2FAGoogle') }}
               </p>
+              <p v-if="is2FAConfigured" class="text selected-language">
+                {{ $t('common.on') }}
+              </p>
             </router-link>
             <router-link class="item" disabled to="/profile/devices">
               <img class="icon" :src="`${menuStaticFolder}devices.svg`" />
@@ -172,7 +175,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -203,6 +206,8 @@ const menuStaticFolder = ref(`${STATIC_BASE_URL}/static/menu/`);
 
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;
+
+const is2FAConfigured = computed(() => profileStore.user.is2FAConfigured);
 
 if (firstName == null) {
   firstName = 'Name';
