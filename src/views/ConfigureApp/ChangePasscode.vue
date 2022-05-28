@@ -1,48 +1,59 @@
 <template>
-  <div class="change-passcode">
-    <div v-if="showInfo" class="splash">
-      <top-navigation>
+  <t-top-navigation
+    v-if="showInfo"
+    with-fixed-footer
+    @click:left-icon="router.back()"
+  >
+    <template #title>
+      {{ $t('views.profile.profileSettings.changePasscode') }}
+    </template>
+    <template #content>
+      <div class="splash">
+        <div class="illustration">
+          <img
+            :src="`${STATIC_BASE_URL}/static/illustrations/devices.png`"
+            alt="devices"
+          />
+          <span class="text text--title-3 font-weight--semibold">
+            {{ $t('views.changePasscode.aboutLiber') }}
+          </span>
+        </div>
+      </div>
+    </template>
+    <template #fixed-footer>
+      <base-button block @click="showInfo = !showInfo">
         {{ $t('views.profile.profileSettings.changePasscode') }}
-      </top-navigation>
-
-      <div class="illustration">
-        <img
-          :src="`${STATIC_BASE_URL}/static/illustrations/devices.png`"
-          alt="devices"
-        />
-        <span class="text text--title-3 font-weight--semibold">
-          {{ $t('views.changePasscode.aboutLiber') }}
-        </span>
-      </div>
-
-      <div class="footer">
-        <base-button block @click="showInfo = !showInfo">
-          {{ $t('views.profile.profileSettings.changePasscode') }}
-        </base-button>
-      </div>
-    </div>
-    <div v-else class="passcode-container">
-      <top-navigation left-icon-name="icon-app-navigation-close">
-        Enter new passcode
-      </top-navigation>
+      </base-button>
+    </template>
+  </t-top-navigation>
+  <t-top-navigation
+    v-else
+    left-icon-name="icon-app-navigation-close"
+    class="passcode-container"
+    @click:left-icon="router.back()"
+  >
+    <template #title> Enter new passcode </template>
+    <template #content>
       <div class="passcode">
         <base-passcode
           :action-type="EPasscodeActions.update"
           @submit="onSubmit"
         />
       </div>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-
-import { BaseButton, BasePasscode, TopNavigation } from '@/components/ui';
-import { STATIC_BASE_URL } from '@/constants';
+import { useRouter } from 'vue-router';
 
 import { EPasscodeActions } from '@/types/base-component';
+import { STATIC_BASE_URL } from '@/constants';
 
+import { BaseButton, BasePasscode, TTopNavigation } from '@/components/ui';
+
+const router = useRouter();
 const showInfo = ref(true);
 </script>
 
@@ -61,18 +72,9 @@ const showInfo = ref(true);
       text-align: center;
     }
   }
-
-  & > .footer {
-    position: fixed;
-    bottom: 50px;
-    left: 16px;
-    right: 16px;
-  }
 }
 
-.passcode-container {
-  & > .passcode {
-    margin: 132px 0 0;
-  }
+.passcode {
+  margin: 132px 0 0;
 }
 </style>
