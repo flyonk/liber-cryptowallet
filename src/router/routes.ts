@@ -49,6 +49,7 @@ import ProfileDevices from '@/views/Profile/ProfileDevices.vue';
 import ProfileHelpPage from '@/views/Profile/ProfileHelpPage.vue';
 import ProfileDetails from '@/views/Profile/ProfileDetails.vue';
 import PrivacySettings from '@/views/Profile/PrivacySettings.vue';
+import ProfileAcceptedPhonesAndEmails from '@/views/Profile/ProfileAcceptedPhonesAndEmails.vue';
 
 import KYCMain from '@/views/KYC/KYCMain.vue';
 
@@ -317,6 +318,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'devices',
         name: Route.ProfileDevices,
         component: ProfileDevices,
+      },
+      {
+        path: 'profile-phones-and-emails',
+        name: Route.ProfilePhonesAndEmails,
+        component: ProfileAcceptedPhonesAndEmails,
       },
       {
         path: 'help',

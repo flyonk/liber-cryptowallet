@@ -37,6 +37,7 @@ export enum Route {
   ProfileSettings = 'profile-settings',
   ProfileMyQrCode = 'profile-my-qr-code',
   ProfileDevices = 'profile-devices',
+  ProfilePhonesAndEmails = 'profile-phones-and-emails',
   ProfileHelp = 'profile-help',
   ProfileEdit = 'profile-edit',
   ProfilePrivacy = 'profile-privacy',
