@@ -21,7 +21,7 @@
             <div class="row">
               <div class="wrapper">
                 <i class="icon-verification icon" />
-                <div class="id">@shootemov</div>
+                <div class="id">@AwesomeLiberId</div>
               </div>
               <i class="icon-copy icon" />
             </div>
@@ -36,14 +36,14 @@
             <li class="item">
               <div class="label">Phone</div>
               <div class="value">
-                <div class="phone">+7 777 777 77 77</div>
+                <div class="phone">{{ phone }}</div>
                 <i class="icon-trash_full icon" />
               </div>
             </li>
             <li class="item">
               <div class="label">Email</div>
               <div class="value">
-                <div class="email">test@example.com</div>
+                <div class="email">{{ email }}</div>
                 <i class="icon-trash_full icon" />
               </div>
             </li>
@@ -77,19 +77,15 @@ import { TTopNavigation, BaseButton, MStatusCard } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
-import { computed, ref } from 'vue';
+import { computed } from 'vue';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
 
 const pStore = useProfileStore();
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const phone = ref('');
 
 const KYCStatus = computed(() => pStore.getUser.kycStatus);
-
-// function clearPhone() {
-//   phone.value = '';
-// }
+const phone = computed(() => pStore.getUser.phone);
+const email = computed(() => pStore.getUser.email);
 </script>
 
 <style lang="scss" scoped>
