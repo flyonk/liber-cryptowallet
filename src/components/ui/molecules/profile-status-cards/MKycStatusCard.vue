@@ -15,7 +15,11 @@
       <h1 class="description">
         {{ cardInfo.description }}
       </h1>
-      <base-button v-if="cardInfo.isCtaRequired" class="cta">
+      <base-button
+        v-if="cardInfo.isCtaRequired"
+        class="cta"
+        @click="$router.push({ name: Route.KYCMain })"
+      >
         {{
           $t('views.profile.profilePhonesAndEmails.verifyIdentity')
         }}</base-button
@@ -30,6 +34,7 @@ import { EKYCStatus } from '@/models/profile/profile';
 import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { STATIC_BASE_URL } from '@/constants';
+import { Route } from '@/router/types';
 const { tm } = useI18n();
 
 interface IKycStatusCard {
@@ -83,6 +88,7 @@ const cardInfo: IKycStatusCard = computed(() => {
 
 <style lang="scss" scoped>
 .status-card {
+  padding: 24px;
   width: 100%;
   background: $color-light-grey-300;
 

@@ -142,7 +142,6 @@ const KYCStatus = computed(() => pStore.getUser.kycStatus);
     position: relative;
     width: calc(100% + 40px);
     left: -20px;
-    padding: 24px;
     background: $color-light-grey-300;
 
     > .header {
