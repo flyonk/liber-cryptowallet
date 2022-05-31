@@ -11,7 +11,19 @@
       <i class="icon-plus_circle add" @click="$router.back()" />
     </template>
     <template #content>
-      <div class="status-container">
+      <div class="profile-info">
+        <h1 class="title">Liber ID</h1>
+        <div class="data-container">
+          <div class="row">
+            <div class="wrapper">
+              <i class="icon-verification icon" />
+              <div class="id">@shootemov</div>
+            </div>
+            <i class="icon-copy icon" />
+          </div>
+        </div>
+      </div>
+      <div v-if="true" class="status-container">
         <div class="header">
           <img
             class="image"
@@ -107,7 +119,54 @@ function clearPhone() {
 </script>
 
 <style lang="scss" scoped>
+.profile-info {
+  > .title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: -0.0045em;
+    color: $color-brand-primary;
+  }
+
+  > .data-container {
+    > .row {
+      border-bottom: 1px solid rgb(175 179 195 / 30%);
+      padding: 16px 0;
+      display: flex;
+      justify-content: space-between;
+
+      > .wrapper {
+        display: flex;
+
+        > .icon {
+          color: $color-green-400;
+          font-size: 20px;
+        }
+
+        > .id {
+          margin-left: 5px;
+          font-weight: 500;
+          font-size: 17px;
+          line-height: 22px;
+          display: flex;
+          align-items: center;
+          letter-spacing: -0.0043em;
+          color: $color-brand-primary;
+        }
+      }
+
+      > .icon {
+        color: $color-primary;
+        font-size: 24px;
+      }
+    }
+  }
+}
+
 .status-container {
+  position: relative;
+  width: calc(100% + 40px);
+  left: -20px;
   padding: 24px 16px;
   background: $color-light-grey-300;
 
@@ -151,11 +210,14 @@ function clearPhone() {
 
 .body-container {
   margin-top: 24px;
-  font-weight: 600;
-  font-size: 20px;
-  line-height: 25px;
-  letter-spacing: -0.0045em;
-  color: $color-brand-primary;
+
+  > .title {
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 25px;
+    letter-spacing: -0.0045em;
+    color: $color-brand-primary;
+  }
 
   > .data-list {
     > .item {
