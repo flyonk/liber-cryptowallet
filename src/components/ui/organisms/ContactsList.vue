@@ -62,6 +62,10 @@ defineEmits(['contactClick']);
   flex-direction: column;
   overflow: auto;
   height: 100%;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 .contact-item {
