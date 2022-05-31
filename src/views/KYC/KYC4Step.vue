@@ -197,10 +197,7 @@ const calcProgressPercentage = (): void => {
 };
 
 const onScan = async (): Promise<void> => {
-  console.log('onScan started');
   if (isProofTypePassport.value) {
-    console.debug('passport case');
-
     await captureCamera();
 
     calcProgressPercentage();
@@ -211,7 +208,6 @@ const onScan = async (): Promise<void> => {
 
   // initial scan
   if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
-    console.debug('front side case', '| side is ', scanningSide.value);
     await captureCamera();
 
     calcProgressPercentage();
@@ -222,7 +218,6 @@ const onScan = async (): Promise<void> => {
       await nextStep();
     }
   } else {
-    console.debug('back side case', '| side is ', scanningSide.value);
     await captureCamera();
 
     calcProgressPercentage();
