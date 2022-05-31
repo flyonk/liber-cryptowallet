@@ -18,11 +18,7 @@
             :src="`${STATIC_BASE_URL}/static/todo/empty-profile.svg`"
             alt="story"
           />
-          <img
-            class="icon"
-            :src="`${STATIC_BASE_URL}/static/todo/attention_circle.svg`"
-            alt="attention icon"
-          />
+          <i class="icon-attention_error icon" />
         </div>
         <div class="body">
           <h1 class="title">
@@ -57,14 +53,14 @@
             <div class="label">Phone</div>
             <div class="value">
               <div class="phone">+7 777 777 77 77</div>
-              <i class="icon-plus_circle"></i>
+              <i class="icon-trash_full icon" />
             </div>
           </li>
           <li class="item">
             <div class="label">Email</div>
             <div class="value">
               <div class="email">test@example.com</div>
-              <i class="icon-plus_circle"></i>
+              <i class="icon-trash_full icon" />
             </div>
           </li>
         </ul>
@@ -113,7 +109,7 @@ function clearPhone() {
 <style lang="scss" scoped>
 .status-container {
   padding: 24px 16px;
-  background: #f4f5fc;
+  background: $color-light-grey-300;
 
   > .header {
     display: flex;
@@ -122,6 +118,7 @@ function clearPhone() {
 
     > .icon {
       color: $color-primary;
+      font-size: 20px;
     }
   }
 
@@ -189,6 +186,11 @@ function clearPhone() {
           font-size: 17px;
           line-height: 22px;
           letter-spacing: -0.0043em;
+        }
+
+        > .icon {
+          color: $color-grey-500;
+          font-size: 20px;
         }
       }
     }
