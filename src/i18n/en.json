@@ -466,10 +466,12 @@
       },
       "profilePhonesAndEmails":{
         "acceptedPhonesAndEmails": "Accepted Phones & Emails",
-        "notificationContainerTitle": "Your identity is not verified",
-        "notificationContainerDescription": "Friends can send you money. You will receive funds after verifying your identity.",
-        "notificationContainerCta": "Verify Identity",
-        "acceptedContact": "Accepted Contacts"
+        "yourIdentityIsNotVerified": "Your identity is not verified",
+        "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
+        "verifyIdentity": "Verify Identity",
+        "acceptedContact": "Accepted Contacts",
+        "verificationInProgress": "ID Verification in progress",
+        "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
       }
     },
     "survey": {
