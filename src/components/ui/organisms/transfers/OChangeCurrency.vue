@@ -23,7 +23,7 @@
           <select-coin-input
             :coins="fromCoins"
             :direction="'from'"
-            :current-send-currency="currentSendFromCurrency"
+            :current-currency="currentSendFromCurrency"
             @on-select-coin="onSelectCoin($event, 'from')"
           />
         </label>
@@ -91,7 +91,7 @@
           <select-coin-input
             :coins="toCoins"
             :direction="'to'"
-            :current-send-currency="currentSendToCurrency"
+            :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
         </label>

@@ -3,10 +3,17 @@
     <div class="input">
       <div
         class="p-float-label"
-        :class="{ 'p-input-icon-right': $slots.append }"
+        :class="{
+          'p-input-icon-right': $slots.append || $slots.prepend,
+        }"
       >
         <slot v-if="$slots.append" name="append" />
-        <component :is="currentComponent" v-bind="$attrs" />
+        <component
+          :is="currentComponent"
+          v-bind="$attrs"
+          @input="$emit('input', $event.value)"
+        />
+        <slot v-if="$slots.prepend" name="prepend" />
         <label>
           <slot name="label" />
         </label>
@@ -27,6 +34,7 @@ import PInputMask from 'primevue/inputmask';
 
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
+defineEmits(['input']);
 const props = defineProps({
   type: {
     type: String as PropType<TypeBaseInput>,
