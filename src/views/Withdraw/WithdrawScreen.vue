@@ -3,20 +3,36 @@
     with-fixed-footer
     @click:left-icon="$router.push({ name: Route.DashboardHome })"
   >
-    <template #title> Withdraw </template>
-    <template #content>
-      <base-input v-model="form.address">
-        <template #label> Address </template>
+    <template #title> {{ $t('views.withdraw.withdraw') }} </template>
+    <template v-if="!showSummaryScreen" #content>
+      <base-input
+        v-model="form.address"
+        class="address-input"
+        :class="{ '-error': !form.address }"
+      >
+        <template #label>
+          {{ $t('views.withdraw.address') }}
+        </template>
         <template #prepend>
-          <base-button view="flat"> paste </base-button>
+          <base-button view="flat" class="paste-button">
+            {{ $t('views.withdraw.paste') }}
+          </base-button>
         </template>
       </base-input>
       <base-input
         v-model="form.network"
         class="network-input amount-input"
         :class="{ '-hidden': !form.address }"
+        @click="openNetworkModal = true"
       >
-        <template #label> Network </template>
+        <template #label> {{ $t('views.withdraw.network') }} </template>
+        <template #prepend>
+          <img
+            class="arrow-down"
+            alt="list"
+            :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+          />
+        </template>
       </base-input>
       <base-input
         v-model="form.amount"
@@ -28,7 +44,9 @@
         :class="{ '-error': isInsufficientBalance }"
         @input="onAmountInput"
       >
-        <template #label> Amount </template>
+        <template #label>
+          {{ $t('views.withdraw.amount') }}
+        </template>
         <template #prepend>
           <select-coin-input
             :coins="coins"
@@ -37,16 +55,51 @@
           />
         </template>
         <template v-if="availableBalance" #message>
-          {{ isInsufficientBalance ? 'Insufficient amount. ' : '' }}
-          {{ availableBalance }} {{ form.coin.code.toUpperCase() }} Available
+          {{
+            isInsufficientBalance
+              ? `${$t('views.withdraw.insufficient')}. `
+              : ''
+          }}
+          {{ availableBalance }} {{ form.coin.code.toUpperCase() }}
+          {{ $t('views.withdraw.available') }}
         </template>
       </base-input>
 
-      <m-network-select-answer v-if="false" />
+      <p-dialog
+        v-model:visible="openNetworkModal"
+        :show-header="false"
+        class="p-dialog-maximized"
+        style="padding: 0 !important"
+      >
+        <t-top-navigation
+          class="modal-view"
+          left-icon-name="icon-app-navigation-close"
+          @click:left-icon="handleCloseModal"
+        >
+          <template #content>
+            <m-network-select-answer @select="onSelectNetwork" />
+          </template>
+        </t-top-navigation>
+      </p-dialog>
     </template>
-    <template #fixed-footer>
-      <base-button block :disabled="isSubmitButtonDisabled">
-        Continue
+    <template v-else #content>
+      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
+      consequuntur cumque, debitis deleniti dignissimos dolor dolorem eaque esse
+      et facere facilis, maiores nulla obcaecati omnis repellendus sunt tempore
+      temporibus veniam.
+    </template>
+    <template v-if="!showSummaryScreen" #fixed-footer>
+      <base-button
+        block
+        :disabled="isSubmitButtonDisabled"
+        @click="showSummaryScreen = true"
+      >
+        {{ $t('views.withdraw.continue') }}
+      </base-button>
+    </template>
+    <template v-else #fixed-footer>
+      <base-button block>
+        {{ $t('views.withdraw.withdrawNow') }}
       </base-button>
     </template>
   </t-top-navigation>
@@ -54,7 +107,7 @@
 
 <script lang="ts" setup>
 import { Route } from '@/router/types';
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, onBeforeMount, Ref, ref } from 'vue';
 
 import { useCoinsStore } from '@/stores/coins';
 
@@ -68,9 +121,13 @@ import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput
 import { ICoin } from '@/models/coin/coins';
 import { STATIC_BASE_URL } from '@/constants';
 import { useAccountStore } from '@/stores/account';
+import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 
 const coinStore = useCoinsStore();
 const accountStore = useAccountStore();
+
+const openNetworkModal = ref(false);
+const showSummaryScreen = ref(false);
 
 const form = ref({
   address: '',
@@ -82,6 +139,8 @@ const form = ref({
     img: `${STATIC_BASE_URL}/static/currencies/empty_token.svg`,
   },
 });
+
+const networks = ref([]) as Ref<string[]>;
 
 const coins = computed(() => coinStore.getCoins);
 
@@ -120,12 +179,29 @@ onBeforeMount(async () => {
   await Promise.all([coinStore.fetchCoins(), accountStore.getAccountList()]);
 });
 
-const onSelectCoin = ({ name, code, imageUrl }: ICoin) => {
+const handleCloseModal = () => {
+  openNetworkModal.value = false;
+};
+
+const onSelectCoin = ({
+  name,
+  code,
+  imageUrl,
+  networks: coinNetworks,
+}: ICoin) => {
   form.value.coin = {
     name,
     code,
     img: imageUrl as string,
   };
+
+  networks.value = coinNetworks as string[];
+};
+
+const onSelectNetwork = (network: TDictionaryItem) => {
+  openNetworkModal.value = false;
+
+  form.value.network = network.body;
 };
 
 const onAmountInput = (amount: number) => {
@@ -147,6 +223,27 @@ const onAmountInput = (amount: number) => {
 
   &:focus {
     background: black;
+  }
+}
+
+.paste-button:deep {
+  > .container {
+    > .label {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 18px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.address-input:deep {
+  &.-error {
+    > .input {
+      border-color: $color-red-500;
+      background: $color-red-50;
+    }
   }
 }
 
@@ -189,6 +286,12 @@ const onAmountInput = (amount: number) => {
   height: auto;
 }
 
+.arrow-down {
+  width: 10px;
+  height: 5px;
+  margin: auto 28px auto 0;
+}
+
 .network-input {
   height: 78px;
   overflow: hidden;
@@ -199,5 +302,9 @@ const onAmountInput = (amount: number) => {
     height: 0;
     transition: height, 0.4s linear;
   }
+}
+
+.modal-view {
+  padding: 0;
 }
 </style>

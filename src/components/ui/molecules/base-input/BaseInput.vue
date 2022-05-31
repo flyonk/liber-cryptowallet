@@ -1,5 +1,5 @@
 <template>
-  <div class="base-input">
+  <div class="base-input" @click="$emit('click')">
     <div class="input">
       <div
         class="p-float-label"
@@ -34,7 +34,7 @@ import PInputMask from 'primevue/inputmask';
 
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
-defineEmits(['input']);
+defineEmits(['input', 'click']);
 const props = defineProps({
   type: {
     type: String as PropType<TypeBaseInput>,
