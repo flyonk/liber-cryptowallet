@@ -48,21 +48,11 @@
               </div>
             </li>
           </ul>
-          <!-- <ul>
-            <li>
-              <base-input v-model="phone" class="">
-                <template #label> Email or Phone </template>
-                <template v-if="phone.length > 1" #append>
-                  <i class="icon-plus_circle" @click="clearPhone" />
-                </template>
-              </base-input>
-            </li>
-          </ul> -->
           <base-button
             class="phone-adder"
             view="flat"
             icon-left="ci-plus"
-            @click="true"
+            @click="$router.push({ name: Route.ProfileAddNewContactData })"
           >
             + {{ $t('views.newcontact.additionalphone') }}
           </base-button>
