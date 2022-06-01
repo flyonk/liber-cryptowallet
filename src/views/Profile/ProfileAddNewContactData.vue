@@ -1,5 +1,6 @@
 <template>
   <t-top-navigation
+    v-if="!needToConfirmPhone && !needToConfirmEmail"
     with-fixed-footer
     left-icon-name="icon-app-navigation-back"
     @click:left-icon="
@@ -23,20 +24,39 @@
         view="simple"
         block
         :disabled="isDisabled"
-        @click="handleAddContact"
+        @click="handleAddContactData"
       >
         Confirm Contact</base-button
       ></template
     >
   </t-top-navigation>
+  <template v-if="needToConfirmPhone">
+    <enter-verification-code
+      :text="data"
+      title="Enter verification code"
+      with-countdown
+      show-countdown
+      @on-prev="needToConfirmPhone = !needToConfirmPhone"
+      @on-complete="onComplete"
+    ></enter-verification-code>
+  </template>
+  <template v-else-if="needToConfirmEmail">
+    <p-email-sent />
+  </template>
 </template>
 
 <script lang="ts" setup>
 import { TTopNavigation, BaseButton, BaseInput } from '@/components/ui';
+import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
+import router from '@/router';
 import { Route } from '@/router/types';
+import { useProfileStore } from '@/stores/profile';
 import { computed, ref } from 'vue';
-
+const pStore = useProfileStore();
 const data = ref('');
+const needToConfirmPhone = ref(false);
+const needToConfirmEmail = ref(false);
 
 const isDisabled = computed(() => {
   return !isEmail.value && !isPhone.value;
@@ -56,13 +76,28 @@ const isEmail = computed(() => {
   return correct.test(data.value.toLowerCase());
 });
 
-function handleAddContact() {
-  if (isPhone.value) console.log('phone');
-  if (isEmail.value) console.log('email');
+function handleAddContactData() {
+  if (isPhone.value) {
+    console.log('phone');
+    pStore.getUser.additionalPhones?.push(data.value);
+    needToConfirmPhone.value = true;
+  }
+  if (isEmail.value) {
+    console.log('email');
+    pStore.getUser.additionalEmails?.push(data.value);
+    needToConfirmEmail.value = true;
+  }
 }
 
 function clearData() {
   data.value = '';
+}
+
+async function onComplete(data: string) {
+  //TODO: need to implement otp request
+  console.log(data);
+  needToConfirmPhone.value = false;
+  router.push({ name: Route.ProfilePhonesAndEmails });
 }
 </script>
 
