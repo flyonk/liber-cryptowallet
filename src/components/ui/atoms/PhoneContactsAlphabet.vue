@@ -27,7 +27,7 @@ defineProps({
 });
 
 const gotoLetter = (letter: string) => {
-  const element = document.querySelector('#letter' + letter);
+  const element = document.querySelector('#letter' + letter + ' + li');
   if (element) {
     element.scrollIntoView(true);
   }

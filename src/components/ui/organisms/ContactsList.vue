@@ -71,6 +71,8 @@ defineEmits(['contactClick']);
 .contact-item {
   display: flex;
   margin-bottom: 24px;
+  position: relative;
+  z-index: 2;
 }
 
 .contact-letter {
@@ -82,5 +84,10 @@ defineEmits(['contactClick']);
   letter-spacing: -0.0008em;
   color: $color-brand-2-300;
   margin-bottom: 12px;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1;
+  width: 20px;
 }
 </style>
