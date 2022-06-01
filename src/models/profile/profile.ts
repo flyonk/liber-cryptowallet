@@ -48,7 +48,13 @@ export type TMarketing = {
 export interface IProfile
   extends Record<
     string,
-    string | boolean | number | TMarketing | undefined | TAnyObjectType
+    | string
+    | boolean
+    | number
+    | TMarketing
+    | undefined
+    | TAnyObjectType
+    | string[]
   > {
   id: string;
   status: number;
@@ -69,6 +75,9 @@ export interface IProfile
   isPasscodeEnabled: boolean;
   marketing: TMarketing;
   kycStatus: EKYCStatus;
+  //temporary for testing accepted phone and emails page
+  additionalEmails: Array<string>;
+  additionalPhones: Array<string>;
 }
 
 export default {
@@ -97,6 +106,8 @@ export default {
         isPushNotification: false,
         isSocialMedia: false,
       },
+      additionalPhones: [],
+      additionalEmails: [],
     };
   },
 
