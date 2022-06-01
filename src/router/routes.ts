@@ -50,6 +50,7 @@ import ProfileHelpPage from '@/views/Profile/ProfileHelpPage.vue';
 import ProfileDetails from '@/views/Profile/ProfileDetails.vue';
 import PrivacySettings from '@/views/Profile/PrivacySettings.vue';
 import ProfileAcceptedPhonesAndEmails from '@/views/Profile/ProfileAcceptedPhonesAndEmails.vue';
+import ProfileAddNewContactData from '@/views/Profile/ProfileAddNewContactData.vue';
 
 import KYCMain from '@/views/KYC/KYCMain.vue';
 
@@ -323,6 +324,11 @@ const routes: Array<RouteRecordRaw> = [
         path: 'profile-phones-and-emails',
         name: Route.ProfilePhonesAndEmails,
         component: ProfileAcceptedPhonesAndEmails,
+      },
+      {
+        path: 'profile-add-new-contact-data',
+        name: Route.ProfileAddNewContactData,
+        component: ProfileAddNewContactData,
       },
       {
         path: 'help',
