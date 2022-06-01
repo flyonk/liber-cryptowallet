@@ -1,6 +1,6 @@
 <template>
   <div v-if="props.contacts.length" class="main-list">
-    <ul class="contacts-list">
+    <ul class="contacts-list" @scroll="scrollListHandle">
       <template v-for="contact in props.contacts" :key="contact.contactId">
         <li
           v-if="activeLetters[getLetter(contact)] === contact.contactId"
@@ -44,6 +44,10 @@ const getLetter = (contact: Contact): string => {
     activeLetters[letter] = contact.contactId;
   }
   return letter;
+};
+
+const scrollListHandle = () => {
+  document?.activeElement?.blur();
 };
 
 defineEmits(['contactClick']);
