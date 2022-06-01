@@ -237,7 +237,17 @@
       "insufficient": "Insufficient amount",
       "available": "Available",
       "continue": "Continue",
-      "withdrawNow": "Withdraw Now"
+      "withdrawNow": "Withdraw Now",
+      "fee": "Fee",
+      "total": "Total",
+      "confirmation": {
+        "title": "Do you know and trust this payee?",
+        "description": "If you’re unsure, don’t pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment",
+        "button": {
+          "yes": "Yes, continue",
+          "no": "No, go back"
+        }
+      }
     },
     "sendfunds": {
       "whopay": "Who To Pay"

@@ -29,3 +29,5 @@ export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswe
 export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
 export { default as BiometricIdentifierSwitcherButton } from './organisms/BiometricIdentifierSwitcherButton.vue';
+export { default as OWithdrawSummary } from './organisms/withdraw/OWithdrawSummary.vue';
+export { default as OWithdrawConfirmationToast } from './organisms/withdraw/OWithdrawConfirmationToast.vue';

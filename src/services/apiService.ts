@@ -81,6 +81,9 @@ export default {
     depositInfo(): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/deposit-info`;
     },
+    withdrawInfo(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/withdrawal/info`;
+    },
   },
   transactions: {
     transactionsList(): string {

@@ -1,10 +1,11 @@
 <template>
   <t-top-navigation
+    v-if="!showSummaryScreen"
     with-fixed-footer
     @click:left-icon="$router.push({ name: Route.DashboardHome })"
   >
     <template #title> {{ $t('views.withdraw.withdraw') }} </template>
-    <template v-if="!showSummaryScreen" #content>
+    <template #content>
       <base-input
         v-model="form.address"
         class="address-input"
@@ -82,27 +83,13 @@
         </t-top-navigation>
       </p-dialog>
     </template>
-    <template v-else #content>
-      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusantium
-      consequuntur cumque, debitis deleniti dignissimos dolor dolorem eaque esse
-      et facere facilis, maiores nulla obcaecati omnis repellendus sunt tempore
-      temporibus veniam.
-    </template>
-    <template v-if="!showSummaryScreen" #fixed-footer>
-      <base-button
-        block
-        :disabled="isSubmitButtonDisabled"
-        @click="showSummaryScreen = true"
-      >
+    <template #fixed-footer>
+      <base-button block :disabled="isSubmitButtonDisabled" @click="onContinue">
         {{ $t('views.withdraw.continue') }}
       </base-button>
     </template>
-    <template v-else #fixed-footer>
-      <base-button block>
-        {{ $t('views.withdraw.withdrawNow') }}
-      </base-button>
-    </template>
   </t-top-navigation>
+  <o-withdraw-summary v-else @back="showSummaryScreen = false" />
 </template>
 
 <script lang="ts" setup>
@@ -110,28 +97,33 @@ import { Route } from '@/router/types';
 import { computed, onBeforeMount, Ref, ref } from 'vue';
 
 import { useCoinsStore } from '@/stores/coins';
+import { ICoin } from '@/models/coin/coins';
+import { STATIC_BASE_URL } from '@/constants';
+import { useAccountStore } from '@/stores/account';
+import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
+import { useWithdrawStore } from '@/stores/withdraw';
+import { useErrorsStore } from '@/stores/errors';
 
 import {
   BaseButton,
   BaseInput,
   MNetworkSelectAnswer,
+  OWithdrawSummary,
   TTopNavigation,
 } from '@/components/ui';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
-import { ICoin } from '@/models/coin/coins';
-import { STATIC_BASE_URL } from '@/constants';
-import { useAccountStore } from '@/stores/account';
-import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 
+const withdrawStore = useWithdrawStore();
 const coinStore = useCoinsStore();
 const accountStore = useAccountStore();
+const errorsStore = useErrorsStore();
 
 const openNetworkModal = ref(false);
 const showSummaryScreen = ref(false);
 
 const form = ref({
   address: '',
-  amount: 0.02,
+  amount: 0,
   network: 'Bitcoin',
   coin: {
     name: '---',
@@ -144,6 +136,7 @@ const networks = ref([]) as Ref<string[]>;
 
 const coins = computed(() => coinStore.getCoins);
 
+const isLoading = ref(false);
 const isSubmitButtonDisabled = computed(
   () =>
     isInsufficientBalance.value ||
@@ -206,6 +199,30 @@ const onSelectNetwork = (network: TDictionaryItem) => {
 
 const onAmountInput = (amount: number) => {
   form.value.amount = amount;
+};
+
+const onContinue = async () => {
+  try {
+    isLoading.value = true;
+
+    await withdrawStore.fetchWithdrawInfo({
+      address: form.value.address,
+      amount: form.value.amount.toString(),
+      code: form.value.coin.code,
+      network: 'main',
+    });
+
+    showSummaryScreen.value = true;
+  } catch (e) {
+    await errorsStore.handle(
+      e,
+      'WithdrawalScreen.vue',
+      'getWithdrawInfo',
+      "error can't get withdrawal info"
+    );
+  } finally {
+    isLoading.value = false;
+  }
 };
 </script>
 
