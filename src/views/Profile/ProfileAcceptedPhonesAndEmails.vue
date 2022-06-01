@@ -8,7 +8,10 @@
       $t('views.profile.profilePhonesAndEmails.acceptedPhonesAndEmails')
     }}</template>
     <template #top-right>
-      <i class="icon-plus_circle add" @click="$router.back()" />
+      <i
+        class="icon-plus_circle add"
+        @click="$router.push({ name: Route.ProfileAddNewContactData })"
+      />
     </template>
     <template #content>
       <div class="content-wrapper">
@@ -33,17 +36,25 @@
             {{ $t('views.profile.profilePhonesAndEmails.acceptedContact') }}
           </h1>
           <ul class="data-list">
-            <li class="item">
-              <div class="label">Phone</div>
+            <li
+              v-for="(value, index) in [phone, ...additionalPhones]"
+              :key="index"
+              class="item"
+            >
+              <div class="label">Phone {{ index + 1 }}</div>
               <div class="value">
-                <div class="phone">{{ phone }}</div>
+                <div class="phone">{{ value }}</div>
                 <i class="icon-trash_full icon" />
               </div>
             </li>
-            <li class="item">
-              <div class="label">Email</div>
+            <li
+              v-for="(value, index) in [email, ...additionalEmails]"
+              :key="index"
+              class="item"
+            >
+              <div class="label">Email {{ index + 1 }}</div>
               <div class="value">
-                <div class="email">{{ email }}</div>
+                <div class="email">{{ value }}</div>
                 <i class="icon-trash_full icon" />
               </div>
             </li>
@@ -51,7 +62,7 @@
           <base-button
             class="phone-adder"
             view="flat"
-            icon-left="ci-plus"
+            icon-left="icon-plus"
             @click="$router.push({ name: Route.ProfileAddNewContactData })"
           >
             + {{ $t('views.newcontact.additionalphone') }}
@@ -76,6 +87,14 @@ const pStore = useProfileStore();
 const KYCStatus = computed(() => pStore.getUser.kycStatus);
 const phone = computed(() => pStore.getUser.phone);
 const email = computed(() => pStore.getUser.email);
+
+const additionalPhones = computed(() => {
+  return pStore.getUser.additionalPhones ? pStore.getUser.additionalPhones : [];
+});
+
+const additionalEmails = computed(() => {
+  return pStore.getUser.additionalEmails ? pStore.getUser.additionalEmails : [];
+});
 </script>
 
 <style lang="scss" scoped>
