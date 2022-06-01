@@ -474,6 +474,13 @@
         "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
       }
     },
+    "pEmailSent":{
+      "title":"Confirm you email address",
+      "description":"We sent confirmation email to:",
+      "footerDescription": "Check your email and click on the confirmation link to continue.",
+      "goToInbox": "Go to Inbox",
+      "resend": "Resend email"
+    },
     "survey": {
       "question": "Main reason for using Liber",
       "spendOrSave": "Spend or save daily",
