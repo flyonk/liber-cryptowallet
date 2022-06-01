@@ -30,3 +30,4 @@ export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswer
 export { default as MStatusCard } from './molecules/profile-status-cards/MKycStatusCard.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
 export { default as BiometricIdentifierSwitcherButton } from './organisms/BiometricIdentifierSwitcherButton.vue';
+export { default as EnterVerificationCode } from './organisms/auth/EnterVerificationCode.vue';

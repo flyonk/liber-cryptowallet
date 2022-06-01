@@ -79,6 +79,19 @@ const cardInfo: IKycStatusCard = computed(() => {
 
       return { title, description, imgSrc, stateIcon };
     }
+    case EKYCStatus.rejected: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
     default: {
       return '';
     }

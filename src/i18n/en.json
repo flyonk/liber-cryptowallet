@@ -472,6 +472,10 @@
         "acceptedContact": "Accepted Contacts",
         "verificationInProgress": "ID Verification in progress",
         "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
+      },
+      "profileAddNewContactData":{
+        "title":"Add a new contact",
+        "confirmButton":"Confirm Contact"
       }
     },
     "pEmailSent":{

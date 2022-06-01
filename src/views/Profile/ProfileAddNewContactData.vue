@@ -9,7 +9,9 @@
       })
     "
   >
-    <template #title>Add a new contact</template>
+    <template #title>
+      {{ $t('views.profile.profileAddNewContactData.title') }}</template
+    >
     <template #content>
       <base-input v-model="data">
         <template #label> Email or Phone </template>
@@ -26,7 +28,9 @@
         :disabled="isDisabled"
         @click="handleAddContactData"
       >
-        Confirm Contact</base-button
+        {{
+          $t('views.profile.profileAddNewContactData.confirmButton')
+        }}</base-button
       ></template
     >
   </t-top-navigation>
@@ -46,13 +50,19 @@
 </template>
 
 <script lang="ts" setup>
-import { TTopNavigation, BaseButton, BaseInput } from '@/components/ui';
-import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+import {
+  TTopNavigation,
+  BaseButton,
+  BaseInput,
+  EnterVerificationCode,
+} from '@/components/ui';
+
 import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
 import router from '@/router';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { computed, ref } from 'vue';
+
 const pStore = useProfileStore();
 const data = ref('');
 const needToConfirmPhone = ref(false);
