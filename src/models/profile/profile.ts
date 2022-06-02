@@ -32,6 +32,8 @@ export enum EUserStatus {
   closed = 60, //UserStatusClosed
 }
 
+export type TKYCStatuses = 'not_started' | 'pending' | 'rejected' | 'success';
+
 export enum EKYCStatus {
   not_started = 10,
   pending = 20,
