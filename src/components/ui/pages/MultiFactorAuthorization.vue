@@ -38,9 +38,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
@@ -55,6 +55,9 @@ const errorsStore = useErrorsStore();
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
+
+// hook to change history for back action possible
+router.push({ hash: '#mfa' });
 
 const oneTimeCode = ref('');
 const passcode = ref('');
@@ -131,6 +134,18 @@ const onClose = async () => {
 const isDisabled = computed(() => {
   return oneTimeCode.value.length !== 6 || passcode.value.length !== 4;
 });
+
+// close mfa on back in history
+const route = useRoute();
+
+watch(
+  () => route.hash,
+  (newHash, oldHash) => {
+    if (oldHash === '#mfa' && newHash === '') {
+      mfaStore.hide();
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
