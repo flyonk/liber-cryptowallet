@@ -21,10 +21,13 @@
         </div>
       </div>
 
-      <OWithdrawConfirmationToast v-model:visible="showToast" />
+      <OWithdrawConfirmationToast
+        v-model:visible="showConfirmationToast"
+        @success="$emit('success')"
+      />
     </template>
     <template #fixed-footer>
-      <base-button block @click="showToast = true">
+      <base-button block @click="showConfirmationToast = true">
         {{ $t('views.withdraw.withdrawNow') }}
       </base-button>
     </template>
@@ -43,9 +46,9 @@ import {
 
 const withdrawStore = useWithdrawStore();
 
-defineEmits(['back']);
+defineEmits(['back', 'success']);
 
-const showToast = ref(false);
+const showConfirmationToast = ref(false);
 
 const info = computed(() => withdrawStore.getWithdrawInfo);
 const currencyText = computed(() => info.value.currencyCode.toUpperCase());

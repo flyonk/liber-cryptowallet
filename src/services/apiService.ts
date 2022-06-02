@@ -84,6 +84,9 @@ export default {
     withdrawInfo(): string {
       return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/withdrawal/info`;
     },
+    withdraw(): string {
+      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/withdraw`;
+    },
   },
   transactions: {
     transactionsList(): string {

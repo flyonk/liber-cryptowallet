@@ -31,3 +31,4 @@ export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalA
 export { default as BiometricIdentifierSwitcherButton } from './organisms/BiometricIdentifierSwitcherButton.vue';
 export { default as OWithdrawSummary } from './organisms/withdraw/OWithdrawSummary.vue';
 export { default as OWithdrawConfirmationToast } from './organisms/withdraw/OWithdrawConfirmationToast.vue';
+export { default as OWithdrawSuccessToast } from './organisms/withdraw/OWithdrawSuccessToast.vue';

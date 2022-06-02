@@ -33,5 +33,14 @@ export const useWithdrawStore = defineStore('withdraw', {
     async fetchWithdrawInfo(requestData: IWithdrawalInfoRequest) {
       this.info = await fundsService.withdrawInfo(requestData);
     },
+
+    async withdraw() {
+      await fundsService.withdraw({
+        code: this.info.currencyCode,
+        address: this.info.address,
+        amount: this.info.amountToReceive,
+        network: 'main',
+      });
+    },
   },
 });

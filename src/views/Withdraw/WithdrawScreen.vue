@@ -82,6 +82,8 @@
           </template>
         </t-top-navigation>
       </p-dialog>
+
+      <o-withdraw-success-toast v-model:visible="showSuccessToast" />
     </template>
     <template #fixed-footer>
       <base-button block :disabled="isSubmitButtonDisabled" @click="onContinue">
@@ -89,7 +91,11 @@
       </base-button>
     </template>
   </t-top-navigation>
-  <o-withdraw-summary v-else @back="showSummaryScreen = false" />
+  <o-withdraw-summary
+    v-else
+    @back="showSummaryScreen = false"
+    @success="showSuccessToast"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -108,6 +114,7 @@ import {
   BaseButton,
   BaseInput,
   MNetworkSelectAnswer,
+  OWithdrawSuccessToast,
   OWithdrawSummary,
   TTopNavigation,
 } from '@/components/ui';
@@ -133,6 +140,7 @@ const form = ref({
 });
 
 const networks = ref([]) as Ref<string[]>;
+const showSuccessToast = ref(false);
 
 const coins = computed(() => coinStore.getCoins);
 

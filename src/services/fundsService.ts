@@ -16,6 +16,10 @@ import withdrawInfoMapper, {
   IWithdrawalInfo,
   IWithdrawalInfoRequest,
 } from '@/models/funds/withdrawInfo';
+import withdrawMapper, {
+  IWithdraw,
+  IWithdrawRequest,
+} from '@/models/funds/withdraw';
 
 export default {
   async getCoins(): Promise<IFoundsCoin[]> {
@@ -59,5 +63,14 @@ export default {
     // );
 
     return withdrawInfoMapper.deserialize(withdrawalInfoData);
+  },
+
+  async withdraw(data: IWithdrawRequest): Promise<IWithdraw> {
+    const response = await axios.post(
+      apiService.funds.withdraw(),
+      withdrawMapper.requestSerialize(data)
+    );
+
+    return response.data;
   },
 };

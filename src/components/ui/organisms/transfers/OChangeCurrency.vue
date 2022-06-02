@@ -364,7 +364,8 @@ const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 function convertCurrency() {
   const mfaStore = useMfaStore();
   mfaStore.show({
-    title: 'transactions.convertTransaction',
+    button: 'transactions.convertTransaction',
+    successRoute: Route.DashboardHome,
     callback: async () => {
       //
     },
