@@ -7,7 +7,7 @@ import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
 import { createPinia } from 'pinia';
 import { i18n, setLocale } from './i18n';
-// import sentry from '@/plugins/sentry';
+import sentry from '@/plugins/sentry';
 import axiosInterceptor from '@/plugins/axiosInterceptor';
 import filters from '@/helpers/filters';
 import appStateListen from '@/helpers/appStateListen';
@@ -31,7 +31,7 @@ const app = createApp(App)
   .use(ToastService)
   .use(router)
   .use(FloatingVue)
-  // .use(sentry)
+  .use(sentry)
   .use(filters);
 
 setLocale();

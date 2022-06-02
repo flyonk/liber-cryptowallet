@@ -42,6 +42,7 @@ import { useRecepientsStore } from '@/stores/recipients';
 import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
 
 const router = useRouter();
 const route = useRoute();
@@ -53,8 +54,17 @@ const onEnable = (): void => {
     .then(() => {
       nextRoute();
     })
-    .catch(() => {
+    .catch((err) => {
       nextRoute();
+
+      const errorsStore = useErrorsStore();
+
+      errorsStore.handle(
+        err,
+        'RequestContacts',
+        'onEnable',
+        'dont get phone contacts'
+      );
     });
 };
 

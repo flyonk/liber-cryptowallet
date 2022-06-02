@@ -43,6 +43,7 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAuthStore } from '@/stores/auth';
+import { useErrorsStore } from '@/stores/errors';
 
 import { Route } from '@/router/types';
 
@@ -51,6 +52,7 @@ import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const router = useRouter();
 const authStore = useAuthStore();
+const errorsStore = useErrorsStore();
 
 const number = ref('');
 const updateKey = ref(0);
@@ -58,7 +60,9 @@ const countryDialCode = ref('');
 
 onMounted(async () => {
   //Check if user is authorized
-  if (await authStore.checkAuthorizedUser()) authStore.setStep(2, 'login');
+  if (await authStore.checkAuthorizedUser()) {
+    authStore.setStep(2, 'login');
+  }
 
   await authStore.getFromStorage();
 
@@ -78,7 +82,16 @@ const handleSelectCountry = (dialCode: string) => {
 const nextStep = async (phone: string) => {
   authStore.setPhone(phone);
 
-  await authStore.setPhoneToStorage();
+  try {
+    await authStore.setPhoneToStorage();
+  } catch (error) {
+    errorsStore.handle(
+      error,
+      'Login1Step.vue',
+      'nextStep',
+      'Error setting the phone in the storage'
+    );
+  }
 
   authStore.setStep(1, 'login');
 };

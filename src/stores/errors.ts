@@ -1,12 +1,14 @@
 import { defineStore } from 'pinia';
 import errorService from '@/services/errorService';
 import { AxiosError } from 'axios';
+import { Component } from 'vue';
 
 interface IError {
   err: AxiosError | Error | unknown;
   name: string;
   ctx: string;
   description?: string;
+  customErrorComponent?: Component;
 }
 
 interface IErrors {
@@ -22,6 +24,8 @@ export const useErrorsStore = defineStore('errors', {
     displayCurrent: (state: IErrors) => state.errors.length > 0,
     isSingleError: (state: IErrors) => state.errors.length === 1,
     isMultipleErrors: (state: IErrors) => state.errors.length > 1,
+    getCustomComponent: (state: IErrors) =>
+      state.errors[0].customErrorComponent,
   },
 
   actions: {
@@ -30,9 +34,10 @@ export const useErrorsStore = defineStore('errors', {
       err: AxiosError | Error | any,
       name: string,
       ctx: string,
-      description?: string
+      description?: string,
+      customErrorComponent?: Component
     ): Promise<void> {
-      this.errors.push({ err, name, ctx, description });
+      this.errors.push({ err, name, ctx, description, customErrorComponent });
       await errorService.logError(err, name, ctx, description);
     },
 
@@ -60,8 +65,10 @@ export const useErrorsStore = defineStore('errors', {
       }
     },
 
-    getErrorMessage() {
-      return errorService.makeErrorMessage(this.errors?.[0]?.description);
+    getErrorMessage(): string {
+      return this.errors.length > 0
+        ? errorService.makeErrorMessage(this.errors?.[0])
+        : '';
     },
   },
 });

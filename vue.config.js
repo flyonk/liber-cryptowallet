@@ -1,11 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const webpack = require('webpack');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
-// eslint-disable-next-line @typescript-eslint/no-var-requires
+const whitelabelConfig = require('./whitelabel.config');
+const path = require('path');
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
 const useSentryPlugin = process.env.VUE_APP_SENTRY_ENABLED === '1';
+const whitelabelConfigPath = whitelabelConfig[process.env.VUE_APP_BRAND];
 
 module.exports = {
   configureWebpack: {
@@ -29,6 +29,10 @@ module.exports = {
       // }),
     ],
     resolve: {
+      alias: {
+        // create alias for whitelabel theme
+        brandVariables: path.resolve(__dirname, whitelabelConfigPath.theme),
+      },
       extensions: ['.ts', '.js'],
       fallback: {
         // "util": false,
@@ -43,7 +47,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        additionalData: '@import "@/assets/styles/common/variables.scss";',
+        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css";`,
       },
     },
   },

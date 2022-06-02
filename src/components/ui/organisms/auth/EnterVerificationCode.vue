@@ -56,13 +56,6 @@
       </base-button>
     </slot>
   </div>
-  <base-toast :visible="isError" severity="error" @update:visible="onHide">
-    <template #description>
-      <div>
-        {{ $t('configureApp.invalidCodeMessage') }}
-      </div>
-    </template>
-  </base-toast>
 </template>
 
 <script lang="ts">
@@ -72,19 +65,20 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
+
 import { useErrorsStore } from '@/stores/errors';
+
 import {
   TopNavigation,
   BaseButton,
   BaseVerificationCodeInput,
-  BaseToast,
   BaseCountdown,
 } from '@/components/ui';
+
 const errorsStore = useErrorsStore();
-const { tm } = useI18n();
+const { t } = useI18n();
 const emit = defineEmits([
   'onComplete',
   'onResend',
@@ -92,7 +86,7 @@ const emit = defineEmits([
   'onPrev',
   'onHide',
 ]);
-const props = defineProps({
+defineProps({
   isError: {
     type: Boolean,
     default: false,
@@ -126,27 +120,31 @@ const props = defineProps({
     default: 'icon-app-navigation-back',
   },
 });
-const withCountdown = computed(() => {
-  return props.withCountdown;
-});
+
 const pasteFromClipboard = async () => {
   try {
     const content = await Clipboard.read();
-    if (content.type === 'text/plain') {
+
+    if (content && content.type === 'text/plain') {
       emit('onComplete', content.value);
     }
-  } catch (err) {
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (err: any) {
+    if (
+      err.errorMessage &&
+      err.errorMessage === 'There is no data on the clipboard'
+    ) {
+      return;
+    }
     errorsStore.handle(
       err,
       'EnterVerificationCode',
       'pasteFromClipboard',
-      tm('common.readFailure')
+      t('common.pasteClipboardError')
     );
   }
 };
-const onHide = (): void => {
-  emit('onHide');
-};
+
 const onComplete = (value: string): void => {
   emit('onComplete', value);
 };
@@ -170,6 +168,8 @@ const onPrev = (): void => {
   align-items: flex-start;
 
   > .footer {
+    margin-top: 23px;
+
     > span {
       > .resend-button {
         padding: 0;

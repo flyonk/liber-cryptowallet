@@ -87,7 +87,7 @@ const copyToClipboard = async (data: string) => {
       err,
       'TransactionDetails.vue',
       'copyToClipboard',
-      t('transactions.transactionIdCopyFail')
+      t('transactions.transactionIdCopyFail') as string
     );
   }
 };
@@ -95,7 +95,7 @@ const copyToClipboard = async (data: string) => {
 
 <style lang="scss">
 .transaction-details {
-  padding: 0 16px;
+  // padding: 0 16px;
   height: 100%;
 
   > .header {

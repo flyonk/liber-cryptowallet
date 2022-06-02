@@ -3,7 +3,7 @@
     <div class="select-option flex">
       <img :src="currentSendCurrency.img" alt class="icon" />
       <p class="name">{{ currentSendCurrency.name }}</p>
-      <img alt="list" src="@/assets/icon/arrow-down.svg" />
+      <img alt="list" :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`" />
       <div></div>
       <p-dialog
         v-model:visible="showSelectCoinDialog[direction]"
@@ -34,6 +34,7 @@ import { PropType, ref } from 'vue';
 
 import { ICoin } from '@/models/coin/coins';
 import { ICoinForExchange } from '@/stores/funds';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 
@@ -71,10 +72,6 @@ const handleCloseModal = () => {
 
 <style lang="scss">
 //TODO: Hide under scoped
-.p-dialog-content {
-  padding: 0 !important;
-}
-
 .select {
   position: absolute;
   right: 4px;

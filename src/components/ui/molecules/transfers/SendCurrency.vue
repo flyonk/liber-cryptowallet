@@ -15,7 +15,10 @@
           <div class="select-option flex" @click="showCryptoList(1)">
             <img class="icon" :src="currentSendFromCurrency.img" />
             <p class="name">{{ currentSendFromCurrency.name.value }}</p>
-            <img src="@/assets/icon/arrow-down.svg" alt="list" />
+            <img
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+              alt="list"
+            />
           </div>
           <ul
             v-if="isSelectListOpen && currentOpenedSelectId === 1"
@@ -56,7 +59,10 @@
           <div class="select-option flex" @click="showCryptoList(2)">
             <img class="icon" :src="currentSendToCurrency.img" />
             <p class="name">{{ currentSendToCurrency.name.value }}</p>
-            <img src="@/assets/icon/arrow-down.svg" alt="list" />
+            <img
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+              alt="list"
+            />
           </div>
           <ul
             v-if="isSelectListOpen && currentOpenedSelectId === 2"
@@ -82,6 +88,8 @@
 import { onMounted, ref, watch } from 'vue';
 import { useTransferStore } from '@/stores/transfer';
 
+import { STATIC_BASE_URL } from '@/constants';
+
 const props = defineProps({
   contactName: {
     type: String,
@@ -106,13 +114,13 @@ watch(amount, () => {
 const currentSendFromCurrency = {
   name: ref('TBTC'),
   code: ref('tbtc'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
 
 const currentSendToCurrency = {
   name: ref('TBTC'),
   code: ref('tbtc'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
 
 let isSelectListOpen = ref(false);
@@ -150,12 +158,12 @@ const currencies = [
   {
     name: 'TBTC',
     code: 'tbtc',
-    img: require('@/assets/icon/currencies/btc.svg'),
+    img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
   },
   {
     name: 'TLTC',
     code: 'tltc',
-    img: require('@/assets/icon/currencies/ltc.svg'),
+    img: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
   },
   // {
   //   name: 'BTC',

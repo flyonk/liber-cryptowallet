@@ -21,10 +21,9 @@
     </template>
     <template #content>
       <div v-if="!showCloseAccount" class="account-settings">
-        <!-- TODO: Implement menu controls -->
         <div class="controls" style="display: none">
           <button class="btn -blue">
-            <img class="icon" src="@/assets/icon/user_heart.svg" />
+            <img class="icon" :src="`${menuStaticFolder}user_heart.svg`" />
             {{ $t('views.profile.profileSettings.invite') }}
           </button>
           <button class="btn -white">
@@ -40,7 +39,7 @@
               class="item"
               @click="$router.push({ name: Route.ProfileMyQrCode })"
             >
-              <img class="icon" src="@/assets/icon/qr-mini.svg" />
+              <img class="icon" :src="`${menuStaticFolder}qr-mini.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.QRCode') }}
               </p>
@@ -49,19 +48,19 @@
               :to="{ name: Route.ProfileEdit, params: { id: '1' } }"
               class="item"
             >
-              <img class="icon" src="@/assets/icon/user_circle.svg" />
+              <img class="icon" :src="`${menuStaticFolder}user_circle.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.details') }}
               </p>
             </router-link>
             <router-link :to="{ name: Route.AccountMain }" class="item">
-              <img class="icon" src="@/assets/icon/data.svg" />
+              <img class="icon" :src="`${menuStaticFolder}data.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.allAccounts') }}
               </p>
             </router-link>
             <router-link :to="{ name: Route.ProfileHelp }" class="item">
-              <img class="icon" src="@/assets/icon/help_circle.svg" />
+              <img class="icon" :src="`${menuStaticFolder}help_circle.svg`" />
               <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
             </router-link>
           </ul>
@@ -70,7 +69,7 @@
           </h6>
           <ul class="list security--profile">
             <router-link :to="{ name: Route.ChangePasscode }" class="item">
-              <img class="icon" src="@/assets/icon/lock.svg" />
+              <img class="icon" :src="`${menuStaticFolder}lock.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.changePasscode') }}
               </p>
@@ -79,41 +78,27 @@
               class="item"
               @click="$router.push({ name: Route.ProfilePrivacy })"
             >
-              <img class="icon" src="@/assets/icon/shield.svg" />
+              <img class="icon" :src="`${menuStaticFolder}shield.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.privacy') }}
               </p>
             </li>
             <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
-              <img class="icon" src="@/assets/icon/google.svg" />
+              <img class="icon" :src="`${menuStaticFolder}google.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.2FAGoogle') }}
               </p>
+              <p class="text selected-language">
+                {{ is2FAConfigured ? $t('common.on') : $t('common.off') }}
+              </p>
             </router-link>
             <router-link class="item" disabled to="/profile/devices">
-              <img class="icon" src="@/assets/icon/devices.svg" />
+              <img class="icon" :src="`${menuStaticFolder}devices.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.devices') }}
               </p>
             </router-link>
-            <li
-              v-if="touchFaceIdSwitcher"
-              class="item"
-              @click="onSwitcherChange"
-            >
-              <img class="icon" src="@/assets/icon/touchid.svg" />
-              <p class="text">
-                {{ $t('views.profile.profileSettings.signIn') }}
-              </p>
-              <InputSwitch v-model="isTouchIdOn" class="switcher" />
-            </li>
-            <li v-else class="item" @click="onSwitcherChange">
-              <img class="icon" src="@/assets/icon/touchid.svg" />
-              <p class="text">
-                {{ $t('views.profile.profileSettings.signIn') }}
-              </p>
-              <InputSwitch :model-value="isTouchIdOn" class="switcher" />
-            </li>
+            <biometric-identifier-switcher-button />
           </ul>
           <h6 class="subtitle">
             {{ $t('views.profile.profileSettings.appearance') }}
@@ -124,7 +109,7 @@
               @click="showLanguageSelect = true"
               @close="showLanguageSelect = false"
             >
-              <img class="icon" src="@/assets/icon/world.svg" />
+              <img class="icon" :src="`${menuStaticFolder}world.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.language') }}
               </p>
@@ -136,13 +121,13 @@
           </h6>
           <ul class="list label--profile">
             <li class="item" @click="showCloseAccount = true">
-              <img class="icon" src="@/assets/icon/circle_close.svg" />
+              <img class="icon" :src="`${menuStaticFolder}circle_close.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.close') }}
               </p>
             </li>
             <li class="item" @click="onLogout">
-              <img class="icon" src="@/assets/icon/log_out.svg" />
+              <img class="icon" :src="`${menuStaticFolder}log_out.svg`" />
               <p class="text">
                 {{ $t('views.profile.profileSettings.logOut') }}
               </p>
@@ -173,34 +158,37 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
-import { useAppOptionsStore } from '@/stores/appOptions';
 import { useErrorsStore } from '@/stores/errors';
+import { STATIC_BASE_URL } from '@/constants';
 
-import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
 import { Route } from '@/router/types';
-import { EStorageKeys } from '@/types/storage';
 import { showConfirm } from '@/helpers/nativeDialog';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
-import InputSwitch from 'primevue/inputswitch';
-import { TTopNavigation } from '@/components/ui';
+import {
+  TTopNavigation,
+  BiometricIdentifierSwitcherButton,
+} from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 
 const route = useRouter();
 const authStore = useAuthStore();
-const appOptionsStore = useAppOptionsStore();
 const errorsStore = useErrorsStore();
 const { tm } = useI18n();
 
+const menuStaticFolder = ref(`${STATIC_BASE_URL}/static/menu/`);
+
 const profileStore = useProfileStore();
 let { phone, firstName, lastName } = profileStore.getUser;
+
+const is2FAConfigured = computed(() => profileStore.user.is2FAConfigured);
 
 if (firstName == null) {
   firstName = 'Name';
@@ -211,51 +199,8 @@ if (lastName == null) {
 const accountName = ref(`${firstName} ${lastName}`);
 const accountID = ref(`${phone}`);
 const showCloseAccount = ref(false);
-const { faceid, touchid } = appOptionsStore.getOptions;
-const isTouchIdOn = ref(faceid || touchid);
-const touchFaceIdSwitcher = ref('');
 const showLanguageSelect = ref(false);
 const { locale } = useI18n({ useScope: 'global' });
-
-const onSwitcherChange = async () => {
-  const value = isTouchIdOn.value ? 'true' : '';
-
-  const key =
-    touchFaceIdSwitcher.value === 'face-id'
-      ? EStorageKeys.faceid
-      : EStorageKeys.touchid;
-
-  if (!isTouchIdOn.value) {
-    await verifyIdentity();
-
-    appOptionsStore.setOptions(value, key);
-
-    isTouchIdOn.value = true;
-  } else {
-    const submitted = await showConfirm({
-      title: tm(
-        'views.profile.profileSettings.confirmNativeVerificationTitle'
-      ) as string,
-      message: tm(
-        'views.profile.profileSettings.confirmNativeVerification'
-      ) as string,
-      okButtonTitle: tm('views.profile.profileSettings.logoutAccept') as string,
-      cancelButtonTitle: tm(
-        'views.profile.profileSettings.logoutDecline'
-      ) as string,
-    });
-
-    if (submitted) {
-      appOptionsStore.setOptions('', key);
-    }
-
-    isTouchIdOn.value = false;
-  }
-};
-
-/**
- * Lifecycles
- */
 
 onMounted(async () => {
   if (!profileStore.getUser.id)
@@ -267,15 +212,6 @@ onMounted(async () => {
       lastName = user?.lastName;
       accountName.value = `${firstName} ${lastName}`;
       accountID.value = phone;
-
-      await appOptionsStore.init();
-      isTouchIdOn.value =
-        appOptionsStore.getOptions.faceid || appOptionsStore.getOptions.touchid;
-      const option = await getSupportedOptions();
-
-      if (option === 'face-id' || option === 'touch-id') {
-        touchFaceIdSwitcher.value = option;
-      }
     } catch (err) {
       errorsStore.handle(err, 'ProfileSettings', 'onMounted');
     }
@@ -311,10 +247,15 @@ async function onLogout() {
 .account-settings {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  max-height: 75vh;
   padding-top: 10px;
   flex-grow: 1;
   overflow: auto;
+
+  //Hide scroll-bar on mobile device
+  &::-webkit-scrollbar {
+    display: none;
+  }
 
   > .header {
     display: flex;
@@ -418,12 +359,9 @@ async function onLogout() {
           color: $color-brand-primary;
         }
 
-        > .switcher {
-          margin-left: auto;
-        }
-
         > .selected-language {
           margin-left: auto;
+          margin-right: 12px;
         }
       }
     }

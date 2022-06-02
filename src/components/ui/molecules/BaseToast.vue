@@ -6,9 +6,10 @@
     class="base-toast"
     v-bind="$attrs"
     dismissable-mask
+    @update:visible="$emit('update:visible', $event)"
   >
     <div class="close-wrapper" />
-    <div class="image-block">
+    <div class="image-block" @click="onSeverityIconClick">
       <img :src="currentImage" :alt="severity" class="image" />
     </div>
     <div class="header">
@@ -29,6 +30,8 @@
 <script setup lang="ts">
 import { computed } from 'vue-demi';
 
+import { STATIC_BASE_URL } from '@/constants';
+
 const props = defineProps({
   severity: {
     type: String,
@@ -36,16 +39,22 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(['update:visible']);
+
+const onSeverityIconClick = () => {
+  emit('update:visible');
+};
+
 const currentImage = computed(() => {
   switch (props.severity) {
     case 'error':
-      return require('@/assets/images/sapphire-error.svg');
+      return `${STATIC_BASE_URL}/static/media/sapphire-error.svg`;
     case 'confirmation':
-      return require('@/assets/images/confirmation.svg');
+      return `${STATIC_BASE_URL}/static/media/confirmation.svg`;
     case 'attention':
-      return require('@/assets/images/attention.svg');
+      return `${STATIC_BASE_URL}/static/media/attention.svg`;
     default:
-      return require('@/assets/images/sapphire-error.svg');
+      return `${STATIC_BASE_URL}/static/media/sapphire-error.svg`;
   }
 });
 </script>
@@ -78,6 +87,10 @@ const currentImage = computed(() => {
         width: 50px;
         height: 50px;
       }
+    }
+
+    > .description {
+      margin: 0 0 20px;
     }
 
     > .footer {

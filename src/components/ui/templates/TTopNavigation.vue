@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import TopNavigation from '@/components/ui/molecules/TopNavigation.vue';
+import { TopNavigation } from '@/components/ui';
 
 defineProps({
   leftIconName: {
@@ -55,7 +55,7 @@ defineEmits(['click:left-icon']);
 
 <style lang="scss" scoped>
 .template-top-navigation {
-  padding: 30px 16px 0;
+  padding: 10px 16px 0;
 
   > .content {
     margin-top: 25px;

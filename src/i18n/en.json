@@ -31,7 +31,10 @@
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
     "paymentoptions": "Payment Options",
-    "confirmChanging": "Confirm changing"
+    "confirmChanging": "Confirm changing",
+    "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "on": "On",
+    "off": "Off"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -244,15 +247,6 @@
       "recepients": "Recepients",
       "add": "Add a new contact"
     },
-    "aboutpage": {
-      "home": "Home",
-      "about": "About",
-      "thisIsAn": "This is an about page"
-    },
-    "homepage": {
-      "home": "Home",
-      "about": "About"
-    },
     "depositecoin": {
       "depositewalletprint": {
         "depositBtc": "Deposit BTC",
@@ -408,7 +402,7 @@
         "privacy": "Privacy",
         "2FAGoogle": "2FA: Google Authenticator",
         "devices": "Devices",
-        "signIn": "Sign in with Touch ID",
+        "signIn": "Sign in with Biometrics",
         "label": "Label",
         "system": "System",
         "close": "Close account",
@@ -422,8 +416,8 @@
         "logoutConfirmation": "Are you sure to logging out from this account?",
         "logoutAccept": "Yes",
         "logoutDecline": "No",
-        "confirmNativeVerificationTitle": "Disable Face ID/Touch ID",
-        "confirmNativeVerification": "Are you sure to disable Face ID/Touch ID?",
+        "confirmNativeVerificationTitle": "Disable",
+        "confirmNativeVerification": "Are you sure to disable",
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language"
@@ -528,6 +522,13 @@
     "serviceUnavailable": "Service unavailable",
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
-    "details": "Details"
+    "details": "Details",
+    "login2Step": "Invalid secret code"
+  },
+  "biometricConfirmation": {
+    "title": "Change settings",
+    "descriptionFirstPart": "To enable",
+    "descriptionSecondPart": "please, toggle on Application Settings",
+    "descriptionThirdPart": "option"
   }
 }

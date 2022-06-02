@@ -181,6 +181,7 @@ import { useUIStore } from '@/stores/ui';
 import transactionService from '@/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
+import { STATIC_BASE_URL } from '@/constants';
 
 import {
   AccountListBottomSheet,
@@ -215,7 +216,7 @@ const totalBalance = computed(() => accountStore.getTotalBalance);
 
 const allAccountInfo = ref({
   code: '€',
-  imgSrc: require('@/assets/icon/currencies/euro.svg'),
+  imgSrc: `${STATIC_BASE_URL}/static/currencies/euro.svg`,
 });
 
 const currentAccount = ref({

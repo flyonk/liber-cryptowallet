@@ -38,11 +38,13 @@ const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
-const onEnable = (): void => {
-  setOptions('true', EStorageKeys.faceid);
-  verifyIdentity();
+const onEnable = async (): Promise<void> => {
+  const state = await verifyIdentity();
 
-  router.push({ name: Route.PushNotifications });
+  if (state) {
+    await setOptions('true', EStorageKeys.faceid);
+    router.push({ name: Route.PushNotifications });
+  }
 };
 
 const onCancel = (): void => {

@@ -15,19 +15,24 @@
         </p>
       </div>
     </template>
-    <template #footer>
+    <template v-if="displayMultipleErrorMessage" #footer>
       <div class="popup-footer">
-        <template v-if="isSingleError || displayAllErrors">
+        <base-button class="btn mb-3" size="large" @click="resetErrors">
+          {{ $t('errors.gotIt') }}
+        </base-button>
+        <base-button class="btn mb-3" size="large" @click="showErrorsDetails">
+          {{ $t('errors.details') }}
+        </base-button>
+      </div>
+    </template>
+    <template v-else #footer>
+      <div class="popup-footer">
+        <template v-if="hasCustomComponent">
+          <component :is="customComponent" />
+        </template>
+        <template v-else-if="isSingleError || displayAllErrors">
           <base-button class="btn mb-3" size="large" @click="hideErrorMsg">
             {{ $t('errors.gotIt') }}
-          </base-button>
-        </template>
-        <template v-else-if="displayMultipleErrorMessage">
-          <base-button class="btn mb-3" size="large" @click="resetErrors">
-            {{ $t('errors.gotIt') }}
-          </base-button>
-          <base-button class="btn mb-3" size="large" @click="showErrorsDetails">
-            {{ $t('errors.details') }}
           </base-button>
         </template>
       </div>
@@ -38,7 +43,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
-import { BaseToast, BaseButton } from '@/components/ui';
+import { BaseButton, BaseToast } from '@/components/ui';
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);
@@ -68,6 +73,8 @@ const displayAllErrors = computed(() => {
 
 const displayCurrent = computed(() => errorsStore.displayCurrent);
 const isSingleError = computed(() => errorsStore.isSingleError);
+const customComponent = computed(() => errorsStore.getCustomComponent);
+const hasCustomComponent = computed(() => !!errorsStore.getCustomComponent);
 const displayMultipleErrorMessage = computed(
   () => errorsStore.isMultipleErrors && !displayAllErrors.value
 );

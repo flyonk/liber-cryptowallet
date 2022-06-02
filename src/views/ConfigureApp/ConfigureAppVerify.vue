@@ -10,13 +10,15 @@
 </template>
 
 <script setup lang="ts">
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { onMounted, Ref, ref } from 'vue';
 
 import { getSupportedOptions } from '@/helpers/identification';
 import { use2faStore } from '@/stores/2fa';
 import { formatPhone } from '@/helpers/2fa';
 import { useAuthStore } from '@/stores/auth';
+import { useErrorsStore } from '@/stores/errors';
+import { useProfileStore } from '@/stores/profile';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
@@ -25,12 +27,14 @@ import { Route } from '@/router/types';
 const store = use2faStore();
 
 const authStore = useAuthStore();
+const pStore = useProfileStore();
 
 const isError = ref(false) as Ref<boolean>;
 const phone = ref('') as Ref<string>;
 const verificationCode = ref('');
 
 const router = useRouter();
+const route = useRoute();
 
 onMounted(() => {
   getFormattedPhone();
@@ -65,6 +69,15 @@ const onComplete = async (code: string) => {
       const result = await store.confirmVerification(code);
       if (result) {
         store.set2FADate();
+        // case for flow from change auth app
+        if (route.hash === '#settings') {
+          // update profile info about 2fa is enabled or not
+          await pStore.init();
+          router.push({
+            name: Route.ProfileSettings,
+          });
+          return;
+        }
         const name = await getSupportedIdentificationWay();
         router.push({
           name,
@@ -72,8 +85,16 @@ const onComplete = async (code: string) => {
       } else {
         isError.value = true;
       }
-    } catch (error) {
+    } catch (err) {
       isError.value = true;
+      const errorsStore = useErrorsStore();
+
+      errorsStore.handle(
+        err,
+        'ConfigureAppVuetify',
+        'onComplete',
+        'confirm verification code incorrect'
+      );
     }
   }
 };

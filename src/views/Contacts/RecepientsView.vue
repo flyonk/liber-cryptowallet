@@ -7,7 +7,11 @@
     /></template>
     <template #top-right
       ><div class="flex">
-        <img class="mr-3" src="@/assets/icon/system_qr.svg" alt="circle-add" />
+        <img
+          class="mr-3"
+          :src="`${STATIC_BASE_URL}/static/menu/system_qr.svg`"
+          alt="circle-add"
+        />
         <i
           class="icon-plus_circle circle-add"
           @click="$router.push({ name: Route.ContactsAddNewContact })"
@@ -31,6 +35,7 @@
 import { ref } from 'vue';
 
 import { BaseInput, TTopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
 
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 

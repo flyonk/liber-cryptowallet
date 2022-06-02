@@ -29,7 +29,11 @@
             alt="right arrow"
             src="@/assets/images/arrow-white.svg"
           />
-          <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
+          <img
+            v-else
+            alt="right arrow"
+            :src="`${STATIC_BASE_URL}/static/menu/arrow.svg`"
+          />
         </label>
       </template>
     </div>
@@ -38,6 +42,7 @@
 
 <script lang="ts" setup>
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
+import { STATIC_BASE_URL } from '@/constants';
 
 defineProps({
   title: {
