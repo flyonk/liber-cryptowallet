@@ -22,7 +22,6 @@ import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { use2faStore } from '@/stores/2fa';
 import { useErrorsStore } from '@/stores/errors';
-import errorService from '@/services/errorService';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 import { Route } from '@/router/types';
 import { EKYCStatus, EUserStatus } from '@/models/profile/profile';
@@ -158,12 +157,6 @@ const onComplete = async (data: string) => {
       _otp.value = otp;
       is2fa.value = true;
       verificationCode.value = '';
-      errorService.logError(
-        err,
-        'VerifyCode',
-        'onComplete',
-        'New device case use 2fa'
-      );
       return;
     }
 
