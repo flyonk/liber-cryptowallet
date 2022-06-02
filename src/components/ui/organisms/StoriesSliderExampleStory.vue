@@ -1,5 +1,5 @@
 <template>
-  <section class="example-story">
+  <section class="example-story" :style="stylePaddings">
     <header class="header">
       <h1 class="title">{{ props.headerTitle }}</h1>
       <img
@@ -28,7 +28,11 @@
 </template>
 
 <script lang="ts" setup>
+import useSafeAreaPaddings from '@/helpers/safeArea';
+
 defineEmits(['login', 'signup']);
+
+const { stylePaddings } = useSafeAreaPaddings();
 
 const props = defineProps({
   headerTitle: {
@@ -64,80 +68,82 @@ const props = defineProps({
   flex-direction: column;
   height: 100%;
   background-color: $color-brand-2-800;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
 
   > .header {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    flex: 1 0 auto;
-  }
+    margin: 24px 0;
 
-  > .header > .title {
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    color: $color-white;
-    margin-left: 25px;
+    & > .title {
+      font-family: Inter, sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 18px;
+      color: $color-white;
+    }
   }
 
   > .main {
     display: flex;
     flex-direction: column;
-    flex: 0 1 auto;
+    flex: 1;
     overflow: scroll;
-  }
 
-  > .main > .title {
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 41px;
-    letter-spacing: 0.004em;
-    color: $color-white;
-    margin-left: 25px;
-  }
+    & > .title {
+      font-weight: 800;
+      font-size: 34px;
+      line-height: 41px;
+      letter-spacing: 0.004em;
+      color: $color-white;
+    }
 
-  > .main > .imagecontainer {
-    display: flex;
-    justify-content: center;
-    overflow: hidden;
+    & > .imagecontainer {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: auto;
+    }
   }
 
   > .footer {
     display: flex;
-    flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: space-around;
-    flex: 1 0 auto;
-    height: 100px;
-  }
+    justify-content: space-between;
+    height: fit-content;
+    margin-top: auto;
+    align-items: center;
+    padding-top: 40px;
 
-  > .footer > .login {
-    background-color: $color-white;
-    color: $color-black;
-    width: 155.5px;
-    height: 48px;
-    border-radius: 13px;
-    border: none;
-    text-align: center;
-    font-size: 17px;
-    font-family: Inter, sans-serif;
-    font-style: normal;
-  }
+    & > .login {
+      background-color: $color-white;
+      color: $color-black;
+      width: 155.5px;
+      height: 48px;
+      border-radius: 13px;
+      border: none;
+      text-align: center;
+      font-size: 17px;
+      font-family: Inter, sans-serif;
+      font-style: normal;
+    }
 
-  > .footer > .signup {
-    background-color: $color-primary;
-    color: $color-white;
-    width: 155.5px;
-    height: 48px;
-    border-radius: 13px;
-    border: none;
-    text-align: center;
-    font-size: 17px;
-    font-family: Inter, sans-serif;
-    font-style: normal;
+    & > .signup {
+      background-color: $color-primary;
+      color: $color-white;
+      width: 155.5px;
+      height: 48px;
+      border-radius: 13px;
+      border: none;
+      text-align: center;
+      font-size: 17px;
+      font-family: Inter, sans-serif;
+      font-style: normal;
+    }
   }
 }
 </style>

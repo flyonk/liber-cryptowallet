@@ -1,5 +1,5 @@
 <template>
-  <section class="welcome-auth" :style="stylePaddings">
+  <section class="welcome-auth">
     <swiper-stories-slider>
       <SwiperSlide v-for="item in 2" :key="item">
         <stories-slider-example-story
@@ -22,8 +22,6 @@
 import { onBeforeMount } from 'vue';
 
 import { STATIC_BASE_URL } from '@/constants';
-
-import useSafeAreaPaddings from '@/helpers/safeArea';
 import { SwiperSlide } from 'swiper/vue';
 import { Route } from '@/router/types';
 import { useAuthStore } from '@/stores/auth';
@@ -34,8 +32,6 @@ import SwiperStoriesSlider from '@/components/ui/molecules/SwiperStoriesSlider.v
 
 const authStore = useAuthStore();
 const profileStore = useProfileStore();
-
-const { stylePaddings } = useSafeAreaPaddings();
 
 onBeforeMount(() => {
   if (profileStore.getUser.id) {
