@@ -27,6 +27,12 @@
       </auth-credentials>
     </template>
   </t-top-navigation>
+  <phone-in-use
+    v-if="phoneExist"
+    :phone="number"
+    @next="continueWithExistedLogin"
+    @close="closePhoneModal"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -34,10 +40,12 @@ import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { Route } from '@/router/types';
-
 import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
+import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
 import { TTopNavigation } from '@/components/ui';
+
+import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
+import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -47,6 +55,7 @@ const emits = defineEmits(['next']);
 
 const number = ref('');
 const countryDialCode = ref('');
+const phoneExist = ref(false);
 
 onMounted(() => {
   const { phone, dialCode } = authStore.registration;
@@ -66,12 +75,19 @@ const handleSelectCountry = (dialCode: string) => {
   authStore.registration.dialCode = dialCode;
 };
 
-const handleStep = (phone: number) => {
-  authStore.registration.phone = String(phone);
-
-  authStore.savePhone('signup');
-
-  emits('next');
+const handleStep = async (phone: number) => {
+  authStore.setDialCode(authStore.registration.dialCode);
+  authStore.setPhone(String(phone));
+  try {
+    await authStore.signIn({
+      phone: authStore.getLoginPhone,
+      flow: VerifyCodeFlow.Login,
+    });
+    phoneExist.value = true;
+  } catch (err) {
+    authStore.savePhone('signup');
+    emits('next');
+  }
 };
 
 const prevStep = () => {
@@ -82,6 +98,17 @@ const prevStep = () => {
 
 const numberChange = () => {
   console.log('Method not implemented yet');
+};
+
+const closePhoneModal = () => {
+  phoneExist.value = false;
+};
+
+const continueWithExistedLogin = async () => {
+  authStore.setStep(1, 'login');
+  await router.push({
+    name: Route.Login,
+  });
 };
 </script>
 

@@ -99,7 +99,9 @@
         "title": "Welcome to",
         "transfer": "Transfer money around the world with the best fee",
         "login": "Log in",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "loginWithThisNumber": "Login with this number",
+        "goBack": "No, go back"
       }
     }
   },
@@ -523,7 +525,9 @@
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
     "details": "Details",
-    "login2Step": "Invalid secret code"
+    "login2Step": "Invalid secret code",
+    "numberAlreadyInUse": "Number already in use",
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number"
   },
   "biometricConfirmation": {
     "title": "Change settings",
