@@ -10,24 +10,10 @@
               src="@/assets/images/avatar.png"
               @click="$router.push('/profile')"
             />
-            <div
-              v-if="VerificationStatus === EKYCStatus.pending"
-              class="verification"
-            >
-              {{ $t('views.dashboard.home.idVerification') }}
-            </div>
-            <div
-              v-if="VerificationStatus === EKYCStatus.success"
-              class="verification -verified"
-            >
-              {{ $t('views.dashboard.home.idVerified') }}
-            </div>
-            <div
-              v-if="VerificationStatus === EKYCStatus.rejected"
-              class="verification verification--failed"
-            >
-              {{ $t('views.dashboard.home.iDVerificationFailed') }}
-            </div>
+            <kyc-status-badge
+              class="status"
+              :status-number="VerificationStatus"
+            />
           </div>
         </div>
       </template>
@@ -199,8 +185,9 @@ import { STATIC_BASE_URL } from '@/constants';
 
 import {
   AccountListBottomSheet,
-  TTopNavigation,
+  KycStatusBadge,
   TransactionsList,
+  TTopNavigation,
 } from '@/components/ui';
 
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
@@ -251,9 +238,6 @@ onMounted(async () => {
   loading.value = true;
 
   await profileStore.init();
-  const { kycStatus } = profileStore.getUser;
-
-  VerificationStatus.value = kycStatus;
 
   try {
     const [, , _transactions] = await Promise.all([
@@ -366,34 +350,6 @@ const showWelcomeMessage = computed(() => {
     > .left {
       display: flex;
       align-items: center;
-
-      > .verification {
-        margin-left: 8px;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        width: 131px;
-        height: 31px;
-        background: $color-yellow-100;
-        border-radius: 100px;
-        white-space: nowrap;
-        font-size: 16px;
-        line-height: 21px;
-        letter-spacing: -0.0031em;
-        color: $color-yellow-800;
-
-        &.-verified {
-          background: $color-green-100;
-          color: $color-green-800;
-        }
-
-        &.-failed {
-          width: 181px;
-          background: $color-red-100;
-          color: $color-red-700;
-        }
-      }
     }
 
     > .right {
@@ -623,32 +579,8 @@ const showWelcomeMessage = computed(() => {
     display: flex;
     align-items: center;
 
-    > .verification {
-      margin-left: 8px;
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      width: 131px;
-      height: 31px;
-      background: $color-yellow-100;
-      border-radius: 100px;
-      white-space: nowrap;
-      font-size: 16px;
-      line-height: 21px;
-      letter-spacing: -0.0031em;
-      color: $color-yellow-800;
-
-      &.-verified {
-        background: $color-green-100;
-        color: $color-green-800;
-      }
-
-      &.-failed {
-        width: 181px;
-        background: $color-red-100;
-        color: $color-red-700;
-      }
+    > .status {
+      margin: 0 0 0 8px;
     }
   }
 
