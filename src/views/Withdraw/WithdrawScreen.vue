@@ -109,6 +109,7 @@ import { useAccountStore } from '@/stores/account';
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 import { useWithdrawStore } from '@/stores/withdraw';
 import { useErrorsStore } from '@/stores/errors';
+import { useRoute } from 'vue-router';
 
 import {
   BaseButton,
@@ -124,6 +125,7 @@ const withdrawStore = useWithdrawStore();
 const coinStore = useCoinsStore();
 const accountStore = useAccountStore();
 const errorsStore = useErrorsStore();
+const route = useRoute();
 
 const openNetworkModal = ref(false);
 const showSummaryScreen = ref(false);
@@ -149,7 +151,8 @@ const isSubmitButtonDisabled = computed(
   () =>
     isInsufficientBalance.value ||
     !form.value.address ||
-    form.value.coin.code === 'empty'
+    form.value.coin.code === 'empty' ||
+    Number(form.value.amount) === 0
 );
 
 const isInsufficientBalance = computed(() => {
@@ -178,6 +181,16 @@ const availableBalance = computed(() => {
 
 onBeforeMount(async () => {
   await Promise.all([coinStore.fetchCoins(), accountStore.getAccountList()]);
+
+  const preselectedCode = route.params.code;
+
+  if (preselectedCode) {
+    const selectedCoin = coins.value.find(
+      ({ code }) => preselectedCode === code
+    ) as ICoin;
+
+    onSelectCoin(selectedCoin);
+  }
 });
 
 const handleCloseModal = () => {
