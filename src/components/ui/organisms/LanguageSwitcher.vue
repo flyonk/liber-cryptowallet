@@ -42,7 +42,7 @@ onBeforeMount(async (): Promise<void> => {
 });
 
 async function setSelectedCountry(country: ICountryInformation): Promise<void> {
-  set({ key: EStorageKeys.language, value: country.isoCode });
+  set({ key: EStorageKeys.language, value: country.isoCode.toLowerCase() });
   await setLocale();
   emit('close');
 }

@@ -1,9 +1,10 @@
 <template>
-  <top-navigation @click:left-icon="$router.back()">
-    {{ $t('views.deposit.selectNetwork.chooseNetwork') }}
-  </top-navigation>
-
-  <m-network-select-answer @select="onSelect" />
+  <t-top-navigation @click:left-icon="$router.back()">
+    <template #title>
+      {{ $t('views.deposit.selectNetwork.chooseNetwork') }}</template
+    >
+    <template #content><m-network-select-answer @select="onSelect" /></template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
@@ -12,7 +13,7 @@ import { useRouter } from 'vue-router';
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 import { useAccountStore } from '@/stores/account';
 
-import { MNetworkSelectAnswer, TopNavigation } from '@/components/ui';
+import { MNetworkSelectAnswer, TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 
 const accountStore = useAccountStore();

@@ -1,83 +1,92 @@
 <template>
   <div class="transaction-details">
-    <TopNavigation class="header" @click:left-icon="$router.back()">
-      <div class="sum">
-        <div class="sum-title">
-          {{ directionSign }} {{ transaction.amount }}
-          <span class="currency">
-            {{ $filters.toUpperCase(transaction.code) }}
-          </span>
-        </div>
-      </div>
+    <t-top-navigation with-fixed-footer @click:left-icon="$router.back()">
+      <template #title
+        ><div class="sum">
+          <div class="sum-title">
+            {{ directionSign }} {{ transaction.amount }}
+            <span class="currency">
+              {{ $filters.toUpperCase(transaction.code) }}
+            </span>
+          </div>
+        </div></template
+      >
       <template #right>
         <TransactionIconWithStatus
           v-if="transaction.status"
           :status="transaction.status"
           img-path="sent"
-        />
+      /></template>
+      <template #content>
+        <div class="header">
+          <h2 class="sendto">{{ titleText }} {{ contragent }}</h2>
+          <p class="date">
+            {{ getRelativeDate(transaction.date) }}
+          </p>
+          <div v-if="isPendingStatus" class="controls">
+            <base-button size="medium" icon-left="ci-share">
+              <p>{{ $t('common.shareCta') }}</p>
+            </base-button>
+            <base-button
+              class="btn -cancel"
+              icon-left="ci-close_big"
+              size="medium"
+            >
+              {{ $t('common.cancelCta') }}
+            </base-button>
+          </div>
+        </div>
+        <div v-if="isPendingStatus" class="notification">
+          {{ $t('transactions.paymentLinkExpires') }}
+        </div>
+        <ul class="main">
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.noReference') }}
+            </p>
+          </li>
+          <li class="main-item">
+            <p class="name">
+              {{ $t('status.title') }}
+            </p>
+            <TransactionStatus :status="transaction.status" />
+          </li>
+          <li class="main-item">
+            <p class="name">
+              {{ $t('transactions.statement') }}
+            </p>
+            <base-button class="button" size="medium" view="flat">
+              {{ $t('transactions.download') }}
+            </base-button>
+          </li>
+          <li v-if="transaction.fee" class="main-item">
+            <p class="name">
+              {{ $t('transactions.transferFee') }}
+            </p>
+            <p class="description">
+              {{ transaction.fee.amount }}
+              {{ $filters.toUpperCase(transaction.fee.code) }}
+            </p>
+          </li>
+        </ul>
       </template>
-    </TopNavigation>
-    <div class="header">
-      <h2 class="sendto">{{ titleText }} {{ contragent }}</h2>
-      <p class="date">
-        {{ getRelativeDate(transaction.date) }}
-      </p>
-      <div v-if="isPendingStatus" class="controls">
-        <base-button size="medium" icon-left="ci-share">
-          <p>{{ $t('common.shareCta') }}</p>
-        </base-button>
-        <base-button class="btn -cancel" icon-left="ci-close_big" size="medium">
-          {{ $t('common.cancelCta') }}
-        </base-button>
-      </div>
-    </div>
-    <div v-if="isPendingStatus" class="notification">
-      {{ $t('transactions.paymentLinkExpires') }}
-    </div>
-    <ul class="main">
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.noReference') }}
-        </p>
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('status.title') }}
-        </p>
-        <TransactionStatus :status="transaction.status" />
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.statement') }}
-        </p>
-        <base-button class="button" size="medium" view="flat">
-          {{ $t('transactions.download') }}
-        </base-button>
-      </li>
-      <li v-if="transaction.fee" class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">
-          {{ transaction.fee.amount }}
-          {{ $filters.toUpperCase(transaction.fee.code) }}
-        </p>
-      </li>
-    </ul>
-    <template v-if="isIncome">
-      <div v-if="isPendingStatus" class="report-block">
-        <span class="font-weight--medium">Report an issue</span>
-        <i class="ci-chevron_big_right" />
-      </div>
-      <div v-else class="button-container">
-        <base-button v-if="isFailedStatus" block view="secondary">
-          Retry Transaction
-        </base-button>
-        <base-button v-else block view="secondary">
-          Repeat Transaction
-        </base-button>
-      </div>
-    </template>
+      <template #fixed-footer
+        ><template v-if="isIncome">
+          <div v-if="isPendingStatus" class="report-block">
+            <span class="font-weight--medium">Report an issue</span>
+            <i class="ci-chevron_big_right" />
+          </div>
+          <div v-else class="button-container">
+            <base-button v-if="isFailedStatus" block view="secondary">
+              Retry Transaction
+            </base-button>
+            <base-button v-else block view="secondary">
+              Repeat Transaction
+            </base-button>
+          </div>
+        </template></template
+      >
+    </t-top-navigation>
   </div>
 </template>
 
@@ -94,7 +103,7 @@ import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  TopNavigation,
+  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
 } from '@/components/ui';
@@ -157,5 +166,31 @@ const contragent = computed(() => {
   bottom: 56px;
   left: 16px;
   right: 16px;
+}
+
+.header {
+  > .sum {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0 4px;
+  }
+
+  > .sendto {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-brand-primary;
+    margin-bottom: 4px;
+  }
+
+  > .date {
+    font-weight: 500;
+    font-size: 13px;
+    line-height: 18px;
+    letter-spacing: -0.0008em;
+    color: $color-dark-grey;
+    margin-bottom: 16px;
+  }
 }
 </style>

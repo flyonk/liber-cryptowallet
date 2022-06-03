@@ -28,22 +28,23 @@ export default {
 <script lang="ts" setup>
 import { computed, markRaw, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
 import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { usePasscodeStore } from '@/stores/passcode';
+import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
 
 import { BasePasscode, TTopNavigation } from '@/components/ui';
 import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscodeError.vue';
 
-import { Route } from '@/router/types';
-import { useErrorsStore } from '@/stores/errors';
-import { useI18n } from 'vue-i18n';
-
 const router = useRouter();
 const { t } = useI18n();
 
+const passcodeStore = usePasscodeStore();
 const authStore = useAuthStore();
 const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
@@ -86,13 +87,19 @@ async function onSubmit(success: boolean): Promise<void> {
   }
 }
 
-function prevStep(): void {
+async function deletePasscode(): Promise<void> {
+  await passcodeStore.delete();
+}
+
+async function prevStep(): Promise<void> {
   if (show2FA.value) {
     authStore.setStep(1, 'login');
+  } else {
+    await deletePasscode();
 
-    return;
+    await authStore.clearTokenData();
+    authStore.setStep(0, 'login');
   }
-  authStore.setStep(0, 'login');
 }
 
 function onClose() {
