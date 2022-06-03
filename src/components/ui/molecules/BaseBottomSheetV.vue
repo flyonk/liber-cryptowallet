@@ -9,6 +9,12 @@
       }"
       :style="wrapperStyle"
       class="bottom-wrapper"
+      @touchstart="onTouchStart"
+      @touchmove="onTouchMove"
+      @touchend="onTouchEnd"
+      @mousedown="onTouchStart"
+      @mousemove="onTouchMove"
+      @mouseup="onTouchEnd"
     >
       <div v-if="withHeader" class="header">
         <div class="indicator" />
@@ -21,7 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, onUnmounted, Ref, ref } from 'vue';
+import { computed, onMounted, Ref, ref } from 'vue';
 
 const emit = defineEmits(['close', 'expanded']);
 
@@ -31,7 +37,7 @@ const overTop = ref(null) as Ref<number | null>;
 const overHeight = ref(null) as Ref<number | null>;
 const maxHeight = ref(null) as Ref<number | null>;
 const initialTouchY = ref(null) as Ref<number | null>;
-const initialTopPosition = ref(70) as Ref<number>;
+const initialTopPosition = ref(10) as Ref<number>;
 const isMoving = ref(false);
 const isOpened = ref(false);
 
@@ -73,26 +79,6 @@ onMounted(() => {
   maxHeight.value = availableHeight;
   overTop.value = maxHeight.value - overHeight.value;
   top.value = initialTopPosition.value;
-
-  wrapper.value?.addEventListener('touchstart', onTouchStart);
-  wrapper.value?.addEventListener('touchmove', onTouchMove);
-  wrapper.value?.addEventListener('touchend', onTouchEnd);
-
-  wrapper.value?.addEventListener('mousedown', onTouchStart);
-  wrapper.value?.addEventListener('mousemove', onTouchMove);
-  wrapper.value?.addEventListener('mouseup', onTouchEnd);
-});
-
-onUnmounted(() => {
-  wrapper.value?.removeEventListener('touchstart', onTouchStart);
-  wrapper.value?.removeEventListener('touchmove', onTouchMove);
-  wrapper.value?.removeEventListener('touchend', onTouchEnd);
-
-  wrapper.value?.removeEventListener('mousedown', onTouchStart);
-  wrapper.value?.removeEventListener('mousemove', onTouchMove);
-  wrapper.value?.removeEventListener('mouseup', onTouchEnd);
-
-  wrapper.value?.removeEventListener('transitionend', onLastTransitionEnd);
 });
 
 const onTouchStart = (e: TouchEvent | MouseEvent) => {
@@ -188,10 +174,6 @@ const setIsOpenedState = (state: boolean) => {
   isOpened.value = state;
 
   emit('expanded', isOpened.value);
-};
-
-const onLastTransitionEnd = () => {
-  emit('close');
 };
 </script>
 
