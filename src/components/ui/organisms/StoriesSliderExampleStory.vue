@@ -16,14 +16,6 @@
         <img class="image" :src="props.baseImg" @contextmenu.prevent.stop />
       </div>
     </main>
-    <footer class="footer">
-      <button class="login" @click="$emit('login')">
-        {{ props.loginTitle }}
-      </button>
-      <button class="signup" @click="$emit('signup')">
-        {{ props.signUpTitle }}
-      </button>
-    </footer>
   </section>
 </template>
 
@@ -40,14 +32,6 @@ const props = defineProps({
     default: '',
   },
   baseTitle: {
-    type: String,
-    default: '',
-  },
-  loginTitle: {
-    type: String,
-    default: '',
-  },
-  signUpTitle: {
     type: String,
     default: '',
   },
@@ -93,6 +77,7 @@ const props = defineProps({
     flex-direction: column;
     flex: 1;
     overflow: scroll;
+    padding-bottom: 70px;
 
     & > .title {
       font-weight: 800;
@@ -107,42 +92,6 @@ const props = defineProps({
       justify-content: center;
       overflow: hidden;
       margin-top: auto;
-    }
-  }
-
-  > .footer {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-    height: fit-content;
-    margin-top: auto;
-    align-items: center;
-    padding-top: 40px;
-
-    & > .login {
-      background-color: $color-white;
-      color: $color-black;
-      width: 155.5px;
-      height: 48px;
-      border-radius: 13px;
-      border: none;
-      text-align: center;
-      font-size: 17px;
-      font-family: Inter, sans-serif;
-      font-style: normal;
-    }
-
-    & > .signup {
-      background-color: $color-primary;
-      color: $color-white;
-      width: 155.5px;
-      height: 48px;
-      border-radius: 13px;
-      border: none;
-      text-align: center;
-      font-size: 17px;
-      font-family: Inter, sans-serif;
-      font-style: normal;
     }
   }
 }

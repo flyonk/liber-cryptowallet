@@ -175,9 +175,10 @@ function putItemsToSwiperEl(el: HTMLDivElement) {
 :deep(.swiper-pagination) {
   position: absolute;
   display: flex;
-  top: 35px;
+  top: 45px;
   height: 10px;
   background: none;
+  z-index: 5;
 }
 
 @keyframes background-filling {
