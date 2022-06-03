@@ -26,7 +26,7 @@
           <template #label> {{ $t('common.numberLabel') }}s </template>
           <template v-if="isClearBtnShown" #append>
             <i
-              class="ci-off_outline_close"
+              class="icon-transaction-small-reverted"
               @click="clearNumber"
               @touchend="clearNumber"
             />
