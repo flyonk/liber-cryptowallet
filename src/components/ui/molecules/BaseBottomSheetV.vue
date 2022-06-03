@@ -76,7 +76,6 @@ onMounted(() => {
   const availableHeight = window.innerHeight;
   maxHeight.value =
     availableHeight < wrapperHeight ? availableHeight : wrapperHeight;
-  maxHeight.value = availableHeight;
   overTop.value = maxHeight.value - overHeight.value;
   top.value = initialTopPosition.value;
 });
