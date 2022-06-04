@@ -59,12 +59,12 @@ const onEnable = (): void => {
 
       const errorsStore = useErrorsStore();
 
-      errorsStore.handle(
+      errorsStore.handle({
         err,
-        'RequestContacts',
-        'onEnable',
-        'dont get phone contacts'
-      );
+        name: 'RequestContacts',
+        ctx: 'onEnable',
+        description: 'dont get phone contacts',
+      });
     });
 };
 

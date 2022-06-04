@@ -89,12 +89,12 @@ const onComplete = async (code: string) => {
       isError.value = true;
       const errorsStore = useErrorsStore();
 
-      errorsStore.handle(
+      errorsStore.handle({
         err,
-        'ConfigureAppVuetify',
-        'onComplete',
-        'confirm verification code incorrect'
-      );
+        name: 'ConfigureAppVuetify',
+        ctx: 'onComplete',
+        description: 'confirm verification code incorrect',
+      });
     }
   }
 };

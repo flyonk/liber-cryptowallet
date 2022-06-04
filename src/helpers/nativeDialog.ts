@@ -17,12 +17,12 @@ export const showConfirm = async (options: ConfirmOptions) => {
   } catch (err) {
     const errorsStore = useErrorsStore();
 
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'nativeDialog',
-      'showConfirm',
-      'show confirm form error'
-    );
+      name: 'nativeDialog.ts',
+      ctx: 'showConfirm',
+      description: 'show confirm form error',
+    });
     return false;
   }
 };

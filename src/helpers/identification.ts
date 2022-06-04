@@ -75,12 +75,12 @@ export async function getSupportedOptions() {
   } catch (err) {
     const errorsStore = useErrorsStore();
 
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'identification',
-      'getSupportedOptions',
-      'error to define native biometrics'
-    );
+      name: 'identification.ts',
+      ctx: 'getSupportedOptions',
+      description: 'error to define native biometrics',
+    });
 
     return '';
   }

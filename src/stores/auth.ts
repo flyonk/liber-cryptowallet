@@ -137,12 +137,12 @@ export const useAuthStore = defineStore('auth', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'refresh',
-          'authStore',
-          "error can't refresh token"
-        );
+          name: 'auth.ts',
+          ctx: 'refresh',
+          description: "error can't refresh token",
+        });
       }
     },
 

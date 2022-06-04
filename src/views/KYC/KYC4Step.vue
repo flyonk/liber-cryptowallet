@@ -138,7 +138,12 @@ const startCamera = async () => {
 
     await CameraPreview.start(cameraPreviewOptions);
 
-    errorsStore.handle(err, 'KYC4step', 'startCamera', 'start camera error');
+    errorsStore.handle({
+      err,
+      name: 'KYC4step',
+      ctx: 'startCamera',
+      description: 'start camera error',
+    });
   }
 };
 
@@ -168,7 +173,12 @@ const stopCamera = async () => {
   try {
     await CameraPreview.stop();
   } catch (err) {
-    errorsStore.handle(err, 'KYC4step', 'stopCamera', 'stop camera error');
+    errorsStore.handle({
+      err,
+      name: 'KYC4step',
+      ctx: 'stopCamera',
+      description: 'stop camera error',
+    });
     throw err;
   }
 };

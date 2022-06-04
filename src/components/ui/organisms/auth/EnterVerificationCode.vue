@@ -136,12 +136,12 @@ const pasteFromClipboard = async () => {
     ) {
       return;
     }
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'EnterVerificationCode',
-      'pasteFromClipboard',
-      t('common.pasteClipboardError')
-    );
+      name: 'EnterVerificationCode',
+      ctx: 'pasteFromClipboard',
+      description: t('common.pasteClipboardError'),
+    });
   }
 };
 
