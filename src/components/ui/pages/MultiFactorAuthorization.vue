@@ -3,6 +3,7 @@
     :text="text"
     :title="$t('common.confirmChanging')"
     left-icon-name="icon-app-navigation-close"
+    :verification-code="oneTimeCode"
     :with-countdown="withCountdown"
     :show-countdown="showCountdown"
     :show-paste-btn="true"
@@ -97,6 +98,8 @@ const onComplete = async () => {
       });
     } catch (err) {
       const description = err.response?.data?.message || null;
+      passcode.value = '';
+      oneTimeCode.value = '';
       errorsStore.handle(
         err,
         'MultiFactorAuthorization',
