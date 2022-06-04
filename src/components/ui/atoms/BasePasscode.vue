@@ -110,12 +110,12 @@ const showTouchId = () => {
       })
       .catch((err) => {
         emit('submit', false);
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'BasePasscode',
-          'showTouchId',
-          'verify identity error'
-        );
+          name: 'BasePasscode',
+          ctx: 'showTouchId',
+          description: 'verify identity error',
+        });
       });
   }
 };
