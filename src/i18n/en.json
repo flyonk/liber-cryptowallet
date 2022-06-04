@@ -329,6 +329,7 @@
     "dashboard": {
       "home": {
         "idVerification": "ID Verification",
+        "notVerified": "Not Verified",
         "idVerified": "ID Verified",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",
