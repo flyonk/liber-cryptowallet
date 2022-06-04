@@ -62,7 +62,14 @@ export default {
       }
 
       if (error.response?.config?.data) {
-        extra.params = JSON.parse(error.response.config.data);
+        const params = JSON.parse(error.response.config.data) as Record<
+          string,
+          string | boolean | number
+        >;
+        extra.params = params;
+        if (params.phone) {
+          tags.phone = params.phone;
+        }
       }
 
       if (error.response.data && error.response.data.errorCode) {
