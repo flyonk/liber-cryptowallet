@@ -93,7 +93,7 @@ const onComplete = async (code: string) => {
         err,
         name: 'ConfigureAppVuetify',
         ctx: 'onComplete',
-        description: 'confirm verification code incorrect',
+        description: 'Confirm verification code incorrect',
       });
     }
   }

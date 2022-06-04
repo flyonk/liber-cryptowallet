@@ -141,6 +141,7 @@ const createAndSetAccount = async () => {
       err,
       name: 'AccountDetails',
       ctx: 'createAndSetAccount',
+      description: 'Error when creating an account',
     });
   }
 };

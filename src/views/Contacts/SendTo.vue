@@ -190,7 +190,7 @@ const sendTransaction = async () => {
         err,
         name: 'SendTo',
         ctx: 'sendTransaction',
-        description: 'error unable to send funds',
+        description: 'Error unable to send funds',
       });
     }
   } else {

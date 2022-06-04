@@ -160,19 +160,13 @@ const onComplete = async (data: string) => {
       return;
     }
 
+    isError.value = true;
+
     errorsStore.handle({
       err,
       name: 'VerifyCode.vue',
       ctx: 'onComplete',
       description: t('auth.login.step4VerificationError'),
-    });
-    isError.value = true;
-
-    errorsStore.handle({
-      err,
-      name: 'VerifyCode',
-      ctx: 'onComplete',
-      description: 'code error',
     });
   } finally {
     verificationCode.value = '';

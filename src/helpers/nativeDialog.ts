@@ -21,7 +21,7 @@ export const showConfirm = async (options: ConfirmOptions) => {
       err,
       name: 'nativeDialog.ts',
       ctx: 'showConfirm',
-      description: 'show confirm form error',
+      description: 'Show confirm form error',
     });
     return false;
   }

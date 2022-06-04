@@ -254,7 +254,7 @@ onBeforeMount(async () => {
       err,
       name: 'ChangeCurrency',
       ctx: 'onBeforeMount',
-      description: 'fetch coins error',
+      description: 'Fetch coins error',
     });
   }
 
@@ -351,7 +351,7 @@ async function previewChangeInfo(direction: 'from' | 'to') {
     errorsStore.handle({
       err,
       name: 'ChangeCurrency',
-      ctx: 'checkConvertInfo',
+      ctx: 'previewChangeInfo',
       description: "error can't retrieve convert info",
     });
   } finally {
@@ -399,9 +399,9 @@ async function convertFunds() {
 
     errorsStore.handle({
       err,
-      name: 'ChangeCurrency',
-      ctx: 'convertCurrency',
-      description: "error can't convert currency",
+      name: 'OChangeCurrency',
+      ctx: 'convertFunds',
+      description: "Error can't convert currency",
     });
   } finally {
     loading.value = false;
