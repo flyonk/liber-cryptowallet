@@ -161,7 +161,7 @@ const onPrev = (): void => {
 
 <style lang="scss" scoped>
 .page-wrapper {
-  margin: 15px;
+  margin: 10px 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
