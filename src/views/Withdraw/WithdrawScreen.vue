@@ -99,17 +99,17 @@
 </template>
 
 <script lang="ts" setup>
-import { Route } from '@/router/types';
 import { computed, onBeforeMount, Ref, ref } from 'vue';
+import { onBeforeRouteLeave, useRoute } from 'vue-router';
 
+import { Route } from '@/router/types';
 import { useCoinsStore } from '@/stores/coins';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
 import { useAccountStore } from '@/stores/account';
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 import { useWithdrawStore } from '@/stores/withdraw';
 import { useErrorsStore } from '@/stores/errors';
-import { useRoute } from 'vue-router';
 
 import {
   BaseButton,
@@ -179,8 +179,17 @@ const availableBalance = computed(() => {
   return selectedCoin.value.balance;
 });
 
+onBeforeRouteLeave((_to, _from, next) => {
+  withdrawStore.resetData();
+
+  next();
+});
+
 onBeforeMount(async () => {
-  await Promise.all([coinStore.fetchCoins(), accountStore.getAccountList()]);
+  await Promise.all([
+    coinStore.fetchCoins(false),
+    accountStore.getAccountList(),
+  ]);
 
   const preselectedCode = route.params.code;
 

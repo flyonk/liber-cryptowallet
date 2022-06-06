@@ -153,7 +153,7 @@ import { ICoinForExchange, useFundsStore } from '@/stores/funds';
 import { useCoinsStore } from '@/stores/coins';
 // import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
 import { TConvertData } from '@/models/funds/convertInfo';
 

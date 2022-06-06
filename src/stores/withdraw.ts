@@ -42,5 +42,9 @@ export const useWithdrawStore = defineStore('withdraw', {
         network: 'main',
       });
     },
+
+    resetData() {
+      this.$reset();
+    },
   },
 });

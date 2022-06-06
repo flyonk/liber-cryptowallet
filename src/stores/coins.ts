@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { ICoin } from '@/models/coin/coins';
-import CoinService from '@/services/coinService';
+import { ICoin } from '@/models/funds/coin';
+import FundsService from '@/services/fundsService';
 
 export interface ICoinsState {
   coins: ICoin[];
@@ -17,8 +17,12 @@ export const useCoinsStore = defineStore('coins', {
   },
 
   actions: {
-    async fetchCoins() {
-      this.coins = await CoinService.getCoins();
+    async fetchCoins(forceFetch = true) {
+      if (forceFetch) {
+        this.coins = await FundsService.getCoins();
+      } else if (!this.coins.length) {
+        this.coins = await FundsService.getCoins();
+      }
     },
   },
 });

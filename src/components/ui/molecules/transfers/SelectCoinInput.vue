@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import { PropType, ref } from 'vue';
 
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { ICoinForExchange } from '@/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 

@@ -6,7 +6,7 @@ import convertInfoMapper, {
   IConvertInfo,
   TConvertData,
 } from '@/models/funds/convertInfo';
-import coinMapper, { IFoundsCoin } from '@/models/funds/coin';
+import coinMapper, { ICoin } from '@/models/funds/coin';
 import { withdrawalInfoData } from '../../tests/mock/withdrawalData';
 
 import { TSuccessResponse } from '@/types/api';
@@ -22,7 +22,7 @@ import withdrawMapper, {
 } from '@/models/funds/withdraw';
 
 export default {
-  async getCoins(): Promise<IFoundsCoin[]> {
+  async getCoins(): Promise<ICoin[]> {
     const res = await axios.get(apiService.funds.coins());
     return res.data.map(coinMapper.deserialize);
   },
