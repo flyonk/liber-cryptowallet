@@ -1,7 +1,7 @@
 <template>
   <section class="welcome-auth">
     <swiper-stories-slider>
-      <SwiperSlide v-for="item in 2" :key="item">
+      <SwiperSlide v-for="item in 3" :key="item">
         <stories-slider-example-story
           :base-img="`${STATIC_BASE_URL}/static/illustrations/onboarding/step-1.png`"
           :logo-img="`${STATIC_BASE_URL}/static/media/logo-white.png`"

@@ -31,19 +31,35 @@ const autoplay = {
 };
 
 const pagination = {
-  clickable: true,
   type: 'custom',
-  //renderCustom is called every time the slide is changed
-  renderCustom: function (swiper, current: number, total: number) {
-    swiper.pagination.el.classList.add('pagination');
-
-    createPaginationItems(total);
-    updatePaginationItemsClasses(current, total);
-
-    configurePaginationWrapper(swiper);
-  },
+  renderCustom: render,
 };
 
+/**
+ * Called every time the slide is changed.
+ * Order is important - first, pagination items are created, then the wrapper is configured
+ * @param swiper
+ * @param current
+ * @param total
+ */
+function render(swiper, current: number, total: number) {
+  swiper.pagination.el.classList.add('pagination');
+
+  if (!pagItems.value.length) {
+    createPaginationItems(total);
+    setClickableBehaviorForPagItem(swiper);
+  }
+
+  updatePaginationItemsClasses(current, total);
+
+  if (!wrapper) configurePaginationWrapper(swiper);
+}
+
+/**
+ * Updates the state classes of pagination elements after each change
+ * @param current
+ * @param total
+ */
 function updatePaginationItemsClasses(current: number, total: number) {
   if (!pagItems.value.length) return;
 
@@ -66,8 +82,12 @@ function updatePaginationItemsClasses(current: number, total: number) {
   }
 }
 
+/**
+ * Calls once when the render function is run for the first time.
+ * Adds a pause behavior when touched.
+ * @param swiper
+ */
 function configurePaginationWrapper(swiper) {
-  if (wrapper) return;
   putItemsToSwiperEl(swiper.pagination.el);
 
   wrapper = document.querySelector('.swiper-wrapper');
@@ -75,18 +95,27 @@ function configurePaginationWrapper(swiper) {
   wrapper?.addEventListener('touchstart', () => {
     swiper.autoplay.stop();
 
-    const currentVieweingSlide = getCurrentViewingItem();
-    if (currentVieweingSlide)
-      currentVieweingSlide.style.animationPlayState = 'paused';
+    const currentViewingSlide = getCurrentViewingItem();
+    if (currentViewingSlide)
+      currentViewingSlide.style.animationPlayState = 'paused';
   });
 
   wrapper?.addEventListener('touchend', () => {
     swiper.autoplay.start();
 
     //TODO: implement restart animation
-    const currentVieweingSlide = getCurrentViewingItem();
-    if (currentVieweingSlide)
-      currentVieweingSlide.style.animationPlayState = 'running';
+    const currentViewingSlide = getCurrentViewingItem();
+    if (currentViewingSlide)
+      currentViewingSlide.style.animationPlayState = 'running';
+  });
+
+  wrapper?.addEventListener('touch', () => {
+    swiper.autoplay.start();
+
+    //TODO: implement restart animation
+    const currentViewingSlide = getCurrentViewingItem();
+    if (currentViewingSlide)
+      currentViewingSlide.style.animationPlayState = 'running';
   });
 }
 
@@ -120,6 +149,24 @@ function putItemsToSwiperEl(el: HTMLDivElement) {
       el.append(item);
     });
   }
+}
+
+/**
+ *  Adds switching behavior to the target slide by touch.
+ * @param swiper
+ */
+function setClickableBehaviorForPagItem(swiper) {
+  const paginationContainer = document.querySelector('.swiper-pagination');
+  if (!paginationContainer) return;
+
+  paginationContainer.addEventListener('touchstart', (event) => {
+    const index = pagItems.value.findIndex((e) => {
+      return e === event.target;
+    });
+
+    if (index !== -1) swiper.slideTo(index + 1, 500); //500 ms to show
+    event.stopPropagation();
+  });
 }
 </script>
 
