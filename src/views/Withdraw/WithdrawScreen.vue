@@ -15,7 +15,7 @@
           {{ $t('views.withdraw.address') }}
         </template>
         <template #prepend>
-          <base-button view="flat" class="paste-button">
+          <base-button view="flat" class="paste-button" @click="handlePaste">
             {{ $t('views.withdraw.paste') }}
           </base-button>
         </template>
@@ -101,6 +101,8 @@
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { Clipboard } from '@capacitor/clipboard';
 
 import { Route } from '@/router/types';
 import { useCoinsStore } from '@/stores/coins';
@@ -126,6 +128,7 @@ const coinStore = useCoinsStore();
 const accountStore = useAccountStore();
 const errorsStore = useErrorsStore();
 const route = useRoute();
+const { t } = useI18n();
 
 const openNetworkModal = ref(false);
 const showSummaryScreen = ref(false);
@@ -201,6 +204,30 @@ onBeforeMount(async () => {
     onSelectCoin(selectedCoin);
   }
 });
+
+const handlePaste = async () => {
+  try {
+    const content = await Clipboard.read();
+
+    if (content && content.type === 'text/plain') {
+      form.value.address = content.value;
+    }
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (err: any) {
+    if (
+      err.errorMessage &&
+      err.errorMessage === 'There is no data on the clipboard'
+    ) {
+      return;
+    }
+    errorsStore.handle({
+      err,
+      name: 'WithdrawScreen',
+      ctx: 'pasteFromClipboard',
+      description: t('common.pasteClipboardError'),
+    });
+  }
+};
 
 const handleCloseModal = () => {
   openNetworkModal.value = false;

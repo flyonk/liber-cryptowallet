@@ -20,7 +20,11 @@ export const useCoinsStore = defineStore('coins', {
     async fetchCoins(forceFetch = true) {
       if (forceFetch) {
         this.coins = await FundsService.getCoins();
-      } else if (!this.coins.length) {
+
+        return;
+      }
+
+      if (!this.coins.length) {
         this.coins = await FundsService.getCoins();
       }
     },
