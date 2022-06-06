@@ -15,9 +15,19 @@
           {{ $t('views.withdraw.address') }}
         </template>
         <template #prepend>
-          <base-button view="flat" class="paste-button" @click="handlePaste">
+          <base-button
+            v-if="!form.address"
+            view="flat"
+            class="paste-button"
+            @click="handlePaste"
+          >
             {{ $t('views.withdraw.paste') }}
           </base-button>
+          <i
+            v-else
+            class="icon-transaction-small-reverted"
+            @click="form.address = ''"
+          />
         </template>
       </base-input>
       <base-input
