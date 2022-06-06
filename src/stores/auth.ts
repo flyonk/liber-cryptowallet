@@ -71,6 +71,8 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     getState: (state) => state,
     getLoginPhone: (state) => state.login.dialCode + state.login.phone,
+    getLoginDialCode: (state) => state.login.dialCode,
+    getLoginSubscriberPhone: (state) => state.login.phone,
     getRegistrationPhone: (state) =>
       state.registration.dialCode + state.registration.phone,
     getToken: ({ token }) => token,

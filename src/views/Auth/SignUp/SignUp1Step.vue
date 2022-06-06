@@ -30,6 +30,7 @@
   <phone-in-use
     v-if="phoneExist"
     :phone="number"
+    :dial-code="number"
     @next="continueWithExistedLogin"
     @close="closePhoneModal"
   />
@@ -44,8 +45,8 @@ import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue'
 import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
 import { TTopNavigation } from '@/components/ui';
 
-import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
 import { Route } from '@/router/types';
+import { AxiosError } from 'axios';
 
 const router = useRouter();
 
@@ -79,12 +80,19 @@ const handleStep = async (phone: number) => {
   authStore.setDialCode(authStore.registration.dialCode);
   authStore.setPhone(String(phone));
   try {
-    await authStore.signIn({
+    await authStore.signInProceed({
       phone: authStore.getLoginPhone,
-      flow: VerifyCodeFlow.Login,
+      otp: '',
+      code_2fa: '',
     });
-    phoneExist.value = true;
-  } catch (err) {
+  } catch (err: AxiosError | Error | unknown) {
+    const code = (err as AxiosError).response?.status;
+    if (code === 406) {
+      phoneExist.value = true;
+      return;
+    }
+
+    authStore.registration.phone = String(phone);
     authStore.savePhone('signup');
     emits('next');
   }

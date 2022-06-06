@@ -12,7 +12,7 @@
       <p class="phone-in-use-error-description">
         {{
           $t('errors.numberInUseDetail', {
-            numberPhone: '',
+            numberPhone: formattedPhone,
           })
         }}
       </p>
@@ -36,16 +36,28 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, onMounted, ref } from 'vue';
 import { BaseButton, BaseToast } from '@/components/ui';
+import { useAuthStore } from '@/stores/auth';
 
-// TODO: need to format phone number through mask to show it in toast
-// const props = defineProps({
-//   phone: {
-//     type: String,
-//     required: true,
-//   },
-// });
 const emits = defineEmits(['next', 'close']);
+const authStore = useAuthStore();
+
+const dialCode = ref('');
+const number = ref('');
+
+onMounted(() => {
+  dialCode.value = authStore.getLoginDialCode;
+  number.value = authStore.getLoginSubscriberPhone;
+});
+
+const formattedPhone = computed(() => {
+  const formattedPhone = `${number.value.slice(0, 3)} ${number.value.slice(
+    3,
+    6
+  )} ${number.value.slice(6)}`;
+  return `${dialCode.value} ${formattedPhone}`;
+});
 
 const goToLogin = () => {
   emits('next');
