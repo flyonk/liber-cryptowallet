@@ -249,7 +249,7 @@ onMounted(async () => {
 
     setCurrentAccount('all');
   } catch (err) {
-    errorsStore.handle(err, 'DashboardHome', 'onMounted');
+    errorsStore.handle({ err, name: 'DashboardHome', ctx: 'onMounted' });
   } finally {
     loading.value = false;
   }
@@ -304,7 +304,11 @@ const updateDashboardData = async () => {
     ]);
     transactions.value = _transactions;
   } catch (err) {
-    errorsStore.handle(err, 'DashboardHome.vue', 'updateDashboardData');
+    errorsStore.handle({
+      err,
+      name: 'DashboardHome.vue',
+      ctx: 'updateDashboardData',
+    });
   } finally {
     loading.value = false;
   }

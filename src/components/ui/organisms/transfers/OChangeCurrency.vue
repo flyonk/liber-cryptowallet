@@ -250,12 +250,12 @@ onBeforeMount(async () => {
     await coinStore.fetchCoins();
     allCoins.value = coinStore.getCoins;
   } catch (err) {
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'ChangeCurrency',
-      'onBeforeMount',
-      'fetch coins error'
-    );
+      name: 'ChangeCurrency',
+      ctx: 'onBeforeMount',
+      description: 'fetch coins error',
+    });
   }
 
   if (route.query.code) {
@@ -348,12 +348,12 @@ async function previewChangeInfo(direction: 'from' | 'to') {
 
     await fundsStore.checkConvertInfo(data);
   } catch (err) {
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'ChangeCurrency',
-      'checkConvertInfo',
-      "error can't retrieve convert info"
-    );
+      name: 'ChangeCurrency',
+      ctx: 'checkConvertInfo',
+      description: "error can't retrieve convert info",
+    });
   } finally {
     loading.value = false;
   }
@@ -398,12 +398,12 @@ async function convertFunds() {
       });
     }
 
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'ChangeCurrency',
-      'convertCurrency',
-      "error can't convert currency"
-    );
+      name: 'ChangeCurrency',
+      ctx: 'convertCurrency',
+      description: "error can't convert currency",
+    });
   } finally {
     loading.value = false;
   }

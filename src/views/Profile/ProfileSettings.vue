@@ -213,7 +213,7 @@ onMounted(async () => {
       accountName.value = `${firstName} ${lastName}`;
       accountID.value = phone;
     } catch (err) {
-      errorsStore.handle(err, 'ProfileSettings', 'onMounted');
+      errorsStore.handle({ err, name: 'ProfileSettings', ctx: 'onMounted' });
     }
 });
 

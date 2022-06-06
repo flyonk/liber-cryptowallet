@@ -36,12 +36,12 @@ onMounted(() => {
   try {
     coinsStore.fetchCoins();
   } catch (error) {
-    errorsStore.handle(
+    errorsStore.handle({
       error,
-      'dashboard/account/AddAccount/SelectCoin.vue',
-      'onMounted',
-      'Error when getting the list of coins, please try later.'
-    );
+      name: 'dashboard/account/AddAccount/SelectCoin.vue',
+      ctx: 'onMounted',
+      description: 'Error when getting the list of coins, please try later.',
+    });
   }
 });
 
