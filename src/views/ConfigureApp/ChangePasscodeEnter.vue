@@ -9,10 +9,7 @@
     </template>
     <template #content>
       <div class="passcode">
-        <base-passcode
-          :action-type="EPasscodeActions.update"
-          @submit="onSubmit"
-        />
+        <base-passcode :action-type="EPasscodeActions.update" />
       </div>
     </template>
   </t-top-navigation>
