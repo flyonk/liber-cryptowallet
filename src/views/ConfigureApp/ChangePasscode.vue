@@ -32,7 +32,9 @@
     class="passcode-container"
     @click:left-icon="router.back()"
   >
-    <template #title> Enter new passcode </template>
+    <template #title>
+      {{ $t('views.passcodeEnter.newPasscode') }}
+    </template>
     <template #content>
       <div class="passcode">
         <base-passcode
