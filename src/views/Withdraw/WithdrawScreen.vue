@@ -160,7 +160,10 @@ const showSuccessToast = ref(false);
 
 const coins = computed(() => {
   return coinStore.getCoins.filter((coin) => {
-    return accountStore.getAccounts.map(({ code }) => code).includes(coin.code);
+    return accountStore.getAccounts
+      .filter(({ balance }) => balance !== '0')
+      .map(({ code }) => code)
+      .includes(coin.code);
   });
 });
 
