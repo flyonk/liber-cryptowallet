@@ -1,20 +1,28 @@
 /* eslint-disable no-undef, no-restricted-globals */
-workbox.core.setCacheNameDetails({
+import { setCacheNameDetails, skipWaiting, clientsClaim } from 'workbox-core';
+import { precacheAndRoute } from 'workbox-precaching';
+import { CacheFirst } from 'workbox-strategies';
+import { registerRoute } from 'workbox-routing';
+import { ExpirationPlugin } from 'workbox-expiration';
+import { CacheableResponsePlugin } from 'workbox-cacheable-response';
+import { RangeRequestsPlugin } from 'workbox-range-requests';
+
+setCacheNameDetails({
   prefix: 'cw',
 });
 
 // This is the code piece that GenerateSW mode can't provide for us.
 // This code listens for the user's confirmation to update the app.
-workbox.routing.registerRoute(
+registerRoute(
   new RegExp('https://static.dev.liber.casa'),
-  new workbox.strategies.CacheFirst({
+  new CacheFirst({
     cacheName: 'assets',
     plugins: [
-      new workbox.rangeRequests.Plugin(),
-      new workbox.cacheableResponse.Plugin({
+      new RangeRequestsPlugin(),
+      new CacheableResponsePlugin({
         statuses: [0, 200, 206],
       }),
-      new workbox.expiration.Plugin({
+      new ExpirationPlugin({
         maxEntries: 20,
         maxAgeSeconds: 30 * 24 * 60 * 60,
       }),
@@ -43,13 +51,13 @@ self.addEventListener('push', (event) => {
 //   }
 // });
 
-workbox.precaching.precacheAndRoute(self.__WB_MANIFEST);
+skipWaiting();
 
-workbox.core.skipWaiting();
+clientsClaim();
 
-workbox.core.clientsClaim();
+precacheAndRoute(self.__WB_MANIFEST);
 
 // The precaching code provided by Workbox.
 self.__precacheManifest = [].concat(self.__precacheManifest || []);
-workbox.precaching.suppressWarnings();
-workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
+
+precacheAndRoute(self.__precacheManifest, {});

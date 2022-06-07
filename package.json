@@ -69,7 +69,14 @@
     "vue-i18n": "9",
     "vue-router": "^4.0.0-0",
     "vue-translation-manager": "^1.2.0",
-    "vue3-circle-progress": "^1.0.7"
+    "vue3-circle-progress": "^1.0.7",
+    "workbox-cacheable-response": "^6.5.3",
+    "workbox-core": "^6.5.3",
+    "workbox-expiration": "^6.5.3",
+    "workbox-precaching": "^6.5.3",
+    "workbox-range-requests": "^6.5.3",
+    "workbox-routing": "^6.5.3",
+    "workbox-strategies": "^6.5.3"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
@@ -82,7 +89,7 @@
     "@vue/cli-plugin-babel": "~5.0.0-rc.1",
     "@vue/cli-plugin-e2e-cypress": "~5.0.0-rc.1",
     "@vue/cli-plugin-eslint": "~5.0.0-rc.1",
-    "@vue/cli-plugin-pwa": "~4.5.4",
+    "@vue/cli-plugin-pwa": "~5.0.0-rc.1",
     "@vue/cli-plugin-router": "~5.0.0-rc.1",
     "@vue/cli-plugin-typescript": "~5.0.0-rc.1",
     "@vue/cli-plugin-unit-jest": "~5.0.0-rc.1",
