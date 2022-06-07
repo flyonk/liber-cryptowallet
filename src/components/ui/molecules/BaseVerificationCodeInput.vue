@@ -153,7 +153,11 @@ const onPaste = async (): Promise<void> => {
       activationCode.value = [...substringValue];
     }
   } catch (err) {
-    errorsStore.handle(err, 'BaseVerificationCodeInput', 'onPaste');
+    errorsStore.handle({
+      err,
+      name: 'BaseVerificationCodeInput',
+      ctx: 'onPaste',
+    });
   }
 };
 

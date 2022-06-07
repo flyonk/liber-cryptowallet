@@ -28,4 +28,5 @@ export { default as TransactionsList } from './organisms/transactions/Transactio
 export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswer.vue';
 export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
+export { default as KycStatusBadge } from './atoms/KycStatusBadge.vue';
 export { default as BiometricIdentifierSwitcherButton } from './organisms/BiometricIdentifierSwitcherButton.vue';
