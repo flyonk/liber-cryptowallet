@@ -14,7 +14,7 @@ setCacheNameDetails({
 // This is the code piece that GenerateSW mode can't provide for us.
 // This code listens for the user's confirmation to update the app.
 registerRoute(
-  new RegExp('https:\\/\\/static\\.dev\\.liber\\.casa\\/.*'),
+  new RegExp(`${process.env.VUE_APP_STATIC_BASE_URL}\\/.*`),
   new CacheFirst({
     cacheName: 'assets',
     plugins: [
@@ -31,12 +31,12 @@ registerRoute(
 );
 
 self.addEventListener('install', (event) => {
-  console.log('INSTALL', event);
+  console.log(event);
   event.waitUntil(
     caches.open('assets').then(function (cache) {
       return cache.addAll([
-        'https://static.dev.liber.casa/build/fonts/liber/iconmoon.css',
-        'https://static.dev.liber.casa/build/styles/common/liber/variables.css',
+        `${process.env.VUE_APP_STATIC_BASE_URL}/build/fonts/${process.env.VUE_APP_BRAND}/iconmoon.css`,
+        `${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/common/${process.env.VUE_APP_BRAND}/variables.css`,
       ]);
     })
   );
