@@ -50,6 +50,7 @@
         class="amount-input"
         type="number"
         mode="decimal"
+        inputmode="decimal"
         :min-fraction-digits="0"
         :max-fraction-digits="10"
         :class="{ '-error': isInsufficientBalance }"
@@ -157,7 +158,11 @@ const form = ref({
 const networks = ref([]) as Ref<string[]>;
 const showSuccessToast = ref(false);
 
-const coins = computed(() => coinStore.getCoins);
+const coins = computed(() => {
+  return coinStore.getCoins.filter((coin) => {
+    return accountStore.getAccounts.map(({ code }) => code).includes(coin.code);
+  });
+});
 
 const isLoading = ref(false);
 const isSubmitButtonDisabled = computed(
@@ -201,7 +206,7 @@ onBeforeRouteLeave((_to, _from, next) => {
 onBeforeMount(async () => {
   await Promise.all([
     coinStore.fetchCoins(false),
-    accountStore.getAccountList(),
+    accountStore.getAccountList(false),
   ]);
 
   const preselectedCode = route.params.code;
@@ -281,12 +286,12 @@ const onContinue = async () => {
 
     showSummaryScreen.value = true;
   } catch (e) {
-    await errorsStore.handle(
-      e,
-      'WithdrawalScreen.vue',
-      'getWithdrawInfo',
-      "error can't get withdrawal info"
-    );
+    await errorsStore.handle({
+      err: e,
+      name: 'WithdrawalScreen.vue',
+      ctx: 'getWithdrawInfo',
+      description: "error can't get withdrawal info",
+    });
   } finally {
     isLoading.value = false;
   }
@@ -373,7 +378,7 @@ const onContinue = async () => {
 .arrow-down {
   width: 10px;
   height: 5px;
-  margin: auto 28px auto 0;
+  margin: auto 14px auto 0;
 }
 
 .network-input {

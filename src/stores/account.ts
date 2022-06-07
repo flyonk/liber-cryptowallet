@@ -71,9 +71,19 @@ export const useAccountStore = defineStore('account', {
       }
     },
 
-    async getAccountList(): Promise<void> {
+    async getAccountList(forceFetch = true): Promise<void> {
       try {
-        this.accountList = await accountService.getAccounts();
+        const fetchAndSaveData = async () => {
+          this.accountList = await accountService.getAccounts();
+        };
+
+        if (forceFetch) {
+          return await fetchAndSaveData();
+        }
+
+        if (!this.accountList.length) {
+          await fetchAndSaveData();
+        }
       } catch (err) {
         const errorsStore = useErrorsStore();
 
