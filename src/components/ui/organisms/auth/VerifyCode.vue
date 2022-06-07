@@ -76,7 +76,7 @@ onMounted(async () => {
   try {
     await authStore.signIn({ phone: phone.value, flow: props.flow });
   } catch (err) {
-    errorsStore.handle(err, 'VerifyCode.vue', 'onMounted');
+    errorsStore.handle({ err, name: 'VerifyCode.vue', ctx: 'onMounted' });
   }
 });
 
@@ -157,24 +157,29 @@ const onComplete = async (data: string) => {
       _otp.value = otp;
       is2fa.value = true;
       verificationCode.value = '';
-      errorsStore.handle(
+      errorsStore.handle({
         err,
-        'VerifyCode.vue',
-        'onComplete',
-        t('auth.login.step4VerificationError')
-      );
+        name: 'VerifyCode.vue',
+        ctx: 'onComplete',
+        description: t('auth.login.step4VerificationError'),
+      });
       return;
     }
 
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'VerifyCode.vue',
-      'onComplete',
-      t('auth.login.step4VerificationError')
-    );
+      name: 'VerifyCode.vue',
+      ctx: 'onComplete',
+      description: t('auth.login.step4VerificationError'),
+    });
     isError.value = true;
 
-    errorsStore.handle(err, 'VerifyCode', 'onComplete', 'code error');
+    errorsStore.handle({
+      err,
+      name: 'VerifyCode',
+      ctx: 'onComplete',
+      description: 'code error',
+    });
   } finally {
     verificationCode.value = '';
   }
@@ -193,7 +198,7 @@ const resend = async () => {
     //TODO: use right method - response 403 forbidden
     authStore.signIn({ phone: phone.value, flow: props.flow });
   } catch (err) {
-    errorsStore.handle(err, 'VerifyCode.vue', 'resend');
+    errorsStore.handle({ err, name: 'VerifyCode.vue', ctx: 'resend' });
   }
 };
 </script>

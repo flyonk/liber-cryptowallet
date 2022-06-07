@@ -61,12 +61,12 @@ export const useProfileStore = defineStore('profile', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'profile.ts',
-          'getUserProfile',
-          "error can't retrieve user data"
-        );
+          name: 'profile.ts',
+          ctx: 'getUserProfile',
+          description: "error can't retrieve user data",
+        });
 
         return {} as IProfile;
       }
@@ -82,12 +82,12 @@ export const useProfileStore = defineStore('profile', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'profile.ts',
-          'updateUserProfile',
-          "error can't update user data"
-        );
+          name: 'profile.ts',
+          ctx: 'updateUserProfile',
+          description: "error can't update user data",
+        });
       }
     },
 

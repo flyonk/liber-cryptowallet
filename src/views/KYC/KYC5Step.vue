@@ -1,5 +1,5 @@
 <template>
-  <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
     <template #subtitle>
       <base-progress-bar :value="getPercentage" class="mb-3" />
@@ -14,7 +14,7 @@
                 {{ documentSideLabel(side) }}
               </div>
               <img :src="image" alt="front" class="image" />
-              <base-button block view="secondary" @click="onScanAgain">
+              <base-button block view="secondary" @click="onScanAgain(side)">
                 {{ $t('views.kyc.kyc5step.scanAgain') }}
               </base-button>
             </template>
@@ -23,9 +23,15 @@
 
         <template v-else>
           <div class="block">
-            <div class="title heading-black-lg">Passport</div>
+            <div class="title heading-black-lg">
+              {{ $t('views.kyc.kyc5step.passport') }}
+            </div>
             <img :src="getImage.front" alt="passport" class="image" />
-            <base-button block view="secondary" @click="onScanAgain">
+            <base-button
+              block
+              view="secondary"
+              @click="onScanAgain(EDocumentSide.front)"
+            >
               {{ $t('views.kyc.kyc5step.scanAgain') }}
             </base-button>
           </div>
@@ -46,7 +52,6 @@ import { computed } from 'vue';
 import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
-// import { EStepDirection } from '@/types/base-component';
 import { EDocumentSide } from '@/types/document';
 import { useI18n } from 'vue-i18n';
 
@@ -56,8 +61,18 @@ const emit = defineEmits(['prev', 'next']);
 
 const kycStore = useKYCStore();
 
-const onScanAgain = () => {
+const prevStep = async () => {
+  cleanupScans();
   emit('prev');
+};
+
+const onScanAgain = (side: EDocumentSide) => {
+  kycStore.setImage(null, side);
+  emit('prev');
+};
+
+const cleanupScans = () => {
+  kycStore.cleanupImages();
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
@@ -66,11 +81,11 @@ const proofType = computed(() => kycStore.getProofType);
 
 const getImage = computed(() => kycStore.getImage);
 
-function documentSideLabel(side: EDocumentSide) {
+const documentSideLabel = (side: EDocumentSide) => {
   return side === EDocumentSide.front
     ? t('views.kyc.kyc5step.frontSide')
     : t('views.kyc.kyc5step.backSide');
-}
+};
 
 const onNext = () => {
   emit('next');
