@@ -7,7 +7,7 @@
     <template #title> {{ $t('views.withdraw.withdraw') }} </template>
     <template #content>
       <base-input
-        v-model="form.address"
+        v-model.trim="form.address"
         class="address-input"
         :class="{ '-error': !form.address }"
       >
