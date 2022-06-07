@@ -7,6 +7,7 @@
     :with-countdown="withCountdown"
     :show-countdown="showCountdown"
     :show-paste-btn="true"
+    :is-error="isCodeWrong"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
     @on-complete="onCompleteCode"
@@ -22,7 +23,7 @@
             type="password"
             :value="passcode"
             :fields="4"
-            :is-code-wrong="isPasscodeWrong"
+            :is-error="isPasscodeWrong"
             @change="onChangePasscode"
             @complete="onCompletePasscode"
           />

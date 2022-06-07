@@ -4,12 +4,15 @@
       <template v-for="(v, index) in fields" :key="`input-${index}`">
         <div
           class="input-wrapper"
-          :class="{ '-dash': fields === 6, '-error': isCodeWrong }"
+          :class="{
+            '-dash': fields === 6,
+            '-error': isError && type === 'password',
+          }"
         >
           <input
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
             class="input-item text--title-1"
-            :class="{ '-error': isCodeWrong }"
+            :class="{ '-error': isError }"
             :data-id="index"
             pattern="[0-9]"
             inputmode="numeric"
@@ -64,10 +67,6 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  isCodeWrong: {
-    type: Boolean,
-    default: false,
-  },
 });
 
 const emit = defineEmits(['change', 'complete', 'update:modelValue']);
@@ -89,7 +88,7 @@ const focusFirstElement = () => {
 };
 
 const clickHandle = computed(() => {
-  if (props.isCodeWrong) {
+  if (props.isError) {
     return focusFirstElement;
   }
   return () => {
@@ -280,6 +279,7 @@ watch(
 
   &.-error {
     background-color: $color-red-50;
+    color: $color-red-500;
   }
 }
 </style>
