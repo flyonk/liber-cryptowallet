@@ -22,6 +22,7 @@
             type="password"
             :value="passcode"
             :fields="4"
+            :is-code-wrong="isPasscodeWrong"
             @change="onChangePasscode"
             @complete="onCompletePasscode"
           />
@@ -44,20 +45,20 @@ import { useRouter } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
-import { useErrorsStore } from '@/stores/errors';
 import { Route } from '@/router/types';
 
 import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const router = useRouter();
-const errorsStore = useErrorsStore();
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
 
 const oneTimeCode = ref('');
 const passcode = ref('');
+const isCodeWrong = ref(false);
+const isPasscodeWrong = ref(false);
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
@@ -96,16 +97,11 @@ const onComplete = async () => {
       router.push({
         name: mfaStore.data?.successRoute || Route.DashboardHome,
       });
-    } catch (err) {
-      const description = err.response?.data?.message || null;
+    } catch (err: Error | unknown) {
       passcode.value = '';
       oneTimeCode.value = '';
-      errorsStore.handle({
-        err,
-        name: 'MultiFactorAuthorization',
-        ctx: 'onCompletePasscode',
-        description,
-      });
+      isCodeWrong.value = true;
+      isPasscodeWrong.value = true;
     }
   }
 };
@@ -121,6 +117,7 @@ const onCompletePasscode = async (code: string) => {
 };
 
 const onChangePasscode = (code: string) => {
+  isPasscodeWrong.value = false;
   passcode.value = code;
 };
 
