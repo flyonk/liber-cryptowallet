@@ -37,7 +37,6 @@ const pagination = {
 
 /**
  * Called every time the slide is changed.
- * Order is important - first, pagination items are created, then the wrapper is configured
  * @param swiper
  * @param current
  * @param total
@@ -45,14 +44,15 @@ const pagination = {
 function render(swiper, current: number, total: number) {
   swiper.pagination.el.classList.add('pagination');
 
+  if (!wrapper) setSlideWrapperListeners(swiper);
+
   if (!pagItems.value.length) {
     createPaginationItems(total);
     setClickableBehaviorForPagItem(swiper);
+    putItemsToSwiperEl(swiper.pagination.el);
   }
 
   updatePaginationItemsClasses(current, total);
-
-  if (!wrapper) configurePaginationWrapper(swiper);
 }
 
 /**
@@ -87,9 +87,7 @@ function updatePaginationItemsClasses(current: number, total: number) {
  * Adds a pause behavior when touched.
  * @param swiper
  */
-function configurePaginationWrapper(swiper) {
-  putItemsToSwiperEl(swiper.pagination.el);
-
+function setSlideWrapperListeners(swiper) {
   wrapper = document.querySelector('.swiper-wrapper');
 
   wrapper?.addEventListener('touchstart', () => {
