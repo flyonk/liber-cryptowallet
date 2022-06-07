@@ -61,7 +61,7 @@ const passcode = ref('');
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
-    return tm('auth.login.step4Description');
+    return tm('common.2fainput');
   }
   return tm('common.codeInput');
 });

@@ -34,7 +34,8 @@
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
     "on": "On",
-    "off": "Off"
+    "off": "Off",
+    "2fainput": "2FA verification code"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
