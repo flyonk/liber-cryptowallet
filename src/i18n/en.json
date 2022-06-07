@@ -298,6 +298,7 @@
         "placePhoneOnTopOfIDBack": "Place your phone directly on top of your ID front side and take a picture."
       },
       "kyc5step": {
+        "passport": "Passport",
         "proofOfIdentity": "Proof of Identity",
         "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
         "scanAgain": "Scan Again",
@@ -328,6 +329,7 @@
     "dashboard": {
       "home": {
         "idVerification": "ID Verification",
+        "notVerified": "Not Verified",
         "idVerified": "ID Verified",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",

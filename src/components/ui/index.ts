@@ -29,5 +29,6 @@ export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswe
 export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';
 export { default as MStatusCard } from './molecules/profile-status-cards/MKycStatusCard.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
+export { default as KycStatusBadge } from './atoms/KycStatusBadge.vue';
 export { default as BiometricIdentifierSwitcherButton } from './organisms/BiometricIdentifierSwitcherButton.vue';
 export { default as EnterVerificationCode } from './organisms/auth/EnterVerificationCode.vue';

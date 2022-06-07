@@ -14,11 +14,11 @@
     </template>
     <template #subtitle>
       <base-progress-bar :value="getPercentage" class="mb-3" />
-      {{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}</template
-    >
+      {{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}
+    </template>
     <template #content>
       <div class="kyc-3-step">
-        <base-radio-select :items="items" @input="onSelect" />
+        <base-radio-select :items="items" @select="onSelect" />
       </div>
     </template>
   </t-top-navigation>

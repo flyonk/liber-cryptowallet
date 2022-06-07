@@ -100,12 +100,12 @@ const onComplete = async () => {
       const description = err.response?.data?.message || null;
       passcode.value = '';
       oneTimeCode.value = '';
-      errorsStore.handle(
+      errorsStore.handle({
         err,
-        'MultiFactorAuthorization',
-        'onCompletePasscode',
-        description
-      );
+        name: 'MultiFactorAuthorization',
+        ctx: 'onCompletePasscode',
+        description,
+      });
     }
   }
 };
