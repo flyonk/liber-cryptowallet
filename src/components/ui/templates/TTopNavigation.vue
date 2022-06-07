@@ -79,6 +79,7 @@ defineEmits(['click:left-icon']);
   flex-direction: column;
 
   > .content {
+    margin-top: 5px;
     overflow: hidden;
   }
 }

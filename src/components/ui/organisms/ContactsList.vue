@@ -81,7 +81,7 @@ defineEmits(['contactClick']);
 
 .contact-letter {
   font-style: normal;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 13px;
   line-height: 18px;
   text-align: left;
