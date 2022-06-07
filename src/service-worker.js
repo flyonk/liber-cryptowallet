@@ -14,7 +14,7 @@ setCacheNameDetails({
 // This is the code piece that GenerateSW mode can't provide for us.
 // This code listens for the user's confirmation to update the app.
 registerRoute(
-  new RegExp('https://static.dev.liber.casa'),
+  new RegExp('https:\\/\\/static\\.dev\\.liber\\.casa\\/.*'),
   new CacheFirst({
     cacheName: 'assets',
     plugins: [
@@ -34,7 +34,10 @@ self.addEventListener('install', (event) => {
   console.log('INSTALL', event);
   event.waitUntil(
     caches.open('assets').then(function (cache) {
-      return cache.addAll(['https://static.dev.liber.casa']);
+      return cache.addAll([
+        'https://static.dev.liber.casa/build/fonts/liber/iconmoon.css',
+        'https://static.dev.liber.casa/build/styles/common/liber/variables.css',
+      ]);
     })
   );
 });
