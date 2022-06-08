@@ -18,10 +18,8 @@ import 'swiper/css/pagination'; //TODO: move to index.css
 
 // import required modules
 import { Pagination, Autoplay } from 'swiper';
-import { Ref, ref } from 'vue';
+import { computed, Ref, ref } from 'vue';
 
-let pagItems: Ref<HTMLDivElement[]> = ref([]);
-let wrapper: HTMLDivElement | null = null;
 const delay = 5000; //ms
 
 const autoplay = {
@@ -35,6 +33,15 @@ const pagination = {
   renderCustom: render,
 };
 
+let slidesWrapper: HTMLDivElement | null = null;
+
+let pagItemWrappers: Ref<HTMLDivElement[]> = ref([]);
+const pagItems = computed(() =>
+  pagItemWrappers.value.map((e: HTMLDivElement) => {
+    return e.firstElementChild;
+  })
+);
+
 /**
  * Called every time the slide is changed.
  * @param swiper
@@ -44,12 +51,13 @@ const pagination = {
 function render(swiper, current: number, total: number) {
   swiper.pagination.el.classList.add('pagination');
 
-  if (!wrapper) setSlideWrapperListeners(swiper);
+  if (!slidesWrapper) setSlideWrapperListeners(swiper);
 
-  if (!pagItems.value.length) {
+  if (!pagItemWrappers.value.length) {
     createPaginationItems(total);
+    setPaginationItemAnimationStyles();
     setClickableBehaviorForPagItem(swiper);
-    putItemsToSwiperEl(swiper.pagination.el);
+    insertItemsToSwiperEl(swiper.pagination.el);
   }
 
   updatePaginationItemsClasses(current, total);
@@ -65,20 +73,20 @@ function updatePaginationItemsClasses(current: number, total: number) {
 
   // prev slides
   for (let i = current - 2; i >= 0; i--) {
-    pagItems.value[i].classList.remove('viewing');
-    pagItems.value[i].classList.add('viewed');
+    pagItems.value[i]?.classList.remove('viewing');
+    pagItems.value[i]?.classList.add('viewed');
   }
 
   // current slide
-  pagItems.value[current - 1].classList.remove('not-viewed');
-  pagItems.value[current - 1].classList.remove('viewed');
-  pagItems.value[current - 1].classList.add('viewing');
+  pagItems.value[current - 1]?.classList.remove('not-viewed');
+  pagItems.value[current - 1]?.classList.remove('viewed');
+  pagItems.value[current - 1]?.classList.add('viewing');
 
   //next slides
   for (let i = current; i < total; i++) {
-    pagItems.value[i].classList.remove('viewed');
-    pagItems.value[i].classList.remove('viewing');
-    pagItems.value[i].classList.add('not-viewed');
+    pagItems.value[i]?.classList.remove('viewed');
+    pagItems.value[i]?.classList.remove('viewing');
+    pagItems.value[i]?.classList.add('not-viewed');
   }
 }
 
@@ -88,9 +96,9 @@ function updatePaginationItemsClasses(current: number, total: number) {
  * @param swiper
  */
 function setSlideWrapperListeners(swiper) {
-  wrapper = document.querySelector('.swiper-wrapper');
+  slidesWrapper = document.querySelector('.swiper-wrapper');
 
-  wrapper?.addEventListener('touchstart', () => {
+  slidesWrapper?.addEventListener('touchstart', () => {
     swiper.autoplay.stop();
 
     const currentViewingSlide = getCurrentViewingItem();
@@ -98,16 +106,7 @@ function setSlideWrapperListeners(swiper) {
       currentViewingSlide.style.animationPlayState = 'paused';
   });
 
-  wrapper?.addEventListener('touchend', () => {
-    swiper.autoplay.start();
-
-    //TODO: implement restart animation
-    const currentViewingSlide = getCurrentViewingItem();
-    if (currentViewingSlide)
-      currentViewingSlide.style.animationPlayState = 'running';
-  });
-
-  wrapper?.addEventListener('touch', () => {
+  slidesWrapper?.addEventListener('touchend', () => {
     swiper.autoplay.start();
 
     //TODO: implement restart animation
@@ -118,32 +117,36 @@ function setSlideWrapperListeners(swiper) {
 }
 
 function setPaginationItemAnimationStyles() {
-  pagItems.value.forEach((e: HTMLDivElement) => {
-    e.style.animationDuration = `${delay / 1000}s`; //ms to s
+  pagItems.value.forEach((e: Element | null) => {
+    const item = e as HTMLDivElement;
+    item.style.animationDuration = `${delay / 1000}s`;
   });
 }
 
 function getCurrentViewingItem() {
   return pagItems.value.find((e) => {
-    return e.classList.contains('viewing');
-  });
+    return e?.classList.contains('viewing');
+  }) as HTMLDivElement;
 }
 
 function createPaginationItems(total: number) {
-  if (!pagItems.value.length) {
-    for (let i = 0; i < total; i++) {
-      const item = document.createElement('div');
-      item.classList.add('pagination-item');
-      pagItems.value.push(item);
-    }
+  if (pagItemWrappers.value.length) return;
 
-    setPaginationItemAnimationStyles();
+  for (let i = 0; i < total; i++) {
+    const wrapper = document.createElement('div');
+    const item = document.createElement('div');
+
+    wrapper.classList.add('item-wrapper');
+    item.classList.add('pagination-item');
+
+    wrapper.appendChild(item);
+    pagItemWrappers.value.push(wrapper);
   }
 }
 
-function putItemsToSwiperEl(el: HTMLDivElement) {
-  if (pagItems.value.length) {
-    pagItems.value.forEach((item) => {
+function insertItemsToSwiperEl(el: HTMLDivElement) {
+  if (pagItemWrappers.value.length) {
+    pagItemWrappers.value.forEach((item) => {
       el.append(item);
     });
   }
@@ -158,7 +161,7 @@ function setClickableBehaviorForPagItem(swiper) {
   if (!paginationContainer) return;
 
   paginationContainer.addEventListener('touchstart', (event) => {
-    const index = pagItems.value.findIndex((e) => {
+    const index = pagItemWrappers.value.findIndex((e) => {
       return e === event.target;
     });
 
@@ -182,6 +185,20 @@ function setClickableBehaviorForPagItem(swiper) {
   justify-content: space-around;
   background-color: $color-brand-primary;
   padding: 10px 24px 0;
+}
+
+:deep(.item-wrapper) {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 20px;
+  margin-left: 4px;
+  border-radius: 2px;
+  background: none;
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 :deep(.pagination-item) {
@@ -221,7 +238,7 @@ function setClickableBehaviorForPagItem(swiper) {
   position: absolute;
   display: flex;
   top: 45px;
-  height: 10px;
+  height: 20px;
   background: none;
   z-index: 5;
 }
