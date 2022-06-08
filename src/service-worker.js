@@ -1,7 +1,7 @@
 /* eslint-disable no-undef, no-restricted-globals */
 import { setCacheNameDetails, skipWaiting, clientsClaim } from 'workbox-core';
 import { precacheAndRoute } from 'workbox-precaching';
-import { CacheFirst } from 'workbox-strategies';
+import { CacheFirst, NetworkFirst } from 'workbox-strategies';
 import { registerRoute } from 'workbox-routing';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
@@ -28,6 +28,25 @@ registerRoute(
       }),
     ],
   })
+);
+
+registerRoute(
+  new RegExp(`${process.env.VUE_APP_BASE_URL}\\/.*`),
+  new NetworkFirst({
+    networkTimeoutSeconds: 3,
+    cacheName: 'api',
+    plugins: [
+      new RangeRequestsPlugin(),
+      new CacheableResponsePlugin({
+        statuses: [0, 200, 206],
+      }),
+      new ExpirationPlugin({
+        maxEntries: 50,
+        maxAgeSeconds: 5 * 60, // 5 minutes
+      }),
+    ],
+  }),
+  'GET'
 );
 
 self.addEventListener('install', (event) => {
