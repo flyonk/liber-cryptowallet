@@ -66,6 +66,8 @@ import PushNotifications from '@/views/ConfigureApp/Options/PushNotifications.vu
 import DepositeIndex from '@/views/DepositeCoin/DepositeIndex.vue';
 import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
 
+import Withdraw from '@/views/Withdraw/WithdrawScreen.vue';
+
 import RequestContacts from '@/views/Contacts/RequestContacts.vue';
 import Recipients from '@/views/Contacts/RecepientsView.vue';
 import AddAccount from '@/views/Dashboard/Account/AddAccount/IndexView.vue';
@@ -293,6 +295,15 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.ConvertFunds,
     meta: { authRequired: true },
     component: ChangeCurrency,
+  },
+
+  //  === Withdraw funds Flow
+
+  {
+    path: '/withdraw',
+    name: Route.Withdraw,
+    meta: { authRequired: true },
+    component: Withdraw,
   },
 
   // === Profile (Left Navigation Menu) ===

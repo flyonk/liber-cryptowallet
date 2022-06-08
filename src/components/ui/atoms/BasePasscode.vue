@@ -114,7 +114,7 @@ const showTouchId = () => {
           err,
           name: 'BasePasscode',
           ctx: 'showTouchId',
-          description: 'verify identity error',
+          description: 'Verify identity error',
         });
       });
   }

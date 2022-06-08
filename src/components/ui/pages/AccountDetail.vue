@@ -86,12 +86,11 @@ import { useAccountStore } from '@/stores/account';
 import { useProfileStore } from '@/stores/profile';
 
 // import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
-
 import {
   AccountDetails,
+  TotalAccountBalanceByCoin,
   TransactionsList,
   TTopNavigation,
-  TotalAccountBalanceByCoin,
 } from '@/components/ui';
 
 interface ICarouselItem {
@@ -99,6 +98,8 @@ interface ICarouselItem {
   img: string;
   successRoute: string;
   failRoute: string;
+  query?: { [key: string]: string };
+  params?: { [key: string]: string };
 }
 
 let showControls = ref(false);
@@ -126,6 +127,8 @@ onBeforeMount(() => {
     accountStore.init(coin.value);
     currentCoin.value = coin.value;
   }
+
+  profileStore.init();
 });
 
 const transactions = computed(() => accountStore.getCoinTransactions);
@@ -137,6 +140,7 @@ const carousel: ICarouselItem[] = [
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
     successRoute: Route.DepositNetwork,
     failRoute: Route.DashboardStory,
+    query: { code: route.params.coin as string },
   },
   {
     name: tm('transactions.carousel.sendFunds'),
@@ -149,11 +153,13 @@ const carousel: ICarouselItem[] = [
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
     successRoute: Route.ConvertFunds,
     failRoute: Route.DashboardStory,
+    query: { code: route.params.coin as string },
   },
   {
     name: tm('transactions.carousel.withdraw'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
-    successRoute: Route.PayRecepientsPhone,
+    successRoute: Route.Withdraw,
+    params: { code: route.params.coin as string },
     failRoute: Route.DashboardStory,
   },
 ];
@@ -162,9 +168,24 @@ const onClick = (carouselItem: ICarouselItem) => {
   const { kycStatus } = profileStore.getUser;
   switch (kycStatus) {
     case EKYCStatus.success:
+      if (carouselItem.query) {
+        router.push({
+          name: carouselItem.successRoute,
+          query: carouselItem.query,
+        });
+        return;
+      }
+
+      if (carouselItem.params) {
+        router.push({
+          name: carouselItem.successRoute,
+          params: carouselItem.params,
+        });
+        return;
+      }
+
       router.push({
         name: carouselItem.successRoute,
-        query: { code: coin.value },
       });
       break;
     case EKYCStatus.not_started:

@@ -81,6 +81,12 @@ export default {
     depositInfo(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/coin/deposit-info`;
     },
+    withdrawInfo(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/withdrawal/info`;
+    },
+    withdraw(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/withdraw`;
+    },
   },
   transactions: {
     transactionsList(): string {
@@ -112,11 +118,6 @@ export default {
   localData: {
     countryDial(): string {
       return `/country_dial_info.json`;
-    },
-  },
-  coin: {
-    getCoins(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/coins`;
     },
   },
   passcode: {

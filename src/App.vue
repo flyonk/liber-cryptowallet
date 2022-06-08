@@ -49,6 +49,7 @@ SwipeBack.enable()
   .catch((err) => {
     const { code } = err;
     if (code !== 'UNIMPLEMENTED') {
+      //TODO:disable display in toast (dev dependency)
       errorsStore.handle({
         err,
         name: 'App',

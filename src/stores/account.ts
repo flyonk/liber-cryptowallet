@@ -66,14 +66,24 @@ export const useAccountStore = defineStore('account', {
           err,
           name: 'account.ts',
           ctx: 'getAccountData',
-          description: "error can't retrieve account data",
+          description: "Error can't retrieve account data",
         });
       }
     },
 
-    async getAccountList(): Promise<void> {
+    async getAccountList(forceFetch = true): Promise<void> {
       try {
-        this.accountList = await accountService.getAccounts();
+        const fetchAndSaveData = async () => {
+          this.accountList = await accountService.getAccounts();
+        };
+
+        if (forceFetch) {
+          return await fetchAndSaveData();
+        }
+
+        if (!this.accountList.length) {
+          await fetchAndSaveData();
+        }
       } catch (err) {
         const errorsStore = useErrorsStore();
 
@@ -81,7 +91,7 @@ export const useAccountStore = defineStore('account', {
           err,
           name: 'account.ts',
           ctx: 'getAccountList',
-          description: "error can't retrieve accounts list",
+          description: "Error can't retrieve accounts list",
         });
       }
     },
@@ -96,7 +106,7 @@ export const useAccountStore = defineStore('account', {
           err,
           name: 'account.ts',
           ctx: 'getAccountBalance',
-          description: "error can't retrieve account balance",
+          description: "Error can't retrieve account balance",
         });
       }
     },
@@ -114,7 +124,7 @@ export const useAccountStore = defineStore('account', {
           err,
           name: 'account.ts',
           ctx: 'createAccount',
-          description: 'error on creating account',
+          description: 'Error on creating account',
         });
       }
     },

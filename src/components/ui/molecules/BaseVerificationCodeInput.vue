@@ -157,6 +157,7 @@ const onPaste = async (): Promise<void> => {
       err,
       name: 'BaseVerificationCodeInput',
       ctx: 'onPaste',
+      description: 'Error reading clipboard',
     });
   }
 };

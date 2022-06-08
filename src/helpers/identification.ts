@@ -79,7 +79,7 @@ export async function getSupportedOptions() {
       err,
       name: 'identification.ts',
       ctx: 'getSupportedOptions',
-      description: 'error to define native biometrics',
+      description: 'Error to define native biometrics.',
     });
 
     return '';
