@@ -249,7 +249,12 @@ onMounted(async () => {
 
     setCurrentAccount('all');
   } catch (err) {
-    errorsStore.handle({ err, name: 'DashboardHome', ctx: 'onMounted' });
+    errorsStore.handle({
+      err,
+      name: 'DashboardHome',
+      ctx: 'onMounted',
+      description: 'Error receiving dashboard data',
+    });
   } finally {
     loading.value = false;
   }
@@ -308,6 +313,7 @@ const updateDashboardData = async () => {
       err,
       name: 'DashboardHome.vue',
       ctx: 'updateDashboardData',
+      description: 'Error receiving dashboard data',
     });
   } finally {
     loading.value = false;

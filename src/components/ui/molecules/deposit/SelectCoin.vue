@@ -31,7 +31,7 @@
 <script lang="ts" setup>
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
 import { PropType } from 'vue-demi';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { computed } from 'vue';
 
 defineEmits(['select-coin']);

@@ -78,7 +78,6 @@ const popupStatus = ref('confirmation');
 <style lang="scss" scoped>
 .send-to {
   height: 100vh;
-  padding: 0 16px;
   flex-grow: 1;
   overflow: auto;
 }

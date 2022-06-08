@@ -157,28 +157,16 @@ const onComplete = async (data: string) => {
       _otp.value = otp;
       is2fa.value = true;
       verificationCode.value = '';
-      errorsStore.handle({
-        err,
-        name: 'VerifyCode.vue',
-        ctx: 'onComplete',
-        description: t('auth.login.step4VerificationError'),
-      });
       return;
     }
+
+    isError.value = true;
 
     errorsStore.handle({
       err,
       name: 'VerifyCode.vue',
       ctx: 'onComplete',
       description: t('auth.login.step4VerificationError'),
-    });
-    isError.value = true;
-
-    errorsStore.handle({
-      err,
-      name: 'VerifyCode',
-      ctx: 'onComplete',
-      description: 'code error',
     });
   } finally {
     verificationCode.value = '';

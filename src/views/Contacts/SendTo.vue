@@ -120,11 +120,11 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { computed, ref } from 'vue';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
-import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
+import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';
@@ -172,7 +172,8 @@ const sendTransaction = async () => {
     try {
       const mfaStore = useMfaStore();
       mfaStore.show({
-        title: 'transactions.send',
+        button: 'transactions.send',
+        successRoute: Route.DashboardHome,
         callback: async () => {
           console.log(JSON.stringify('test callback 1'));
           await recepientsStore.addFriend(contact);
@@ -190,7 +191,7 @@ const sendTransaction = async () => {
         err,
         name: 'SendTo',
         ctx: 'sendTransaction',
-        description: 'error unable to send funds',
+        description: 'Error unable to send funds',
       });
     }
   } else {

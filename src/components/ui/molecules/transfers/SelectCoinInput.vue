@@ -1,8 +1,8 @@
 <template>
   <div class="select" @click.prevent="showSelectCoinDialog[direction] = true">
     <div class="select-option flex">
-      <img :src="currentSendCurrency.img" alt class="icon" />
-      <p class="name">{{ currentSendCurrency.name }}</p>
+      <img :src="currentCurrency.img" alt class="icon" />
+      <p class="name">{{ currentCurrency.name }}</p>
       <img alt="list" :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`" />
       <div></div>
       <p-dialog
@@ -32,7 +32,7 @@
 <script lang="ts" setup>
 import { PropType, ref } from 'vue';
 
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { ICoinForExchange } from '@/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 
@@ -46,7 +46,7 @@ const showSelectCoinDialog = ref({
 });
 
 const props = defineProps({
-  currentSendCurrency: {
+  currentCurrency: {
     type: Object as PropType<ICoinForExchange>,
     default: () => ({} as ICoinForExchange),
   },

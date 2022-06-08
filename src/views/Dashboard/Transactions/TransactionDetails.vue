@@ -56,7 +56,12 @@ onBeforeMount(async () => {
       route.params.id as string
     )) as INetTransaction;
   } catch (err) {
-    errorsStore.handle({ err, name: 'TransactionDetails', ctx: 'onMounted' });
+    errorsStore.handle({
+      err,
+      name: 'TransactionDetails',
+      ctx: 'onBeforeMount',
+      description: 'Error receiving transaction details',
+    });
   }
 });
 
