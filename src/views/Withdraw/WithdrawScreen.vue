@@ -2,7 +2,7 @@
   <t-top-navigation
     v-if="!showSummaryScreen"
     with-fixed-footer
-    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    @click:left-icon="$router.back()"
   >
     <template #title> {{ $t('views.withdraw.withdraw') }} </template>
     <template #content>
@@ -115,7 +115,6 @@ import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 
-import { Route } from '@/router/types';
 import { useCoinsStore } from '@/stores/coins';
 import { ICoin } from '@/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
@@ -213,6 +212,8 @@ onBeforeMount(async () => {
   ]);
 
   const preselectedCode = route.params.code;
+
+  console.debug('preselect', preselectedCode);
 
   if (preselectedCode) {
     const selectedCoin = coins.value.find(
