@@ -162,7 +162,9 @@ function setClickableBehaviorForPagItem(swiper) {
 
   paginationContainer.addEventListener('touchstart', (event) => {
     const index = pagItemWrappers.value.findIndex((e) => {
-      return e === event.target;
+      const isWrapper = e === event.target;
+      const isItem = e.firstElementChild === event.target;
+      return isWrapper || isItem;
     });
 
     if (index !== -1) swiper.slideTo(index + 1, 500); //500 ms to show
