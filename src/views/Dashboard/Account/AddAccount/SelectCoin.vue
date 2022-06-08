@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { useAccountStore } from '@/stores/account';
 import { useCoinsStore } from '@/stores/coins';
 import { useErrorsStore } from '@/stores/errors';

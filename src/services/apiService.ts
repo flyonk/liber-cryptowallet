@@ -3,50 +3,50 @@ import { API_VERSION, BASE_API_URL } from '@/constants';
 export default {
   auth: {
     signIn(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth`;
+      return `${BASE_API_URL}/api/${API_VERSION}/auth`;
     },
     signInProceed(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/proceed`;
+      return `${BASE_API_URL}/api/${API_VERSION}/auth/proceed`;
     },
     refresh(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/refresh`;
+      return `${BASE_API_URL}/api/${API_VERSION}/auth/refresh`;
     },
     logout(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/logout`;
+      return `${BASE_API_URL}/api/${API_VERSION}/auth/logout`;
     },
     devices(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/auth/devices`;
+      return `${BASE_API_URL}/api/${API_VERSION}/auth/devices`;
     },
   },
   profile: {
     baseUrl(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile`;
+      return `${BASE_API_URL}/api/${API_VERSION}/profile`;
     },
     avatar(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/avatar`;
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/avatar`;
     },
     close(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/close`;
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/close`;
     },
     kycClaim(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/kyc/claim`;
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim`;
     },
     kycHook(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/profile/kyc/claim/hook`;
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim/hook`;
     },
   },
   authenticators: {
     disable(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/disable`;
+      return `${BASE_API_URL}/api/${API_VERSION}/user/2fa/disable`;
     },
     enable(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/enable`;
+      return `${BASE_API_URL}/api/${API_VERSION}/user/2fa/enable`;
     },
     secret(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/secret`;
+      return `${BASE_API_URL}/api/${API_VERSION}/user/2fa/secret`;
     },
     verify(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/2fa/verify`;
+      return `${BASE_API_URL}/api/${API_VERSION}/user/2fa/verify`;
     },
   },
   verification: {
@@ -56,57 +56,63 @@ export default {
   },
   recipients: {
     contacts(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/contacts`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/contacts`;
     },
     sync(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/contacts-sync`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/contacts-sync`;
     },
     invite(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/invite`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/invite`;
     },
     payment(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/payment-link`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/payment-link`;
     },
   },
   funds: {
     convertInfo(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/convert/info`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/convert/info`;
     },
     convert(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/funds/convert`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/convert`;
     },
     coins(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/coins`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/coins`;
     },
     depositInfo(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/deposit-info`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/deposit-info`;
+    },
+    withdrawInfo(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/withdrawal/info`;
+    },
+    withdraw(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/withdraw`;
     },
   },
   transactions: {
     transactionsList(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/transactions`;
     },
     requestFunds(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/request-funds`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/request-funds`;
     },
     transactionDetailsByCoin(coin: string, id: string): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions/coin/${coin}/id/${id}`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/transactions/coin/${coin}/id/${id}`;
     },
   },
   account: {
     accountsList(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/accounts`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/accounts`;
     },
     userTransactions(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/transactions`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/transactions`;
     },
     create(coin: string): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/accounts/${coin}/address`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/accounts/${coin}/address`;
     },
   },
   transfer: {
     send(coin: string): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/transfer/coin/${coin}`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/transfer/coin/${coin}`;
     },
   },
   localData: {
@@ -114,14 +120,9 @@ export default {
       return `/country_dial_info.json`;
     },
   },
-  coin: {
-    getCoins(): string {
-      return `${BASE_API_URL}/coin/api/${API_VERSION}/coins`;
-    },
-  },
   passcode: {
     global(): string {
-      return `${BASE_API_URL}/auth/api/${API_VERSION}/user/passcode`;
+      return `${BASE_API_URL}/api/${API_VERSION}/user/passcode`;
     },
   },
 };
