@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import { PropType } from 'vue';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 
 defineEmits(['back-button', 'select-coin']);
 
