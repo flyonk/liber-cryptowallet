@@ -184,14 +184,14 @@ function setClickableBehaviorForPagItem(swiper) {
   display: flex;
   justify-content: space-around;
   background-color: $color-brand-primary;
-  padding: 10px 24px 0;
+  padding: 0 24px;
 }
 
 :deep(.item-wrapper) {
   display: flex;
   align-items: center;
   width: 100%;
-  height: 20px;
+  height: 30px;
   margin-left: 4px;
   border-radius: 2px;
   background: none;
