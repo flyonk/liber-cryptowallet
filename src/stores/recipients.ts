@@ -16,6 +16,7 @@ interface IRecepients {
   contacts: Contact[];
   permission: boolean;
   friends: Set<string>;
+  communicationWayContactId?: null | string;
 }
 
 interface IPhoneNumber {
@@ -163,11 +164,13 @@ export const useRecepientsStore = defineStore('recepients', {
       const newContact: Contact = {
         contactId: contact.id || '',
         displayName: contact.name || '',
-        phoneNumbers: contact.phones.map((item) => {
-          return {
-            number: item.value,
-          };
-        }),
+        phoneNumbers: contact.phones
+          .map((item) => {
+            return {
+              number: item.value,
+            };
+          })
+          .filter((item) => !!item.number),
         emails: [],
         isFriend: true,
       };
@@ -207,6 +210,18 @@ export const useRecepientsStore = defineStore('recepients', {
         });
       }
       setOptions(Array.from(this.friends), EStorageKeys.friends);
+    },
+    getContactInfo(contactId: string | null | undefined) {
+      if (contactId) {
+        const _contactArr = this.contacts.filter(
+          (c) => c.contactId === contactId
+        );
+        return _contactArr && _contactArr[0];
+      }
+      return;
+    },
+    selectCommunicationWay(contactId: string) {
+      this.communicationWayContactId = contactId;
     },
   },
 });

@@ -81,7 +81,7 @@ onUpdated(() => {
       break;
     case 'communication':
       if (!menu.value) return;
-      menu.value.style.minHeight = `70%`;
+      menu.value.style.minHeight = `90%`;
       menu.value.style.maxHeight = `90%`;
       break;
     case 'surprise':

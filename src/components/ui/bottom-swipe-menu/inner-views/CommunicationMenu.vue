@@ -3,44 +3,69 @@
     <p class="cancel" @click="closeMenu">Cancel</p>
     <h2 class="title">Choose main communication channel</h2>
     <ul class="communications-list">
-      <li class="communication-item">
+      <li
+        v-for="(way, index) in contactCommunicationWays"
+        :key="index"
+        class="communication-item"
+      >
         <div class="send-method">
-          <p class="label">Phone 1</p>
-          <h3 class="data">+49 30 901820</h3>
-        </div>
-        <radio-button />
-      </li>
-      <li class="communication-item">
-        <div class="send-method">
-          <p class="label">Email</p>
-          <h3 class="data">flyonk@cryptowize.tech</h3>
-        </div>
-        <radio-button />
-      </li>
-      <li class="communication-item">
-        <div class="send-method">
-          <p class="label">Phone 2</p>
-          <h3 class="data">+49 35 931820</h3>
+          <p class="label">
+            {{ way.isPhone ? 'Phone' : 'Email' }} {{ index + 1 }}
+          </p>
+          <h3 class="data">{{ way.number || way }}</h3>
         </div>
         <radio-button />
       </li>
     </ul>
-    <BaseButton class="btn mt-auto" size="large">
-      Keep account open
+    <BaseButton class="btn mt-auto" size="large" @click="clickHandle">
+      Select
     </BaseButton>
   </div>
 </template>
 
 <script setup lang="ts">
-// import { ref } from 'vue';
+import { ref } from 'vue';
+import { useRouter } from 'vue-router';
 
 import { BaseButton } from '@/components/ui';
 import RadioButton from 'primevue/radiobutton';
 
+import { Route } from '@/router/types';
+import { useRecepientsStore } from '@/stores/recipients';
+
+const router = useRouter();
 const emit = defineEmits(['closeMenu']);
+
 function closeMenu() {
   emit('closeMenu');
 }
+
+const recepientsStore = useRecepientsStore();
+
+const contactId = recepientsStore.communicationWayContactId;
+
+const contactCommunicationWays = ref([]);
+
+if (!contactId) {
+  emit('closeMenu');
+} else {
+  const contact = recepientsStore.getContactInfo(contactId);
+  const phones = contact?.phoneNumbers.map((item) => {
+    item.isPhone = true;
+    return item;
+  });
+  const emails = contact?.emails;
+  contactCommunicationWays.value = [...phones, ...emails].filter(
+    (item) => !!item
+  );
+}
+
+const clickHandle = () => {
+  router.push({
+    name: Route.PayRecepientsLiber,
+    params: { id: contactId },
+  });
+};
 </script>
 
 <style lang="scss" scoped>
