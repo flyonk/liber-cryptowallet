@@ -34,6 +34,7 @@
   > .fixed-footer {
     position: fixed;
     bottom: 50px;
+    width: 100%;
   }
 }
 </style>
