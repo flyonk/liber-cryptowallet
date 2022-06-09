@@ -60,7 +60,7 @@
             </li>
           </ul>
           <base-button
-            class="phone-adder"
+            class="data-adder"
             view="flat"
             icon-left="icon-plus"
             @click="$router.push({ name: Route.ProfileAddNewContactData })"
@@ -89,11 +89,11 @@ const phone = computed(() => pStore.getUser.phone);
 const email = computed(() => pStore.getUser.email);
 
 const additionalPhones = computed(() => {
-  return pStore.getUser.additionalPhones ? pStore.getUser.additionalPhones : [];
+  return pStore?.getUser?.additionalPhones || [];
 });
 
 const additionalEmails = computed(() => {
-  return pStore.getUser.additionalEmails ? pStore.getUser.additionalEmails : [];
+  return pStore?.getUser?.additionalEmails || [];
 });
 </script>
 
@@ -237,8 +237,8 @@ const additionalEmails = computed(() => {
       }
     }
 
-    > .phone-adder {
-      margin-top: 30px;
+    > .data-adder {
+      margin: 30px 0;
     }
   }
 }

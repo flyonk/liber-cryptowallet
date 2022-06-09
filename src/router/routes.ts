@@ -332,26 +332,14 @@ const routes: Array<RouteRecordRaw> = [
         path: 'profile-add-new-contact-data',
         name: Route.ProfileAddNewContactData,
         component: ProfileAddNewContactData,
-        // children: [
-        //   {
-        //     path: '/confirm-email',
-        //     name: Route.ConfirmEmail,
-        //     component: PEmailSent,
-        //   },
-        //   {
-        //     path: '/phone-verified',
-        //     name: Route.PhoneVerified,
-        //     component: PPhoneVerified,
-        //   },
-        // ],
       },
       {
-        path: '/confirm-email',
+        path: 'confirm-email',
         name: Route.ConfirmEmail,
         component: PEmailSent,
       },
       {
-        path: '/phone-verified',
+        path: 'phone-verified',
         name: Route.PhoneVerified,
         component: PPhoneVerified,
       },
