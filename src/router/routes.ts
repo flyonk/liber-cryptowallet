@@ -73,6 +73,9 @@ import Recipients from '@/views/Contacts/RecepientsView.vue';
 import AddAccount from '@/views/Dashboard/Account/AddAccount/IndexView.vue';
 import AddAccountRoutes from '@/router/routesAddAccount';
 
+import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
+import PPhoneVerified from '@/components/ui/pages/PPhoneVerified.vue';
+
 // Routes
 const routes: Array<RouteRecordRaw> = [
   {
@@ -329,6 +332,28 @@ const routes: Array<RouteRecordRaw> = [
         path: 'profile-add-new-contact-data',
         name: Route.ProfileAddNewContactData,
         component: ProfileAddNewContactData,
+        // children: [
+        //   {
+        //     path: '/confirm-email',
+        //     name: Route.ConfirmEmail,
+        //     component: PEmailSent,
+        //   },
+        //   {
+        //     path: '/phone-verified',
+        //     name: Route.PhoneVerified,
+        //     component: PPhoneVerified,
+        //   },
+        // ],
+      },
+      {
+        path: '/confirm-email',
+        name: Route.ConfirmEmail,
+        component: PEmailSent,
+      },
+      {
+        path: '/phone-verified',
+        name: Route.PhoneVerified,
+        component: PPhoneVerified,
       },
       {
         path: 'help',

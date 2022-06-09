@@ -43,6 +43,9 @@ export enum Route {
   ProfileEdit = 'profile-edit',
   ProfilePrivacy = 'profile-privacy',
 
+  ConfirmEmail = 'confirm-email',
+  PhoneVerified = 'phone-verified',
+
   KYCMain = 'kyc-main',
   KYCPersonal = 'kyc-personal',
   KYCDocuments = 'kyc-documents',
