@@ -7,6 +7,8 @@
     :with-countdown="withCountdown"
     :show-countdown="showCountdown"
     :show-paste-btn="true"
+    :is-error="isCodeWrong"
+    @on-change="onChangeCode"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
     @on-complete="onCompleteCode"
@@ -22,6 +24,7 @@
             type="password"
             :value="passcode"
             :fields="4"
+            :is-error="isPasscodeWrong"
             @change="onChangePasscode"
             @complete="onCompletePasscode"
           />
@@ -44,14 +47,12 @@ import { useRouter, useRoute } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
-import { useErrorsStore } from '@/stores/errors';
 import { Route } from '@/router/types';
 
 import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const router = useRouter();
-const errorsStore = useErrorsStore();
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
@@ -61,10 +62,12 @@ router.push({ hash: '#mfa' });
 
 const oneTimeCode = ref('');
 const passcode = ref('');
+const isCodeWrong = ref(false);
+const isPasscodeWrong = ref(false);
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
-    return tm('auth.login.step4Description');
+    return tm('common.2fainput');
   }
   return tm('common.codeInput');
 });
@@ -99,16 +102,9 @@ const onComplete = async () => {
       router.push({
         name: mfaStore.data?.successRoute || Route.DashboardHome,
       });
-    } catch (err) {
-      const description = err.response?.data?.message || null;
-      passcode.value = '';
-      oneTimeCode.value = '';
-      errorsStore.handle(
-        err,
-        'MultiFactorAuthorization',
-        'onCompletePasscode',
-        description
-      );
+    } catch (err: Error | unknown) {
+      isCodeWrong.value = true;
+      isPasscodeWrong.value = true;
     }
   }
 };
@@ -124,7 +120,13 @@ const onCompletePasscode = async (code: string) => {
 };
 
 const onChangePasscode = (code: string) => {
+  isPasscodeWrong.value = false;
   passcode.value = code;
+};
+
+const onChangeCode = (code: string) => {
+  isCodeWrong.value = false;
+  oneTimeCode.value = code;
 };
 
 const onClose = async () => {

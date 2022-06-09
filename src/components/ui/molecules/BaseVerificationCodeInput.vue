@@ -1,13 +1,21 @@
 <template>
-  <div class="verification-input">
+  <div class="verification-input" @click="clickHandle">
     <div class="input-container">
       <template v-for="(v, index) in fields" :key="`input-${index}`">
-        <div class="input-wrapper" :class="{ '-dash': fields === 6 }">
+        <div
+          class="input-wrapper"
+          :class="{
+            '-dash': fields === 6,
+            '-error': isError && type === 'password',
+          }"
+        >
           <input
             :ref="el => { if (el) inputs[index] = el as HTMLElement }"
             class="input-item text--title-1"
+            :class="{ '-error': isError }"
             :data-id="index"
-            pattern="\d*"
+            pattern="[0-9]"
+            inputmode="numeric"
             :type="type"
             :value="activationCode[index]"
             min="0"
@@ -70,6 +78,24 @@ const activationCode = ref(props.value ? props.value.split('') : []) as Ref<
 >;
 
 const errorsStore = useErrorsStore();
+
+const focusFirstElement = () => {
+  const input = inputs.value[0] as HTMLElement | undefined;
+  if (input) {
+    activationCode.value = [];
+    input.focus();
+    emit('change', '');
+  }
+};
+
+const clickHandle = computed(() => {
+  if (props.isError) {
+    return focusFirstElement;
+  }
+  return () => {
+    return true;
+  };
+});
 
 const focusNextInput = (currentId: number) => {
   const nextInput = inputs.value[currentId + 1] as HTMLElement | undefined;
@@ -153,7 +179,11 @@ const onPaste = async (): Promise<void> => {
       activationCode.value = [...substringValue];
     }
   } catch (err) {
-    errorsStore.handle(err, 'BaseVerificationCodeInput', 'onPaste');
+    errorsStore.handle({
+      err,
+      name: 'BaseVerificationCodeInput',
+      ctx: 'onPaste',
+    });
   }
 };
 
@@ -215,6 +245,23 @@ watch(
       background: $color-grey-500;
     }
   }
+
+  &.-error {
+    position: relative;
+
+    &::before {
+      content: '•';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      color: $color-red-500;
+      text-align: center;
+      padding: 10px 4px;
+      line-height: 34px; // from class text-title-1
+      font-size: 28px; // from class text-title-1
+    }
+  }
 }
 
 .input-item {
@@ -229,6 +276,11 @@ watch(
     outline: none;
     border-color: $color-primary;
     background: transparent;
+  }
+
+  &.-error {
+    background-color: $color-red-50;
+    color: $color-red-500;
   }
 }
 </style>

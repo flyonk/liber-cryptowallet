@@ -34,7 +34,8 @@
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
     "on": "On",
-    "off": "Off"
+    "off": "Off",
+    "2fainput": "2FA verification code"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -298,6 +299,7 @@
         "placePhoneOnTopOfIDBack": "Place your phone directly on top of your ID front side and take a picture."
       },
       "kyc5step": {
+        "passport": "Passport",
         "proofOfIdentity": "Proof of Identity",
         "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
         "scanAgain": "Scan Again",
@@ -323,7 +325,8 @@
       "createPasscode": "Create passcode",
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
-      "currentPasscode": "Current passcode"
+      "currentPasscode": "Current passcode",
+      "newPasscode": "Enter new passcode"
     },
     "dashboard": {
       "home": {

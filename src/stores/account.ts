@@ -62,12 +62,12 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'getAccountData',
-          "error can't retrieve account data"
-        );
+          name: 'account.ts',
+          ctx: 'getAccountData',
+          description: "error can't retrieve account data",
+        });
       }
     },
 
@@ -77,12 +77,12 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'getAccountList',
-          "error can't retrieve accounts list"
-        );
+          name: 'account.ts',
+          ctx: 'getAccountList',
+          description: "error can't retrieve accounts list",
+        });
       }
     },
 
@@ -92,12 +92,12 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'getAccountBalance',
-          "error can't retrieve account balance"
-        );
+          name: 'account.ts',
+          ctx: 'getAccountBalance',
+          description: "error can't retrieve account balance",
+        });
       }
     },
 
@@ -110,12 +110,12 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'createAccount',
-          'error on creating account'
-        );
+          name: 'account.ts',
+          ctx: 'createAccount',
+          description: 'error on creating account',
+        });
       }
     },
 

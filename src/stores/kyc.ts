@@ -83,6 +83,11 @@ export const useKYCStore = defineStore('kyc', {
       this.image[side] = image;
     },
 
+    cleanupImages(): void {
+      this.image[EDocumentSide.front] = null;
+      this.image[EDocumentSide.back] = null;
+    },
+
     setData(data: Partial<IKYCFormData>): void {
       Object.assign(this.data, data);
     },

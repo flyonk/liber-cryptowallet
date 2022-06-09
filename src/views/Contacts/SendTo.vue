@@ -186,12 +186,12 @@ const sendTransaction = async () => {
       // todo: not required handling
       showFailurePopup.value = true;
 
-      errorsStore.handle(
+      errorsStore.handle({
         err,
-        'SendTo',
-        'sendTransaction',
-        'error unable to send funds'
-      );
+        name: 'SendTo',
+        ctx: 'sendTransaction',
+        description: 'error unable to send funds',
+      });
     }
   } else {
     showIncorrectDataPopup.value = true;

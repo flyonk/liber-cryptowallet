@@ -22,6 +22,7 @@
       :value="verificationCode"
       :is-error="isError"
       @complete="onComplete"
+      @change="onChange"
     />
 
     <slot name="footer">
@@ -81,6 +82,7 @@ const errorsStore = useErrorsStore();
 const { t } = useI18n();
 const emit = defineEmits([
   'onComplete',
+  'onChange',
   'onResend',
   'onTimeIsUp',
   'onPrev',
@@ -136,17 +138,20 @@ const pasteFromClipboard = async () => {
     ) {
       return;
     }
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'EnterVerificationCode',
-      'pasteFromClipboard',
-      t('common.pasteClipboardError')
-    );
+      name: 'EnterVerificationCode',
+      ctx: 'pasteFromClipboard',
+      description: t('common.pasteClipboardError'),
+    });
   }
 };
 
 const onComplete = (value: string): void => {
   emit('onComplete', value);
+};
+const onChange = (value: string): void => {
+  emit('onChange', value);
 };
 const onResend = (): void => {
   emit('onResend');
@@ -161,7 +166,7 @@ const onPrev = (): void => {
 
 <style lang="scss" scoped>
 .page-wrapper {
-  margin: 15px;
+  margin: 10px 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
