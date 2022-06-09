@@ -4,10 +4,11 @@ import { AxiosError } from 'axios';
 import { Component } from 'vue';
 
 interface IError {
-  err: AxiosError | Error | unknown;
+  err: AxiosError | Error | any;
   name: string;
   ctx: string;
   description?: string;
+  display?: boolean;
   customErrorComponent?: Component;
 }
 
@@ -29,15 +30,17 @@ export const useErrorsStore = defineStore('errors', {
   },
 
   actions: {
-    async handle(
-      /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-      err: AxiosError | Error | any,
-      name: string,
-      ctx: string,
-      description?: string,
-      customErrorComponent?: Component
-    ): Promise<void> {
-      this.errors.push({ err, name, ctx, description, customErrorComponent });
+    async handle({
+      err,
+      name,
+      ctx,
+      description,
+      display = true,
+      customErrorComponent,
+    }: IError): Promise<void> {
+      if (display) {
+        this.errors.push({ err, name, ctx, description, customErrorComponent });
+      }
       await errorService.logError(err, name, ctx, description);
     },
 

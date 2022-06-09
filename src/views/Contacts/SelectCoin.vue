@@ -30,7 +30,7 @@ import { useCoinsStore } from '@/stores/coins';
 
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 
 const router = useRouter();
 const route = useRoute();

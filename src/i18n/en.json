@@ -230,6 +230,33 @@
     }
   },
   "views": {
+    "withdraw": {
+      "withdraw": "Withdraw",
+      "address": "Address",
+      "paste": "paste",
+      "network": "Network",
+      "amount": "Amount",
+      "insufficient": "Insufficient amount",
+      "available": "Available",
+      "continue": "Continue",
+      "withdrawNow": "Withdraw Now",
+      "fee": "Fee",
+      "total": "Total",
+      "success": {
+        "title": "Your withdrawal request was sent",
+        "description": "We will notify you when your withdrawal request is completed."
+      },
+      "confirmation": {
+        "text": "Withdraw confirmation",
+        "title": "Do you know and trust this payee?",
+        "description": "If you’re unsure, don’t pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment",
+        "button": {
+          "yes": "Yes, continue",
+          "no": "No, go back",
+          "submit": "Submit"
+        }
+      }
+    },
     "sendfunds": {
       "whopay": "Who To Pay"
     },
@@ -300,6 +327,7 @@
         "placePhoneOnTopOfIDBack": "Place your phone directly on top of your ID front side and take a picture."
       },
       "kyc5step": {
+        "passport": "Passport",
         "proofOfIdentity": "Proof of Identity",
         "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
         "scanAgain": "Scan Again",

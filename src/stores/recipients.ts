@@ -151,12 +151,12 @@ export const useRecepientsStore = defineStore('recepients', {
 
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'recipients.ts',
-          'getPhoneContacts',
-          "error can't get phone contacts"
-        );
+          name: 'recipients.ts',
+          ctx: 'getPhoneContacts',
+          description: "Error can't get phone contacts",
+        });
       }
     },
     async addNewContact(contact: IContact) {
@@ -199,12 +199,12 @@ export const useRecepientsStore = defineStore('recepients', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'recipients.ts',
-          'addFriend',
-          "error can't add new contact"
-        );
+          name: 'recipients.ts',
+          ctx: 'addFriend',
+          description: "Error can't add new contact",
+        });
       }
       setOptions(Array.from(this.friends), EStorageKeys.friends);
     },
