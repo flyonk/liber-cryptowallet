@@ -4,6 +4,8 @@ import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
+import { useRecepientsStore } from '@/stores/recipients';
+
 import authService from '@/services/authService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
@@ -76,6 +78,11 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    async resetDependantStores() {
+      const store = useRecepientsStore();
+
+      store.$reset();
+    },
     async recoverTokenData(): Promise<void> {
       const { value: token } = await Storage.get({
         key: EStorageKeys.token,
@@ -104,6 +111,7 @@ export const useAuthStore = defineStore('auth', {
       flow: 'login' | 'signup';
     }): Promise<void> {
       await authService.signIn(_data);
+      await this.resetDependantStores();
       this.savePhone(_data.flow);
     },
 
@@ -115,6 +123,7 @@ export const useAuthStore = defineStore('auth', {
       const data = await authService.signInProceed(_data);
 
       await this.setToken(data);
+      await this.resetDependantStores();
       return true;
     },
 
@@ -128,12 +137,12 @@ export const useAuthStore = defineStore('auth', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'refresh',
-          'authStore',
-          "error can't refresh token"
-        );
+          name: 'auth.ts',
+          ctx: 'refresh',
+          description: "Error can't refresh token",
+        });
       }
     },
 

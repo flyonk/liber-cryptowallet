@@ -42,6 +42,11 @@ export const setLocale = async (): Promise<void> => {
   } catch (err) {
     const errorsStore = useErrorsStore();
 
-    errorsStore.handle(err, 'src/i18n/index.ts', 'setLocale');
+    errorsStore.handle({
+      err,
+      name: 'src/i18n/index.ts',
+      ctx: 'setLocale',
+      description: 'Language selection error',
+    });
   }
 };

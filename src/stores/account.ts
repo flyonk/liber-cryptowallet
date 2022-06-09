@@ -62,27 +62,37 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'getAccountData',
-          "error can't retrieve account data"
-        );
+          name: 'account.ts',
+          ctx: 'getAccountData',
+          description: "Error can't retrieve account data",
+        });
       }
     },
 
-    async getAccountList(): Promise<void> {
+    async getAccountList(forceFetch = true): Promise<void> {
       try {
-        this.accountList = await accountService.getAccounts();
+        const fetchAndSaveData = async () => {
+          this.accountList = await accountService.getAccounts();
+        };
+
+        if (forceFetch) {
+          return await fetchAndSaveData();
+        }
+
+        if (!this.accountList.length) {
+          await fetchAndSaveData();
+        }
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'getAccountList',
-          "error can't retrieve accounts list"
-        );
+          name: 'account.ts',
+          ctx: 'getAccountList',
+          description: "Error can't retrieve accounts list",
+        });
       }
     },
 
@@ -92,12 +102,12 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'getAccountBalance',
-          "error can't retrieve account balance"
-        );
+          name: 'account.ts',
+          ctx: 'getAccountBalance',
+          description: "Error can't retrieve account balance",
+        });
       }
     },
 
@@ -110,12 +120,12 @@ export const useAccountStore = defineStore('account', {
       } catch (err) {
         const errorsStore = useErrorsStore();
 
-        errorsStore.handle(
+        errorsStore.handle({
           err,
-          'account.ts',
-          'createAccount',
-          'error on creating account'
-        );
+          name: 'account.ts',
+          ctx: 'createAccount',
+          description: 'Error on creating account',
+        });
       }
     },
 

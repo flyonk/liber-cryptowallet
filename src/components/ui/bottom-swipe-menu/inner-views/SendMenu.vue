@@ -73,6 +73,7 @@ const onClick = (action: string) => {
     case 'ask':
       break;
     case 'withdraw':
+      router.push({ name: Route.Withdraw });
       break;
     case 'download':
       break;
