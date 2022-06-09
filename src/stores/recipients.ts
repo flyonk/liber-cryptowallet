@@ -155,7 +155,7 @@ export const useRecepientsStore = defineStore('recepients', {
           err,
           name: 'recipients.ts',
           ctx: 'getPhoneContacts',
-          description: "error can't get phone contacts",
+          description: "Error can't get phone contacts",
         });
       }
     },
@@ -203,7 +203,7 @@ export const useRecepientsStore = defineStore('recepients', {
           err,
           name: 'recipients.ts',
           ctx: 'addFriend',
-          description: "error can't add new contact",
+          description: "Error can't add new contact",
         });
       }
       setOptions(Array.from(this.friends), EStorageKeys.friends);

@@ -46,6 +46,7 @@ export const setLocale = async (): Promise<void> => {
       err,
       name: 'src/i18n/index.ts',
       ctx: 'setLocale',
+      description: 'Language selection error',
     });
   }
 };

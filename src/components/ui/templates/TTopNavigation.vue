@@ -71,4 +71,16 @@ defineEmits(['click:left-icon']);
     right: 16px;
   }
 }
+
+.template-top-navigation.-contacts {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  > .content {
+    margin-top: 5px;
+    overflow: hidden;
+  }
+}
 </style>

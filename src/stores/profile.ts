@@ -65,7 +65,7 @@ export const useProfileStore = defineStore('profile', {
           err,
           name: 'profile.ts',
           ctx: 'getUserProfile',
-          description: "error can't retrieve user data",
+          description: "Error can't retrieve user data",
         });
 
         return {} as IProfile;
@@ -86,7 +86,7 @@ export const useProfileStore = defineStore('profile', {
           err,
           name: 'profile.ts',
           ctx: 'updateUserProfile',
-          description: "error can't update user data",
+          description: "Error can't update user data",
         });
       }
     },

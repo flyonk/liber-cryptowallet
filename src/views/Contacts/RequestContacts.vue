@@ -63,7 +63,7 @@ const onEnable = (): void => {
         err,
         name: 'RequestContacts',
         ctx: 'onEnable',
-        description: 'dont get phone contacts',
+        description: `Error receiving contacts`,
       });
     });
 };
