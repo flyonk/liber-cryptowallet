@@ -1,18 +1,19 @@
 <template>
-  <t-cta-info>
-    <template #image>
-      <div class="image-wrapper">
-        <img :src="`${STATIC_BASE_URL}/static/illustrations/phone.png`" />
-      </div>
-    </template>
+  <t-top-navigation with-fixed-footer nav-with-custom-top-left>
     <template #content>
+      <div class="image-wrapper">
+        <img
+          class="image"
+          :src="`${STATIC_BASE_URL}/static/illustrations/phone.png`"
+        />
+      </div>
       <div class="content-wrapper">
         <h1 class="title">{{ $t('views.pPhoneVerified.title') }}</h1>
         <p class="description">{{ $t('views.pPhoneVerified.description') }}</p>
         <p class="phone">{{ phone }}</p>
       </div>
     </template>
-    <template #footer>
+    <template #fixed-footer>
       <div class="footer-wrapper">
         <base-button
           class="done"
@@ -21,8 +22,9 @@
           {{ $t('views.pPhoneVerified.done') }}</base-button
         >
       </div>
+      /
     </template>
-  </t-cta-info>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -30,8 +32,7 @@ import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { computed } from 'vue-demi';
-import { BaseButton } from '..';
-import TCtaInfo from '@/components/ui/templates/TCtaInfo.vue';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 const pStore = useProfileStore();
 const phone = computed(() => {
@@ -42,6 +43,8 @@ const phone = computed(() => {
 <style lang="scss" scoped>
 .image-wrapper {
   margin-top: 60px;
+  display: flex;
+  justify-content: center;
 }
 
 .content-wrapper {
