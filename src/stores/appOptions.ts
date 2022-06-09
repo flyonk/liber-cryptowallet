@@ -2,6 +2,7 @@ import { PushNotifications } from '@capacitor/push-notifications';
 import { defineStore } from 'pinia';
 
 import { get, remove, set } from '@/helpers/storage';
+import { getPushNotificationsPermission } from '@/helpers/identification';
 
 import { EStorageKeys } from '@/types/storage';
 
@@ -13,6 +14,10 @@ interface IappOptionsState {
 
 const registerNotification = async () => {
   let permStatus = await PushNotifications.checkPermissions();
+
+  if (permStatus.receive === 'denied') {
+    await getPushNotificationsPermission();
+  }
 
   if (permStatus.receive === 'prompt') {
     permStatus = await PushNotifications.requestPermissions();

@@ -55,8 +55,15 @@ function goToAuthPasscode() {
 }
 
 const onEnable = async () => {
-  await setOptions('true', EStorageKeys.notifications);
-  goToAuthPasscode();
+  try {
+    await setOptions('true', EStorageKeys.notifications);
+    goToAuthPasscode();
+  } catch (error) {
+    const { code } = error;
+    if (code === 'UNIMPLEMENTED') {
+      goToAuthPasscode();
+    }
+  }
 };
 
 const onCancel = (): void => {
