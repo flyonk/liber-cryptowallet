@@ -8,6 +8,7 @@
     :show-countdown="showCountdown"
     :show-paste-btn="true"
     :is-error="isCodeWrong"
+    @on-change="onChangeCode"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
     @on-complete="onCompleteCode"
@@ -99,8 +100,6 @@ const onComplete = async () => {
         name: mfaStore.data?.successRoute || Route.DashboardHome,
       });
     } catch (err: Error | unknown) {
-      passcode.value = '';
-      oneTimeCode.value = '';
       isCodeWrong.value = true;
       isPasscodeWrong.value = true;
     }
@@ -120,6 +119,11 @@ const onCompletePasscode = async (code: string) => {
 const onChangePasscode = (code: string) => {
   isPasscodeWrong.value = false;
   passcode.value = code;
+};
+
+const onChangeCode = (code: string) => {
+  isCodeWrong.value = false;
+  oneTimeCode.value = code;
 };
 
 const onClose = async () => {

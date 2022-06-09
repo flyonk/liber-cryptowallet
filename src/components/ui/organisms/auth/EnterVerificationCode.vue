@@ -22,6 +22,7 @@
       :value="verificationCode"
       :is-error="isError"
       @complete="onComplete"
+      @change="onChange"
     />
 
     <slot name="footer">
@@ -81,6 +82,7 @@ const errorsStore = useErrorsStore();
 const { t } = useI18n();
 const emit = defineEmits([
   'onComplete',
+  'onChange',
   'onResend',
   'onTimeIsUp',
   'onPrev',
@@ -147,6 +149,9 @@ const pasteFromClipboard = async () => {
 
 const onComplete = (value: string): void => {
   emit('onComplete', value);
+};
+const onChange = (value: string): void => {
+  emit('onChange', value);
 };
 const onResend = (): void => {
   emit('onResend');

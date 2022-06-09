@@ -82,6 +82,7 @@ const errorsStore = useErrorsStore();
 const focusFirstElement = () => {
   const input = inputs.value[0] as HTMLElement | undefined;
   if (input) {
+    activationCode.value = [];
     input.focus();
     emit('change', '');
   }
