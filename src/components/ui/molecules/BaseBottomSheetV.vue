@@ -97,7 +97,7 @@ const onTouchMove = (e: TouchEvent | MouseEvent) => {
   const isMouse = e instanceof MouseEvent;
 
   const touchY = isMouse ? e.clientY : e.changedTouches[0].clientY;
-  const diff = (initialTouchY.value as number) - touchY;
+  const diff = ((initialTouchY.value as number) - touchY) / 5;
 
   if (wrapper.value?.scrollTop && diff < 0) {
     initialTouchY.value = (e as TouchEvent).changedTouches[0].clientY;
@@ -129,7 +129,7 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
   }
 
   if ((wrapper.value?.scrollTop as number) <= 0) {
-    if (isOpened.value === false && diff < 0) {
+    if (diff < 0) {
       emit('close');
 
       return;
@@ -152,7 +152,7 @@ const onTouchEnd = (e: TouchEvent | MouseEvent) => {
     return;
   }
 
-  if (Math.abs(diff) > (overHeight.value as number) / 3) {
+  if (Math.abs(diff) > (overHeight.value as number) / 2) {
     if (diff <= 0) {
       top.value = initialTopPosition.value;
 
