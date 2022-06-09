@@ -34,7 +34,7 @@
       ></template
     >
   </t-top-navigation>
-  <template v-if="needToConfirmPhone">
+  <template v-else-if="needToConfirmPhone">
     <enter-verification-code
       :text="data"
       title="Enter verification code"
@@ -43,9 +43,6 @@
       @on-prev="needToConfirmPhone = !needToConfirmPhone"
       @on-complete="onComplete"
     ></enter-verification-code>
-  </template>
-  <template v-else-if="needToConfirmEmail">
-    <p-email-sent />
   </template>
 </template>
 
@@ -57,7 +54,6 @@ import {
   EnterVerificationCode,
 } from '@/components/ui';
 
-import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
 import router from '@/router';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
@@ -95,7 +91,7 @@ function handleAddContactData() {
   if (isEmail.value) {
     console.log('email');
     pStore.getUser.additionalEmails?.push(data.value);
-    needToConfirmEmail.value = true;
+    router.push({ name: Route.ConfirmEmail });
   }
 }
 
@@ -103,11 +99,9 @@ function clearData() {
   data.value = '';
 }
 
-async function onComplete(data: string) {
+async function onComplete() {
   //TODO: need to implement otp request
-  console.log(data);
-  needToConfirmPhone.value = false;
-  router.push({ name: Route.ProfilePhonesAndEmails });
+  router.push({ name: Route.PhoneVerified });
 }
 </script>
 
