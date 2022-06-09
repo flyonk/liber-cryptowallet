@@ -1,16 +1,23 @@
 <template>
-  <t-cta-info>
-    <template #image>
-      <img :src="`${STATIC_BASE_URL}/static/illustrations/mail-sent.png`" />
-    </template>
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$router.push({ name: Route.ProfilePhonesAndEmails })"
+  >
     <template #content>
+      <div class="image-wrapper">
+        <img
+          class="image"
+          :src="`${STATIC_BASE_URL}/static/illustrations/mail-sent.png`"
+        />
+      </div>
       <div class="content-wrapper">
         <h1 class="title">{{ $t('views.pEmailSent.title') }}</h1>
         <p class="description">{{ $t('views.pEmailSent.description') }}</p>
         <p class="email">{{ email }}</p>
       </div>
     </template>
-    <template #footer>
+    <template #fixed-footer>
       <div class="footer-wrapper">
         <p class="description">
           {{ $t('views.pEmailSent.footerDescription') }}
@@ -26,7 +33,7 @@
         >
       </div>
     </template>
-  </t-cta-info>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -34,16 +41,20 @@ import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { computed } from 'vue-demi';
-import { BaseButton } from '..';
-import TCtaInfo from '../templates/TCtaInfo.vue';
+import { BaseButton, TTopNavigation } from '..';
 
 const pStore = useProfileStore();
 const email = computed(() => {
-  return pStore.getUser.additionalEmails.at(-1);
+  return pStore?.getUser?.additionalEmails?.at(-1) || 'test@example.com';
 });
 </script>
 
 <style lang="scss" scoped>
+.image-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
 .content-wrapper {
   > .title {
     font-weight: 600;
@@ -77,7 +88,7 @@ const email = computed(() => {
   display: flex;
   flex-direction: column;
   justify-items: center;
-  padding: 0 16px;
+  // padding: 0 16px;
 
   > .description {
     font-weight: 400;
