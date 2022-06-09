@@ -27,8 +27,8 @@
           <template v-if="isClearBtnShown" #append>
             <i
               class="icon-transaction-small-reverted"
-              @click="clearNumber"
-              @touchend="clearNumber"
+              @click.prevent="clearNumber"
+              @touchend.prevent="clearNumber"
             />
           </template>
         </base-input>
