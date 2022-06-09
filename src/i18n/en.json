@@ -487,6 +487,11 @@
       "goToInbox": "Go to Inbox",
       "resend": "Resend email"
     },
+    "pPhoneVerified":{
+      "title":"Your phone number has been successfully verified",
+      "description":"Now you can get money by the following phone number:",
+      "done": "Done"
+    },
     "survey": {
       "question": "Main reason for using Liber",
       "spendOrSave": "Spend or save daily",
