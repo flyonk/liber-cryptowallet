@@ -14,7 +14,7 @@
         <base-input v-model="newContact.name" autofocus type="text">
           <template #label> Name </template>
           <template v-if="newContact.name.length > 2" #append>
-            <i class="ci-off_outline_close" @click="clearName" />
+            <i class="icon-transaction-small-reverted" @click="clearName" />
           </template>
         </base-input>
         <li
@@ -25,7 +25,7 @@
           <base-input v-model="contact.value" type="text">
             <template #label> Email or Phone </template>
             <template v-if="newContact.phone.length > 1" #append>
-              <i class="ci-trash_full" @click="removeContact(index)" />
+              <i class="icon-trash_full" @click="removeContact(index)" />
             </template>
           </base-input>
         </li>
@@ -33,6 +33,11 @@
           {{ $t('views.newcontact.additionalphone') }}
         </base-button>
       </ul>
+      <bottom-swipe-menu
+        :is-menu-open="isMenuOpen"
+        menu-type="communication"
+        @close-menu="closeMenu"
+      />
     </template>
     <template #fixed-footer
       ><base-button
@@ -52,6 +57,7 @@
 import { Ref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
+import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
@@ -61,6 +67,8 @@ import { v4 as uuidv4 } from 'uuid';
 
 const router = useRouter();
 const recepientsStore = useRecepientsStore();
+
+const isMenuOpen = ref(false);
 
 type TNewContact = {
   name: string;
@@ -82,7 +90,7 @@ function addExtraContact() {
   });
 }
 
-const handleAddContact = () => {
+const handleAddContact = async () => {
   const _contact = newContact.value;
 
   if (!_contact.name) {
@@ -90,14 +98,23 @@ const handleAddContact = () => {
   }
 
   const newContactId = uuidv4();
-  recepientsStore.addNewContact({
+
+  await recepientsStore.addNewContact({
     id: newContactId,
     name: newContact.value.name,
     phones: newContact.value.phone,
     emails: [],
   });
 
-  router.push({ name: Route.PayRecepientsLiber, params: { id: newContactId } });
+  if (newContact.value.phone && newContact.value.phone.length > 1) {
+    recepientsStore.selectCommunicationWay(newContactId);
+    isMenuOpen.value = true;
+  } else {
+    router.push({
+      name: Route.PayRecepientsLiber,
+      params: { id: newContactId },
+    });
+  }
 };
 
 const isDisabled = computed(() => {
@@ -116,6 +133,10 @@ const removeContact = (index: number) => {
     return i !== index;
   });
 };
+
+function closeMenu() {
+  isMenuOpen.value = false;
+}
 </script>
 
 <style lang="scss" scoped>

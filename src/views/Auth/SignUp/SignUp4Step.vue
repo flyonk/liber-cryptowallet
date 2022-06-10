@@ -17,7 +17,7 @@
           </template>
           <template v-if="isClearFirstNameBtnShown" #append>
             <i
-              class="ci-off_outline_close"
+              class="icon-transaction-small-reverted"
               @click="clearFirstName"
               @touchend="clearFirstName"
             />
@@ -34,7 +34,7 @@
           </template>
           <template v-if="isClearLastNameBtnShown" #append>
             <i
-              class="ci-off_outline_close"
+              class="icon-transaction-small-reverted"
               @click="clearLastName"
               @touchend="clearLastName"
             />

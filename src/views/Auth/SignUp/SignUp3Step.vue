@@ -12,7 +12,7 @@
           <template #label> {{ $t('common.email') }} </template>
           <template v-if="isClearBtnShown" #append>
             <i
-              class="ci-off_outline_close"
+              class="icon-transaction-small-reverted"
               @click="clearEmail"
               @touchend="clearEmail"
             />
