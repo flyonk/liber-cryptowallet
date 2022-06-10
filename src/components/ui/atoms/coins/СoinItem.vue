@@ -1,10 +1,14 @@
 <template name="CoinItem">
-  <li :class="{ 'coin-disabled': !available }" class="coin-item">
+  <li
+    :class="{ '-disabled': !available, '-selected': selected }"
+    class="coin-item"
+  >
     <img :src="icon" alt="" class="image" />
     <p class="title">
       {{ fullName }}
       <span class="sub-title">{{ shortName }}</span>
     </p>
+    <i v-if="selected" class="icon-check icon" />
   </li>
 </template>
 
@@ -28,6 +32,10 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  selected: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const { fullName, shortName } = toRefs(props);
@@ -37,8 +45,17 @@ const { fullName, shortName } = toRefs(props);
 .coin-item {
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  padding: 8px;
   cursor: pointer;
+  border-radius: 12px;
+
+  &.-disabled {
+    opacity: 0.5;
+  }
+
+  &.-selected {
+    background: $color-light-grey;
+  }
 
   > .image {
     margin-right: 16px;
@@ -50,14 +67,17 @@ const { fullName, shortName } = toRefs(props);
     line-height: 22px;
     letter-spacing: -0.0043em;
   }
+
+  > .icon {
+    margin: 0 21px 0 auto;
+    font-size: 21px;
+    color: $color-primary;
+  }
 }
 
 .sub-title {
+  font-weight: 400;
   color: $color-grey;
   margin-left: 14px;
-}
-
-.coin-disabled {
-  opacity: 0.5;
 }
 </style>

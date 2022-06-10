@@ -7,6 +7,8 @@
     :with-countdown="withCountdown"
     :show-countdown="showCountdown"
     :show-paste-btn="true"
+    :is-error="isCodeWrong"
+    @on-change="onChangeCode"
     @on-time-is-up="onTimeIsUp"
     @on-resend="resend"
     @on-complete="onCompleteCode"
@@ -22,6 +24,7 @@
             type="password"
             :value="passcode"
             :fields="4"
+            :is-error="isPasscodeWrong"
             @change="onChangePasscode"
             @complete="onCompletePasscode"
           />
@@ -38,29 +41,32 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
-import { useErrorsStore } from '@/stores/errors';
 
 import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const router = useRouter();
-const errorsStore = useErrorsStore();
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
 
+// hook to change history for back action possible
+router.push({ hash: '#mfa' });
+
 const oneTimeCode = ref('');
 const passcode = ref('');
+const isCodeWrong = ref(false);
+const isPasscodeWrong = ref(false);
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
-    return tm('auth.login.step4Description') as string;
+    return tm('common.2fainput');
   }
   return tm('common.codeInput') as string;
 });
@@ -96,22 +102,14 @@ const onComplete = async () => {
     try {
       await mfaStore.checkMfa(data);
       mfaStore.hide();
-
       if (mfaStore.data?.successRoute) {
         router.push({
           name: mfaStore.data.successRoute,
         });
       }
-    } catch (err) {
-      const description = err.response?.data?.message || null;
-      passcode.value = '';
-      oneTimeCode.value = '';
-      errorsStore.handle({
-        err,
-        name: 'MultiFactorAuthorization',
-        ctx: 'onCompletePasscode',
-        description,
-      });
+    } catch (err: Error | unknown) {
+      isCodeWrong.value = true;
+      isPasscodeWrong.value = true;
     }
   }
 };
@@ -127,7 +125,13 @@ const onCompletePasscode = async (code: string) => {
 };
 
 const onChangePasscode = (code: string) => {
+  isPasscodeWrong.value = false;
   passcode.value = code;
+};
+
+const onChangeCode = (code: string) => {
+  isCodeWrong.value = false;
+  oneTimeCode.value = code;
 };
 
 const onClose = async () => {
@@ -137,6 +141,18 @@ const onClose = async () => {
 const isDisabled = computed(() => {
   return oneTimeCode.value.length !== 6 || passcode.value.length !== 4;
 });
+
+// close mfa on back in history
+const route = useRoute();
+
+watch(
+  () => route.hash,
+  (newHash, oldHash) => {
+    if (oldHash === '#mfa' && newHash === '') {
+      mfaStore.hide();
+    }
+  }
+);
 </script>
 
 <style lang="scss" scoped>
