@@ -103,19 +103,8 @@ const onComplete = async () => {
         name: mfaStore.data?.successRoute || Route.DashboardHome,
       });
     } catch (err: Error | unknown) {
-      const message = err?.response?.data?.message;
-
-      if (message === 'totp code invalid') {
-        isCodeWrong.value = true;
-      }
-
-      if (message === 'otp code invalid') {
-        isCodeWrong.value = true;
-      }
-
-      if (message === 'wrong code') {
-        isPasscodeWrong.value = true;
-      }
+      isCodeWrong.value = true;
+      isPasscodeWrong.value = true;
     }
   }
 };
