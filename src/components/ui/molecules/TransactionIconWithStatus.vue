@@ -72,7 +72,7 @@ const pathToStatus = computed(() => {
     return null;
   }
 
-  return `${STATIC_BASE_URL}/transactions/statuses/${
+  return `${STATIC_BASE_URL}/static/transactions/statuses/${
     mapper[props.status as 'pending' | 'failed']
   }.svg`;
 });

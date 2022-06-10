@@ -11,8 +11,6 @@ setCacheNameDetails({
   prefix: 'cw',
 });
 
-// This is the code piece that GenerateSW mode can't provide for us.
-// This code listens for the user's confirmation to update the app.
 registerRoute(
   new RegExp(`${process.env.VUE_APP_STATIC_BASE_URL}\\/.*`),
   new CacheFirst({
@@ -45,18 +43,30 @@ registerRoute(
         maxAgeSeconds: 5 * 60, // 5 minutes
       }),
     ],
-  }),
-  'GET'
+  })
 );
 
 self.addEventListener('install', (event) => {
-  console.log(event);
+  // console.log(event);
   event.waitUntil(
     caches.open('assets').then(function (cache) {
       return cache.addAll([
+        '/',
         `${process.env.VUE_APP_STATIC_BASE_URL}/build/fonts/${process.env.VUE_APP_BRAND}/iconmoon.css`,
         `${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/common/${process.env.VUE_APP_BRAND}/variables.css`,
       ]);
+    })
+  );
+});
+
+self.addEventListener('fetch', (event) => {
+  // console.log('Fetch intercepted for:', event.request.url);
+  event.respondWith(
+    caches.match(event.request).then((cachedResponse) => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return fetch(event.request);
     })
   );
 });
