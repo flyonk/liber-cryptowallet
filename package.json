@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service serve",
+    "serve": "yarn xcodeconfig && cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service serve",
     "build": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -22,7 +22,8 @@
     "lint:style:fix": "yarn lint:style --fix",
     "postinstall": "husky install",
     "prepare": "husky install",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'",
+    "xcodeconfig": "node ./xcodeconfig/xcode.autoconfig.js"
   },
   "dependencies": {
     "@capacitor-community/camera-preview": "3.0.0",

@@ -1,8 +1,11 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
+const appId = process.env.APP_ID || 'liber.cryptowize.tech';
+const appName = process.env.APP_NAME || 'Liber';
+
 const config: CapacitorConfig = {
-  appId: 'liber.cryptowize.tech',
-  appName: 'Liber',
+  appId,
+  appName,
   webDir: 'dist',
   bundledWebRuntime: false,
 
