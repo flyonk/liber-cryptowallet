@@ -50,6 +50,8 @@ import ProfileDevices from '@/views/Profile/ProfileDevices.vue';
 import ProfileHelpPage from '@/views/Profile/ProfileHelpPage.vue';
 import ProfileDetails from '@/views/Profile/ProfileDetails.vue';
 import PrivacySettings from '@/views/Profile/PrivacySettings.vue';
+import ProfileAcceptedPhonesAndEmails from '@/views/Profile/ProfileAcceptedPhonesAndEmails.vue';
+import ProfileAddNewContactData from '@/views/Profile/ProfileAddNewContactData.vue';
 
 import KYCMain from '@/views/KYC/KYCMain.vue';
 
@@ -73,6 +75,9 @@ import RequestContacts from '@/views/Contacts/RequestContacts.vue';
 import Recipients from '@/views/Contacts/RecepientsView.vue';
 import AddAccount from '@/views/Dashboard/Account/AddAccount/IndexView.vue';
 import AddAccountRoutes from '@/router/routesAddAccount';
+
+import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
+import PPhoneVerified from '@/components/ui/pages/PPhoneVerified.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -336,6 +341,26 @@ const routes: Array<RouteRecordRaw> = [
         path: 'devices',
         name: Route.ProfileDevices,
         component: ProfileDevices,
+      },
+      {
+        path: 'profile-phones-and-emails',
+        name: Route.ProfilePhonesAndEmails,
+        component: ProfileAcceptedPhonesAndEmails,
+      },
+      {
+        path: 'profile-add-new-contact-data',
+        name: Route.ProfileAddNewContactData,
+        component: ProfileAddNewContactData,
+      },
+      {
+        path: 'confirm-email',
+        name: Route.ConfirmEmail,
+        component: PEmailSent,
+      },
+      {
+        path: 'phone-verified',
+        name: Route.PhoneVerified,
+        component: PPhoneVerified,
       },
       {
         path: 'help',

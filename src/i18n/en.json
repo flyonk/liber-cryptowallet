@@ -425,6 +425,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails", 
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -493,7 +494,32 @@
         "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      },
+      "profilePhonesAndEmails":{
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
+        "yourIdentityIsNotVerified": "Your identity is not verified",
+        "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
+        "verifyIdentity": "Verify Identity",
+        "acceptedContact": "Accepted Contacts",
+        "verificationInProgress": "ID Verification in progress",
+        "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
+      },
+      "profileAddNewContactData":{
+        "title":"Add a new contact",
+        "confirmButton":"Confirm Contact"
       }
+    },
+    "pEmailSent":{
+      "title":"Confirm you email address",
+      "description":"We sent confirmation email to:",
+      "footerDescription": "Check your email and click on the confirmation link to continue.",
+      "goToInbox": "Go to Inbox",
+      "resend": "Resend email"
+    },
+    "pPhoneVerified":{
+      "title":"Your phone number has been successfully verified",
+      "description":"Now you can get money by the following phone number:",
+      "done": "Done"
     },
     "survey": {
       "question": "Main reason for using Liber",
