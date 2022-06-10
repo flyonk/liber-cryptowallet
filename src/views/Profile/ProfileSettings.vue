@@ -395,6 +395,10 @@ async function onLogout() {
   }
 
   > .title {
+    width: 74vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;
