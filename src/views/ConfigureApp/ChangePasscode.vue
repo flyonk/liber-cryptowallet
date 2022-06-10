@@ -1,8 +1,7 @@
 <template>
   <t-top-navigation
-    v-if="showInfo"
     with-fixed-footer
-    @click:left-icon="router.back()"
+    @click:left-icon="router.push({ name: Route.ProfileSettings })"
   >
     <template #title>
       {{ $t('views.profile.profileSettings.changePasscode') }}
@@ -21,40 +20,25 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="showInfo = !showInfo">
+      <base-button
+        block
+        @click="router.push({ name: Route.ChangePasscodeEnter })"
+      >
         {{ $t('views.profile.profileSettings.changePasscode') }}
       </base-button>
-    </template>
-  </t-top-navigation>
-  <t-top-navigation
-    v-else
-    left-icon-name="icon-app-navigation-close"
-    class="passcode-container"
-    @click:left-icon="router.back()"
-  >
-    <template #title> Enter new passcode </template>
-    <template #content>
-      <div class="passcode">
-        <base-passcode
-          :action-type="EPasscodeActions.update"
-          @submit="onSubmit"
-        />
-      </div>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { EPasscodeActions } from '@/types/base-component';
 import { STATIC_BASE_URL } from '@/constants';
+import { Route } from '@/router/types';
 
-import { BaseButton, BasePasscode, TTopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 const router = useRouter();
-const showInfo = ref(true);
 </script>
 
 <style lang="scss" scoped>
