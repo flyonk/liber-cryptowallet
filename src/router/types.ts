@@ -84,4 +84,5 @@ export enum Route {
   CodeEnter = 'code-enter',
 
   Invite = 'invite',
+  Withdraw = 'withdraw',
 }

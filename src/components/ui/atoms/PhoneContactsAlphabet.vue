@@ -27,7 +27,7 @@ defineProps({
 });
 
 const gotoLetter = (letter: string) => {
-  const element = document.querySelector('#letter' + letter);
+  const element = document.querySelector('#letter' + letter + ' + li');
   if (element) {
     element.scrollIntoView(true);
   }
@@ -39,6 +39,9 @@ const gotoLetter = (letter: string) => {
   position: absolute;
   top: 0;
   right: 0;
+  bottom: 5px;
+  width: 20px;
+  overflow: auto;
 
   & > .letter {
     font-style: normal;
@@ -50,10 +53,15 @@ const gotoLetter = (letter: string) => {
     letter-spacing: -0.0008em;
     color: $color-brand-2-300;
     opacity: 0.2;
+    text-align: right;
 
     &.-active {
       opacity: 1;
     }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
   }
 }
 </style>

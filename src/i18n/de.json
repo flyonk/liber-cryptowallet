@@ -228,6 +228,17 @@
     }
   },
   "views": {
+    "withdraw": {
+      "withdraw": "Withdraw",
+      "address": "Address",
+      "paste": "paste",
+      "network": "Network",
+      "amount": "Amount",
+      "insufficient": "Insufficient amount",
+      "available": "Available",
+      "continue": "Continue",
+      "withdrawNow": "Withdraw Now"
+    },
     "sendfunds": {
       "whopay": "Who To Pay"
     },
@@ -298,6 +309,7 @@
         "placePhoneOnTopOfIDBack": "Place your phone directly on top of your ID front side and take a picture."
       },
       "kyc5step": {
+        "passport": "Passport",
         "proofOfIdentity": "Proof of Identity",
         "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
         "scanAgain": "Scan Again",
@@ -476,7 +488,7 @@
         "selectCoin": "Select a coin",
         "searchCoin": "Search a coin",
         "suggested": "Suggested",
-        "allCoins": "All Coins"
+        "allCoins": "All Available Coins"
       },
       "selectNetwork": {
         "question": "Main reason for using Liber",
@@ -521,6 +533,13 @@
     "serviceUnavailable": "Service unavailable",
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
-    "details": "Details"
+    "details": "Details",
+    "login2Step": "Invalid secret code"
+  },
+  "biometricConfirmation": {
+    "title": "Change settings",
+    "descriptionFirstPart": "To enable",
+    "descriptionSecondPart": "please, toggle on Application Settings",
+    "descriptionThirdPart": "option"
   }
 }

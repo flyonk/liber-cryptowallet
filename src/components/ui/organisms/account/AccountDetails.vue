@@ -137,7 +137,12 @@ const createAndSetAccount = async () => {
 
     wallet.value = data as ICreateAccount;
   } catch (err) {
-    errorsStore.handle(err, 'AccountDetails', 'createAndSetAccount');
+    errorsStore.handle({
+      err,
+      name: 'AccountDetails',
+      ctx: 'createAndSetAccount',
+      description: 'Error when creating an account',
+    });
   }
 };
 
@@ -152,12 +157,12 @@ const copyToClipboard = async () => {
       closable: false,
     });
   } catch (err) {
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'AccountDetails',
-      'copyToClipboard',
-      tm('views.deposit.wallet.copyFailure') as string
-    );
+      name: 'AccountDetails',
+      ctx: 'copyToClipboard',
+      description: tm('views.deposit.wallet.copyFailure') as string,
+    });
   }
 };
 

@@ -55,7 +55,7 @@ defineEmits(['click:left-icon']);
 
 <style lang="scss" scoped>
 .template-top-navigation {
-  padding: 10px 16px 0;
+  padding: 24px 16px 0;
 
   > .content {
     margin-top: 25px;
@@ -69,6 +69,18 @@ defineEmits(['click:left-icon']);
     bottom: 50px;
     left: 16px;
     right: 16px;
+  }
+}
+
+.template-top-navigation.-contacts {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  > .content {
+    margin-top: 5px;
+    overflow: hidden;
   }
 }
 </style>

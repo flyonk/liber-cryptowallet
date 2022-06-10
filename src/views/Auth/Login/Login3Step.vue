@@ -77,13 +77,13 @@ async function onSubmit(success: boolean): Promise<void> {
   } else {
     const errorDescription =
       t('auth.login.step3InvalidInput') + ' ' + authStore.getLoginPhone;
-    errorsStore.handle(
-      new Error('test'),
-      'Login3Step',
-      'onSubmit',
-      errorDescription,
-      markRaw(Login3StepPasscodeErrorVue)
-    );
+    errorsStore.handle({
+      err: new Error('invalid passcode'),
+      name: 'Login3Step',
+      ctx: 'onSubmit',
+      description: errorDescription,
+      customErrorComponent: markRaw(Login3StepPasscodeErrorVue),
+    });
   }
 }
 

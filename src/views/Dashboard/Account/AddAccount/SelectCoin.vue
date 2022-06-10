@@ -17,7 +17,7 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { useAccountStore } from '@/stores/account';
 import { useCoinsStore } from '@/stores/coins';
 import { useErrorsStore } from '@/stores/errors';
@@ -36,12 +36,12 @@ onMounted(() => {
   try {
     coinsStore.fetchCoins();
   } catch (error) {
-    errorsStore.handle(
+    errorsStore.handle({
       error,
-      'dashboard/account/AddAccount/SelectCoin.vue',
-      'onMounted',
-      'Error when getting the list of coins, please try later.'
-    );
+      name: 'dashboard/account/AddAccount/SelectCoin.vue',
+      ctx: 'onMounted',
+      description: 'Error when getting the list of coins, please try later.',
+    });
   }
 });
 

@@ -8,9 +8,9 @@
           :value="item"
           name="items"
           style="display: none"
-          @change="$emit('input', item.value)"
+          @change="$emit('change', item.value)"
         />
-        <div class="label">
+        <div class="label" @click="$emit('select', item.value)">
           <img v-if="item.logo" :src="item.logo" :alt="item.text" />
           <p class="text text--callout font-weight--semibold">
             {{ item.text }}
@@ -33,7 +33,7 @@ defineProps({
   },
 });
 
-defineEmits(['input']);
+defineEmits(['input', 'change', 'select']);
 </script>
 
 <style scoped lang="scss">

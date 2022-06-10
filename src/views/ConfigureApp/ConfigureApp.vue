@@ -106,12 +106,12 @@ const copyToClipboard = async () => {
       closable: false,
     });
   } catch (err) {
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'ConfigureApp',
-      'copyToClipboard',
-      tm('common.copyFailure') as string
-    );
+      name: 'ConfigureApp',
+      ctx: 'copyToClipboard',
+      description: tm('common.copyFailure') as string,
+    });
   }
 };
 </script>

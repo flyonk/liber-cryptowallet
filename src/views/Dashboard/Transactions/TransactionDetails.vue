@@ -56,7 +56,12 @@ onBeforeMount(async () => {
       route.params.id as string
     )) as INetTransaction;
   } catch (err) {
-    errorsStore.handle(err, 'TransactionDetails', 'onMounted');
+    errorsStore.handle({
+      err,
+      name: 'TransactionDetails',
+      ctx: 'onBeforeMount',
+      description: 'Error receiving transaction details',
+    });
   }
 });
 
@@ -83,12 +88,12 @@ const copyToClipboard = async (data: string) => {
       closable: false,
     });
   } catch (err) {
-    errorsStore.handle(
+    errorsStore.handle({
       err,
-      'TransactionDetails.vue',
-      'copyToClipboard',
-      t('transactions.transactionIdCopyFail') as string
-    );
+      name: 'TransactionDetails.vue',
+      ctx: 'copyToClipboard',
+      description: t('transactions.transactionIdCopyFail'),
+    });
   }
 };
 </script>

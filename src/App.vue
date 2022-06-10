@@ -49,12 +49,13 @@ SwipeBack.enable()
   .catch((err) => {
     const { code } = err;
     if (code !== 'UNIMPLEMENTED') {
-      errorsStore.handle(
+      //TODO:disable display in toast (dev dependency)
+      errorsStore.handle({
         err,
-        'App',
-        'SwipeBack',
-        'Capacitor SwipeBack plugin error'
-      );
+        name: 'App',
+        ctx: 'SwipeBack',
+        description: 'Capacitor SwipeBack plugin error',
+      });
     }
   });
 

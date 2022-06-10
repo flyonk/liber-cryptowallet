@@ -1,7 +1,7 @@
 <template>
   <EnterVerificationCode
     :text="text"
-    :title="$t('common.confirmChanging')"
+    :title="ctaTitle"
     left-icon-name="icon-app-navigation-close"
     :verification-code="oneTimeCode"
     :with-countdown="withCountdown"
@@ -45,7 +45,6 @@ import { useRouter } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
-import { Route } from '@/router/types';
 
 import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
@@ -61,9 +60,13 @@ const passcode = ref('');
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
-    return tm('auth.login.step4Description');
+    return tm('auth.login.step4Description') as string;
   }
-  return tm('common.codeInput');
+  return tm('common.codeInput') as string;
+});
+
+const ctaTitle = computed(() => {
+  return tm(mfaStore.getTitle || 'common.confirmChanging') as string;
 });
 
 const ctaBtnText = computed(() => {
@@ -93,19 +96,22 @@ const onComplete = async () => {
     try {
       await mfaStore.checkMfa(data);
       mfaStore.hide();
-      router.push({
-        name: mfaStore.data?.successRoute || Route.DashboardHome,
-      });
+
+      if (mfaStore.data?.successRoute) {
+        router.push({
+          name: mfaStore.data.successRoute,
+        });
+      }
     } catch (err) {
       const description = err.response?.data?.message || null;
       passcode.value = '';
       oneTimeCode.value = '';
-      errorsStore.handle(
+      errorsStore.handle({
         err,
-        'MultiFactorAuthorization',
-        'onCompletePasscode',
-        description
-      );
+        name: 'MultiFactorAuthorization',
+        ctx: 'onCompletePasscode',
+        description,
+      });
     }
   }
 };
