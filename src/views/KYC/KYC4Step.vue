@@ -142,7 +142,7 @@ const startCamera = async () => {
       err,
       name: 'KYC4step',
       ctx: 'startCamera',
-      description: 'start camera error',
+      description: 'Error when starting the camera',
     });
   }
 };
@@ -177,7 +177,7 @@ const stopCamera = async () => {
       err,
       name: 'KYC4step',
       ctx: 'stopCamera',
-      description: 'stop camera error',
+      description: 'Error when stopping the camera',
     });
     throw err;
   }

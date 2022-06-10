@@ -25,7 +25,7 @@ import { useAccountStore } from '@/stores/account';
 import { useDepositStore } from '@/stores/deposit';
 import { useCoinsStore } from '@/stores/coins';
 import { IAccount } from '@/models/account/account';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 

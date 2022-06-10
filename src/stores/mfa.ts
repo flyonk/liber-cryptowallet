@@ -5,6 +5,7 @@ type TMfaCallbackData = {
   title?: string;
   successRoute?: string;
   callback?: any;
+  button?: string;
 };
 
 interface IMfaState {
@@ -38,7 +39,8 @@ export const useMfaStore = defineStore('mfa', {
 
   getters: {
     enabled: (state) => state.shown,
-    getBtnTitle: (state) => state.data?.title,
+    getBtnTitle: (state) => state.data?.button,
+    getTitle: (state) => state.data?.title,
   },
 
   actions: {

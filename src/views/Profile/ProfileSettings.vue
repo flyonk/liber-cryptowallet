@@ -213,7 +213,12 @@ onMounted(async () => {
       accountName.value = `${firstName} ${lastName}`;
       accountID.value = phone;
     } catch (err) {
-      errorsStore.handle({ err, name: 'ProfileSettings', ctx: 'onMounted' });
+      errorsStore.handle({
+        err,
+        name: 'ProfileSettings',
+        ctx: 'onMounted',
+        description: 'Error during profile initialization',
+      });
     }
 });
 
@@ -390,6 +395,10 @@ async function onLogout() {
   }
 
   > .title {
+    width: 74vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;

@@ -23,7 +23,7 @@
           <select-coin-input
             :coins="fromCoins"
             :direction="'from'"
-            :current-send-currency="currentSendFromCurrency"
+            :current-currency="currentSendFromCurrency"
             @on-select-coin="onSelectCoin($event, 'from')"
           />
         </label>
@@ -91,7 +91,7 @@
           <select-coin-input
             :coins="toCoins"
             :direction="'to'"
-            :current-send-currency="currentSendToCurrency"
+            :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
         </label>
@@ -153,7 +153,7 @@ import { ICoinForExchange, useFundsStore } from '@/stores/funds';
 import { useCoinsStore } from '@/stores/coins';
 // import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
-import { ICoin } from '@/models/coin/coins';
+import { ICoin } from '@/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
 import { TConvertData } from '@/models/funds/convertInfo';
 
@@ -254,7 +254,7 @@ onBeforeMount(async () => {
       err,
       name: 'ChangeCurrency',
       ctx: 'onBeforeMount',
-      description: 'fetch coins error',
+      description: 'Fetch coins error',
     });
   }
 
@@ -351,7 +351,7 @@ async function previewChangeInfo(direction: 'from' | 'to') {
     errorsStore.handle({
       err,
       name: 'ChangeCurrency',
-      ctx: 'checkConvertInfo',
+      ctx: 'previewChangeInfo',
       description: "error can't retrieve convert info",
     });
   } finally {
@@ -364,7 +364,8 @@ const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 function convertCurrency() {
   const mfaStore = useMfaStore();
   mfaStore.show({
-    title: 'transactions.convertTransaction',
+    button: 'transactions.convertTransaction',
+    successRoute: Route.DashboardHome,
     callback: async () => {
       //
     },
@@ -399,9 +400,9 @@ async function convertFunds() {
 
     errorsStore.handle({
       err,
-      name: 'ChangeCurrency',
-      ctx: 'convertCurrency',
-      description: "error can't convert currency",
+      name: 'OChangeCurrency',
+      ctx: 'convertFunds',
+      description: "Error can't convert currency",
     });
   } finally {
     loading.value = false;
