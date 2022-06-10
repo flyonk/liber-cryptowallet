@@ -65,7 +65,7 @@ defineEmits(['click:left-icon']);
       font-size: 28px;
       line-height: 34px;
       letter-spacing: 0.0038em;
-      margin-bottom: 10px;
+      margin-bottom: 8px;
       margin-top: 20px;
     }
 

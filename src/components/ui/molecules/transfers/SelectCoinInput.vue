@@ -8,7 +8,7 @@
       <p-dialog
         v-model:visible="showSelectCoinDialog[direction]"
         :show-header="false"
-        class="p-dialog-maximized"
+        class="p-dialog-maximized dialog"
         style="padding: 0 !important"
       >
         <t-top-navigation
@@ -17,8 +17,8 @@
         >
           <template #content>
             <BaseCoinListSelect
-              :direction="direction"
               :coins="coins"
+              :current-currency="currentCurrency"
               @back-button="showSelectCoinDialog[direction] = false"
               @select-coin="handleSelect($event)"
             />
@@ -103,6 +103,17 @@ const handleCloseModal = () => {
     letter-spacing: -0.0008em;
     color: $color-brand-550;
     margin-right: 18px;
+  }
+}
+
+//.dialog:deep {
+//  > .p-dialog-content {
+//  }
+//}
+
+.p-dialog {
+  > .p-dialog-content {
+    padding: 0 !important;
   }
 }
 </style>

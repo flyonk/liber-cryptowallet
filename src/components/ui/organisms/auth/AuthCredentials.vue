@@ -23,14 +23,12 @@
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
-          <template #label>
-            {{ $t('common.numberLabel') }}
-          </template>
+          <template #label> {{ $t('common.numberLabel') }}s </template>
           <template v-if="isClearBtnShown" #append>
             <i
-              class="ci-off_outline_close"
-              @click="clearNumber"
-              @touchend="clearNumber"
+              class="icon-transaction-small-reverted"
+              @click.prevent="clearNumber"
+              @touchend.prevent="clearNumber"
             />
           </template>
         </base-input>
