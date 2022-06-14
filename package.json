@@ -81,6 +81,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@capacitor/cli": "^3.3.4",
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "@types/jest": "^27.0.2",
     "@types/jwt-decode": "^3.1.0",
     "@types/luxon": "^2.3.0",
@@ -133,5 +135,6 @@
     ],
     "*.js": "eslint --cache --fix",
     "*.css": "stylelint --fix"
-  }
+  },
+  "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
 }
