@@ -136,5 +136,14 @@
     "*.js": "eslint --cache --fix",
     "*.css": "stylelint --fix"
   },
-  "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+  "commitlint": {
+    "rules": {
+      "references-empty": [2, "never"]
+    },
+    "parserPreset": {
+      "parserOpts": {
+        "issuePrefixes": ["PROJ-"]
+      }
+    }
+  }
 }
