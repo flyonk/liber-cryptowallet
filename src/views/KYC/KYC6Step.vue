@@ -1,31 +1,38 @@
 <template>
-  <div class="kyc-6-step">
-    <top-navigation @click:left-icon="$emit('prev')">{{
-      $t('views.kyc.kyc6step.proofOfResidence')
-    }}</top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">{{ $t('views.kyc.kyc6step.provideOneOf') }}</p>
-    <ul class="list" type="disc">
-      <li class="item">
-        <div class="disc" />
-        {{ $t('views.kyc.kyc6step.utilityBills') }}
-      </li>
-      <li class="item">
-        <div class="disc" />
-        {{ $t('views.kyc.kyc6step.bankAccountStatement') }}
-      </li>
-      <li class="item">
-        <div class="disc" />
-        {{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}
-      </li>
-    </ul>
-
-    <div class="footer">
-      <base-button class="footer-button" @click="selectPicture">{{
-        $t('views.kyc.kyc6step.upload')
-      }}</base-button>
-    </div>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$emit('prev')"
+  >
+    <template #title>{{ $t('views.kyc.kyc6step.proofOfResidence') }}</template>
+    <template #subtitle>
+      <base-progress-bar class="mb-3" :value="getPercentage" />
+      {{ $t('views.kyc.kyc6step.provideOneOf') }}
+    </template>
+    <template #content>
+      <div class="kyc-6-step">
+        <ul class="list" type="disc">
+          <li class="item">
+            <div class="disc" />
+            {{ $t('views.kyc.kyc6step.utilityBills') }}
+          </li>
+          <li class="item">
+            <div class="disc" />
+            {{ $t('views.kyc.kyc6step.bankAccountStatement') }}
+          </li>
+          <li class="item">
+            <div class="disc" />
+            {{ $t('views.kyc.kyc6step.maintenanceBillsFrom') }}
+          </li>
+        </ul>
+      </div>
+    </template>
+    <template #fixed-footer>
+      <base-button block class="footer-button" @click="selectPicture">
+        {{ $t('views.kyc.kyc6step.upload') }}
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
@@ -33,7 +40,7 @@ import { computed } from 'vue';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
 
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { TTopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 

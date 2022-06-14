@@ -1,8 +1,19 @@
+export interface IConvertInfoDto {
+  from: string;
+  to: string;
+  rate: string;
+  back_rate: string;
+  fee: string;
+  valid_until: string;
+  estimated_amount: string;
+}
+
 export type TConvertData = {
   from: string;
   to: string;
   request_amount: string;
   amount: string;
+  request_coin?: string;
 };
 
 export interface IConvertInfo {
@@ -13,11 +24,14 @@ export interface IConvertInfo {
   fee: string;
   validUntil: string;
   estimatedAmount: string;
+  requestAmount: string;
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IConvertInfo {
+  deserialize(
+    input: IConvertInfoDto,
+    data: Omit<TConvertData, 'amount'>
+  ): IConvertInfo {
     return {
       from: input.from,
       to: input.to,
@@ -25,7 +39,14 @@ export default {
       backRate: input.back_rate,
       fee: input.fee,
       validUntil: input.valid_until,
-      estimatedAmount: input.estimated_amount || '100',
+      estimatedAmount:
+        data.request_coin === input.from
+          ? input.estimated_amount
+          : data.request_amount,
+      requestAmount:
+        data.request_coin === input.from
+          ? data.request_amount
+          : input.estimated_amount,
     };
   },
 };

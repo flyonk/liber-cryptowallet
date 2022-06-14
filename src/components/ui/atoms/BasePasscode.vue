@@ -4,8 +4,8 @@
       <div
         v-for="circle in 4"
         :key="circle"
-        class="circle-wrapper"
         :class="{ '-active': passcode.length >= circle }"
+        class="circle-wrapper"
       />
     </div>
 
@@ -20,26 +20,37 @@
       </div>
       <div class="number-button" @click="showTouchId">
         <template v-if="props.showTouchFaceid">
-          <img v-if="identificationIcon" :src="identificationIcon" />
+          <img v-if="identificationIcon" :src="identificationIcon" alt />
         </template>
       </div>
       <div class="number-button text--large-title" @click="setNumber('0')">
         0
       </div>
       <div class="number-button" @click="clear">
-        <img src="@/assets/icon/clear-button.svg" />
+        <img alt :src="`${STATIC_BASE_URL}/static/media/clear-button.svg`" />
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref, onBeforeMount, PropType } from 'vue';
-import { Storage } from '@capacitor/storage';
+import { onBeforeMount, PropType, ref } from 'vue';
 
 import { getSupportedOptions, verifyIdentity } from '@/helpers/identification';
-import { EPasscodeActions } from '@/types/base-component';
+import { usePasscodeStore } from '@/stores/passcode';
+import { useMfaStore } from '@/stores/mfa';
+import { set } from '@/helpers/storage';
+import { STATIC_BASE_URL } from '@/constants';
+
 import { EStorageKeys } from '@/types/storage';
+import { EPasscodeActions } from '@/types/base-component';
+import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
+
+const passcodeStore = usePasscodeStore();
+const mfaStore = useMfaStore();
+
+const errorsStore = useErrorsStore();
 
 const props = defineProps({
   actionType: {
@@ -52,24 +63,28 @@ const props = defineProps({
   },
 });
 
-const getStoredPasscode = async () => {
-  const { value } = await Storage.get({
-    key: EStorageKeys.passcode,
+async function updatePassCode(passcode: string) {
+  mfaStore.show({
+    successRoute: Route.ProfileSettings,
   });
-  return value || '0000';
-};
+  return await passcodeStore.update({ new_pass_code: passcode });
+}
 
 async function checkPasscode(passcode: string) {
-  const storedPassCode = await getStoredPasscode();
-  return storedPassCode === passcode;
+  return await passcodeStore.verify({ pass_code: passcode });
 }
 
 async function setPasscode(passcode: string) {
-  await Storage.set({
-    key: EStorageKeys.passcode,
-    value: passcode,
-  });
-  return true;
+  const isCreated = await passcodeStore.create({ pass_code: passcode });
+
+  if (isCreated) {
+    await set({
+      key: EStorageKeys.passcode,
+      value: 'true',
+    });
+  }
+
+  return isCreated;
 }
 
 function getSubmitFunction(actionType: string) {
@@ -78,7 +93,8 @@ function getSubmitFunction(actionType: string) {
       return setPasscode;
     case EPasscodeActions.compare:
       return checkPasscode;
-
+    case EPasscodeActions.update:
+      return updatePassCode;
     default:
       return checkPasscode;
   }
@@ -89,11 +105,17 @@ const onSubmit = getSubmitFunction(props.actionType);
 const showTouchId = () => {
   if (identificationIcon.value) {
     verifyIdentity()
-      .then(() => {
-        emit('submit', true);
+      .then((state) => {
+        emit('submit', state);
       })
-      .catch(() => {
+      .catch((err) => {
         emit('submit', false);
+        errorsStore.handle({
+          err,
+          name: 'BasePasscode',
+          ctx: 'showTouchId',
+          description: 'Verify identity error',
+        });
       });
   }
 };
@@ -105,15 +127,15 @@ onBeforeMount(async (): Promise<void> => {
   const option = await getSupportedOptions();
 
   if (option === 'face-id') {
-    identificationIcon.value = require('@/assets/icon/faceid.svg');
+    identificationIcon.value = `${STATIC_BASE_URL}/static/media/faceid.svg`;
   }
   if (option === 'touch-id') {
-    identificationIcon.value = require('@/assets/icon/touchid.svg');
+    identificationIcon.value = `${STATIC_BASE_URL}/static/menu/touchid.svg`;
   }
 });
 
 /**
- * emit true vqlue if passcode is correct
+ * emit true value if passcode is correct
  * emit false value if passcode is wrong
  */
 const emit = defineEmits(['submit']);
@@ -125,9 +147,11 @@ function setNumber(number: string): void {
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
         .then((result: boolean) => {
+          if (!result) passcode.value = '';
           emit('submit', result);
         })
         .catch(() => {
+          passcode.value = '';
           emit('submit', false);
         });
     }

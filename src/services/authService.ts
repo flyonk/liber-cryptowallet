@@ -4,21 +4,39 @@ import apiService from '@/services/apiService';
 import signInMapper, { ISuccessSignIn } from '@/models/auth/successSignIn';
 import { TSuccessResponse } from '@/types/api';
 import { IUserDevice } from '@/models/auth/devices';
+import { formatPhoneNumber } from '@/helpers/auth';
+import { EMfaHeaders } from '@/stores/mfa';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
+    data.phone = formatPhoneNumber(data.phone);
+
     return (await axios.post(apiService.auth.signIn(), data)).data;
   },
 
   async signInProceed(data: {
     phone: string;
     otp: string;
+    code_2fa: string;
   }): Promise<ISuccessSignIn> {
-    const res = await axios.post(apiService.auth.signInProceed(), data);
+    data.phone = formatPhoneNumber(data.phone);
+    const { phone, otp, code_2fa } = data;
+
+    const res = await axios.post(
+      apiService.auth.signInProceed(),
+      { phone },
+      {
+        headers: {
+          [EMfaHeaders.otp]: otp,
+          [EMfaHeaders.totp]: code_2fa,
+        },
+      }
+    );
+
     return signInMapper.deserialize(res.data);
   },
 
-  async logout(data: { access_token: string }): Promise<TSuccessResponse> {
+  async logout(data: { user_id: string }): Promise<TSuccessResponse> {
     return (await axios.post(apiService.auth.logout(), data)).data;
   },
 

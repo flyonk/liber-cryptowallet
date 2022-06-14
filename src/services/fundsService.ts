@@ -7,8 +7,19 @@ import convertInfoMapper, {
   TConvertData,
 } from '@/models/funds/convertInfo';
 import coinMapper, { ICoin } from '@/models/funds/coin';
+import { withdrawalInfoData } from '../../tests/mock/withdrawalData';
 
 import { TSuccessResponse } from '@/types/api';
+import { TRecipient } from '@/stores/transfer';
+import { formatPhoneNumber } from '@/helpers/auth';
+import withdrawInfoMapper, {
+  IWithdrawalInfo,
+  IWithdrawalInfoRequest,
+} from '@/models/funds/withdrawInfo';
+import withdrawMapper, {
+  IWithdraw,
+  IWithdrawRequest,
+} from '@/models/funds/withdraw';
 
 export default {
   async getCoins(): Promise<ICoin[]> {
@@ -24,9 +35,8 @@ export default {
   },
 
   async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
-    //TODO: discuss with backend TConvertData
     const res = await axios.post(apiService.funds.convertInfo(), data);
-    return convertInfoMapper.deserialize(res.data);
+    return convertInfoMapper.deserialize(res.data, data);
   },
 
   async convert(
@@ -37,8 +47,30 @@ export default {
 
   async transfer(
     coin: string,
-    payload: { recipient: { id: string; phone: string }; amount: number }
+    payload: { recipient: TRecipient; amount: string }
   ): Promise<number> {
-    return (await axios.post(apiService.transfer.transfer(coin), payload)).data;
+    payload.recipient.phone = formatPhoneNumber(payload.recipient.phone);
+
+    return (await axios.post(apiService.transfer.send(coin), payload)).data;
+  },
+
+  //TODO mocked data is used. Please change to real data soon.
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async withdrawInfo(data: IWithdrawalInfoRequest): Promise<IWithdrawalInfo> {
+    // const res = await axios.post(
+    //   apiService.funds.withdrawInfo(),
+    //   withdrawInfoMapper.requestSerialize(data)
+    // );
+
+    return withdrawInfoMapper.deserialize(withdrawalInfoData);
+  },
+
+  async withdraw(data: IWithdrawRequest): Promise<IWithdraw> {
+    const response = await axios.post(
+      apiService.funds.withdraw(),
+      withdrawMapper.requestSerialize(data)
+    );
+
+    return response.data;
   },
 };

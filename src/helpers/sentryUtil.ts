@@ -1,64 +1,100 @@
-import { setUser, captureException } from '@sentry/browser';
+import { captureException, setUser } from '@sentry/browser';
 import { cloneDeep } from 'lodash';
 
-//TODO: This is a stub interface - import interface from model
-interface IUser {
-  id?: string;
-  userName?: string;
-  email?: string;
-}
+import { useProfileStore } from '@/stores/profile';
+import { IProfile } from '@/models/profile/profile';
+import { CaptureContext } from '@sentry/types/types/scope';
+import { Primitive } from '@sentry/types/types/misc';
+import { AxiosError } from 'axios';
 
 export default {
   setUser(): void {
-    //TODO: get user data from store
-    const user: IUser = {
-      id: '1234',
-      userName: 'cw user',
-      email: 'cwtestuser@mail.com',
-    };
-    setUser({
-      id: user?.id,
-      username: user?.userName,
-      email: user?.email,
-    });
+    const userStore = useProfileStore();
+    const user: Partial<IProfile> = userStore.user.id
+      ? userStore.user
+      : {
+          user: 'Unknown user',
+        };
+    setUser(user);
   },
   capture(
-    error: any,
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+    error: Error | AxiosError | any,
     componentName: string,
     componentContext: string,
-    description = '',
-    _extra = {},
-    _tags = {}
+    description?: string,
+    _extra: Record<string, unknown> = {},
+    _tags: Record<string, Primitive> = {}
   ): void {
-    const response = error.response;
+    // additional information
+    const extra = cloneDeep(_extra);
+    const tags = cloneDeep(_tags);
 
-    const extra = cloneDeep(_extra) as any;
-    const tags = cloneDeep(_tags) as any;
     tags.api = false;
-
+    tags.isAxiosError = error.isAxiosError;
     const component = `${componentName}@${componentContext}`;
     tags.component = component;
-    const message = description ? `${component} - ${description}` : component;
 
-    if (response) {
-      if (response.status) {
+    if (error.message) {
+      tags.originalMessage = error.message;
+
+      error.message = description
+        ? `${component}: ${description} | Original description: ${error.message}`
+        : `${component}: ${error.message}`;
+    }
+
+    // for xhr errors we have 3 cases to handle:
+    // case #1:
+    // The request was made and the server responded with a status code
+    // that falls out of the range of 2xx
+    // It contains `error.response` property at least
+    // case #2:
+    // The request was made but no response was received
+    // `error.request` is an instance of XMLHttpRequest in the browser
+    // case #3:
+    // Something happened in setting up the request that triggered an Error
+    if (error.response) {
+      // case 1
+      if (error.response?.status && error.response?.config) {
         tags.api = true;
-        extra.method = response.config.method;
-        extra.url = response.config.url;
-        extra.params = JSON.parse(response.config.data);
+        extra.method = error.response.config.method;
+        extra.url = error.response.config.url;
       }
 
-      if (response.data && response.data.errorCode) {
-        tags.errorCode = response.data.errorCode;
+      if (error.response?.config?.data) {
+        const params = JSON.parse(error.response.config.data) as Record<
+          string,
+          string | boolean | number
+        >;
+        extra.params = params;
+        if (params.phone) {
+          tags.phone = params.phone;
+        }
+      }
+
+      if (error.response.data && error.response.data.errorCode) {
+        tags.errorCode = error.response.data.errorCode;
+      }
+    } else if (error.request) {
+      // case #2
+      if (error.request) {
+        tags.api = true;
+      }
+
+      if (error.request?.errorCode) {
+        tags.errorCode = error.request.errorCode;
+      }
+
+      if (error.request?.responseURL) {
+        extra.url = error.request.responseURL;
       }
     }
 
-    const context = {
+    const context: CaptureContext = {
       extra,
       tags,
     };
 
-    error.message = message;
     captureException(error, context);
   },
 };

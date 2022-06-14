@@ -1,15 +1,19 @@
 <template name="CoinItem">
-  <li class="coin-item">
-    <img class="image" :src="getSrcImage" alt="" />
+  <li
+    :class="{ '-disabled': !available, '-selected': selected }"
+    class="coin-item"
+  >
+    <img :src="icon" alt="" class="image" />
     <p class="title">
       {{ fullName }}
       <span class="sub-title">{{ shortName }}</span>
     </p>
+    <i v-if="selected" class="icon-check icon" />
   </li>
 </template>
 
-<script setup lang="ts">
-import { toRefs, computed, ref } from 'vue';
+<script lang="ts" setup>
+import { ref, toRefs } from 'vue';
 
 const props = defineProps({
   icon: {
@@ -24,20 +28,34 @@ const props = defineProps({
     type: String,
     default: ref(''),
   },
+  available: {
+    type: Boolean,
+    default: true,
+  },
+  selected: {
+    type: Boolean,
+    default: false,
+  },
 });
 
-const { icon, fullName, shortName } = toRefs(props);
-
-const getSrcImage = computed(() => {
-  return icon.value;
-});
+const { fullName, shortName } = toRefs(props);
 </script>
 
 <style lang="scss" scoped>
 .coin-item {
   display: flex;
   align-items: center;
-  margin-bottom: 24px;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 12px;
+
+  &.-disabled {
+    opacity: 0.5;
+  }
+
+  &.-selected {
+    background: $color-light-grey;
+  }
 
   > .image {
     margin-right: 16px;
@@ -49,9 +67,16 @@ const getSrcImage = computed(() => {
     line-height: 22px;
     letter-spacing: -0.0043em;
   }
+
+  > .icon {
+    margin: 0 21px 0 auto;
+    font-size: 21px;
+    color: $color-primary;
+  }
 }
 
 .sub-title {
+  font-weight: 400;
   color: $color-grey;
   margin-left: 14px;
 }

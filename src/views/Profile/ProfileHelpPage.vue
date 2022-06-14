@@ -1,52 +1,83 @@
 <template name="ProfilePersonalDetails">
-  <div class="personal-details">
-    <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/profile')"
-      />
-      <div class="title">
-        {{ $t('views.profile.profileHelp.hello') }} Abraham Watson,
-        {{ $t('views.profile.profileHelp.help') }}
-      </div>
-      <BaseInput v-model="value" type="text">
-        <template #label>
-          {{ $t('views.profile.profileHelp.question') }}
-        </template>
-      </BaseInput>
-    </div>
-    <h6 class="subtitle">{{ $t('views.profile.profileHelp.issue') }}</h6>
-    <ul class="issues-list">
-      <li class="item">
-        <p class="text">{{ $t('views.profile.profileHelp.secure') }}</p>
-        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
-      </li>
-      <li class="item">
-        <p class="text">{{ $t('views.profile.profileHelp.destinationTag') }}</p>
-        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
-      </li>
-      <li class="item">
-        <p class="text">{{ $t('views.profile.profileHelp.process') }}</p>
-        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
-      </li>
-      <li class="item">
-        <p class="text">{{ $t('views.profile.profileHelp.gamblingBlock') }}</p>
-        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
-      </li>
-      <li class="item">
-        <p class="text">{{ $t('views.profile.profileHelp.topUpAccount') }}</p>
-        <img class="right" src="@/assets/icon/arrow-right.svg" alt="right" />
-      </li>
-    </ul>
-  </div>
+  <t-top-navigation @click:left-icon="$router.push('/profile')">
+    <template #title>
+      {{ $t('views.profile.profileHelp.hello') }}
+      {{ `${firstName} ${lastName}` }},
+      {{ $t('views.profile.profileHelp.help') }}</template
+    >
+    <template #content>
+      <div class="personal-details">
+        <div class="header">
+          <BaseInput v-model="value" type="text">
+            <template #label>
+              {{ $t('views.profile.profileHelp.question') }}
+            </template>
+          </BaseInput>
+        </div>
+        <h6 class="subtitle">{{ $t('views.profile.profileHelp.issue') }}</h6>
+        <ul class="issues-list">
+          <li class="item">
+            <p class="text">{{ $t('views.profile.profileHelp.secure') }}</p>
+            <img
+              class="right"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
+              alt="right"
+            />
+          </li>
+          <li class="item">
+            <p class="text">
+              {{ $t('views.profile.profileHelp.destinationTag') }}
+            </p>
+            <img
+              class="right"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
+              alt="right"
+            />
+          </li>
+          <li class="item">
+            <p class="text">{{ $t('views.profile.profileHelp.process') }}</p>
+            <img
+              class="right"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
+              alt="right"
+            />
+          </li>
+          <li class="item">
+            <p class="text">
+              {{ $t('views.profile.profileHelp.gamblingBlock') }}
+            </p>
+            <img
+              class="right"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
+              alt="right"
+            />
+          </li>
+          <li class="item">
+            <p class="text">
+              {{ $t('views.profile.profileHelp.topUpAccount') }}
+            </p>
+            <img
+              class="right"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
+              alt="right"
+            />
+          </li>
+        </ul></div
+    ></template>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
 import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
+import { TTopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
+
+import { useProfileStore } from '@/stores/profile';
+
+const profileStore = useProfileStore();
+let { firstName, lastName } = profileStore.getUser;
 
 const value = ref('');
 </script>
@@ -55,8 +86,6 @@ const value = ref('');
 .personal-details {
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  padding: 60px 16px 50px;
   flex-grow: 1;
   overflow: auto;
 
@@ -94,7 +123,7 @@ const value = ref('');
   border-radius: 15px;
 
   > .item {
-    padding: 15px;
+    padding: 12px 46px 12px 16px;
     display: flex;
     justify-content: space-between;
     height: 72px;

@@ -1,29 +1,30 @@
 <template name="send-link">
-  <div class="send-link">
-    <div class="header header-link">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/contacts')"
-      />
-      <h1 class="title">Send Via Link</h1>
-    </div>
-    <div class="main-block">
-      <div class="send-currency">
-        <p class="label">Recipient will get</p>
-        <p class="sum">0.321573346 USDT</p>
-        <BaseInput type="text">
-          <template #label> Add note </template>
-        </BaseInput>
-      </div>
-      <BaseButton class="btn" size="large"> Share link </BaseButton>
-    </div>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push('/contacts')"
+  >
+    <template #title>Send Via Link</template>
+    <template #content>
+      <div class="main-block">
+        <div class="send-currency">
+          <p class="label">Recipient will get</p>
+          <p class="sum">0.321573346 USDT</p>
+          <BaseInput type="text">
+            <template #label> Add note </template>
+          </BaseInput>
+        </div>
+      </div></template
+    >
+    <template #fixed-footer>
+      <BaseButton class="footer-btn" size="large">
+        Share link
+      </BaseButton></template
+    >
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { BaseInput, BaseButton } from '@/components/ui';
+import { BaseInput, BaseButton, TTopNavigation } from '@/components/ui';
 </script>
 
 <style lang="scss" scoped>
@@ -80,8 +81,12 @@ import { BaseInput, BaseButton } from '@/components/ui';
     font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-bottom: 30px;
   }
+}
+
+.footer-btn {
+  width: 100%;
 }
 </style>

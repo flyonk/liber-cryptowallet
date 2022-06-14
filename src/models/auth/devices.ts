@@ -1,5 +1,14 @@
 export type TAgentType = 'ios' | 'windows' | 'mac' | 'linux' | 'android';
 
+export interface IUserDeviceDto {
+  id: string;
+  agent_type: TAgentType;
+  device_name: string;
+  logged_at: string;
+  ip: string;
+  location: string;
+}
+
 export interface IUserDevice {
   id: string;
   agentType: TAgentType;
@@ -10,8 +19,7 @@ export interface IUserDevice {
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IUserDevice {
+  deserialize(input: IUserDeviceDto): IUserDevice {
     return {
       id: input.id,
       agentType: input.agent_type,

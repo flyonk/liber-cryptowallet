@@ -1,16 +1,36 @@
-export interface ICoin {
+import { STATIC_BASE_URL } from '@/constants';
+
+export interface ICoinDto {
+  name: string;
   code: string;
-  fullname: string;
-  suggested: boolean;
+  networks?: string[];
+  minimal_deposit_value?: string;
+  is_popular?: boolean;
+}
+
+export interface ICoin {
+  name: string;
+  code: string;
+  imageUrl?: string;
+  networks?: string[];
+  minimalDepositValue?: string;
+  isPopular?: boolean;
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): ICoin {
+  deserialize(input: ICoinDto): ICoin {
     return {
+      name: input.name,
       code: input.code,
-      fullname: input.fullname,
-      suggested: input.suggested,
+      imageUrl: _getSrcImageUrl(input.name),
+      networks: input.networks,
+      minimalDepositValue: input.minimal_deposit_value,
+      isPopular: input.is_popular,
     };
   },
 };
+
+function _getSrcImageUrl(name: string) {
+  //TODO change to real image from service
+  return `${STATIC_BASE_URL}/static/currencies/${name.toLowerCase()}.svg`;
+}

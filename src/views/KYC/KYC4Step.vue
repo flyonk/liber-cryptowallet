@@ -1,43 +1,46 @@
 <template>
-  <div class="kyc-4-step">
-    <top-navigation @click:left-icon="$emit('prev')">
-      {{ scanText.title }}
-    </top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">{{ scanText.description }}</p>
-    <scan-animation class="p-0">
-      <div id="camera" class="camera" />
-    </scan-animation>
-    <div class="footer">
-      <base-button @click="onScan">
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
+    <template #title>{{ scanText.title }}</template>
+    <template #subtitle>
+      <base-progress-bar :value="getPercentage" class="mb-3" />
+      {{ scanText.description }}
+    </template>
+    <template #content>
+      <scan-animation class="p-0">
+        <div id="camera" class="camera" />
+      </scan-animation>
+    </template>
+    <template #fixed-footer>
+      <base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
       </base-button>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
-<script setup lang="ts">
-import { computed, ref, Ref, onMounted, onBeforeUnmount } from 'vue';
-
-// import { Camera, CameraResultType } from '@capacitor/camera';
+<script lang="ts" setup>
+import { computed, onActivated, onMounted, ref, Ref } from 'vue';
 import {
   CameraPreview,
   CameraPreviewOptions,
 } from '@capacitor-community/camera-preview';
 import { Device } from '@capacitor/device';
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { useI18n } from 'vue-i18n';
+
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { cropImage } from '@/helpers/image';
+
+import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
-
-import { useKYCStore, EKYCProofType } from '@/stores/kyc';
-import { cropImage } from '@/helpers/image';
-import { useI18n } from 'vue-i18n';
+import { useErrorsStore } from '@/stores/errors';
 
 const emit = defineEmits(['next', 'prev']);
 
 const kycStore = useKYCStore();
 
 const { tm } = useI18n();
+const errorsStore = useErrorsStore();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
 
@@ -46,12 +49,21 @@ const cameraPreviewOptions: CameraPreviewOptions = {
   className: 'camera-video',
   position: 'rear',
   toBack: true,
+  disableAudio: true,
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
 const isProofTypePassport = computed(
   () => kycStore.getProofType === EKYCProofType.passport
+);
+
+const isFrontSideEmpty = computed(
+  () => kycStore.getImage[EDocumentSide.front] === null
+);
+
+const isBackSideEmpty = computed(
+  () => kycStore.getImage[EDocumentSide.back] === null
 );
 
 const scanText = computed(() => {
@@ -63,13 +75,13 @@ const scanText = computed(() => {
   }
 
   const text = {
-    [EDocumentSide.back]: {
-      title: tm('views.kyc.kyc4step.scanBackSide'),
-      description: tm('views.kyc.kyc4step.placePhoneOnTopOfIDFront'),
-    },
     [EDocumentSide.front]: {
       title: tm('views.kyc.kyc4step.scanFrontSide'),
       description: tm('views.kyc.kyc4step.placePhoneOnTopOfIDBack'),
+    },
+    [EDocumentSide.back]: {
+      title: tm('views.kyc.kyc4step.scanBackSide'),
+      description: tm('views.kyc.kyc4step.placePhoneOnTopOfIDFront'),
     },
   };
 
@@ -78,18 +90,61 @@ const scanText = computed(() => {
 
 onMounted(() => {
   kycStore.setPercentage(0.2);
+});
 
+onActivated(() => {
   startCamera();
+  calcProgressPercentage();
+  detectScanSide();
 });
 
-onBeforeUnmount(() => {
-  stopCamera();
-});
+const resetScanSide = () => {
+  scanningSide.value = EDocumentSide.front;
+};
+
+const detectScanSide = () => {
+  if (isFrontSideEmpty.value) {
+    scanningSide.value = EDocumentSide.front;
+  } else if (isBackSideEmpty.value) {
+    scanningSide.value = EDocumentSide.back;
+  }
+};
+
+const prevStep = async () => {
+  await stopCamera();
+  resetScanSide();
+  cleanupScans();
+  calcProgressPercentage();
+  // switch step only after await stopCamera()
+  await (async () => {
+    emit('prev');
+  })();
+};
+
+const nextStep = async () => {
+  await stopCamera();
+  resetScanSide();
+  // switch step only after await stopCamera()
+  await (async () => {
+    emit('next');
+  })();
+};
 
 const startCamera = async () => {
-  await CameraPreview.start(cameraPreviewOptions);
+  try {
+    await CameraPreview.start(cameraPreviewOptions);
+  } catch (err) {
+    await CameraPreview.stop();
 
-  console.debug(document.querySelector('video'));
+    await CameraPreview.start(cameraPreviewOptions);
+
+    errorsStore.handle({
+      err,
+      name: 'KYC4step',
+      ctx: 'startCamera',
+      description: 'Error when starting the camera',
+    });
+  }
 };
 
 const captureCamera = async () => {
@@ -98,15 +153,14 @@ const captureCamera = async () => {
   const { platform } = await Device.getInfo();
 
   if (platform === 'ios') {
-    cropImage(
+    const croppedImage = await cropImage(
       `data:image/jpeg;base64,${result.value}`,
       150,
       600,
       800,
       550
-    ).then((cropped_image: string) => {
-      kycStore.setImage(cropped_image, scanningSide.value);
-    });
+    );
+    kycStore.setImage(croppedImage, scanningSide.value);
   } else {
     kycStore.setImage(
       `data:image/jpeg;base64,${result.value}`,
@@ -115,56 +169,86 @@ const captureCamera = async () => {
   }
 };
 
-const stopCamera = () => {
-  CameraPreview.stop();
+const stopCamera = async () => {
+  try {
+    await CameraPreview.stop();
+  } catch (err) {
+    errorsStore.handle({
+      err,
+      name: 'KYC4step',
+      ctx: 'stopCamera',
+      description: 'Error when stopping the camera',
+    });
+    throw err;
+  }
 };
 
-const onScan = async () => {
+const cleanupScans = () => {
+  kycStore.cleanupImages();
+};
+
+const flipScanSide = () => {
+  if (scanningSide.value === EDocumentSide.front) {
+    scanningSide.value = EDocumentSide.back;
+  }
+};
+
+const calcProgressPercentage = (): void => {
+  if (
+    (isProofTypePassport.value && !isFrontSideEmpty.value) ||
+    (!isFrontSideEmpty.value && !isBackSideEmpty.value)
+  ) {
+    kycStore.setPercentage(0.6);
+  } else if (!isFrontSideEmpty.value || !isBackSideEmpty.value) {
+    kycStore.setPercentage(0.4);
+  } else {
+    kycStore.setPercentage(0.2);
+  }
+};
+
+const onScan = async (): Promise<void> => {
   if (isProofTypePassport.value) {
     await captureCamera();
 
-    stopCamera();
+    calcProgressPercentage();
 
-    kycStore.setPercentage(0.6);
-
-    emit('next');
+    await nextStep();
     return;
   }
 
-  if (scanningSide.value === EDocumentSide.front) {
+  // initial scan
+  if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
     await captureCamera();
 
-    kycStore.setPercentage(0.4);
-    scanningSide.value = EDocumentSide.back;
+    calcProgressPercentage();
+
+    flipScanSide();
+
+    if (!isBackSideEmpty.value) {
+      await nextStep();
+    }
   } else {
     await captureCamera();
 
-    stopCamera();
+    calcProgressPercentage();
 
-    kycStore.setPercentage(0.6);
-    emit('next');
+    await nextStep();
   }
 };
 </script>
 
-<style lang="scss">
-.kyc-4-step {
-  // commit test
-  > .scan-animation {
-    > .inner {
-      > .camera {
-        width: 100%;
-        height: 100%;
-        max-width: 100%;
-        max-height: 100%;
+<style lang="scss" scoped>
+.camera {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
 
-        > .camera-video {
-          height: 100% !important;
-          width: 100%;
-          border-radius: 12px;
-        }
-      }
-    }
+  > :deep(.camera-video) {
+    height: 100% !important;
+    width: 100%;
+    border-radius: 12px;
+    object-fit: cover;
   }
 }
 </style>

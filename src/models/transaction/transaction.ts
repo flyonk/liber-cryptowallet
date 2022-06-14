@@ -1,22 +1,93 @@
-export type TTransaction = INetTransaction | IRequestFunds;
+export type TTransaction =
+  | INetTransaction
+  | IRequestFunds
+  | IConvertTransaction
+  | ITransferTransaction
+  | IDepositTransaction;
+
+export interface IContractorDto {
+  id: string;
+  phone: string;
+  email: string;
+  address: string;
+}
+
+export interface ITransactionDto {
+  id: string;
+  amount?: string;
+  timestamp?: string;
+  status: ERequestFundsStatus | ETransactionStatus;
+  code: string;
+  fee?: string;
+  feeCode?: string;
+  type: ERequestFundsType | ETransactionType;
+  contragent?: IContractorDto;
+}
+
+export interface INetTransactionDto {
+  id: string;
+  sum: string;
+  code: string;
+  to?: TConvertTransaction;
+  from?: TConvertTransaction;
+  icon?: string;
+  info?: string;
+  direction: EDirection;
+  fee?: string;
+  feeCode?: string;
+  status: ETransactionStatus;
+  type: ETransactionType;
+  contractor?: IContractor;
+  startDate?: string;
+  finishDate?: string;
+  relativeDate?: string;
+  rate?: string;
+  detailedInfo?: string;
+  oppositeCoin?: {
+    amount: string;
+    code: string;
+  };
+}
+
+export type TConvertTransaction = {
+  code?: string;
+  amount?: string;
+};
 
 export interface INetTransaction {
   id: string;
   sum: string;
   code: string;
+  to?: TConvertTransaction;
+  from?: TConvertTransaction;
   icon?: string;
-  info: string;
+  info?: string;
+  direction?: EDirection;
+  fee?: string;
+  feeCode?: string;
   status: ETransactionStatus;
   type: ETransactionType;
   contractor?: IContractor;
+  startDate?: string;
+  finishDate?: string;
+  relativeDate?: string;
+  rate?: string;
+  detailedInfo?: string;
+  txid?: string;
+  oppositeCoin?: {
+    amount: string;
+    code: string;
+  };
 }
 
 export interface IRequestFunds {
   id: string;
-  amount: string;
-  timestamp: string;
+  amount?: string;
+  timestamp?: string;
   status: ERequestFundsStatus;
   code: string;
+  fee?: string;
+  feeCode?: string;
   type: ERequestFundsType;
   contractor: IContractor;
 }
@@ -65,98 +136,129 @@ export enum EDirection {
   guard = '',
 }
 
+export interface IFeeInfo {
+  amount: string;
+  code: string;
+}
+
+export interface IDirectionInfo {
+  code: string;
+  amount: string;
+}
+
+export interface ITransactionDefault {
+  id: string;
+  status: ETransactionStatus;
+  amount: string;
+  date: string;
+  type: ETransactionType;
+  code: string;
+}
+
+export interface IDepositTransaction extends ITransactionDefault {
+  txid: string;
+  statement?: string;
+  address: string;
+  direction: string;
+}
+
+export interface IConvertTransaction extends ITransactionDefault {
+  direction: string;
+  statement?: object;
+  rate: string;
+  fee: IFeeInfo;
+  counter: {
+    amount: string;
+    code: string;
+  };
+  to: IDirectionInfo;
+  from: IDirectionInfo;
+}
+
+export interface ITransferTransaction extends ITransactionDefault {
+  direction: string;
+  statement?: object;
+  rate?: string;
+  fee: IFeeInfo;
+  contragent: {
+    id: string;
+    phone: string;
+  };
+}
+
 export default {
   /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): TTransaction {
-    return {
-      id: input.id,
-      sum: _transactionAmount2Sum(input.amount, input.type, input.direction),
-      status: input.status,
-      type:
-        input.type === ETransactionType.transfer ? input.direction : input.type,
-      code: input.code?.toUpperCase(),
-      icon: _getTransactionIcon(input.type, input.direction),
-      info: _getTransactionInfo(input.direction, input.contragent, input.code),
-      contractor: input.contragent
-        ? {
-            id: input.contragent.id || '',
-            phone: input.contragent.phone || '',
-            email: input.contragent.email || '',
-            address: input.contragent.address || '',
-          }
-        : undefined,
-    };
-  },
+  deserialize(input: any): TTransaction | undefined {
+    if (input.type === ETransactionType.convert) {
+      return {
+        id: input.id,
+        code: input.code,
+        type: input.type,
+        amount: input.amount,
+        direction: input.direction,
+        date: input.finished_at ? input.finished_at : input.created_at,
+        status: input.status,
+        statement: undefined,
+        rate: input.rate,
+        fee: {
+          amount: input.fee,
+          code: input.fee_code,
+        },
+        counter: {
+          amount:
+            input.direction === EDirection.income
+              ? input.amount_from
+              : input.amount_to,
+          code:
+            input.direction === EDirection.income
+              ? input.code_from
+              : input.code_to,
+        },
+        from: {
+          code: input.code_from,
+          amount: input.amount_from,
+        },
+        to: {
+          code: input.code_to,
+          amount: input.amount_to,
+        },
+      } as IConvertTransaction;
+    }
 
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: TTransaction): any {
-    return {
-      id: input.id,
-      amount: (input as INetTransaction).sum || (input as IRequestFunds).amount,
-      status: input.status,
-      type: input.type,
-      code: input.code,
-      contragent: input.contractor
-        ? {
-            id: input.contractor.id,
-            phone: input.contractor.phone,
-            email: input.contractor.email,
-            address: input.contractor.address,
-          }
-        : undefined,
-    };
+    if (input.type === ETransactionType.transfer) {
+      return {
+        id: input.id,
+        status: input.status,
+        amount: input.amount,
+        date: input.finished_at ? input.finished_at : input.created_at,
+        type: input.type,
+        code: input.code,
+
+        direction: input.direction,
+        fee: {
+          amount: input.fee ? input.fee : '0.0001',
+          code: input.fee_code ? input.fee_code : input.code,
+        },
+        contragent: {
+          id: input.contragent.id,
+          phone: input.contragent.phone,
+        },
+      } as ITransferTransaction;
+    }
+
+    if (input.type === ETransactionType.deposit) {
+      return {
+        id: input.id,
+        status: input.status,
+        amount: input.amount,
+        date: input.finished_at ? input.finished_at : input.created_at,
+        type: input.type,
+        code: input.code,
+        direction: input.direction,
+        statement: undefined,
+        txid: input.txid,
+        address: '1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l',
+      } as IDepositTransaction;
+    }
   },
 };
-
-function _transactionAmount2Sum(
-  amount: string,
-  type: ETransactionType,
-  direction: EDirection
-): string {
-  return type === ETransactionType.deposit ||
-    (type === ETransactionType.transfer && direction === EDirection.income) ||
-    (type === ETransactionType.convert && direction === EDirection.income)
-    ? `+ ${amount}`
-    : `- ${amount}`;
-}
-
-function _getTransactionIcon(
-  type: ETransactionType,
-  direction: string
-): string {
-  //TODO: define icons set, check logic
-  let icon = '';
-  switch (type) {
-    case ETransactionType.transfer: {
-      if (direction === EDirection.income)
-        icon = require('@/assets/icon/transactions/sent.svg');
-      icon = require('@/assets/icon/transactions/received.svg');
-      break;
-    }
-    case ETransactionType.deposit:
-      icon = require('@/assets/icon/transactions/received.svg');
-      break;
-    case ETransactionType.convert:
-      icon = require('@/assets/icon/transactions/convert.svg');
-      break;
-    default:
-      icon = require('@/assets/icon/transactions/received.svg');
-      break;
-  }
-  return icon;
-}
-
-function _getTransactionInfo(
-  direction: EDirection,
-  contractor: IContractor,
-  code: string
-): string {
-  if (direction === EDirection.income)
-    return `From ${
-      contractor ? contractor.phone : `${code.toUpperCase()} address`
-    }`;
-
-  return `To ${
-    contractor ? contractor.phone : `${code.toUpperCase()} address`
-  }`;
-}

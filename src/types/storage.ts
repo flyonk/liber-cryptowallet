@@ -1,6 +1,5 @@
 export enum EStorageKeys {
-  passcode = 'liber-app-passcode',
-  twofa = 'liber-app-2fa',
+  passcode = 'liber-app-passcode-enabled',
   twofaDate = '2fa-date',
   notifications = 'liber-app-push-notifications',
   faceid = 'liber-app-face-id',
@@ -9,6 +8,9 @@ export enum EStorageKeys {
   phone = 'login-phone',
   token = 'access_token',
   refreshToken = 'refresh_token',
+  tokenExpire = 'token_expire',
+  marketing = 'marketing',
+  friends = 'liber-app-friends',
 }
 
 export enum SStorageKeys {

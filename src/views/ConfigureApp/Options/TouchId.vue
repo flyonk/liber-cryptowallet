@@ -1,42 +1,53 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: Route.TwoFAApp })">
-      {{ $t('configureApp.touchIdTitle') }}
-    </top-navigation>
-
-    <div class="page-content">
-      <img src="@/assets/images/touchid-icon.svg" alt="Touch id" class="mb-3" />
-      <p class="text-default">
-        {{ $t('configureApp.touchIdDescription') }}
-      </p>
-    </div>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block class="mb-3" @click="onEnable">
-      {{ $t('configureApp.enableTouchId') }}
-    </base-button>
-    <base-button block view="secondary" @click="onCancel">
-      {{ $t('common.notNowCta') }}
-    </base-button>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.TwoFAApp })"
+  >
+    <template #title> {{ $t('configureApp.touchIdTitle') }}</template>
+    <template #content>
+      <div class="page-content">
+        <img
+          alt="Touch id"
+          class="mb-3"
+          src="@/assets/images/touchid-icon.svg"
+        />
+        <p class="text-default">
+          {{ $t('configureApp.touchIdDescription') }}
+        </p>
+      </div></template
+    >
+    <template #fixed-footer>
+      <base-button block class="mb-3" @click="onEnable">
+        {{ $t('configureApp.enableTouchId') }}
+      </base-button>
+      <base-button block view="transparent" @click="onCancel">
+        {{ $t('common.notNowCta') }}
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { useRouter } from 'vue-router';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
+import { verifyIdentity } from '@/helpers/identification';
 
 const router = useRouter();
 
 const { setOptions } = useAppOptionsStore();
 
-const onEnable = (): void => {
-  setOptions('true', EStorageKeys.touchid);
-  router.push({ name: Route.PushNotifications });
+const onEnable = async (): Promise<void> => {
+  const state = await verifyIdentity();
+
+  if (state) {
+    setOptions('true', EStorageKeys.touchid);
+    router.push({ name: Route.PushNotifications });
+  }
 };
 
 const onCancel = (): void => {
@@ -46,14 +57,6 @@ const onCancel = (): void => {
 </script>
 
 <style lang="scss" scoped>
-.page-wrapper {
-  margin: 15px;
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-
 .text-default {
   font-style: normal;
   font-weight: normal;
@@ -66,6 +69,7 @@ const onCancel = (): void => {
 
 .page-content {
   flex-grow: 1;
+  height: 500px;
   display: flex;
   align-items: center;
   justify-content: center;

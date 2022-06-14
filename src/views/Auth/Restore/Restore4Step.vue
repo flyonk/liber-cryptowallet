@@ -19,7 +19,7 @@
     </div>
 
     <div class="sign-button-wrapper">
-      <base-button @click="$emit('next')">
+      <base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
       </base-button>
     </div>

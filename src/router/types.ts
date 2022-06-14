@@ -4,12 +4,15 @@ export enum Route {
   WelcomeAuthScreen = 'welcome-auth-screen',
   AuthCode = 'auth-code',
   AuthPasscode = 'auth-passcode',
+  ChangePasscode = 'change-passcode',
+  ChangePasscodeEnter = 'change-passcode-enter',
+  ChangeAuthapp = 'change-authapp',
   SignUp = 'sign-up',
   Login = 'login',
   Restore = 'restore',
 
   DashboardParent = 'dashboard-parent',
-  DashboardHome = 'dashboard-home',
+  DashboardHome = 'home',
   DashboardVerification = 'dashboard-verification',
   DashboardStory = 'dashboard-story',
   DashboardVerifyingStory = 'dashboard-verifying-story',
@@ -19,10 +22,14 @@ export enum Route {
   AccountMain = 'account-main',
   AccountDetail = 'account-detail',
   AccountAdd = 'account-add',
+  AccountAddSelectNetwork = 'account-add-select-network',
+  AccountAddShowWallet = 'account-add-show-wallet',
+  AccountAddSelectCoin = 'account-add-select-coin',
 
   Transactions = 'transactions',
   TransactionsMain = 'transactions-main',
   TransactionsDetails = 'transactions-details',
+  TransactionsAll = 'transactions-all',
 
   ConvertFunds = 'convert',
   ContactsWhoToPay = 'contacts.who-to-pay',
@@ -31,9 +38,14 @@ export enum Route {
   ProfileSettings = 'profile-settings',
   ProfileMyQrCode = 'profile-my-qr-code',
   ProfileDevices = 'profile-devices',
+  ProfilePhonesAndEmails = 'profile-phones-and-emails',
+  ProfileAddNewContactData = 'profile-add-new-contact-data',
   ProfileHelp = 'profile-help',
   ProfileEdit = 'profile-edit',
   ProfilePrivacy = 'profile-privacy',
+
+  ConfirmEmail = 'confirm-email',
+  PhoneVerified = 'phone-verified',
 
   KYCMain = 'kyc-main',
   KYCPersonal = 'kyc-personal',
@@ -53,13 +65,30 @@ export enum Route {
   Deposit = 'deposit',
 
   Contacts = 'contacts',
+  ContactsAddNewContact = 'contacts.add.new.contact',
+  ContactsPay = 'contacts.who-to-pay',
   ContactsSend = 'contacts-send',
+  ContactsSendFirstTime = 'contacts.send.first.time',
+  ContactsSendInvite = 'contacts.send.invite',
+  ContactsSendLink = 'contacts.send.link',
 
   ChooseCoin = 'choose_coin',
+
+  Recepients = 'recepients',
+  RecepientsPhone = 'recepients-phone',
+  RecepientsLiber = 'recepients-liber',
+  PayRecepientsPhone = 'pay-recepients-phone',
+  PayRecepientsLiber = 'pay-recepients-liber',
+
+  LoadContacts = 'request-phone-contacts',
+
   DepositAdd = 'deposit-add',
   DepositNetwork = 'deposit-network',
   DepositCoin = 'deposit-coin',
 
   PhoneEnter = 'phone-enter',
   CodeEnter = 'code-enter',
+
+  Invite = 'invite',
+  Withdraw = 'withdraw',
 }

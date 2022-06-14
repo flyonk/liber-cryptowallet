@@ -1,12 +1,16 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom">
+  <BaseBottomSheetV v-if="showList" position="bottom" @close="$emit('close')">
+    <h1 v-if="title" class="page-title">{{ title }}</h1>
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
-          <BaseSearchInput v-model="searchQuery" />
+          <BaseSearchInput
+            v-model="searchQuery"
+            @update:model-value="updateSearchQuery"
+          />
         </div>
         <div class="col-3 text-right">
-          <div class="cancel-button text--headline" @click="close">
+          <div class="cancel text--headline" @click="close">
             {{ $t('ui.basecountryselect.cancel') }}
           </div>
         </div>
@@ -21,25 +25,34 @@
           @click="setSelectedCountry(country)"
         >
           <div class="flag col-2">
-            <img :src="country.flag" alt="" class="img" />
+            <img :src="country.localPath" alt="" class="img" />
           </div>
           <div class="code col-2">
             {{ country[entity] }}
           </div>
-          <div class="title col-8">
+          <div class="title col-7">
             {{ country.name }}
+          </div>
+          <div class="title col-1">
+            <img
+              v-if="isSelectedCountry(country)"
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/check.svg`"
+            />
           </div>
         </div>
       </div>
     </div>
   </BaseBottomSheetV>
 </template>
+
 <script lang="ts" setup>
-import { ref, Ref, computed, ComputedRef } from 'vue';
+import { computed, ComputedRef, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
 
 import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
 import BaseSearchInput from '@/components/ui/atoms/BaseSearchInput.vue';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 
@@ -59,6 +72,10 @@ const props = defineProps({
   selectedData: {
     type: Object as PropType<ICountryInformation | null>,
     default: null,
+  },
+  title: {
+    type: String,
+    default: '',
   },
 });
 
@@ -87,45 +104,58 @@ function setSelectedCountry(country: ICountryInformation): void {
 function close() {
   emit('close');
 }
+
+function updateSearchQuery(data: string) {
+  searchQuery.value = data;
+}
 </script>
 
 <style lang="scss" scoped>
 .country-select-block {
   padding-top: 16px;
-}
 
-> .cancel-button {
-  color: $color-primary;
-  cursor: pointer;
-  user-select: none;
-}
-
-> .country-list {
-  margin-top: 20px;
-
-  > .item {
-    border-radius: 8px;
-    padding: 12px 16px;
-    margin-bottom: 8px;
+  > div > .text-right > .cancel {
+    color: $color-primary;
     cursor: pointer;
+    user-select: none;
+    margin-right: 10px;
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+  }
 
-    &.-selected {
-      background: $color-light-grey-300;
-    }
+  > .country-list {
+    margin-top: 20px;
 
-    > .flag {
-      padding: 0;
+    > .item {
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+      cursor: pointer;
 
-      > img {
-        object-fit: cover;
-        border-radius: 50%;
-        height: 40px;
-        width: 40px;
+      &.-selected {
+        background: $color-light-grey-300;
+      }
+
+      > .flag {
+        padding: 0;
+
+        > img {
+          object-fit: cover;
+          border-radius: 50%;
+          height: 40px;
+          width: 40px;
+        }
+      }
+
+      > .code {
+        color: $color-dark-grey;
       }
     }
 
-    > .code {
-      color: $color-dark-grey;
+    &:last-child {
+      margin-bottom: 50px;
     }
   }
 }

@@ -1,126 +1,113 @@
 <template name="TransactionDetails">
-  <div class="transaction-details">
-    <div class="header">
-      <img
-        alt="arrow-left"
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        @click="$router.push('/transactions')"
-      />
-      <div class="sum">
-        <div class="sum-title">
-          - 2.12345678<span class="currency">USDT</span>
-        </div>
-        <div class="arrow">
-          <img alt="right" src="@/assets/icon/short_right.svg" />
-        </div>
-      </div>
-      <h2 class="sendto">{{ $t('common.to') }} Abraham Watson</h2>
-      <p class="date">
-        <!-- TODO: add number depends -->
-        2 {{ $t('common.daysAgo') }}
-      </p>
-      <div class="controls">
-        <button v-if="transactionType === 'send'" class="btn -pdf">
-          <img class="icon" src="@/assets/icon/file_pdf.svg" />
-          <p>{{ $t('transactions.downloadState') }}</p>
-        </button>
-        <button v-if="transactionType === 'payment-link'" class="btn -share">
-          <img class="icon" src="@/assets/icon/share.svg" />
-          <p>{{ $t('common.shareCta') }}</p>
-        </button>
-        <button
-          v-if="transactionType === 'payment-link'"
-          class="btn btn -cancel"
-        >
-          <img class="icon" src="@/assets/icon/close_red.svg" />
-          <p>{{ $t('common.cancelCta') }}</p>
-        </button>
-      </div>
-    </div>
-    <ul class="main mb-5">
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.noReference') }}
-        </p>
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('status.title') }}
-        </p>
-        <div v-if="transactionStatus === 'pending'" class="status">
-          {{ $t('status.pending') }}
-        </div>
-        <div v-if="transactionStatus === 'complete'" class="status -complete">
-          {{ $t('status.complete') }}
-        </div>
-        <div v-if="transactionStatus === 'reverted'" class="status -reverted">
-          {{ $t('transactions.reverted') }}
-        </div>
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.paymentTo') }}
-        </p>
-        <div class="item-right">
-          <img class="icon" src="@/assets/icon/green_ok.svg" />
-          <p class="name">Abraham Watson ∙ USDT</p>
-        </div>
-      </li>
-      <li class="main-item">
-        <p class="name">
-          {{ $t('transactions.transferFee') }}
-        </p>
-        <p class="description">0,12345678 USDT</p>
-      </li>
-      <li class="main-item">
-        <div class="inner">
-          <p class="name">
-            {{ $t('transactions.id') }}
-          </p>
-          <p class="transaction">3M8w2knJKsr3jqMatYiyuraxVvZA</p>
-        </div>
-        <div class="inner">
-          <img alt="folders" src="@/assets/icon/folders.svg" />
-        </div>
-      </li>
-    </ul>
-    <h2 class="explorer">
-      {{ $t('common.explorer') }}
-    </h2>
-  </div>
+  <template v-if="transaction">
+    <component
+      :is="component"
+      :main-coin="mainCoin"
+      :transaction="transaction"
+      @copy="copyToClipboard"
+    />
+  </template>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { computed, onBeforeMount, Ref, ref } from 'vue';
+import { useRoute } from 'vue-router';
+import { useI18n } from 'vue-i18n';
 
-const transactionStatus = 'complete';
+import transactionService from '@/services/transactionService';
+import {
+  ETransactionType,
+  INetTransaction,
+} from '@/models/transaction/transaction';
+import { Clipboard } from '@capacitor/clipboard';
+import { useToast } from 'primevue/usetoast';
+import { useErrorsStore } from '@/stores/errors';
 
-const transactionType = ref('payment-link');
+import {
+  ConvertTransactionDetails,
+  ExternalTransactionDetails,
+  TransferTransactionDetails,
+} from '@/components/ui/organisms/transactions';
+
+const route = useRoute();
+const errorsStore = useErrorsStore();
+const { t } = useI18n();
+const toast = useToast();
+
+let transaction: Ref<INetTransaction> = ref({} as INetTransaction);
+const mainCoin = ref('');
+
+onBeforeMount(async () => {
+  try {
+    if (!route.params.id) return;
+
+    if (route.query.coin) {
+      transaction.value =
+        (await transactionService.getTransactionDetailsByCoinAndId(
+          route.params.id as string,
+          route.query.coin as string
+        )) as INetTransaction;
+      mainCoin.value = route.params.coin as string;
+
+      return;
+    }
+
+    transaction.value = (await transactionService.getTransactionById(
+      route.params.id as string
+    )) as INetTransaction;
+  } catch (err) {
+    errorsStore.handle({
+      err,
+      name: 'TransactionDetails',
+      ctx: 'onBeforeMount',
+      description: 'Error receiving transaction details',
+    });
+  }
+});
+
+const component = computed(() => {
+  switch (transaction.value.type) {
+    case ETransactionType.convert:
+      return ConvertTransactionDetails;
+    case ETransactionType.deposit:
+      return ExternalTransactionDetails;
+    default:
+      return TransferTransactionDetails;
+  }
+});
+
+const copyToClipboard = async (data: string) => {
+  try {
+    await Clipboard.write({
+      string: data,
+    });
+
+    toast.add({
+      summary: t('transactions.transactionIdCopied'),
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    errorsStore.handle({
+      err,
+      name: 'TransactionDetails.vue',
+      ctx: 'copyToClipboard',
+      description: t('transactions.transactionIdCopyFail'),
+    });
+  }
+};
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .transaction-details {
-  padding: 32px 16px 0;
+  // padding: 0 16px;
   height: 100%;
 
   > .header {
-    height: 29%;
-
     > .sum {
       display: flex;
       justify-content: space-between;
-      margin-bottom: 4px;
-
-      > .arrow {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 50%;
-        width: 48px;
-        height: 48px;
-        background: $color-light-grey-600;
-      }
+      margin: 20px 0 4px;
     }
 
     > .sendto {
@@ -169,8 +156,19 @@ const transactionType = ref('payment-link');
 
         &.-cancel {
           width: 104px;
+          margin-left: 8px;
           background: $color-red-50;
-          color: $color-red;
+
+          > .container {
+            > i {
+              color: $color-red-500;
+              font-size: 18px;
+            }
+
+            > .label {
+              color: $color-red-500;
+            }
+          }
         }
 
         > .icon {
@@ -210,15 +208,23 @@ const transactionType = ref('payment-link');
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 53px;
-  border-bottom: 1px solid rgb(175 179 195 / 30%);
+  padding: 24px 0;
 
-  &:first-child {
-    border-top: 1px solid rgb(175 179 195 / 30%);
+  &:not(:last-child) {
+    border-bottom: 1px solid rgb(175 179 195 / 30%);
+  }
+
+  > .button {
+    min-width: 0;
+  }
+
+  > .icon {
+    color: $color-brand-primary;
+    font-size: 24px;
   }
 
   > .name {
-    font-weight: 500;
+    font-weight: 400;
     font-size: 16px;
     line-height: 21px;
     display: flex;
@@ -231,20 +237,28 @@ const transactionType = ref('payment-link');
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 87px;
-    height: 31px;
+    padding: 5px 12px;
     background: $color-yellow-100;
     border-radius: 100px;
     color: $color-yellow-800;
 
-    &.-complete {
+    > .complete {
       background: $color-green-100;
       color: $color-green-800;
     }
 
-    &.-reverted {
+    > .reverted {
       background: $color-red-100;
       color: $color-red-700;
+    }
+
+    > .pending {
+      color: $color-yellow-600;
+    }
+
+    > .received {
+      background: $color-green-100;
+      color: $color-green-800;
     }
   }
 
@@ -258,7 +272,7 @@ const transactionType = ref('payment-link');
 
   > .inner {
     > .name {
-      font-weight: 500;
+      font-weight: 400;
       font-size: 16px;
       line-height: 21px;
       display: flex;
@@ -271,6 +285,7 @@ const transactionType = ref('payment-link');
       font-weight: 500;
       font-size: 16px;
       line-height: 21px;
+      word-break: break-all;
       letter-spacing: -0.0031em;
     }
   }

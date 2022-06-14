@@ -1,6 +1,8 @@
 import { PushNotifications } from '@capacitor/push-notifications';
-import { Storage } from '@capacitor/storage';
 import { defineStore } from 'pinia';
+
+import { get, remove, set } from '@/helpers/storage';
+import { getPushNotificationsPermission } from '@/helpers/identification';
 
 import { EStorageKeys } from '@/types/storage';
 
@@ -17,6 +19,10 @@ const registerNotification = async () => {
     permStatus = await PushNotifications.requestPermissions();
   }
 
+  if (permStatus.receive === 'denied') {
+    await getPushNotificationsPermission();
+  }
+
   if (permStatus.receive !== 'granted') {
     throw new Error('User denied permissions!');
   }
@@ -24,24 +30,24 @@ const registerNotification = async () => {
   await PushNotifications.register();
 };
 
-const getStoredOption = async (key: EStorageKeys) => {
-  const { value } = await Storage.get({
-    key,
-  });
-  return value || null;
-};
-
 async function setOptions(value: string, key: EStorageKeys) {
-  if (value && key === EStorageKeys.notifications) {
-    registerNotification();
+  if (!value) {
+    await remove(key);
+
+    return;
   }
-  await Storage.set({
+
+  if (value && key === EStorageKeys.notifications) {
+    await registerNotification();
+  }
+
+  await set({
     key,
     value,
   });
 }
 
-// === 2fa Store ===
+// === Options Store ===
 
 export const useAppOptionsStore = defineStore('appOptions', {
   state: (): IappOptionsState => ({
@@ -63,12 +69,16 @@ export const useAppOptionsStore = defineStore('appOptions', {
   actions: {
     setOptions,
     async init() {
-      const notifications = await getStoredOption(EStorageKeys.notifications);
-      const faceid = await getStoredOption(EStorageKeys.faceid);
-      const touchid = await getStoredOption(EStorageKeys.touchid);
+      const notifications = (await get(EStorageKeys.notifications)) || null;
+      const faceid = (await get(EStorageKeys.faceid)) || null;
+      const touchid = (await get(EStorageKeys.touchid)) || null;
       this.notifictions = notifications === null ? null : !!notifications;
       this.faceid = faceid === null ? null : !!faceid;
       this.touchid = touchid === null ? null : !!touchid;
+    },
+
+    async checkPassCode(): Promise<boolean> {
+      return (await get(EStorageKeys.passcode)) === 'true';
     },
   },
 });

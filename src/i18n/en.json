@@ -2,7 +2,7 @@
   "common": {
     "logInCta": "Log in",
     "signUpCta": "Sign up",
-    "numberLabel": "Number",
+    "numberLabel": "Mobile number",
     "continueCta": "Continue",
     "retryCta": "To retry",
     "okCta": "Got it",
@@ -28,14 +28,21 @@
     "to": "To",
     "from": "From",
     "daysAgo": "days ago",
-    "explorer": "Open in Explorer"
+    "explorer": "Open in Explorer",
+    "copySuccess": "Success",
+    "paymentoptions": "Payment Options",
+    "confirmChanging": "Confirm changing",
+    "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "on": "On",
+    "off": "Off",
+    "2fainput": "2FA verification code"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
   },
   "bottomNav": {
     "home": "Home",
-    "account": "Account",
+    "account": "Accounts",
     "send": "Send",
     "recipients": "Recipients",
     "invite": "Invite"
@@ -44,8 +51,11 @@
     "login": {
       "step1Title": "Log in to Liber",
       "step1Description": "Enter your registered mobile number to log in",
+      "step1DescriptionValuable": "We will send verification code to this number.",
       "step1Label": "Number",
       "step1LostAccess": "Lost access to my number",
+      "step1AccountExists": "Don’t have an account?",
+      "step1AccountExistsLink": "Sign up",
       "step2Description": "To sign up, enter the security code we've sent to",
       "step2ResendTitle": "Resend code in",
       "step2ResendCta": "Resend",
@@ -68,28 +78,31 @@
       "step2VerificationDescription": "We just need to perform a coupe of security checks to recover your account.",
       "step2Notification": "Please check back on this device after 06.12.2021",
       "step3Description": "Get a verification code from the authenticator app",
+      "step3Title": "Enter verification code",
       "step4Title": "We need more data",
       "step4Description": "To keep your account safe, we need to make sure it’s you!",
       "step5Title": "When were you born?",
-      "step5BirthLabel": "Date of birth"
+      "step5BirthLabel": "Date of birth",
+      "step5Placeholder": "DD/MM/YYYY"
     },
     "signup": {
       "step1Title": "Enter phone number",
-      "step1Description1": "We will send verification code",
-      "step1Description2": "to this number.",
+      "step1Description": "We will send verification code to this number.",
       "step1ExistingAcc": "Already have an account?",
       "step3Title": "Sign up to Liber",
       "step3SendNews": "Keep me up to date with Liber news and offers",
       "step4Title": "Name",
-      "step4Description1": "As started on your official ID. We need",
-      "step4Description2": "your name to verify your identity.",
+      "step4Description": "As started on your official ID. We need your name to verify your identity.",
       "step5Title": "Date of birth",
       "ddmmyyyy": "dd.mm.yyyy",
+      "date": "Date",
       "welcomeAuth": {
         "title": "Welcome to",
         "transfer": "Transfer money around the world with the best fee",
         "login": "Log in",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "loginWithThisNumber": "Login with this number",
+        "goBack": "No, go back"
       }
     }
   },
@@ -116,26 +129,45 @@
     "twoFADescription": "Take these few steps to enable two-factor authentication and make your account more secure.",
     "copySuccess": "Copying to clipboard was successful!",
     "copyFailure": "Async: Could not copy text:",
-    "readFailure": "Async: Could not read text:"
+    "readFailure": "Async: Could not read text:",
+    "changeAppMessage": "Google Authenticator app protects your withdrawals and Liber account",
+    "changeAppCTA": "Change Authenticator",
+    "ChangeAppMessage": "Withdrawals and P2P transactions will be disabled for 24 hours after  changing Liber / Google Authenticator to ensure the safety of your accounts.",
+    "ChangeAppPopupTitle": "Are you sure you want to change Liber/Google Authentication?"
   },
   "status": {
     "title": "Status",
     "pending": "Pending",
-    "complete": "Complete"
+    "complete": "Complete",
+    "failed": "Reverted"
   },
   "transactions": {
+    "address": "Address",
     "id": "Transaction ID",
     "walletAddress": "Wallet Address",
     "deposit": "Deposit",
+    "deposited": "Deposited",
     "send": "Send",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
-    "transferFee": "Transfer Fee",
+    "transferFee": "Fee",
+    "convertTransaction": "Convert",
     "paymentTo": "Payment to",
+    "statement": "Statement",
+    "paymentLinkExpires": "Payment link will expire in 6 days",
+    "download": "Download",
     "reverted": "Reverted",
     "noReference": "Sent without reference",
     "downloadState": "Download Statement",
+    "rate": "Rate",
+    "bought": "Bought",
+    "cost": "Cost",
+    "transactionIdCopied": "Transaction ID is copied successfully",
+    "transactionIdCopyFail": "Failed when copy Transaction ID",
+    "boughtCoinInfo": "Bought {mainCoin} with {secondaryCoin}",
+    "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
+    "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "income": "Received",
       "outcome": "Sent",
@@ -143,22 +175,36 @@
       "deposit": "Deposit",
       "withdraw": "Withdraw",
       "convert": "Convert",
-      "send": "Send"
+      "send": "Send",
+      "buy": "Buy",
+      "sell": "Sell"
     },
     "status": {
       "pending": "Pending",
       "unconfirmed": "Unconfirmed",
-      "finished": "Finished",
-      "cancelled": "Cancelled"
+      "finished": "Completed",
+      "cancelled": "Cancelled",
+      "failed": "Reverted"
     },
     "carousel": {
       "deposit": "Deposit",
       "sendFunds": "Send Funds",
       "convert": "Convert",
       "withdraw": "Withdraw"
-    }
+    },
+    "convert": {
+      "title": "Convert Funds",
+      "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "preview": "Preview",
+      "convertNow": "Convert Now",
+      "updating": "Updating...",
+      "rateChanged": "Rate have been changed"    }
   },
   "ui": {
+    "friends": {
+      "liber": "Liber Friends",
+      "all": "All Contacts"
+    },
     "basecountryphoneinput": {
       "cancel": "Cancel"
     },
@@ -185,14 +231,51 @@
     }
   },
   "views": {
-    "aboutpage": {
-      "home": "Home",
-      "about": "About",
-      "thisIsAn": "This is an about page"
+    "withdraw": {
+      "withdraw": "Withdraw",
+      "address": "Address",
+      "paste": "paste",
+      "network": "Network",
+      "amount": "Amount",
+      "insufficient": "Insufficient amount",
+      "available": "Available",
+      "continue": "Continue",
+      "withdrawNow": "Withdraw Now",
+      "fee": "Fee",
+      "total": "Total",
+      "success": {
+        "title": "Your withdrawal request was sent",
+        "description": "We will notify you when your withdrawal request is completed."
+      },
+      "confirmation": {
+        "text": "Withdraw confirmation",
+        "title": "Do you know and trust this payee?",
+        "description": "If you’re unsure, don’t pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment",
+        "button": {
+          "yes": "Yes, continue",
+          "no": "No, go back",
+          "submit": "Submit"
+        }
+      }
     },
-    "homepage": {
-      "home": "Home",
-      "about": "About"
+    "sendfunds": {
+      "whopay": "Who To Pay"
+    },
+    "changePasscode": {
+      "aboutLiber": "Liber app protects your withdrawals and account"
+    },
+    "newcontact": {
+      "additionalphone": "Additional phone or email"
+    },
+    "requestcontacts": {
+      "title": "Find your friends",
+      "description": "Send and request money from your friends more easily, split bills and much more.",
+      "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
+      "contactsCTA": "Allow access to contacts"
+    },
+    "recepients": {
+      "recepients": "Recepients",
+      "add": "Add a new contact"
     },
     "depositecoin": {
       "depositewalletprint": {
@@ -231,7 +314,7 @@
         "newMessages": "You have new messages."
       },
       "kyc3step": {
-        "notNow": "Not now",
+        "notNow": "Not Now",
         "proofOfIdentity": "Proof of Identity",
         "yourDocumentPhoto": "Your document photo helps us prove your identity. It should match the information you have provided in the previous steps."
       },
@@ -245,10 +328,13 @@
         "placePhoneOnTopOfIDBack": "Place your phone directly on top of your ID front side and take a picture."
       },
       "kyc5step": {
+        "passport": "Passport",
         "proofOfIdentity": "Proof of Identity",
         "haveAFinal": "Have a final check if all data is clearly visible and that it matches the information you have entered in previous steps.",
         "scanAgain": "Scan Again",
-        "upload": "Upload"
+        "upload": "Upload",
+        "frontSide": "Front Side",
+        "backSide": "Back Side"
       },
       "kyc6step": {
         "proofOfResidence": "Proof of Residence",
@@ -266,14 +352,19 @@
     },
     "passcodeEnter": {
       "createPasscode": "Create passcode",
-      "confirmPasscode": "Confirm passcode"
+      "confirmPasscode": "Confirm passcode",
+      "changePasscode": "Change passcode",
+      "currentPasscode": "Current passcode",
+      "newPasscode": "Enter new passcode"
     },
     "dashboard": {
       "home": {
         "idVerification": "ID Verification",
+        "notVerified": "Not Verified",
         "idVerified": "ID Verified",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",
+        "accounts": "Accounts",
         "getYourCryptoAsset": "Get your first crypto asset",
         "noAssets": "Your account has no assets.",
         "depositFirstCoins": "Deposit your first crypto coins!",
@@ -336,6 +427,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails", 
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -343,16 +435,25 @@
         "privacy": "Privacy",
         "2FAGoogle": "2FA: Google Authenticator",
         "devices": "Devices",
-        "signIn": "Sign in with Touch ID",
+        "signIn": "Sign in with Biometrics",
         "label": "Label",
         "system": "System",
         "close": "Close account",
         "logOut": "Log out",
-        "version": "Version",
-        "copyright": "Liber Ltd",
+        "version": "Version 0.1.0",
+        "copyright": "Liber Ltd.",
         "preventClosingAccount": "Hey, wait! Where are you going?",
         "freeToKeep": "It's free to keep a account, and opening a new one could take some time if you cancel",
-        "keepOpen": "Keep account open"
+        "keepOpen": "Keep account open",
+        "logoutConfirmationTitle": "Log out",
+        "logoutConfirmation": "Are you sure to logging out from this account?",
+        "logoutAccept": "Yes",
+        "logoutDecline": "No",
+        "confirmNativeVerificationTitle": "Disable",
+        "confirmNativeVerification": "Are you sure to disable",
+        "appearance": "Appearance",
+        "language": "Language",
+        "selectLanguage": "Select Language"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -395,7 +496,32 @@
         "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      },
+      "profilePhonesAndEmails":{
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
+        "yourIdentityIsNotVerified": "Your identity is not verified",
+        "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
+        "verifyIdentity": "Verify Identity",
+        "acceptedContact": "Accepted Contacts",
+        "verificationInProgress": "ID Verification in progress",
+        "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
+      },
+      "profileAddNewContactData":{
+        "title":"Add a new contact",
+        "confirmButton":"Confirm Contact"
       }
+    },
+    "pEmailSent":{
+      "title":"Confirm you email address",
+      "description":"We sent confirmation email to:",
+      "footerDescription": "Check your email and click on the confirmation link to continue.",
+      "goToInbox": "Go to Inbox",
+      "resend": "Resend email"
+    },
+    "pPhoneVerified":{
+      "title":"Your phone number has been successfully verified",
+      "description":"Now you can get money by the following phone number:",
+      "done": "Done"
     },
     "survey": {
       "question": "Main reason for using Liber",
@@ -409,7 +535,7 @@
         "selectCoin": "Select a coin",
         "searchCoin": "Search a coin",
         "suggested": "Suggested",
-        "allCoins": "All Coins"
+        "allCoins": "All Available Coins"
       },
       "selectNetwork": {
         "question": "Main reason for using Liber",
@@ -437,11 +563,32 @@
         "copyFailure": "Async: Could not copy text:",
         "updateCoinNetwork": "update coin network",
         "deviceIsNotSupportedToShare": "Device is not support native share"
+      },
+      "convert": {
+        "convertExactly": "You convert exactly",
+        "fee": "Convertion Fee",
+        "amountCovert": "Amount we’ll covert",
+        "guaranteedRate": "Guaranteed Rate",
+        "youWillGet": "You will get",
+        "refresh": "Refresh",
+        "selectCoin": "Select the coin you want to get"
       }
     }
   },
   "errors": {
     "requestTimeout": "Request timeout",
-    "serviceUnavailable": "Service unavailable"
+    "serviceUnavailable": "Service unavailable",
+    "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
+    "gotIt": "Got it",
+    "details": "Details",
+    "login2Step": "Invalid secret code",
+    "numberAlreadyInUse": "Number already in use",
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number"
+  },
+  "biometricConfirmation": {
+    "title": "Change settings",
+    "descriptionFirstPart": "To enable",
+    "descriptionSecondPart": "please, toggle on Application Settings",
+    "descriptionThirdPart": "option"
   }
 }

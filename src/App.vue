@@ -12,26 +12,56 @@
     </template>
   </p-toast>
   <app-layout-switcher>
-    <router-view v-slot="{ Component, route }" class="router-view">
-      <transition name="dissolve">
-        <component :is="Component" :key="route.path" />
-      </transition>
+    <multi-factor-authorization v-if="showMfa" />
+    <router-view v-else v-slot="{ Component, route }" class="router-view">
+      <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
+      <!-- <transition> -->
+      <component :is="Component" :key="route.path" />
+      <!-- </transition> -->
     </router-view>
   </app-layout-switcher>
+
+  <errors-toast />
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
+
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 //TODO: use profile store instead
-// import { useAccountStore } from './stores/account';
-
+import { useAccountStore } from './stores/account';
+import { useMfaStore } from '@/stores/mfa';
+import { useErrorsStore } from '@/stores/errors';
 import SwipeBack from '@/plugins/swipe-capacitor';
+import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
+import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 
-SwipeBack.enable();
+const mfaStore = useMfaStore();
 
-// const store = useAccountStore();
-// store.init();
+const store = useAccountStore();
+store.init();
+
+const errorsStore = useErrorsStore();
+
+SwipeBack.enable()
+  .then()
+  .catch((err) => {
+    const { code } = err;
+    if (code !== 'UNIMPLEMENTED') {
+      //TODO:disable display in toast (dev dependency)
+      errorsStore.handle({
+        err,
+        name: 'App',
+        ctx: 'SwipeBack',
+        description: 'Capacitor SwipeBack plugin error',
+      });
+    }
+  });
+
+const showMfa = computed(() => {
+  return mfaStore.enabled;
+});
 </script>
 
 <style lang="scss">

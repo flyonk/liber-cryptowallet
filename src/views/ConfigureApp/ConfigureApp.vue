@@ -1,88 +1,118 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation @click:left-icon="$router.push({ name: Route.InstallApp })">
-      {{ $t('configureApp.configTitle') }}
-    </top-navigation>
+  <t-top-navigation
+    with-fixed-footer
+    @click:left-icon="$router.push({ name: Route.InstallApp })"
+  >
+    <template #title> {{ $t('configureApp.configTitle') }}</template>
+    <template #subtitle>{{ $t('configureApp.scanQRMessage') }}</template>
+    <template #content>
+      <div>
+        <canvas ref="canvas" class="qr-code-canvas" />
+      </div>
 
-    <p class="text-default" style="margin-bottom: 0">
-      {{ $t('configureApp.scanQRMessage') }}
-    </p>
+      <label class="default-input-wrapper" @click="copyToClipboard">
+        <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
+        <input
+          v-model="qrCodeValue"
+          class="default-input"
+          type="text"
+          readonly
+        />
+        <img
+          class="default-input-icon"
+          src="@/assets/images/copy-to-clipboard.svg"
+          alt="copy"
+          @click.stop
+        />
+      </label>
 
-    <div>
-      <canvas ref="canvas" class="qr-code-canvas" />
-    </div>
-
-    <label class="default-input-wrapper">
-      <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
-      <input v-model="qrCodeValue" class="default-input" type="text" readonly />
-      <img
-        class="default-input-icon"
-        src="@/assets/images/copy-to-clipboard.svg"
-        alt="copy"
-        @click="copyToClipboard"
-      />
-    </label>
-
-    <p class="text-default">
-      {{ $t('configureApp.backupCodeMessage') }}
-    </p>
-    <p class="text-default">
-      {{ $t('configureApp.verifyIdentityMessage') }}
-    </p>
-  </div>
-  <div style="padding: 15px; padding-bottom: 50px">
-    <base-button
-      block
-      @click="$router.push({ name: Route.ConfigureAppVerify })"
+      <p class="text-default">
+        {{ $t('configureApp.backupCodeMessage') }}
+      </p>
+      <p class="text-default">
+        {{ $t('configureApp.verifyIdentityMessage') }}
+      </p>
+    </template>
+    <template #fixed-footer
+      ><base-button
+        block
+        @click="
+          $router.push({ name: Route.ConfigureAppVerify, hash: nextRouteHash })
+        "
+      >
+        {{ $t('common.continueCta') }}
+      </base-button></template
     >
-      {{ $t('common.continueCta') }}
-    </base-button>
-  </div>
+  </t-top-navigation>
 </template>
 
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
-import { TopNavigation, BaseButton } from '@/components/ui';
-import { onMounted, ref } from 'vue';
-import QrCodeWithLogo from 'qrcode-with-logos';
-import { useToast } from 'primevue/usetoast';
-import { use2faStore } from '@/stores/2fa';
+import { onMounted, ref, computed } from 'vue';
+import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
+import { useToast } from 'primevue/usetoast';
+import { useRoute } from 'vue-router';
+
+import QrCodeWithLogo from 'qrcode-with-logos';
+import { use2faStore } from '@/stores/2fa';
+
+import { TTopNavigation, BaseButton } from '@/components/ui';
+
 import { Route } from '@/router/types';
+import { useErrorsStore } from '@/stores/errors';
 
 const { tm } = useI18n();
 
 const store = use2faStore();
+const errorsStore = useErrorsStore();
 const toast = useToast();
+const route = useRoute();
 
-store.generateSecret();
-const { secret, uri } = store;
+const nextRouteHash = computed(() => {
+  return route.hash;
+});
 
 const canvas = ref<HTMLCanvasElement | undefined>();
-let qrCodeValue = ref<string>(secret);
+let qrCodeValue = ref<string>('');
 
-onMounted(() => {
+onMounted(async () => {
+  const { secret, url } = await store.generateSecret();
+
+  qrCodeValue.value = secret;
+
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
-    content: uri,
+    content: url,
     width: 230,
   });
 
   qrcode.toCanvas();
 });
 
-const copyToClipboard = () => {
-  navigator.clipboard.writeText(qrCodeValue.value).then(
-    function () {
-      toast.add({
-        summary: tm('common.copySuccess'),
-        life: 3000,
-        closable: false,
-      });
-    },
-    function (err) {
-      console.error(`${tm('common.copyFailure')} `, err);
-    }
-  );
+const copyToClipboard = async () => {
+  try {
+    await Clipboard.write({
+      string: qrCodeValue.value,
+    });
+    toast.add({
+      summary: tm('common.copySuccess') as string,
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    errorsStore.handle({
+      err,
+      name: 'ConfigureApp',
+      ctx: 'copyToClipboard',
+      description: tm('common.copyFailure') as string,
+    });
+  }
 };
 </script>
 

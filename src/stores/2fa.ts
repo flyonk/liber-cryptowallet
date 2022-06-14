@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { generateSecret, generateToken, verifyToken } from 'node-2fa';
 import { Storage } from '@capacitor/storage';
+import profileService from '@/services/profileService';
 
 import { checkExpiration } from '@/helpers/2fa';
 
@@ -8,21 +8,7 @@ import { EStorageKeys } from '@/types/storage';
 
 interface I2faState {
   secret: string;
-  uri: string;
-}
-
-const getSecret = async () => {
-  const { value } = await Storage.get({
-    key: EStorageKeys.twofa,
-  });
-  return value || '';
-};
-
-async function setSecret(secret: string) {
-  await Storage.set({
-    key: EStorageKeys.twofa,
-    value: secret,
-  });
+  url: string;
 }
 
 // === 2fa Store ===
@@ -30,50 +16,58 @@ async function setSecret(secret: string) {
 export const use2faStore = defineStore('2fa', {
   state: (): I2faState => ({
     secret: '',
-    uri: '',
+    url: '',
   }),
 
   getters: {
     getSecret: (state) => state.secret,
+    getState: (state) => state,
   },
 
   actions: {
-    generateToken() {
-      generateToken(this.secret);
-    },
-
-    verify(token: string) {
-      return verifyToken(this.secret, token);
-    },
-
-    generateSecret() {
-      const { secret, uri } = generateSecret({
-        name: 'Liber App',
-        account: 'Personal',
+    async confirmVerification(code: string) {
+      return await profileService.confirmVerificationApp({
+        secret: this.secret,
+        code,
       });
-
-      this.secret = secret;
-      this.uri = uri;
-
-      setSecret(secret);
     },
 
-    async setTwofaDate(): Promise<void> {
+    async verify(code: string) {
+      const result = await profileService.verificationByApp({ code });
+      return result;
+    },
+
+    async disable(code = '') {
+      const result = await profileService.disableVerificationApp({ code });
+      return result;
+    },
+
+    async generateSecret() {
+      const { secret, url } = await profileService.enableVerificationByApp();
+      this.secret = secret;
+      this.url = url;
+
+      return {
+        secret,
+        url,
+      };
+    },
+
+    async set2FADate(): Promise<void> {
       await Storage.set({
         key: EStorageKeys.twofaDate,
         value: String(Date.now()),
       });
     },
 
-    async checkTwofaExpire(): Promise<boolean> {
+    async check2FAExpire(): Promise<boolean> {
       const timestamp = Number(
         (await Storage.get({ key: EStorageKeys.twofaDate })).value
       );
-      return checkExpiration(timestamp, 14);
-    },
-
-    async init() {
-      this.secret = await getSecret();
+      /*
+       * Return true if expired
+       */
+      return checkExpiration(timestamp, 3);
     },
   },
 });

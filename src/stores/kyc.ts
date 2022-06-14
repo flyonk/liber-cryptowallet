@@ -67,23 +67,28 @@ export const useKYCStore = defineStore('kyc', {
   },
 
   actions: {
-    changeData(key: keyof IKYCFormData, value: string) {
+    changeData(key: keyof IKYCFormData, value: string): void {
       this.data[key] = value;
     },
 
-    setProofType(type: EKYCProofType) {
+    setProofType(type: EKYCProofType): void {
       this.proof_type = type;
     },
 
-    setPercentage(percentage: number) {
+    setPercentage(percentage: number): void {
       this.completed_percentage = percentage;
     },
 
-    setImage(image: string | null, side: EDocumentSide) {
+    setImage(image: string | null, side: EDocumentSide): void {
       this.image[side] = image;
     },
 
-    setData(data: Partial<IKYCFormData>) {
+    cleanupImages(): void {
+      this.image[EDocumentSide.front] = null;
+      this.image[EDocumentSide.back] = null;
+    },
+
+    setData(data: Partial<IKYCFormData>): void {
       Object.assign(this.data, data);
     },
   },

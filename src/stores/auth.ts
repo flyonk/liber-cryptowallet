@@ -1,12 +1,18 @@
-import authService from '@/services/authService';
-import { EStepDirection } from '@/types/base-component';
 import { Storage } from '@capacitor/storage';
+import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
+import jwt_decode, { JwtPayload } from 'jwt-decode';
+import { defineStore } from 'pinia';
+import { DateTime } from 'luxon';
+
+import { useRecepientsStore } from '@/stores/recipients';
+
+import authService from '@/services/authService';
+import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
-import { defineStore } from 'pinia';
-import { clearAll, get, set } from '@/helpers/storage';
-
-import { EStorageKeys } from '@/types/storage';
+import { EStorageKeys, SStorageKeys } from '@/types/storage';
+import { EStepDirection } from '@/types/base-component';
+import { useErrorsStore } from '@/stores/errors';
 
 // === Auth Types ===
 
@@ -37,23 +43,24 @@ export interface IAuthState {
 }
 
 // === Auth Store ===
-
+// TODO: Restore from Storage saved phone number
+// TODO: make a unique object from registration and login
 export const useAuthStore = defineStore('auth', {
   state: (): IAuthState => ({
     steps: {
       registration: 0,
       login: 0,
       recover: 0,
-      kyc: 0,
+      kyc: 2,
     },
     registration: {
       dialCode: '+7',
-      phone: '9082359632',
+      phone: '',
       email: '',
     },
     login: {
-      dialCode: '+7',
-      phone: '9082359632',
+      dialCode: '',
+      phone: '',
     },
     token: {
       token: null,
@@ -64,6 +71,8 @@ export const useAuthStore = defineStore('auth', {
   getters: {
     getState: (state) => state,
     getLoginPhone: (state) => state.login.dialCode + state.login.phone,
+    getLoginDialCode: (state) => state.login.dialCode,
+    getLoginSubscriberPhone: (state) => state.login.phone,
     getRegistrationPhone: (state) =>
       state.registration.dialCode + state.registration.phone,
     getToken: ({ token }) => token,
@@ -71,6 +80,24 @@ export const useAuthStore = defineStore('auth', {
   },
 
   actions: {
+    async resetDependantStores() {
+      const store = useRecepientsStore();
+
+      store.$reset();
+    },
+    async recoverTokenData(): Promise<void> {
+      const { value: token } = await Storage.get({
+        key: EStorageKeys.token,
+      });
+      const { value: refreshToken } = await Storage.get({
+        key: EStorageKeys.refreshToken,
+      });
+
+      if (token && refreshToken) {
+        this.token = { ...this.token, token, refreshToken };
+      }
+    },
+
     setStep(step: number | EStepDirection, scope: keyof IAuthSteps) {
       if (step === EStepDirection.next) {
         this.steps[scope] = this.steps[scope] + 1;
@@ -81,25 +108,54 @@ export const useAuthStore = defineStore('auth', {
       }
     },
 
-    async signIn(_data: { phone: string }): Promise<void> {
+    async signIn(_data: {
+      phone: string;
+      flow: 'login' | 'signup';
+    }): Promise<void> {
       await authService.signIn(_data);
-      this.savePhone();
+      await this.resetDependantStores();
+      this.savePhone(_data.flow);
     },
 
-    async signInProceed(_data: { phone: string; otp: string }): Promise<void> {
+    async signInProceed(_data: {
+      phone: string;
+      otp: string;
+      code_2fa: string;
+    }): Promise<boolean> {
       const data = await authService.signInProceed(_data);
 
-      this.setToken(data);
+      await this.setToken(data);
+      await this.resetDependantStores();
+      return true;
     },
 
-    async refresh(_data: { refresh_token: string }): Promise<void> {
-      const data = await authService.refresh(_data);
+    async refresh(): Promise<void> {
+      try {
+        const refreshToken = await get(EStorageKeys.refreshToken);
+        const data = await authService.refresh({
+          refresh_token: refreshToken || '',
+        });
+        await this.setToken(data);
+      } catch (err) {
+        const errorsStore = useErrorsStore();
 
-      this.setToken(data);
+        errorsStore.handle({
+          err,
+          name: 'auth.ts',
+          ctx: 'refresh',
+          description: "Error can't refresh token",
+        });
+      }
     },
 
     async setToken(data = null as ISuccessSignIn | null): Promise<void> {
       if (data) {
+        const decodedToken = jwt_decode<JwtPayload>(data.token || '') || null;
+        if (decodedToken?.exp)
+          await Storage.set({
+            key: EStorageKeys.tokenExpire,
+            value: String(decodedToken.exp),
+          });
         await Promise.all([
           Storage.set({
             key: EStorageKeys.token,
@@ -112,47 +168,62 @@ export const useAuthStore = defineStore('auth', {
         ]);
 
         this.token = { ...this.token, ...data };
-      } else {
-        const { value: token } = await Storage.get({
-          key: EStorageKeys.token,
-        });
-        const { value: refreshToken } = await Storage.get({
-          key: EStorageKeys.refreshToken,
-        });
-
-        this.token = { ...this.token, token, refreshToken };
       }
+    },
+
+    async verifyToken(): Promise<boolean> {
+      const expireTokenDate = await get(EStorageKeys.tokenExpire);
+      const dateTimeObj = DateTime.fromSeconds(Number(expireTokenDate));
+      return dateTimeObj.valueOf() < Date.now();
     },
 
     async checkAuthorizedUser(): Promise<boolean> {
       return !!(await Storage.get({ key: EStorageKeys.token })).value;
     },
 
-    async savePhone(): Promise<void> {
+    async savePhone(type: 'login' | 'signup'): Promise<void> {
+      const value =
+        type === 'login'
+          ? JSON.stringify(this.login)
+          : JSON.stringify(this.registration);
       await Storage.set({
         key: EStorageKeys.phone,
-        value: JSON.stringify(this.login),
+        value,
       });
+    },
+
+    async recoverPhoneFromStorage(): Promise<Record<string, string>> {
+      const json = await get(EStorageKeys.phone);
+      return json ? JSON.parse(json) : { dialCode: '', phone: '' };
     },
 
     async getDevices() {
       return await authService.devices();
     },
 
+    //TODO: rename method ex: getPhoneFromStorage
     async getFromStorage() {
       const [dialCode, phone] = await Promise.all([
         get('dialCode'),
         get('phone'),
       ]);
 
-      if (phone) {
+      if (dialCode === 'null' || dialCode === null) {
+        this.login.dialCode = '+7';
+      } else {
+        this.login.dialCode = dialCode;
+      }
+
+      if (phone === 'null' || phone === null) {
+        this.login.phone = '';
+      } else {
         this.login.phone = phone;
       }
 
-      this.login.dialCode = dialCode || '+7';
+      // this.login.dialCode = dialCode || '+7';
     },
 
-    async setToStorage() {
+    async setPhoneToStorage() {
       await Promise.all([
         set({
           key: 'dialCode',
@@ -173,14 +244,21 @@ export const useAuthStore = defineStore('auth', {
       this.login.dialCode = dialCode;
     },
 
-    async logout() {
-      const [dialCode, phone, access_token] = await Promise.all([
+    async logout(userId: string) {
+      const [dialCode, phone, touchId, faceId] = await Promise.all([
         get('dialCode'),
         get('phone'),
-        get('access_token'),
+        get(EStorageKeys.touchid),
+        get(EStorageKeys.faceid),
       ]);
 
-      authService.logout({ access_token: access_token as string });
+      SecureStoragePlugin.remove({ key: SStorageKeys.user });
+
+      if (this.token.token) {
+        authService.logout({ user_id: userId });
+      }
+
+      this.token = { token: null, refreshToken: null };
 
       await clearAll();
 
@@ -194,6 +272,25 @@ export const useAuthStore = defineStore('auth', {
           value: phone as string,
         }),
       ]);
+      if (touchId)
+        await set({
+          key: EStorageKeys.touchid,
+          value: touchId,
+        });
+      if (faceId)
+        await set({
+          key: EStorageKeys.faceid,
+          value: faceId,
+        });
+    },
+
+    async clearTokenData(): Promise<void> {
+      await Promise.all([
+        remove(EStorageKeys.token),
+        remove(EStorageKeys.refreshToken),
+        remove(EStorageKeys.tokenExpire),
+      ]);
+      this.$reset();
     },
   },
 });

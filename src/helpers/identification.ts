@@ -1,12 +1,85 @@
 import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
-import SentryUtil from '@/helpers/sentryUtil';
 
-export function verifyIdentity() {
-  return NativeBiometric.verifyIdentity();
+import { useErrorsStore } from '@/stores/errors';
+import { showConfirm } from '@/helpers/nativeDialog';
+import { openIosAppSettings } from '@/helpers/settings';
+import { IOSSettings } from 'capacitor-native-settings';
+
+/**
+ * Function tries to get permission from native settings
+ *
+ * @returns {void}
+ */
+async function _getPermission() {
+  const identifier = await getSupportedOptions();
+
+  const textsForIdentifier = {
+    'face-id': 'Face ID',
+    'touch-id': 'Touch ID',
+  };
+
+  const identifierText =
+    textsForIdentifier[identifier as 'face-id' | 'touch-id'] ||
+    textsForIdentifier['face-id'];
+
+  const approve = await showConfirm({
+    title: 'Change settings',
+    message: `To enable ${identifierText} please toggle on Application Settings ${identifierText} option`,
+    okButtonTitle: 'OK',
+    cancelButtonTitle: 'Cancel',
+  });
+
+  if (approve) {
+    //TODO after returning to app click face id toggle again
+    await openIosAppSettings();
+  }
 }
 
 /**
- * Fuction to check support faceId and TouchId
+ * Function tries to get permission for push notifications from native settings
+ *
+ * @returns {void}
+ */
+export async function getPushNotificationsPermission() {
+  const identifierText = 'push notifications';
+
+  const approve = await showConfirm({
+    title: 'Change settings',
+    message: `To enable ${identifierText} please toggle on Application Settings ${identifierText} option`,
+    okButtonTitle: 'OK',
+    cancelButtonTitle: 'Cancel',
+  });
+
+  if (approve) {
+    //TODO after returning to app click face id toggle again
+    await openIosAppSettings(IOSSettings.Notifications);
+  }
+}
+
+/**
+ * Function tries to enable biometrical identification
+ *
+ * @returns {boolean}
+ */
+export async function verifyIdentity(): Promise<boolean | undefined> {
+  try {
+    await NativeBiometric.verifyIdentity();
+
+    return true;
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (error: any) {
+    if (
+      error.errorMessage &&
+      error.errorMessage === 'Authentication not available'
+    ) {
+      await _getPermission();
+      return false;
+    }
+  }
+}
+
+/**
+ * Function to check support faceId and TouchId
  *
  * @returns {string} allowed values: ['touch-id', 'face-id', '']
  */
@@ -21,13 +94,16 @@ export async function getSupportedOptions() {
       return 'touch-id';
     }
     return '';
-  } catch (error) {
-    SentryUtil.capture(
-      error,
-      'identification',
-      'getSupportedOptions',
-      'error to define native biometrics'
-    );
+  } catch (err) {
+    const errorsStore = useErrorsStore();
+
+    errorsStore.handle({
+      err,
+      name: 'identification.ts',
+      ctx: 'getSupportedOptions',
+      description: 'Error to define native biometrics.',
+    });
+
     return '';
   }
 }

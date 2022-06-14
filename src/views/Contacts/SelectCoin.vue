@@ -7,36 +7,49 @@
         {{ $t('views.deposit.selectCoin.selectCoin') }}
       </h1>
 
-      <label for="searchCoin" class="input-label">
-        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
+      <label class="input-label" for="searchCoin">
+        <i class="icon-search" />
         <input
-          class="search"
-          type="text"
-          name="searchCoin"
           :placeholder="$t('views.deposit.selectCoin.searchCoin')"
+          class="search"
+          name="searchCoin"
+          type="text"
         />
       </label>
     </div>
-    <DepositSelectCoin @select-coin="selectCoin" />
+    <SelectCoin :coins="coins" @select-coin="selectCoin" />
   </div>
 </template>
 
-<script setup lang="ts">
-import { useRouter, useRoute } from 'vue-router';
-import DepositSelectCoin from '@/components/ui/molecules/deposit/DepositSelectCoin.vue';
+<script lang="ts" setup>
+import { useRoute, useRouter } from 'vue-router';
+import { computed, onBeforeMount } from 'vue';
+
+import { useFundsStore } from '@/stores/funds';
+import { useCoinsStore } from '@/stores/coins';
+
+import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
-import { useConvertFundsStore } from '@/stores/convertFunds';
+import { ICoin } from '@/models/funds/coin';
 
 const router = useRouter();
 const route = useRoute();
-const fundsStore = useConvertFundsStore();
+const fundsStore = useFundsStore();
+const coinsStore = useCoinsStore();
 
-const selectCoin = (item: any) => {
-  if (route.params.type === 'from') {
-    fundsStore.setCryptoFrom(item.shortName, item.icon);
-  } else {
-    fundsStore.setCryptoTo(item.shortName, item.icon);
-  }
+onBeforeMount(async () => {
+  await coinsStore.fetchCoins();
+});
+
+const coins = computed(() => coinsStore.getCoins);
+
+const selectCoin = (item: ICoin) => {
+  const coin = {
+    name: item.name,
+    code: item.code,
+    img: item.imageUrl as string,
+  };
+  fundsStore.setCrypto(coin, route.params.type);
   router.go(-1);
 };
 </script>
@@ -81,9 +94,10 @@ const selectCoin = (item: any) => {
     outline: none;
   }
 
-  > .icon {
+  > .icon-search {
+    font-size: 20px;
     position: absolute;
-    top: 10px;
+    top: 12px;
     left: 10px;
     z-index: 1;
   }

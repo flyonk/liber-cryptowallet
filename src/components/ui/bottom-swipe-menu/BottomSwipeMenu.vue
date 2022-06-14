@@ -1,4 +1,9 @@
 <template>
+  <div
+    v-if="isMenuOpen && showOverlay"
+    class="overlay"
+    @click="closeMenu"
+  ></div>
   <div v-if="isMenuOpen" ref="menu" class="bottom-menu">
     <div class="close" @click="closeMenu" @touchmove="startMove"></div>
     <component
@@ -10,7 +15,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, toRefs, computed, onUpdated } from 'vue';
+import { computed, onUpdated, ref, toRefs } from 'vue';
 
 import CommunicationMenu from '@/components/ui/bottom-swipe-menu/inner-views/CommunicationMenu.vue';
 import DashboardHomeMenu from '@/components/ui/bottom-swipe-menu/inner-views/DashboardHomeMenu.vue';
@@ -29,6 +34,10 @@ const props = defineProps({
   isMenuOpen: {
     type: Boolean,
     required: true,
+  },
+  showOverlay: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -72,7 +81,7 @@ onUpdated(() => {
       break;
     case 'communication':
       if (!menu.value) return;
-      menu.value.style.minHeight = `70%`;
+      menu.value.style.minHeight = `90%`;
       menu.value.style.maxHeight = `90%`;
       break;
     case 'surprise':
@@ -82,8 +91,8 @@ onUpdated(() => {
       break;
     case 'send':
       if (!menu.value) return;
-      menu.value.style.minHeight = `40vh`;
-      menu.value.style.maxHeight = `60vh`;
+      menu.value.style.minHeight = `45vh`;
+      menu.value.style.maxHeight = `80vh`;
       break;
     case 'add_contact':
       if (!menu.value) return;
@@ -95,6 +104,15 @@ onUpdated(() => {
 </script>
 
 <style lang="scss" scoped>
+.overlay {
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: rgba($color-brand-primary, 80%);
+}
+
 .bottom-menu {
   position: fixed;
   bottom: 0;
@@ -102,6 +120,8 @@ onUpdated(() => {
   width: 100%;
   background: $color-white;
   border-radius: 10% 10% 0 0;
+
+  /* offset-x | offset-y | blur-radius | spread-radius | color */
   max-height: 90%;
   min-height: 10%;
   height: 30%;

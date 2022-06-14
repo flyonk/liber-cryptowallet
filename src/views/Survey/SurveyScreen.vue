@@ -1,50 +1,65 @@
 <template>
-  <div class="page-wrapper">
-    <top-navigation left-icon-name="ci-close_big" @click:left-icon="closePage">
-      {{ title }}
-    </top-navigation>
-
-    <p class="text-default">
-      {{ description }}
-    </p>
-
-    <div v-if="dictionary[activeQuestion]">
-      <div>
-        <template
-          v-for="answer in dictionary[activeQuestion].answers"
-          :key="answer.id"
-        >
-          <label :class="{ '-selected': answer.isSelected }" class="radio-btn">
-            <input
-              :id="answer.id"
-              :value="answer.id"
-              name="surveyAnswer"
-              style="display: none"
-              type="radio"
-              @change="selectAnswer(answer.id)"
-            />
-            <span :class="{ '-selected': answer.isSelected }" class="title">{{
-              answer.body
-            }}</span>
-            <img
-              v-if="answer.isSelected"
-              alt="right arrow"
-              src="@/assets/images/arrow-white.svg"
-            />
-            <img v-else alt="right arrow" src="@/assets/images/arrow.svg" />
-          </label>
-        </template>
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="closePage"
+  >
+    <template #title> {{ title }}</template>
+    <template #subtitle> {{ description }}</template>
+    <template #content>
+      <div class="page-wrapper">
+        <div v-if="dictionary[activeQuestion]">
+          <div>
+            <template
+              v-for="answer in dictionary[activeQuestion].answers"
+              :key="answer.id"
+            >
+              <label
+                :class="{ '-selected': answer.isSelected }"
+                class="radio-btn"
+              >
+                <input
+                  :id="answer.id"
+                  :value="answer.id"
+                  name="surveyAnswer"
+                  style="display: none"
+                  type="radio"
+                  @change="selectAnswer(answer.id)"
+                />
+                <span
+                  :class="{ '-selected': answer.isSelected }"
+                  class="title"
+                  >{{ answer.body }}</span
+                >
+                <img
+                  v-if="answer.isSelected"
+                  alt="right arrow"
+                  src="@/assets/images/arrow-white.svg"
+                />
+                <img
+                  v-else
+                  alt="right arrow"
+                  :src="`${STATIC_BASE_URL}/static/menu/arrow.svg`"
+                />
+              </label>
+            </template>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
+import { useProfileStore } from '@/stores/profile';
+import { useAuthStore } from '@/stores/auth';
+
+const pStore = useProfileStore();
+const authStore = useAuthStore();
 
 const { tm } = useI18n();
 
@@ -127,10 +142,18 @@ const selectAnswer = (id: number | string) => {
   if (maxValue <= activeQuestion.value + 1) {
     markAnswerAsSelected(id);
     const userAnswers = getSelectedAnswers();
-    saveAnswers(userAnswers).then(() => {
-      router.push({
-        name: Route.AuthPasscode,
-      });
+    saveAnswers(userAnswers).then(async () => {
+      if (!pStore.user.id) await pStore.init();
+      if (pStore.user.is2FAConfigured) {
+        authStore.setStep(2, 'login');
+        router.push({
+          name: Route.Login,
+        });
+      } else {
+        router.push({
+          name: Route.TwoFAApp,
+        });
+      }
     });
     return;
   }
@@ -140,7 +163,7 @@ const selectAnswer = (id: number | string) => {
 
 const closePage = () => {
   router.push({
-    name: Route.AuthPasscode,
+    name: Route.TwoFAApp,
   });
 };
 
@@ -160,7 +183,7 @@ const title = computed(() => {
 }
 
 .page-wrapper {
-  margin: 15px;
+  margin-top: 50px;
 }
 
 .main-title {
@@ -185,7 +208,7 @@ const title = computed(() => {
 
 .radio-btn {
   border: 1px solid $color-brand-2-50;
-  padding: 15px 20px;
+  padding: 20px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;

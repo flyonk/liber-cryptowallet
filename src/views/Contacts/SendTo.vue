@@ -1,25 +1,47 @@
 <template name="send-to">
-  <div class="send-to">
-    <div class="header sendto-header">
-      <img
-        class="back mr-2"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push({ name: Route.ContactsWhoToPay })"
-      />
-      <h4 class="username">@MyDude</h4>
-    </div>
-    <div class="user-info flex justify-between align-items-center">
-      <h1 class="title">My Dude</h1>
-      <div class="initials">MD</div>
-    </div>
-    <div class="sendto-main">
-      <send-currency
-        :has-coin-reverse="true"
-        @send-transaction="sendTransaction"
-      />
-    </div>
-  </div>
+  <t-top-navigation
+    with-fixed-footer
+    nav-with-custom-top-left
+    @click:left-icon="$router.push({ name: Route.PayRecepientsPhone })"
+  >
+    <template #top-left>
+      <div class="header sendto-header">
+        <img
+          class="back mr-2"
+          :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
+          alt="arrow-left"
+          @click="$router.push({ name: Route.PayRecepientsPhone })"
+        />
+        <h4 class="username">{{ recepient.phone }}</h4>
+      </div>
+    </template>
+    <template #title>
+      <h1 class="title">{{ recepient.displayName }}</h1>
+    </template>
+    <template #right>
+      <ContactInitials :name="recepient.displayName"
+    /></template>
+    <template #content
+      ><div class="send-to">
+        <div class="sendto-main">
+          <send-currency
+            :contact-name="recepient.displayName"
+            :has-coin-reverse="true"
+            @send-transaction="sendTransaction"
+          />
+        </div></div
+    ></template>
+    <template #fixed-footer
+      ><base-button
+        class="send-button"
+        size="large"
+        view="simple"
+        @click="sendTransaction"
+      >
+        Send
+      </base-button></template
+    >
+  </t-top-navigation>
   <!--TODO: make toasts logic-->
   <base-toast
     v-if="popupStatus === 'attention'"
@@ -98,14 +120,21 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed, ref } from 'vue';
 
+import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
-import { BaseToast, BaseButton } from '@/components/ui';
+import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
-import SentryUtil from '@/helpers/sentryUtil';
-import { useRouter } from 'vue-router';
+import { useRecepientsStore } from '@/stores/recipients';
+import { useMfaStore } from '@/stores/mfa';
+import { useErrorsStore } from '@/stores/errors';
+import { getContactPhone } from '@/helpers/contacts';
+import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
+import { Contact } from '@/types/contacts';
+import { formatPhoneNumber } from '@/helpers/auth';
+import { STATIC_BASE_URL } from '@/constants';
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
@@ -113,26 +142,57 @@ const showIncorrectDataPopup = ref(false);
 const popupStatus = ref('confirmation');
 
 const transferStore = useTransferStore();
+const recepientsStore = useRecepientsStore();
+const errorsStore = useErrorsStore();
 
-const router = useRouter();
+const route = useRoute();
+
+const contactId = route.params.id;
+const contacts: Contact[] = recepientsStore.getContacts;
+const _contact = contacts.filter((c) => {
+  return c.contactId === contactId;
+});
+const contact = _contact && _contact[0];
+
+const phone = getContactPhone(contact);
+
+const recepient = computed(() => ({
+  displayName: contact.displayName,
+  phone: getContactPhone(contact),
+}));
+
+const recipient = {
+  id: contact.contactId,
+  phone: formatPhoneNumber(phone || ''),
+};
+transferStore.recipient = recipient;
 
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
-      await transferStore.transfer();
-      showSuccessPopup.value = true;
-      router.push({
-        name: Route.DashboardHome,
+      const mfaStore = useMfaStore();
+      mfaStore.show({
+        button: 'transactions.send',
+        successRoute: Route.DashboardHome,
+        callback: async () => {
+          console.log(JSON.stringify('test callback 1'));
+          await recepientsStore.addFriend(contact);
+          console.log('test callback 2');
+          transferStore.clearTransferData();
+        },
       });
-      transferStore.clearTransferData();
+      console.log('transferStore.transfer()');
+      await transferStore.transfer();
     } catch (err) {
+      // todo: not required handling
       showFailurePopup.value = true;
-      SentryUtil.capture(
+
+      errorsStore.handle({
         err,
-        'SendTo',
-        'sendTransaction',
-        'error unable to send funds'
-      );
+        name: 'SendTo',
+        ctx: 'sendTransaction',
+        description: 'Error unable to send funds',
+      });
     }
   } else {
     showIncorrectDataPopup.value = true;
@@ -141,13 +201,6 @@ const sendTransaction = async () => {
 </script>
 
 <style lang="scss" scoped>
-.send-to {
-  height: 100vh;
-  padding: 60px 16px 0;
-  flex-grow: 1;
-  overflow: auto;
-}
-
 .sendto-header {
   display: flex;
   align-items: center;
@@ -178,18 +231,6 @@ const sendTransaction = async () => {
     line-height: 34px;
     letter-spacing: 0.0038em;
   }
-
-  > .initials {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50%;
-    background: $color-yellow-100;
-    width: 40px;
-    height: 40px;
-    color: $color-yellow-700;
-    margin-right: 12px;
-  }
 }
 
 .popup-description {
@@ -201,7 +242,7 @@ const sendTransaction = async () => {
     line-height: 34px;
     text-align: center;
     letter-spacing: -0.0026em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-bottom: 8px;
   }
 
@@ -213,5 +254,9 @@ const sendTransaction = async () => {
     letter-spacing: -0.0043em;
     color: $color-brand-2-300;
   }
+}
+
+.send-button {
+  width: 100%;
 }
 </style>

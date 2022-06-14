@@ -1,91 +1,31 @@
 <template name="AddAccount">
-  <div class="add-account">
-    <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.back()"
-      />
-      <h1 class="title">{{ $t('common.coinSelect') }}</h1>
-      <label class="input-label">
-        <img src="@/assets/icon/search.svg" alt="search" class="icon" />
-        <input
-          class="search"
-          type="text"
-          name="searchCoin"
-          :placeholder="$t('common.searchCoin')"
-        />
-      </label>
-    </div>
-    <div class="main">
-      <h4 class="title">{{ $t('views.account.suggested') }}</h4>
-      <ul class="coin-list suggested">
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/btc.svg" alt />
-          <p class="name">
-            Bitcoin
-            <span>BTC</span>
-          </p>
-        </li>
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/eth.svg" alt />
-          <p class="name">
-            Ethereum
-            <span>ETH</span>
-          </p>
-        </li>
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/binance.svg" alt />
-          <p class="name">
-            Binance
-            <span>BNB</span>
-          </p>
-        </li>
-      </ul>
-      <h4 class="title">All Coins</h4>
-      <ul class="coin-list all-coins">
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/dash.svg" alt />
-          <p class="name">
-            Dash
-            <span>DSH</span>
-          </p>
-        </li>
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/xrp.svg" alt />
-          <p class="name">
-            Ripple
-            <span>XRP</span>
-          </p>
-        </li>
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/fantom.svg" alt />
-          <p class="name">
-            Fantom
-            <span>FTN</span>
-          </p>
-        </li>
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/tron.svg" alt />
-          <p class="name">
-            Tron
-            <span>TRX</span>
-          </p>
-        </li>
-        <li class="item">
-          <img class="img" src="@/assets/icon/currencies/graph.svg" alt />
-          <p class="name">
-            Graph
-            <span>GRT</span>
-          </p>
-        </li>
-      </ul>
-    </div>
-  </div>
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+  >
+    <template #content>
+      <BaseCoinListSelect :coins="coins" @select-coin="selectCoin" />
+    </template>
+  </t-top-navigation>
+  <div class="add-account"></div>
 </template>
 
-<script setup lang="ts"></script>
+<script lang="ts" setup>
+import { computed } from 'vue';
+
+import BaseCoinListSelect from '@/components/ui/organisms/BaseCoinListSelect.vue';
+import { useCoinsStore } from '@/stores/coins';
+import { TTopNavigation } from '@/components/ui';
+import { Route } from '@/router/types';
+
+const coinStore = useCoinsStore();
+
+const coins = computed(() => coinStore.getCoins);
+
+function selectCoin() {
+  console.log('select coin');
+}
+</script>
 
 <style lang="scss" scoped>
 .add-account {
@@ -130,9 +70,10 @@
         outline: none;
       }
 
-      > .icon {
+      > .icon-search {
+        font-size: 20px;
         position: absolute;
-        top: 10px;
+        top: 12px;
         left: 10px;
         z-index: 1;
       }

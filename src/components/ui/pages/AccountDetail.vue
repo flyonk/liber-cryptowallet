@@ -1,170 +1,221 @@
 <template name="AccountDetail">
   <div class="account-transactions">
+    <t-top-navigation
+      nav-without-title
+      @click:left-icon="$router.replace({ name: Route.AccountMain })"
+    />
     <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/home')"
-      />
       <!--TODO: get this stuff from call-->
       <total-account-balance-by-coin
         :balance="balance.balance"
-        :coin-code="balance.name"
         :base-conversion-sum="balance.baseBalanceConversion"
+        :coin-code="balance.name"
+        :coin-icon-url="balance.imageUrl"
         :currency="balance.baseBalanceConversionCode"
       />
       <!--TODO: move to separated component-->
-      <VueAgile
-        class="carousel-slider"
-        :slides-to-show="2"
-        :nav-buttons="false"
-      >
-        <div
+      <swiper class="swiper" :slides-per-view="3.5" :space-between="5">
+        <swiper-slide
           v-for="(item, index) in carousel"
           :key="index"
           class="item-slide"
-          @click="$router.push('/home/story')"
+          @click="onClick(item)"
         >
-          <img class="image" :src="item.img" />
+          <img :src="item.img" alt class="image" />
           <p class="name">{{ item.name }}</p>
-        </div>
-      </VueAgile>
+        </swiper-slide>
+      </swiper>
       <div v-if="showControls" class="controls">
         <button class="btn">
-          <img class="label" src="@/assets/icon/plus.svg" />{{
+          <img alt class="label" src="@/assets/icon/plus.svg" />{{
             $t('transactions.deposit')
           }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/arrow-right-white.svg" />{{
+          <img alt class="label" src="@/assets/icon/arrow-right-white.svg" />{{
             $t('transactions.send')
           }}
         </button>
         <button class="btn">
-          <img class="label" src="@/assets/icon/repeat.svg" />{{
+          <img alt="Exchange" class="label" src="@/assets/icon/repeat.svg" />{{
             $t('transactions.exchange')
           }}
         </button>
       </div>
-
       <div class="main-tabs">
         <div
-          class="tab"
           :class="{ active: activeTab === 1 }"
+          class="tab"
           @click="activeTab = 1"
         >
           {{ $t('common.history') }}
         </div>
         <div
-          class="tab"
           :class="{ active: activeTab === 2 }"
+          class="tab"
           @click="activeTab = 2"
         >
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
 
-      <div v-if="activeTab === 1">
-        <transactions-list :transactions="transactions" />
-      </div>
+      <transactions-list
+        v-if="activeTab === 1"
+        :main-coin="currentCoin"
+        :show-coin="false"
+        :transactions="transactions"
+        class="transactions-block"
+      />
 
       <div v-if="activeTab === 2" class="wallet">
-        <!--TODO move to separated component-->
-        <img src="@/assets/images/qr-code.png" alt="qr-code" class="qr" />
-        <div class="wallet-address">
-          <h4 class="title">
-            {{ $t('transactions.walletAddress') }}
-          </h4>
-          <div class="account">
-            <div class="crypto-number">
-              <p class="text">
-                1Mtree35df4543sdgErtrryryEe13rr
-                <br />sd21213
-                <span class="bold">Opa139z0l</span>
-              </p>
-            </div>
-            <img src="@/assets/icon/folders.svg" alt="folders" />
-          </div>
-          <h2 class="bluetitle">
-            {{ $t('transactions.generateAddress') }}
-          </h2>
-          <div class="controls">
-            <button class="btn">
-              {{ $t('common.saveImage') }}
-            </button>
-            <button class="btn">
-              {{ $t('transactions.shareAddress') }}
-            </button>
-          </div>
-        </div>
+        <account-details :coin-code="route.params.coin || 'tbtc'" />
       </div>
     </div>
   </div>
 </template>
 
-<script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
-import { VueAgile } from 'vue-agile';
-import { useI18n } from 'vue-i18n';
-import { useRoute } from 'vue-router';
+<script lang="ts" setup>
+import { computed, onBeforeMount, Ref, ref } from 'vue';
+import { LocaleMessageValue, useI18n, VueMessageType } from 'vue-i18n';
+import { useRoute, useRouter } from 'vue-router';
+import { Swiper, SwiperSlide } from 'swiper/vue';
 
+import { Route } from '@/router/types';
+import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/stores/account';
+import { useProfileStore } from '@/stores/profile';
 
-import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
-import TransactionsList from '@/components/ui/organisms/transactions/TransactionsList.vue';
+// import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
+import {
+  AccountDetails,
+  TotalAccountBalanceByCoin,
+  TransactionsList,
+  TTopNavigation,
+} from '@/components/ui';
+
+interface ICarouselItem {
+  name: LocaleMessageValue<VueMessageType>;
+  img: string;
+  successRoute: string;
+  failRoute: string;
+  query?: { [key: string]: string };
+  params?: { [key: string]: string };
+}
 
 let showControls = ref(false);
 const { tm } = useI18n();
 
-const aStore = useAccountStore();
+//TODO: write full name accountStore
+const accountStore = useAccountStore();
+const profileStore = useProfileStore();
 
 const activeTab = ref(1);
+const currentCoin = ref(null) as Ref<string | null>;
 
 const route = useRoute();
+const router = useRouter();
 
 /**
  * Lifecycle
  */
-onMounted(() => {
-  console.log(route.params.coin);
-  if (route.params.coin) aStore.init(route.params.coin as string);
+const coin = ref('');
+
+onBeforeMount(() => {
+  if (route.params.coin) {
+    coin.value = route.params.coin as string;
+
+    accountStore.init(coin.value);
+    currentCoin.value = coin.value;
+  }
+
+  profileStore.init();
 });
 
-const transactions = computed(() => aStore.getCoinTransactions);
-const balance = computed(() => aStore.getBalanceByCoin);
+const transactions = computed(() => accountStore.getCoinTransactions);
+const balance = computed(() => accountStore.getBalanceByCoin);
 
-const carousel = [
+const carousel: ICarouselItem[] = [
   {
     name: tm('transactions.carousel.deposit'),
     img: require('@/assets/icon/transactions/carousel/deposit.svg'),
+    successRoute: Route.DepositNetwork,
+    failRoute: Route.DashboardStory,
+    query: { code: route.params.coin as string },
   },
   {
     name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
+    successRoute: Route.PayRecepientsPhone,
+    failRoute: Route.DashboardStory,
   },
   {
     name: tm('transactions.carousel.convert'),
     img: require('@/assets/icon/transactions/carousel/convert.svg'),
+    successRoute: Route.ConvertFunds,
+    failRoute: Route.DashboardStory,
+    query: { code: route.params.coin as string },
   },
   {
     name: tm('transactions.carousel.withdraw'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
+    successRoute: Route.Withdraw,
+    params: { code: route.params.coin as string },
+    failRoute: Route.DashboardStory,
   },
 ];
+
+const onClick = (carouselItem: ICarouselItem) => {
+  const { kycStatus } = profileStore.getUser;
+  switch (kycStatus) {
+    case EKYCStatus.success:
+      if (carouselItem.query) {
+        router.push({
+          name: carouselItem.successRoute,
+          query: carouselItem.query,
+        });
+        return;
+      }
+
+      if (carouselItem.params) {
+        router.push({
+          name: carouselItem.successRoute,
+          params: carouselItem.params,
+        });
+        return;
+      }
+
+      router.push({
+        name: carouselItem.successRoute,
+      });
+      break;
+    case EKYCStatus.not_started:
+      break;
+    case EKYCStatus.pending:
+      break;
+    case EKYCStatus.rejected:
+      break;
+    default:
+      router.push({
+        name: carouselItem.failRoute,
+      });
+      break;
+  }
+};
 </script>
 
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: 85%;
-  padding: 35px 0 0;
-  overflow-x: hidden;
-  overflow-y: auto;
+  height: calc(100% - 95px);
+  overflow: scroll;
   flex-grow: 1;
 
   > .header {
     padding: 0 16px;
+
+    > .swiper {
+      overflow: visible;
+    }
 
     > .controls {
       display: flex;
@@ -188,18 +239,6 @@ const carousel = [
       }
     }
   }
-
-  > .wallet {
-    display: flex;
-    height: 370px;
-    flex-direction: column;
-    align-items: center;
-    padding-top: 24px;
-
-    > .qr {
-      margin-bottom: 56px;
-    }
-  }
 }
 
 .main-tabs {
@@ -210,6 +249,7 @@ const carousel = [
   border-radius: 8px;
   background: $color-light-grey;
   margin-bottom: 30px;
+  margin-top: 24px;
 
   > .tab {
     width: 49%;
@@ -230,6 +270,12 @@ const carousel = [
   }
 }
 
+.transactions-block {
+  height: auto;
+  margin-bottom: 0;
+  padding-bottom: 10%;
+}
+
 .title-currency {
   & > .currency {
     font-weight: 600;
@@ -239,18 +285,15 @@ const carousel = [
   }
 }
 
-.carousel-slider {
-  margin-bottom: 24px;
-}
-
 .item-slide {
   width: 104px;
   height: 104px;
   padding: 12px;
   background: $color-white;
-  box-shadow: 0 2px 24px -12px rgb(0 0 0 / 34%);
-  border-radius: 13px;
-  margin-left: 5px;
+  border: 1px solid #eef0fb;
+  box-shadow: 0 4px 12px -8px $carousel-item-shadow;
+  border-radius: 8px;
+  margin-right: 5px;
 
   > .image {
     margin-bottom: 8px;
@@ -333,6 +376,14 @@ const carousel = [
         color: $color-white;
       }
     }
+  }
+}
+
+:deep(.agile) {
+  height: 115px;
+
+  > .agile__list {
+    height: 100%;
   }
 }
 </style>

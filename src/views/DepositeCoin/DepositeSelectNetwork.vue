@@ -1,65 +1,81 @@
 <template name="DepositeWallet">
-  <div class="page-wrapper">
-    <BackHistoryBtn :path="{ name: Route.DepositCoin }" />
-
-    <div v-if="dictionary[activeQuestion]">
-      <h1 class="main-title">
-        {{ title }}
-      </h1>
-
-      <p class="text-default">
-        {{ description }}
-      </p>
-
-      <div>
-        <template
-          v-for="answer in dictionary[activeQuestion].answers"
-          :key="answer.id"
-        >
-          <label class="radio-btn" :class="{ '-selected': answer.isSelected }">
-            <input
-              :id="answer.id"
-              type="radio"
-              name="surveyAnswer"
-              :value="answer.id"
-              style="display: none"
-              @change="selectAnswer(answer.id)"
-            />
-            <span class="title" :class="{ '-selected': answer.isSelected }">{{
-              answer.body
-            }}</span>
-            <img
-              v-if="answer.isSelected"
-              src="@/assets/images/arrow-white.svg"
-              alt="right arrow"
-            />
-            <img v-else src="@/assets/images/arrow.svg" alt="right arrow" />
-          </label>
-        </template>
+  <t-top-navigation @click:left-icon="router.push({ name: Route.DepositCoin })">
+    <template #title>{{ title }}</template>
+    <template #subtitle> {{ description }}</template>
+    <template #content>
+      <div class="page-wrapper">
+        <div v-if="dictionary[activeQuestion]">
+          <div>
+            <template
+              v-for="answer in dictionary[activeQuestion].answers"
+              :key="answer.id"
+            >
+              <label
+                :class="{
+                  '-selected': answer.isSelected,
+                  '-disabled': answer.disabled,
+                }"
+                class="radio-btn"
+              >
+                <input
+                  :id="answer.id"
+                  :value="answer.id"
+                  name="surveyAnswer"
+                  style="display: none"
+                  type="radio"
+                  @change="selectAnswer(answer)"
+                />
+                <span
+                  :class="{ '-selected': answer.isSelected }"
+                  class="title"
+                  >{{ answer.body }}</span
+                >
+                <img
+                  v-if="answer.isSelected"
+                  alt="right arrow"
+                  src="@/assets/images/arrow-white.svg"
+                />
+                <img
+                  v-else
+                  alt="right arrow"
+                  :src="`${STATIC_BASE_URL}/static/menu/arrow.svg`"
+                />
+              </label>
+            </template>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
+    </template>
+  </t-top-navigation>
 </template>
 
-<script setup lang="ts">
-import { ref, computed } from 'vue';
+<script lang="ts" setup>
+import { computed, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
+
 import { Route } from '@/router/types';
+import { useDepositStore } from '@/stores/deposit';
+
+import { TTopNavigation } from '@/components/ui';
 
 const { tm } = useI18n();
 
 const router = useRouter();
-type dictionaryItem = {
+const depositStore = useDepositStore();
+
+type TDictionaryItem = {
   id: number | string;
   body: string;
   isSelected?: boolean;
+  disabled: boolean;
 };
-type Dictionary = {
-  question: dictionaryItem;
-  answers: dictionaryItem[];
+
+type TDictionary = {
+  question: TDictionaryItem;
+  answers: TDictionaryItem[];
 };
+
 let activeQuestion = ref(0);
 const dictionary = ref([
   {
@@ -71,40 +87,43 @@ const dictionary = ref([
       {
         id: 1,
         body: tm('views.deposit.selectNetwork.spendOrSave'),
+        disabled: true,
       },
       {
         id: 2,
         body: tm('views.deposit.selectNetwork.spendWhileTravelling'),
+        disabled: true,
       },
       {
         id: 3,
         body: tm('views.deposit.selectNetwork.sendMoney'),
+        disabled: false,
       },
       {
         id: 4,
         body: tm('views.deposit.selectNetwork.gainExposure'),
+        disabled: true,
       },
     ],
-  } as Dictionary,
+  } as TDictionary,
 ]);
 /**
  * Save user answer to database
  */
-const saveAnswers = (answers: Dictionary) => {
+const saveAnswers = (answers: TDictionary) => {
   return Promise.resolve(answers);
 };
+
 const markAnswerAsSelected = (id: number | string) => {
   dictionary.value[activeQuestion.value].answers = dictionary.value[
     activeQuestion.value
   ].answers.map((item) => {
-    if (item.id === id) {
-      item.isSelected = true;
-    } else {
-      item.isSelected = false;
-    }
+    item.isSelected = item.id === id;
+
     return item;
   });
 };
+
 const getSelectedAnswers = () => {
   return dictionary.value.map((item) => {
     return {
@@ -116,10 +135,16 @@ const getSelectedAnswers = () => {
     };
   });
 };
-const selectAnswer = (id: number | string) => {
+
+const selectAnswer = (answer: TDictionaryItem) => {
+  if (answer.disabled) return;
+
   const maxValue = dictionary.value.length;
+
+  depositStore.setNetwork({ value: answer.id, text: answer.body });
+
   if (maxValue <= activeQuestion.value + 1) {
-    markAnswerAsSelected(id);
+    markAnswerAsSelected(answer.id);
     const userAnswers = getSelectedAnswers();
     saveAnswers(userAnswers).then(() => {
       //TODO:This path does not exist, you need to clarify the transition
@@ -127,12 +152,14 @@ const selectAnswer = (id: number | string) => {
     });
     return;
   }
-  markAnswerAsSelected(id);
+  markAnswerAsSelected(answer.id);
   activeQuestion.value = Math.min(activeQuestion.value + 1, maxValue);
 };
+
 const description = computed(() => {
   return tm('views.deposit.selectNetwork.ensure');
 });
+
 const title = computed(() => {
   return tm('views.deposit.selectNetwork.chooseNetwork');
 });
@@ -187,6 +214,10 @@ const title = computed(() => {
 
   &.-selected {
     background-color: $color-primary;
+  }
+
+  &.-disabled {
+    opacity: 0.5;
   }
 
   & > .title {

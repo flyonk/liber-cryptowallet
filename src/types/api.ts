@@ -142,18 +142,20 @@ export interface IProfileService {
   updateProfile(data: TUpdateProfile): Promise<TProfile | TErrorResponse>;
   updateProfileAvatar(file: File): Promise<TSuccessResponse | TErrorResponse>;
   closeProfile(): Promise<TSuccessResponse | TErrorResponse>;
-  configureApp(): Promise<TConfigureAppData | TErrorResponse>;
-  changeAuthenticator(data: {
-    targetAuthenticator: string;
+  enableVerificationByApp(): Promise<TConfigureAppData | TErrorResponse>;
+  verificationByApp(): Promise<TVerification | TErrorResponse>;
+  confirmVerificationApp(data: {
+    secret: string;
+    code: string;
+  }): Promise<TSuccessResponse | TErrorResponse>;
+  disableVerificationApp(data: {
+    code: string;
   }): Promise<TSuccessResponse | TErrorResponse>;
 }
 
 export interface IVerificator {
   verificationBySMS(data: {
     otp: string;
-  }): Promise<TVerification | TErrorResponse>;
-  verificationByApp(data: {
-    code: string;
   }): Promise<TVerification | TErrorResponse>;
 }
 
@@ -231,8 +233,8 @@ export type TSuccessSignIn = {
 };
 
 export type TConfigureAppData = {
-  QRCode: File; //.pdf
-  code: string;
+  secret: string; //.pdf
+  url: string;
 };
 
 /**

@@ -1,16 +1,18 @@
+export interface IFileDto {
+  file: File;
+}
+
 export interface IFile {
   file: File;
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IFile {
+  deserialize(input: IFileDto): IFile {
     return {
       file: input.file,
     };
   },
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IFile): any {
+  requestSerialize(input: IFile): IFileDto {
     return {
       file: input.file,
     };

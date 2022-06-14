@@ -1,16 +1,19 @@
+export interface IStatementDto {
+  statement: File; // .pdf
+}
+
 export interface IStatement {
   statement: File; // .pdf
 }
 
 export default {
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  deserialize(input: any): IStatement {
+  deserialize(input: IStatementDto): IStatement {
     return {
       statement: input.statement,
     };
   },
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  requestSerialize(input: IStatement): any {
+
+  requestSerialize(input: IStatement): IStatementDto {
     return {
       statement: input.statement,
     };

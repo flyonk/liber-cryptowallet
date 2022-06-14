@@ -9,11 +9,17 @@ import { computed } from 'vue';
 
 import {
   KYC1Step,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   KYC2Step,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   KYC3Step,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   KYC4Step,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   KYC5Step,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   KYC6Step,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   KYC7Step,
 } from '.';
 import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
@@ -29,33 +35,28 @@ const components = computed(() => [
 ]);
 </script>
 
-<style lang="scss">
-//
+<style lang="scss" scoped>
 .kyc-main {
-  padding: 0 16px;
+  > .description {
+    padding: 0 0 40px;
+    font-size: 17px;
+    line-height: 22px;
+    letter-spacing: -0.0043em;
+  }
+}
 
-  > div {
-    > .description {
-      padding: 0 0 40px;
-      font-size: 17px;
-      line-height: 22px;
-      letter-spacing: -0.0043em;
-    }
+.footer {
+  position: absolute;
+  bottom: 50px;
+  left: 16px;
+  right: 16px;
 
-    > .footer {
-      position: absolute;
-      bottom: 50px;
-      left: 16px;
-      right: 16px;
+  > .text {
+    padding: 0 0 32px;
 
-      > .text {
-        padding: 0 0 32px;
-
-        > .link {
-          text-decoration: none;
-          color: $color-primary;
-        }
-      }
+    > .link {
+      text-decoration: none;
+      color: $color-primary;
     }
   }
 }

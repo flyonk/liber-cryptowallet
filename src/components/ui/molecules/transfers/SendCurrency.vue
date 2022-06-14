@@ -15,7 +15,10 @@
           <div class="select-option flex" @click="showCryptoList(1)">
             <img class="icon" :src="currentSendFromCurrency.img" />
             <p class="name">{{ currentSendFromCurrency.name.value }}</p>
-            <img src="@/assets/icon/arrow-down.svg" alt="list" />
+            <img
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+              alt="list"
+            />
           </div>
           <ul
             v-if="isSelectListOpen && currentOpenedSelectId === 1"
@@ -43,7 +46,7 @@
     </ul>
     <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
-        <p class="label">Ashley will get</p>
+        <p class="label">{{ props.contactName }} will get</p>
         <input
           v-model="recipientAmount"
           type="number"
@@ -56,7 +59,10 @@
           <div class="select-option flex" @click="showCryptoList(2)">
             <img class="icon" :src="currentSendToCurrency.img" />
             <p class="name">{{ currentSendToCurrency.name.value }}</p>
-            <img src="@/assets/icon/arrow-down.svg" alt="list" />
+            <img
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+              alt="list"
+            />
           </div>
           <ul
             v-if="isSelectListOpen && currentOpenedSelectId === 2"
@@ -75,21 +81,21 @@
         </div>
       </label>
     </div>
-    <base-button
-      class="send-button"
-      size="large"
-      view="simple"
-      @click="$emit('send-transaction')"
-    >
-      Send
-    </base-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import { BaseButton } from '@/components/ui';
 import { useTransferStore } from '@/stores/transfer';
+
+import { STATIC_BASE_URL } from '@/constants';
+
+const props = defineProps({
+  contactName: {
+    type: String,
+    default: '',
+  },
+});
 
 const transferStore = useTransferStore();
 let amount = ref('');
@@ -101,20 +107,20 @@ onMounted(() => {
 
 watch(amount, () => {
   const fee = 0;
-  transferStore.amount = +amount.value - fee;
-  recipientAmount.value = String(transferStore.amount);
+  recipientAmount.value = String(+amount.value - fee);
+  transferStore.amount = recipientAmount.value;
 });
 
 const currentSendFromCurrency = {
   name: ref('TBTC'),
   code: ref('tbtc'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
 
 const currentSendToCurrency = {
   name: ref('TBTC'),
   code: ref('tbtc'),
-  img: require('@/assets/icon/currencies/btc.svg'),
+  img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
 
 let isSelectListOpen = ref(false);
@@ -129,13 +135,13 @@ function showCryptoList(listId: number) {
 function handleChangeCurrentCurrency(index: number, type: string) {
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name;
+    currentSendFromCurrency.code.value = currencies[index].code;
     currentSendFromCurrency.img = currencies[index].img;
 
     // now API allows send X to X currency
     _setCurrentSendToCurrency(index);
     //
-
-    transferStore.coin = currentSendFromCurrency.name.value;
+    transferStore.coin = currentSendFromCurrency.code.value;
   }
 
   if (type === 'to') {
@@ -152,12 +158,12 @@ const currencies = [
   {
     name: 'TBTC',
     code: 'tbtc',
-    img: require('@/assets/icon/currencies/btc.svg'),
+    img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
   },
   {
     name: 'TLTC',
     code: 'tltc',
-    img: require('@/assets/icon/currencies/ltc.svg'),
+    img: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
   },
   // {
   //   name: 'BTC',
@@ -184,9 +190,12 @@ const currencies = [
 const _setCurrentSendToCurrency = (index: number) => {
   currentSendToCurrency.name.value = currencies[index].name;
   currentSendToCurrency.img = currencies[index].img;
+  currentSendFromCurrency.code.value = currencies[index].code;
 };
 
-const onBlur = (event: any) => {
+// todo: type FocusEvent not describes event as expected
+/* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+const onBlur = (event: FocusEvent | any) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
@@ -224,7 +233,7 @@ const onBlur = (event: any) => {
     font-size: 20px;
     line-height: 25px;
     letter-spacing: -0.0045em;
-    color: #0d1f3c;
+    color: $color-brand-550;
 
     &:focus {
       border: 1px solid $color-primary-500;
@@ -237,7 +246,7 @@ const onBlur = (event: any) => {
     top: 4px;
     width: 114px;
     height: 64px;
-    background: #edf0fb;
+    background: $color-white-light;
     border-radius: 13px;
     border: 0;
   }
@@ -261,7 +270,7 @@ const onBlur = (event: any) => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 18px;
   }
 }
@@ -271,7 +280,7 @@ const onBlur = (event: any) => {
   top: 70px;
   width: 100%;
   right: 0;
-  background: #edf0fb;
+  background: $color-white-light;
   border-radius: 13px;
   padding: 10px 18px;
   z-index: 2;
@@ -299,7 +308,7 @@ const onBlur = (event: any) => {
     font-size: 13px;
     line-height: 18px;
     letter-spacing: -0.0008em;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 18px;
   }
 }
@@ -336,7 +345,7 @@ const onBlur = (event: any) => {
     line-height: 16px;
     display: flex;
     align-items: center;
-    color: #0d1f3c;
+    color: $color-brand-550;
     margin-right: 8px;
   }
 

@@ -97,7 +97,7 @@ const isAllowAccessToContacts = ref(false);
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #0d1f3c;
+    color: $color-brand-550;
   }
 }
 
@@ -108,7 +108,7 @@ const isAllowAccessToContacts = ref(false);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: #2862ff;
+    background: $color-primary-500;
     border-radius: 8px;
     color: $color-white;
     font-weight: 600;
@@ -160,7 +160,7 @@ const isAllowAccessToContacts = ref(false);
     font-size: 17px;
     line-height: 22px;
     letter-spacing: -0.0043em;
-    color: #2862ff;
+    color: $color-primary-500;
     text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   }
 

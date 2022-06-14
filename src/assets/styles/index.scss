@@ -1,10 +1,8 @@
 // --- Only imports ---
 @import './common/reset';
 
-@import './common/reset';
-
 // Common
-@import './common/variables';
+//@import './common/variables';
 @import './common/typography';
 @import './common/ui';
 
@@ -14,15 +12,15 @@
 @import 'primevue/resources/primevue.min.css';
 
 @import 'primeicons/primeicons.css';
-@import 'vue-agile/dist/VueAgile.css';
+@import 'vue-agile/dist/VueAgile.css'; //TODO: remove
 @import 'floating-vue/dist/style.css';
+@import 'swiper/css';
 
-@import 'primeicons/primeicons.css';
-@import './libs/coolicons';
-
-@import 'primeicons/primeicons.css';
-@import './libs/coolicons';
+// @import './libs/coolicons';
 
 // ui
 @import './theme/index';
 // No styles here
+
+//Icon Fonts
+//@import './libs/iconmoon.css';

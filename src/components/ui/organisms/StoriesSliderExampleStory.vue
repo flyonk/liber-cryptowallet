@@ -1,5 +1,5 @@
 <template>
-  <section class="example-story">
+  <section class="example-story" :style="stylePaddings">
     <header class="header">
       <h1 class="title">{{ props.headerTitle }}</h1>
       <img
@@ -13,22 +13,18 @@
     <main class="main">
       <h1 class="title">{{ props.baseTitle }}</h1>
       <div class="imagecontainer">
-        <img class="image" width="330" height="330" :src="props.baseImg" />
+        <img class="image" :src="props.baseImg" @contextmenu.prevent.stop />
       </div>
     </main>
-    <footer class="footer">
-      <button class="login" @click="$emit('login')">
-        {{ props.loginTitle }}
-      </button>
-      <button class="signup" @click="$emit('signup')">
-        {{ props.signUpTitle }}
-      </button>
-    </footer>
   </section>
 </template>
 
 <script lang="ts" setup>
+import useSafeAreaPaddings from '@/helpers/safeArea';
+
 defineEmits(['login', 'signup']);
+
+const { stylePaddings } = useSafeAreaPaddings();
 
 const props = defineProps({
   headerTitle: {
@@ -36,14 +32,6 @@ const props = defineProps({
     default: '',
   },
   baseTitle: {
-    type: String,
-    default: '',
-  },
-  loginTitle: {
-    type: String,
-    default: '',
-  },
-  signUpTitle: {
     type: String,
     default: '',
   },
@@ -64,87 +52,47 @@ const props = defineProps({
   flex-direction: column;
   height: 100%;
   background-color: $color-brand-2-800;
+  padding-left: 24px !important;
+  padding-right: 24px !important;
 
   > .header {
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    flex-wrap: nowrap;
-    flex: 0 0 auto;
-  }
+    margin: 24px 0;
 
-  > .header > .title {
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    color: $color-white;
-    margin-left: 25px;
+    & > .title {
+      font-family: Inter, sans-serif;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 18px;
+      color: $color-white;
+    }
   }
 
   > .main {
     display: flex;
     flex-direction: column;
-    flex: 1 0 auto;
-  }
+    flex: 1;
+    overflow: scroll;
+    padding-bottom: 70px;
 
-  > .main > .title {
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 800;
-    font-size: 34px;
-    line-height: 41px;
-    letter-spacing: 0.004em;
-    color: $color-white;
-    margin-left: 25px;
-  }
+    & > .title {
+      font-weight: 800;
+      font-size: 34px;
+      line-height: 41px;
+      letter-spacing: 0.004em;
+      color: $color-white;
+    }
 
-  > .main > .imagecontainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-  }
-
-  > .main > .imagecontainer > .image {
-    align-self: center;
-  }
-
-  > .footer {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: space-around;
-    flex: 0 0 auto;
-    height: 85px;
-  }
-
-  > .footer > .login {
-    background-color: $color-white;
-    color: $color-black;
-    width: 155.5px;
-    height: 48px;
-    border-radius: 13px;
-    border: none;
-    text-align: center;
-    font-size: 17px;
-    font-family: Inter, sans-serif;
-    font-style: normal;
-  }
-
-  > .footer > .signup {
-    background-color: $color-primary;
-    color: $color-white;
-    width: 155.5px;
-    height: 48px;
-    border-radius: 13px;
-    border: none;
-    text-align: center;
-    font-size: 17px;
-    font-family: Inter, sans-serif;
-    font-style: normal;
+    & > .imagecontainer {
+      display: flex;
+      justify-content: center;
+      overflow: hidden;
+      margin-top: auto;
+    }
   }
 }
 </style>

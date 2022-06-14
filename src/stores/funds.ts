@@ -2,12 +2,21 @@ import { defineStore } from 'pinia';
 import cloneDeep from 'lodash/cloneDeep';
 
 import fundsService from '@/services/fundsService';
+import { STATIC_BASE_URL } from '@/constants';
 
 import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
+
+export interface ICoinForExchange {
+  name: string;
+  code: string;
+  img: string;
+}
 
 interface IFundsState {
   convertInfo: IConvertInfo;
   convertFunds: boolean;
+  from: ICoinForExchange | null;
+  to: ICoinForExchange | null;
 }
 
 export const emptyConvert = {
@@ -18,6 +27,7 @@ export const emptyConvert = {
   fee: '0',
   validUntil: '',
   estimatedAmount: '0',
+  requestAmount: '0',
 } as IConvertInfo;
 
 // === transaction Store ===
@@ -26,9 +36,20 @@ export const useFundsStore = defineStore('funds', {
   state: (): IFundsState => ({
     convertInfo: cloneDeep(emptyConvert),
     convertFunds: false,
+    from: {
+      name: 'BTC',
+      code: 'tbtc',
+      img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
+    },
+    to: {
+      name: '---',
+      code: 'empty',
+      img: `${STATIC_BASE_URL}/static/currencies/empty_token.svg`,
+    },
   }),
 
   getters: {
+    getState: (state) => state,
     getConvertInfo: (state) => state.convertInfo,
     getConvertFunds: (state) => state.convertFunds,
   },
@@ -48,9 +69,22 @@ export const useFundsStore = defineStore('funds', {
       this.convertFunds = val;
     },
 
-    clearConvertInfo(): void {
-      this.convertFunds = false;
-      this.convertInfo = cloneDeep(emptyConvert);
+    setCrypto(coin: ICoinForExchange | null, direction: 'to' | 'from'): void {
+      if (!coin) {
+        this[direction] = null;
+      } else {
+        this[direction] = {
+          name: coin.name,
+          code: coin.code,
+          img: coin.img,
+        };
+      }
+    },
+
+    swapCoins(): void {
+      const _from = Object.assign({}, this.from);
+      this.from = this.to;
+      this.to = _from;
     },
   },
 });

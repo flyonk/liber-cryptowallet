@@ -1,20 +1,32 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation @click:left-icon="onPrev">
+    <top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
       {{ title }}
     </top-navigation>
 
     <p class="text-default">
-      {{ text }}
+      <span>{{ text }}</span>
+      <template v-if="showPasteBtn">
+        <BaseButton
+          class="resend-button"
+          size="medium"
+          view="flat"
+          @click="pasteFromClipboard"
+        >
+          {{ $t('common.pasteCta') }}
+        </BaseButton>
+      </template>
     </p>
 
     <base-verification-code-input
       :value="verificationCode"
+      :is-error="isError"
       @complete="onComplete"
+      @change="onChange"
     />
 
     <slot name="footer">
-      <div v-if="props.withCountdown" class="footer">
+      <div v-if="withCountdown" class="footer">
         <span class="text--footnote font-weight--semibold">
           <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
             <template #countdown="{ minute, second }">
@@ -35,43 +47,48 @@
         </span>
       </div>
     </slot>
+
+    <slot name="additionalContent" />
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
-    <base-button block @click="pasteFromClipboard">
-      {{ $t('common.pasteCta') }}
-    </base-button>
+    <slot name="ctaBtn">
+      <base-button block @click="pasteFromClipboard">
+        {{ $t('common.pasteCta') }}
+      </base-button>
+    </slot>
   </div>
-  <base-toast :visible="isError" severity="error" @update:visible="onHide">
-    <template #description>
-      <div>
-        {{ $t('configureApp.invalidCodeMessage') }}
-      </div>
-    </template>
-  </base-toast>
 </template>
+
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
 
 <script setup lang="ts">
 import { useI18n } from 'vue-i18n';
+import { Clipboard } from '@capacitor/clipboard';
+
+import { useErrorsStore } from '@/stores/errors';
 
 import {
   TopNavigation,
   BaseButton,
   BaseVerificationCodeInput,
-  BaseToast,
   BaseCountdown,
 } from '@/components/ui';
 
-const { tm } = useI18n();
-
+const errorsStore = useErrorsStore();
+const { t } = useI18n();
 const emit = defineEmits([
   'onComplete',
+  'onChange',
   'onResend',
   'onTimeIsUp',
   'onPrev',
   'onHide',
 ]);
-
-const props = defineProps({
+defineProps({
   isError: {
     type: Boolean,
     default: false,
@@ -92,39 +109,56 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
+  showPasteBtn: {
+    type: Boolean,
+    default: false,
+  },
   verificationCode: {
     type: String,
     default: '',
   },
+  leftIconName: {
+    type: String,
+    default: 'icon-app-navigation-back',
+  },
 });
 
-const pasteFromClipboard = () => {
-  navigator.clipboard.readText().then(
-    function (clipText) {
-      emit('onComplete', clipText);
-    },
-    function (err) {
-      console.error(`${tm('common.readFailure')} `, err);
-    }
-  );
-};
+const pasteFromClipboard = async () => {
+  try {
+    const content = await Clipboard.read();
 
-const onHide = (): void => {
-  emit('onHide');
+    if (content && content.type === 'text/plain') {
+      emit('onComplete', content.value);
+    }
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (err: any) {
+    if (
+      err.errorMessage &&
+      err.errorMessage === 'There is no data on the clipboard'
+    ) {
+      return;
+    }
+    errorsStore.handle({
+      err,
+      name: 'EnterVerificationCode',
+      ctx: 'pasteFromClipboard',
+      description: t('common.pasteClipboardError'),
+    });
+  }
 };
 
 const onComplete = (value: string): void => {
   emit('onComplete', value);
 };
-
+const onChange = (value: string): void => {
+  emit('onChange', value);
+};
 const onResend = (): void => {
   emit('onResend');
 };
-
 const onTimeIsUp = (): void => {
   emit('onTimeIsUp');
 };
-
 const onPrev = (): void => {
   emit('onPrev');
 };
@@ -132,13 +166,15 @@ const onPrev = (): void => {
 
 <style lang="scss" scoped>
 .page-wrapper {
-  margin: 15px;
+  margin: 10px 16px;
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 
   > .footer {
+    margin-top: 23px;
+
     > span {
       > .resend-button {
         padding: 0;
@@ -155,5 +191,12 @@ const onPrev = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  > :deep(.base-button .container) {
+    justify-content: flex-end;
+  }
 }
 </style>

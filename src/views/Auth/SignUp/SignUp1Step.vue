@@ -1,48 +1,39 @@
 <template>
-  <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
-      {{ $t('auth.signup.step1Title') }}
-    </TopNavigation>
-    <div class="description text--body">
-      {{ $t('auth.signup.step1Description1') }}
-      <br />
-      {{ $t('auth.signup.step1Description2') }}
-    </div>
-    <div class="grid">
-      <div class="col-4">
-        <BaseCountryPhoneInput
-          :dial-code="countryDialCode"
-          @ready="handleSelectCountry"
-          @selected="handleSelectCountry"
-        />
-      </div>
-      <div class="col-8 ml-auto">
-        <BaseInput
-          v-model="number"
-          :use-grouping="false"
-          :type="type"
-          :mask="mask"
-        >
-          <template #label>
-            {{ $t('common.numberLabel') }}
-          </template>
-        </BaseInput>
-      </div>
-    </div>
-    <div class="footer">
-      <span class="text--footnote font-weight--semibold">
-        {{ $t('auth.signup.step1ExistingAcc') }}
-        <router-link :to="{ name: Route.Login }" class="link">
-          {{ $t('common.logInCta') }}
-        </router-link>
-      </span>
-    </div>
-    <div class="sign-button-wrapper">
-      <BaseButton block @click="handleStep">
-        {{ $t('common.signUpCta') }}
-      </BaseButton>
-    </div>
-  </div>
+  <t-top-navigation @click:left-icon="prevStep">
+    <template #title>{{ $t('auth.signup.step1Title') }}</template>
+    <template #subtitle>{{ $t('auth.signup.step1Description') }} </template>
+    <template #content>
+      <auth-credentials
+        :next-title="$t('common.signUpCta')"
+        :initial-number="number"
+        :country-dial-code="countryDialCode"
+        @handle-select-country="handleSelectCountry"
+        @handle-step="handleStep"
+        @number-change="numberChange"
+        @on-prev="prevStep"
+      >
+        <template #footer-empty-state>
+          {{ $t('auth.signup.step1ExistingAcc') }}
+          <router-link :to="{ name: Route.Login }" class="link">
+            {{ $t('common.logInCta') }}
+          </router-link>
+        </template>
+        <template #footer-valuable-state>
+          {{ $t('auth.signup.step1ExistingAcc') }}
+          <router-link :to="{ name: Route.Login }" class="link">
+            {{ $t('common.logInCta') }}
+          </router-link>
+        </template>
+      </auth-credentials>
+    </template>
+  </t-top-navigation>
+  <phone-in-use
+    v-if="phoneExist"
+    :phone="number"
+    :dial-code="number"
+    @next="continueWithExistedLogin"
+    @close="closePhoneModal"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -50,15 +41,12 @@ import { useAuthStore } from '@/stores/auth';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import {
-  TopNavigation,
-  BaseCountryPhoneInput,
-  BaseInput,
-  BaseButton,
-} from '@/components/ui';
+import AuthCredentials from '@/components/ui/organisms/auth/AuthCredentials.vue';
+import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
+import { TTopNavigation } from '@/components/ui';
 
-import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
+import { AxiosError } from 'axios';
 
 const router = useRouter();
 
@@ -67,9 +55,8 @@ const authStore = useAuthStore();
 const emits = defineEmits(['next']);
 
 const number = ref('');
-const mask = ref('');
 const countryDialCode = ref('');
-const type = ref('');
+const phoneExist = ref(false);
 
 onMounted(() => {
   const { phone, dialCode } = authStore.registration;
@@ -85,32 +72,30 @@ onMounted(() => {
   countryDialCode.value = authStore.registration.dialCode;
 });
 
-const handleSelectCountry = (data: ICountryInformation) => {
-  const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
-
-  // hack for reactive phone mask change
-  type.value = '';
-  setTimeout(() => {
-    // set phone mask
-    if (data.mask) {
-      data.mask.replace(maskRegEx, function (match: string) {
-        mask.value = match.replace(new RegExp(/^\)/), '');
-        return match;
-      });
-      mask.value = mask.value.replaceAll('#', '9');
-    } else {
-      mask.value = '';
-    }
-
-    authStore.registration.dialCode = data.dialCode;
-    type.value = data.mask ? 'mask' : 'number';
-  }, 0);
+const handleSelectCountry = (dialCode: string) => {
+  authStore.registration.dialCode = dialCode;
 };
 
-const handleStep = () => {
-  if (!number.value) return;
-  authStore.registration.phone = String(number.value);
-  emits('next');
+const handleStep = async (phone: number) => {
+  authStore.setDialCode(authStore.registration.dialCode);
+  authStore.setPhone(String(phone));
+  try {
+    await authStore.signInProceed({
+      phone: authStore.getLoginPhone,
+      otp: '',
+      code_2fa: '',
+    });
+  } catch (err: AxiosError | Error | unknown) {
+    const code = (err as AxiosError).response?.status;
+    if (code === 406) {
+      phoneExist.value = true;
+      return;
+    }
+
+    authStore.registration.phone = String(phone);
+    authStore.savePhone('signup');
+    emits('next');
+  }
 };
 
 const prevStep = () => {
@@ -118,6 +103,23 @@ const prevStep = () => {
     name: Route.WelcomeAuthScreen,
   });
 };
+
+const numberChange = () => {
+  console.log('Method not implemented yet');
+};
+
+const closePhoneModal = () => {
+  phoneExist.value = false;
+};
+
+const continueWithExistedLogin = async () => {
+  authStore.setStep(1, 'login');
+  await router.push({
+    name: Route.Login,
+  });
+};
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped>
+// ...
+</style>

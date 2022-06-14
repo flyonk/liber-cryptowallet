@@ -1,104 +1,84 @@
 <template name="AllAccounts">
-  <div class="all-accounts">
-    <div class="header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.back()"
-      />
-      <img
-        class="add"
-        src="@/assets/icon/circle-add.svg"
-        alt="circle-add"
+  <t-top-navigation @click:left-icon="$router.back()">
+    <template #title>{{ $t('views.account.allAccounts') }}</template>
+    <template #top-right>
+      <i
+        class="icon-plus_circle add"
         @click="
           $router.push({
-            name: Route.DepositCoin,
+            name: Route.AccountAdd,
           })
         "
       />
-    </div>
-    <h1 class="title">{{ $t('views.account.allAccounts') }}</h1>
-    <ul class="currencies">
-      <li
-        v-for="(currency, index) in currencies"
-        :key="index"
-        class="item"
-        @click="$router.push(getCurrencyUrl(currency.code))"
-      >
-        <img v-if="currency.img !== ''" class="icon" :src="currency.img" alt />
-        <h4 class="title">{{ currency.name }}</h4>
-        <p class="description">{{ currency.description }}</p>
-        <h5 class="sum">{{ currency.sum }}</h5>
-      </li>
-    </ul>
-  </div>
+    </template>
+    <template #content
+      ><div class="all-accounts">
+        <ul class="currencies">
+          <li class="item" @click="$router.push({ name: Route.DashboardHome })">
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/currencies/euro.svg`"
+            />
+            <h4 class="title">{{ totalBalance.currency }}</h4>
+            <p class="description">{{ $t('views.account.allAccounts') }}</p>
+            <h5 class="sum">
+              {{ getSymbolByCode(totalBalance.currency) }}
+              {{ totalBalance.sum }}
+            </h5>
+          </li>
+          <li
+            v-for="(currency, index) in accounts"
+            :key="index"
+            class="item"
+            @click="$router.replace(getCurrencyUrl(currency.code))"
+          >
+            <img class="icon" :src="currency.imageUrl" />
+            <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
+            <p class="description">{{ currency.name }}</p>
+            <h5 class="sum">{{ currency.balance }}</h5>
+          </li>
+        </ul>
+      </div></template
+    >
+  </t-top-navigation>
 </template>
 
-<script setup lang="ts">
-import { useI18n } from 'vue-i18n';
+<script lang="ts" setup>
+import { computed, ComputedRef, onMounted } from 'vue';
 
+import { useAccountStore } from '@/stores/account';
+import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
+import { IAccount } from '@/models/account/account';
+import { TTopNavigation } from '@/components/ui';
 
-const { tm } = useI18n();
+import { STATIC_BASE_URL } from '@/constants';
+
+const accountStore = useAccountStore();
+
+onMounted(async () => {
+  await Promise.all([
+    accountStore.getAccountList(),
+    accountStore.getAccountBalance(),
+  ]);
+});
+
+const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
+  IAccount[]
+>;
+const totalBalance = computed(() => accountStore.getTotalBalance);
 
 function getCurrencyUrl(code: string): string {
   //TODO: define logic with backend
   return code === 'eur' ? Route.DashboardHome : `/${Route.Account}/${code}`;
 }
-
-//TODO: get from API call if
-const currencies = [
-  {
-    name: 'EUR',
-    code: 'eur',
-    description: tm('views.account.allAccounts'),
-    sum: '€ 46.00',
-    img: require('@/assets/icon/currencies/euro.svg'),
-  },
-  {
-    name: 'BTC',
-    code: 'tbtc',
-    description: 'Bitcoin',
-    sum: '0.001',
-    img: require('@/assets/icon/currencies/btc.svg'),
-  },
-  {
-    name: 'USDT',
-    code: 'usdt',
-    description: 'Teather USDT',
-    sum: '0',
-    img: require('@/assets/icon/currencies/tether.svg'),
-  },
-  {
-    name: 'Hush',
-    code: 'hush',
-    description: 'Hush',
-    sum: '0',
-    img: require('@/assets/icon/currencies/hush.svg'),
-  },
-  {
-    name: 'XRP',
-    code: 'xrp',
-    description: 'Ripple XRP',
-    sum: '0',
-    img: require('@/assets/icon/currencies/xrp.svg'),
-  },
-];
 </script>
 
 <style lang="scss" scoped>
 .all-accounts {
   height: 100%;
-  padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
-
-  > .header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 20px;
-  }
 
   > .title {
     font-weight: 800;
@@ -126,6 +106,8 @@ const currencies = [
         margin-bottom: 25px;
         height: 28px;
         width: 28px;
+        border-radius: 50%;
+        background-color: $color-dark-grey;
       }
 
       > .title {
@@ -153,5 +135,16 @@ const currencies = [
       }
     }
   }
+}
+
+.accounts-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.add {
+  font-size: 38px;
+  color: blue;
 }
 </style>

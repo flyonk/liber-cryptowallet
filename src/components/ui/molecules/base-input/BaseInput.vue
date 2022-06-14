@@ -1,12 +1,19 @@
 <template>
-  <div class="base-input">
+  <div class="base-input" @click="$emit('click')">
     <div class="input">
       <div
         class="p-float-label"
-        :class="{ 'p-input-icon-right': $slots.append }"
+        :class="{
+          'p-input-icon-right': $slots.append || $slots.prepend,
+        }"
       >
         <slot v-if="$slots.append" name="append" />
-        <component :is="currentComponent" v-bind="$attrs" :type="type" />
+        <component
+          :is="currentComponent"
+          v-bind="$attrs"
+          @input="$emit('input', $event.value)"
+        />
+        <slot v-if="$slots.prepend" name="prepend" />
         <label>
           <slot name="label" />
         </label>
@@ -27,6 +34,7 @@ import PInputMask from 'primevue/inputmask';
 
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
+defineEmits(['input', 'click']);
 const props = defineProps({
   type: {
     type: String as PropType<TypeBaseInput>,
@@ -48,9 +56,6 @@ const currentComponent = computed(() => {
     default:
       return PInput;
   }
-});
-const type = computed(() => {
-  return props.type;
 });
 </script>
 
@@ -93,6 +98,7 @@ const type = computed(() => {
         font-size: 11px;
         line-height: 13px;
         top: 10px;
+        left: 0;
       }
 
       > .p-inputtext,

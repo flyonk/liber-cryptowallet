@@ -1,17 +1,19 @@
+import { Route } from './types';
+
 export default [
   {
     path: '',
-    name: 'deposit-coin',
+    name: Route.DepositCoin,
     component: () => import('@/views/DepositeCoin/DepositeSelectCoin.vue'),
   },
   {
     path: 'network',
-    name: 'deposit-network',
+    name: Route.DepositNetwork,
     component: () => import('@/views/DepositeCoin/DepositeSelectNetwork.vue'),
   },
   {
     path: 'wallet',
-    name: 'deposit-add',
+    name: Route.DepositAdd,
     component: () => import('@/views/DepositeCoin/DepositeWallet.vue'),
   },
 ];

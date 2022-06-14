@@ -1,47 +1,91 @@
 <template>
-  <div class="kyc-5-step">
-    <top-navigation @click:left-icon="$emit('prev')">{{
-      $t('views.kyc.kyc5step.proofOfIdentity')
-    }}</top-navigation>
-    <base-progress-bar class="mb-3" :value="getPercentage" />
-    <p class="description">{{ $t('views.kyc.kyc5step.haveAFinal') }}</p>
-    <div v-for="(image, side) in getImage" :key="side" class="block">
-      <template v-if="image">
-        <div class="title heading-black-lg">
-          {{ side === EDocumentSide.front ? 'Front Side' : 'Back Side' }}
-        </div>
-        <img :src="image" alt="front" class="image" />
-        <base-button view="secondary" block @click="onScanAgain">{{
-          $t('views.kyc.kyc5step.scanAgain')
-        }}</base-button>
-      </template>
-    </div>
-    <base-button class="footer-button" @click="onNext">{{
-      $t('views.kyc.kyc5step.upload')
-    }}</base-button>
-  </div>
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
+    <template #title>{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
+    <template #subtitle>
+      <base-progress-bar :value="getPercentage" class="mb-3" />
+      {{ $t('views.kyc.kyc5step.haveAFinal') }}
+    </template>
+    <template #content>
+      <div class="kyc-5-step">
+        <template v-if="proofType !== EKYCProofType.passport">
+          <div v-for="(image, side) in getImage" :key="side" class="block">
+            <template v-if="image">
+              <div class="title heading-black-lg">
+                {{ documentSideLabel(side) }}
+              </div>
+              <img :src="image" alt="front" class="image" />
+              <base-button block view="secondary" @click="onScanAgain(side)">
+                {{ $t('views.kyc.kyc5step.scanAgain') }}
+              </base-button>
+            </template>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="block">
+            <div class="title heading-black-lg">
+              {{ $t('views.kyc.kyc5step.passport') }}
+            </div>
+            <img :src="getImage.front" alt="passport" class="image" />
+            <base-button
+              block
+              view="secondary"
+              @click="onScanAgain(EDocumentSide.front)"
+            >
+              {{ $t('views.kyc.kyc5step.scanAgain') }}
+            </base-button>
+          </div>
+        </template>
+      </div>
+    </template>
+    <template #fixed-footer>
+      <base-button block class="footer-button" @click="onNext">
+        {{ $t('views.kyc.kyc5step.upload') }}
+      </base-button>
+    </template>
+  </t-top-navigation>
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { computed } from 'vue';
 
-import { TopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
-import { useKYCStore } from '@/stores/kyc';
-import { EStepDirection } from '@/types/base-component';
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
+import { useI18n } from 'vue-i18n';
+
+const { t } = useI18n();
 
 const emit = defineEmits(['prev', 'next']);
 
 const kycStore = useKYCStore();
 
-const onScanAgain = () => {
-  kycStore.setStep(EStepDirection.prev);
+const prevStep = async () => {
+  cleanupScans();
+  emit('prev');
+};
+
+const onScanAgain = (side: EDocumentSide) => {
+  kycStore.setImage(null, side);
+  emit('prev');
+};
+
+const cleanupScans = () => {
+  kycStore.cleanupImages();
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
+const proofType = computed(() => kycStore.getProofType);
+
 const getImage = computed(() => kycStore.getImage);
+
+const documentSideLabel = (side: EDocumentSide) => {
+  return side === EDocumentSide.front
+    ? t('views.kyc.kyc5step.frontSide')
+    : t('views.kyc.kyc5step.backSide');
+};
 
 const onNext = () => {
   emit('next');
@@ -50,8 +94,11 @@ const onNext = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .kyc-5-step {
+  max-height: 55vh;
+  overflow-y: scroll;
+
   > .block {
     > .title {
       margin-bottom: 8px;
@@ -63,9 +110,9 @@ const onNext = () => {
       border-radius: 12px;
     }
   }
+}
 
-  > .footer-button {
-    margin-top: 32px;
-  }
+.footer-button {
+  margin: 0;
 }
 </style>

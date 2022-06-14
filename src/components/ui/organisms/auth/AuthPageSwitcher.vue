@@ -5,12 +5,10 @@
 </template>
 
 <script lang="ts" setup>
-import { watch } from 'vue';
-import { IAuthSteps } from '@/stores/auth';
-import { computed, PropType } from 'vue-demi';
-import { useRoute, useRouter } from 'vue-router';
+import { computed, PropType, watch } from 'vue';
 
-import { useAuthStore } from '@/stores/auth';
+import { IAuthSteps, useAuthStore } from '@/stores/auth';
+import { useRoute, useRouter } from 'vue-router';
 import { EStepDirection } from '@/types/base-component';
 
 const route = useRoute();
@@ -31,7 +29,7 @@ const props = defineProps({
 
 watch(
   () => route.query.step,
-  async (step) => {
+  (step) => {
     if (step) {
       authStore.setStep(+step, props.scope);
       return;
@@ -59,6 +57,20 @@ const nextStep = () => {
 const prevStep = () => {
   authStore.setStep(EStepDirection.prev, props.scope);
 
+  if (
+    props.scope === 'registration' &&
+    authStore.getState.steps.registration === 1
+  ) {
+    router.push({
+      path: router.currentRoute.value.path,
+      query: {
+        step: 0,
+      },
+    });
+
+    return;
+  }
+
   if (step.value) {
     router.push({
       path: router.currentRoute.value.path,
@@ -74,40 +86,10 @@ const prevStep = () => {
 };
 
 // disable for starting not from beginning
-authStore.setStep(0, props.scope);
-router.replace({
-  path: router.currentRoute.value.path,
-});
+// authStore.setStep(0, props.scope);
+// router.replace({
+//   path: router.currentRoute.value.path,
+// });
 </script>
 
-<style lang="scss">
-.auth-page-container {
-  padding: 0 16px;
-
-  > .description {
-    padding: 0 0 24px;
-  }
-
-  > .sign-button-wrapper {
-    position: fixed;
-    bottom: 50px;
-    left: 16px;
-    right: 16px;
-  }
-
-  > .footer {
-    margin-top: 0.5rem;
-
-    > .footnote {
-      color: $color-dark-grey;
-
-      > .link {
-        user-select: none;
-        cursor: pointer;
-        text-decoration: none;
-        color: $color-primary;
-      }
-    }
-  }
-}
-</style>
+<style lang="scss" scoped></style>

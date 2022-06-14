@@ -1,25 +1,54 @@
 <template>
-  <!-- TODO: this is only stub component, need to be styled when layout is ready -->
-  <select v-model="locale" @change="changeLang">
-    <option v-for="(item, i) in availableLocales" :key="i" :value="item">
-      {{ item }}
-    </option>
-  </select>
+  <BaseCountryEntitySelect
+    entity="isoCode"
+    :list="list"
+    :selected-data="selectedEntity"
+    :show-list="true"
+    :title="$t('views.profile.profileSettings.selectLanguage')"
+    @close="closeSelect"
+    @selected="setSelectedCountry"
+  />
 </template>
 
 <script setup lang="ts">
+import { computed, onBeforeMount, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Storage } from '@capacitor/storage';
+
+import { set } from '@/helpers/storage';
+import { setLocale } from '@/i18n';
+import { languages } from '../../../../tests/unit/mocks';
+
+import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 
 import { EStorageKeys } from '@/types/storage';
+import { ICountryInformation } from '@/types/country-phone-types';
 
 const { locale, availableLocales } = useI18n({ useScope: 'global' });
 
-function changeLang(): void {
-  Storage.set({
-    key: EStorageKeys.language,
-    value: locale.value,
+const list = ref([]) as Ref<ICountryInformation[]>;
+
+const emit = defineEmits(['close']);
+const selectedEntity = computed(() => {
+  return list.value.find(
+    (item) => item.isoCode.toLocaleLowerCase() === locale.value.toLowerCase()
+  );
+});
+
+onBeforeMount(async (): Promise<void> => {
+  // TODO: get later from api
+  list.value = languages.filter((item) => {
+    return availableLocales.includes(item.isoCode.toLocaleLowerCase());
   });
+});
+
+async function setSelectedCountry(country: ICountryInformation): Promise<void> {
+  set({ key: EStorageKeys.language, value: country.isoCode.toLowerCase() });
+  await setLocale();
+  emit('close');
+}
+
+function closeSelect(): void {
+  emit('close');
 }
 </script>
 

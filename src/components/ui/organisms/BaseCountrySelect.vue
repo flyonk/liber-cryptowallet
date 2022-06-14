@@ -1,7 +1,12 @@
 <template>
   <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
-      <BaseInput v-model="selectedData.name" @click.self="openSelect">
+      <BaseInput
+        v-model="selectedData.name"
+        inputmode="none"
+        readonly
+        @click.self="openSelect"
+      >
         <template #label>{{ $t('ui.basecountryselect.country') }}</template>
       </BaseInput>
     </span>

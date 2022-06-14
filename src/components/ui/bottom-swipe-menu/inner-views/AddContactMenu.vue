@@ -3,7 +3,7 @@
     <router-link :to="'/contacts'" class="menu-item">
       <img
         class="icon"
-        src="@/assets/icon/transactions/menu/scan_qr-code.svg"
+        :src="`${STATIC_BASE_URL}/static/menu/scan_qr-code.svg`"
         alt="send"
       />
       <div class="inner-info">
@@ -14,7 +14,7 @@
     <li class="menu-item">
       <img
         class="icon"
-        src="@/assets/icon/transactions/menu/payment_link.svg"
+        :src="`${STATIC_BASE_URL}/static/menu/payment_link.svg`"
         alt="send"
       />
       <div class="inner-info">
@@ -25,7 +25,7 @@
     <li class="menu-item">
       <img
         class="icon"
-        src="@/assets/icon/transactions/menu/invite_friend.svg"
+        :src="`${STATIC_BASE_URL}/static/menu/invite_friend.svg`"
         alt="send"
       />
       <div class="inner-info">
@@ -36,18 +36,20 @@
     <router-link to="/contacts/add" class="menu-item">
       <img
         class="icon"
-        src="@/assets/icon/transactions/menu/add_contact.svg"
+        :src="`${STATIC_BASE_URL}/static/menu/add_contact.svg`"
         alt="send"
       />
       <div class="inner-info">
-        <p class="name">Add a new contact</p>
+        <p class="name">{{ $t('views.recepients.add') }}</p>
         <p class="subtitle">Add a contact using phone or email</p>
       </div>
     </router-link>
   </ul>
 </template>
 
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { STATIC_BASE_URL } from '@/constants';
+</script>
 
 <style lang="scss" scoped>
 .add-contact {

@@ -1,66 +1,141 @@
 <template name="add-contact">
-  <div class="add-contact">
-    <div class="header add-header">
-      <img
-        class="back"
-        src="@/assets/icon/arrow-left.svg"
-        alt="arrow-left"
-        @click="$router.push('/contacts')"
-      />
-      <h1 class="title">Add a new contact</h1>
-    </div>
-    <ul class="invite-list">
-      <li
-        v-for="(contact, index) in newContacts"
-        :key="index"
-        class="invite-item"
-      >
-        <BaseInput
-          v-model="newContacts[index].name.value"
-          autofocus
-          type="text"
-        >
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-app-navigation-back"
+    @click:left-icon="
+      $router.push({
+        name: Route.ContactsWhoToPay,
+      })
+    "
+  >
+    <template #title> {{ $t('views.recepients.add') }}</template>
+    <template #content>
+      <ul class="invite-list">
+        <base-input v-model="newContact.name" autofocus type="text">
           <template #label> Name </template>
-        </BaseInput>
-        <BaseInput v-model="newContacts[index].phone.value" type="text">
-          <template #label> Phone </template>
-        </BaseInput>
-        <p class="add" @click="addExtraContact">
-          <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
-          Additional phone or email
-        </p>
-      </li>
-    </ul>
-    <BaseButton
-      class="btn"
-      size="large"
-      @click="router.push('/contacts/send/1')"
+          <template v-if="newContact.name.length > 2" #append>
+            <i class="icon-transaction-small-reverted" @click="clearName" />
+          </template>
+        </base-input>
+        <li
+          v-for="(contact, index) in newContact.phone"
+          :key="index"
+          class="invite-item"
+        >
+          <base-input v-model="contact.value" type="text">
+            <template #label> Email or Phone </template>
+            <template v-if="newContact.phone.length > 1" #append>
+              <i class="icon-trash_full" @click="removeContact(index)" />
+            </template>
+          </base-input>
+        </li>
+        <base-button view="flat" icon-left="ci-plus" @click="addExtraContact">
+          {{ $t('views.newcontact.additionalphone') }}
+        </base-button>
+      </ul>
+      <bottom-swipe-menu
+        :is-menu-open="isMenuOpen"
+        menu-type="communication"
+        @close-menu="closeMenu"
+      />
+    </template>
+    <template #fixed-footer
+      ><base-button
+        size="large"
+        view="simple"
+        block
+        :disabled="isDisabled"
+        @click="handleAddContact"
+      >
+        {{ $t('common.continueCta') }}
+      </base-button></template
     >
-      Continue
-    </BaseButton>
-  </div>
+  </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { Ref, ref, computed } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { BaseButton, BaseInput } from '@/components/ui';
+import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import { useRecepientsStore } from '@/stores/recipients';
+
+import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { Route } from '@/router/types';
+
+import { v4 as uuidv4 } from 'uuid';
 
 const router = useRouter();
+const recepientsStore = useRecepientsStore();
 
-const newContacts = [
-  {
-    name: ref(''),
-    phone: ref(''),
-  },
-];
+const isMenuOpen = ref(false);
+
+type TNewContact = {
+  name: string;
+  phone: TPhoneNumber[];
+};
+
+type TPhoneNumber = {
+  value: string;
+};
+
+const newContact = ref({
+  name: '',
+  phone: [{ value: '' }],
+}) as Ref<TNewContact>;
 
 function addExtraContact() {
-  newContacts.push({
-    name: ref(''),
-    email: ref(''),
+  newContact.value.phone.push({
+    value: '',
   });
+}
+
+const handleAddContact = async () => {
+  const _contact = newContact.value;
+
+  if (!_contact.name) {
+    return;
+  }
+
+  const newContactId = uuidv4();
+
+  await recepientsStore.addNewContact({
+    id: newContactId,
+    name: newContact.value.name,
+    phones: newContact.value.phone,
+    emails: [],
+  });
+
+  if (newContact.value.phone && newContact.value.phone.length > 1) {
+    recepientsStore.selectCommunicationWay(newContactId);
+    isMenuOpen.value = true;
+  } else {
+    router.push({
+      name: Route.PayRecepientsLiber,
+      params: { id: newContactId },
+    });
+  }
+};
+
+const isDisabled = computed(() => {
+  // There are at least one phone number or email
+  const phones = newContact.value.phone.filter((p) => !!p.value).length;
+  const name = newContact.value.name;
+  return !(name && phones);
+});
+
+const clearName = () => {
+  newContact.value.name = '';
+};
+
+const removeContact = (index: number) => {
+  newContact.value.phone = newContact.value.phone.filter((item, i) => {
+    return i !== index;
+  });
+};
+
+function closeMenu() {
+  isMenuOpen.value = false;
 }
 </script>
 
@@ -70,39 +145,13 @@ function addExtraContact() {
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
-}
-
-.add-header {
-  margin-bottom: 40px;
-
-  > .back {
-    width: 20;
-    height: 20;
-    margin-bottom: 20px;
-  }
-
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    color: $color-black;
-  }
+  display: flex;
+  flex-direction: column;
 }
 
 .invite-list {
-  margin-bottom: 100px;
-}
-
-.invite-item {
-  > .add {
-    display: flex;
-    align-items: center;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-    color: $color-primary-500;
-  }
+  margin-bottom: 20px;
+  overflow: auto;
+  flex-grow: 1;
 }
 </style>

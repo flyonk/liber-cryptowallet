@@ -1,126 +1,13 @@
 <template>
-  <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">{{
-      $t('common.codeInput')
-    }}</TopNavigation>
-    <div class="description text--body">
-      {{ $t('auth.login.step2Description') }} {{ formatPhone() }}
-    </div>
-    <div>
-      <BaseVerificationCodeInput
-        :loading="false"
-        class="input"
-        @complete="onComplete"
-      />
-    </div>
-    <div class="footer">
-      <span class="footnote font-weight--semibold">
-        <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
-          <template #countdown="{ minute, second }">
-            {{ $t('auth.login.step2ResendTitle') }}
-            {{ minute }}:{{ second }}
-          </template>
-        </BaseCountdown>
-        <template v-else>
-          <BaseButton
-            class="resend-button"
-            size="medium"
-            view="flat"
-            @click="resend"
-          >
-            {{ $t('auth.login.step2ResendCta') }}
-          </BaseButton>
-        </template>
-      </span>
-    </div>
-  </div>
+  <VerifyCode v-bind="$attrs" :flow="VerifyCodeFlow.Signup" />
 </template>
 
 <script lang="ts" setup>
-import { onMounted, ref, Ref } from 'vue';
-// import { nextTick } from 'vue';
-import {
-  BaseButton,
-  BaseCountdown,
-  BaseVerificationCodeInput,
-  TopNavigation,
-} from '@/components/ui';
-import { useAuthStore } from '@/stores/auth';
-import authService from '@/services/authService';
+import VerifyCode from '@/components/ui/organisms/auth/VerifyCode.vue';
 
-const emit = defineEmits(['next', 'prev']);
-
-const authStore = useAuthStore();
-
-const showCountdown = ref(true) as Ref<boolean>;
-
-onMounted(async () => {
-  const phone = authStore.getRegistrationPhone;
-
-  try {
-    await authService.signIn({ phone });
-  } catch (err) {
-    console.log(err);
-  }
-});
-
-const prevStep = () => {
-  emit('prev');
-};
-
-const nextStep = () => {
-  emit('next');
-};
-
-const onTimeIsUp = () => {
-  showCountdown.value = false;
-};
-
-const onComplete = async (data: string) => {
-  const otp = data;
-  const phone = authStore.getRegistrationPhone;
-
-  try {
-    await authService.signInProceed({ phone, otp });
-  } catch (err) {
-    console.log(err);
-  }
-
-  nextStep();
-};
-
-const formatPhone = () => {
-  const { phone, dialCode } = authStore.registration;
-  const formattedPhone = Array.from(phone)
-    .map((e, index) => {
-      return index < phone.length - 4 ? '*' : e;
-    })
-    .join('');
-
-  return dialCode + formattedPhone;
-};
-
-const resend = async () => {
-  const phone = authStore.getRegistrationPhone;
-
-  showCountdown.value = true;
-
-  try {
-    await authService.signIn({ phone });
-  } catch (err) {
-    console.log(err);
-  }
-};
+import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
 </script>
 
 <style lang="scss">
-.auth-page-container {
-  > .footer {
-    > span {
-      > .resend-button {
-        padding: 0;
-      }
-    }
-  }
-}
+// ...
 </style>
