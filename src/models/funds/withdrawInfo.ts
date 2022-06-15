@@ -6,7 +6,7 @@ export interface IWithdrawalInfoRequest {
 }
 
 export interface IWithdrawalInfoRequestDTO {
-  currency_code: string;
+  currency_code?: string;
   requested_amount: string;
   network: {
     name: string;
@@ -52,7 +52,7 @@ export default {
 
   requestSerialize(request: IWithdrawalInfoRequest): IWithdrawalInfoRequestDTO {
     return {
-      currency_code: request.code,
+      // currency_code: request.code,
       requested_amount: request.amount,
       network: {
         name: request.network,
