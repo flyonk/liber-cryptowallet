@@ -87,7 +87,7 @@
 <script lang="ts" setup>
 import { PropType } from 'vue';
 
-import { IDepositTransaction } from '@/models/transaction/transaction';
+import { IDepositTransaction } from '@/applications/liber/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {

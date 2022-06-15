@@ -147,12 +147,15 @@ import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
-import { ICoinForExchange, useFundsStore } from '@/stores/funds';
-import { useCoinsStore } from '@/stores/coins';
+import {
+  ICoinForExchange,
+  useFundsStore,
+} from '@/applications/liber/stores/funds';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { Route } from '@/router/types';
-import { ICoin } from '@/models/funds/coin';
+import { ICoin } from '@/applications/liber/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
-import { TConvertData } from '@/models/funds/convertInfo';
+import { TConvertData } from '@/applications/liber/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 

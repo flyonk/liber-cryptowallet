@@ -98,7 +98,7 @@ import {
   EDirection,
   ETransactionStatus,
   ITransferTransaction,
-} from '@/models/transaction/transaction';
+} from '@/applications/liber/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {

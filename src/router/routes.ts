@@ -1,10 +1,5 @@
 import { RouteRecordRaw } from 'vue-router';
 
-import DepositeRoutes from './routesDeposite';
-import RecepientsRoutes from './routesRecepients';
-import PayRecepientsRoutes from './routesPayRecepients';
-import checkContactsLoaded from './middleware/checkContacts';
-
 // Pages
 import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
@@ -20,28 +15,14 @@ import ChangePasscode from '@/views/ConfigureApp/ChangePasscode.vue';
 import ChangePasscodeEnter from '@/views/ConfigureApp/ChangePasscodeEnter.vue';
 import ChangeAuthApp from '@/views/ConfigureApp/ChangeAuthApp.vue';
 
-import Dashboard from '@/views/Dashboard/index.vue';
-import DashboardHome from '@/views/Dashboard/DashboardHome.vue';
-import DashboardVerification from '@/views/Dashboard/DashboardVerification.vue';
-import DashboardStory from '@/views/Dashboard/DashboardStory.vue';
-import DashboardVerifyingIdentityStory from '@/views/Dashboard/DashboardVerifyingIdentityStory.vue';
-import DashboardTransferFundsToTreasuryStory from '@/views/Dashboard/DashboardTransferFundsToTreasuryStory.vue';
+import FaceId from '@/views/ConfigureApp/Options/FaceId.vue';
+import TouchId from '@/views/ConfigureApp/Options/TouchId.vue';
+import PushNotifications from '@/views/ConfigureApp/Options/PushNotifications.vue';
 
-import Account from '@/views/Dashboard/Account/index.vue';
-import AllAccounts from '@/views/Dashboard/Account/AllAccounts.vue';
-
-import Transactions from '@/views/Dashboard/Transactions/index.vue';
-import DashboardTransactions from '@/views/Dashboard/Transactions/DashboardTransactions.vue';
-import TransactionDetails from '@/views/Dashboard/Transactions/TransactionDetails.vue';
-import TransactionsAll from '@/views/Dashboard/Transactions/TransactionsAll.vue';
-
-import Contacts from '@/views/Contacts/index.vue';
-import WhoToPay from '@/views/Contacts/WhoToPay.vue';
-import SendTo from '@/views/Contacts/SendTo.vue';
-import FirstTimeInvite from '@/views/Contacts/FirstTimeInvite.vue';
-import SendInvite from '@/views/Contacts/SendInvite.vue';
-import AddNewContact from '@/views/Contacts/AddNewContact.vue';
-import SendViaLink from '@/views/Contacts/SendViaLink.vue';
+import TwoFA from '@/views/ConfigureApp/TwoFA.vue';
+import InstallApp from '@/views/ConfigureApp/InstallApp.vue';
+import ConfigureApp from '@/views/ConfigureApp/ConfigureApp.vue';
+import ConfigureAppVerify from '@/views/ConfigureApp/ConfigureAppVerify.vue';
 
 import Profile from '@/views/Profile/index.vue';
 import ProfileSettings from '@/views/Profile/ProfileSettings.vue';
@@ -56,25 +37,6 @@ import ProfileAddNewContactData from '@/views/Profile/ProfileAddNewContactData.v
 import KYCMain from '@/views/KYC/KYCMain.vue';
 
 import SurveyScreen from '@/views/Survey/SurveyScreen.vue';
-
-import TwoFA from '@/views/ConfigureApp/TwoFA.vue';
-import InstallApp from '@/views/ConfigureApp/InstallApp.vue';
-import ConfigureApp from '@/views/ConfigureApp/ConfigureApp.vue';
-import ConfigureAppVerify from '@/views/ConfigureApp/ConfigureAppVerify.vue';
-
-import FaceId from '@/views/ConfigureApp/Options/FaceId.vue';
-import TouchId from '@/views/ConfigureApp/Options/TouchId.vue';
-import PushNotifications from '@/views/ConfigureApp/Options/PushNotifications.vue';
-
-import DepositeIndex from '@/views/DepositeCoin/DepositeIndex.vue';
-import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
-
-import Withdraw from '@/views/Withdraw/WithdrawScreen.vue';
-
-import RequestContacts from '@/views/Contacts/RequestContacts.vue';
-import Recipients from '@/views/Contacts/RecepientsView.vue';
-import AddAccount from '@/views/Dashboard/Account/AddAccount/IndexView.vue';
-import AddAccountRoutes from '@/router/routesAddAccount';
 
 import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
 import PPhoneVerified from '@/components/ui/pages/PPhoneVerified.vue';
@@ -152,171 +114,42 @@ const routes: Array<RouteRecordRaw> = [
     },
   },
 
-  // route level code-splitting
-  // this generates a separate chunk (about.[hash].js) for this route
-  // which is lazy-loaded when the route is visited.
+  // === Configure app options ===
 
-  // === Dashboard ===
-  // TODO: Refactor to make it more flat without nesting
   {
-    path: '/home',
-    name: Route.DashboardParent,
-    component: Dashboard,
-    meta: { layout: 'navbar', authRequired: true },
-    children: [
-      {
-        path: '',
-        name: Route.DashboardHome,
-        component: DashboardHome,
-      },
-      {
-        path: 'verification',
-        name: Route.DashboardVerification,
-        component: DashboardVerification,
-      },
-      {
-        path: 'story',
-        name: Route.DashboardStory,
-        meta: { layout: 'default' },
-        component: DashboardStory,
-      },
-      {
-        path: 'verifying-identity',
-        name: Route.DashboardVerifyingStory,
-        component: DashboardVerifyingIdentityStory,
-        meta: {
-          layout: 'default',
-        },
-      },
-      {
-        path: 'transfer-funds-to-treasury',
-        name: Route.DashboardTransferFundsToTreasuryStory,
-        component: DashboardTransferFundsToTreasuryStory,
-        meta: {
-          layout: 'default',
-        },
-      },
-    ],
+    path: '/faceid',
+    name: Route.FaceId,
+    meta: {
+      classLayout: '-full-height',
+      authRequired: true,
+    },
+    component: FaceId,
   },
-
-  // === Account ===
+  {
+    path: '/touchid',
+    name: Route.TouchId,
+    meta: {
+      classLayout: '-full-height',
+      authRequired: true,
+    },
+    component: TouchId,
+  },
+  {
+    path: '/push-notifications',
+    name: Route.PushNotifications,
+    meta: {
+      classLayout: '-full-height',
+      authRequired: true,
+    },
+    component: PushNotifications,
+  },
+  // === KYC ===
 
   {
-    path: '/account/add',
-    name: Route.AccountAdd,
-    component: AddAccount,
+    path: '/kyc',
+    name: Route.KYCMain,
     meta: { authRequired: true },
-    redirect: { name: Route.AccountAddSelectCoin },
-    children: AddAccountRoutes,
-  },
-
-  {
-    path: '/account',
-    name: Route.Account,
-    component: Account,
-    meta: { layout: 'navbar', authRequired: true },
-    children: [
-      {
-        path: '',
-        name: Route.AccountMain,
-        component: AllAccounts,
-      },
-      {
-        path: ':coin',
-        name: Route.AccountDetail,
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/components/ui/pages/AccountDetail.vue'
-          ),
-      },
-    ],
-  },
-
-  // === Transactions ===
-
-  {
-    path: '/transactions',
-    name: Route.Transactions,
-    component: Transactions,
-    meta: { layout: 'navbar', authRequired: true },
-    children: [
-      {
-        path: '', //TODO: ref this rout, component is wrong
-        name: Route.TransactionsMain,
-        component: DashboardTransactions,
-      },
-      {
-        path: 'details/:id/',
-        name: Route.TransactionsDetails,
-        meta: { layout: 'default' },
-        component: TransactionDetails,
-      },
-      {
-        path: 'all',
-        name: Route.TransactionsAll,
-        component: TransactionsAll,
-      },
-    ],
-  },
-
-  // === Contacts Flow ===
-
-  {
-    path: '/contacts',
-    name: 'contacts',
-    meta: { authRequired: true },
-    component: Contacts,
-    children: [
-      {
-        path: '',
-        name: Route.ContactsWhoToPay,
-        component: WhoToPay,
-        children: PayRecepientsRoutes,
-      },
-      {
-        path: 'send/:id',
-        name: Route.ContactsSend,
-        component: SendTo,
-      },
-      {
-        path: 'send',
-        name: Route.ContactsSendFirstTime,
-        component: FirstTimeInvite,
-      },
-      {
-        path: 'send_invite',
-        name: Route.ContactsSendInvite,
-        component: SendInvite,
-      },
-      {
-        path: 'add',
-        name: Route.ContactsAddNewContact,
-        component: AddNewContact,
-      },
-      {
-        path: 'send_link',
-        name: Route.ContactsSendLink,
-        component: SendViaLink,
-      },
-    ],
-  },
-
-  // === Convert funds Flow ===
-
-  {
-    path: '/convert',
-    name: Route.ConvertFunds,
-    meta: { authRequired: true },
-    component: ChangeCurrency,
-  },
-
-  //  === Withdraw funds Flow
-
-  {
-    path: '/withdraw',
-    name: Route.Withdraw,
-    meta: { authRequired: true },
-    component: Withdraw,
+    component: KYCMain,
   },
 
   // === Profile (Left Navigation Menu) ===
@@ -380,15 +213,6 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
 
-  // === KYC ===
-
-  {
-    path: '/kyc',
-    name: Route.KYCMain,
-    meta: { authRequired: true },
-    component: KYCMain,
-  },
-
   // === Survey ===
 
   {
@@ -429,87 +253,6 @@ const routes: Array<RouteRecordRaw> = [
     meta: {
       classLayout: '-full-height',
     },
-  },
-
-  // === Configure app options ===
-
-  {
-    path: '/faceid',
-    name: Route.FaceId,
-    meta: {
-      classLayout: '-full-height',
-      authRequired: true,
-    },
-    component: FaceId,
-  },
-  {
-    path: '/touchid',
-    name: Route.TouchId,
-    meta: {
-      classLayout: '-full-height',
-      authRequired: true,
-    },
-    component: TouchId,
-  },
-  {
-    path: '/push-notifications',
-    name: Route.PushNotifications,
-    meta: {
-      classLayout: '-full-height',
-      authRequired: true,
-    },
-    component: PushNotifications,
-  },
-
-  // == Select Coin ==
-
-  {
-    path: '/choose_coin',
-    name: Route.ChooseCoin,
-    meta: { authRequired: true },
-    component: () => import('@/views/Contacts/SelectCoin.vue'),
-  },
-
-  // === Deposite btc ===
-
-  {
-    path: '/deposit',
-    name: Route.Deposit,
-    meta: { authRequired: true },
-    component: DepositeIndex,
-    children: DepositeRoutes,
-  },
-
-  // === Recepients ===
-
-  {
-    path: '/recepients',
-    name: Route.Recepients,
-    meta: { layout: 'navbar', authRequired: true },
-    component: Recipients,
-    beforeEnter: checkContactsLoaded,
-    children: RecepientsRoutes,
-  },
-
-  // === Load phone contacts ===
-
-  {
-    path: '/requestcontacts',
-    name: Route.LoadContacts,
-    meta: {
-      classLayout: '-full-height',
-      authRequired: true,
-    },
-    component: RequestContacts,
-  },
-
-  // === Invite ===
-
-  {
-    path: '/invite',
-    name: Route.Invite,
-    component: Recipients,
-    meta: { layout: 'navbar', authRequired: true },
   },
 ];
 
