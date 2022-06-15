@@ -32,6 +32,7 @@ import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AxiosError } from 'axios';
+
 const { t, tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
