@@ -142,7 +142,7 @@
     },
     "parserPreset": {
       "parserOpts": {
-        "issuePrefixes": ["REF-"]
+        "issuePrefixes": ["ref-#"]
       }
     }
   }
