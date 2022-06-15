@@ -138,11 +138,11 @@
   },
   "commitlint": {
     "rules": {
-      "references-empty": [2, "never"]
+      "references-empty": [1, "never"]
     },
     "parserPreset": {
       "parserOpts": {
-        "issuePrefixes": ["PROJ-"]
+        "issuePrefixes": ["REF-"]
       }
     }
   }
