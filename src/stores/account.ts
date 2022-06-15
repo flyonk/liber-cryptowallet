@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 import { STORE_AUTH_KEY } from '@/constants';
 import accountService from '@/services/accountService';
-import transactionService from '@/services/transactionService';
+import transactionService from '@/applications/liber/services/transactionService';
 
 import { IAccount } from '@/models/account/account';
 import { IAccountTotal } from '@/models/account/IAccountTotal';

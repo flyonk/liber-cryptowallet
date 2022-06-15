@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import transactionService from '@/services/transactionService';
+import transactionService from '@/applications/liber/services/transactionService';
 
 import { INetTransaction } from '@/models/transaction/transaction';
 

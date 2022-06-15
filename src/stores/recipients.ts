@@ -2,8 +2,8 @@ import { defineStore } from 'pinia';
 import { Contacts } from '@capacitor-community/contacts';
 import { Storage } from '@capacitor/storage';
 
-import contactsService from '@/services/contactsService';
-import transactionService from '@/services/transactionService';
+import contactsService from '@/applications/liber/services/contactsService';
+import transactionService from '@/applications/liber/services/transactionService';
 
 import { Contact } from '@/types/contacts';
 import { EStorageKeys } from '@/types/storage';

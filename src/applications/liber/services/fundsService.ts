@@ -7,7 +7,7 @@ import convertInfoMapper, {
   TConvertData,
 } from '@/models/funds/convertInfo';
 import coinMapper, { ICoin } from '@/models/funds/coin';
-import { withdrawalInfoData } from '../../tests/mock/withdrawalData';
+import { withdrawalInfoData } from '../../../../tests/mock/withdrawalData';
 
 import { TSuccessResponse } from '@/types/api';
 import { TRecipient } from '@/stores/transfer';

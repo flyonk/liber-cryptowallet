@@ -13,7 +13,7 @@
 import { Ref, ref } from 'vue';
 import { onMounted } from 'vue-demi';
 
-import transactionService from '@/services/transactionService';
+import transactionService from '@/applications/liber/services/transactionService';
 
 import { TTopNavigation, TransactionsList } from '@/components/ui';
 

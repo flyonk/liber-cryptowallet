@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import fundsService from '@/services/fundsService';
+import fundsService from '@/applications/liber/services/fundsService';
 
 interface ITransferState {
   coin: string;
