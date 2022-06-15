@@ -32,8 +32,8 @@
 <script lang="ts" setup>
 import { PropType, ref } from 'vue';
 
-import { ICoin } from '@/models/funds/coin';
-import { ICoinForExchange } from '@/stores/funds';
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { ICoinForExchange } from '@/applications/liber/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';

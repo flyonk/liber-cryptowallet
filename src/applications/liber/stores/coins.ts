@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { ICoin } from '@/models/funds/coin';
+import { ICoin } from '@/applications/liber/models/funds/coin';
 import FundsService from '@/applications/liber/services/fundsService';
 
 export interface ICoinsState {

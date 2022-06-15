@@ -46,7 +46,7 @@
 <script lang="ts" setup>
 import { computed, ComputedRef, onMounted } from 'vue';
 
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { getSymbolByCode } from '@/helpers/currency';
 import { Route } from '@/router/types';
 import { IAccount } from '@/models/account/account';

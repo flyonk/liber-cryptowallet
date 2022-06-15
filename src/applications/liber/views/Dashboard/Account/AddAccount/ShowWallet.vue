@@ -11,7 +11,7 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { Route } from '@/router/types';
 
 import { AccountDetails, TTopNavigation } from '@/components/ui';

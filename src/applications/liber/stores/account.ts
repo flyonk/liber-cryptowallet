@@ -4,9 +4,9 @@ import { STORE_AUTH_KEY } from '@/constants';
 import accountService from '@/services/accountService';
 import transactionService from '@/applications/liber/services/transactionService';
 
-import { IAccount } from '@/models/account/account';
-import { IAccountTotal } from '@/models/account/IAccountTotal';
-import { INetTransaction } from '@/models/transaction/transaction';
+import { IAccount } from '@/applications/liber/models/account/account';
+import { IAccountTotal } from '@/applications/liber/models/account/IAccountTotal';
+import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
 import { useErrorsStore } from '@/stores/errors';
 
 export interface INewAccountParams {

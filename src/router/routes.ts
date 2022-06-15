@@ -24,9 +24,22 @@ import InstallApp from '@/views/ConfigureApp/InstallApp.vue';
 import ConfigureApp from '@/views/ConfigureApp/ConfigureApp.vue';
 import ConfigureAppVerify from '@/views/ConfigureApp/ConfigureAppVerify.vue';
 
+import Profile from '@/views/Profile/index.vue';
+import ProfileSettings from '@/views/Profile/ProfileSettings.vue';
+import ProfileMyQrCode from '@/views/Profile/ProfileMyQrCode.vue';
+import ProfileDevices from '@/views/Profile/ProfileDevices.vue';
+import ProfileHelpPage from '@/views/Profile/ProfileHelpPage.vue';
+import ProfileDetails from '@/views/Profile/ProfileDetails.vue';
+import PrivacySettings from '@/views/Profile/PrivacySettings.vue';
+import ProfileAcceptedPhonesAndEmails from '@/views/Profile/ProfileAcceptedPhonesAndEmails.vue';
+import ProfileAddNewContactData from '@/views/Profile/ProfileAddNewContactData.vue';
+
 import KYCMain from '@/views/KYC/KYCMain.vue';
 
 import SurveyScreen from '@/views/Survey/SurveyScreen.vue';
+
+import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
+import PPhoneVerified from '@/components/ui/pages/PPhoneVerified.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -137,6 +150,67 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.KYCMain,
     meta: { authRequired: true },
     component: KYCMain,
+  },
+
+  // === Profile (Left Navigation Menu) ===
+
+  {
+    path: '/profile',
+    name: Route.ProfileMainView,
+    meta: { authRequired: true },
+    component: Profile,
+    children: [
+      {
+        path: '',
+        name: Route.ProfileSettings,
+        component: ProfileSettings,
+      },
+      {
+        path: 'my-qr-code',
+        name: Route.ProfileMyQrCode,
+        component: ProfileMyQrCode,
+      },
+      {
+        path: 'devices',
+        name: Route.ProfileDevices,
+        component: ProfileDevices,
+      },
+      {
+        path: 'profile-phones-and-emails',
+        name: Route.ProfilePhonesAndEmails,
+        component: ProfileAcceptedPhonesAndEmails,
+      },
+      {
+        path: 'profile-add-new-contact-data',
+        name: Route.ProfileAddNewContactData,
+        component: ProfileAddNewContactData,
+      },
+      {
+        path: 'confirm-email',
+        name: Route.ConfirmEmail,
+        component: PEmailSent,
+      },
+      {
+        path: 'phone-verified',
+        name: Route.PhoneVerified,
+        component: PPhoneVerified,
+      },
+      {
+        path: 'help',
+        name: Route.ProfileHelp,
+        component: ProfileHelpPage,
+      },
+      {
+        path: 'details/:id',
+        name: Route.ProfileEdit,
+        component: ProfileDetails,
+      },
+      {
+        path: 'privacy',
+        name: Route.ProfilePrivacy,
+        component: PrivacySettings,
+      },
+    ],
   },
 
   // === Survey ===

@@ -19,7 +19,7 @@
 import { computed, onBeforeMount, ref } from 'vue';
 
 import { Route } from '@/router/types';
-import { useDepositStore } from '@/stores/deposit';
+import { useDepositStore } from '@/applications/liber/stores/deposit';
 
 import { AccountDetails, TTopNavigation } from '@/components/ui';
 

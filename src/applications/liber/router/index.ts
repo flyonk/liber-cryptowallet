@@ -29,16 +29,6 @@ import SendInvite from '@/applications/liber/views/Contacts/SendInvite.vue';
 import AddNewContact from '@/applications/liber/views/Contacts/AddNewContact.vue';
 import SendViaLink from '@/applications/liber/views/Contacts/SendViaLink.vue';
 
-import Profile from '@/applications/liber/views/Profile/index.vue';
-import ProfileSettings from '@/applications/liber/views/Profile/ProfileSettings.vue';
-import ProfileMyQrCode from '@/applications/liber/views/Profile/ProfileMyQrCode.vue';
-import ProfileDevices from '@/applications/liber/views/Profile/ProfileDevices.vue';
-import ProfileHelpPage from '@/applications/liber/views/Profile/ProfileHelpPage.vue';
-import ProfileDetails from '@/applications/liber/views/Profile/ProfileDetails.vue';
-import PrivacySettings from '@/applications/liber/views/Profile/PrivacySettings.vue';
-import ProfileAcceptedPhonesAndEmails from '@/applications/liber/views/Profile/ProfileAcceptedPhonesAndEmails.vue';
-import ProfileAddNewContactData from '@/applications/liber/views/Profile/ProfileAddNewContactData.vue';
-
 import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
 
 import Withdraw from '@/applications/liber/views/Withdraw/WithdrawScreen.vue';
@@ -50,9 +40,6 @@ import AddAccountRoutes from './routesAddAccount';
 
 import RequestContacts from '@/applications/liber/views/Contacts/RequestContacts.vue';
 import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
-
-import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
-import PPhoneVerified from '@/components/ui/pages/PPhoneVerified.vue';
 
 const routes: Array<RouteRecordRaw> = [
   {
@@ -214,67 +201,6 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Withdraw,
     meta: { authRequired: true },
     component: Withdraw,
-  },
-
-  // === Profile (Left Navigation Menu) ===
-
-  {
-    path: '/profile',
-    name: Route.ProfileMainView,
-    meta: { authRequired: true },
-    component: Profile,
-    children: [
-      {
-        path: '',
-        name: Route.ProfileSettings,
-        component: ProfileSettings,
-      },
-      {
-        path: 'my-qr-code',
-        name: Route.ProfileMyQrCode,
-        component: ProfileMyQrCode,
-      },
-      {
-        path: 'devices',
-        name: Route.ProfileDevices,
-        component: ProfileDevices,
-      },
-      {
-        path: 'profile-phones-and-emails',
-        name: Route.ProfilePhonesAndEmails,
-        component: ProfileAcceptedPhonesAndEmails,
-      },
-      {
-        path: 'profile-add-new-contact-data',
-        name: Route.ProfileAddNewContactData,
-        component: ProfileAddNewContactData,
-      },
-      {
-        path: 'confirm-email',
-        name: Route.ConfirmEmail,
-        component: PEmailSent,
-      },
-      {
-        path: 'phone-verified',
-        name: Route.PhoneVerified,
-        component: PPhoneVerified,
-      },
-      {
-        path: 'help',
-        name: Route.ProfileHelp,
-        component: ProfileHelpPage,
-      },
-      {
-        path: 'details/:id',
-        name: Route.ProfileEdit,
-        component: ProfileDetails,
-      },
-      {
-        path: 'privacy',
-        name: Route.ProfilePrivacy,
-        component: PrivacySettings,
-      },
-    ],
   },
 
   // == Select Coin ==

@@ -55,7 +55,7 @@ import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import { Route } from '@/router/types';
-import { useDepositStore } from '@/stores/deposit';
+import { useDepositStore } from '@/applications/liber/stores/deposit';
 
 import { TTopNavigation } from '@/components/ui';
 

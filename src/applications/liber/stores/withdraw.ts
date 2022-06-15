@@ -5,7 +5,7 @@ import fundsService from '@/applications/liber/services/fundsService';
 import {
   IWithdrawalInfo,
   IWithdrawalInfoRequest,
-} from '@/models/funds/withdrawInfo';
+} from '@/applications/liber/models/funds/withdrawInfo';
 
 export interface IWithdrawState {
   info: IWithdrawalInfo;

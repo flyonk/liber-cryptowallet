@@ -33,8 +33,8 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import { ICoin } from '@/models/funds/coin';
-import { ICoinForExchange } from '@/stores/funds';
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { ICoinForExchange } from '@/applications/liber/stores/funds';
 
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
 

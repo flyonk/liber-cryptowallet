@@ -11,7 +11,7 @@
 import { useRouter } from 'vue-router';
 
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 
 import { MNetworkSelectAnswer, TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';

@@ -86,7 +86,7 @@
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
-import { useTransferStore } from '@/stores/transfer';
+import { useTransferStore } from '@/applications/liber/stores/transfer';
 
 import { STATIC_BASE_URL } from '@/constants';
 

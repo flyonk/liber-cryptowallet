@@ -1,9 +1,9 @@
 import axios from 'axios';
-import apiService from '@/services/apiService';
+import apiService from '@/applications/liber/services/apiService';
 
 import paymentLinkMapper, {
   IPaymentLink,
-} from '@/models/transaction/paymentLink';
+} from '@/applications/liber/models/transaction/paymentLink';
 import {
   TCreateRequestFundsData,
   TStatement,

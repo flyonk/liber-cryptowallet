@@ -174,12 +174,12 @@ import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
 import { useUIStore } from '@/stores/ui';
 import transactionService from '@/applications/liber/services/transactionService';
-import { INetTransaction } from '@/models/transaction/transaction';
+import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
 import { STATIC_BASE_URL } from '@/constants';
 

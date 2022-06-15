@@ -21,11 +21,11 @@ import { useRouter } from 'vue-router';
 import { computed, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
-import { useAccountStore } from '@/stores/account';
-import { useDepositStore } from '@/stores/deposit';
-import { useCoinsStore } from '@/stores/coins';
+import { useAccountStore } from '@/applications/liber/stores/account';
+import { useDepositStore } from '@/applications/liber/stores/deposit';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { IAccount } from '@/models/account/account';
-import { ICoin } from '@/models/funds/coin';
+import { ICoin } from '@/applications/liber/models/funds/coin';
 
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 

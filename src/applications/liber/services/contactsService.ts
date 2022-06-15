@@ -1,10 +1,12 @@
 import axios from 'axios';
-import apiService from '@/services/apiService';
+import apiService from '@/applications/liber/services/apiService';
 
-import contactsMapper, { ILiberContact } from '@/models/recipient/liberContact';
+import contactsMapper, {
+  ILiberContact,
+} from '@/applications/liber/models/recipient/liberContact';
 import IPhoneContactMapper, {
   IIPhoneContact,
-} from '@/models/recipient/iPhoneContact';
+} from '@/applications/liber/models/recipient/iPhoneContact';
 
 import { TInviteLink, TPaymentLink, TSuccessResponse } from '@/types/api';
 

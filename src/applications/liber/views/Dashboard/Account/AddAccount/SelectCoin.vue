@@ -17,9 +17,9 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 
-import { ICoin } from '@/models/funds/coin';
-import { useAccountStore } from '@/stores/account';
-import { useCoinsStore } from '@/stores/coins';
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { useAccountStore } from '@/applications/liber/stores/account';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { useErrorsStore } from '@/stores/errors';
 
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';

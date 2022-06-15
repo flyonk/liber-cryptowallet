@@ -4,7 +4,10 @@ import cloneDeep from 'lodash/cloneDeep';
 import fundsService from '@/applications/liber/services/fundsService';
 import { STATIC_BASE_URL } from '@/constants';
 
-import { IConvertInfo, TConvertData } from '@/models/funds/convertInfo';
+import {
+  IConvertInfo,
+  TConvertData,
+} from '@/applications/liber/models/funds/convertInfo';
 
 export interface ICoinForExchange {
   name: string;

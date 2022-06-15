@@ -125,7 +125,7 @@ import { computed, ref } from 'vue';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
-import { useTransferStore } from '@/stores/transfer';
+import { useTransferStore } from '@/applications/liber/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';

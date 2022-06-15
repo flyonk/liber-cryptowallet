@@ -14,7 +14,7 @@
 import { computed } from 'vue';
 
 import BaseCoinListSelect from '@/components/ui/organisms/BaseCoinListSelect.vue';
-import { useCoinsStore } from '@/stores/coins';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 

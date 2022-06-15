@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { IAccount } from '@/models/account/account';
+import { IAccount } from '@/applications/liber/models/account/account';
 
 export interface IDepositNetwork {
   value: string | number;

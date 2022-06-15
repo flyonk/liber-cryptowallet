@@ -47,7 +47,7 @@ import {
   EDirection,
   ETransactionStatus,
   IDepositTransaction,
-} from '@/models/transaction/transaction';
+} from '@/applications/liber/models/transaction/transaction';
 import { TransactionIconWithStatus } from '@/components/ui';
 
 const { tm } = useI18n();

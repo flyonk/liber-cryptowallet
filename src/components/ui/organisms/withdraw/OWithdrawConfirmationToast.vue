@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
-// import { useWithdrawStore } from '@/stores/withdraw';
+// import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { BaseButton, BaseToast } from '@/components/ui';
 
 const mfaStore = useMfaStore();

@@ -1,25 +1,27 @@
 import axios from 'axios';
-import apiService from '@/services/apiService';
+import apiService from '@/applications/liber/services/apiService';
 
-import depositMapper, { IDepositInfo } from '@/models/funds/deposit';
+import depositMapper, {
+  IDepositInfo,
+} from '@/applications/liber/models/funds/deposit';
 import convertInfoMapper, {
   IConvertInfo,
   TConvertData,
-} from '@/models/funds/convertInfo';
-import coinMapper, { ICoin } from '@/models/funds/coin';
+} from '@/applications/liber/models/funds/convertInfo';
+import coinMapper, { ICoin } from '@/applications/liber/models/funds/coin';
 import { withdrawalInfoData } from '../../../../tests/mock/withdrawalData';
 
 import { TSuccessResponse } from '@/types/api';
-import { TRecipient } from '@/stores/transfer';
+import { TRecipient } from '@/applications/liber/stores/transfer';
 import { formatPhoneNumber } from '@/helpers/auth';
 import withdrawInfoMapper, {
   IWithdrawalInfo,
   IWithdrawalInfoRequest,
-} from '@/models/funds/withdrawInfo';
+} from '@/applications/liber/models/funds/withdrawInfo';
 import withdrawMapper, {
   IWithdraw,
   IWithdrawRequest,
-} from '@/models/funds/withdraw';
+} from '@/applications/liber/models/funds/withdraw';
 
 export default {
   async getCoins(): Promise<ICoin[]> {

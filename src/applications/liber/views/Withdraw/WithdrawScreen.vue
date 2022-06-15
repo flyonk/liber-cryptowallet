@@ -115,12 +115,12 @@ import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 
-import { useCoinsStore } from '@/stores/coins';
-import { ICoin } from '@/models/funds/coin';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
+import { ICoin } from '@/applications/liber/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
-import { useWithdrawStore } from '@/stores/withdraw';
+import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { useErrorsStore } from '@/stores/errors';
 
 import {

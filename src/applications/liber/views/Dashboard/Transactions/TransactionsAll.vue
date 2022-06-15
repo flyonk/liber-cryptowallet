@@ -17,7 +17,7 @@ import transactionService from '@/applications/liber/services/transactionService
 
 import { TTopNavigation, TransactionsList } from '@/components/ui';
 
-import { INetTransaction } from '@/models/transaction/transaction';
+import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
 import { Route } from '@/router/types';
 
 const transactions: Ref<INetTransaction[]> = ref([]);

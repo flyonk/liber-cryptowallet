@@ -80,7 +80,7 @@ import { computed, PropType } from 'vue';
 import {
   EDirection,
   IConvertTransaction,
-} from '@/models/transaction/transaction';
+} from '@/applications/liber/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {

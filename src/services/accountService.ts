@@ -1,11 +1,15 @@
 import axios from 'axios';
 import apiService from '@/services/apiService';
 
-import accountMapper, { IAccount } from '@/models/account/account';
+import accountMapper, {
+  IAccount,
+} from '@/applications/liber/models/account/account';
 import accountBalanceMapper, {
   IAccountTotal,
-} from '@/models/account/IAccountTotal';
-import createAccount, { ICreateAccount } from '@/models/account/createAccount';
+} from '@/applications/liber/models/account/IAccountTotal';
+import createAccount, {
+  ICreateAccount,
+} from '@/applications/liber/models/account/createAccount';
 
 // import { TSuccessResponse } from '@/types/api';
 

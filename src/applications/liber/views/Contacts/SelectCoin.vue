@@ -25,12 +25,12 @@
 import { useRoute, useRouter } from 'vue-router';
 import { computed, onBeforeMount } from 'vue';
 
-import { useFundsStore } from '@/stores/funds';
-import { useCoinsStore } from '@/stores/coins';
+import { useFundsStore } from '@/applications/liber/stores/funds';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
 
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
 import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
-import { ICoin } from '@/models/funds/coin';
+import { ICoin } from '@/applications/liber/models/funds/coin';
 
 const router = useRouter();
 const route = useRoute();
