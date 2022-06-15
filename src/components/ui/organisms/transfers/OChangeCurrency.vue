@@ -22,7 +22,6 @@
           />
           <select-coin-input
             :coins="fromCoins"
-            :direction="'from'"
             :current-currency="currentSendFromCurrency"
             @on-select-coin="onSelectCoin($event, 'from')"
           />
@@ -90,7 +89,6 @@
           />
           <select-coin-input
             :coins="toCoins"
-            :direction="'to'"
             :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
@@ -151,18 +149,17 @@ import { useToast } from 'primevue/usetoast';
 
 import { ICoinForExchange, useFundsStore } from '@/stores/funds';
 import { useCoinsStore } from '@/stores/coins';
-// import SentryUtil from '@/helpers/sentryUtil';
 import { Route } from '@/router/types';
 import { ICoin } from '@/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
 import { TConvertData } from '@/models/funds/convertInfo';
+import { useErrorsStore } from '@/stores/errors';
+import { useMfaStore } from '@/stores/mfa';
 
 import { BaseButton } from '@/components/ui';
 import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
-import { useErrorsStore } from '@/stores/errors';
-import { useMfaStore } from '@/stores/mfa';
 
 const errorsStore = useErrorsStore();
 
