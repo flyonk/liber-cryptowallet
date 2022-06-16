@@ -1,6 +1,23 @@
 import { API_VERSION, BASE_API_URL } from '@/constants';
 
 export default {
+  profile: {
+    baseUrl(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile`;
+    },
+    avatar(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/avatar`;
+    },
+    close(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/close`;
+    },
+    kycClaim(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim`;
+    },
+    kycHook(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim/hook`;
+    },
+  },
   auth: {
     signIn(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/auth`;
