@@ -181,7 +181,7 @@ import { useUIStore } from '@/stores/ui';
 import transactionService from '@/applications/liber/services/transactionService';
 import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
-import { STATIC_BASE_URL } from '@/constants';
+import { STATIC_BASE_URL, LOANS_ENABLED } from '@/constants';
 
 import {
   AccountListBottomSheet,
@@ -329,11 +329,14 @@ const tabs = [
     id: 2,
     name: tm('views.dashboard.home.tabs.treasury'),
   },
-  {
+];
+
+if (LOANS_ENABLED) {
+  tabs.push({
     id: 3,
     name: tm('views.dashboard.home.tabs.loans'),
-  },
-];
+  });
+}
 
 const hasTransactions = computed(() => transactions.value.length > 0);
 
