@@ -122,29 +122,31 @@
                 ...
               </button>
             </div>
-            <div class="transactions-header">
-              <span class="title">{{
-                $t('views.dashboard.home.transactions')
-              }}</span>
-              <span
-                :class="{ '-active': hasTransactions }"
-                class="button"
-                @click="$router.push({ name: Route.TransactionsAll })"
-                >{{ $t('views.dashboard.home.seeAll') }}</span
-              >
-            </div>
-            <div v-if="hasTransactions">
-              <transactions-list
-                :preview="preview"
-                :transactions="transactions"
-              />
-            </div>
-            <div v-else class="no-transactions">
-              <i class="icon-clock mr-2" />
-              <p class="text-dark-gray">
-                {{ $t('views.dashboard.home.noTransactions') }}
-              </p>
-            </div>
+            <template v-if="TRANSACTIONS_ENABLED">
+              <div class="transactions-header">
+                <span class="title">{{
+                  $t('views.dashboard.home.transactions')
+                }}</span>
+                <span
+                  :class="{ '-active': hasTransactions }"
+                  class="button"
+                  @click="$router.push({ name: Route.TransactionsAll })"
+                  >{{ $t('views.dashboard.home.seeAll') }}</span
+                >
+              </div>
+              <div v-if="hasTransactions">
+                <transactions-list
+                  :preview="preview"
+                  :transactions="transactions"
+                />
+              </div>
+              <div v-else class="no-transactions">
+                <i class="icon-clock mr-2" />
+                <p class="text-dark-gray">
+                  {{ $t('views.dashboard.home.noTransactions') }}
+                </p>
+              </div>
+            </template>
             <div class="carousel-header">
               <span class="title">{{ $t('views.dashboard.home.todo') }}</span>
               <!-- TODO: Uncomment seeAll when the card screen is ready -->
@@ -181,7 +183,11 @@ import { useUIStore } from '@/stores/ui';
 import transactionService from '@/applications/liber/services/transactionService';
 import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
-import { STATIC_BASE_URL, LOANS_ENABLED } from '@/constants';
+import {
+  STATIC_BASE_URL,
+  LOANS_ENABLED,
+  TRANSACTIONS_ENABLED,
+} from '@/constants';
 
 import {
   AccountListBottomSheet,

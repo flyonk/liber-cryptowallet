@@ -41,6 +41,8 @@ import AddAccountRoutes from './routesAddAccount';
 import RequestContacts from '@/applications/liber/views/Contacts/RequestContacts.vue';
 import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
 
+import { TRANSACTIONS_ENABLED } from '@/constants';
+
 const routes: Array<RouteRecordRaw> = [
   {
     path: '/home',
@@ -123,6 +125,15 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Transactions,
     component: Transactions,
     meta: { layout: 'navbar', authRequired: true },
+    beforeEnter(to, from, next) {
+      if (TRANSACTIONS_ENABLED) {
+        next();
+      } else {
+        next({
+          name: Route.DashboardHome,
+        });
+      }
+    },
     children: [
       {
         path: '', //TODO: ref this rout, component is wrong
