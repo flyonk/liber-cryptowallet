@@ -5,6 +5,8 @@ import { Storage } from '@capacitor/storage';
 import { EStorageKeys } from '@/types/storage';
 import { useErrorsStore } from '@/stores/errors';
 
+import { SUPPORTED_LANGUAGES } from '@/constants';
+
 /**
  * Return messages for each json locale file
  * @returns {LocaleMessages}
@@ -15,7 +17,7 @@ function getLocaleMessages(): LocaleMessages<VueMessageType> {
   locales.keys().forEach((key) => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i);
     const locale = matched && matched.length > 1 ? matched[1] : undefined;
-    if (locale) {
+    if (locale && SUPPORTED_LANGUAGES.includes(locale)) {
       messages[locale] = locales(key);
     }
   });
