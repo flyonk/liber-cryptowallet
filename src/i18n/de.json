@@ -358,7 +358,8 @@
         "tabs": {
           "dashboard": "Dashboard",
           "treasury": "Treasury",
-          "loans": "Loans"
+          "loans": "Loans",
+          "coupons": "Coupons"
         },
         "carousel": {
           "inProgress": "In Progress",

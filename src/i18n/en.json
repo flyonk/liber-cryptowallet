@@ -377,7 +377,8 @@
         "tabs": {
           "dashboard": "Dashboard",
           "treasury": "Treasury",
-          "loans": "Loans"
+          "loans": "Loans",
+          "coupons": "Coupons"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -427,7 +428,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
-        "acceptedPhonesAndEmails": "Accepted Phones & Emails", 
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",

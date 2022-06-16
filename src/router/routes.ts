@@ -40,6 +40,7 @@ import SurveyScreen from '@/views/Survey/SurveyScreen.vue';
 
 import PEmailSent from '@/components/ui/pages/PEmailSent.vue';
 import PPhoneVerified from '@/components/ui/pages/PPhoneVerified.vue';
+import DashboardHome from '@/views/Dashboard/DashboardHome.vue';
 
 // Routes
 const routes: Array<RouteRecordRaw> = [
@@ -47,6 +48,29 @@ const routes: Array<RouteRecordRaw> = [
     path: '/',
     name: Route.WelcomeLogoScreen,
     component: WelcomeLogoScreen,
+  },
+  {
+    path: '/home',
+    name: Route.DashboardHome,
+    component: DashboardHome,
+    meta: { layout: 'navbar', authRequired: true },
+    redirect: {
+      name: Route.DashboardLiber,
+    },
+    children: [
+      {
+        path: '',
+        name: Route.DashboardLiber,
+        component: () =>
+          import('@/applications/liber/views/Dashboard/DashboardLiber.vue'),
+      },
+      {
+        path: 'coupons',
+        name: Route.CouponsHome,
+        component: () =>
+          import('@/applications/coupons/views/Dashboard/DashboardCoupons.vue'),
+      },
+    ],
   },
   {
     path: '/welcome-auth',
