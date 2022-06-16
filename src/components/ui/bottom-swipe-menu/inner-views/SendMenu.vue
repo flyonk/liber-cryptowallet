@@ -1,10 +1,14 @@
 <template>
   <ul class="send-menu">
-    <router-link :to="{ name: Route.PayRecepientsLiber }" class="menu-item">
+    <router-link
+      v-if="showSendFunds"
+      :to="{ name: Route.PayRecepientsLiber }"
+      class="menu-item"
+    >
       <i class="icon icon-send" />
-      <p class="text">Send Funds</p>
+      <p class="text">{{ $t('transactions.carousel.sendFunds') }}</p>
     </router-link>
-    <li class="menu-item" @click="goToRoute">
+    <li v-if="showConvertFunds" class="menu-item" @click="goToRoute">
       <i class="icon icon-convert" />
       <p class="text">{{ $t('transactions.convert.title') }}</p>
     </li>
@@ -17,7 +21,7 @@
       <i class="icon icon-ask-for-funds" />
       <p class="text">Ask a user for funds</p>
     </li>
-    <li class="menu-item" @click="onClick('withdraw')">
+    <li v-if="showWithdrawFunds" class="menu-item" @click="onClick('withdraw')">
       <i class="icon icon-withdraw" />
       <p class="text">Withdraw</p>
     </li>
@@ -33,13 +37,19 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, onMounted } from 'vue';
+import { ref, computed, ComputedRef, onMounted } from 'vue';
 
 import { Route } from '@/router/types';
 import { useRouter } from 'vue-router';
 import { useUIStore } from '@/stores/ui';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
+
+import { CRYPTO_TRANSACTIONS } from '@/constants';
+
+const showSendFunds = ref(CRYPTO_TRANSACTIONS.includes('send'));
+const showConvertFunds = ref(CRYPTO_TRANSACTIONS.includes('convert'));
+const showWithdrawFunds = ref(CRYPTO_TRANSACTIONS.includes('withdraw'));
 
 const accountStore = useAccountStore();
 const router = useRouter();

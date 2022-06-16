@@ -1,3 +1,11 @@
+function getArrayFromEnvVar(envVarKey: string) {
+  let _envVar = process.env[envVarKey];
+  if (_envVar) {
+    _envVar = _envVar.replaceAll(' ', '').split(',');
+  }
+  return _envVar || [];
+}
+
 // Middleware file to pass constants and env variables to the App
 export const STORE_AUTH_KEY = 'liber_auth';
 export const BASE_API_URL = process.env.VUE_APP_BASE_API_URL;
@@ -16,9 +24,15 @@ export const TRANSACTIONS_ENABLED =
   process.env.VUE_APP_TRANSACTIONS_FOR_NOT_VERIFIED_USERS === 'true';
 export const SUPPORT_EMAIL = process.env.VUE_APP_SUPPORT_EMAIL;
 
-let _langs = process.env.VUE_APP_SUPPORTED_LANGUAGES;
-if (_langs) {
-  _langs = _langs.replaceAll(' ', '').split(',');
-}
-
-export const SUPPORTED_LANGUAGES = _langs || [];
+export const SUPPORTED_LANGUAGES = getArrayFromEnvVar(
+  'VUE_APP_SUPPORTED_LANGUAGES'
+);
+export const CRYPTO_TRANSACTIONS = getArrayFromEnvVar(
+  'VUE_APP_CRYPTO_TRANSACTIONS'
+);
+export const FIAT_TRANSACTIONS = getArrayFromEnvVar(
+  'VUE_APP_FIAT_TRANSACTIONS'
+);
+export const COUPONS_TRANSACTIONS = getArrayFromEnvVar(
+  'VUE_APP_COUPONS_TRANSACTIONS'
+);
