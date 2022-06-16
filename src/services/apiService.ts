@@ -18,6 +18,23 @@ export default {
       return `${BASE_API_URL}/api/${API_VERSION}/auth/devices`;
     },
   },
+  profile: {
+    baseUrl(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile`;
+    },
+    avatar(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/avatar`;
+    },
+    close(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/close`;
+    },
+    kycClaim(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim`;
+    },
+    kycHook(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim/hook`;
+    },
+  },
   authenticators: {
     disable(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/user/2fa/disable`;
