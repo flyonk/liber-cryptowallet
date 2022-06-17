@@ -138,7 +138,11 @@
   },
   "commitlint": {
     "rules": {
-      "references-empty": [1, "never"]
+      "references-empty": [2, "never"],
+      "type-enum": [2, "always", [
+        "build", "chore", "deploy", "docs", "feat", "fix", "perf", "refactor", "revert", "test"
+      ]],
+      "type-empty": [2, "never"]
     },
     "parserPreset": {
       "parserOpts": {

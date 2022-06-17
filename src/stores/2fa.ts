@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { Storage } from '@capacitor/storage';
-import profileService from '@/applications/liber/services/profileService';
+import profileService from '@/services/profileService';
 
 import { checkExpiration } from '@/helpers/2fa';
 

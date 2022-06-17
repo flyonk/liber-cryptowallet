@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
-import profileService from '@/applications/liber/services/profileService';
+import profileService from '@/services/profileService';
 import { IProfile, TMarketing } from '@/models/profile/profile';
 import { clearAll, get, set } from '@/helpers/storage';
 import SentryUtil from '@/helpers/sentryUtil';
