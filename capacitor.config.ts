@@ -1,4 +1,5 @@
 import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorProject } from '@capacitor/project';
 
 const appId = process.env.APP_ID || 'liber.cryptowize.tech';
 const appName = process.env.APP_NAME || 'Liber';
@@ -8,11 +9,25 @@ const config: CapacitorConfig = {
   appName,
   webDir: 'dist',
   bundledWebRuntime: false,
-
-  server: {
-    url: 'http://192.168.3.4:8080/',
-    cleartext: true,
+  ios: {
+    path: 'ios',
   },
 };
+
+if (process.env.APP_ID) {
+  async function updateIosApp() {
+    const project = new CapacitorProject(config);
+    await project.load();
+    project.ios?.getBuildProperty;
+    await project.ios?.setBundleId('App', null, appId);
+    if (process.env.DEVELOPMENT_TEAM) {
+      await project.ios?.setBuildProperty('App', null, 'DEVELOPMENT_TEAM', process.env.DEVELOPMENT_TEAM);
+    }
+    await project.commit();
+  }
+
+  updateIosApp();
+}
+
 
 export default config;

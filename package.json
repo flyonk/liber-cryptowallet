@@ -3,7 +3,7 @@
   "version": "1.1.0",
   "private": true,
   "scripts": {
-    "serve": "yarn xcodeconfig && cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service serve",
+    "serve": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service serve",
     "build": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
     "test:e2e": "vue-cli-service test:e2e",
@@ -22,8 +22,7 @@
     "lint:style:fix": "yarn lint:style --fix",
     "postinstall": "husky install",
     "prepare": "husky install",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'",
-    "xcodeconfig": "node ./xcodeconfig/xcode.autoconfig.js"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'"
   },
   "dependencies": {
     "@capacitor-community/camera-preview": "3.0.0",
@@ -35,6 +34,7 @@
     "@capacitor/device": "^1.1.2",
     "@capacitor/dialog": "^1.0.7",
     "@capacitor/ios": "^3.3.4",
+    "@capacitor/project": "^2.0.10",
     "@capacitor/push-notifications": "^1.0.9",
     "@capacitor/share": "^1.1.2",
     "@capacitor/storage": "^1.2.4",
@@ -103,7 +103,6 @@
     "@vue/test-utils": "^2.0.0-0",
     "babel-jest": "^27.4.6",
     "cross-env": "^7.0.3",
-    "dotenv": "^16.0.1",
     "dotenv-cli": "^5.1.0",
     "eslint": "^8.4.1",
     "eslint-plugin-prettier": "^3.3.1",
@@ -141,15 +140,36 @@
   },
   "commitlint": {
     "rules": {
-      "references-empty": [2, "never"],
-      "type-enum": [2, "always", [
-        "build", "chore", "deploy", "docs", "feat", "fix", "perf", "refactor", "revert", "test"
-      ]],
-      "type-empty": [2, "never"]
+      "references-empty": [
+        2,
+        "never"
+      ],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "deploy",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "test"
+        ]
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ]
     },
     "parserPreset": {
       "parserOpts": {
-        "issuePrefixes": ["#"]
+        "issuePrefixes": [
+          "#"
+        ]
       }
     }
   }
