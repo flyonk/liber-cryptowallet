@@ -5,6 +5,7 @@
       <i class="icon-search" />
       <input
         id="searchCoin"
+        v-model="query"
         :placeholder="$t('views.deposit.selectCoin.searchCoin')"
         class="search"
         name="searchCoin"
@@ -12,25 +13,42 @@
       />
     </label>
   </div>
-  <SelectCoin :coins="coins" @select-coin="$emit('select-coin', $event)" />
+  <SelectCoin
+    :current-currency="currentCurrency"
+    :coins="availableCoins"
+    @select-coin="$emit('select-coin', $event)"
+  />
 </template>
 
 <script lang="ts" setup>
+import { computed, PropType, ref } from 'vue';
+
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { ICoinForExchange } from '@/applications/liber/stores/funds';
+
 import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { PropType } from 'vue';
-import { ICoin } from '@/models/funds/coin';
 
 defineEmits(['back-button', 'select-coin']);
 
-defineProps({
+const props = defineProps({
+  currentCurrency: {
+    type: Object as PropType<ICoinForExchange>,
+    default: () => ({} as ICoinForExchange),
+  },
   coins: {
     type: Array as PropType<ICoin[]>,
     default: () => [],
   },
-  direction: {
-    type: String as PropType<'from' | 'to'>,
-    default: 'from',
-  },
+});
+
+const query = ref('');
+
+const availableCoins = computed(() => {
+  return props.coins.filter(
+    (coin) =>
+      coin.code.toLowerCase().includes(query.value.toLowerCase()) ||
+      coin.name.toLowerCase().includes(query.value.toLowerCase())
+  );
 });
 </script>
 

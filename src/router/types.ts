@@ -5,6 +5,7 @@ export enum Route {
   AuthCode = 'auth-code',
   AuthPasscode = 'auth-passcode',
   ChangePasscode = 'change-passcode',
+  ChangePasscodeEnter = 'change-passcode-enter',
   ChangeAuthapp = 'change-authapp',
   SignUp = 'sign-up',
   Login = 'login',
@@ -37,9 +38,14 @@ export enum Route {
   ProfileSettings = 'profile-settings',
   ProfileMyQrCode = 'profile-my-qr-code',
   ProfileDevices = 'profile-devices',
+  ProfilePhonesAndEmails = 'profile-phones-and-emails',
+  ProfileAddNewContactData = 'profile-add-new-contact-data',
   ProfileHelp = 'profile-help',
   ProfileEdit = 'profile-edit',
   ProfilePrivacy = 'profile-privacy',
+
+  ConfirmEmail = 'confirm-email',
+  PhoneVerified = 'phone-verified',
 
   KYCMain = 'kyc-main',
   KYCPersonal = 'kyc-personal',

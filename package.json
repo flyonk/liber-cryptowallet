@@ -1,6 +1,6 @@
 {
   "name": "cw",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "serve": "yarn xcodeconfig && cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service serve",
@@ -82,6 +82,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@capacitor/cli": "^3.3.4",
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "@types/jest": "^27.0.2",
     "@types/jwt-decode": "^3.1.0",
     "@types/luxon": "^2.3.0",
@@ -136,5 +138,19 @@
     ],
     "*.js": "eslint --cache --fix",
     "*.css": "stylelint --fix"
+  },
+  "commitlint": {
+    "rules": {
+      "references-empty": [2, "never"],
+      "type-enum": [2, "always", [
+        "build", "chore", "deploy", "docs", "feat", "fix", "perf", "refactor", "revert", "test"
+      ]],
+      "type-empty": [2, "never"]
+    },
+    "parserPreset": {
+      "parserOpts": {
+        "issuePrefixes": ["#"]
+      }
+    }
   }
 }

@@ -1,0 +1,6 @@
+#!/bin/sh
+. ".husky/_/husky.sh"
+. ".husky/_/common.sh"
+
+npx lint-staged
+npx --no -- commitlint --edit "${1}"

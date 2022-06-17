@@ -34,7 +34,8 @@
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
     "on": "On",
-    "off": "Off"
+    "off": "Off",
+    "2fainput": "2FA verification code"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -99,7 +100,9 @@
         "title": "Welcome to",
         "transfer": "Transfer money around the world with the best fee",
         "login": "Log in",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "loginWithThisNumber": "Login with this number",
+        "goBack": "No, go back"
       }
     }
   },
@@ -351,7 +354,8 @@
       "createPasscode": "Create passcode",
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
-      "currentPasscode": "Current passcode"
+      "currentPasscode": "Current passcode",
+      "newPasscode": "Enter new passcode"
     },
     "dashboard": {
       "home": {
@@ -423,6 +427,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails", 
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -491,7 +496,32 @@
         "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      },
+      "profilePhonesAndEmails":{
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
+        "yourIdentityIsNotVerified": "Your identity is not verified",
+        "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
+        "verifyIdentity": "Verify Identity",
+        "acceptedContact": "Accepted Contacts",
+        "verificationInProgress": "ID Verification in progress",
+        "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
+      },
+      "profileAddNewContactData":{
+        "title":"Add a new contact",
+        "confirmButton":"Confirm Contact"
       }
+    },
+    "pEmailSent":{
+      "title":"Confirm you email address",
+      "description":"We sent confirmation email to:",
+      "footerDescription": "Check your email and click on the confirmation link to continue.",
+      "goToInbox": "Go to Inbox",
+      "resend": "Resend email"
+    },
+    "pPhoneVerified":{
+      "title":"Your phone number has been successfully verified",
+      "description":"Now you can get money by the following phone number:",
+      "done": "Done"
     },
     "survey": {
       "question": "Main reason for using Liber",
@@ -505,7 +535,7 @@
         "selectCoin": "Select a coin",
         "searchCoin": "Search a coin",
         "suggested": "Suggested",
-        "allCoins": "All Coins"
+        "allCoins": "All Available Coins"
       },
       "selectNetwork": {
         "question": "Main reason for using Liber",
@@ -551,7 +581,9 @@
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
     "details": "Details",
-    "login2Step": "Invalid secret code"
+    "login2Step": "Invalid secret code",
+    "numberAlreadyInUse": "Number already in use",
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number"
   },
   "biometricConfirmation": {
     "title": "Change settings",

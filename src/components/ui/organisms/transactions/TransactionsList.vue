@@ -23,7 +23,7 @@ import { useRouter } from 'vue-router';
 import {
   ETransactionType,
   INetTransaction,
-} from '@/models/transaction/transaction';
+} from '@/applications/liber/models/transaction/transaction';
 import { Route } from '@/router/types';
 import {
   ConvertTransactionItem,

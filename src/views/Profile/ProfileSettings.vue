@@ -53,6 +53,20 @@
                 {{ $t('views.profile.profileSettings.details') }}
               </p>
             </router-link>
+            <router-link
+              :to="{ name: Route.ProfilePhonesAndEmails }"
+              class="item"
+            >
+              <img
+                class="icon"
+                :src="`${menuStaticFolder}circle_check_outline.svg`"
+              />
+              <p class="text">
+                {{
+                  $t('views.profile.profileSettings.acceptedPhonesAndEmails')
+                }}
+              </p>
+            </router-link>
             <router-link :to="{ name: Route.AccountMain }" class="item">
               <img class="icon" :src="`${menuStaticFolder}data.svg`" />
               <p class="text">
@@ -395,6 +409,10 @@ async function onLogout() {
   }
 
   > .title {
+    width: 74vw;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     font-weight: 800;
     font-size: 28px;
     line-height: 34px;

@@ -28,7 +28,7 @@ import { computed, PropType, ref } from 'vue';
 import {
   EDirection,
   IConvertTransaction,
-} from '@/models/transaction/transaction';
+} from '@/applications/liber/models/transaction/transaction';
 import { toUpperCase } from '@/helpers/filters';
 
 import { TransactionIconWithStatus } from '@/components/ui';

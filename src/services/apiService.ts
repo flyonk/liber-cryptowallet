@@ -54,49 +54,9 @@ export default {
       return `${BASE_API_URL}/api/${API_VERSION}/verification-by-sms`;
     },
   },
-  recipients: {
-    contacts(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/contacts`;
-    },
-    sync(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/contacts-sync`;
-    },
-    invite(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/invite`;
-    },
-    payment(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/payment-link`;
-    },
-  },
-  funds: {
-    convertInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/convert/info`;
-    },
-    convert(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/convert`;
-    },
-    coins(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/coins`;
-    },
-    depositInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/deposit-info`;
-    },
-    withdrawInfo(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/withdrawal/info`;
-    },
-    withdraw(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/funds/withdraw`;
-    },
-  },
-  transactions: {
-    transactionsList(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/transactions`;
-    },
-    requestFunds(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/request-funds`;
-    },
-    transactionDetailsByCoin(coin: string, id: string): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/transactions/coin/${coin}/id/${id}`;
+  localData: {
+    countryDial(): string {
+      return `/country_dial_info.json`;
     },
   },
   account: {
@@ -108,16 +68,6 @@ export default {
     },
     create(coin: string): string {
       return `${BASE_API_URL}/api/${API_VERSION}/coin/accounts/${coin}/address`;
-    },
-  },
-  transfer: {
-    send(coin: string): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/transfer/coin/${coin}`;
-    },
-  },
-  localData: {
-    countryDial(): string {
-      return `/country_dial_info.json`;
     },
   },
   passcode: {

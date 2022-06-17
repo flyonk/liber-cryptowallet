@@ -38,7 +38,7 @@ import { computed, ComputedRef, onMounted } from 'vue';
 import { Route } from '@/router/types';
 import { useRouter } from 'vue-router';
 import { useUIStore } from '@/stores/ui';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 
 const accountStore = useAccountStore();

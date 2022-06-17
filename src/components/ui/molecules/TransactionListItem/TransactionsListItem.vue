@@ -8,7 +8,7 @@ import { computed, PropType } from 'vue';
 import {
   ETransactionType,
   TConvertTransaction,
-} from '@/models/transaction/transaction';
+} from '@/applications/liber/models/transaction/transaction';
 
 import {
   ConvertTransactionItem,

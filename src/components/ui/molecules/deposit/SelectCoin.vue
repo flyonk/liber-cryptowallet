@@ -6,6 +6,7 @@
         <CoinItem
           v-for="item in popularCoins"
           :key="item.code"
+          :selected="isSelected(item.code)"
           :full-name="item.name"
           :icon="item.imageUrl"
           :short-name="item.code.toUpperCase()"
@@ -19,6 +20,7 @@
       <CoinItem
         v-for="item in allCoins"
         :key="item.code"
+        :selected="isSelected(item.code)"
         :full-name="item.name"
         :icon="item.imageUrl"
         :short-name="item.code.toUpperCase()"
@@ -29,10 +31,12 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, PropType } from 'vue';
+
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { ICoinForExchange } from '@/applications/liber/stores/funds';
+
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
-import { PropType } from 'vue-demi';
-import { ICoin } from '@/models/funds/coin';
-import { computed } from 'vue';
 
 defineEmits(['select-coin']);
 
@@ -41,12 +45,20 @@ const props = defineProps({
     type: Array as PropType<ICoin[]>,
     required: true,
   },
+  currentCurrency: {
+    type: Object as PropType<ICoinForExchange>,
+    default: () => ({} as ICoinForExchange),
+  },
 });
 
 const popularCoins = computed(() => props.coins.filter((e) => !!e?.isPopular));
 const allCoins = computed(() => props.coins.filter((e) => !e?.isPopular));
 
 const hasPopularCoins = computed(() => !!popularCoins.value.length);
+
+const isSelected = (code: string): boolean => {
+  return !!props.currentCurrency.code && code === props.currentCurrency.code;
+};
 </script>
 
 <style lang="scss" scoped>

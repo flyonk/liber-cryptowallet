@@ -82,7 +82,7 @@ import { Swiper, SwiperSlide } from 'swiper/vue';
 
 import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { useProfileStore } from '@/stores/profile';
 
 // import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';

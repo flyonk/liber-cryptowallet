@@ -57,6 +57,7 @@ import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { useAuthStore } from '@/stores/auth';
+import { STATIC_BASE_URL } from '@/constants';
 
 const pStore = useProfileStore();
 const authStore = useAuthStore();
