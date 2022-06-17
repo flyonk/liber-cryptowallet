@@ -1,83 +1,60 @@
 <template>
   <div class="dashboard-container">
-    <div class="currencies flex items-center">
-      <!--TODO: map currencies-->
-      <h1 class="title">
-        {{ currentAccount.code }} {{ currentAccount.balance }}
-      </h1>
-      <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
-        <i
-          class="down icon-ic16-arrow-down"
-          :class="{ '-reverted': isMenuOpen }"
-        />
-      </div>
-      <img
-        alt="currency"
-        class="ml-auto"
-        :src="currentAccount.imgSrc"
-        @click="$router.push({ name: Route.AccountMain })"
-      />
-    </div>
-
-    <h3 class="heading-gray-md mb-4">
-      {{ $t('views.dashboard.home.allAccounts') }}
-    </h3>
-    <div v-show="showWelcomeMessage" class="main">
-      <h1 class="title">
-        {{ $t('views.dashboard.home.getYourCryptoAsset') }}
-      </h1>
-      <h4 class="description">
-        {{ $t('views.dashboard.home.noAssets') }}
-        <br />
-        {{ $t('views.dashboard.home.depositFirstCoins') }}
-      </h4>
-    </div>
-
-    <div class="controls">
-      <button
-        :class="{
-          '-active': VerificationStatus === EKYCStatus.success,
-        }"
-        :disabled="VerificationStatus !== EKYCStatus.success"
-        class="btn"
-        @click="$router.push('/deposit')"
-      >
-        <i
-          class="icon-btn icon-plus_circle"
-          :class="{
-            '-active': VerificationStatus === EKYCStatus.success,
-          }"
-        />
-        {{ $t('views.dashboard.home.deposit') }}
-      </button>
-      <button
-        :class="{
-          '-active': VerificationStatus === EKYCStatus.success,
-        }"
-        :disabled="VerificationStatus !== EKYCStatus.success"
-        class="btn"
-        @click="$router.push({ name: Route.PayRecepientsLiber })"
-      >
-        <i
-          class="icon-btn icon-send"
-          :class="{
-            '-active': VerificationStatus === EKYCStatus.success,
-          }"
-        />
-        {{ $t('views.dashboard.home.send') }}
-      </button>
-      <button
-        :class="{
-          '-active': VerificationStatus === EKYCStatus.success,
-        }"
-        :disabled="VerificationStatus !== EKYCStatus.success"
-        class="btn"
-        @click="openActionsSwiper"
-      >
-        ...
-      </button>
-    </div>
-
+    <MDashboardCoinInfo
+      :accounts="accounts"
+      :verification-status="10"
+      :total-balance="totalBalance"
+      :show-welcome-message="showWelcomeMessage"
+      :selected-account="currentAccount"
+      @coin-select="onSelectAccount"
+    >
+      <template #controllers>
+        <div class="controls">
+          <button
+            :class="{
+              '-active': VerificationStatus === EKYCStatus.success,
+            }"
+            :disabled="VerificationStatus !== EKYCStatus.success"
+            class="btn"
+            @click="$router.push('/deposit')"
+          >
+            <i
+              class="icon-btn icon-plus_circle"
+              :class="{
+                '-active': VerificationStatus === EKYCStatus.success,
+              }"
+            />
+            {{ $t('views.dashboard.home.deposit') }}
+          </button>
+          <button
+            :class="{
+              '-active': VerificationStatus === EKYCStatus.success,
+            }"
+            :disabled="VerificationStatus !== EKYCStatus.success"
+            class="btn"
+            @click="$router.push({ name: Route.PayRecepientsLiber })"
+          >
+            <i
+              class="icon-btn icon-send"
+              :class="{
+                '-active': VerificationStatus === EKYCStatus.success,
+              }"
+            />
+            {{ $t('views.dashboard.home.send') }}
+          </button>
+          <button
+            :class="{
+              '-active': VerificationStatus === EKYCStatus.success,
+            }"
+            :disabled="VerificationStatus !== EKYCStatus.success"
+            class="btn"
+            @click="openActionsSwiper"
+          >
+            ...
+          </button>
+        </div>
+      </template>
+    </MDashboardCoinInfo>
     <div class="transactions-header">
       <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
       <span
@@ -110,18 +87,11 @@
     <div class="carousel">
       <stories-swiper />
     </div>
-
-    <AccountListBottomSheet
-      v-if="isMenuOpen"
-      :accounts="accounts"
-      @close="closeMenu"
-      @select="onSelectAccount"
-    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, onMounted, Ref, ref } from 'vue';
+import { computed, ComputedRef, onBeforeMount, Ref, ref } from 'vue';
 
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useProfileStore } from '@/stores/profile';
@@ -134,12 +104,10 @@ import { STATIC_BASE_URL } from '@/constants';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
-import { AccountListBottomSheet, TransactionsList } from '@/components/ui';
+import { MDashboardCoinInfo, TransactionsList } from '@/components/ui';
 import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
 
 const VerificationStatus = ref(EKYCStatus.success);
-
-const isMenuOpen = ref(false);
 
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
@@ -169,7 +137,7 @@ let preview = ref(3);
 /**
  * Lifecycle
  */
-onMounted(async () => {
+onBeforeMount(async () => {
   uiStore.setLoadingState('dashboard', true);
 
   await profileStore.init();
@@ -223,14 +191,8 @@ const setCurrentAccount = (coinCode: string) => {
   };
 };
 
-function closeMenu() {
-  isMenuOpen.value = false;
-}
-
 const onSelectAccount = (coinCode: string) => {
   setCurrentAccount(coinCode);
-
-  isMenuOpen.value = false;
 };
 
 const hasTransactions = computed(() => transactions.value.length > 0);
@@ -241,6 +203,38 @@ const showWelcomeMessage = computed(() => {
 </script>
 
 <style scoped lang="scss">
+.controls {
+  display: flex;
+  margin-bottom: 32px;
+
+  > .btn {
+    background: $color-brand-2-50;
+    color: $color-light-grey-850;
+    box-shadow: 0 2px 4px -3px rgb(64 70 105 / 21%);
+    border-radius: 8px;
+    padding: 0 16px 0 12px;
+    font-weight: 600;
+    font-size: 13px;
+    line-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 109px;
+    height: 40px;
+    margin-right: 8px;
+
+    &.-active {
+      background: $color-white;
+    }
+
+    &:last-child {
+      width: 40px;
+      height: 40px;
+      margin: 0;
+    }
+  }
+}
+
 .dashboard-container {
   background: $color-light-grey-100;
   overflow: auto;
@@ -314,38 +308,6 @@ const showWelcomeMessage = computed(() => {
       font-size: 13px;
       line-height: 18px;
       letter-spacing: -0.0008em;
-    }
-  }
-
-  > .controls {
-    display: flex;
-    margin-bottom: 32px;
-
-    > .btn {
-      background: $color-brand-2-50;
-      color: $color-light-grey-850;
-      box-shadow: 0 2px 4px -3px rgb(64 70 105 / 21%);
-      border-radius: 8px;
-      padding: 0 16px 0 12px;
-      font-weight: 600;
-      font-size: 13px;
-      line-height: 18px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      width: 109px;
-      height: 40px;
-      margin-right: 8px;
-
-      &.-active {
-        background: $color-white;
-      }
-
-      &:last-child {
-        width: 40px;
-        height: 40px;
-        margin: 0;
-      }
     }
   }
 

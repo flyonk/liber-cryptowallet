@@ -35,3 +35,4 @@ export { default as OWithdrawSummary } from './organisms/withdraw/OWithdrawSumma
 export { default as OWithdrawConfirmationToast } from './organisms/withdraw/OWithdrawConfirmationToast.vue';
 export { default as OWithdrawSuccessToast } from './organisms/withdraw/OWithdrawSuccessToast.vue';
 export { default as EnterVerificationCode } from './organisms/auth/EnterVerificationCode.vue';
+export { default as MDashboardCoinInfo } from './molecules/dashboard/MDashboardCoinInfo.vue';

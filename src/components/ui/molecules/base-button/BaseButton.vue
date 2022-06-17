@@ -215,6 +215,23 @@ const classes = computed(() => [
     padding: 12px;
   }
 
+  &.-finance-action {
+    min-width: 0;
+    padding: 10px;
+    border: 0.5px solid $color-light-grey;
+    box-shadow: 0 1px 3px -3px rgba(64, 70, 105, 0.21);
+    border-radius: 8px;
+    background: $color-white;
+
+    &.-with-icon-left {
+      > .container {
+        > .label {
+          margin-left: 8px;
+        }
+      }
+    }
+  }
+
   &.-secondary {
     background: $color-light-grey;
 

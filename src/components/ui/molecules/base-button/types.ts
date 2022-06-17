@@ -11,4 +11,5 @@ export enum ViewBaseButton {
   Ghost = 'ghost',
   Flat = 'flat',
   White = 'white',
+  FinanceAction = 'finance-action',
 }
