@@ -20,6 +20,10 @@ interface ICustomError {
   display?: boolean;
   severity?: 'error' | 'offline';
   customErrorComponent?: Component;
+  confirmTitle: string;
+  cancelTitle?: string;
+  confirmCallback: () => void;
+  cancelCallback?: () => void;
 }
 
 interface ErrorState {
@@ -65,24 +69,15 @@ export const useErrorsStore = defineStore('errors', {
       await errorService.logError(err, name, ctx, description);
     },
 
-    async handleCustom({
-      err,
-      title,
-      ctx,
-      description,
-      display = true,
-      severity = 'error',
-    }: ICustomError): Promise<void> {
+    async handleCustom(config: ICustomError): Promise<void> {
       this.errors = [];
-      this.customError = {
-        err,
-        title,
-        ctx,
-        description,
-        display,
-        severity,
-      };
-      await errorService.logError(err, 'Network Error', ctx, err.message);
+      this.customError = config;
+      await errorService.logError(
+        config.err,
+        'Network Error',
+        config.ctx,
+        config.err.message
+      );
     },
 
     async multiErrorHandler(
@@ -111,6 +106,7 @@ export const useErrorsStore = defineStore('errors', {
 
     async hideError(): Promise<void> {
       if (this.customError) this.customError.display = false;
+      this.customError = undefined;
     },
 
     getErrorMessage(): string {

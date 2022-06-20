@@ -18,8 +18,19 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button class="btn" @click="hideError">
-          {{ $t('errors.retryConnect') }}
+        <base-button
+          :class="{ 'full-width': !error.cancelTitle }"
+          class="btn"
+          @click="error.confirmCallback"
+        >
+          {{ $t(`errors.${error.confirmTitle}`) }}
+        </base-button>
+        <base-button
+          v-if="error.cancelTitle"
+          class="btn"
+          @click="error.cancelCallback"
+        >
+          {{ $t(`errors.${error.cancelTitle}`) }}
         </base-button>
       </div>
     </template>
@@ -43,17 +54,14 @@ const error = computed(() => errorsStore.customError);
 const customContent = computed(
   () => errorsStore.customError?.customErrorComponent
 );
-
-function hideError(): void {
-  errorsStore.hideError();
-}
 </script>
 
 <style lang="scss" scoped>
 .popup-footer {
   display: flex;
+  justify-content: space-around;
 
-  > .btn {
+  > .full-width {
     flex-grow: 100;
   }
 }
