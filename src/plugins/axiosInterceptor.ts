@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 
 import apiService from '@/services/apiService';
 import { useAuthStore } from '@/stores/auth';
+import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
+import { useAppOptionsStore } from '@/stores/appOptions';
 import { i18n } from '@/i18n';
 import { get } from '@/helpers/storage';
 import router from '@/router';
@@ -9,7 +11,6 @@ import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
-import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
 
 /*
  * Not protected routes list
@@ -127,6 +128,13 @@ export default function init(): void {
       return response;
     },
     async (error) => {
+      //Handle offline case
+      if (
+        error?.message === 'Network Error' &&
+        ['post', 'put', 'patch'].indexOf(error?.config.method) > -1
+      ) {
+        useAppOptionsStore().setOfflineToast(true, error);
+      }
       const mfaStore = useMfaStore();
       // mfa cancel error case
       if (mfaStore.enabled && error instanceof TypeError) {

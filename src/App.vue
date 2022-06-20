@@ -22,20 +22,23 @@
   </app-layout-switcher>
 
   <errors-toast />
+  <m-custom-error />
 </template>
 
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import PToast from 'primevue/toast';
-import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import SwipeBack from '@/plugins/swipe-capacitor';
+
+import PToast from 'primevue/toast';
+import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
+import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 
 const mfaStore = useMfaStore();
 
@@ -62,6 +65,10 @@ SwipeBack.enable()
 const showMfa = computed(() => {
   return mfaStore.enabled;
 });
+
+// const showOfflineToast = computed(() => {
+//   return useAppOptionsStore().isOfflineToastActive;
+// });
 </script>
 
 <style lang="scss">

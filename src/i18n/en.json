@@ -583,7 +583,10 @@
     "details": "Details",
     "login2Step": "Invalid secret code",
     "numberAlreadyInUse": "Number already in use",
-    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number"
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number",
+    "retryConnect": "Retry connect",
+    "offlineTitle": "No internet connection",
+    "offlineDescription": "Please, check internet connection on your phone to use the application"
   },
   "biometricConfirmation": {
     "title": "Change settings",
