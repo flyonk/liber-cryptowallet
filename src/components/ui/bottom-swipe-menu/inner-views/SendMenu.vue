@@ -1,38 +1,53 @@
 <template>
   <ul class="send-menu">
-    <router-link
-      v-if="showSendFunds"
-      :to="{ name: Route.PayRecepientsLiber }"
-      class="menu-item"
-    >
-      <i class="icon icon-send" />
-      <p class="text">{{ $t('transactions.carousel.sendFunds') }}</p>
-    </router-link>
-    <li v-if="showConvertFunds" class="menu-item" @click="goToRoute">
-      <i class="icon icon-convert" />
-      <p class="text">{{ $t('transactions.convert.title') }}</p>
-    </li>
+    <BottomSwipeMenuItem
+      icon="icon-send"
+      :text="$t('transactions.carousel.sendFunds')"
+      :show-menu-item="showSendFunds"
+      @click="
+        router.push({
+          name: Route.PayRecepientsLiber,
+        })
+      "
+    />
 
-    <li class="menu-item" @click="onClick('borrow')">
-      <i class="icon icon-borrow" />
-      <p class="text">Borrow stablecoin</p>
-    </li>
-    <li class="menu-item" @click="onClick('ask')">
-      <i class="icon icon-ask-for-funds" />
-      <p class="text">Ask a user for funds</p>
-    </li>
-    <li v-if="showWithdrawFunds" class="menu-item" @click="onClick('withdraw')">
-      <i class="icon icon-withdraw" />
-      <p class="text">Withdraw</p>
-    </li>
-    <li class="menu-item" @click="onClick('download')">
-      <i class="icon icon-send" />
-      <p class="text">Download Statement</p>
-    </li>
-    <li class="menu-item" @click="onClick('add')">
-      <i class="icon icon-convert" />
-      <p class="text">Add account</p>
-    </li>
+    <BottomSwipeMenuItem
+      icon="icon-convert"
+      :text="$t('transactions.convert.title')"
+      :show-menu-item="showConvertFunds"
+      @click="goToRoute"
+    />
+
+    <BottomSwipeMenuItem
+      icon="icon-borrow"
+      text="Borrow stablecoin"
+      @click="onClick('borrow')"
+    />
+
+    <BottomSwipeMenuItem
+      icon="icon-ask-for-funds"
+      text="Ask a user for funds"
+      @click="onClick('ask')"
+    />
+
+    <BottomSwipeMenuItem
+      icon="icon-withdraw"
+      text="Withdraw"
+      :show-menu-item="showWithdrawFunds"
+      @click="onClick('withdraw')"
+    />
+
+    <BottomSwipeMenuItem
+      icon="icon-send"
+      text="Download Statement"
+      @click="onClick('download')"
+    />
+
+    <BottomSwipeMenuItem
+      icon="icon-convert"
+      text="Add account"
+      @click="onClick('add')"
+    />
   </ul>
 </template>
 
@@ -44,6 +59,7 @@ import { useRouter } from 'vue-router';
 import { useUIStore } from '@/stores/ui';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
+import BottomSwipeMenuItem from '@/components/ui/atoms/BottomSwipeMenuItem.vue';
 
 import { CRYPTO_TRANSACTIONS } from '@/constants';
 
@@ -105,25 +121,5 @@ const onClick = (action: string) => {
   flex-direction: column;
   width: 100%;
   padding-bottom: 50px;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-
-  > .icon {
-    margin-right: 20px;
-    color: $color-primary-500;
-    font-size: 40px;
-  }
-
-  > .text {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 21px;
-    letter-spacing: -0.0031em;
-    color: $color-black;
-  }
 }
 </style>
