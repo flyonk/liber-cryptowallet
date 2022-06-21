@@ -1,7 +1,7 @@
 <template>
   <li v-if="showMenuItem" class="menu-item">
     <i class="icon" :class="icon" />
-    <p class="text">{{ text }}</p>
+    <p class="text">{{ $t(text) }}</p>
   </li>
 </template>
 
