@@ -1,10 +1,4 @@
-function getArrayFromEnvVar(envVarKey: string) {
-  let _envVar = process.env[envVarKey];
-  if (_envVar) {
-    _envVar = _envVar.replaceAll(' ', '').split(',');
-  }
-  return _envVar || [];
-}
+import getArrayFromEnvVar from '@/helpers/envvars';
 
 // Middleware file to pass constants and env variables to the App
 export const STORE_AUTH_KEY = 'liber_auth';
