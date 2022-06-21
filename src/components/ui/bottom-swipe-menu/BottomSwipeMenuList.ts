@@ -2,12 +2,14 @@ import { Route } from '@/router/types';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useUIStore } from '@/stores/ui';
 import router from '@/router';
+import { CRYPTO_TRANSACTIONS } from '@/constants';
 
 export enum EAreaMenuItemVisible {
   all = 'all',
   crypto = 'crypto',
   fiat = 'fiat',
   coupons = 'coupons',
+  disabled = 'disabled', // disabled by env var
 }
 
 interface IBottomSwipeMenuItem {
@@ -32,7 +34,11 @@ const itemsList: IBottomSwipeMenuItem[] = [
         name: Route.PayRecepientsLiber,
       });
     },
-    area: [EAreaMenuItemVisible.all],
+    area: [
+      CRYPTO_TRANSACTIONS.includes('send')
+        ? EAreaMenuItemVisible.crypto
+        : EAreaMenuItemVisible.disabled,
+    ],
   },
   {
     text: 'transactions.convert.title',
@@ -55,7 +61,11 @@ const itemsList: IBottomSwipeMenuItem[] = [
         },
       });
     },
-    area: [EAreaMenuItemVisible.all],
+    area: [
+      CRYPTO_TRANSACTIONS.includes('convert')
+        ? EAreaMenuItemVisible.crypto
+        : EAreaMenuItemVisible.disabled,
+    ],
   },
   {
     text: 'Borrow stablecoin',
@@ -80,7 +90,11 @@ const itemsList: IBottomSwipeMenuItem[] = [
       closeMenu();
       router.push({ name: Route.Withdraw });
     },
-    area: [EAreaMenuItemVisible.all],
+    area: [
+      CRYPTO_TRANSACTIONS.includes('withdraw')
+        ? EAreaMenuItemVisible.crypto
+        : EAreaMenuItemVisible.disabled,
+    ],
   },
   {
     text: 'Download Statement',
