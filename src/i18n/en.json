@@ -589,6 +589,10 @@
     "offlineTitle": "No internet connection",
     "offlineDescription": "Please, check internet connection on your phone to use the application"
   },
+  "offline": {
+    "title": "No Internet Connection",
+    "description": "Please, check internet connection on your phone to use the application"
+  },
   "biometricConfirmation": {
     "title": "Change settings",
     "descriptionFirstPart": "To enable",
