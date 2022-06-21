@@ -3,10 +3,18 @@ import { useAccountStore } from '@/applications/liber/stores/account';
 import { useUIStore } from '@/stores/ui';
 import router from '@/router';
 
+export enum EAreaMenuItemVisible {
+  all = 'all',
+  crypto = 'crypto',
+  fiat = 'fiat',
+  coupons = 'coupons',
+}
+
 interface IBottomSwipeMenuItem {
   text: string;
   icon: string;
   onClick: () => void;
+  area?: EAreaMenuItemVisible[];
 }
 
 function closeMenu() {
@@ -24,6 +32,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
         name: Route.PayRecepientsLiber,
       });
     },
+    area: [EAreaMenuItemVisible.all],
   },
   {
     text: 'transactions.convert.title',
@@ -46,6 +55,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
         },
       });
     },
+    area: [EAreaMenuItemVisible.all],
   },
   {
     text: 'Borrow stablecoin',
@@ -53,6 +63,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
     onClick: () => {
       closeMenu();
     },
+    area: [EAreaMenuItemVisible.all],
   },
   {
     text: 'Ask a user for funds',
@@ -60,6 +71,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
     onClick: () => {
       closeMenu();
     },
+    area: [EAreaMenuItemVisible.all],
   },
   {
     text: 'Withdraw',
@@ -68,6 +80,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
       closeMenu();
       router.push({ name: Route.Withdraw });
     },
+    area: [EAreaMenuItemVisible.all],
   },
   {
     text: 'Download Statement',
@@ -75,6 +88,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
     onClick: () => {
       closeMenu();
     },
+    area: [EAreaMenuItemVisible.all],
   },
   {
     text: 'Add account',
@@ -83,7 +97,20 @@ const itemsList: IBottomSwipeMenuItem[] = [
       closeMenu();
       router.push({ name: Route.AccountAdd });
     },
+    area: [EAreaMenuItemVisible.all],
   },
 ];
 
 export default itemsList;
+
+export const getFilteredItemsList = (
+  list: IBottomSwipeMenuItem[],
+  filter: EAreaMenuItemVisible
+) => {
+  return list.filter((item: IBottomSwipeMenuItem) => {
+    return (
+      item.area?.includes(EAreaMenuItemVisible.all) ||
+      item.area?.includes(filter)
+    );
+  });
+};

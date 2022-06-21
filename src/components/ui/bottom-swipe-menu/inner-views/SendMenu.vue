@@ -1,6 +1,6 @@
 <template>
   <ul class="send-menu">
-    <template v-for="(item, id) in itemsList" :key="id">
+    <template v-for="(item, id) in menuItems" :key="id">
       <BottomSwipeMenuItem
         :icon="item.icon"
         :text="item.text"
@@ -11,8 +11,17 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import BottomSwipeMenuItem from '@/components/ui/atoms/BottomSwipeMenuItem.vue';
-import itemsList from '../BottomSwipeMenuList';
+import itemsList, {
+  getFilteredItemsList,
+  EAreaMenuItemVisible,
+} from '../BottomSwipeMenuList';
+
+const menuItems = computed(() => {
+  // get menu by required area: crypto, fiat or coupons
+  return getFilteredItemsList(itemsList, EAreaMenuItemVisible.crypto);
+});
 
 // import { CRYPTO_TRANSACTIONS } from '@/constants';
 
