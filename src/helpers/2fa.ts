@@ -9,7 +9,6 @@ export async function checkExpiration(
   fromTime: number,
   days: number
 ): Promise<boolean> {
-  console.log(Math.round((Date.now() - fromTime) / (1000 * 60 * 60 * 24)));
   return Math.round((Date.now() - fromTime) / (1000 * 60 * 60 * 24)) > days;
 }
 

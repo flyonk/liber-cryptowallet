@@ -19,7 +19,7 @@
     </template>
     <template #fixed-footer>
       <div class="footer-wrapper">
-        <base-button class="btn" @click="handleReconnect">
+        <base-button class="btn" @click="checkConnection">
           <triple-dots-spinner v-if="loading" />
           {{ !loading ? $t('errors.confirmTitle') : '' }}
         </base-button>
@@ -29,22 +29,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { useCheckOffline } from '@/helpers/composables/checkOffline';
+
+const { loading, handleReconnect } = useCheckOffline();
 
 import { BaseButton, TTopNavigation } from '..';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
 
-const emit = defineEmits(['online']);
-
-const loading = ref(false);
-
-function handleReconnect() {
-  loading.value = true;
-  setTimeout(() => {
-    loading.value = false;
-    if (!navigator.onLine) return;
-    emit('online');
-  }, 1500);
+function checkConnection() {
+  handleReconnect();
 }
 </script>
 

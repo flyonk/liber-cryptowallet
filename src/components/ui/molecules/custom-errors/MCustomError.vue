@@ -21,9 +21,10 @@
         <base-button
           :class="{ 'full-width': !error.cancelTitle }"
           class="btn"
-          @click="error.confirmCallback"
+          @click="handleConfirm"
         >
-          {{ $t(`errors.${error.confirmTitle}`) }}
+          <triple-dots-spinner v-if="loading" />
+          {{ !loading ? $t(`errors.${error.confirmTitle}`) : '' }}
         </base-button>
         <base-button
           v-if="error.cancelTitle"
@@ -44,7 +45,12 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
+import { useCheckOffline } from '@/helpers/composables/checkOffline';
+
 import { BaseButton, BaseToast } from '@/components/ui';
+import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
+
+const { loading, handleReconnect } = useCheckOffline();
 
 const errorsStore = useErrorsStore();
 
@@ -54,6 +60,10 @@ const error = computed(() => errorsStore.customError);
 const customContent = computed(
   () => errorsStore.customError?.customErrorComponent
 );
+
+function handleConfirm() {
+  if (error.value) handleReconnect(error.value.confirmCallback);
+}
 </script>
 
 <style lang="scss" scoped>

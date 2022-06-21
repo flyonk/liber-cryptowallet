@@ -55,7 +55,6 @@ export const useErrorsStore = defineStore('errors', {
       display = true,
       customErrorComponent,
     }: IError): Promise<void> {
-      console.log(err.message);
       if (err.message.includes('Network Error')) return;
       if (display) {
         this.errors.push({

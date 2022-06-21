@@ -1,14 +1,12 @@
 import { PushNotifications } from '@capacitor/push-notifications';
 import { defineStore } from 'pinia';
 import { AxiosError } from 'axios';
-import router from '@/router';
 
 import { get, remove, set } from '@/helpers/storage';
 import { getPushNotificationsPermission } from '@/helpers/identification';
 import { useErrorsStore } from '@/stores/errors';
 
 import { EStorageKeys } from '@/types/storage';
-import { Route } from '@/router/types';
 
 interface IappOptionsState {
   notifictions: boolean | null;
@@ -100,10 +98,7 @@ export const useAppOptionsStore = defineStore('appOptions', {
         confirmTitle: 'confirmTitle',
         cancelTitle: 'cancelTitle',
         confirmCallback: () => useErrorsStore().hideError(),
-        cancelCallback: () => {
-          useErrorsStore().hideError();
-          router.push({ name: Route.DashboardHome });
-        },
+        cancelCallback: () => useErrorsStore().hideError(),
       });
     },
   },
