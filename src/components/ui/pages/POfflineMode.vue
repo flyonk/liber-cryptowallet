@@ -20,7 +20,7 @@
     <template #fixed-footer>
       <div class="footer-wrapper">
         <base-button class="btn" @click="handleReconnect">
-          <tripple-dots-spinner v-if="loading" />
+          <triple-dots-spinner v-if="loading" />
           {{ !loading ? $t('errors.confirmTitle') : '' }}
         </base-button>
       </div>
@@ -30,25 +30,20 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { useRouter } from 'vue-router';
 
 import { BaseButton, TTopNavigation } from '..';
-import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
+import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
 
-import { Route } from '@/router/types';
+const emit = defineEmits(['online']);
 
 const loading = ref(false);
-const router = useRouter();
 
 function handleReconnect() {
   loading.value = true;
   setTimeout(() => {
     loading.value = false;
     if (!navigator.onLine) return;
-    //TODO: hide component
-    router.push({
-      name: Route.WelcomeLogoScreen,
-    });
+    emit('online');
   }, 1500);
 }
 </script>
