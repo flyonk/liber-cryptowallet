@@ -90,7 +90,7 @@ const nextStep = async (phone: string) => {
     await authStore.setPhoneToStorage();
   } catch (error) {
     errorsStore.handle({
-      error,
+      err: error,
       name: 'Login1Step.vue',
       ctx: 'nextStep',
       description: 'Error setting the phone in the storage',

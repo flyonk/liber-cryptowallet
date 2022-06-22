@@ -148,6 +148,7 @@
     "deposit": "Deposit",
     "deposited": "Deposited",
     "send": "Send",
+    "pay": "Pay",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
@@ -377,7 +378,8 @@
         "tabs": {
           "dashboard": "Dashboard",
           "treasury": "Treasury",
-          "loans": "Loans"
+          "loans": "Loans",
+          "coupons": "Coupons"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -427,7 +429,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
-        "acceptedPhonesAndEmails": "Accepted Phones & Emails", 
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -583,12 +585,28 @@
     "details": "Details",
     "login2Step": "Invalid secret code",
     "numberAlreadyInUse": "Number already in use",
-    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number"
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number",
+    "confirmTitle": "Retry connect",
+    "cancelTitle": "Use offline",
+    "offlineTitle": "No internet connection",
+    "offlineDescription": "Please, check internet connection on your phone to use the application"
+  },
+  "offline": {
+    "title": "No Internet Connection",
+    "description": "Please, check internet connection on your phone to use the application"
   },
   "biometricConfirmation": {
     "title": "Change settings",
     "descriptionFirstPart": "To enable",
     "descriptionSecondPart": "please, toggle on Application Settings",
     "descriptionThirdPart": "option"
+  },
+  "coupons": {
+    "banners": {
+      "recommend": "Recommend",
+      "recommendDescription": "What to do with coupons?",
+      "intro": "Intro",
+      "introDescription": "How can you get coupons?"
+    }
   }
 }

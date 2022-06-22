@@ -3,7 +3,7 @@ import apiService from '@/applications/liber/services/apiService';
 
 import paymentLinkMapper, {
   IPaymentLink,
-} from '@/applications/liber/models/transaction/paymentLink';
+} from '@/models/transaction/paymentLink';
 import {
   TCreateRequestFundsData,
   TStatement,

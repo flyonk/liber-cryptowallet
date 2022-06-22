@@ -64,7 +64,7 @@ const handleCloseModal = () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 //TODO: Hide under scoped
 .select {
   position: absolute;

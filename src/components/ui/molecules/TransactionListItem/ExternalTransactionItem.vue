@@ -5,6 +5,7 @@
       :is-currency="showCoin"
       :size="45"
       :status="transaction.status"
+      :transaction-type="transactionType"
     />
     <div class="info">
       <div class="flex">
@@ -47,7 +48,7 @@ import {
   EDirection,
   ETransactionStatus,
   IDepositTransaction,
-} from '@/applications/liber/models/transaction/transaction';
+} from '@/models/transaction/transaction';
 import { TransactionIconWithStatus } from '@/components/ui';
 
 const { tm } = useI18n();
@@ -64,6 +65,10 @@ const props = defineProps({
   transaction: {
     type: Object as PropType<IDepositTransaction>,
     required: true,
+  },
+  transactionType: {
+    type: String,
+    default: 'default',
   },
 });
 

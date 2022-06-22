@@ -7,7 +7,6 @@ import PayRecepientsRoutes from './routesPayRecepients';
 import checkContactsLoaded from '@/router/middleware/checkContacts';
 
 import Dashboard from '@/applications/liber/views/Dashboard/index.vue';
-import DashboardHome from '@/applications/liber/views/Dashboard/DashboardHome.vue';
 import DashboardVerification from '@/applications/liber/views/Dashboard/DashboardVerification.vue';
 import DashboardStory from '@/applications/liber/views/Dashboard/DashboardStory.vue';
 import DashboardVerifyingIdentityStory from '@/applications/liber/views/Dashboard/DashboardVerifyingIdentityStory.vue';
@@ -45,16 +44,11 @@ import { TRANSACTIONS_ENABLED } from '@/constants';
 
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/home',
+    path: '/dashboard',
     name: Route.DashboardParent,
     component: Dashboard,
     meta: { layout: 'navbar', authRequired: true },
     children: [
-      {
-        path: '',
-        name: Route.DashboardHome,
-        component: DashboardHome,
-      },
       {
         path: 'verification',
         name: Route.DashboardVerification,

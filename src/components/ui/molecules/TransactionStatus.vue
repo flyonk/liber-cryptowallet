@@ -8,7 +8,7 @@
 import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { ETransactionStatus } from '@/applications/liber/models/transaction/transaction';
+import { ETransactionStatus } from '@/models/transaction/transaction';
 
 const { tm } = useI18n();
 

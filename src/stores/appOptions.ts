@@ -1,8 +1,10 @@
 import { PushNotifications } from '@capacitor/push-notifications';
 import { defineStore } from 'pinia';
+import { AxiosError } from 'axios';
 
 import { get, remove, set } from '@/helpers/storage';
 import { getPushNotificationsPermission } from '@/helpers/identification';
+import { useErrorsStore } from '@/stores/errors';
 
 import { EStorageKeys } from '@/types/storage';
 
@@ -10,6 +12,7 @@ interface IappOptionsState {
   notifictions: boolean | null;
   faceid: boolean | null;
   touchid: boolean | null;
+  showOfflineToast: boolean;
 }
 
 const registerNotification = async () => {
@@ -54,6 +57,7 @@ export const useAppOptionsStore = defineStore('appOptions', {
     notifictions: null,
     faceid: null,
     touchid: null,
+    showOfflineToast: false,
   }),
 
   getters: {
@@ -64,6 +68,7 @@ export const useAppOptionsStore = defineStore('appOptions', {
       return notificationsSet && faceidSet && touchidSet;
     },
     getOptions: (state) => state,
+    isOfflineToastActive: (state) => state.showOfflineToast,
   },
 
   actions: {
@@ -79,6 +84,22 @@ export const useAppOptionsStore = defineStore('appOptions', {
 
     async checkPassCode(): Promise<boolean> {
       return (await get(EStorageKeys.passcode)) === 'true';
+    },
+
+    setOfflineToast(value: boolean, error: AxiosError | Error | any) {
+      this.showOfflineToast = value;
+      useErrorsStore().handleCustom({
+        err: error,
+        title: 'offlineTitle',
+        ctx: 'try to do create action in offline mode',
+        description: 'offlineDescription',
+        display: true,
+        severity: 'offline',
+        confirmTitle: 'confirmTitle',
+        cancelTitle: 'cancelTitle',
+        confirmCallback: () => useErrorsStore().hideError(),
+        cancelCallback: () => useErrorsStore().hideError(),
+      });
     },
   },
 });

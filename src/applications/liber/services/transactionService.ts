@@ -4,7 +4,7 @@ import apiService from '@/applications/liber/services/apiService';
 import transactionMapper, {
   INetTransaction,
   TTransaction,
-} from '@/applications/liber/models/transaction/transaction';
+} from '@/models/transaction/transaction';
 
 // import { TSuccessResponse } from '@/types/api';
 
