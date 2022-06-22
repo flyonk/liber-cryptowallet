@@ -38,7 +38,7 @@
     </ul>
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
-      menu-type="send"
+      :menu-type="menuType"
       @close-menu="closeMenu"
     />
   </div>
@@ -47,6 +47,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Route } from '@/router/types';
+import { useRoute } from 'vue-router';
 
 import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
@@ -56,6 +57,15 @@ import { useUIStore } from '@/stores/ui';
 const uiStore = useUIStore();
 
 let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
+
+const route = useRoute();
+const menuType = computed(() => {
+  if (route.name === Route.AccountDetail) {
+    // Menu for crypto transactions
+    return 'send';
+  }
+  return 'send';
+});
 
 function openMenu() {
   uiStore.setStateModal('sendMenu', true);
