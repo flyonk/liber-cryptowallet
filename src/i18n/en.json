@@ -148,6 +148,7 @@
     "deposit": "Deposit",
     "deposited": "Deposited",
     "send": "Send",
+    "pay": "Pay",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
@@ -591,5 +592,13 @@
     "descriptionFirstPart": "To enable",
     "descriptionSecondPart": "please, toggle on Application Settings",
     "descriptionThirdPart": "option"
+  },
+  "coupons": {
+    "banners": {
+      "recommend": "Recommend",
+      "recommendDescription": "What to do with coupons?",
+      "intro": "Intro",
+      "introDescription": "How can you get coupons?"
+    }
   }
 }

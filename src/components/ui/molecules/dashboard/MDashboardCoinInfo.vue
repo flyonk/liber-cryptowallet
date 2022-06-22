@@ -15,7 +15,7 @@
         alt="currency"
         class="ml-auto"
         :src="selectedAccount.imgSrc"
-        @click="$router.push({ name: Route.AccountMain })"
+        @click="$emit('click-account')"
       />
     </div>
 
@@ -47,7 +47,6 @@
 <script lang="ts" setup>
 import { computed, PropType, ref } from 'vue';
 
-import { Route } from '@/router/types';
 import { IAccount } from '@/applications/liber/models/account/account';
 import { useI18n } from 'vue-i18n';
 
@@ -55,7 +54,7 @@ import { AccountListBottomSheet } from '@/components/ui';
 
 const { tm } = useI18n();
 
-const emit = defineEmits(['coin-select']);
+const emit = defineEmits(['coin-select', 'click-account']);
 
 const props = defineProps({
   showWelcomeMessage: {

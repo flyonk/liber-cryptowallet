@@ -7,6 +7,7 @@
       :show-welcome-message="showWelcomeMessage"
       :selected-account="currentAccount"
       @coin-select="onSelectAccount"
+      @click-account="$router.push({ name: Route.AccountMain })"
     >
       <template #controllers>
         <div class="controls">

@@ -36,3 +36,4 @@ export { default as OWithdrawConfirmationToast } from './organisms/withdraw/OWit
 export { default as OWithdrawSuccessToast } from './organisms/withdraw/OWithdrawSuccessToast.vue';
 export { default as EnterVerificationCode } from './organisms/auth/EnterVerificationCode.vue';
 export { default as MDashboardCoinInfo } from './molecules/dashboard/MDashboardCoinInfo.vue';
+export { default as DashboardBanner } from './atoms/DashboardBanner.vue';
