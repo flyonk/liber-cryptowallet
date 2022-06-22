@@ -36,14 +36,17 @@
 
     <div class="transactions">
       <div class="header">
-        <span class="title">{{ $t('views.dashboard.home.transactions') }}</span>
-        <span
-          v-show="true"
+        <span class="title text--footnote font-weight--semibold">{{
+          $t('views.dashboard.home.transactions')
+        }}</span>
+        <base-button
+          size="medium"
+          view="flat"
           class="button"
-          @click="$router.push({ name: Route.TransactionsAll })"
+          @click="$router.push({ name: Route.CouponsTransactions })"
         >
           {{ $t('views.dashboard.home.seeAll') }}
-        </span>
+        </base-button>
       </div>
 
       <transactions-list
@@ -109,6 +112,29 @@ onBeforeMount(async () => {
 
   > * {
     margin-right: 8px;
+  }
+}
+
+.dashboard-container {
+  min-height: 100%;
+
+  > .transactions {
+    margin: 22px 0 0 0;
+    height: 100%;
+
+    > .header {
+      margin: 0 0 16px;
+      display: flex;
+      justify-content: space-between;
+
+      > .title {
+        color: $color-dark-grey;
+      }
+
+      > .button:deep {
+        min-width: auto;
+      }
+    }
   }
 }
 </style>

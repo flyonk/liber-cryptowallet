@@ -94,4 +94,6 @@ export enum Route {
 
   CouponsHome = 'coupons-home',
   DashboardLiber = 'dashboard-liber',
+
+  CouponsTransactions = 'coupon-transactions',
 }

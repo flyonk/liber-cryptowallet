@@ -231,6 +231,7 @@ const classes = computed(() => [
         > .icon {
           background: $color-brand-2-200;
         }
+
         > .label {
           background: $color-brand-2-300;
         }

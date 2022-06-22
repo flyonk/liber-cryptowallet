@@ -97,6 +97,7 @@ const tabs = [
 <style lang="scss" scoped>
 .page-wrapper {
   background-color: $color-light-grey-100;
+  height: 100vh;
 }
 
 .tabs {
