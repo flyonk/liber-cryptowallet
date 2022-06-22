@@ -12,13 +12,16 @@
     </template>
   </p-toast>
   <app-layout-switcher>
-    <multi-factor-authorization v-if="showMfa" />
-    <router-view v-else v-slot="{ Component, route }" class="router-view">
-      <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
-      <!-- <transition> -->
-      <component :is="Component" :key="route.path" />
-      <!-- </transition> -->
-    </router-view>
+    <p-offline-mode v-if="isOffline()" />
+    <div v-else>
+      <multi-factor-authorization v-if="showMfa" />
+      <router-view v-else v-slot="{ Component, route }" class="router-view">
+        <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
+        <!-- <transition> -->
+        <component :is="Component" :key="route.path" />
+        <!-- </transition> -->
+      </router-view>
+    </div>
   </app-layout-switcher>
 
   <errors-toast />
@@ -34,11 +37,16 @@ import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import SwipeBack from '@/plugins/swipe-capacitor';
 
+import { useCheckOffline } from '@/helpers/composables/checkOffline';
+
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
 import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
+import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
+
+const { isOffline } = useCheckOffline();
 
 const mfaStore = useMfaStore();
 
