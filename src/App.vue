@@ -12,7 +12,7 @@
     </template>
   </p-toast>
   <app-layout-switcher>
-    <p-offline-mode v-if="isOffline()" />
+    <p-offline-mode v-if="isOfflineMode" @online="handleReconnection" />
     <div v-else>
       <multi-factor-authorization v-if="showMfa" />
       <router-view v-else v-slot="{ Component, route }" class="router-view">
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, ref } from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
@@ -74,9 +74,11 @@ const showMfa = computed(() => {
   return mfaStore.enabled;
 });
 
-// const showOfflineToast = computed(() => {
-//   return useAppOptionsStore().isOfflineToastActive;
-// });
+const isOfflineMode = ref(isOffline());
+
+function handleReconnection() {
+  isOfflineMode.value = false;
+}
 </script>
 
 <style lang="scss">
