@@ -63,6 +63,8 @@ import { Route } from '@/router/types';
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { KycStatusBadge, TTopNavigation } from '@/components/ui';
 
+import { COUPONS_ENABLED } from '@/constants';
+
 const { tm } = useI18n();
 const uiStore = useUIStore();
 
@@ -78,20 +80,15 @@ const tabs = [
     name: tm('views.dashboard.home.tabs.dashboard'),
     route: { name: Route.DashboardLiber },
   },
-  {
+];
+
+if (COUPONS_ENABLED) {
+  tabs.push({
     id: 2,
     name: tm('views.dashboard.home.tabs.coupons'),
     route: { name: Route.CouponsHome },
-  },
-  // {
-  //   id: 2,
-  //   name: tm('views.dashboard.home.tabs.treasury'),
-  // },
-  // {
-  //   id: 3,
-  //   name: tm('views.dashboard.home.tabs.loans'),
-  // },
-];
+  });
+}
 </script>
 
 <style lang="scss" scoped>
