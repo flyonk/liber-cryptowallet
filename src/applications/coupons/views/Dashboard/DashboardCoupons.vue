@@ -119,7 +119,7 @@ onBeforeMount(async () => {
   min-height: 100%;
 
   > .transactions {
-    margin: 22px 0 0 0;
+    margin: 22px 0 0;
     height: 100%;
 
     > .header {
