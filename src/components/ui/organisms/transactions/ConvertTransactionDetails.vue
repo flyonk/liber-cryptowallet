@@ -80,14 +80,14 @@ import { computed, PropType } from 'vue';
 import {
   EDirection,
   IConvertTransaction,
-} from '@/applications/liber/models/transaction/transaction';
+} from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
+  TTopNavigation,
 } from '@/components/ui';
 
 defineEmits(['copy']);

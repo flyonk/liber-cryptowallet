@@ -58,6 +58,7 @@ import { Route } from '@/router/types';
 import { useDepositStore } from '@/applications/liber/stores/deposit';
 
 import { TTopNavigation } from '@/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
 
 const { tm } = useI18n();
 

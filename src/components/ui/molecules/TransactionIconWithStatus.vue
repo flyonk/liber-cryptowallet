@@ -43,6 +43,11 @@ const props = defineProps({
     type: Number,
     default: 48,
   },
+
+  transactionType: {
+    type: String,
+    default: 'default',
+  },
 });
 
 const styles = computed(() => ({
@@ -55,9 +60,19 @@ const styles = computed(() => ({
 }));
 
 const pathToImage = computed(() => {
-  const directory = props.isCurrency ? 'currencies' : 'transactions';
+  const selectDirectory = () => {
+    if (props.transactionType === 'coupons') {
+      return 'currencies/coupons';
+    }
 
-  return `${STATIC_BASE_URL}/static/${directory}/${props.imgPath}.svg`;
+    if (props.isCurrency) {
+      return 'currencies';
+    }
+
+    return 'transactions';
+  };
+
+  return `${STATIC_BASE_URL}/static/${selectDirectory()}/${props.imgPath}.svg`;
 });
 
 const pathToStatus = computed(() => {

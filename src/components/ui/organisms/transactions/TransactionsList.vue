@@ -11,6 +11,7 @@
         :transaction="transaction"
         :main-coin="mainCoin"
         :show-coin="showCoin"
+        :transaction-type="transactionType"
       />
     </li>
   </ul>
@@ -23,7 +24,7 @@ import { useRouter } from 'vue-router';
 import {
   ETransactionType,
   INetTransaction,
-} from '@/applications/liber/models/transaction/transaction';
+} from '@/models/transaction/transaction';
 import { Route } from '@/router/types';
 import {
   ConvertTransactionItem,
@@ -49,6 +50,10 @@ const props = defineProps({
   showCoin: {
     type: Boolean,
     default: true,
+  },
+  transactionType: {
+    type: String,
+    default: 'default',
   },
 });
 

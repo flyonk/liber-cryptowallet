@@ -101,7 +101,7 @@
         size="large"
         view="simple"
       >
-        <tripple-dots-spinner />
+        <triple-dots-spinner />
       </BaseButton>
       <BaseButton
         v-else-if="componentState === 'refresh'"
@@ -160,7 +160,7 @@ import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 
 import { BaseButton } from '@/components/ui';
-import TrippleDotsSpinner from '@/components/ui/atoms/TrippleDotsSpinner.vue';
+import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
 import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 

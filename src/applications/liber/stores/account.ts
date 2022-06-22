@@ -6,7 +6,7 @@ import transactionService from '@/applications/liber/services/transactionService
 
 import { IAccount } from '@/applications/liber/models/account/account';
 import { IAccountTotal } from '@/applications/liber/models/account/IAccountTotal';
-import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
+import { INetTransaction } from '@/models/transaction/transaction';
 import { useErrorsStore } from '@/stores/errors';
 
 export interface INewAccountParams {

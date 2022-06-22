@@ -7,7 +7,6 @@ import PayRecepientsRoutes from './routesPayRecepients';
 import checkContactsLoaded from '@/router/middleware/checkContacts';
 
 import Dashboard from '@/applications/liber/views/Dashboard/index.vue';
-import DashboardHome from '@/applications/liber/views/Dashboard/DashboardHome.vue';
 import DashboardVerification from '@/applications/liber/views/Dashboard/DashboardVerification.vue';
 import DashboardStory from '@/applications/liber/views/Dashboard/DashboardStory.vue';
 import DashboardVerifyingIdentityStory from '@/applications/liber/views/Dashboard/DashboardVerifyingIdentityStory.vue';
@@ -41,18 +40,15 @@ import AddAccountRoutes from './routesAddAccount';
 import RequestContacts from '@/applications/liber/views/Contacts/RequestContacts.vue';
 import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
 
+import { TRANSACTIONS_ENABLED } from '@/constants';
+
 const routes: Array<RouteRecordRaw> = [
   {
-    path: '/home',
+    path: '/dashboard',
     name: Route.DashboardParent,
     component: Dashboard,
     meta: { layout: 'navbar', authRequired: true },
     children: [
-      {
-        path: '',
-        name: Route.DashboardHome,
-        component: DashboardHome,
-      },
       {
         path: 'verification',
         name: Route.DashboardVerification,
@@ -123,6 +119,15 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Transactions,
     component: Transactions,
     meta: { layout: 'navbar', authRequired: true },
+    beforeEnter(to, from, next) {
+      if (TRANSACTIONS_ENABLED) {
+        next();
+      } else {
+        next({
+          name: Route.DashboardHome,
+        });
+      }
+    },
     children: [
       {
         path: '', //TODO: ref this rout, component is wrong

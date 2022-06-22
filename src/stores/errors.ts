@@ -12,21 +12,38 @@ interface IError {
   customErrorComponent?: Component;
 }
 
-interface IErrors {
+interface ICustomError {
+  err: AxiosError | Error | any;
+  title: string;
+  ctx: string;
+  description: string;
+  display?: boolean;
+  severity?: 'error' | 'offline';
+  customErrorComponent?: Component;
+  confirmTitle: string;
+  cancelTitle?: string;
+  confirmCallback: () => void;
+  cancelCallback?: () => void;
+}
+
+interface ErrorState {
   errors: Array<IError>;
+  customError: ICustomError | undefined;
 }
 
 export const useErrorsStore = defineStore('errors', {
-  state: (): IErrors => ({
+  state: (): ErrorState => ({
     errors: [],
+    customError: undefined,
   }),
 
   getters: {
-    displayCurrent: (state: IErrors) => state.errors.length > 0,
-    isSingleError: (state: IErrors) => state.errors.length === 1,
-    isMultipleErrors: (state: IErrors) => state.errors.length > 1,
-    getCustomComponent: (state: IErrors) =>
+    displayCurrent: (state: ErrorState) => state.errors.length > 0,
+    isSingleError: (state: ErrorState) => state.errors.length === 1,
+    isMultipleErrors: (state: ErrorState) => state.errors.length > 1,
+    getCustomComponent: (state: ErrorState) =>
       state.errors[0].customErrorComponent,
+    severity: (state: ErrorState) => state.customError?.severity,
   },
 
   actions: {
@@ -38,10 +55,28 @@ export const useErrorsStore = defineStore('errors', {
       display = true,
       customErrorComponent,
     }: IError): Promise<void> {
+      if (err.message.includes('Network Error')) return;
       if (display) {
-        this.errors.push({ err, name, ctx, description, customErrorComponent });
+        this.errors.push({
+          err,
+          name,
+          ctx,
+          description,
+          customErrorComponent,
+        });
       }
       await errorService.logError(err, name, ctx, description);
+    },
+
+    async handleCustom(config: ICustomError): Promise<void> {
+      this.errors = [];
+      this.customError = config;
+      await errorService.logError(
+        config.err,
+        'Network Error',
+        config.ctx,
+        config.err.message
+      );
     },
 
     async multiErrorHandler(
@@ -66,6 +101,11 @@ export const useErrorsStore = defineStore('errors', {
       if (this.errors.length > 0) {
         this.errors.splice(0, 1);
       }
+    },
+
+    async hideError(): Promise<void> {
+      if (this.customError) this.customError.display = false;
+      this.customError = undefined;
     },
 
     getErrorMessage(): string {

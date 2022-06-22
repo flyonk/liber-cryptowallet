@@ -11,8 +11,8 @@
         "
       />
     </template>
-    <template #content
-      ><div class="all-accounts">
+    <template #content>
+      <div class="all-accounts">
         <ul class="currencies">
           <li class="item" @click="$router.push({ name: Route.DashboardHome })">
             <img
@@ -26,20 +26,22 @@
               {{ totalBalance.sum }}
             </h5>
           </li>
-          <li
-            v-for="(currency, index) in accounts"
-            :key="index"
-            class="item"
-            @click="$router.replace(getCurrencyUrl(currency.code))"
-          >
-            <img class="icon" :src="currency.imageUrl" />
-            <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
-            <p class="description">{{ currency.name }}</p>
-            <h5 class="sum">{{ currency.balance }}</h5>
-          </li>
+          <template v-if="CRYPTO_CURRENCIES_ENABLED">
+            <li
+              v-for="(currency, index) in accounts"
+              :key="index"
+              class="item"
+              @click="$router.replace(getCurrencyUrl(currency.code))"
+            >
+              <img class="icon" :src="currency.imageUrl" />
+              <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
+              <p class="description">{{ currency.name }}</p>
+              <h5 class="sum">{{ currency.balance }}</h5>
+            </li>
+          </template>
         </ul>
-      </div></template
-    >
+      </div>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -52,7 +54,7 @@ import { Route } from '@/router/types';
 import { IAccount } from '@/models/account/account';
 import { TTopNavigation } from '@/components/ui';
 
-import { STATIC_BASE_URL } from '@/constants';
+import { STATIC_BASE_URL, CRYPTO_CURRENCIES_ENABLED } from '@/constants';
 
 const accountStore = useAccountStore();
 
