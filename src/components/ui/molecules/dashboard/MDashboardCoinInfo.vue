@@ -3,7 +3,7 @@
     <div class="currencies flex items-center">
       <!--TODO: map currencies-->
       <h1 class="title">
-        {{ selectedAccount.code }} {{ selectedAccount.balance }}
+        {{ selectedAccount.code.toUpperCase() }} {{ selectedAccount.balance }}
       </h1>
       <div class="circle-wrap" @click="isMenuOpen = !isMenuOpen">
         <i
@@ -20,7 +20,7 @@
     </div>
 
     <h3 class="heading-gray-md mb-4">
-      {{ $t('views.dashboard.home.allAccounts') }}
+      {{ subtitle }}
     </h3>
     <div v-show="showWelcomeMessage" class="main">
       <h1 class="title">
@@ -45,16 +45,19 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref } from 'vue';
+import { computed, PropType, ref } from 'vue';
 
 import { Route } from '@/router/types';
 import { IAccount } from '@/applications/liber/models/account/account';
+import { useI18n } from 'vue-i18n';
 
 import { AccountListBottomSheet } from '@/components/ui';
 
+const { tm } = useI18n();
+
 const emit = defineEmits(['coin-select']);
 
-defineProps({
+const props = defineProps({
   showWelcomeMessage: {
     type: Boolean,
     default: false,
@@ -70,11 +73,15 @@ defineProps({
       code: '';
       balance: '';
       imgSrc: '';
+      baseBalanceConversion: '';
+      baseBalanceConversionCode: '';
     }>,
     default: () => ({
       code: '',
       balance: '',
       imgSrc: '',
+      baseBalanceConversion: '',
+      baseBalanceConversionCode: '',
     }),
   },
 });
@@ -84,6 +91,14 @@ const isMenuOpen = ref(false);
 const onCloseMenu = () => {
   isMenuOpen.value = false;
 };
+
+const subtitle = computed(() => {
+  if (!props.selectedAccount?.baseBalanceConversion) {
+    return tm('views.dashboard.home.allAccounts');
+  }
+
+  return `${props.selectedAccount.baseBalanceConversionCode}${props.selectedAccount.baseBalanceConversion}`;
+});
 
 const onSelectAccount = (coinCode: string) => {
   emit('coin-select', coinCode);
@@ -149,7 +164,6 @@ const onSelectAccount = (coinCode: string) => {
 
   > .controls {
     display: flex;
-    margin-bottom: 32px;
 
     > .btn {
       background: $color-brand-2-50;

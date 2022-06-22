@@ -18,7 +18,7 @@ import transactionService from '@/applications/liber/services/transactionService
 import {
   ETransactionType,
   INetTransaction,
-} from '@/applications/liber/models/transaction/transaction';
+} from '@/models/transaction/transaction';
 import { Clipboard } from '@capacitor/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { useErrorsStore } from '@/stores/errors';

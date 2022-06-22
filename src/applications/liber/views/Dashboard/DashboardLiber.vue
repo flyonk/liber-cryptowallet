@@ -98,7 +98,7 @@ import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
 import { useUIStore } from '@/stores/ui';
 import transactionService from '@/applications/liber/services/transactionService';
-import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
+import { INetTransaction } from '@/models/transaction/transaction';
 import { EKYCStatus } from '@/models/profile/profile';
 import { STATIC_BASE_URL } from '@/constants';
 import { IAccount } from '@/models/account/account';
@@ -128,6 +128,8 @@ const currentAccount = ref({
   code: '',
   balance: '',
   imgSrc: '',
+  baseBalanceConversion: '',
+  baseBalanceConversionCode: '',
 });
 
 //TODO: Put to store
@@ -173,6 +175,8 @@ const setCurrentAccount = (coinCode: string) => {
       balance: totalBalance.value.sum,
       code: allAccountInfo.value.code,
       imgSrc: allAccountInfo.value.imgSrc,
+      baseBalanceConversion: '',
+      baseBalanceConversionCode: '',
     };
 
     return;
@@ -182,12 +186,16 @@ const setCurrentAccount = (coinCode: string) => {
     code,
     balance,
     imageUrl: imgSrc,
+    baseBalanceConversion,
+    baseBalanceConversionCode,
   } = accounts.value.find(({ code }) => coinCode === code) as IAccount;
 
   currentAccount.value = {
     code: code.toUpperCase(),
     imgSrc,
     balance,
+    baseBalanceConversion,
+    baseBalanceConversionCode,
   };
 };
 

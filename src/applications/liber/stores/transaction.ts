@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 
 import transactionService from '@/applications/liber/services/transactionService';
 
-import { INetTransaction } from '@/applications/liber/models/transaction/transaction';
+import { INetTransaction } from '@/models/transaction/transaction';
 
 interface ITransactionState {
   transactions: INetTransaction[];

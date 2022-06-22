@@ -98,14 +98,14 @@ import {
   EDirection,
   ETransactionStatus,
   ITransferTransaction,
-} from '@/applications/liber/models/transaction/transaction';
+} from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
+  TTopNavigation,
 } from '@/components/ui';
 
 const { tm } = useI18n();
