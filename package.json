@@ -12,7 +12,7 @@
     "format": "yarn prettier && yarn lint:all:fix",
     "ios:open": "npx cap open ios",
     "ios:run": "npx cap run ios",
-    "ios:sync": "npx cap sync",
+    "ios:sync": "dotenv -e .env.dev npx cap sync",
     "lint-fix": "yarn lint:code:fix && yarn lint:style:fix",
     "lint:all": "yarn lint:style && yarn lint:code",
     "lint:all:fix": "yarn lint:style:fix && yarn lint:code:fix",
@@ -34,6 +34,7 @@
     "@capacitor/device": "^1.1.2",
     "@capacitor/dialog": "^1.0.7",
     "@capacitor/ios": "^3.3.4",
+    "@capacitor/project": "^2.0.10",
     "@capacitor/push-notifications": "^1.0.9",
     "@capacitor/share": "^1.1.2",
     "@capacitor/storage": "^1.2.4",
@@ -102,6 +103,7 @@
     "@vue/test-utils": "^2.0.0-0",
     "babel-jest": "^27.4.6",
     "cross-env": "^7.0.3",
+    "dotenv-cli": "^5.1.0",
     "eslint": "^8.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
@@ -138,15 +140,36 @@
   },
   "commitlint": {
     "rules": {
-      "references-empty": [2, "never"],
-      "type-enum": [2, "always", [
-        "build", "chore", "deploy", "docs", "feat", "fix", "perf", "refactor", "revert", "test"
-      ]],
-      "type-empty": [2, "never"]
+      "references-empty": [
+        2,
+        "never"
+      ],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "deploy",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "test"
+        ]
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ]
     },
     "parserPreset": {
       "parserOpts": {
-        "issuePrefixes": ["#"]
+        "issuePrefixes": [
+          "#"
+        ]
       }
     }
   }
