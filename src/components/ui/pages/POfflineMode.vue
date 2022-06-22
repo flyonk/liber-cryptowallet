@@ -36,8 +36,14 @@ const { loading, handleReconnect } = useCheckOffline();
 import { BaseButton, TTopNavigation } from '..';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
 
+const emit = defineEmits(['online']);
+
 function checkConnection() {
-  handleReconnect();
+  function returnOnLine() {
+    emit('online');
+  }
+
+  handleReconnect(returnOnLine);
 }
 </script>
 
