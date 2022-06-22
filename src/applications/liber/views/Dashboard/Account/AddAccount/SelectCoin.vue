@@ -37,7 +37,7 @@ onMounted(() => {
     coinsStore.fetchCoins();
   } catch (error) {
     errorsStore.handle({
-      error,
+      err: error,
       name: 'dashboard/account/AddAccount/SelectCoin.vue',
       ctx: 'onMounted',
       description: 'Error when getting the list of coins, please try later.',

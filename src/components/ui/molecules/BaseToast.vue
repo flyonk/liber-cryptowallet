@@ -12,7 +12,7 @@
     <div class="image-block" @click="onSeverityIconClick">
       <img :src="currentImage" :alt="severity" class="image" />
     </div>
-    <div class="header">
+    <div class="header text--title-2 font-weight--semibold">
       <slot name="header" />
     </div>
     <div class="description text--title-3">
@@ -53,6 +53,8 @@ const currentImage = computed(() => {
       return `${STATIC_BASE_URL}/static/media/confirmation.svg`;
     case 'attention':
       return `${STATIC_BASE_URL}/static/media/attention.svg`;
+    case 'offline':
+      return require('@/assets/images/offline.svg');
     default:
       return `${STATIC_BASE_URL}/static/media/sapphire-error.svg`;
   }
