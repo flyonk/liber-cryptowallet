@@ -51,7 +51,7 @@ export const useAuthStore = defineStore('auth', {
       registration: 0,
       login: 0,
       recover: 0,
-      kyc: 2,
+      kyc: 0,
     },
     registration: {
       dialCode: '+7',
