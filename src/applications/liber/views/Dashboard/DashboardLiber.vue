@@ -79,10 +79,6 @@
 
     <div class="carousel-header">
       <span class="title">{{ $t('views.dashboard.home.todo') }}</span>
-      <!-- TODO: Uncomment seeAll when the card screen is ready -->
-      <!-- <span class="button" :class="{ '-active': hasTransactions }">{{
-          $t('views.dashboard.home.seeAll')
-       }}</span> -->
     </div>
 
     <div class="carousel">

@@ -9,25 +9,13 @@
       <template #controllers>
         <div class="controls">
           <base-button
+            v-for="({ icon, title }, index) in availableActionButtons"
+            :key="index"
             view="finance-action"
             size="medium"
-            icon-left="icon-plus_circle"
+            :icon-left="icon"
           >
-            {{ $t('transactions.operations.buy') }}
-          </base-button>
-          <base-button
-            view="finance-action"
-            size="medium"
-            icon-left="icon-qr_code"
-          >
-            {{ $t('transactions.pay') }}
-          </base-button>
-          <base-button
-            view="finance-action"
-            size="medium"
-            icon-left="icon-send"
-          >
-            {{ $t('transactions.send') }}
+            {{ title }}
           </base-button>
           <base-button view="finance-action" size="medium"> ... </base-button>
         </div>
@@ -43,7 +31,7 @@
           size="medium"
           view="flat"
           class="button"
-          @click="$router.push({ name: Route.CouponsTransactions })"
+          @click="$router.push({ name: CouponRoutes.CouponsTransactions })"
         >
           {{ $t('views.dashboard.home.seeAll') }}
         </base-button>
@@ -76,7 +64,7 @@
 import { computed, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
-import { Route } from '@/router/types';
+import { CouponRoutes } from '@/applications/coupons/router/types';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
@@ -84,10 +72,10 @@ import { useErrorsStore } from '@/stores/errors';
 
 import {
   BaseButton,
-  DashboardBanner,
   MDashboardCoinInfo,
   TransactionsList,
 } from '@/components/ui';
+import { DashboardBanner } from '@/applications/coupons/components/ui';
 
 const couponsStore = useCouponsStore();
 const uiStore = useUIStore();
@@ -127,6 +115,29 @@ const bannerItems = ref([
     },
   },
 ]);
+const actionButtons = ref([
+  {
+    code: 'crypto_purchase',
+    icon: 'icon-plus_circle',
+    title: tm('transactions.operations.buy'),
+  },
+  {
+    code: 'redemption',
+    icon: 'icon-qr_code',
+    title: tm('transactions.pay'),
+  },
+  {
+    code: 'send',
+    icon: '',
+    title: tm('transactions.send'),
+  },
+]);
+
+const availableActionButtons = computed(() => {
+  return actionButtons.value.filter(
+    ({ code }) => process.env.VUE_APP_COUPONS_TRANSACTIONS.search(code) >= 0
+  );
+});
 
 onBeforeMount(async () => {
   try {
