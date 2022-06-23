@@ -6,6 +6,7 @@ import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
 import { Route } from '@/router/types';
+import { CouponRoutes } from '@/applications/coupons/router/types';
 
 import WelcomeLogoScreen from '@/views/Welcome/WelcomeLogoScreen.vue';
 import WelcomeAuthScreen from '@/views/Welcome/WelcomeAuthScreen.vue';
@@ -66,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'coupons',
-        name: Route.CouponsHome,
+        name: CouponRoutes.CouponsHome,
         component: () =>
           import('@/applications/coupons/views/Dashboard/DashboardCoupons.vue'),
       },
