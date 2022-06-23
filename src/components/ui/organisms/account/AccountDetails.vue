@@ -94,7 +94,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ICreateAccount } from '@/models/account/createAccount';
 import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { Clipboard } from '@capacitor/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { check, share } from '@/helpers/nativeShare';

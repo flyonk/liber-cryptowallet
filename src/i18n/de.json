@@ -358,7 +358,8 @@
         "tabs": {
           "dashboard": "Dashboard",
           "treasury": "Treasury",
-          "loans": "Loans"
+          "loans": "Loans",
+          "coupons": "Coupons"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -536,7 +537,14 @@
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
     "details": "Details",
-    "login2Step": "Invalid secret code"
+    "login2Step": "Invalid secret code",
+    "retryConnect": "Retry connect",
+    "offlineTitle": "No internet connection",
+    "offlineDescription": "Please, check internet connection on your phone to use the application"
+  },
+  "offline": {
+    "title": "No Internet Connection",
+    "description": "Please, check internet connection on your phone to use the application"
   },
   "biometricConfirmation": {
     "title": "Change settings",

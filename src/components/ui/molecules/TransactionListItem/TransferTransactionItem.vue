@@ -5,6 +5,7 @@
       :is-currency="showCoin"
       :size="45"
       :status="transaction.status"
+      :transaction-type="transactionType"
     />
     <div class="info">
       <div class="flex">
@@ -70,6 +71,10 @@ const props = defineProps({
   transaction: {
     type: Object as PropType<IDepositTransaction>,
     required: true,
+  },
+  transactionType: {
+    type: String,
+    default: 'default',
   },
 });
 

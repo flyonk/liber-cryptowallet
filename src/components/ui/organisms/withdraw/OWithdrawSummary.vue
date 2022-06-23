@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 
-import { useWithdrawStore } from '@/stores/withdraw';
+import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 
 import {
   BaseButton,

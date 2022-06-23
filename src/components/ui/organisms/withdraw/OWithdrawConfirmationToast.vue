@@ -33,7 +33,7 @@
 <script setup lang="ts">
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
-// import { useWithdrawStore } from '@/stores/withdraw';
+// import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { BaseButton, BaseToast } from '@/components/ui';
 
 const mfaStore = useMfaStore();
@@ -58,12 +58,12 @@ const onSubmitWithdrawal = async () => {
   try {
     emit('success');
   } catch (e) {
-    await errorsStore.handle(
-      e,
-      'Withdraw',
-      'withdrawConfirmation',
-      'Error on withdraw confirmation'
-    );
+    await errorsStore.handle({
+      err: e,
+      name: 'Withdraw',
+      ctx: 'withdrawConfirmation',
+      description: 'Error on withdraw confirmation',
+    });
   }
 };
 </script>

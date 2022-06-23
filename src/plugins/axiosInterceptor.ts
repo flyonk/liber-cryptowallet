@@ -2,6 +2,8 @@ import axios, { AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
 
 import apiService from '@/services/apiService';
 import { useAuthStore } from '@/stores/auth';
+import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
+import { useAppOptionsStore } from '@/stores/appOptions';
 import { i18n } from '@/i18n';
 import { get } from '@/helpers/storage';
 import router from '@/router';
@@ -9,7 +11,26 @@ import SentryUtil from '@/helpers/sentryUtil';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
-import { EMfaHeaders, useMfaStore } from '@/stores/mfa';
+
+/*
+ * Not protected routes list
+ */
+const _notAuthorizedRoutes = (): string[] => {
+  return [
+    ...Object.values(apiService.auth).map((item) => item()),
+    ...Object.values(apiService.localData).map((item) => item()),
+  ];
+};
+
+/*
+ * Tenant dependant routes list
+ */
+const _tenantDependantRoutes = (): string[] => {
+  return [
+    ...Object.values(apiService.auth).map((item) => item()),
+    ...Object.values(apiService.profile).map((item) => item()),
+  ];
+};
 
 /*
  * This code prevent race condition with multiple parallel API calls
@@ -33,16 +54,6 @@ const _refreshToken = async (): Promise<string | null> => {
     }
   }
   return token;
-};
-
-/*
- * Not protected routes list
- */
-const _notAuthorizedRoutes = (): string[] => {
-  return [
-    ...Object.values(apiService.auth).map((item) => item()),
-    ...Object.values(apiService.localData).map((item) => item()),
-  ];
 };
 
 const _requestHandler = async (
@@ -73,6 +84,10 @@ const _requestHandler = async (
   config.headers['Content-Type'] = 'application/json';
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
+
+  if (config.url && _tenantDependantRoutes().includes(config.url)) {
+    config.headers['x-tenant-id'] = `${process.env.VUE_APP_BRAND}`;
+  }
 
   try {
     if (config.url && !_notAuthorizedRoutes().includes(config.url)) {
@@ -113,6 +128,13 @@ export default function init(): void {
       return response;
     },
     async (error) => {
+      //Handle offline case
+      if (
+        error?.message === 'Network Error' &&
+        ['post', 'put', 'patch'].indexOf(error?.config.method) > -1
+      ) {
+        useAppOptionsStore().setOfflineToast(true, error);
+      }
       const mfaStore = useMfaStore();
       // mfa cancel error case
       if (mfaStore.enabled && error instanceof TypeError) {

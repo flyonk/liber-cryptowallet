@@ -103,9 +103,9 @@ import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
+  TTopNavigation,
 } from '@/components/ui';
 
 const { tm } = useI18n();

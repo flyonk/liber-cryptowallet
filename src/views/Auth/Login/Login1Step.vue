@@ -67,7 +67,9 @@ onMounted(async () => {
   await authStore.getFromStorage();
 
   number.value = authStore.login.phone;
-  countryDialCode.value = authStore.login.dialCode;
+  countryDialCode.value = authStore.login.dialCode
+    ? authStore.login.dialCode
+    : '+7';
 
   // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
   forceUpdate();
@@ -82,11 +84,13 @@ const handleSelectCountry = (dialCode: string) => {
 const nextStep = async (phone: string) => {
   authStore.setPhone(phone);
 
+  authStore.setDialCode(countryDialCode.value ? countryDialCode.value : '+7');
+
   try {
     await authStore.setPhoneToStorage();
   } catch (error) {
     errorsStore.handle({
-      error,
+      err: error,
       name: 'Login1Step.vue',
       ctx: 'nextStep',
       description: 'Error setting the phone in the storage',

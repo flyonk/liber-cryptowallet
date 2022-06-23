@@ -12,7 +12,7 @@ setCacheNameDetails({
 });
 
 registerRoute(
-  new RegExp(`${process.env.VUE_APP_STATIC_BASE_URL}\\/.*`),
+  new RegExp(`${process.env.VUE_APP_STATIC_STORAGE_URL}\\/.*`),
   new CacheFirst({
     cacheName: 'assets',
     plugins: [
@@ -29,7 +29,7 @@ registerRoute(
 );
 
 registerRoute(
-  new RegExp(`${process.env.VUE_APP_BASE_URL}\\/.*`),
+  new RegExp(`${process.env.VUE_APP_BASE_API_URL}\\/.*`),
   new NetworkFirst({
     networkTimeoutSeconds: 3,
     cacheName: 'api',
@@ -52,15 +52,14 @@ self.addEventListener('install', (event) => {
     caches.open('assets').then(function (cache) {
       return cache.addAll([
         '/',
-        `${process.env.VUE_APP_STATIC_BASE_URL}/build/fonts/${process.env.VUE_APP_BRAND}/iconmoon.css`,
-        `${process.env.VUE_APP_STATIC_BASE_URL}/build/styles/common/${process.env.VUE_APP_BRAND}/variables.css`,
+        `${process.env.VUE_APP_STATIC_STORAGE_URL}/build/fonts/${process.env.VUE_APP_BRAND}/iconmoon.css`,
+        `${process.env.VUE_APP_STATIC_STORAGE_URL}/build/styles/common/${process.env.VUE_APP_BRAND}/variables.css`,
       ]);
     })
   );
 });
 
 self.addEventListener('fetch', (event) => {
-  // console.log('Fetch intercepted for:', event.request.url);
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
       if (cachedResponse) {
