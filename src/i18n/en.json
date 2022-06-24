@@ -65,7 +65,8 @@
       "step3FooterCta": "Registration",
       "step4Title": "Enter verification code",
       "step4Description": "Get a verification code from the authenticator app",
-      "step4VerificationError": "Your code doesn't match. Please, try again!"
+      "step4VerificationError": "Your code doesn't match. Please, try again!",
+      "forgotYourPasscode": "Forgot your passcode?"
     },
     "restore": {
       "step1Title": "Your previous number",
