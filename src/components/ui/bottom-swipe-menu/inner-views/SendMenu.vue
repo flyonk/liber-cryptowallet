@@ -3,7 +3,7 @@
     <template v-for="(item, id) in menuItems" :key="id">
       <BottomSwipeMenuItem
         :icon="item.icon"
-        :text="item.text"
+        :text="getTitle(item)"
         @click="item.onClick"
       />
     </template>
@@ -20,6 +20,7 @@ import BottomSwipeMenuItem from '@/components/ui/atoms/BottomSwipeMenuItem.vue';
 import itemsList, {
   getFilteredItemsList,
   EAreaMenuItemVisible,
+  IBottomSwipeMenuItem,
 } from '../BottomSwipeMenuList';
 
 const route = useRoute();
@@ -35,6 +36,18 @@ const menuItems = computed(() => {
   // apply list for crypto by default
   return getFilteredItemsList(itemsList, EAreaMenuItemVisible.crypto);
 });
+
+const getTitle = (item: IBottomSwipeMenuItem) => {
+  const name = route.name;
+
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name)) {
+    return item[`text${EAreaMenuItemVisible.coupons}`];
+  }
+
+  // apply list for crypto by default
+  return item[`text${EAreaMenuItemVisible.crypto}`];
+};
 </script>
 
 <style lang="scss" scoped>

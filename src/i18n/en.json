@@ -173,7 +173,9 @@
       "coupons": {
         "buy": "Buy",
         "send": "Send",
-        "pay": "Pay"
+        "pay": "Pay",
+        "convert": "Convert",
+        "withdraw": "Pay by QR"
       },
       "fiat": {
         "withdraw": "Withdraw"
