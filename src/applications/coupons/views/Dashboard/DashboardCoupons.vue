@@ -65,7 +65,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { STATIC_BASE_URL } from '@/constants';
+import { STATIC_BASE_URL, COUPONS_TRANSACTIONS } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
@@ -117,7 +117,7 @@ const bannerItems = ref([
 ]);
 const actionButtons = ref([
   {
-    code: 'crypto_purchase',
+    code: 'purchase',
     icon: 'icon-plus_circle',
     title: tm('transactions.operations.buy'),
   },
@@ -134,8 +134,8 @@ const actionButtons = ref([
 ]);
 
 const availableActionButtons = computed(() => {
-  return actionButtons.value.filter(
-    ({ code }) => process.env.VUE_APP_COUPONS_TRANSACTIONS.search(code) >= 0
+  return actionButtons.value.filter(({ code }) =>
+    COUPONS_TRANSACTIONS.includes(code)
   );
 });
 
