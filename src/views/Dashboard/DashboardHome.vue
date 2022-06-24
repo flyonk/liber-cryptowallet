@@ -87,7 +87,7 @@ if (COUPONS_ENABLED) {
   tabs.push({
     id: 2,
     name: tm('views.dashboard.home.tabs.coupons'),
-    route: { name: CouponRoutes.CouponsHome },
+    route: { name: CouponRoutes.DashboardHome },
   });
 }
 </script>
