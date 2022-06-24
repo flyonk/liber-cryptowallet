@@ -65,6 +65,7 @@ import { computed, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { CouponRoutes } from '@/applications/coupons/router/types';
+import { ECouponsTransactionsEnvVars } from '@/types/base-component';
 import { STATIC_BASE_URL, COUPONS_TRANSACTIONS } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
@@ -117,19 +118,19 @@ const bannerItems = ref([
 ]);
 const actionButtons = ref([
   {
-    code: 'purchase',
+    code: ECouponsTransactionsEnvVars.purchase,
     icon: 'icon-plus_circle',
-    title: tm('transactions.operations.buy'),
+    title: tm('transactions.operations.coupons.buy'),
   },
   {
-    code: 'redemption',
+    code: ECouponsTransactionsEnvVars.redemption,
     icon: 'icon-qr_code',
-    title: tm('transactions.pay'),
+    title: tm('transactions.operations.coupons.pay'),
   },
   {
-    code: 'send',
+    code: ECouponsTransactionsEnvVars.send,
     icon: '',
-    title: tm('transactions.send'),
+    title: tm('transactions.operations.coupons.send'),
   },
 ]);
 
