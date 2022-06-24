@@ -1,4 +1,10 @@
 export enum CouponRoutes {
-  CouponsTransactions = 'coupon-transactions',
-  CouponsHome = 'coupons-home',
+  DashboardHome = 'coupons-home',
+
+  Account = 'coupons-account',
+  AccountMain = 'coupons-account-main',
+
+  RecepientsPhone = 'recepients-phone',
+
+  Invite = 'coupons-invite',
 }
