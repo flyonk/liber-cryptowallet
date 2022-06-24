@@ -3,7 +3,7 @@
     <template v-for="(item, id) in menuItems" :key="id">
       <BottomSwipeMenuItem
         :icon="item.icon"
-        :text="item.text"
+        :text="getTitle(item)"
         @click="item.onClick"
       />
     </template>
@@ -12,22 +12,42 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import { useRoute } from 'vue-router';
+
+import { CouponRoutes } from '@/applications/coupons/router/types';
+
 import BottomSwipeMenuItem from '@/components/ui/atoms/BottomSwipeMenuItem.vue';
 import itemsList, {
   getFilteredItemsList,
   EAreaMenuItemVisible,
+  IBottomSwipeMenuItem,
 } from '../BottomSwipeMenuList';
 
+const route = useRoute();
+
 const menuItems = computed(() => {
-  // get menu by required area: crypto, fiat or coupons
+  const name = route.name;
+
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name)) {
+    return getFilteredItemsList(itemsList, EAreaMenuItemVisible.coupons);
+  }
+
+  // apply list for crypto by default
   return getFilteredItemsList(itemsList, EAreaMenuItemVisible.crypto);
 });
 
-// import { CRYPTO_TRANSACTIONS } from '@/constants';
+const getTitle = (item: IBottomSwipeMenuItem) => {
+  const name = route.name;
 
-// const showSendFunds = ref(CRYPTO_TRANSACTIONS.includes('send'));
-// const showConvertFunds = ref(CRYPTO_TRANSACTIONS.includes('convert'));
-// const showWithdrawFunds = ref(CRYPTO_TRANSACTIONS.includes('withdraw'));
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name)) {
+    return item[`text${EAreaMenuItemVisible.coupons}`];
+  }
+
+  // apply list for crypto by default
+  return item[`text${EAreaMenuItemVisible.crypto}`];
+};
 </script>
 
 <style lang="scss" scoped>
