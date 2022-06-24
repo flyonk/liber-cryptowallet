@@ -1,3 +1,6 @@
+// keys are the same as for liber app routes
+// values are also the same, but with prefix "coupons-"
+
 export enum CouponRoutes {
   DashboardHome = 'coupons-home',
 
