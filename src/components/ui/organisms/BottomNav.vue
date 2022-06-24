@@ -12,6 +12,10 @@
         :label="$t('bottomNav.account')"
         active-hash-tag="account-active"
         hash-tag="account"
+        :is-not-route="
+          computedRoute['AccountMain'] === CouponRoutes.AccountMain
+        "
+        @click.prevent="handleClick(computedRoute['AccountMain'])"
       />
       <li class="item" @click="openMenu">
         <img
@@ -88,6 +92,13 @@ function openMenu() {
 function closeMenu() {
   uiStore.setStateModal('sendMenu', false);
 }
+
+const handleClick = (name: string) => {
+  if (name === CouponRoutes.AccountMain) {
+    openMenu();
+    return false;
+  }
+};
 </script>
 
 <style lang="scss" scoped>
