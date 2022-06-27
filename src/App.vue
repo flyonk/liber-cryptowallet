@@ -23,13 +23,13 @@
       </router-view>
     </div>
   </app-layout-switcher>
-
+  <a-offline-bundler :is-active="bundlerIsActive" />
   <errors-toast />
   <m-custom-error />
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { onBeforeMount, onBeforeUnmount, ref, computed } from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
@@ -45,6 +45,7 @@ import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
+import AOfflineBundler from '@/components/ui/atoms/AOfflineBundler.vue';
 
 const { isOffline } = useCheckOffline();
 
@@ -54,6 +55,26 @@ const store = useAccountStore();
 store.init();
 
 const errorsStore = useErrorsStore();
+
+const bundlerIsActive = ref(false);
+
+function onOffline() {
+  bundlerIsActive.value = true;
+}
+function onOnline() {
+  bundlerIsActive.value = false;
+}
+
+onBeforeMount(() => {
+  //Need to subscribe window events
+  window.addEventListener('offline', onOffline);
+  window.addEventListener('online', onOnline);
+});
+
+onBeforeUnmount(() => {
+  window.removeEventListener('offline', onOffline);
+  window.removeEventListener('online', onOnline);
+});
 
 SwipeBack.enable()
   .then()
@@ -88,9 +109,8 @@ function handleReconnection() {
   > .link {
     font-weight: bold;
     color: #2c3e50;
-    /* stylelint-disable*/
-    &.router-link-exact-active {
-      /* stylelint-enable*/
+
+    & > .router-link-exact-active {
       color: #42b983;
     }
   }
