@@ -5,6 +5,7 @@
       :accounts="accounts"
       :verification-status="10"
       class="coin-info"
+      @click-account="clickAccount"
     >
       <template #controllers>
         <div class="controls">
@@ -69,6 +70,8 @@ import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
+import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
+import { useRouter } from 'vue-router';
 
 import {
   BaseButton,
@@ -81,6 +84,7 @@ const couponsStore = useCouponsStore();
 const uiStore = useUIStore();
 const errorsStore = useErrorsStore();
 const { tm } = useI18n();
+const router = useRouter();
 
 const accounts = computed(() => couponsStore.getAccounts);
 const transactions = computed(() => couponsStore.getTransactions);
@@ -138,6 +142,20 @@ const availableActionButtons = computed(() => {
     ({ code }) => process.env.VUE_APP_COUPONS_TRANSACTIONS.search(code) >= 0
   );
 });
+
+const clickAccount = () => {
+  console.log(
+    'do',
+    router,
+    CouponRoutes.CouponsTransactions,
+    COUPON_ACCOUNTS[0].id
+  );
+  // router.push({
+  //   name: CouponRoutes.CouponsTransactions,
+  //   params: { id: COUPON_ACCOUNTS[0].id },
+  // });
+  router.push('/coupons-transactions');
+};
 
 onBeforeMount(async () => {
   try {

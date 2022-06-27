@@ -7,6 +7,7 @@ export const COUPON_ACCOUNTS: ICouponAccountDto[] = [
     base_balance: '85.36',
     base_balance_code: '€',
     code: 'cpn',
+    id: 1,
   },
   {
     name: 'Cup Coupon',
@@ -14,5 +15,6 @@ export const COUPON_ACCOUNTS: ICouponAccountDto[] = [
     base_balance: '34.00',
     base_balance_code: '€',
     code: 'cup',
+    id: 2,
   },
 ];

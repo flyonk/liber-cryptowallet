@@ -66,7 +66,7 @@ const routes: Array<RouteRecordRaw> = [
           import('@/applications/liber/views/Dashboard/DashboardLiber.vue'),
       },
       {
-        path: 'coupons',
+        path: '/coupons',
         name: CouponRoutes.CouponsHome,
         component: () =>
           import('@/applications/coupons/views/Dashboard/DashboardCoupons.vue'),
@@ -275,6 +275,15 @@ const routes: Array<RouteRecordRaw> = [
     path: '/config-verify',
     name: Route.ConfigureAppVerify,
     component: ConfigureAppVerify,
+    meta: {
+      classLayout: '-full-height',
+    },
+  },
+  {
+    path: '/coupons-transactions',
+    name: CouponRoutes.CouponsTransactions,
+    component: () =>
+      import('@/applications/coupons/views/Dashboard/CouponsTransactions.vue'),
     meta: {
       classLayout: '-full-height',
     },
