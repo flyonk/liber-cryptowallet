@@ -1,9 +1,6 @@
 <template>
-  <div
-    v-if="isActive"
-    class="offline-bundler text--callout font-weight--medium"
-  >
-    <i class="icon-warning" /> {{ $t('offline.bundleTitle') }}
+  <div v-if="isActive" class="offline-bundler font-weight--medium">
+    <i class="icon-attention_error" /> {{ $t('offline.bundleTitle') }}
   </div>
 </template>
 
@@ -24,13 +21,14 @@ defineProps({
   position: absolute;
   height: max-content;
   padding: 15px;
-  font-size: 3vw;
+  font-size: 3.1vw;
   width: 100%;
   display: flex;
   justify-content: space-around;
+  line-height: 24px;
 
   > i {
-    font-size: 18px;
+    font-size: 24px;
   }
 }
 </style>
