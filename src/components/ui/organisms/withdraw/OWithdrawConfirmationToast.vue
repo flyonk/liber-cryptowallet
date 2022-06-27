@@ -43,9 +43,12 @@ const withdrawStore = useWithdrawStore();
 defineEmits(['update:visible', 'success']);
 
 const onContinue = async () => {
-  mfaStore.show({
+  await mfaStore.show({
     button: 'views.withdraw.confirmation.button.submit',
     title: 'views.withdraw.confirmation.text',
+    callback: () => {
+      withdrawStore.setSuccessToastState(true);
+    },
   });
   await onSubmitWithdrawal();
 };
@@ -53,9 +56,6 @@ const onContinue = async () => {
 const onSubmitWithdrawal = async () => {
   try {
     await withdrawStore.withdraw();
-
-    withdrawStore.setSuccessToastState(true);
-    debugger;
   } catch (e) {
     await errorsStore.handle({
       err: e,

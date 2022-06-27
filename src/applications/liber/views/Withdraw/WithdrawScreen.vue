@@ -173,7 +173,11 @@ const isSubmitButtonDisabled = computed(
 
 const isInsufficientBalance = computed(() => {
   if (selectedCoin.value) {
-    return Number(selectedCoin.value.balance) - Number(form.value.amount) <= 0;
+    return (
+      Number(Number(selectedCoin.value.balance.replaceAll(',', ''))) -
+        Number(form.value.amount) <=
+      0
+    );
   }
 
   return false;
