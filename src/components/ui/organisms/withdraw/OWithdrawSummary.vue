@@ -23,7 +23,7 @@
 
       <OWithdrawConfirmationToast
         v-model:visible="showConfirmationToast"
-        @success="$emit('success')"
+        @success="withdrawStore.setSuccessToastState(true)"
       />
     </template>
     <template #fixed-footer>
@@ -47,7 +47,7 @@ import {
 
 const withdrawStore = useWithdrawStore();
 
-defineEmits(['back', 'success']);
+defineEmits(['back']);
 
 const showConfirmationToast = ref(false);
 

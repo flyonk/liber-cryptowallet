@@ -33,14 +33,14 @@
 <script setup lang="ts">
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
-// import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
+import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { BaseButton, BaseToast } from '@/components/ui';
 
 const mfaStore = useMfaStore();
 const errorsStore = useErrorsStore();
-// const withdrawStore = useWithdrawStore();
+const withdrawStore = useWithdrawStore();
 
-const emit = defineEmits(['update:visible', 'success']);
+defineEmits(['update:visible', 'success']);
 
 const onContinue = async () => {
   mfaStore.show({
@@ -51,12 +51,11 @@ const onContinue = async () => {
 };
 
 const onSubmitWithdrawal = async () => {
-  // TODO here will be request to withdraw
-  // await withdrawStore.withdraw();
-
-  emit('success');
   try {
-    emit('success');
+    await withdrawStore.withdraw();
+
+    withdrawStore.setSuccessToastState(true);
+    debugger;
   } catch (e) {
     await errorsStore.handle({
       err: e,

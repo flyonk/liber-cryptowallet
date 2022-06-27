@@ -15,7 +15,6 @@ import { TRecipient } from '@/applications/liber/stores/transfer';
 import { formatPhoneNumber } from '@/helpers/auth';
 import withdrawInfoMapper, {
   IWithdrawalInfo,
-  IWithdrawalInfoDTO,
   IWithdrawalInfoRequest,
 } from '@/applications/liber/models/funds/withdrawInfo';
 import withdrawMapper, {
@@ -57,12 +56,12 @@ export default {
   },
 
   async withdrawInfo(data: IWithdrawalInfoRequest): Promise<IWithdrawalInfo> {
-    const res = (await axios.post(
+    const res = await axios.post(
       apiService.funds.withdrawInfo(),
       withdrawInfoMapper.requestSerialize(data)
-    )) as IWithdrawalInfoDTO;
+    );
 
-    return withdrawInfoMapper.deserialize(res);
+    return withdrawInfoMapper.deserialize(res.data);
   },
 
   async withdraw(data: IWithdrawRequest): Promise<IWithdraw> {

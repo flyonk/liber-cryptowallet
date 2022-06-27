@@ -52,7 +52,7 @@ export default {
 
   requestSerialize(request: IWithdrawalInfoRequest): IWithdrawalInfoRequestDTO {
     return {
-      // currency_code: request.code,
+      currency_code: request.code,
       requested_amount: request.amount,
       network: {
         name: request.network,
