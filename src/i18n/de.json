@@ -556,7 +556,8 @@
   },
   "offline": {
     "title": "No Internet Connection",
-    "description": "Please, check internet connection on your phone to use the application"
+    "description": "Please, check internet connection on your phone to use the application",
+    "bundleTitle": "Connection is lost, application may not work properly"
   },
   "biometricConfirmation": {
     "title": "Change settings",

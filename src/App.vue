@@ -23,7 +23,7 @@
       </router-view>
     </div>
   </app-layout-switcher>
-
+  <a-offline-bundler :is-active="isActiveBundler" />
   <errors-toast />
   <m-custom-error />
 </template>
@@ -45,6 +45,7 @@ import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
+import AOfflineBundler from '@/components/ui/atoms/AOfflineBundler.vue';
 
 const { isOffline } = useCheckOffline();
 
@@ -72,6 +73,10 @@ SwipeBack.enable()
 
 const showMfa = computed(() => {
   return mfaStore.enabled;
+});
+
+const isActiveBundler = computed(() => {
+  return !navigator.onLine;
 });
 
 const isOfflineMode = ref(isOffline());
