@@ -10,4 +10,9 @@ export enum CouponRoutes {
   RecepientsPhone = 'recepients-phone',
 
   Invite = 'coupons-invite',
+
+  Transactions = 'coupons-transactions',
+  TransactionsMain = 'coupons-transactions-main',
+  TransactionsDetails = 'coupons-transactions-details',
+  TransactionsAll = 'coupons-transactions-all',
 }
