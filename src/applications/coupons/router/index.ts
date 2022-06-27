@@ -8,7 +8,7 @@ import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
 import Transactions from '@/applications/liber/views/Dashboard/Transactions/index.vue';
 import DashboardTransactions from '@/applications/liber/views/Dashboard/Transactions/DashboardTransactions.vue';
 import TransactionDetails from '@/applications/liber/views/Dashboard/Transactions/TransactionDetails.vue';
-import CouponsTransactionsAll from '@/applications/liber/views/Dashboard/Transactions/TransactionsAll.vue';
+import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
 
 const routes: Array<RouteRecordRaw> = [
   // === Account ===
