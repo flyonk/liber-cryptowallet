@@ -9,7 +9,6 @@ import convertInfoMapper, {
   TConvertData,
 } from '@/applications/liber/models/funds/convertInfo';
 import coinMapper, { ICoin } from '@/applications/liber/models/funds/coin';
-import { withdrawalInfoData } from '../../../../tests/mock/withdrawalData';
 
 import { TSuccessResponse } from '@/types/api';
 import { TRecipient } from '@/applications/liber/stores/transfer';
@@ -56,15 +55,13 @@ export default {
     return (await axios.post(apiService.transfer.send(coin), payload)).data;
   },
 
-  //TODO mocked data is used. Please change to real data soon.
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async withdrawInfo(data: IWithdrawalInfoRequest): Promise<IWithdrawalInfo> {
-    // const res = await axios.post(
-    //   apiService.funds.withdrawInfo(),
-    //   withdrawInfoMapper.requestSerialize(data)
-    // );
+    const res = await axios.post(
+      apiService.funds.withdrawInfo(),
+      withdrawInfoMapper.requestSerialize(data)
+    );
 
-    return withdrawInfoMapper.deserialize(withdrawalInfoData);
+    return withdrawInfoMapper.deserialize(res.data);
   },
 
   async withdraw(data: IWithdrawRequest): Promise<IWithdraw> {

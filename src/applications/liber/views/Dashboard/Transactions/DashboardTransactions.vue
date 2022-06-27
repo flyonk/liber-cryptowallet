@@ -168,39 +168,39 @@ const wallet = ref('1Mtree35df4543sdgErtrryryEe13rr');
 const activeTab = ref(1);
 const transactions = [
   {
-    info: `${tm('transactions.operations.received')} USDT`,
+    info: `${tm('transactions.operations.crypto.income')} USDT`,
     from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 0.0001 BTC',
     status: 'Pending',
     img: `${STATIC_BASE_URL}/static/transactions/received.svg`,
   },
   {
-    info: `${tm('transactions.operations.deposit')} BTC`,
+    info: `${tm('transactions.operations.crypto.deposit')} BTC`,
     from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 0.0001 BTC',
     img: `${STATIC_BASE_URL}/static/transactions/sent.svg`,
   },
   {
-    info: `${tm('transactions.operations.sent')} USDT`,
+    info: `${tm('transactions.operations.crypto.send')} USDT`,
     from: `${tm('common.to')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: `${STATIC_BASE_URL}/static/transactions/exchange.svg`,
   },
   {
-    info: `${tm('transactions.operations.received')} USDT`,
+    info: `${tm('transactions.operations.crypto.income')} USDT`,
     from: `${tm('common.from')} andrew@gmail.com`,
     sum: '+ 13.55 USDT',
-    status: tm('transactions.operations.pending'),
+    status: tm('transactions.operations.crypto.pending'),
     img: `${STATIC_BASE_URL}/static/transactions/received.svg`,
   },
   {
-    info: `${tm('transactions.operations.deposit')} USDT`,
+    info: `${tm('transactions.operations.crypto.deposit')} USDT`,
     from: `${tm('common.from')} Bitcoin address`,
     sum: '+ 125.00 USDT',
     img: `${STATIC_BASE_URL}/static/transactions/sent.svg`,
   },
   {
-    info: `${tm('transactions.operations.sent')} USDT`,
+    info: `${tm('transactions.operations.crypto.send')} USDT`,
     from: `${tm('common.from')} andrew@gmail.com`,
     sum: '- 13.55 USDT',
     img: `${STATIC_BASE_URL}/static/transactions/exchange.svg`,

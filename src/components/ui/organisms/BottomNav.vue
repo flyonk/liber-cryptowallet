@@ -2,16 +2,20 @@
   <div class="bottom-nav">
     <ul class="navbar-list">
       <NavBarItem
-        :route-name="Route.DashboardHome"
+        :route-name="computedRoute['DashboardHome']"
         :label="$t('bottomNav.home')"
         active-hash-tag="home-active"
         hash-tag="home"
       />
       <NavBarItem
-        :route-name="Route.AccountMain"
+        :route-name="computedRoute['AccountMain']"
         :label="$t('bottomNav.account')"
         active-hash-tag="account-active"
         hash-tag="account"
+        :is-not-route="
+          computedRoute['AccountMain'] === CouponRoutes.AccountMain
+        "
+        @click.prevent="handleClick(computedRoute['AccountMain'])"
       />
       <li class="item" @click="openMenu">
         <img
@@ -24,13 +28,13 @@
         </p>
       </li>
       <NavBarItem
-        :route-name="Route.RecepientsPhone"
+        :route-name="computedRoute['RecepientsPhone']"
         :label="$t('bottomNav.recipients')"
         active-hash-tag="recipients-active"
         hash-tag="recipients"
       />
       <NavBarItem
-        :route-name="Route.Invite"
+        :route-name="computedRoute['Invite']"
         :label="$t('bottomNav.invite')"
         active-hash-tag="gift-active"
         hash-tag="gift"
@@ -47,6 +51,7 @@
 <script setup lang="ts">
 import { computed } from 'vue';
 import { Route } from '@/router/types';
+import { CouponRoutes } from '@/applications/coupons/router/types';
 import { useRoute } from 'vue-router';
 
 import { NavBarItem } from '@/components/ui';
@@ -59,6 +64,19 @@ const uiStore = useUIStore();
 let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
 
 const route = useRoute();
+
+const computedRoute = computed(() => {
+  const name = route.name;
+
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name)) {
+    return CouponRoutes;
+  }
+
+  // apply list for crypto by default
+  return Route;
+});
+
 const menuType = computed(() => {
   if (route.name === Route.AccountDetail) {
     // Menu for crypto transactions
@@ -74,6 +92,13 @@ function openMenu() {
 function closeMenu() {
   uiStore.setStateModal('sendMenu', false);
 }
+
+const handleClick = (name: string) => {
+  if (name === CouponRoutes.AccountMain) {
+    openMenu();
+    return false;
+  }
+};
 </script>
 
 <style lang="scss" scoped>

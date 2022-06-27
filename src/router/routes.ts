@@ -66,8 +66,8 @@ const routes: Array<RouteRecordRaw> = [
           import('@/applications/liber/views/Dashboard/DashboardLiber.vue'),
       },
       {
-        path: '/coupons',
-        name: CouponRoutes.CouponsHome,
+        path: 'coupons',
+        name: CouponRoutes.DashboardHome,
         component: () =>
           import('@/applications/coupons/views/Dashboard/DashboardCoupons.vue'),
       },

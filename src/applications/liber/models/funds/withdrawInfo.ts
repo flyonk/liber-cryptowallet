@@ -6,7 +6,7 @@ export interface IWithdrawalInfoRequest {
 }
 
 export interface IWithdrawalInfoRequestDTO {
-  currency_code: string;
+  currency_code?: string;
   requested_amount: string;
   network: {
     name: string;

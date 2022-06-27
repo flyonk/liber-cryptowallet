@@ -102,11 +102,7 @@
       </base-button>
     </template>
   </t-top-navigation>
-  <o-withdraw-summary
-    v-else
-    @back="showSummaryScreen = false"
-    @success="showSuccessToast"
-  />
+  <o-withdraw-summary v-else @back="showSummaryScreen = false" />
 </template>
 
 <script lang="ts" setup>
@@ -155,7 +151,7 @@ const form = ref({
 });
 
 const networks = ref([]) as Ref<string[]>;
-const showSuccessToast = ref(false);
+const showSuccessToast = computed(() => withdrawStore.showSuccessToast);
 
 const coins = computed(() => {
   return coinStore.getCoins.filter((coin) => {
@@ -177,7 +173,11 @@ const isSubmitButtonDisabled = computed(
 
 const isInsufficientBalance = computed(() => {
   if (selectedCoin.value) {
-    return Number(selectedCoin.value.balance) - Number(form.value.amount) <= 0;
+    return (
+      Number(Number(selectedCoin.value.balance.replaceAll(',', ''))) -
+        Number(form.value.amount) <=
+      0
+    );
   }
 
   return false;
@@ -212,8 +212,6 @@ onBeforeMount(async () => {
   ]);
 
   const preselectedCode = route.params.code;
-
-  console.debug('preselect', preselectedCode);
 
   if (preselectedCode) {
     const selectedCoin = coins.value.find(

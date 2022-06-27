@@ -66,7 +66,8 @@ import { computed, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { STATIC_BASE_URL } from '@/constants';
+import { ECouponsTransactionsEnvVars } from '@/types/base-component';
+import { STATIC_BASE_URL, COUPONS_TRANSACTIONS } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
@@ -121,25 +122,25 @@ const bannerItems = ref([
 ]);
 const actionButtons = ref([
   {
-    code: 'crypto_purchase',
+    code: ECouponsTransactionsEnvVars.purchase,
     icon: 'icon-plus_circle',
-    title: tm('transactions.operations.buy'),
+    title: tm('transactions.operations.coupons.buy'),
   },
   {
-    code: 'redemption',
+    code: ECouponsTransactionsEnvVars.redemption,
     icon: 'icon-qr_code',
-    title: tm('transactions.pay'),
+    title: tm('transactions.operations.coupons.pay'),
   },
   {
-    code: 'send',
+    code: ECouponsTransactionsEnvVars.send,
     icon: '',
-    title: tm('transactions.send'),
+    title: tm('transactions.operations.coupons.send'),
   },
 ]);
 
 const availableActionButtons = computed(() => {
-  return actionButtons.value.filter(
-    ({ code }) => process.env.VUE_APP_COUPONS_TRANSACTIONS.search(code) >= 0
+  return actionButtons.value.filter(({ code }) =>
+    COUPONS_TRANSACTIONS.includes(code)
   );
 });
 

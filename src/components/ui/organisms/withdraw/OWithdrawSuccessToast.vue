@@ -2,7 +2,7 @@
   <base-toast
     v-bind="$attrs"
     severity="confirmation"
-    @update:visible="$emit('update:visible', $event)"
+    @update:visible="setToastState"
   >
     <template #header>
       <div class="success-header font-weight--medium text--title-3">
@@ -19,8 +19,13 @@
 
 <script lang="ts" setup>
 import { BaseToast } from '@/components/ui';
+import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 
-defineEmits(['update:visible']);
+const withdrawStore = useWithdrawStore();
+
+const setToastState = (state: boolean) => {
+  withdrawStore.setSuccessToastState(state);
+};
 </script>
 
 <style lang="scss" scoped>
