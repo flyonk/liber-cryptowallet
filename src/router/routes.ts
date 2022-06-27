@@ -67,7 +67,7 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'coupons',
-        name: CouponRoutes.CouponsHome,
+        name: CouponRoutes.DashboardHome,
         component: () =>
           import('@/applications/coupons/views/Dashboard/DashboardCoupons.vue'),
       },

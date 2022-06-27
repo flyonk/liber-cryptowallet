@@ -167,15 +167,27 @@
     "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
     "usingLiberExchange": "Using Liber Exchange",
     "operations": {
-      "income": "Received",
-      "outcome": "Sent",
-      "transfer": "Transfer",
-      "deposit": "Deposit",
-      "withdraw": "Withdraw",
-      "convert": "Convert",
-      "send": "Send",
-      "buy": "Buy",
-      "sell": "Sell"
+      "coupons": {
+        "buy": "Buy",
+        "send": "Send",
+        "pay": "Pay",
+        "convert": "Convert",
+        "withdraw": "Pay by QR"
+      },
+      "fiat": {
+        "withdraw": "Withdraw"
+      },
+      "crypto": {
+        "income": "Received",
+        "outcome": "Sent",
+        "transfer": "Transfer",
+        "deposit": "Deposit",
+        "withdraw": "Withdraw",
+        "convert": "Convert",
+        "send": "Send",
+        "buy": "Buy",
+        "sell": "Sell"
+      }
     },
     "status": {
       "pending": "Pending",

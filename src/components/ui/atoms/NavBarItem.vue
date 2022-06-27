@@ -2,7 +2,7 @@
   <li>
     <router-link
       :to="{
-        name: props.routeName,
+        name: props.isNotRoute ? '' : props.routeName,
       }"
       class="item"
     >
@@ -51,6 +51,10 @@ const props = defineProps({
   hashTag: {
     type: String,
     default: '',
+  },
+  isNotRoute: {
+    type: Boolean,
+    default: false,
   },
 });
 

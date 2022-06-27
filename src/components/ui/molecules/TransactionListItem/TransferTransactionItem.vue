@@ -93,8 +93,8 @@ const icon = computed(() => {
 
 const direction = computed(() =>
   props.transaction.direction === EDirection.income
-    ? tm('transactions.operations.buy')
-    : tm('transactions.operations.sell')
+    ? tm('transactions.operations.crypto.buy')
+    : tm('transactions.operations.crypto.sell')
 );
 
 const directionSign = computed(() =>

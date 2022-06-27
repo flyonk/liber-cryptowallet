@@ -1,4 +1,9 @@
 import getArrayFromEnvVar from '@/helpers/envvars';
+import {
+  ECouponsTransactionsEnvVars,
+  EFiatTransactionsEnvVars,
+  ECryptoTransactionsEnvVars,
+} from '@/types/base-component';
 
 // Middleware file to pass constants and env variables to the App
 export const STORE_AUTH_KEY = 'liber_auth';
@@ -22,11 +27,14 @@ export const SUPPORTED_LANGUAGES = getArrayFromEnvVar(
   'VUE_APP_SUPPORTED_LANGUAGES'
 );
 export const CRYPTO_TRANSACTIONS = getArrayFromEnvVar(
-  'VUE_APP_CRYPTO_TRANSACTIONS'
+  'VUE_APP_CRYPTO_TRANSACTIONS',
+  Object.values(ECryptoTransactionsEnvVars)
 );
 export const FIAT_TRANSACTIONS = getArrayFromEnvVar(
-  'VUE_APP_FIAT_TRANSACTIONS'
+  'VUE_APP_FIAT_TRANSACTIONS',
+  Object.values(EFiatTransactionsEnvVars)
 );
 export const COUPONS_TRANSACTIONS = getArrayFromEnvVar(
-  'VUE_APP_COUPONS_TRANSACTIONS'
+  'VUE_APP_COUPONS_TRANSACTIONS',
+  Object.values(ECouponsTransactionsEnvVars)
 );

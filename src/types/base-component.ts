@@ -31,3 +31,21 @@ export interface IValueItem {
   value: string | number;
   logo?: string;
 }
+
+export enum ECryptoTransactionsEnvVars {
+  withdraw = 'withdraw',
+  convert = 'convert',
+  send = 'send',
+}
+
+export enum ECouponsTransactionsEnvVars {
+  withdraw = 'withdraw',
+  convert = 'convert',
+  send = 'send',
+  purchase = 'purchase',
+  redemption = 'redemption',
+}
+
+export enum EFiatTransactionsEnvVars {
+  withdraw = 'withdraw',
+}

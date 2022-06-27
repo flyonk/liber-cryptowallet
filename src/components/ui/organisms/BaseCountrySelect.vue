@@ -5,7 +5,7 @@
         v-model="selectedData.name"
         inputmode="none"
         readonly
-        @click.self="openSelect"
+        @click="openSelect"
       >
         <template #label>{{ $t('ui.basecountryselect.country') }}</template>
       </BaseInput>
