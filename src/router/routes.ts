@@ -279,15 +279,6 @@ const routes: Array<RouteRecordRaw> = [
       classLayout: '-full-height',
     },
   },
-  {
-    path: '/coupons-transactions',
-    name: CouponRoutes.CouponsTransactions,
-    component: () =>
-      import('@/applications/coupons/views/Dashboard/CouponsTransactions.vue'),
-    meta: {
-      classLayout: '-full-height',
-    },
-  },
 ];
 
 export default routes;

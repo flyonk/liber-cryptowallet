@@ -71,7 +71,7 @@ import { STATIC_BASE_URL, COUPONS_TRANSACTIONS } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
-import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
+// import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
 import { useRouter } from 'vue-router';
 
 import {
@@ -145,17 +145,13 @@ const availableActionButtons = computed(() => {
 });
 
 const clickAccount = () => {
-  console.log(
-    'do',
-    router,
-    CouponRoutes.CouponsTransactions,
-    COUPON_ACCOUNTS[0].id
-  );
   // router.push({
   //   name: CouponRoutes.CouponsTransactions,
   //   params: { id: COUPON_ACCOUNTS[0].id },
   // });
-  router.push('/coupons-transactions');
+  router.push({
+    name: CouponRoutes.TransactionsMain,
+  });
 };
 
 onBeforeMount(async () => {
