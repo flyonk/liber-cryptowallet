@@ -32,7 +32,7 @@
           size="medium"
           view="flat"
           class="button"
-          @click="$router.push({ name: CouponRoutes.CouponsTransactions })"
+          @click="$router.push({ name: CouponRoutes.TransactionsAll })"
         >
           {{ $t('views.dashboard.home.seeAll') }}
         </base-button>

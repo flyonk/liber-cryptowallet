@@ -11,5 +11,8 @@ export enum CouponRoutes {
 
   Invite = 'coupons-invite',
 
-  CouponsTransactions = 'coupons-transactions',
+  Transactions = 'coupons-transactions',
+  TransactionsMain = 'coupons-transactions-main',
+  TransactionsDetails = 'coupons-transactions-details',
+  TransactionsAll = 'coupons-transactions-all',
 }
