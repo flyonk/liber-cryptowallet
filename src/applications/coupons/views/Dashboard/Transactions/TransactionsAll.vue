@@ -4,6 +4,7 @@
   >
     <template #title>{{ $t('views.dashboard.home.transactions') }}</template>
     <template #content>
+      <m-transaction-filters />
       <transactions-list
         :transactions="transactions"
         transaction-type="coupons"
@@ -15,6 +16,7 @@
 <script setup lang="ts">
 import { computed, onBeforeMount } from 'vue';
 
+import MTransactionFilters from '@/components/ui/molecules/MTransactionFilters.vue';
 import { TransactionsList, TTopNavigation } from '@/components/ui';
 
 import { CouponRoutes } from '@/applications/coupons/router/types';
