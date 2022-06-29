@@ -8,15 +8,11 @@
           $t('views.kyc.kyc2step.streetAndNumber')
         }}</template>
       </base-input>
-      <base-input v-model="form.flat">
+      <base-input v-model="form.optionalAddress">
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
         <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
       </base-input>
-      <base-input
-        v-model="form.postal_code"
-        type="number"
-        :use-grouping="false"
-      >
+      <base-input v-model="form.postalCode" type="number" :use-grouping="false">
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
       </base-input>
       <base-input v-model="form.state">
@@ -35,23 +31,34 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
+import { onBeforeMount, reactive } from 'vue';
 import { computed } from '@vue/reactivity';
 
-import { BaseInput, BaseButton, TTopNavigation } from '@/components/ui';
+import { useProfileStore } from '@/stores/profile';
 
-import { useKYCStore } from '@/stores/kyc';
+import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
 
-const kycStore = useKYCStore();
+const profileStore = useProfileStore();
 
 const emit = defineEmits(['next', 'prev']);
 
 const form = reactive({
   street: '',
-  flat: null,
-  postal_code: null,
+  optionalAddress: '',
+  postalCode: null as unknown as string,
   state: '',
   city: '',
+});
+
+onBeforeMount(() => {
+  const { optionalAddress, street, state, city, postalCode } =
+    profileStore.getUser;
+
+  form.street = street as string;
+  form.optionalAddress = optionalAddress as string;
+  form.postalCode = postalCode as string;
+  form.state = state as string;
+  form.city = city as string;
 });
 
 const isFormValid = computed(() => {
@@ -66,7 +73,7 @@ const isFormValid = computed(() => {
 });
 
 const onContinue = () => {
-  kycStore.setData(form);
+  profileStore.updateUserProfile(form);
 
   emit('next');
 };

@@ -19,6 +19,8 @@ export interface IProfileDto {
   kycStatus: EKYCStatus;
   is_2_fa_configured?: boolean;
   is_pass_code_enabled: boolean;
+  state: string;
+  city: string;
 }
 
 type TAnyObjectType = Record<string, string | boolean | number | null>;
@@ -69,6 +71,8 @@ export interface IProfile
   country?: string;
   street?: string;
   homeNum?: string;
+  state?: string;
+  city?: string;
   optionalAddress?: string;
   postalCode?: string;
   birthDate?: string;
@@ -103,6 +107,8 @@ export default {
       is2FAConfigured: input.is_2_fa_configured || false,
       options: input.options || {},
       isPasscodeEnabled: input.is_pass_code_enabled,
+      state: input.state,
+      city: input.city,
       marketing: {
         isEmail: false,
         isPushNotification: false,
@@ -124,14 +130,16 @@ export default {
       last_name: input.lastName,
       email: input.email,
       country: input.country,
-      optionalAddress: input.optionalAddress,
-      postal_code: input.postalCode,
+      optional_address: input.optionalAddress,
+      city: input.city,
+      state: input.state,
+      postal_code: input.postalCode ? input.postalCode.toString() : null,
       is_send_news: !!input.marketing?.isEmail,
       options: input.options,
+      street_and_number: input.street,
     } as Partial<IProfile>;
     if (input.birthDate) request.birthdate = string2ISO(input.birthDate);
-    if (input.street && input.homeNum)
-      request.street_and_number = `${input.street} ${input.homeNum}`;
+
     return request;
   },
 };
