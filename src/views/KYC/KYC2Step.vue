@@ -15,7 +15,7 @@
       <base-input
         v-model="form.postal_code"
         type="number"
-        :use-grouping="false"
+        @input="handleInputNumber"
       >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
       </base-input>
@@ -35,9 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { reactive } from 'vue';
-import { computed } from '@vue/reactivity';
-
+import { reactive, computed } from 'vue';
 import { BaseInput, BaseButton, TTopNavigation } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
@@ -49,7 +47,7 @@ const emit = defineEmits(['next', 'prev']);
 const form = reactive({
   street: '',
   flat: null,
-  postal_code: null,
+  postal_code: null as null | number,
   state: '',
   city: '',
 });
@@ -69,6 +67,10 @@ const onContinue = () => {
   kycStore.setData(form);
 
   emit('next');
+};
+
+const handleInputNumber = (val: number) => {
+  form.postal_code = val;
 };
 </script>
 
