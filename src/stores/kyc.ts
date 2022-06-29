@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import { EDocumentSide } from '@/types/document';
+import { ICountryInformation } from '@/types/country-phone-types';
 
 // === KYC Types ===
 
@@ -15,7 +16,7 @@ export interface IKYCImage {
 }
 
 export interface IKYCFormData {
-  citizenship: string;
+  citizenship: ICountryInformation | string;
   street: string;
   flat: string;
   postal_code: string | null;

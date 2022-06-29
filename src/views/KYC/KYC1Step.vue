@@ -13,6 +13,7 @@
     <template #content>
       <base-country-select
         v-model="country"
+        :preselected-data="pStore.getUser.country ? pStore.getUser.country : ''"
         :only-european="true"
         @update:model-value="setCountry"
       />
@@ -38,16 +39,17 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { onBeforeMount, Ref, ref } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
+import { ICountryInformation } from '@/types/country-phone-types';
+import { Route } from '@/router/types';
 
 import { BaseButton, TTopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
-import { Route } from '@/router/types';
 
 const router = useRouter();
 
@@ -55,7 +57,7 @@ const kycStore = useKYCStore();
 
 const emit = defineEmits(['next']);
 
-const country = ref('');
+const country = ref('') as Ref<string | null>;
 
 const isCountrySelected = computed(() => {
   return Boolean(country.value);
@@ -63,9 +65,17 @@ const isCountrySelected = computed(() => {
 
 const pStore = useProfileStore();
 
-const onSignUp = () => {
+const onSignUp = async () => {
+  await pStore.updateUserProfile({
+    country: (kycStore.getData.citizenship as ICountryInformation).name,
+  });
+
   emit('next');
 };
+
+onBeforeMount(async () => {
+  await pStore.init();
+});
 
 const setCountry = (selectedCountry: string): void => {
   kycStore.changeData('citizenship', selectedCountry);
