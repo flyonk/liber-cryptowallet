@@ -10,6 +10,9 @@ import DashboardTransactions from '@/applications/liber/views/Dashboard/Transact
 import TransactionDetails from '@/applications/liber/views/Dashboard/Transactions/TransactionDetails.vue';
 import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
 
+import checkContactsLoaded from '@/router/middleware/checkContacts';
+import RecepientsRoutes from './routesRecepients';
+
 const routes: Array<RouteRecordRaw> = [
   // === Account ===
 
@@ -61,6 +64,17 @@ const routes: Array<RouteRecordRaw> = [
         component: CouponsTransactionsAll,
       },
     ],
+  },
+
+  // === Recepients ===
+
+  {
+    path: '/recepients-coupon',
+    name: CouponRoutes.Recepients,
+    meta: { layout: 'navbar', authRequired: true },
+    component: Recipients,
+    beforeEnter: checkContactsLoaded,
+    children: RecepientsRoutes,
   },
 ];
 
