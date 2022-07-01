@@ -109,8 +109,9 @@ export default {
     };
 
     const data = new FormData();
+    const binaryFile = await fetch(file).then((r) => r.blob());
 
-    data.append('file', file);
+    data.append('file', binaryFile);
 
     return (
       await axios.post(
