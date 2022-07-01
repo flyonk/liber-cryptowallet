@@ -190,4 +190,13 @@ input::-webkit-inner-spin-button {
 input[type='number'] {
   appearance: textfield;
 }
+
+.base-input.-invalid > .input {
+  background-color: $color-red-50;
+  color: $color-red-500;
+}
+
+input.-invalid + label {
+  color: $color-red-500;
+}
 </style>
