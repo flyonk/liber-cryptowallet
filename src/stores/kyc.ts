@@ -1,13 +1,15 @@
 import { defineStore } from 'pinia';
 import { EDocumentSide } from '@/types/document';
 import { ICountryInformation } from '@/types/country-phone-types';
+import profileService from '@/services/profileService';
+import { IClaim } from '@/models/profile/claim';
 
 // === KYC Types ===
 
 export enum EKYCProofType {
-  licence = 'licence',
+  licence = 'driver',
   passport = 'passport',
-  national_id = 'national_id',
+  national_id = 'residence',
 }
 
 export interface IKYCImage {
@@ -32,6 +34,8 @@ export interface IKYCState {
   data: IKYCFormData;
 
   image: IKYCImage;
+
+  claimData: IClaim | null;
 }
 
 // === KYC Store ===
@@ -55,6 +59,8 @@ export const useKYCStore = defineStore('kyc', {
       front: null,
       back: null,
     },
+
+    claimData: null,
   }),
 
   getters: {
@@ -91,6 +97,16 @@ export const useKYCStore = defineStore('kyc', {
 
     setData(data: Partial<IKYCFormData>): void {
       Object.assign(this.data, data);
+    },
+
+    async claim() {
+      try {
+        this.claimData = await profileService.kycGetClaim();
+      } catch (e: Error | any) {
+        if (e?.response && e.response.status === 404) {
+          this.claimData = await profileService.kycCreateClaim();
+        }
+      }
     },
   },
 });

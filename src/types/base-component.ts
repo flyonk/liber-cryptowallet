@@ -30,6 +30,7 @@ export interface IValueItem {
   text: string;
   value: string | number;
   logo?: string;
+  disabled?: boolean;
 }
 
 export enum ECryptoTransactionsEnvVars {

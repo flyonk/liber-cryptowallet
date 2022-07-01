@@ -68,21 +68,13 @@ export default {
     return (await axios.post(apiService.authenticators.verify(), data)).data;
   },
 
-  //TODO: fix any
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  async kycCreateClaim(data: any): Promise<IClaim> {
-    const res = await axios.post(apiService.profile.kycClaim(), data);
+  async kycCreateClaim(): Promise<IClaim> {
+    const res = await axios.post(apiService.profile.kycClaim());
     return claimMapper.deserialize(res.data);
   },
 
-  //TODO: fix any
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  async kycHook(data: any): Promise<TSuccessResponse> {
-    return (await axios.post(apiService.profile.kycHook(), data)).data;
-  },
-
-  async kycGetClaimById(id: number): Promise<IClaim> {
-    const res = await axios.get(`${apiService.profile.kycClaim()}/${id}`);
+  async kycGetClaim(): Promise<IClaim> {
+    const res = await axios.get(apiService.profile.kycClaim());
     return claimMapper.deserialize(res.data);
   },
 

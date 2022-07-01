@@ -7,14 +7,14 @@ export interface IClaimDto {
   id: number;
   user_id: string;
   status: number;
-  file_list: IClaimFileDto[];
+  file_list: IClaimFileDto[] | null;
 }
 
 export interface IClaim {
   id: number;
   userId: string;
   status: number;
-  fileList: IClaimFile[];
+  fileList: IClaimFile[] | null;
 }
 
 export default {
@@ -23,7 +23,9 @@ export default {
       id: input.id,
       userId: input.user_id,
       status: input.status,
-      fileList: input.file_list.map(ClaimFile.deserialize),
+      fileList: input.file_list
+        ? input.file_list.map(ClaimFile.deserialize)
+        : null,
     };
   },
   requestSerialize(input: IClaim): IClaimDto {
@@ -31,7 +33,9 @@ export default {
       id: input.id,
       user_id: input.userId,
       status: input.status,
-      file_list: input.fileList.map(ClaimFile.requestSerialize),
+      file_list: input.fileList
+        ? input.fileList.map(ClaimFile.requestSerialize)
+        : null,
     };
   },
 };
