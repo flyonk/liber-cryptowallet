@@ -18,7 +18,6 @@
         @click="$emit('click-account')"
       />
     </div>
-
     <h3 class="heading-gray-md mb-4">
       {{ subtitle }}
     </h3>

@@ -6,7 +6,7 @@ import AllAccounts from '@/applications/liber/views/Dashboard/Account/AllAccount
 import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
 
 import Transactions from '@/applications/liber/views/Dashboard/Transactions/index.vue';
-import DashboardTransactions from '@/applications/liber/views/Dashboard/Transactions/DashboardTransactions.vue';
+import DashboardTransactions from '@/applications/coupons/views/Dashboard/Transactions/DashboardTransactions.vue';
 import TransactionDetails from '@/applications/liber/views/Dashboard/Transactions/TransactionDetails.vue';
 import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
 
