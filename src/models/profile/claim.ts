@@ -4,14 +4,14 @@ import ClaimFile, {
 } from '@/models/profile/claimFile';
 
 export interface IClaimDto {
-  id: number;
+  id: string;
   user_id: string;
   status: number;
   file_list: IClaimFileDto[] | null;
 }
 
 export interface IClaim {
-  id: number;
+  id: string;
   userId: string;
   status: number;
   fileList: IClaimFile[] | null;

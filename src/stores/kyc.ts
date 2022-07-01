@@ -108,5 +108,22 @@ export const useKYCStore = defineStore('kyc', {
         }
       }
     },
+
+    async uploadFile(
+      fileBinary: string,
+      claimId: string,
+      side: EDocumentSide = EDocumentSide.front
+    ) {
+      try {
+        await profileService.kycAddFile(
+          claimId,
+          this.proof_type as EKYCProofType,
+          fileBinary,
+          side
+        );
+      } catch (e) {
+        console.error(e);
+      }
+    },
   },
 });

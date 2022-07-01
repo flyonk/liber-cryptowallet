@@ -53,6 +53,8 @@ import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
+import { IClaim } from '@/models/profile/claim';
+
 import { useI18n } from 'vue-i18n';
 
 const { t } = useI18n();
@@ -87,8 +89,24 @@ const documentSideLabel = (side: EDocumentSide) => {
     : t('views.kyc.kyc5step.backSide');
 };
 
-const onNext = () => {
+const onNext = async () => {
   emit('next');
+
+  if (kycStore.getImage.front) {
+    await kycStore.uploadFile(
+      kycStore.getImage.front,
+      (kycStore.claimData as IClaim).id,
+      EDocumentSide.front
+    );
+  }
+
+  if (kycStore.getImage.back) {
+    await kycStore.uploadFile(
+      kycStore.getImage.back,
+      (kycStore.claimData as IClaim).id,
+      EDocumentSide.back
+    );
+  }
 
   kycStore.setPercentage(0.8);
 };

@@ -66,16 +66,15 @@ const _requestHandler = async (
   // if (mfaStore.enabled && config.headers) {
   if (config.headers) {
     if (config.headers[EMfaHeaders.otp]) {
-      const otp = String(config.headers[EMfaHeaders.otp]);
-      headers[EMfaHeaders.otp] = otp;
+      headers[EMfaHeaders.otp] = String(config.headers[EMfaHeaders.otp]);
     }
     if (config.headers?.[EMfaHeaders.totp]) {
-      const totp = String(config.headers[EMfaHeaders.totp]);
-      headers[EMfaHeaders.totp] = totp;
+      headers[EMfaHeaders.totp] = String(config.headers[EMfaHeaders.totp]);
     }
     if (config.headers?.[EMfaHeaders.passcode]) {
-      const passcode = String(config.headers[EMfaHeaders.passcode]);
-      headers[EMfaHeaders.passcode] = passcode;
+      headers[EMfaHeaders.passcode] = String(
+        config.headers[EMfaHeaders.passcode]
+      );
     }
   }
 
@@ -85,7 +84,12 @@ const _requestHandler = async (
   config.headers.Accept = 'application/json';
   config.headers['Accept-Language'] = i18n.global.locale.value;
 
-  if (config.url && _tenantDependantRoutes().includes(config.url)) {
+  const isKycRoutes = () => !!config.url?.search('/kyc/claim/');
+
+  if (
+    config.url &&
+    (_tenantDependantRoutes().includes(config.url) || isKycRoutes())
+  ) {
     config.headers['x-tenant-id'] = `${process.env.VUE_APP_BRAND}`;
   }
 

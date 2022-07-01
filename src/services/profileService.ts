@@ -10,6 +10,8 @@ import {
   TSuccessResponse,
   TVerification,
 } from '@/types/api';
+import { EKYCProofType } from '@/stores/kyc';
+import { EDocumentSide } from '@/types/document';
 
 export default {
   async getProfile(): Promise<IProfile> {
@@ -94,9 +96,28 @@ export default {
     ).data;
   },
 
-  async kycAddFileById(id: number, fileId: number): Promise<TSuccessResponse> {
+  async kycAddFile(
+    id: string,
+    fileType: EKYCProofType,
+    file: string,
+    side: EDocumentSide = EDocumentSide.front
+  ): Promise<TSuccessResponse> {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    const data = new FormData();
+
+    data.append('file', file);
+
     return (
-      await axios.post(`${apiService.profile.kycClaim()}/${id}/file/${fileId}`)
+      await axios.post(
+        `${apiService.profile.kycClaim()}/${id}/file/${fileType}?side=${side}`,
+        data,
+        config
+      )
     ).data;
   },
 };
