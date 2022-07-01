@@ -8,6 +8,10 @@
           class="login-passcode"
           @submit="onSubmit"
         />
+
+        <router-link :to="{ name: Route.SignUp }" class="recovery-link">
+          {{ $t('auth.login.forgotYourPasscode') }}
+        </router-link>
       </div>
       <div v-else>
         <auth2-f-a-verification-component
@@ -130,6 +134,22 @@ async function handleSuccessVerification(): Promise<void> {
   letter-spacing: 0.0038em;
   margin-bottom: 10px;
   margin-top: 20px;
+}
+
+.recovery-link {
+  margin-top: 8vh;
+  display: flex;
+  justify-content: center;
+  color: $color-primary-500;
+  font-family: Inter, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  line-height: 22px;
+  letter-spacing: -0.0043em;
+}
+
+.recovery-link:visited {
+  color: $color-primary-500;
 }
 
 .base-toast-footer {
