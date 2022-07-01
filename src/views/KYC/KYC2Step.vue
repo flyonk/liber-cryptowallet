@@ -10,6 +10,15 @@
         <template #label>{{
           $t('views.kyc.kyc2step.streetAndNumber')
         }}</template>
+        <template v-if="form.street && !isValid('street')" #append>
+          <i
+            v-tooltip.focus="
+              'Please remove special characters. They do not accept in the field.'
+            "
+            class="icon-input-field-help-circle"
+            tabindex="1"
+          />
+        </template>
       </base-input>
       <base-input
         v-model="form.flat"
@@ -17,6 +26,17 @@
       >
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
         <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
+        <template v-if="form.flat" #append>
+          <i
+            v-if="!isValid('flat')"
+            v-tooltip.focus="
+              'Please remove special characters. They do not accept in the field.'
+            "
+            class="icon-input-field-help-circle"
+            tabindex="2"
+          />
+          <i v-else class="icon-input-field-eye" />
+        </template>
       </base-input>
       <base-input
         v-model="form.postal_code"
@@ -30,12 +50,30 @@
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
+        <template v-if="form.state && !isValid('state')" #append>
+          <i
+            v-tooltip.focus="
+              'Please remove special characters. They do not accept in the field.'
+            "
+            class="icon-input-field-help-circle"
+            tabindex="3"
+          />
+        </template>
       </base-input>
       <base-input
         v-model="form.city"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
+        <template v-if="form.city && !isValid('city')" #append>
+          <i
+            v-tooltip.focus="
+              'Please remove special characters. They do not accept in the field.'
+            "
+            class="icon-input-field-help-circle"
+            tabindex="4"
+          />
+        </template>
       </base-input>
     </template>
     <template #fixed-footer
