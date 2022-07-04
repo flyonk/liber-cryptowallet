@@ -60,6 +60,7 @@ import { EKYCStatus } from '@/models/profile/profile';
 import { useUIStore } from '@/stores/ui';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
+import { ServicesRoutes } from '@/applications/services/router/types';
 
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { KycStatusBadge, TTopNavigation } from '@/components/ui';
@@ -80,6 +81,11 @@ const tabs = [
     id: 1,
     name: tm('views.dashboard.home.tabs.dashboard'),
     route: { name: Route.DashboardLiber },
+  },
+  {
+    id: 3,
+    name: tm('views.dashboard.home.tabs.services'),
+    route: { name: ServicesRoutes.DashboardHome },
   },
 ];
 

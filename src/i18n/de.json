@@ -371,7 +371,8 @@
           "dashboard": "Dashboard",
           "treasury": "Treasury",
           "loans": "Loans",
-          "coupons": "Coupons"
+          "coupons": "Coupons",
+          "services": "Services"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -381,6 +382,9 @@
           "recommend": "Recommend",
           "getYourCryptoProperty": "Get your first crypto property",
           "reach": "How can we reach you?"
+        },
+        "libersave": {
+          "title": "Liber save"
         }
       },
       "verification": {
