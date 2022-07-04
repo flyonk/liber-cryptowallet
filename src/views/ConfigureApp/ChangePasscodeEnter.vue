@@ -18,7 +18,7 @@
         <base-passcode
           v-if="actionType === EPasscodeActions.update"
           :action-type="EPasscodeActions.update"
-        />\
+        />
       </div>
     </template>
   </t-top-navigation>
