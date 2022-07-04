@@ -24,7 +24,8 @@
     "postinstall": "husky install",
     "prepare": "husky install",
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'",
-    "start:whitelabel": "./moduleinstall.sh"
+    "start:whitelabel": "./moduleinstall.sh",
+    "env:from:json": "node libs/index.js"
   },
   "dependencies": {
     "@capacitor-community/camera-preview": "3.0.0",
