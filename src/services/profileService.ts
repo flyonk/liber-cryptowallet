@@ -100,7 +100,8 @@ export default {
     id: string,
     fileType: EKYCProofType,
     file: string,
-    side: EDocumentSide = EDocumentSide.front
+    side: EDocumentSide = EDocumentSide.front,
+    country: string
   ): Promise<TSuccessResponse> {
     const config = {
       headers: {
@@ -115,7 +116,7 @@ export default {
 
     return (
       await axios.post(
-        `${apiService.profile.kycClaim()}/${id}/file/${fileType}?side=${side}`,
+        `${apiService.profile.kycClaim()}/${id}/file/${fileType}?side=${side}&country=${country}`,
         data,
         config
       )

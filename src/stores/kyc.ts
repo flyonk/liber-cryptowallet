@@ -112,14 +112,16 @@ export const useKYCStore = defineStore('kyc', {
     async uploadFile(
       fileBinary: string,
       claimId: string,
-      side: EDocumentSide = EDocumentSide.front
+      side: EDocumentSide = EDocumentSide.front,
+      country: string
     ) {
       try {
         await profileService.kycAddFile(
           claimId,
           this.proof_type as EKYCProofType,
           fileBinary,
-          side
+          side,
+          country
         );
       } catch (e) {
         console.error(e);

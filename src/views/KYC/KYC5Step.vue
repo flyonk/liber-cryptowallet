@@ -54,6 +54,7 @@ import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
 import { IClaim } from '@/models/profile/claim';
+import { useProfileStore } from '@/stores/profile';
 
 import { useI18n } from 'vue-i18n';
 
@@ -62,6 +63,7 @@ const { t } = useI18n();
 const emit = defineEmits(['prev', 'next']);
 
 const kycStore = useKYCStore();
+const profileStore = useProfileStore();
 
 const prevStep = async () => {
   cleanupScans();
@@ -92,19 +94,24 @@ const documentSideLabel = (side: EDocumentSide) => {
 const onNext = async () => {
   emit('next');
 
+  const { id: claimId } = kycStore.claimData as IClaim;
+  const country = profileStore.getUser.country;
+
   if (kycStore.getImage.front) {
     await kycStore.uploadFile(
       kycStore.getImage.front,
-      (kycStore.claimData as IClaim).id,
-      EDocumentSide.front
+      claimId,
+      EDocumentSide.front,
+      country as string
     );
   }
 
   if (kycStore.getImage.back) {
     await kycStore.uploadFile(
       kycStore.getImage.back,
-      (kycStore.claimData as IClaim).id,
-      EDocumentSide.back
+      claimId,
+      EDocumentSide.back,
+      country as string
     );
   }
 
