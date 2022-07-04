@@ -38,7 +38,11 @@
           <i v-else class="icon-input-field-eye" />
         </template>
       </base-input>
-      <base-input v-model="form.postalCode" type="number" @input="handleInputNumber">
+      <base-input
+        v-model="form.postalCode"
+        type="number"
+        @input="handleInputNumber"
+      >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
       </base-input>
       <base-input
@@ -81,8 +85,8 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, computed, onBeforeMount } from 'vue';
-import { BaseInput, BaseButton, TTopNavigation } from '@/components/ui';
+import { computed, onBeforeMount, reactive } from 'vue';
+import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 
 const profileStore = useProfileStore();
@@ -122,13 +126,13 @@ const onContinue = () => {
   emit('next');
 };
 
-const handleInputNumber = (val: number) => {
+const handleInputNumber = (val: string) => {
   form.postalCode = val;
 };
 
 const isValid = (key: string) => {
   switch (key) {
-    case 'flat':
+    case 'optionalAddress':
     case 'street':
     case 'city':
     case 'state':
