@@ -568,5 +568,21 @@
     "descriptionFirstPart": "To enable",
     "descriptionSecondPart": "please, toggle on Application Settings",
     "descriptionThirdPart": "option"
+  },
+  "coupons": {
+    "banners": {
+      "recommend": "Recommend",
+      "recommendDescription": "What to do with coupons?",
+      "intro": "Intro",
+      "introDescription": "How can you get coupons?"
+    }
+  },
+  "services": {
+    "banners": {
+      "getcoupons": "Get Coupons ",
+      "howtogetcoupons": "Exchange crypto to get Liber Save coupons. One coupon = €0.01. ",
+      "getcrypto": "Get crypto",
+      "howtogetcrypto": "Exchange your coupons and get cryptocurrencies."
+    }
   }
 }

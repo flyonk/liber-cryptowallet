@@ -3,15 +3,44 @@
     <h2 class="title text--footnote font-weight--semibold">
       {{ $t('views.dashboard.home.libersave.title') }}
     </h2>
+    <ul>
+      <template v-for="(item, index) in servicesItems" :key="index">
+        <a-dashboard-service-item
+          :title="item.title"
+          :description="item.description"
+          :image-url="item.imageUrl"
+        />
+      </template>
+    </ul>
   </div>
 </template>
 
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { ADashboardServiceItem } from '@/applications/services/components/ui';
+import { STATIC_BASE_URL } from '@/constants';
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
+
+const servicesItems = [
+  {
+    title: tm('services.banners.getcoupons'),
+    description: tm('services.banners.howtogetcoupons'),
+    imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
+  },
+  {
+    title: tm('services.banners.getcrypto'),
+    description: tm('services.banners.howtogetcrypto'),
+    imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
+  },
+];
+</script>
 
 <style lang="scss" scoped>
 .dashboard-container {
   min-height: 100%;
 }
+
 .title {
   color: $color-dark-grey;
 }
