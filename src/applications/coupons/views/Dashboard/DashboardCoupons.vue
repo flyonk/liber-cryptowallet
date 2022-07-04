@@ -5,6 +5,7 @@
       :accounts="accounts"
       :verification-status="10"
       class="coin-info"
+      @click-account="clickAccount"
     >
       <template #controllers>
         <div class="controls">
@@ -31,7 +32,7 @@
           size="medium"
           view="flat"
           class="button"
-          @click="$router.push({ name: CouponRoutes.CouponsTransactions })"
+          @click="$router.push({ name: CouponRoutes.TransactionsAll })"
         >
           {{ $t('views.dashboard.home.seeAll') }}
         </base-button>
@@ -70,6 +71,8 @@ import { STATIC_BASE_URL, COUPONS_TRANSACTIONS } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
+// import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
+import { useRouter } from 'vue-router';
 
 import {
   BaseButton,
@@ -82,6 +85,7 @@ const couponsStore = useCouponsStore();
 const uiStore = useUIStore();
 const errorsStore = useErrorsStore();
 const { tm } = useI18n();
+const router = useRouter();
 
 const accounts = computed(() => couponsStore.getAccounts);
 const transactions = computed(() => couponsStore.getTransactions);
@@ -139,6 +143,16 @@ const availableActionButtons = computed(() => {
     COUPONS_TRANSACTIONS.includes(code)
   );
 });
+
+const clickAccount = () => {
+  // router.push({
+  //   name: CouponRoutes.CouponsTransactions,
+  //   params: { id: COUPON_ACCOUNTS[0].id },
+  // });
+  router.push({
+    name: CouponRoutes.TransactionsMain,
+  });
+};
 
 onBeforeMount(async () => {
   try {

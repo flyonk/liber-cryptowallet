@@ -5,6 +5,14 @@ import Account from '@/applications/liber/views/Dashboard/Account/index.vue';
 import AllAccounts from '@/applications/liber/views/Dashboard/Account/AllAccounts.vue';
 import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
 
+import Transactions from '@/applications/liber/views/Dashboard/Transactions/index.vue';
+import DashboardTransactions from '@/applications/coupons/views/Dashboard/Transactions/DashboardTransactions.vue';
+import TransactionDetails from '@/applications/liber/views/Dashboard/Transactions/TransactionDetails.vue';
+import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
+
+import checkContactsLoaded from '@/router/middleware/checkContacts';
+import RecepientsRoutes from './routesRecepients';
+
 const routes: Array<RouteRecordRaw> = [
   // === Account ===
 
@@ -29,6 +37,44 @@ const routes: Array<RouteRecordRaw> = [
     name: CouponRoutes.Invite,
     component: Recipients,
     meta: { layout: 'navbar', authRequired: true },
+  },
+
+  // === Transactions ===
+
+  {
+    path: '/transactions-coupon',
+    name: CouponRoutes.Transactions,
+    component: Transactions,
+    meta: { layout: 'navbar', authRequired: true },
+    children: [
+      {
+        path: '', //TODO: ref this rout, component is wrong
+        name: CouponRoutes.TransactionsMain,
+        component: DashboardTransactions,
+      },
+      {
+        path: 'details/:id/',
+        name: CouponRoutes.TransactionsDetails,
+        meta: { layout: 'default' },
+        component: TransactionDetails,
+      },
+      {
+        path: 'all',
+        name: CouponRoutes.TransactionsAll,
+        component: CouponsTransactionsAll,
+      },
+    ],
+  },
+
+  // === Recepients ===
+
+  {
+    path: '/recepients-coupon',
+    name: CouponRoutes.Recepients,
+    meta: { layout: 'navbar', authRequired: true },
+    component: Recipients,
+    beforeEnter: checkContactsLoaded,
+    children: RecepientsRoutes,
   },
 ];
 

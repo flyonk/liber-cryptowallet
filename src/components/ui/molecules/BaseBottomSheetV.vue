@@ -37,7 +37,7 @@ const overTop = ref(null) as Ref<number | null>;
 const overHeight = ref(null) as Ref<number | null>;
 const maxHeight = ref(null) as Ref<number | null>;
 const initialTouchY = ref(null) as Ref<number | null>;
-const initialTopPosition = ref(10) as Ref<number>;
+const initialTopPosition = ref(0) as Ref<number>;
 const isMoving = ref(false);
 const isOpened = ref(false);
 

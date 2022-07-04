@@ -6,6 +6,7 @@ export interface ICouponAccountDto {
   balance: string;
   base_balance: string;
   base_balance_code: string;
+  id: number;
 }
 
 export interface ICouponAccount {
