@@ -76,7 +76,10 @@ const nextStep = async () => {
   const res = await liberSaveStore.setEmail(email.value);
   if (res && res === email.value) {
     // Success
-    // #TODO go to next route
+    // #TODO go to success route
+    router.push({
+      name: ServicesRoutes.DashboardHome,
+    });
   } else {
     // Erorr
     isNotValid.value = true;
