@@ -633,6 +633,10 @@
       "howtogetcoupons": "Exchange crypto to get Liber Save coupons. One coupon = €0.01. ",
       "getcrypto": "Get crypto",
       "howtogetcrypto": "Exchange your coupons and get cryptocurrencies."
+    },
+    "getcoupons": {
+      "title": "Enter Liber Save account email address",
+      "email": "Liber Save Email"
     }
   }
 }

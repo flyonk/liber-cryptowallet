@@ -1,6 +1,6 @@
 <template>
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
-    <template #title> {{ $t('auth.signup.step3Title') }}</template>
+    <template #title> {{ $t('services.getcoupons.title') }}</template>
     <template #content>
       <div class="auth-page-container">
         <base-input
@@ -9,7 +9,7 @@
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
-          <template #label> {{ $t('common.email') }} </template>
+          <template #label> {{ $t('services.getcoupons.email') }} </template>
           <template v-if="isClearBtnShown" #append>
             <i
               class="icon-transaction-small-reverted"
@@ -31,14 +31,20 @@
 <script lang="ts" setup>
 import { ref } from 'vue-demi';
 import { computed } from '@vue/reactivity';
+import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
 
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { BaseInput, BaseButton } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
-const emit = defineEmits(['prev', 'next']);
+const router = useRouter();
+const emit = defineEmits(['next']);
 const pStore = useProfileStore();
+
+// @TODO
+// clear store with libersave email on created
 
 const email = ref('');
 const isClearBtnShown = ref(false);
@@ -53,7 +59,9 @@ const isEmailInvalid = computed(() => {
 });
 
 const prevStep = () => {
-  emit('prev');
+  router.push({
+    name: ServicesRoutes.DashboardHome,
+  });
 };
 
 const nextStep = () => {
