@@ -195,6 +195,7 @@ input[type='number'] {
   background-color: $color-red-50;
   color: $color-red-500;
 }
+
 .base-input.-invalid > .message {
   color: $color-red-500;
 }
