@@ -3,4 +3,7 @@
 
 export enum ServicesRoutes {
   DashboardHome = 'services-home',
+
+  GetCoupons = 'services-coupons',
+  GetCouponsEmail = 'services-coupons-email',
 }

@@ -9,7 +9,7 @@
           :title="item.title"
           :description="item.description"
           :image-url="item.imageUrl"
-          :route-name="routeName"
+          :route-name="item.routeName"
         />
       </template>
     </ul>
@@ -29,7 +29,7 @@ const servicesItems = [
     title: tm('services.banners.getcoupons'),
     description: tm('services.banners.howtogetcoupons'),
     imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
-    routeName: ServicesRoutes.DashboardHome,
+    routeName: ServicesRoutes.GetCouponsEmail,
   },
   {
     title: tm('services.banners.getcrypto'),
