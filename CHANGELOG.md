@@ -6,6 +6,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Version 1.1.1 (unreleased)
 ### Features
+* feat!: add docker pipeline
 * feat: add offline mode toast
 * feat: add offline mode page
 * add offline mode bundler

@@ -1,0 +1,13 @@
+.git
+node_modules
+docs
+ios
+
+dist
+
+# Shell scripts
+*.sh
+
+#ENV files
+#.env
+#.env.*
