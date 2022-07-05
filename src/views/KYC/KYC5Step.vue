@@ -57,6 +57,8 @@ import { IClaim } from '@/models/profile/claim';
 import { useProfileStore } from '@/stores/profile';
 
 import { useI18n } from 'vue-i18n';
+import { getFullList } from '@/services/country-phone';
+import { ICountryInformation } from '@/types/country-phone-types';
 
 const { t } = useI18n();
 
@@ -95,14 +97,17 @@ const onNext = async () => {
   emit('next');
 
   const { id: claimId } = kycStore.claimData as IClaim;
-  const country = profileStore.getUser.country;
+  const countries = await getFullList();
+  const { isoCode: countryIso } = countries.find(
+    ({ name }) => name === profileStore.getUser.country
+  ) as ICountryInformation;
 
   if (kycStore.getImage.front) {
     await kycStore.uploadFile(
       kycStore.getImage.front,
       claimId,
       EDocumentSide.front,
-      country as string
+      countryIso
     );
   }
 
@@ -111,7 +116,7 @@ const onNext = async () => {
       kycStore.getImage.back,
       claimId,
       EDocumentSide.back,
-      country as string
+      countryIso
     );
   }
 
