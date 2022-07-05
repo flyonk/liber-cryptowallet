@@ -170,6 +170,7 @@ const onComplete = async (data: string) => {
       description: t('auth.login.step4VerificationError'),
     });
   } finally {
+    isError.value = false;
     verificationCode.value = '';
   }
 };
