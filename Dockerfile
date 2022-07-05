@@ -17,11 +17,12 @@ COPY --chown=node package*.json ./
 
 COPY --chown=node yarn.lock ./
 
-RUN curl https://static.dev.liber.casa/build/environments/env.json -o env.json
+RUN curl http://conf.middleware.dev.k8s.domain/tenant-config/$BRANDNAME -o env.json
 
 RUN yarn install
 
-RUN yarn add @liber-biz/crpw-ui-kit-$BRANDNAME@$BRANDNAME_VERSION
+#Resolve private package installation
+#RUN yarn add @liber-biz/crpw-ui-kit-$BRANDNAME@$BRANDNAME_VERSION
 
 # Bundle app source code
 COPY --chown=node . .
