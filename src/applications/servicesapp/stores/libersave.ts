@@ -10,7 +10,7 @@ export interface ILiberSaveStore {
   email: string;
 }
 
-export const useCouponsStore = defineStore('coupons', {
+export const useLiberSaveStore = defineStore('coupons', {
   state: (): ILiberSaveStore => ({
     email: '',
   }),
@@ -23,6 +23,7 @@ export const useCouponsStore = defineStore('coupons', {
     async setEmail(email: string) {
       try {
         this.email = await liberSaveService.checkLiberSaveEmail(email);
+        return email;
       } catch (e) {
         const errorsStore = useErrorsStore();
         errorsStore.handle({
@@ -30,6 +31,7 @@ export const useCouponsStore = defineStore('coupons', {
           name: 'checkLiberSaveEmail',
           ctx: 'store/libersave',
           description: 'Error on enter liber save account',
+          display: false,
         });
       }
     },

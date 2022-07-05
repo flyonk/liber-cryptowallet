@@ -586,7 +586,8 @@
     },
     "getcoupons": {
       "title": "Enter Liber Save account email address",
-      "email": "Liber Save Email"
+      "email": "Liber Save Email",
+      "error": "Liber Save account associated with this email address not found. Try to use another email."
     }
   }
 }

@@ -6,6 +6,7 @@
         <base-input
           v-model="email"
           type="email"
+          :class="isNotValid ? '-invalid' : ''"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
@@ -16,6 +17,9 @@
               @click="clearEmail"
               @touchend="clearEmail"
             />
+          </template>
+          <template v-if="isNotValid" #message>
+            {{ $t('services.getcoupons.error') }}
           </template>
         </base-input>
       </div>
@@ -29,25 +33,25 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue-demi';
+import { ref, watch } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
-import { useProfileStore } from '@/stores/profile';
+import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { BaseInput, BaseButton } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const router = useRouter();
-const emit = defineEmits(['next']);
-const pStore = useProfileStore();
+const liberSaveStore = useLiberSaveStore();
 
 // @TODO
 // clear store with libersave email on created
 
 const email = ref('');
 const isClearBtnShown = ref(false);
+const isNotValid = ref(false);
 
 const isEmailInvalid = computed(() => {
   if (!email.value) return true;
@@ -58,17 +62,25 @@ const isEmailInvalid = computed(() => {
   return !correct;
 });
 
+watch(email, () => {
+  isNotValid.value = false;
+});
+
 const prevStep = () => {
   router.push({
     name: ServicesRoutes.DashboardHome,
   });
 };
 
-const nextStep = () => {
-  pStore.updateUserProfile({
-    email: email.value,
-  });
-  emit('next');
+const nextStep = async () => {
+  const res = await liberSaveStore.setEmail(email.value);
+  if (res && res === email.value) {
+    // Success
+    // #TODO go to next route
+  } else {
+    // Erorr
+    isNotValid.value = true;
+  }
 };
 
 const clearEmail = () => {
