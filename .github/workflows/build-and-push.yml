@@ -1,0 +1,54 @@
+name: build-and-push
+on:
+  workflow_dispatch:
+    inputs:
+      brand_name:
+        default: 'liber'
+        type: choice
+        description: 'Choose the brand name to customize app'
+        required: true
+        options:
+          - 'liber'
+      brand_config_host:
+        default: 'conf.middleware.dev.k8s.domain'
+        type: choice
+        description: 'Choose the brand config manager host name'
+        required: true
+        options:
+          - 'conf.middleware.dev.k8s.domain'
+      brand_version:
+        default: 'conf.middleware.dev.k8s.domain'
+        type: string
+        description: 'Specify the brand ui-kit version'
+        required: true
+
+jobs:
+  build-and-push:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@master
+      - name: Set outputs
+        id: version
+        run: |
+          if [[ ${{ github.ref_type }} == 'tag' ]]; then
+            TAG=${{ github.ref_name }}
+          else
+            TAG="commit-$(git rev-parse --short HEAD)"
+          fi
+          echo "::set-output name=tag::${TAG}"
+      - name: Kaniko build
+        uses: aevea/action-kaniko@v0.6.2
+        env:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+        with:
+          image: ${{ github.repository_owner }}/liber-app
+          tag: ${{ steps.version.outputs.tag }}
+          registry: ghcr.io
+          password: ${{ secrets.GITHUB_TOKEN }}
+          extra_args: |
+            --build-arg VERSION=${{ steps.version.outputs.tag }} 
+            --build-arg GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
+            --build-arg BRANDNAME=${{ github.event.inputs.brand_name }}
+            --build-arg BRANDNAME_VERSION=${{ github.event.inputs.brand_version }}
+            --build-arg BRAND_CONFIGURATION_HOSTNAME=${{ github.event.inputs.brand_config_host }}
+
