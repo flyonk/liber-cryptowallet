@@ -551,6 +551,7 @@ watch(isZeroValues, (val) => {
   width: 100%;
   border-left: 1px solid #eaefff;
   margin-left: 10px;
+  padding-right: 10px;
 }
 
 .choose-coin {

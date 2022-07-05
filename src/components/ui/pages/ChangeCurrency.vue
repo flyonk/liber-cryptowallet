@@ -1,7 +1,5 @@
 <template name="send-to">
-  <t-top-navigation
-    @click:left-icon="$router.push({ name: Route.DashboardHome })"
-  >
+  <t-top-navigation :is-touchable="false" @click:left-icon="$router.go(-1)">
     <template #title>{{ $t('transactions.convert.title') }}</template>
     <template #content>
       <div class="send-to">
@@ -16,11 +14,9 @@
       >
         <template #description>
           <div class="popup-description">
-            <h1 class="title">Do you know and trust this payee?</h1>
+            <h1 class="title">{{ $t('transactions.convert.trustPay') }}</h1>
             <p class="description">
-              If you're unsure, don't pay them, as we may not be able to help
-              you get your money back. Remember, fraudsters can impersonate
-              others, and we will never ask you to make a payment
+              {{ $t('transactions.convert.scumWarning') }}
             </p>
           </div>
         </template>
@@ -68,7 +64,6 @@ export default {
 import { ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
-import { Route } from '@/router/types';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
 
 const showPopup = ref(false);
@@ -77,9 +72,8 @@ const popupStatus = ref('confirmation');
 
 <style lang="scss" scoped>
 .send-to {
-  height: 100vh;
   flex-grow: 1;
-  overflow: auto;
+  overflow: hidden;
 }
 
 .sendto-header {
@@ -135,5 +129,10 @@ const popupStatus = ref('confirmation');
     letter-spacing: -0.0043em;
     color: $color-brand-2-300;
   }
+}
+
+.default-layout.-full-height {
+  touch-action: none !important;
+  display: none;
 }
 </style>
