@@ -1,16 +1,24 @@
 <template>
-  <li class="service-item">
-    <img :src="imageUrl" alt="" class="image" />
-    <div class="content-block">
-      <h3 class="title">{{ title }}</h3>
-      <p class="description">{{ description }}</p>
-    </div>
+  <li>
+    <router-link
+      :to="{
+        name: props.routeName,
+      }"
+      class="service-item"
+    >
+      <img :src="imageUrl" alt="" class="image" />
+      <div class="content-block">
+        <h3 class="title">{{ title }}</h3>
+        <p class="description">{{ description }}</p>
+      </div>
+    </router-link>
   </li>
 </template>
 
 <script lang="ts" setup>
-defineEmits(['click', 'close-click']);
-defineProps({
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
+
+const props = defineProps({
   title: {
     type: String,
     required: true,
@@ -22,6 +30,14 @@ defineProps({
   imageUrl: {
     type: String,
     default: '',
+  },
+  routeName: {
+    type: String,
+    default: ServicesRoutes.DashboardHome,
+    validator: (value: string) => {
+      const keys = Object.values(ServicesRoutes);
+      return keys.includes(value);
+    },
   },
 });
 </script>

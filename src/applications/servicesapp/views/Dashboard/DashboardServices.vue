@@ -9,6 +9,7 @@
           :title="item.title"
           :description="item.description"
           :image-url="item.imageUrl"
+          :route-name="routeName"
         />
       </template>
     </ul>
@@ -19,6 +20,7 @@
 import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 
 const { tm } = useI18n();
 
@@ -27,11 +29,13 @@ const servicesItems = [
     title: tm('services.banners.getcoupons'),
     description: tm('services.banners.howtogetcoupons'),
     imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
+    routeName: ServicesRoutes.DashboardHome,
   },
   {
     title: tm('services.banners.getcrypto'),
     description: tm('services.banners.howtogetcrypto'),
     imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
+    routeName: ServicesRoutes.DashboardHome,
   },
 ];
 </script>
