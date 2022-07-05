@@ -6,7 +6,9 @@
       }"
       class="service-item"
     >
-      <img :src="imageUrl" alt="" class="image" />
+      <div class="image-container">
+        <img :src="imageUrl" alt="" class="image" />
+      </div>
       <div class="content-block">
         <h3 class="title">{{ title }}</h3>
         <p class="description">{{ description }}</p>
@@ -50,11 +52,24 @@ const props = defineProps({
   box-shadow: 0 4px 12px -8px #404669;
   border-radius: 8px;
   margin-bottom: 8px;
+}
+
+.image-container {
+  width: 40px;
+  height: 40px;
+  flex-grow: 0;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 15px;
+  overflow: hidden;
+  border-radius: 50%;
+  background-color: $color-primary-400;
 
   > .image {
-    width: 40px;
+    width: 24px;
     height: auto;
-    margin-right: 15px;
   }
 }
 

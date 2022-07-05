@@ -28,13 +28,13 @@ const servicesItems = [
   {
     title: tm('services.banners.getcoupons'),
     description: tm('services.banners.howtogetcoupons'),
-    imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
+    imageUrl: `${STATIC_BASE_URL}/static/banner/subtract-white.svg`,
     routeName: ServicesRoutes.GetCouponsEmail,
   },
   {
     title: tm('services.banners.getcrypto'),
     description: tm('services.banners.howtogetcrypto'),
-    imageUrl: `${STATIC_BASE_URL}/static/banner/subtract.svg`,
+    imageUrl: `${STATIC_BASE_URL}/static/banner/subtract-rectangle.svg`,
     routeName: ServicesRoutes.DashboardHome,
   },
 ];
