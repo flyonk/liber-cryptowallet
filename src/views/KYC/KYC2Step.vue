@@ -22,13 +22,13 @@
       </base-input>
       <base-input
         v-model="form.optionalAddress"
-        :class="form.flat && !isValid('flat') ? '-invalid' : ''"
+        :class="form.flat && !isValid('optionalAddress') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
         <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
         <template v-if="form.flat" #append>
           <i
-            v-if="!isValid('flat')"
+            v-if="!isValid('optionalAddress')"
             v-tooltip.focus="
               'Please remove special characters. They do not accept in the field.'
             "
