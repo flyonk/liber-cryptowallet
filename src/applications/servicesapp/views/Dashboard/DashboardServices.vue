@@ -16,7 +16,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ADashboardServiceItem } from '@/applications/services/components/ui';
+import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 

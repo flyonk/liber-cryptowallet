@@ -60,7 +60,7 @@ import { EKYCStatus } from '@/models/profile/profile';
 import { useUIStore } from '@/stores/ui';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { ServicesRoutes } from '@/applications/services/router/types';
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { KycStatusBadge, TTopNavigation } from '@/components/ui';

@@ -7,7 +7,7 @@ import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { ServicesRoutes } from '@/applications/services/router/types';
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 
 import WelcomeLogoScreen from '@/views/Welcome/WelcomeLogoScreen.vue';
 import WelcomeAuthScreen from '@/views/Welcome/WelcomeAuthScreen.vue';
@@ -77,7 +77,7 @@ const routes: Array<RouteRecordRaw> = [
         name: ServicesRoutes.DashboardHome,
         component: () =>
           import(
-            '@/applications/services/views/Dashboard/DashboardServices.vue'
+            '@/applications/servicesapp/views/Dashboard/DashboardServices.vue'
           ),
       },
     ],
