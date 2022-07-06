@@ -98,7 +98,7 @@ const onNext = async () => {
 
   const { id: claimId } = kycStore.claimData as IClaim;
   const countries = await getFullList();
-  const { isoCode: countryIso } = countries.find(
+  const { isoCodeAlpha: countryIso } = countries.find(
     ({ name }) => name === profileStore.getUser.country
   ) as ICountryInformation;
 
@@ -107,7 +107,7 @@ const onNext = async () => {
       kycStore.getImage.front,
       claimId,
       EDocumentSide.front,
-      countryIso
+      countryIso as string
     );
   }
 
@@ -116,7 +116,7 @@ const onNext = async () => {
       kycStore.getImage.back,
       claimId,
       EDocumentSide.back,
-      countryIso
+      countryIso as string
     );
   }
 
