@@ -23,7 +23,7 @@
 
       <OWithdrawConfirmationToast
         v-model:visible="showConfirmationToast"
-        @success="$emit('success')"
+        @success="withdrawStore.setSuccessToastState(true)"
       />
     </template>
     <template #fixed-footer>
@@ -37,7 +37,7 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 
-import { useWithdrawStore } from '@/stores/withdraw';
+import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 
 import {
   BaseButton,
@@ -47,7 +47,7 @@ import {
 
 const withdrawStore = useWithdrawStore();
 
-defineEmits(['back', 'success']);
+defineEmits(['back']);
 
 const showConfirmationToast = ref(false);
 

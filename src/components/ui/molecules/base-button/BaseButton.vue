@@ -7,11 +7,11 @@
   >
     <i v-if="icon" :class="icon" />
     <div v-else class="container">
-      <i v-if="iconLeft" :class="iconLeft" />
+      <i v-if="iconLeft" class="icon-left icon" :class="iconLeft" />
       <div class="label">
         <slot />
       </div>
-      <i v-if="iconRight" :class="iconRight" />
+      <i v-if="iconRight" class="icon-right icon" :class="iconRight" />
     </div>
   </button>
 </template>
@@ -213,6 +213,57 @@ const classes = computed(() => [
 
   &.-only-icon {
     padding: 12px;
+  }
+
+  &.-finance-action {
+    min-width: 0;
+    padding: 10px;
+    border: 0.5px solid $color-light-grey;
+    box-shadow: 0 1px 3px -3px rgb(64 70 105 / 21%);
+    border-radius: 8px;
+    background: $color-white;
+
+    &:disabled,
+    &[disabled] {
+      background: $color-brand-2-50;
+
+      > .container {
+        > .icon {
+          background: $color-brand-2-200;
+        }
+
+        > .label {
+          background: $color-brand-2-300;
+        }
+      }
+    }
+
+    &:hover,
+    &:focus {
+      box-shadow: none;
+      border-color: $color-grey-300;
+    }
+
+    &:active {
+      background: $color-light-grey-500;
+      box-shadow: none;
+      border-color: $color-light-grey-500;
+    }
+
+    > .container {
+      > .icon {
+        color: $color-primary-500;
+      }
+    }
+
+    &.-with-icon-left {
+      > .container {
+        > .label {
+          margin-left: 8px;
+          color: $color-brand-500;
+        }
+      }
+    }
   }
 
   &.-secondary {

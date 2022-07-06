@@ -32,6 +32,7 @@ import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AxiosError } from 'axios';
+
 const { t, tm } = useI18n();
 const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
@@ -160,6 +161,12 @@ const onComplete = async (data: string) => {
       return;
     }
 
+    // case when user entered incorrect otp but correct 2fa code
+    if (code === 403) {
+      const message = (err as AxiosError).response?.data.message;
+      if (message === 'otp not valid') is2fa.value = false;
+    }
+
     isError.value = true;
 
     errorsStore.handle({
@@ -169,6 +176,7 @@ const onComplete = async (data: string) => {
       description: t('auth.login.step4VerificationError'),
     });
   } finally {
+    isError.value = false;
     verificationCode.value = '';
   }
 };

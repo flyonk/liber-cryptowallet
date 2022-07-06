@@ -154,10 +154,12 @@
             {{ $t('views.profile.profileSettings.copyright') }}
           </p>
         </div>
-        <LanguageSwitcher
-          v-if="showLanguageSelect"
-          @close="showLanguageSelect = false"
-        />
+        <template v-if="MULTI_LANGUAGE">
+          <LanguageSwitcher
+            v-if="showLanguageSelect"
+            @close="showLanguageSelect = false"
+          />
+        </template>
       </div>
       <!-- TODO: fix close account behavior -->
       <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
@@ -179,7 +181,7 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
-import { STATIC_BASE_URL } from '@/constants';
+import { STATIC_BASE_URL, MULTI_LANGUAGE } from '@/constants';
 
 import { Route } from '@/router/types';
 import { showConfirm } from '@/helpers/nativeDialog';

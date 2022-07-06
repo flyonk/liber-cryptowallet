@@ -65,7 +65,8 @@
       "step3FooterCta": "Registration",
       "step4Title": "Enter verification code",
       "step4Description": "Get a verification code from the authenticator app",
-      "step4VerificationError": "Your code doesn't match. Please, try again!"
+      "step4VerificationError": "Your code doesn't match. Please, try again!",
+      "forgotYourPasscode": "Forgot your passcode?"
     },
     "restore": {
       "step1Title": "Your previous number",
@@ -148,6 +149,7 @@
     "deposit": "Deposit",
     "deposited": "Deposited",
     "send": "Send",
+    "pay": "Pay",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
@@ -169,15 +171,27 @@
     "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
     "usingLiberExchange": "Using Liber Exchange",
     "operations": {
-      "income": "Received",
-      "outcome": "Sent",
-      "transfer": "Transfer",
-      "deposit": "Deposit",
-      "withdraw": "Withdraw",
-      "convert": "Convert",
-      "send": "Send",
-      "buy": "Buy",
-      "sell": "Sell"
+      "coupons": {
+        "buy": "Buy",
+        "send": "Send",
+        "pay": "Pay",
+        "convert": "Convert",
+        "withdraw": "Pay by QR"
+      },
+      "fiat": {
+        "withdraw": "Withdraw"
+      },
+      "crypto": {
+        "income": "Received",
+        "outcome": "Sent",
+        "transfer": "Transfer",
+        "deposit": "Deposit",
+        "withdraw": "Withdraw",
+        "convert": "Convert",
+        "send": "Send",
+        "buy": "Buy",
+        "sell": "Sell"
+      }
     },
     "status": {
       "pending": "Pending",
@@ -198,7 +212,10 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"    }
+      "rateChanged": "Rate have been changed",
+      "trustPay": "Do you know and trust this payee?",
+      "scumWarning": "If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment"
+    }
   },
   "ui": {
     "friends": {
@@ -377,7 +394,9 @@
         "tabs": {
           "dashboard": "Dashboard",
           "treasury": "Treasury",
-          "loans": "Loans"
+          "loans": "Loans",
+          "coupons": "Coupons",
+          "services": "Services"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -387,6 +406,9 @@
           "recommend": "Recommend",
           "getYourCryptoProperty": "Get your first crypto property",
           "reach": "How can we reach you?"
+        },
+        "libersave": {
+          "title": "Liber save"
         }
       },
       "verification": {
@@ -427,7 +449,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
-        "acceptedPhonesAndEmails": "Accepted Phones & Emails", 
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -497,7 +519,7 @@
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
       },
-      "profilePhonesAndEmails":{
+      "profilePhonesAndEmails": {
         "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "yourIdentityIsNotVerified": "Your identity is not verified",
         "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
@@ -506,21 +528,21 @@
         "verificationInProgress": "ID Verification in progress",
         "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
       },
-      "profileAddNewContactData":{
-        "title":"Add a new contact",
-        "confirmButton":"Confirm Contact"
+      "profileAddNewContactData": {
+        "title": "Add a new contact",
+        "confirmButton": "Confirm Contact"
       }
     },
-    "pEmailSent":{
-      "title":"Confirm you email address",
-      "description":"We sent confirmation email to:",
+    "pEmailSent": {
+      "title": "Confirm you email address",
+      "description": "We sent confirmation email to:",
       "footerDescription": "Check your email and click on the confirmation link to continue.",
       "goToInbox": "Go to Inbox",
       "resend": "Resend email"
     },
-    "pPhoneVerified":{
-      "title":"Your phone number has been successfully verified",
-      "description":"Now you can get money by the following phone number:",
+    "pPhoneVerified": {
+      "title": "Your phone number has been successfully verified",
+      "description": "Now you can get money by the following phone number:",
       "done": "Done"
     },
     "survey": {
@@ -583,12 +605,42 @@
     "details": "Details",
     "login2Step": "Invalid secret code",
     "numberAlreadyInUse": "Number already in use",
-    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number"
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number",
+    "confirmTitle": "Retry connect",
+    "cancelTitle": "Use offline",
+    "offlineTitle": "No internet connection",
+    "offlineDescription": "Please, check internet connection on your phone to use the application"
+  },
+  "offline": {
+    "title": "No Internet Connection",
+    "description": "Please, check internet connection on your phone to use the application",
+    "bundleTitle": "Connection is lost, application may not work properly"
   },
   "biometricConfirmation": {
     "title": "Change settings",
     "descriptionFirstPart": "To enable",
     "descriptionSecondPart": "please, toggle on Application Settings",
     "descriptionThirdPart": "option"
+  },
+  "coupons": {
+    "banners": {
+      "recommend": "Recommend",
+      "recommendDescription": "What to do with coupons?",
+      "intro": "Intro",
+      "introDescription": "How can you get coupons?"
+    }
+  },
+  "services": {
+    "banners": {
+      "getcoupons": "Get Coupons ",
+      "howtogetcoupons": "Exchange crypto to get Liber Save coupons. One coupon = €0.01. ",
+      "getcrypto": "Get crypto",
+      "howtogetcrypto": "Exchange your coupons and get cryptocurrencies."
+    },
+    "getcoupons": {
+      "title": "Enter Liber Save account email address",
+      "email": "Liber Save Email",
+      "error": "Liber Save account associated with this email address not found. Try to use another email."
+    }
   }
 }

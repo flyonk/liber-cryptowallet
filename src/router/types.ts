@@ -91,4 +91,6 @@ export enum Route {
 
   Invite = 'invite',
   Withdraw = 'withdraw',
+
+  DashboardLiber = 'dashboard-liber',
 }

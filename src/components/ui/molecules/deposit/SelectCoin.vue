@@ -3,8 +3,25 @@
     <template v-if="hasPopularCoins">
       <h4 class="title">{{ $t('views.deposit.selectCoin.suggested') }}</h4>
       <ul class="coin-list suggested">
+        <template v-if="CRYPTO_CURRENCIES_ENABLED">
+          <CoinItem
+            v-for="item in popularCoins"
+            :key="item.code"
+            :selected="isSelected(item.code)"
+            :full-name="item.name"
+            :icon="item.imageUrl"
+            :short-name="item.code.toUpperCase()"
+            @click="$emit('select-coin', item)"
+          />
+        </template>
+      </ul>
+    </template>
+
+    <h4 class="title">{{ $t('views.deposit.selectCoin.allCoins') }}</h4>
+    <ul class="coin-list suggested">
+      <template v-if="CRYPTO_CURRENCIES_ENABLED">
         <CoinItem
-          v-for="item in popularCoins"
+          v-for="item in allCoins"
           :key="item.code"
           :selected="isSelected(item.code)"
           :full-name="item.name"
@@ -12,20 +29,7 @@
           :short-name="item.code.toUpperCase()"
           @click="$emit('select-coin', item)"
         />
-      </ul>
-    </template>
-
-    <h4 class="title">{{ $t('views.deposit.selectCoin.allCoins') }}</h4>
-    <ul class="coin-list suggested">
-      <CoinItem
-        v-for="item in allCoins"
-        :key="item.code"
-        :selected="isSelected(item.code)"
-        :full-name="item.name"
-        :icon="item.imageUrl"
-        :short-name="item.code.toUpperCase()"
-        @click="$emit('select-coin', item)"
-      />
+      </template>
     </ul>
   </div>
 </template>
@@ -33,8 +37,9 @@
 <script lang="ts" setup>
 import { computed, PropType } from 'vue';
 
-import { ICoin } from '@/models/funds/coin';
-import { ICoinForExchange } from '@/stores/funds';
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { ICoinForExchange } from '@/applications/liber/stores/funds';
+import { CRYPTO_CURRENCIES_ENABLED } from '@/constants';
 
 import CoinItem from '@/components/ui/atoms/coins/СoinItem.vue';
 

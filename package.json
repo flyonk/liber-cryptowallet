@@ -1,7 +1,8 @@
 {
   "name": "cw",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
+  "brand": "liber",
   "scripts": {
     "serve": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service serve",
     "build": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service build",
@@ -12,7 +13,7 @@
     "format": "yarn prettier && yarn lint:all:fix",
     "ios:open": "npx cap open ios",
     "ios:run": "npx cap run ios",
-    "ios:sync": "npx cap sync",
+    "ios:sync": "dotenv -e .env.dev npx cap sync",
     "lint-fix": "yarn lint:code:fix && yarn lint:style:fix",
     "lint:all": "yarn lint:style && yarn lint:code",
     "lint:all:fix": "yarn lint:style:fix && yarn lint:code:fix",
@@ -22,7 +23,10 @@
     "lint:style:fix": "yarn lint:style --fix",
     "postinstall": "husky install",
     "prepare": "husky install",
-    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'"
+    "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'",
+    "start:whitelabel": "./moduleinstall.sh",
+    "env:from:json": "node libs/index.js",
+    "peer": "add-no-save --peer-deps"
   },
   "dependencies": {
     "@capacitor-community/camera-preview": "3.0.0",
@@ -34,6 +38,7 @@
     "@capacitor/device": "^1.1.2",
     "@capacitor/dialog": "^1.0.7",
     "@capacitor/ios": "^3.3.4",
+    "@capacitor/project": "^2.0.10",
     "@capacitor/push-notifications": "^1.0.9",
     "@capacitor/share": "^1.1.2",
     "@capacitor/storage": "^1.2.4",
@@ -81,6 +86,8 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@capacitor/cli": "^3.3.4",
+    "@commitlint/cli": "^17.0.2",
+    "@commitlint/config-conventional": "^17.0.2",
     "@types/jest": "^27.0.2",
     "@types/jwt-decode": "^3.1.0",
     "@types/luxon": "^2.3.0",
@@ -100,6 +107,8 @@
     "@vue/test-utils": "^2.0.0-0",
     "babel-jest": "^27.4.6",
     "cross-env": "^7.0.3",
+    "cross-var": "^1.1.0",
+    "dotenv-cli": "^5.1.0",
     "eslint": "^8.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-sort-imports-es6-autofix": "^0.6.0",
@@ -121,7 +130,8 @@
     "stylelint-scss": "^4.1.0",
     "ts-jest": "^27.0.7",
     "typescript": "~4.4.4",
-    "vue-jest": "^5.0.0-0"
+    "vue-jest": "^5.0.0-0",
+    "yarn-add-no-save": "^1.0.3"
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [
@@ -133,5 +143,40 @@
     ],
     "*.js": "eslint --cache --fix",
     "*.css": "stylelint --fix"
+  },
+  "commitlint": {
+    "rules": {
+      "references-empty": [
+        2,
+        "never"
+      ],
+      "type-enum": [
+        2,
+        "always",
+        [
+          "build",
+          "chore",
+          "deploy",
+          "docs",
+          "feat",
+          "fix",
+          "perf",
+          "refactor",
+          "revert",
+          "test"
+        ]
+      ],
+      "type-empty": [
+        2,
+        "never"
+      ]
+    },
+    "parserPreset": {
+      "parserOpts": {
+        "issuePrefixes": [
+          "#"
+        ]
+      }
+    }
   }
 }

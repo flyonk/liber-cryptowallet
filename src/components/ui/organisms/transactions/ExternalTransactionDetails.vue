@@ -92,12 +92,9 @@ import { getRelativeDate } from '@/helpers/datetime';
 
 import {
   BaseButton,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  TopNavigation,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  TTopNavigation,
   TransactionIconWithStatus,
   TransactionStatus,
+  TTopNavigation,
 } from '@/components/ui';
 
 defineEmits(['copy']);

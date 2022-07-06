@@ -1,12 +1,12 @@
 <template>
-  <div class="select" @click.prevent="showSelectCoinDialog[direction] = true">
+  <div class="select" @click.prevent="showSelectCoinDialog = true">
     <div class="select-option flex">
       <img :src="currentCurrency.img" alt class="icon" />
       <p class="name">{{ currentCurrency.name }}</p>
       <img alt="list" :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`" />
       <div></div>
       <p-dialog
-        v-model:visible="showSelectCoinDialog[direction]"
+        v-model:visible="showSelectCoinDialog"
         :show-header="false"
         class="p-dialog-maximized dialog"
         style="padding: 0 !important"
@@ -19,7 +19,7 @@
             <BaseCoinListSelect
               :coins="coins"
               :current-currency="currentCurrency"
-              @back-button="showSelectCoinDialog[direction] = false"
+              @back-button="showSelectCoinDialog = false"
               @select-coin="handleSelect($event)"
             />
           </template>
@@ -32,27 +32,20 @@
 <script lang="ts" setup>
 import { PropType, ref } from 'vue';
 
-import { ICoin } from '@/models/funds/coin';
-import { ICoinForExchange } from '@/stores/funds';
+import { ICoin } from '@/applications/liber/models/funds/coin';
+import { ICoinForExchange } from '@/applications/liber/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 
 const emit = defineEmits(['on-select-coin']);
 
-const showSelectCoinDialog = ref({
-  from: false,
-  to: false,
-});
+const showSelectCoinDialog = ref(false);
 
-const props = defineProps({
+defineProps({
   currentCurrency: {
     type: Object as PropType<ICoinForExchange>,
     default: () => ({} as ICoinForExchange),
-  },
-  direction: {
-    type: String as PropType<'from' | 'to'>,
-    default: 'from',
   },
   coins: {
     type: Array as PropType<ICoin[]>,
@@ -61,17 +54,17 @@ const props = defineProps({
 });
 
 const handleSelect = (coin: ICoin): void => {
-  showSelectCoinDialog.value[props.direction] = false;
-  emit('on-select-coin', coin, props.direction);
+  handleCloseModal();
+
+  emit('on-select-coin', coin);
 };
 
 const handleCloseModal = () => {
-  showSelectCoinDialog.value[props.direction] = false;
+  showSelectCoinDialog.value = false;
 };
 </script>
 
-<style lang="scss">
-//TODO: Hide under scoped
+<style lang="scss" scoped>
 .select {
   position: absolute;
   right: 4px;
@@ -105,11 +98,6 @@ const handleCloseModal = () => {
     margin-right: 18px;
   }
 }
-
-//.dialog:deep {
-//  > .p-dialog-content {
-//  }
-//}
 
 .p-dialog {
   > .p-dialog-content {

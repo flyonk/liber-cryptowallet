@@ -22,8 +22,12 @@
           <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
           <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
           <div class="flex">
-            <a class="link-to"> liber.me/{{ link }}</a>
-            <img :src="`${STATIC_BASE_URL}/static/menu/copy.svg`" alt="copy" />
+            <a class="link-to">{{ linkToCopy }}</a>
+            <img
+              :src="`${STATIC_BASE_URL}/static/menu/copy.svg`"
+              alt="copy"
+              @click="copyToClipboard"
+            />
           </div>
         </div>
       </div>
@@ -43,24 +47,52 @@
 
 <script setup lang="ts">
 import { onBeforeMount, computed } from 'vue';
+import { Clipboard } from '@capacitor/clipboard';
+import { useToast } from 'primevue/usetoast';
+import { useI18n } from 'vue-i18n';
 
 import { useProfileStore } from '@/stores/profile';
 
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
+import { useErrorsStore } from '@/stores/errors';
 
 const profileStore = useProfileStore();
+const toast = useToast();
+const errorsStore = useErrorsStore();
+const { tm } = useI18n();
 
 const accountName = computed(
   () => `${profileStore.user.firstName} ${profileStore.user.lastName}`
 );
 const link = computed(() => accountName.value.replaceAll(' ', ''));
 const accountID = computed(() => profileStore.user.phone);
+const linkToCopy = computed(() => `liber.me/${link.value}`);
 
 onBeforeMount(() => {
   if (!profileStore.user.id) profileStore.init();
 });
+
+const copyToClipboard = async () => {
+  try {
+    await Clipboard.write({
+      string: linkToCopy.value,
+    });
+    toast.add({
+      summary: tm('common.copySuccess') as string,
+      life: 3000,
+      closable: false,
+    });
+  } catch (err) {
+    errorsStore.handle({
+      err,
+      name: 'ConfigureApp',
+      ctx: 'copyToClipboard',
+      description: tm('common.copyFailure') as string,
+    });
+  }
+};
 </script>
 
 <style lang="scss" scoped>

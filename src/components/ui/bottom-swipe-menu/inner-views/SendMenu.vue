@@ -1,90 +1,52 @@
 <template>
   <ul class="send-menu">
-    <router-link :to="{ name: Route.PayRecepientsLiber }" class="menu-item">
-      <i class="icon icon-send" />
-      <p class="text">Send Funds</p>
-    </router-link>
-    <li class="menu-item" @click="goToRoute">
-      <i class="icon icon-convert" />
-      <p class="text">{{ $t('transactions.convert.title') }}</p>
-    </li>
-
-    <li class="menu-item" @click="onClick('borrow')">
-      <i class="icon icon-borrow" />
-      <p class="text">Borrow stablecoin</p>
-    </li>
-    <li class="menu-item" @click="onClick('ask')">
-      <i class="icon icon-ask-for-funds" />
-      <p class="text">Ask a user for funds</p>
-    </li>
-    <li class="menu-item" @click="onClick('withdraw')">
-      <i class="icon icon-withdraw" />
-      <p class="text">Withdraw</p>
-    </li>
-    <li class="menu-item" @click="onClick('download')">
-      <i class="icon icon-send" />
-      <p class="text">Download Statement</p>
-    </li>
-    <li class="menu-item" @click="onClick('add')">
-      <i class="icon icon-convert" />
-      <p class="text">Add account</p>
-    </li>
+    <template v-for="(item, id) in menuItems" :key="id">
+      <BottomSwipeMenuItem
+        :icon="item.icon"
+        :text="getTitle(item)"
+        @click="item.onClick"
+      />
+    </template>
   </ul>
 </template>
 
 <script setup lang="ts">
-import { computed, ComputedRef, onMounted } from 'vue';
+import { computed } from 'vue';
+import { useRoute } from 'vue-router';
 
-import { Route } from '@/router/types';
-import { useRouter } from 'vue-router';
-import { useUIStore } from '@/stores/ui';
-import { useAccountStore } from '@/stores/account';
-import { IAccount } from '@/models/account/account';
+import { CouponRoutes } from '@/applications/coupons/router/types';
 
-const accountStore = useAccountStore();
-const router = useRouter();
-const uiStore = useUIStore();
-onMounted(async () => {
-  await Promise.all([
-    accountStore.getAccountList(),
-    accountStore.getAccountBalance(),
-  ]);
-});
+import BottomSwipeMenuItem from '@/components/ui/atoms/BottomSwipeMenuItem.vue';
+import itemsList, {
+  getFilteredItemsList,
+  EAreaMenuItemVisible,
+  IBottomSwipeMenuItem,
+} from '../BottomSwipeMenuList';
 
-const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
-  IAccount[]
->;
+const route = useRoute();
 
-const goToRoute = () => {
-  const [{ code: firstAccountCode }] = accounts.value;
+const menuItems = computed(() => {
+  const name = route.name;
 
-  router.push({
-    name: Route.ConvertFunds,
-    query: {
-      code: firstAccountCode ? firstAccountCode : 'tbtc',
-    },
-  });
-};
-
-const onClick = (action: string) => {
-  switch (action) {
-    case 'borrow':
-      break;
-    case 'ask':
-      break;
-    case 'withdraw':
-      router.push({ name: Route.Withdraw });
-      break;
-    case 'download':
-      break;
-    case 'add':
-      router.push({ name: Route.AccountAdd });
-      break;
-    default:
-      break;
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name)) {
+    return getFilteredItemsList(itemsList, EAreaMenuItemVisible.coupons);
   }
 
-  uiStore.setStateModal('sendMenu', false);
+  // apply list for crypto by default
+  return getFilteredItemsList(itemsList, EAreaMenuItemVisible.crypto);
+});
+
+const getTitle = (item: IBottomSwipeMenuItem) => {
+  const name = route.name;
+
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name)) {
+    return item[`text${EAreaMenuItemVisible.coupons}`];
+  }
+
+  // apply list for crypto by default
+  return item[`text${EAreaMenuItemVisible.crypto}`];
 };
 </script>
 
@@ -95,25 +57,5 @@ const onClick = (action: string) => {
   flex-direction: column;
   width: 100%;
   padding-bottom: 50px;
-}
-
-.menu-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 30px;
-
-  > .icon {
-    margin-right: 20px;
-    color: $color-primary-500;
-    font-size: 40px;
-  }
-
-  > .text {
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 21px;
-    letter-spacing: -0.0031em;
-    color: $color-black;
-  }
 }
 </style>

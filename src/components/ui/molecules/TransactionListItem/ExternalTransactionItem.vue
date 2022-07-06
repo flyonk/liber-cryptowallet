@@ -5,6 +5,7 @@
       :is-currency="showCoin"
       :size="45"
       :status="transaction.status"
+      :transaction-type="transactionType"
     />
     <div class="info">
       <div class="flex">
@@ -65,6 +66,10 @@ const props = defineProps({
     type: Object as PropType<IDepositTransaction>,
     required: true,
   },
+  transactionType: {
+    type: String,
+    default: 'default',
+  },
 });
 
 const icon = computed(() => {
@@ -83,7 +88,7 @@ const icon = computed(() => {
 const direction = computed(() =>
   props.transaction.direction === EDirection.income
     ? tm('transactions.deposited')
-    : tm('transactions.operations.sell')
+    : tm('transactions.operations.crypto.sell')
 );
 
 const directionSign = computed(() =>

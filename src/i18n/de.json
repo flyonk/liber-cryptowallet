@@ -167,15 +167,27 @@
     "soldCoinInfo": "Sold {mainCoin} to {secondaryCoin}",
     "usingLiberExchange": "Using Liber Exchange",
     "operations": {
-      "income": "Received",
-      "outcome": "Sent",
-      "transfer": "Transfer",
-      "deposit": "Deposit",
-      "withdraw": "Withdraw",
-      "convert": "Convert",
-      "send": "Send",
-      "buy": "Buy",
-      "sell": "Sell"
+      "coupons": {
+        "buy": "Buy",
+        "send": "Send",
+        "pay": "Pay",
+        "convert": "Convert",
+        "withdraw": "Pay by QR"
+      },
+      "fiat": {
+        "withdraw": "Withdraw"
+      },
+      "crypto": {
+        "income": "Received",
+        "outcome": "Sent",
+        "transfer": "Transfer",
+        "deposit": "Deposit",
+        "withdraw": "Withdraw",
+        "convert": "Convert",
+        "send": "Send",
+        "buy": "Buy",
+        "sell": "Sell"
+      }
     },
     "status": {
       "pending": "Pending",
@@ -196,7 +208,10 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"    }
+      "rateChanged": "Rate have been changed",
+      "trustPay": "Do you know and trust this payee?",
+      "scumWarning": "If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment"
+    }
   },
   "ui": {
     "friends": {
@@ -358,7 +373,9 @@
         "tabs": {
           "dashboard": "Dashboard",
           "treasury": "Treasury",
-          "loans": "Loans"
+          "loans": "Loans",
+          "coupons": "Coupons",
+          "services": "Services"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -368,6 +385,9 @@
           "recommend": "Recommend",
           "getYourCryptoProperty": "Get your first crypto property",
           "reach": "How can we reach you?"
+        },
+        "libersave": {
+          "title": "Liber save"
         }
       },
       "verification": {
@@ -536,12 +556,41 @@
     "severalErrorsOccuredPleaseTryAgainLater": "Several errors occured. Please try again later or contact support.",
     "gotIt": "Got it",
     "details": "Details",
-    "login2Step": "Invalid secret code"
+    "login2Step": "Invalid secret code",
+    "retryConnect": "Retry connect",
+    "offlineTitle": "No internet connection",
+    "offlineDescription": "Please, check internet connection on your phone to use the application"
+  },
+  "offline": {
+    "title": "No Internet Connection",
+    "description": "Please, check internet connection on your phone to use the application",
+    "bundleTitle": "Connection is lost, application may not work properly"
   },
   "biometricConfirmation": {
     "title": "Change settings",
     "descriptionFirstPart": "To enable",
     "descriptionSecondPart": "please, toggle on Application Settings",
     "descriptionThirdPart": "option"
+  },
+  "coupons": {
+    "banners": {
+      "recommend": "Recommend",
+      "recommendDescription": "What to do with coupons?",
+      "intro": "Intro",
+      "introDescription": "How can you get coupons?"
+    }
+  },
+  "services": {
+    "banners": {
+      "getcoupons": "Get Coupons ",
+      "howtogetcoupons": "Exchange crypto to get Liber Save coupons. One coupon = €0.01. ",
+      "getcrypto": "Get crypto",
+      "howtogetcrypto": "Exchange your coupons and get cryptocurrencies."
+    },
+    "getcoupons": {
+      "title": "Enter Liber Save account email address",
+      "email": "Liber Save Email",
+      "error": "Liber Save account associated with this email address not found. Try to use another email."
+    }
   }
 }

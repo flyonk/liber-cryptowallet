@@ -1,0 +1,12 @@
+version: '3.9'
+services:
+
+  liber-frontend:
+    build:
+      dockerfile: ./Dockerfile
+      args:
+        BRANDNAME: liber
+        BRANDNAME_VERSION: 0.1.11
+    ports:
+      - 80:8080
+    restart: always

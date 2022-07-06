@@ -1,0 +1,39 @@
+name: deploy
+on:
+  workflow_dispatch:
+    inputs:
+      cluster:
+        default: 'dev'
+        type: choice
+        description: 'Choose k8s cluster to deploy'
+        required: true
+        options:
+          - 'dev'
+          - 'demo'
+          - 'prod'
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@master
+      - name: Set outputs
+        id: version
+        run: |
+          if [[ ${{ github.ref_type }} == 'tag' ]]; then
+            TAG=${{ github.ref_name }}
+          else
+            TAG="commit-$(git rev-parse --short HEAD)"
+          fi
+          echo "::set-output name=tag::${TAG}"
+      - name: resolve k8s kubeconfig
+        id: k8s
+        run: |
+          echo "::set-output name=kubeconfig::/root/.kube/config-${{ github.event.inputs.cluster }}"
+      - name: deploy
+        run: |
+            helm --kubeconfig=${{ steps.k8s.outputs.kubeconfig }} upgrade --install liber-app ./provisioning/liber-app \
+            --debug --namespace=frontend \
+            --values=./provisioning/liber-app/values.yaml \
+            --values=./provisioning/liber-app/values.${{ github.event.inputs.cluster }}.yaml \
+            --set image.tag=${{ steps.version.outputs.tag }}

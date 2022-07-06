@@ -54,7 +54,7 @@ import { computed, ComputedRef, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { getSymbolByCode } from '@/helpers/currency';
-import { useAccountStore } from '@/stores/account';
+import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 import { STATIC_BASE_URL } from '@/constants';

@@ -2,7 +2,7 @@
   <base-toast
     v-if="displayCurrent"
     :visible="displayCurrent"
-    severity="error"
+    :severity="severity"
     @update:visible="hideErrorMsg"
   >
     <template #description>
@@ -72,6 +72,7 @@ const displayAllErrors = computed(() => {
 });
 
 const displayCurrent = computed(() => errorsStore.displayCurrent);
+const severity = computed(() => errorsStore.severity);
 const isSingleError = computed(() => errorsStore.isSingleError);
 const customComponent = computed(() => errorsStore.getCustomComponent);
 const hasCustomComponent = computed(() => !!errorsStore.getCustomComponent);
