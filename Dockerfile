@@ -31,7 +31,7 @@ RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://172.31.27.226/tenant-co
 RUN yarn install
 
 #Resolve private package installation
-#RUN yarn add @liber-biz/crpw-ui-kit-$BRANDNAME@$BRANDNAME_VERSION
+RUN yarn add @liber-biz/crpw-ui-kit-$BRANDNAME@$BRANDNAME_VERSION
 
 # Bundle app source code
 COPY --chown=node . .
