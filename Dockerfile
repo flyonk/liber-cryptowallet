@@ -5,8 +5,8 @@ ARG GITHUB_TOKEN
 # the version from github. tag or commit hash
 ARG VERSION
 
-ARG BRANDNAME
-ARG BRANDNAME_VERSION
+ARG BRANDNAME="liber"
+ARG BRANDNAME_VERSION="0.1.11"
 ARG BRAND_CONFIGURATION_HOSTNAME="conf.middleware.dev.k8s.domain"
 
 # configure git with token
