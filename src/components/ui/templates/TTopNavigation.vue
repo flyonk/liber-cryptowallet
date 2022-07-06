@@ -1,5 +1,5 @@
 <template>
-  <div class="template-top-navigation">
+  <div class="template-top-navigation" :class="{ untouchable: !isTouchable }">
     <div class="top-navigation">
       <top-navigation
         :left-icon-name="leftIconName"
@@ -48,6 +48,11 @@ defineProps({
     type: Boolean,
     default: false,
   },
+
+  isTouchable: {
+    type: Boolean,
+    default: true,
+  },
 });
 
 defineEmits(['click:left-icon']);
@@ -82,5 +87,9 @@ defineEmits(['click:left-icon']);
     margin-top: 5px;
     overflow: hidden;
   }
+}
+
+.untouchable {
+  touch-action: none;
 }
 </style>

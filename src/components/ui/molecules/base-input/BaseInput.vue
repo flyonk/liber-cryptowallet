@@ -196,6 +196,10 @@ input[type='number'] {
   color: $color-red-500;
 }
 
+.base-input.-invalid > .message {
+  color: $color-red-500;
+}
+
 input.-invalid + label {
   color: $color-red-500;
 }
