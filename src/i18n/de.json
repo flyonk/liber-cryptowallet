@@ -374,7 +374,8 @@
           "dashboard": "Dashboard",
           "treasury": "Treasury",
           "loans": "Loans",
-          "coupons": "Coupons"
+          "coupons": "Coupons",
+          "services": "Services"
         },
         "carousel": {
           "inProgress": "In Progress",
@@ -384,6 +385,9 @@
           "recommend": "Recommend",
           "getYourCryptoProperty": "Get your first crypto property",
           "reach": "How can we reach you?"
+        },
+        "libersave": {
+          "title": "Liber save"
         }
       },
       "verification": {
@@ -567,5 +571,26 @@
     "descriptionFirstPart": "To enable",
     "descriptionSecondPart": "please, toggle on Application Settings",
     "descriptionThirdPart": "option"
+  },
+  "coupons": {
+    "banners": {
+      "recommend": "Recommend",
+      "recommendDescription": "What to do with coupons?",
+      "intro": "Intro",
+      "introDescription": "How can you get coupons?"
+    }
+  },
+  "services": {
+    "banners": {
+      "getcoupons": "Get Coupons ",
+      "howtogetcoupons": "Exchange crypto to get Liber Save coupons. One coupon = €0.01. ",
+      "getcrypto": "Get crypto",
+      "howtogetcrypto": "Exchange your coupons and get cryptocurrencies."
+    },
+    "getcoupons": {
+      "title": "Enter Liber Save account email address",
+      "email": "Liber Save Email",
+      "error": "Liber Save account associated with this email address not found. Try to use another email."
+    }
   }
 }
