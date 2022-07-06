@@ -12,7 +12,7 @@
               <h3 class="title">
                 {{ $t('views.profile.profilePrivacy.marketingEmails') }}
               </h3>
-              <BaseSwitch
+              <MBaseSwitch
                 class="switch"
                 :model-value="_isEmail"
                 @update:model-value="handleEmailUpdate"
@@ -28,7 +28,7 @@
               <h3 class="title">
                 {{ $t('views.profile.profilePrivacy.marketingPushes') }}
               </h3>
-              <BaseSwitch
+              <MBaseSwitch
                 class="switch"
                 :model-value="_isPushNotification"
                 @update:model-value="handlePushesUpdate"
@@ -44,7 +44,7 @@
               <h3 class="title">
                 {{ $t('views.profile.profilePrivacy.social') }}
               </h3>
-              <BaseSwitch
+              <MBaseSwitch
                 class="switch"
                 :model-value="_isSocialMedia"
                 @update:model-value="handleSocialMediaUpdate"
@@ -61,7 +61,7 @@
 </template>
 
 <script setup lang="ts">
-import { BaseSwitch } from '@/components/ui';
+import { MBaseSwitch } from '@liber-biz/crpw-ui-kit-liber';
 import { useProfileStore } from '@/stores/profile';
 import { ref } from 'vue';
 import { onMounted } from 'vue-demi';

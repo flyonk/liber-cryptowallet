@@ -13,7 +13,7 @@
       {{ $t('views.kyc.kyc3step.proofOfIdentity') }}
     </template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}
     </template>
     <template #content>
@@ -26,11 +26,8 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import {
-  BaseProgressBar,
-  BaseRadioSelect,
-  TTopNavigation,
-} from '@/components/ui';
+import { BaseRadioSelect, TTopNavigation } from '@/components/ui';
+import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';

@@ -18,9 +18,9 @@
             />
           </template>
         </base-input>
-        <base-switch v-model="sendNews" class="switch">
+        <m-base-switch v-model="sendNews" class="switch">
           {{ $t('auth.signup.step3SendNews') }}
-        </base-switch>
+        </m-base-switch>
       </div>
     </template>
     <template #fixed-footer>
@@ -38,7 +38,8 @@ import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseInput, BaseSwitch, BaseButton } from '@/components/ui';
+import { BaseInput, BaseButton } from '@/components/ui';
+import { MBaseSwitch } from '@liber-biz/crpw-ui-kit-liber';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const emit = defineEmits(['prev', 'next']);

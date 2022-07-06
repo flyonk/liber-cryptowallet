@@ -2,7 +2,7 @@
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ $t('views.kyc.kyc5step.haveAFinal') }}
     </template>
     <template #content>
@@ -49,7 +49,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
+import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';

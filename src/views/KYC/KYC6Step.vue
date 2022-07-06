@@ -6,7 +6,7 @@
   >
     <template #title>{{ $t('views.kyc.kyc6step.proofOfResidence') }}</template>
     <template #subtitle>
-      <base-progress-bar class="mb-3" :value="getPercentage" />
+      <a-base-progress-bar class="mb-3" :value="getPercentage" />
       {{ $t('views.kyc.kyc6step.provideOneOf') }}
     </template>
     <template #content>
@@ -40,7 +40,8 @@ import { computed } from 'vue';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
 
-import { TTopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { TTopNavigation, BaseButton } from '@/components/ui';
+import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
 
 import { useKYCStore } from '@/stores/kyc';
 
