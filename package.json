@@ -1,6 +1,6 @@
 {
   "name": "cw",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "private": true,
   "brand": "liber",
   "scripts": {
@@ -25,7 +25,8 @@
     "prepare": "husky install",
     "prettier": "prettier --write 'src/**/*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}' '*.{js,jsx,ts,tsx,vue,htm,html,json,xml,css,scss,sass}'",
     "start:whitelabel": "./moduleinstall.sh",
-    "env:from:json": "node libs/index.js"
+    "env:from:json": "node libs/index.js",
+    "peer": "add-no-save --peer-deps"
   },
   "dependencies": {
     "@capacitor-community/camera-preview": "3.0.0",
@@ -129,7 +130,8 @@
     "stylelint-scss": "^4.1.0",
     "ts-jest": "^27.0.7",
     "typescript": "~4.4.4",
-    "vue-jest": "^5.0.0-0"
+    "vue-jest": "^5.0.0-0",
+    "yarn-add-no-save": "^1.0.3"
   },
   "lint-staged": {
     "*.{js,jsx,vue,ts,tsx}": [

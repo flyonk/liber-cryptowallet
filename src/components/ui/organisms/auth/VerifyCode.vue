@@ -161,6 +161,12 @@ const onComplete = async (data: string) => {
       return;
     }
 
+    // case when user entered incorrect otp but correct 2fa code
+    if (code === 403) {
+      const message = (err as AxiosError).response?.data.message;
+      if (message === 'otp not valid') is2fa.value = false;
+    }
+
     isError.value = true;
 
     errorsStore.handle({

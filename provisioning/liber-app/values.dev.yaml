@@ -1,0 +1,7 @@
+ingress:
+  hosts:
+    # instance.namespace.cluster.k8s.domain
+    - host: app.frontend.dev.k8s.domain
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
