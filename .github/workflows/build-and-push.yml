@@ -23,7 +23,8 @@ on:
         required: true
   push:
     branches:
-      - '**'
+      - 'dev'
+      - 'master'
     tags:
       - '**'
 jobs:
