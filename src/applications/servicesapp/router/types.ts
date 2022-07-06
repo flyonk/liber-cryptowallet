@@ -6,4 +6,6 @@ export enum ServicesRoutes {
 
   GetCoupons = 'services-coupons',
   GetCouponsEmail = 'services-coupons-email',
+
+  ConvertFunds = 'services-convert',
 }

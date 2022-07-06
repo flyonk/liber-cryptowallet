@@ -75,10 +75,8 @@ const prevStep = () => {
 const nextStep = async () => {
   const res = await liberSaveStore.setEmail(email.value);
   if (res && res === email.value) {
-    // Success
-    // #TODO go to success route
     router.push({
-      name: ServicesRoutes.DashboardHome,
+      name: ServicesRoutes.ConvertFunds,
     });
   } else {
     // Erorr
