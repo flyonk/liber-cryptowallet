@@ -1,8 +1,16 @@
 FROM node:17 AS builder
 
-ARG BRANDNAME
+# the token to fetch internal projects
+ARG GITHUB_TOKEN
+# the version from github. tag or commit hash
+ARG VERSION
 
+ARG BRANDNAME
 ARG BRANDNAME_VERSION
+ARG BRAND_CONFIGURATION_HOSTNAME="conf.middleware.dev.k8s.domain"
+
+# configure git with token
+RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
 
 ARG NPM_TOKEN
 
@@ -21,7 +29,8 @@ COPY --chown=node yarn.lock ./
 
 COPY --chown=node .npmrc ./
 
-RUN curl http://conf.middleware.dev.k8s.domain/tenant-config/$BRANDNAME -o env.json
+#RUN curl http://$BRAND_CONFIGURATION_HOSTNAME/tenant-config/$BRANDNAME -o env.json
+RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://172.31.27.226/tenant-config/$BRANDNAME -o env.json
 
 RUN yarn install
 
