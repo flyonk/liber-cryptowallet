@@ -21,7 +21,11 @@ on:
         type: string
         description: 'Specify the brand ui-kit version'
         required: true
-
+  push:
+    branches:
+      - '**'
+    tags:
+      - '**'
 jobs:
   build-and-push:
     runs-on: self-hosted
@@ -51,4 +55,5 @@ jobs:
             --build-arg BRANDNAME=${{ github.event.inputs.brand_name }}
             --build-arg BRANDNAME_VERSION=${{ github.event.inputs.brand_version }}
             --build-arg BRAND_CONFIGURATION_HOSTNAME=${{ github.event.inputs.brand_config_host }}
+            --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }}
 
