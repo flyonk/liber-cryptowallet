@@ -34,9 +34,11 @@ RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://172.31.27.226/tenant-co
 
 RUN yarn install
 
+RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
+
 RUN yarn add @liber-biz/crpw-ui-kit-$BRANDNAME@$BRANDNAME_VERSION
 
-RUN rm -f .npmrc
+RUN rm -f ~/.npmrc
 
 # Bundle app source code
 COPY --chown=node . .
