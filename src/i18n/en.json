@@ -502,12 +502,13 @@
       },
       "profileEdit": {
         "editProfile": "Edit Profile",
+        "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",
         "id": "Liber ID",
         "dateOfBirth": "Date of Birth",
         "address": "Residential Address",
-        "verify": "Verify Identity"
+        "changeHomeAddress": "Change home address"
       },
       "profilePrivacy": {
         "privacy": "Privacy",
