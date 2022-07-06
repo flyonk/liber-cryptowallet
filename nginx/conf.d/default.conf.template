@@ -1,0 +1,23 @@
+server {
+    listen       8080;
+    server_name  localhost;
+
+    location / {
+        root   /app;
+        index  index.html;
+        location ~* ^.+\.(?:css|cur|json|js|jpe?g|gif|htc|ico|png|txt|otf|ttf|eot|woff|svg|webp|webm|zip|gz|tar|rar)$ {
+            add_header Access-Control-Allow-Origin ${CORS_ALLOWED_ORIGIN};
+            access_log off;
+            #expires ${EXPIRES};
+        }
+    }
+
+    #error_page  404              /404.html;
+
+    # redirect server error pages to the static page /50x.html
+    #
+    error_page   500 502 503 504  /50x.html;
+    location = /50x.html {
+        root   /usr/share/nginx/html;
+    }
+}
