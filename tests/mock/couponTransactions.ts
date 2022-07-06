@@ -36,3 +36,21 @@ export const COUPON_TRANSACTIONS = [
     type: 'deposit',
   },
 ];
+
+export const COUPON_TRANSACTION_EXAMPLE = [
+  {
+    id: '3d0e572d-d42c-4018-976d-a08599b75193',
+    status: 'finished',
+    type: 'convert',
+    created_at: '2022-04-14T09:11:08.163185Z',
+    finished_at: '2022-04-14T09:11:08.163187Z',
+    amount_from: '0.00,001,000',
+    amount_to: '0.00,000,002',
+    code_from: 'tltc',
+    code_to: 'eur',
+    rate: '0.002679',
+    fee: '0.00,000,001',
+    fee_code: 'tltc',
+    is_coupon: true,
+  },
+];

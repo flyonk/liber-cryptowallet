@@ -5,6 +5,7 @@ import transactionMapper, {
   INetTransaction,
   TTransaction,
 } from '@/models/transaction/transaction';
+import { COUPON_TRANSACTION_EXAMPLE } from '../../../../tests/mock/couponTransactions';
 
 // import { TSuccessResponse } from '@/types/api';
 
@@ -15,7 +16,11 @@ export default {
       ? `${apiService.transactions.transactionsList()}/coin/${coin}`
       : apiService.transactions.transactionsList();
     const res = await axios.get(url);
-    return res.data.list.map(transactionMapper.deserialize);
+    const realDataWithMocks = [...COUPON_TRANSACTION_EXAMPLE, ...res.data.list];
+
+    return realDataWithMocks.map(
+      transactionMapper.deserialize
+    ) as INetTransaction[];
   },
 
   async getTransactionById(id: string): Promise<TTransaction> {
