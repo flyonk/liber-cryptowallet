@@ -1,6 +1,6 @@
 <template name="send-to">
   <t-top-navigation
-    @click:left-icon="$router.push({ name: Route.DashboardHome })"
+    @click:left-icon="$router.push({ name: ServicesRoutes.GetCouponsEmail })"
   >
     <template #title>{{ $t('services.convert.title') }}</template>
     <template #content>
@@ -21,7 +21,7 @@ export default {
 
 <script setup lang="ts">
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
-import { Route } from '@/router/types';
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { TTopNavigation } from '@/components/ui';
 </script>
 
