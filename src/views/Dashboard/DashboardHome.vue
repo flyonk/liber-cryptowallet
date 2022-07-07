@@ -14,9 +14,10 @@
               src="@/assets/images/avatar.png"
               @click="$router.push('/profile')"
             />
-            <kyc-status-badge
+            <AKycStatusBadge
               class="status"
-              :status-number="VerificationStatus"
+              :status="VerificationStatus"
+              :title="$t('views.dashboard.home.idVerified')"
             />
           </div>
         </div>
@@ -56,21 +57,22 @@ import { computed, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
-import { EKYCStatus } from '@/models/profile/profile';
+import { EKYCStatuses } from '@/models/profile/profile';
 import { useUIStore } from '@/stores/ui';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
+import { AKycStatusBadge } from '@liber-biz/crpw-ui-kit-liber';
 
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
-import { KycStatusBadge, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { COUPONS_ENABLED } from '@/constants';
 
 const { tm } = useI18n();
 const uiStore = useUIStore();
 
-const VerificationStatus = ref(EKYCStatus.success);
+const VerificationStatus = ref(EKYCStatuses.success);
 
 const { stylePaddings } = useSafeAreaPaddings();
 

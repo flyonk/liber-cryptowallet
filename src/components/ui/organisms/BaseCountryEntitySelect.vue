@@ -4,7 +4,7 @@
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
-          <BaseSearchInput
+          <a-base-search-input
             v-model="searchQuery"
             @update:model-value="updateSearchQuery"
           />
@@ -51,7 +51,8 @@ import { computed, ComputedRef, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
 
 import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
-import BaseSearchInput from '@/components/ui/atoms/BaseSearchInput.vue';
+import { ABaseSearchInput } from '@liber-biz/crpw-ui-kit-liber';
+
 import { STATIC_BASE_URL } from '@/constants';
 
 import { ICountryInformation } from '@/types/country-phone-types';

@@ -8,7 +8,7 @@
     }}</template>
     <template #right>
       <div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -54,8 +54,9 @@ import { useProfileStore } from '@/stores/profile';
 import { formatToNormalDate } from '@/helpers/datetime';
 
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+
 import { TTopNavigation } from '@/components/ui';
+import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
 
 const profileStore = useProfileStore();
 

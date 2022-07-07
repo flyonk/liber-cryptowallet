@@ -18,7 +18,7 @@
         </li>
       </template>
     </ul>
-    <PhoneContactsAlphabet :active-letters="activeLetters" />
+    <a-phone-contacts-alphabet :active-letters="activeLetters" />
   </div>
 </template>
 
@@ -26,7 +26,7 @@
 import { PropType } from 'vue';
 
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
-import PhoneContactsAlphabet from '@/components/ui/atoms/PhoneContactsAlphabet.vue';
+import { APhoneContactsAlphabet } from '@liber-biz/crpw-ui-kit-liber';
 
 import { getContactInitials } from '@/helpers/contacts';
 

@@ -23,7 +23,7 @@
           class="btn"
           @click="handleConfirm"
         >
-          <triple-dots-spinner v-if="loading" />
+          <a-tripple-dots-spinner v-if="loading" />
           {{ !loading ? $t(`errors.${error.confirmTitle}`) : '' }}
         </base-button>
         <base-button
@@ -47,8 +47,8 @@ import { computed } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
+import { ATrippleDotsSpinner } from '@liber-biz/crpw-ui-kit-liber';
 import { BaseButton, BaseToast } from '@/components/ui';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
 
 const { loading, handleReconnect } = useCheckOffline();
 

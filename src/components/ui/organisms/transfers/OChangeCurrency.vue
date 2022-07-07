@@ -72,7 +72,7 @@
             </p>
           </li>
         </ul>
-        <coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
+        <a-coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
@@ -101,7 +101,7 @@
         size="large"
         view="simple"
       >
-        <triple-dots-spinner />
+        <a-tripple-dots-spinner />
       </BaseButton>
       <BaseButton
         v-else-if="componentState === 'refresh'"
@@ -160,8 +160,10 @@ import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 
 import { BaseButton } from '@/components/ui';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
-import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
+import {
+  ACoinSwitcher,
+  ATrippleDotsSpinner,
+} from '@liber-biz/crpw-ui-kit-liber';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 
 const errorsStore = useErrorsStore();

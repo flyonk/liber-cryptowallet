@@ -2,7 +2,7 @@
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ scanText.title }}</template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ scanText.description }}
     </template>
     <template #content>
@@ -30,7 +30,8 @@ import { useI18n } from 'vue-i18n';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
+import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';

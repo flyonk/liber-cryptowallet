@@ -13,9 +13,11 @@
       />
     </label>
   </div>
-  <SelectCoin
+  <m-select-coin
     :current-currency="currentCurrency"
     :coins="availableCoins"
+    :title="$t('views.deposit.selectCoin.allCoins')"
+    :suggested-title="$t('views.deposit.selectCoin.suggested')"
     @select-coin="$emit('select-coin', $event)"
   />
 </template>
@@ -25,8 +27,7 @@ import { computed, PropType, ref } from 'vue';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
-
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+import { MSelectCoin } from '@liber-biz/crpw-ui-kit-liber';
 
 defineEmits(['back-button', 'select-coin']);
 

@@ -16,7 +16,7 @@
     </template>
     <template #right>
       <div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -186,8 +186,8 @@ import { STATIC_BASE_URL, MULTI_LANGUAGE } from '@/constants';
 import { Route } from '@/router/types';
 import { showConfirm } from '@/helpers/nativeDialog';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
+import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
 import {
   TTopNavigation,
   BiometricIdentifierSwitcherButton,

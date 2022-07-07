@@ -34,6 +34,13 @@ export enum EUserStatus {
 
 export type TKYCStatuses = 'not_started' | 'pending' | 'rejected' | 'success';
 
+export enum EKYCStatuses {
+  not_started = 'not_started',
+  pending = 'pending',
+  rejected = 'rejected',
+  success = 'success',
+}
+
 export enum EKYCStatus {
   not_started = 10,
   pending = 20,

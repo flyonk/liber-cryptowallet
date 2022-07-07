@@ -19,7 +19,7 @@
       </div>
 
       <div v-if="expanded" class="search-bar">
-        <BaseSearchInput v-model="searchQuery" />
+        <a-base-search-input v-model="searchQuery" />
       </div>
 
       <div class="menu-list">
@@ -58,8 +58,9 @@ import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 import { STATIC_BASE_URL } from '@/constants';
+import { ABaseSearchInput } from '@liber-biz/crpw-ui-kit-liber';
 
-import { BaseAccount, BaseBottomSheet, BaseSearchInput } from '@/components/ui';
+import { BaseAccount, BaseBottomSheet } from '@/components/ui';
 
 const accountStore = useAccountStore();
 const router = useRouter();
