@@ -8,7 +8,7 @@
     }}</template>
     <template #right>
       <div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -51,8 +51,9 @@
 <script setup lang="ts">
 import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+
 import { TTopNavigation } from '@/components/ui';
+import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
 
 const accountName = 'Abraham Watson';
 const user = {

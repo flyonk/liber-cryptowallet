@@ -1,5 +1,5 @@
 <template>
-  <ContactInitials
+  <a-contact-initials
     :name="props.contact.displayName"
     :is-friend="props.contact.isFriend"
   />
@@ -30,7 +30,7 @@ export default {
 <script setup lang="ts">
 import { PropType } from 'vue';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
 import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';

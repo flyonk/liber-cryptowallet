@@ -19,7 +19,7 @@
       <h1 class="title">{{ recepient.displayName }}</h1>
     </template>
     <template #right>
-      <ContactInitials :name="recepient.displayName"
+      <a-contact-initials :name="recepient.displayName"
     /></template>
     <template #content
       ><div class="send-to">
@@ -122,9 +122,10 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
+import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
+
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';

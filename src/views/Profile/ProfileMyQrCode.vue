@@ -13,7 +13,7 @@
     ></template>
     <template #right
       ><div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -53,7 +53,8 @@ import { useI18n } from 'vue-i18n';
 
 import { useProfileStore } from '@/stores/profile';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
+import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
+
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
