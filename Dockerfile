@@ -43,6 +43,10 @@ RUN rm -f ~/.npmrc
 # Bundle app source code
 COPY --chown=node . .
 
+RUN yarn lint
+
+RUN yarn test
+
 RUN yarn env:from:json
 
 RUN yarn build
