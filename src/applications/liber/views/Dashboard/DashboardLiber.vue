@@ -1,13 +1,14 @@
 <template>
   <div class="dashboard-container">
     <MDashboardCoinInfo
-      :accounts="accounts"
-      :verification-status="10"
-      :total-balance="totalBalance"
+      :balance="totalBalance.sum"
+      :subtitle="$t('views.dashboard.home.allAccounts')"
       :show-welcome-message="showWelcomeMessage"
-      :selected-account="currentAccount"
-      @coin-select="onSelectAccount"
-      @click-account="$router.push({ name: Route.AccountMain })"
+      :coin-img="currentAccount.imgSrc"
+      :account-code="currentAccount.code"
+      :is-arrow-active="!isMenuOpen"
+      @click:arrow="isMenuOpen = !isMenuOpen"
+      @click:account="$router.push({ name: Route.AccountMain })"
     >
       <template #controllers>
         <div class="controls">
@@ -85,6 +86,13 @@
     <div class="carousel">
       <stories-swiper />
     </div>
+
+    <AccountListBottomSheet
+      v-if="isMenuOpen"
+      :accounts="accounts"
+      @close="isMenuOpen = false"
+      @select="onSelectAccount"
+    />
   </div>
 </template>
 
@@ -102,7 +110,8 @@ import { STATIC_BASE_URL, TRANSACTIONS_ENABLED } from '@/constants';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
-import { MDashboardCoinInfo, TransactionsList } from '@/components/ui';
+import { TransactionsList, AccountListBottomSheet } from '@/components/ui';
+import { MDashboardCoinInfo } from '@liber-biz/crpw-ui-kit-liber';
 import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
 
 const VerificationStatus = ref(EKYCStatus.success);
@@ -133,6 +142,8 @@ const currentAccount = ref({
 //TODO: Put to store
 let transactions: Ref<INetTransaction[]> = ref([]);
 let preview = ref(3);
+
+const isMenuOpen = ref(false);
 
 /**
  * Lifecycle
