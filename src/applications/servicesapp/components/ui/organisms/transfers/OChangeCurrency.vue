@@ -9,7 +9,7 @@
       <div class="input-wrapper relative m-0">
         <label class="change-from">
           <p class="label">
-            {{ $t('views.deposit.convert.convertExactly') }}
+            {{ $t('services.convert.convertExactly') }}
           </p>
           <input
             v-model="convertInfo.requestAmount"
@@ -18,14 +18,12 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
-            :readonly="isOneCoinEmpty"
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
           <select-coin-input
             :coins="fromCoins"
             :current-currency="currentSendFromCurrency"
-            @on-select-coin="onSelectCoin($event, 'from')"
           />
         </label>
       </div>
@@ -145,7 +143,7 @@
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
 import { debounce } from 'lodash';
-import { useRoute, useRouter } from 'vue-router';
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
@@ -184,7 +182,6 @@ const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
 const router = useRouter();
-const route = useRoute();
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -227,14 +224,6 @@ const preventConvert = computed(() => {
   );
 });
 
-const emptyCryptoState = computed(() => {
-  return {
-    name: '---',
-    code: 'empty',
-    img: getEmptyCoinImageSrc(),
-  };
-});
-
 const fromCoins = computed(() =>
   allCoins.value.filter(
     (coin) => coin.code !== currentSendToCurrency.value.code
@@ -260,32 +249,20 @@ onBeforeMount(async () => {
     });
   }
 
-  if (route.query.code) {
-    const fromCoin = allCoins.value.find(
-      (coin) => coin.code === route.query.code
-    );
-
-    fundsStore.setCrypto(
-      {
-        name: fromCoin?.name as string,
-        code: fromCoin?.code as string,
-        img: fromCoin?.imageUrl as string,
-      },
-      'from'
-    );
-  }
-
-  fundsStore.setCrypto(emptyCryptoState.value, 'to');
+  fundsStore.setCrypto(
+    {
+      name: 'EUR',
+      code: 'eur',
+      img: `${STATIC_BASE_URL}/static/currencies/euro.svg`,
+    },
+    'from'
+  );
 });
 
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
   return Math.min(v1, 100000000);
-}
-
-function getEmptyCoinImageSrc() {
-  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
@@ -436,7 +413,7 @@ const swapCoins = () => {
   previewChangeInfo('from');
 };
 
-const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
+const onSelectCoin = (coinInfo: ICoin, direction: 'to') => {
   fundsStore.setCrypto(
     {
       name: coinInfo.name,

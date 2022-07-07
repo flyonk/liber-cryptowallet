@@ -640,7 +640,8 @@
       "error": "Liber Save account associated with this email address not found. Try to use another email."
     },
     "convert": {
-      "title": "Enter amount of euro to get coupons for"
+      "title": "Enter amount of euro to get coupons for",
+      "convertExactly": "Amount (€50–€1,000)"
     }
   }
 }
