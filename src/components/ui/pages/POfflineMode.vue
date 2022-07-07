@@ -20,7 +20,7 @@
     <template #fixed-footer>
       <div class="footer-wrapper">
         <base-button class="btn" @click="checkConnection">
-          <triple-dots-spinner v-if="loading" />
+          <a-tripple-dots-spinner v-if="loading" />
           {{ !loading ? $t('errors.confirmTitle') : '' }}
         </base-button>
       </div>
@@ -34,7 +34,9 @@ import { useCheckOffline } from '@/helpers/composables/checkOffline';
 const { loading, handleReconnect } = useCheckOffline();
 
 import { BaseButton, TTopNavigation } from '..';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
+
+//TODO:[UIKIT] fix atom title with ATripleDotsSpinner
+import { ATrippleDotsSpinner } from '@liber-biz/crpw-ui-kit-liber';
 
 const emit = defineEmits(['online']);
 
