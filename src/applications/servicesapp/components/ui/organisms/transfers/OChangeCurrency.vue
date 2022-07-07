@@ -72,7 +72,6 @@
             </p>
           </li>
         </ul>
-        <coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
       </div>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
@@ -150,7 +149,7 @@ import { useToast } from 'primevue/usetoast';
 import {
   ICoinForExchange,
   useFundsStore,
-} from '@/applications/liber/stores/funds';
+} from '@/applications/servicesapp/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { Route } from '@/router/types';
 import { ICoin } from '@/applications/liber/models/funds/coin';
@@ -161,7 +160,6 @@ import { useMfaStore } from '@/stores/mfa';
 
 import { BaseButton } from '@/components/ui';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
-import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 
 const errorsStore = useErrorsStore();
@@ -169,13 +167,6 @@ const errorsStore = useErrorsStore();
 defineEmits<{
   (event: 'show-2fa'): void;
 }>();
-
-defineProps({
-  hasCoinReverse: {
-    type: Boolean,
-    default: false,
-  },
-});
 
 const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
@@ -393,17 +384,6 @@ function onBlur(event: FocusEvent) {
     elem?.focus();
   }
 }
-
-const swapCoins = () => {
-  if (isZeroValues.value) {
-    componentState.value = 'preview';
-    return;
-  }
-
-  fundsStore.swapCoins();
-
-  previewChangeInfo('from');
-};
 
 const onSelectCoin = (coinInfo: ICoin, direction: 'to') => {
   fundsStore.setCrypto(
