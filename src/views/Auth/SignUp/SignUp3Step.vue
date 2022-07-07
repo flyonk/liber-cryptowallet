@@ -3,7 +3,7 @@
     <template #title> {{ $t('auth.signup.step3Title') }}</template>
     <template #content>
       <div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="email"
           type="email"
           @focus="showClearBtn"
@@ -17,16 +17,16 @@
               @touchend="clearEmail"
             />
           </template>
-        </base-input>
+        </m-base-input>
         <m-base-switch v-model="sendNews" class="switch">
           {{ $t('auth.signup.step3SendNews') }}
         </m-base-switch>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button :disabled="isEmailInvalid" block @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -38,8 +38,11 @@ import { computed } from '@vue/reactivity';
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseInput, BaseButton } from '@/components/ui';
-import { MBaseSwitch } from '@liber-biz/crpw-ui-kit-liber';
+import {
+  MBaseInput,
+  MBaseSwitch,
+  MBaseButton,
+} from '@liber-biz/crpw-ui-kit-liber';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const emit = defineEmits(['prev', 'next']);

@@ -22,16 +22,16 @@
         </template>
         <template #footer>
           <div class="popup-footer">
-            <BaseButton
+            <m-base-button
               class="btn mb-3"
               size="large"
               @click="showPopup = false"
             >
               No, go back
-            </BaseButton>
-            <BaseButton class="btn" size="large" view="secondary">
+            </m-base-button>
+            <m-base-button class="btn" size="large" view="secondary">
               Yes, continue
-            </BaseButton>
+            </m-base-button>
           </div>
         </template>
       </base-toast>
@@ -64,7 +64,8 @@ export default {
 import { ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
-import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
+import { BaseToast, TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');

@@ -11,27 +11,27 @@
     <template #title> {{ $t('views.recepients.add') }}</template>
     <template #content>
       <ul class="invite-list">
-        <base-input v-model="newContact.name" autofocus type="text">
+        <m-base-input v-model="newContact.name" autofocus type="text">
           <template #label> Name </template>
           <template v-if="newContact.name.length > 2" #append>
             <i class="icon-transaction-small-reverted" @click="clearName" />
           </template>
-        </base-input>
+        </m-base-input>
         <li
           v-for="(contact, index) in newContact.phone"
           :key="index"
           class="invite-item"
         >
-          <base-input v-model="contact.value" type="text">
+          <m-base-input v-model="contact.value" type="text">
             <template #label> Email or Phone </template>
             <template v-if="newContact.phone.length > 1" #append>
               <i class="icon-trash_full" @click="removeContact(index)" />
             </template>
-          </base-input>
+          </m-base-input>
         </li>
-        <base-button view="flat" icon-left="ci-plus" @click="addExtraContact">
+        <m-base-button view="flat" icon-left="ci-plus" @click="addExtraContact">
           {{ $t('views.newcontact.additionalphone') }}
-        </base-button>
+        </m-base-button>
       </ul>
       <bottom-swipe-menu
         :is-menu-open="isMenuOpen"
@@ -40,7 +40,7 @@
       />
     </template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         size="large"
         view="simple"
         block
@@ -48,7 +48,7 @@
         @click="handleAddContact"
       >
         {{ $t('common.continueCta') }}
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
 </template>
@@ -60,7 +60,8 @@ import { useRouter } from 'vue-router';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import { useRecepientsStore } from '@/stores/recipients';
 
-import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { Route } from '@/router/types';
 
 import { v4 as uuidv4 } from 'uuid';

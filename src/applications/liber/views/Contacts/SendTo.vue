@@ -32,14 +32,14 @@
         </div></div
     ></template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         class="send-button"
         size="large"
         view="simple"
         @click="sendTransaction"
       >
         Send
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
   <!--TODO: make toasts logic-->
@@ -60,16 +60,16 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button
+        <m-base-button
           class="btn mb-3"
           size="large"
           @click="showSuccessPopup = false"
         >
           No, go back
-        </base-button>
-        <base-button class="btn" size="large" view="secondary">
+        </m-base-button>
+        <m-base-button class="btn" size="large" view="secondary">
           Yes, continue
-        </base-button>
+        </m-base-button>
       </div>
     </template>
   </base-toast>
@@ -123,7 +123,8 @@
 import { computed, ref } from 'vue';
 
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
-import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
+import { BaseToast, TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
 
 import { useTransferStore } from '@/applications/liber/stores/transfer';

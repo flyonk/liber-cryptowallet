@@ -19,12 +19,12 @@
       </div></template
     >
     <template #fixed-footer>
-      <base-button block class="mb-3" @click="onEnable">
+      <m-base-button block class="mb-3" @click="onEnable">
         {{ $t('views.requestcontacts.contactsCTA') }}
-      </base-button>
-      <base-button block view="secondary" @click="onCancel">
+      </m-base-button>
+      <m-base-button block view="secondary" @click="onCancel">
         {{ $t('common.notNowCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -39,7 +39,8 @@ export default {
 import { useRouter, useRoute } from 'vue-router';
 import { useRecepientsStore } from '@/stores/recipients';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';

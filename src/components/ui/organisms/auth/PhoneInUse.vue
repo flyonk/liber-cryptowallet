@@ -19,17 +19,17 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button class="btn mb-3" size="large" @click="goToLogin">
+        <m-base-button class="btn mb-3" size="large" @click="goToLogin">
           {{ $t('auth.signup.welcomeAuth.loginWithThisNumber') }}
-        </base-button>
-        <base-button
+        </m-base-button>
+        <m-base-button
           class="btn mb-3"
           size="large"
           view="secondary"
           @click="goBack"
         >
           {{ $t('auth.signup.welcomeAuth.goBack') }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
   </base-toast>
@@ -37,7 +37,8 @@
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { BaseToast } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { useAuthStore } from '@/stores/auth';
 
 const emits = defineEmits(['next', 'close']);

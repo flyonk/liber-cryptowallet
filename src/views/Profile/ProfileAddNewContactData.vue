@@ -13,15 +13,15 @@
       {{ $t('views.profile.profileAddNewContactData.title') }}</template
     >
     <template #content>
-      <base-input v-model="data">
+      <m-base-input v-model="data">
         <template #label> Email or Phone </template>
         <template v-if="data.length > 1" #append>
           <i class="icon-trash_full" @click="clearData" />
         </template>
-      </base-input>
+      </m-base-input>
     </template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         size="large"
         view="simple"
         block
@@ -30,7 +30,7 @@
       >
         {{
           $t('views.profile.profileAddNewContactData.confirmButton')
-        }}</base-button
+        }}</m-base-button
       ></template
     >
   </t-top-navigation>
@@ -47,12 +47,8 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  TTopNavigation,
-  BaseButton,
-  BaseInput,
-  EnterVerificationCode,
-} from '@/components/ui';
+import { TTopNavigation, EnterVerificationCode } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import router from '@/router';
 import { Route } from '@/router/types';

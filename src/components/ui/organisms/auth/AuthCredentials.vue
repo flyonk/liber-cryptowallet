@@ -11,7 +11,7 @@
         />
       </div>
       <div class="col-8 ml-auto">
-        <base-input
+        <m-base-input
           :key="updateKey"
           v-model="number"
           :use-grouping="false"
@@ -31,7 +31,7 @@
               @touchend.prevent="clearNumber"
             />
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </div>
     <div class="footer">
@@ -41,9 +41,9 @@
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button :disabled="isNumberInvalid" block @click="handleStep">
+      <m-base-button :disabled="isNumberInvalid" block @click="handleStep">
         {{ nextTitle }}
-      </base-button>
+      </m-base-button>
     </div>
   </div>
 </template>
@@ -53,7 +53,8 @@ import { computed } from '@vue/reactivity';
 import { Ref, ref } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
-import { BaseButton, BaseCountryPhoneInput, BaseInput } from '@/components/ui';
+import { BaseCountryPhoneInput } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';

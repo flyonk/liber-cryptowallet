@@ -4,7 +4,7 @@
       {{ $t('auth.restore.step5Title') }}
     </top-navigation>
 
-    <base-input
+    <m-base-input
       v-model="birthDate"
       type="mask"
       mask="99/99/9999"
@@ -24,20 +24,21 @@
           @touchend="clearDate"
         />
       </template>
-    </base-input>
+    </m-base-input>
 
     <!-- TODO: make separated component -->
     <div class="sign-button-wrapper">
-      <BaseButton block :disabled="isDateInvalid" @click="$emit('next')">
+      <m-base-button block :disabled="isDateInvalid" @click="$emit('next')">
         {{ $t('common.continueCta') }}
-      </BaseButton>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { TopNavigation, BaseInput, BaseButton } from '@/components/ui';
+import { TopNavigation } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { computed } from '@vue/reactivity';
 
 const isClearBtnShown = ref(false);

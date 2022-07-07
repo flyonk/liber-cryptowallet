@@ -15,17 +15,17 @@
       </div>
     </template>
     <template #footer>
-      <base-button
+      <m-base-button
         class="confirmation-button"
         block
         size="large"
         @click="$emit('update:visible', false)"
       >
         {{ $t('views.withdraw.confirmation.button.no') }}
-      </base-button>
-      <base-button block size="large" view="secondary" @click="onContinue">
+      </m-base-button>
+      <m-base-button block size="large" view="secondary" @click="onContinue">
         {{ $t('views.withdraw.confirmation.button.yes') }}
-      </base-button>
+      </m-base-button>
     </template>
   </base-toast>
 </template>
@@ -34,7 +34,8 @@
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { BaseToast } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const mfaStore = useMfaStore();
 const errorsStore = useErrorsStore();

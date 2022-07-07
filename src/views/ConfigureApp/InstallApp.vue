@@ -43,7 +43,7 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button
+      <m-base-button
         block
         @click="
           $router.push({
@@ -53,7 +53,7 @@
         "
       >
         {{ $t('common.continueCta') }}
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
 </template>
@@ -67,7 +67,8 @@ export default {
 <script setup lang="ts">
 import { computed } from 'vue';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { Route } from '@/router/types';
 
 import { useRouter } from 'vue-router';

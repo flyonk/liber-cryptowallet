@@ -6,7 +6,7 @@
   >
     <template #title> {{ $t('views.withdraw.withdraw') }} </template>
     <template #content>
-      <base-input
+      <m-base-input
         v-model.trim="form.address"
         class="address-input"
         :class="{ '-error': !form.address }"
@@ -15,22 +15,22 @@
           {{ $t('views.withdraw.address') }}
         </template>
         <template #prepend>
-          <base-button
+          <m-base-button
             v-if="!form.address"
             view="flat"
             class="paste-button"
             @click="handlePaste"
           >
             {{ $t('views.withdraw.paste') }}
-          </base-button>
+          </m-base-button>
           <i
             v-else
             class="icon-transaction-small-reverted"
             @click="form.address = ''"
           />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.network"
         class="network-input amount-input"
         :class="{ '-hidden': !form.address }"
@@ -44,8 +44,8 @@
             :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
           />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.amount"
         class="amount-input"
         type="number"
@@ -75,7 +75,7 @@
           {{ availableBalance }} {{ form.coin.code.toUpperCase() }}
           {{ $t('views.withdraw.available') }}
         </template>
-      </base-input>
+      </m-base-input>
 
       <p-dialog
         v-model:visible="openNetworkModal"
@@ -97,9 +97,13 @@
       <o-withdraw-success-toast v-model:visible="showSuccessToast" />
     </template>
     <template #fixed-footer>
-      <base-button block :disabled="isSubmitButtonDisabled" @click="onContinue">
+      <m-base-button
+        block
+        :disabled="isSubmitButtonDisabled"
+        @click="onContinue"
+      >
         {{ $t('views.withdraw.continue') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
   <o-withdraw-summary v-else @back="showSummaryScreen = false" />
@@ -120,13 +124,12 @@ import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { useErrorsStore } from '@/stores/errors';
 
 import {
-  BaseButton,
-  BaseInput,
   MNetworkSelectAnswer,
   OWithdrawSuccessToast,
   OWithdrawSummary,
   TTopNavigation,
 } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 
 const withdrawStore = useWithdrawStore();

@@ -1,15 +1,15 @@
 <template>
   <span class="p-float-label">
-    <base-input @click.self="$emit('click')">
+    <m-base-input @click.self="$emit('click')">
       <template #label>
         <slot name="label" />
       </template>
-    </base-input>
+    </m-base-input>
   </span>
 </template>
 
 <script lang="ts" setup>
-import { BaseInput } from '../index';
+import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
 
 defineEmits(['click']);
 </script>

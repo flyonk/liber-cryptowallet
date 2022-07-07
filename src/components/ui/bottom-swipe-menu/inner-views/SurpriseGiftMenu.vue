@@ -2,31 +2,31 @@
   <div class="surprise-menu">
     <p class="cancel" @click="closeMenu">Cancel</p>
     <h2 class="title">I’ve got little surprise for you 🎁</h2>
-    <BaseInput type="text">
+    <MBaseInput type="text">
       <template #label> To </template>
-    </BaseInput>
-    <BaseInput type="text">
+    </MBaseInput>
+    <MBaseInput type="text">
       <template #label> Cc </template>
-    </BaseInput>
-    <BaseInput type="text">
+    </MBaseInput>
+    <MBaseInput type="text">
       <template #label> Bcc </template>
-    </BaseInput>
-    <BaseInput v-model="Subject" type="text">
+    </MBaseInput>
+    <MBaseInput v-model="Subject" type="text">
       <template #label> Subject </template>
-    </BaseInput>
+    </MBaseInput>
     <p class="description">
       Hey managing your money would be so much easier if you had Liber. Sign up
       with my link https://cryptowize.com/referral/abraham
     </p>
     <p class="sent">Sent from my iPhone</p>
-    <BaseButton class="btn mt-auto" size="large"> Send </BaseButton>
+    <m-base-button class="btn mt-auto" size="large"> Send </m-base-button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { BaseButton, BaseInput } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const Subject = ref('I’ve got little surprise for you 🎁');
 

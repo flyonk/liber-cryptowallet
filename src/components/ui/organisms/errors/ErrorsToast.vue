@@ -17,12 +17,12 @@
     </template>
     <template v-if="displayMultipleErrorMessage" #footer>
       <div class="popup-footer">
-        <base-button class="btn mb-3" size="large" @click="resetErrors">
+        <m-base-button class="btn mb-3" size="large" @click="resetErrors">
           {{ $t('errors.gotIt') }}
-        </base-button>
-        <base-button class="btn mb-3" size="large" @click="showErrorsDetails">
+        </m-base-button>
+        <m-base-button class="btn mb-3" size="large" @click="showErrorsDetails">
           {{ $t('errors.details') }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
     <template v-else #footer>
@@ -31,9 +31,9 @@
           <component :is="customComponent" />
         </template>
         <template v-else-if="isSingleError || displayAllErrors">
-          <base-button class="btn mb-3" size="large" @click="hideErrorMsg">
+          <m-base-button class="btn mb-3" size="large" @click="hideErrorMsg">
             {{ $t('errors.gotIt') }}
-          </base-button>
+          </m-base-button>
         </template>
       </div>
     </template>
@@ -43,7 +43,8 @@
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { BaseToast } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);

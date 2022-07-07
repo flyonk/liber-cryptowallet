@@ -19,15 +19,16 @@
     </div>
 
     <div class="sign-button-wrapper">
-      <base-button block @click="$emit('next')">
+      <m-base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
-      </base-button>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { TopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 defineEmits(['next', 'prev']);
 </script>

@@ -14,9 +14,9 @@
                 {{ documentSideLabel(side) }}
               </div>
               <img :src="image" alt="front" class="image" />
-              <base-button block view="secondary" @click="onScanAgain(side)">
+              <m-base-button block view="secondary" @click="onScanAgain(side)">
                 {{ $t('views.kyc.kyc5step.scanAgain') }}
-              </base-button>
+              </m-base-button>
             </template>
           </div>
         </template>
@@ -27,21 +27,21 @@
               {{ $t('views.kyc.kyc5step.passport') }}
             </div>
             <img :src="getImage.front" alt="passport" class="image" />
-            <base-button
+            <m-base-button
               block
               view="secondary"
               @click="onScanAgain(EDocumentSide.front)"
             >
               {{ $t('views.kyc.kyc5step.scanAgain') }}
-            </base-button>
+            </m-base-button>
           </div>
         </template>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="onNext">
+      <m-base-button block class="footer-button" @click="onNext">
         {{ $t('views.kyc.kyc5step.upload') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -49,8 +49,8 @@
 <script lang="ts" setup>
 import { computed } from 'vue';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
-import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import { ABaseProgressBar, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';

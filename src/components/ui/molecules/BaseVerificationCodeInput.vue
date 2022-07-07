@@ -28,12 +28,12 @@
     </div>
 
     <div class="submit">
-      <base-button
+      <m-base-button
         v-if="withPasteButton"
         view="secondary"
         block
         @click="onPaste"
-        >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button
+        >{{ $t('ui.baseverificationcodeinput.paste') }}</m-base-button
       >
     </div>
   </div>
@@ -43,7 +43,7 @@
 import { computed, Ref, ref, watch } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
-import { BaseButton } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { useErrorsStore } from '@/stores/errors';
 
 const props = defineProps({

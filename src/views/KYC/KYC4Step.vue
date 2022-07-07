@@ -11,9 +11,9 @@
       </scan-animation>
     </template>
     <template #fixed-footer>
-      <base-button block @click="onScan">
+      <m-base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -30,8 +30,8 @@ import { useI18n } from 'vue-i18n';
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
-import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import { ABaseProgressBar, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';

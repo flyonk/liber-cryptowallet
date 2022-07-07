@@ -3,7 +3,7 @@
     <template #title> {{ $t('views.kyc.kyc2step.homeAddress') }}</template>
     <template #subtitle> {{ $t('views.kyc.kyc2step.byLawWe') }}</template>
     <template #content>
-      <base-input
+      <m-base-input
         v-model="form.street"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
@@ -19,8 +19,8 @@
             tabindex="1"
           />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.flat"
         :class="form.flat && !isValid('flat') ? '-invalid' : ''"
       >
@@ -37,15 +37,15 @@
           />
           <i v-else class="icon-input-field-eye" />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.postal_code"
         type="number"
         @input="handleInputNumber"
       >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.state"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
@@ -59,8 +59,8 @@
             tabindex="3"
           />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.city"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
@@ -74,19 +74,20 @@
             tabindex="4"
           />
         </template>
-      </base-input>
+      </m-base-input>
     </template>
     <template #fixed-footer
-      ><base-button block :disabled="!isFormValid" @click="onContinue">{{
+      ><m-base-button block :disabled="!isFormValid" @click="onContinue">{{
         $t('views.kyc.kyc2step.continue')
-      }}</base-button></template
+      }}</m-base-button></template
     >
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
 import { reactive, computed } from 'vue';
-import { BaseInput, BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { useKYCStore } from '@/stores/kyc';
 

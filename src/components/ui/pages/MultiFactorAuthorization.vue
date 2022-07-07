@@ -33,9 +33,9 @@
     </template>
 
     <template #ctaBtn>
-      <base-button block :disabled="isDisabled" @click="onComplete">
+      <m-base-button block :disabled="isDisabled" @click="onComplete">
         {{ ctaBtnText }}
-      </base-button>
+      </m-base-button>
     </template>
   </EnterVerificationCode>
 </template>
@@ -48,7 +48,8 @@ import { useRouter, useRoute } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
+import { BaseVerificationCodeInput } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const router = useRouter();

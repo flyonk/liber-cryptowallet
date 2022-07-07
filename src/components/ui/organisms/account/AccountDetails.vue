@@ -74,16 +74,16 @@
       </div>
 
       <div class="btns-container">
-        <base-button
+        <m-base-button
           :view="ViewBaseButton.Secondary"
           disabled
           @click="saveImage"
         >
           {{ $t('views.deposit.wallet.saveImage') }}
-        </base-button>
-        <base-button @click="shareAddress">
+        </m-base-button>
+        <m-base-button @click="shareAddress">
           {{ $t('views.deposit.wallet.shareAddress') }}
-        </base-button>
+        </m-base-button>
       </div>
     </div>
   </div>
@@ -100,7 +100,7 @@ import { useToast } from 'primevue/usetoast';
 import { check, share } from '@/helpers/nativeShare';
 
 import QrCode from 'qrcode-vue3';
-import { BaseButton } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import AccountDetailsSkeleton from './AccountDetailsSkeleton.vue';
 import { useErrorsStore } from '@/stores/errors';
 

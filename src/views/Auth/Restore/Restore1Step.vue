@@ -11,28 +11,24 @@
         <base-country-phone-input />
       </div>
       <div class="col-8 ml-auto">
-        <base-input :use-grouping="false" type="number">
+        <m-base-input :use-grouping="false" type="number">
           <template #label>
             {{ $t('common.numberLabel') }}
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="$emit('next')">
+      <m-base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
-      </BaseButton>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  TopNavigation,
-  BaseCountryPhoneInput,
-  BaseInput,
-  BaseButton,
-} from '@/components/ui';
+import { TopNavigation, BaseCountryPhoneInput } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 

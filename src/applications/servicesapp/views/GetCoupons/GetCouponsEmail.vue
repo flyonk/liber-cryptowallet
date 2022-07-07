@@ -3,7 +3,7 @@
     <template #title> {{ $t('services.getcoupons.title') }}</template>
     <template #content>
       <div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="email"
           type="email"
           :class="isNotValid ? '-invalid' : ''"
@@ -21,13 +21,13 @@
           <template v-if="isNotValid" #message>
             {{ $t('services.getcoupons.error') }}
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button :disabled="isEmailInvalid" block @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -40,7 +40,7 @@ import { useRouter } from 'vue-router';
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
-import { BaseInput, BaseButton } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const router = useRouter();
