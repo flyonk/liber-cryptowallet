@@ -10,12 +10,12 @@
     <template #subtitle>{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</template>
     <template #content>
       <div>
-        <base-progress-circular :percent="percent" :size="267">
+        <a-base-progress-circular :percent="percent" :size="267">
           <span class="percent-slot">
             <span class="text">{{ percent }}</span>
             <span class="text--large-title">%</span>
           </span>
-        </base-progress-circular>
+        </a-base-progress-circular>
       </div></template
     >
     <template #fixed-footer>
@@ -28,14 +28,10 @@
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import {
-  BaseButton,
-  BaseProgressCircular,
-  TTopNavigation,
-} from '@/components/ui';
+import { BaseButton, TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
-
+import { ABaseProgressCircular } from '@liber-biz/crpw-ui-kit-liber';
 import { Route } from '@/router/types';
 
 const percent = ref(50);
