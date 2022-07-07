@@ -22,8 +22,8 @@
             @input="debounceChangeInfo('from')"
           />
           <select-coin-input
-            :coins="fromCoins"
             :current-currency="currentSendFromCurrency"
+            :show-select-dialog="false"
           />
         </label>
       </div>
@@ -204,9 +204,7 @@ const currentSendToCurrency = computed(
 );
 
 const isOneCoinEmpty = computed(
-  () =>
-    currentSendFromCurrency.value.code === 'empty' ||
-    currentSendToCurrency.value.code === 'empty'
+  () => currentSendToCurrency.value.code === 'empty'
 );
 
 const isZeroValues = computed(() => {
@@ -223,12 +221,6 @@ const preventConvert = computed(() => {
     isZeroValues.value
   );
 });
-
-const fromCoins = computed(() =>
-  allCoins.value.filter(
-    (coin) => coin.code !== currentSendToCurrency.value.code
-  )
-);
 
 const toCoins = computed(() =>
   allCoins.value.filter(
