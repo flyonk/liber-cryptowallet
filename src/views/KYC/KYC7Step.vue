@@ -19,19 +19,22 @@
       </div></template
     >
     <template #fixed-footer>
-      <base-button block @click="handleComplete">
+      <m-base-button block @click="handleComplete">
         {{ $t('views.kyc.kyc7step.continue') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
-import { ABaseProgressCircular } from '@liber-biz/crpw-ui-kit-liber';
+import {
+  ABaseProgressCircular,
+  MBaseButton,
+} from '@liber-biz/crpw-ui-kit-liber';
 import { Route } from '@/router/types';
 
 const percent = ref(50);

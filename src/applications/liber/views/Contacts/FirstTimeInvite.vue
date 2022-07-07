@@ -44,17 +44,17 @@
         You can hide yourself from being visible to your CryptoWize friends at
         any time through your privacy settings.
       </p>
-      <BaseButton class="btn mb-2" size="large" view="simple">
+      <m-base-button class="btn mb-2" size="large" view="simple">
         Allow access to contacts
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         class="btn"
         size="large"
         view="flat"
         @click="isAllowAccessToContacts = true"
       >
         Not now
-      </BaseButton>
+      </m-base-button>
     </div>
   </div>
 </template>
@@ -62,7 +62,7 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { BaseButton } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const isAllowAccessToContacts = ref(false);
 </script>

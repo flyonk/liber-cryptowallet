@@ -4,7 +4,7 @@
     <template #subtitle> {{ $t('auth.signup.step4Description') }}</template>
     <template #content
       ><div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="birth"
           mask="99.99.9999"
           :placeholder="$t('auth.signup.ddmmyyyy')"
@@ -24,18 +24,18 @@
               @touchend="clearDate"
             />
           </template>
-        </base-input></div
+        </m-base-input></div
     ></template>
     <template #fixed-footer>
-      <base-button block :disabled="isDateInvalid" @click="nextStep">
+      <m-base-button block :disabled="isDateInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { BaseButton, BaseInput } from '@/components/ui';
+import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { Route } from '@/router/types';
 import { ref } from 'vue-demi';

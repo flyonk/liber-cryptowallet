@@ -27,9 +27,9 @@
       />
     </template>
     <template #fixed-footer>
-      <base-button block @click="showConfirmationToast = true">
+      <m-base-button block @click="showConfirmationToast = true">
         {{ $t('views.withdraw.withdrawNow') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -39,11 +39,8 @@ import { computed, ref } from 'vue';
 
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 
-import {
-  BaseButton,
-  OWithdrawConfirmationToast,
-  TTopNavigation,
-} from '@/components/ui';
+import { OWithdrawConfirmationToast, TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const withdrawStore = useWithdrawStore();
 

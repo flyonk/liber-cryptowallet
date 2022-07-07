@@ -13,12 +13,12 @@
       </div></template
     >
     <template #fixed-footer>
-      <base-button block class="mb-3" @click="onEnable">
+      <m-base-button block class="mb-3" @click="onEnable">
         {{ $t('configureApp.enableFaceId') }}
-      </base-button>
-      <base-button block view="transparent" @click="onCancel">
+      </m-base-button>
+      <m-base-button block view="transparent" @click="onCancel">
         {{ $t('common.notNowCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -28,7 +28,8 @@ import { useRouter } from 'vue-router';
 
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';

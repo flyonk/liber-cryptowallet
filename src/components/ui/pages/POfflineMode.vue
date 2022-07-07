@@ -19,10 +19,10 @@
     </template>
     <template #fixed-footer>
       <div class="footer-wrapper">
-        <base-button class="btn" @click="checkConnection">
+        <m-base-button class="btn" @click="checkConnection">
           <a-tripple-dots-spinner v-if="loading" />
           {{ !loading ? $t('errors.confirmTitle') : '' }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
   </t-top-navigation>
@@ -33,7 +33,8 @@ import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
 const { loading, handleReconnect } = useCheckOffline();
 
-import { BaseButton, TTopNavigation } from '..';
+import { TTopNavigation } from '..';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 //TODO:[UIKIT] fix atom title with ATripleDotsSpinner
 import { ATrippleDotsSpinner } from '@liber-biz/crpw-ui-kit-liber';

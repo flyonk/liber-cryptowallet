@@ -22,14 +22,14 @@
         <p class="description">
           {{ $t('views.pEmailSent.footerDescription') }}
         </p>
-        <base-button
+        <m-base-button
           class="inbox"
           @click="$router.push({ name: Route.ProfilePhonesAndEmails })"
         >
-          {{ $t('views.pEmailSent.goToInbox') }}</base-button
+          {{ $t('views.pEmailSent.goToInbox') }}</m-base-button
         >
-        <base-button view="flat" class="resend">
-          {{ $t('views.pEmailSent.resend') }}</base-button
+        <m-base-button view="flat" class="resend">
+          {{ $t('views.pEmailSent.resend') }}</m-base-button
         >
       </div>
     </template>
@@ -41,7 +41,8 @@ import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { computed } from 'vue-demi';
-import { BaseButton, TTopNavigation } from '..';
+import { TTopNavigation } from '..';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const pStore = useProfileStore();
 const email = computed(() => {

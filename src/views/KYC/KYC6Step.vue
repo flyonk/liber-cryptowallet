@@ -28,9 +28,9 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="selectPicture">
+      <m-base-button block class="footer-button" @click="selectPicture">
         {{ $t('views.kyc.kyc6step.upload') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -40,8 +40,8 @@ import { computed } from 'vue';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
-import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import { ABaseProgressBar, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { useKYCStore } from '@/stores/kyc';
 

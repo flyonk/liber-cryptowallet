@@ -17,9 +17,9 @@
         <radio-button />
       </li>
     </ul>
-    <BaseButton class="btn mt-auto" size="large" @click="clickHandle">
+    <m-base-button class="btn mt-auto" size="large" @click="clickHandle">
       Select
-    </BaseButton>
+    </m-base-button>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
 import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { BaseButton } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import RadioButton from 'primevue/radiobutton';
 
 import { Route } from '@/router/types';

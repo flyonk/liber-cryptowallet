@@ -18,21 +18,21 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button
+        <m-base-button
           :class="{ 'full-width': !error.cancelTitle }"
           class="btn"
           @click="handleConfirm"
         >
           <a-tripple-dots-spinner v-if="loading" />
           {{ !loading ? $t(`errors.${error.confirmTitle}`) : '' }}
-        </base-button>
-        <base-button
+        </m-base-button>
+        <m-base-button
           v-if="error.cancelTitle"
           class="btn"
           @click="error.cancelCallback"
         >
           {{ $t(`errors.${error.cancelTitle}`) }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
   </base-toast>
@@ -47,8 +47,8 @@ import { computed } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
-import { ATrippleDotsSpinner } from '@liber-biz/crpw-ui-kit-liber';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { ATrippleDotsSpinner, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { BaseToast } from '@/components/ui';
 
 const { loading, handleReconnect } = useCheckOffline();
 

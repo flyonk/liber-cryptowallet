@@ -10,9 +10,9 @@
       </div>
     </template>
     <template #fixed-footer
-      ><base-button block @click="installApp">
+      ><m-base-button block @click="installApp">
         {{ $t('common.continueCta') }}
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
 </template>
@@ -29,7 +29,8 @@ import { onMounted } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 

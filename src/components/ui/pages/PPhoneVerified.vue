@@ -15,11 +15,11 @@
     </template>
     <template #fixed-footer>
       <div class="footer-wrapper">
-        <base-button
+        <m-base-button
           class="done"
           @click="$router.push({ name: Route.ProfilePhonesAndEmails })"
         >
-          {{ $t('views.pPhoneVerified.done') }}</base-button
+          {{ $t('views.pPhoneVerified.done') }}</m-base-button
         >
       </div>
       /
@@ -32,7 +32,8 @@ import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { computed } from 'vue-demi';
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const pStore = useProfileStore();
 const phone = computed(() => {

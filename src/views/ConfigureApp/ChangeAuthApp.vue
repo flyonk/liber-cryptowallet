@@ -29,9 +29,9 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="onContinue">{{
+      <m-base-button block @click="onContinue">{{
         $t('configureApp.changeAppCTA')
-      }}</base-button>
+      }}</m-base-button>
     </template>
   </t-top-navigation>
 
@@ -46,17 +46,17 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <BaseButton class="btn mb-3" size="large" @click="onConfirm">
+        <m-base-button class="btn mb-3" size="large" @click="onConfirm">
           {{ $t('common.continueCta') }}
-        </BaseButton>
-        <BaseButton
+        </m-base-button>
+        <m-base-button
           class="btn"
           size="large"
           view="secondary"
           @click="showPopup = false"
         >
           {{ $t('common.cancelCta') }}
-        </BaseButton>
+        </m-base-button>
       </div>
     </template>
   </base-toast>
@@ -71,7 +71,8 @@ export default {
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-import { TTopNavigation, BaseButton, BaseToast } from '@/components/ui';
+import { TTopNavigation, BaseToast } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 

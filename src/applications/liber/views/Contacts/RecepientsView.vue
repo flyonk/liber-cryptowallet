@@ -22,9 +22,9 @@
     <template #title>{{ $t('views.recepients.recepients') }}</template>
     <template #content>
       <div class="who-topay">
-        <BaseInput v-model="filterContacts" type="text">
+        <m-base-input v-model="filterContacts" type="text">
           <template #label> Name, @id, phone, email </template>
-        </BaseInput>
+        </m-base-input>
 
         <constacts-tab-switcher />
 
@@ -37,10 +37,11 @@
 <script setup lang="ts">
 import { ref } from 'vue';
 
-import { BaseInput, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
+import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 

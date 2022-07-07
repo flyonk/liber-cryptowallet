@@ -34,14 +34,14 @@
       </p>
     </template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         block
         @click="
           $router.push({ name: Route.ConfigureAppVerify, hash: nextRouteHash })
         "
       >
         {{ $t('common.continueCta') }}
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
 </template>
@@ -62,7 +62,8 @@ import { useRoute } from 'vue-router';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';

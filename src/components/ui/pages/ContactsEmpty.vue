@@ -11,14 +11,14 @@
       contact to make the first transfer.
     </p>
     <br />
-    <BaseButton
+    <m-base-button
       class="btn"
       size="large"
       view="simple"
       @click="isMenuOpen = !isMenuOpen"
     >
       + Add
-    </BaseButton>
+    </m-base-button>
   </div>
   <bottom-swipe-menu
     :is-menu-open="isMenuOpen"
@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 
-import { BaseButton } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 let isMenuOpen = ref(false);

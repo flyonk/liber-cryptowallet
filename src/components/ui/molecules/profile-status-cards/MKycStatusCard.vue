@@ -15,21 +15,21 @@
       <h1 class="description">
         {{ cardInfo.description }}
       </h1>
-      <base-button
+      <m-base-button
         v-if="cardInfo.isCtaRequired"
         class="cta"
         @click="$router.push({ name: Route.KYCMain })"
       >
         {{
           $t('views.profile.profilePhonesAndEmails.verifyIdentity')
-        }}</base-button
+        }}</m-base-button
       >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { BaseButton } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { EKYCStatus } from '@/models/profile/profile';
 import { computed, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';

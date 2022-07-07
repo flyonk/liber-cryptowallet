@@ -34,9 +34,9 @@
             <p class="name">
               {{ $t('transactions.statement') }}
             </p>
-            <base-button size="medium" view="flat">
+            <m-base-button size="medium" view="flat">
               {{ $t('transactions.download') }}
-            </base-button>
+            </m-base-button>
           </li>
 
           <li class="main-item">
@@ -84,11 +84,11 @@ import {
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
-  BaseButton,
   TransactionIconWithStatus,
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 defineEmits(['copy']);
 const props = defineProps({

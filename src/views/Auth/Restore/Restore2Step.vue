@@ -25,9 +25,9 @@
           <div class="text--body">
             {{ $t('auth.restore.step2ExpiredDescription') }}
           </div>
-          <base-button>
+          <m-base-button>
             {{ $t('common.retryCta') }}
-          </base-button>
+          </m-base-button>
         </div>
       </template>
     </base-toast>
@@ -59,9 +59,9 @@
       </div>
 
       <div class="sign-button-wrapper">
-        <base-button @click="$emit('next')">
+        <m-base-button @click="$emit('next')">
           {{ $t('common.okCta') }}
-        </base-button>
+        </m-base-button>
       </div>
     </div>
   </template>
@@ -70,12 +70,8 @@
 <script lang="ts" setup>
 import { Ref, ref } from 'vue';
 
-import {
-  TopNavigation,
-  BaseToast,
-  BasePasscode,
-  BaseButton,
-} from '@/components/ui';
+import { TopNavigation, BaseToast, BasePasscode } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { EState } from '@/types/base-component';
 
 const emit = defineEmits(['prev', 'next']);

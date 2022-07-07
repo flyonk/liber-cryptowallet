@@ -7,14 +7,14 @@
     <p class="text-default">
       <span>{{ text }}</span>
       <template v-if="showPasteBtn">
-        <BaseButton
+        <m-base-button
           class="resend-button"
           size="medium"
           view="flat"
           @click="pasteFromClipboard"
         >
           {{ $t('common.pasteCta') }}
-        </BaseButton>
+        </m-base-button>
       </template>
     </p>
 
@@ -35,14 +35,14 @@
             </template>
           </m-base-countdown>
           <template v-else>
-            <BaseButton
+            <m-base-button
               class="resend-button"
               size="medium"
               view="flat"
               @click="onResend"
             >
               {{ $t('auth.login.step2ResendCta') }}
-            </BaseButton>
+            </m-base-button>
           </template>
         </span>
       </div>
@@ -52,9 +52,9 @@
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
     <slot name="ctaBtn">
-      <base-button block @click="pasteFromClipboard">
+      <m-base-button block @click="pasteFromClipboard">
         {{ $t('common.pasteCta') }}
-      </base-button>
+      </m-base-button>
     </slot>
   </div>
 </template>
@@ -71,12 +71,8 @@ import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
 
-import {
-  TopNavigation,
-  BaseButton,
-  BaseVerificationCodeInput,
-} from '@/components/ui';
-import { MBaseCountdown } from '@liber-biz/crpw-ui-kit-liber';
+import { TopNavigation, BaseVerificationCodeInput } from '@/components/ui';
+import { MBaseCountdown, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 const errorsStore = useErrorsStore();
 const { t } = useI18n();

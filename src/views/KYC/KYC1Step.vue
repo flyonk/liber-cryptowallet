@@ -30,9 +30,9 @@
           </a>
         </p>
       </div>
-      <base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
+      <m-base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
         $t('views.kyc.kyc1step.signUpSecurely')
-      }}</base-button>
+      }}</m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -45,7 +45,8 @@ import { useRouter } from 'vue-router';
 import { useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
 import { Route } from '@/router/types';
 

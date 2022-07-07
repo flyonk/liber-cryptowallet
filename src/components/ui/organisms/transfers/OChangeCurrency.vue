@@ -94,7 +94,7 @@
           />
         </label>
       </div>
-      <BaseButton
+      <m-base-button
         v-if="loading"
         block
         class="send-button"
@@ -102,8 +102,8 @@
         view="simple"
       >
         <a-tripple-dots-spinner />
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'refresh'"
         :disabled="preventConvert"
         block
@@ -113,8 +113,8 @@
         @click="onRefresh"
       >
         {{ $t('views.deposit.convert.refresh') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'preview'"
         :disabled="preventConvert"
         block
@@ -124,8 +124,8 @@
         @click="previewChangeInfo('from')"
       >
         {{ $t('transactions.convert.preview') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else
         :disabled="preventConvert"
         block
@@ -135,7 +135,7 @@
         @click="convertCurrency"
       >
         {{ $t('transactions.convert.convertNow') }} ({{ timer }}s)
-      </BaseButton>
+      </m-base-button>
     </div>
   </keep-alive>
 </template>
@@ -159,10 +159,10 @@ import { TConvertData } from '@/applications/liber/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 
-import { BaseButton } from '@/components/ui';
 import {
   ACoinSwitcher,
   ATrippleDotsSpinner,
+  MBaseButton,
 } from '@liber-biz/crpw-ui-kit-liber';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 
