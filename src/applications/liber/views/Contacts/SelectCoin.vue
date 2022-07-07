@@ -17,7 +17,12 @@
         />
       </label>
     </div>
-    <SelectCoin :coins="coins" @select-coin="selectCoin" />
+    <MSelectCoin
+      :coins="coins"
+      :title="$t('views.deposit.selectCoin.allCoins')"
+      :suggested-title="$t('views.deposit.selectCoin.suggested')"
+      @select-coin="selectCoin"
+    />
   </div>
 </template>
 
@@ -28,8 +33,7 @@ import { computed, onBeforeMount } from 'vue';
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import { ABackHistoryBtn } from '@liber-biz/crpw-ui-kit-liber';
+import { ABackHistoryBtn, MSelectCoin } from '@liber-biz/crpw-ui-kit-liber';
 import { ICoin } from '@/applications/liber/models/funds/coin';
 
 const router = useRouter();
