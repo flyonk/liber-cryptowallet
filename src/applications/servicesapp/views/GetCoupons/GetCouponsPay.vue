@@ -20,7 +20,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
+import OChangeCurrency from '@/applications/servicesapp/components/ui/organisms/transfers/OChangeCurrency.vue';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { TTopNavigation } from '@/components/ui';
 </script>
