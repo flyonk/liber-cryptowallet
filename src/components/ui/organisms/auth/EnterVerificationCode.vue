@@ -28,12 +28,12 @@
     <slot name="footer">
       <div v-if="withCountdown" class="footer">
         <span class="text--footnote font-weight--semibold">
-          <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
+          <m-base-countdown v-if="showCountdown" @time:up="onTimeIsUp">
             <template #countdown="{ minute, second }">
               {{ $t('auth.login.step2ResendTitle') }}
               {{ minute }}:{{ second }}
             </template>
-          </BaseCountdown>
+          </m-base-countdown>
           <template v-else>
             <BaseButton
               class="resend-button"
@@ -75,8 +75,8 @@ import {
   TopNavigation,
   BaseButton,
   BaseVerificationCodeInput,
-  BaseCountdown,
 } from '@/components/ui';
+import { MBaseCountdown } from '@liber-biz/crpw-ui-kit-liber';
 
 const errorsStore = useErrorsStore();
 const { t } = useI18n();
