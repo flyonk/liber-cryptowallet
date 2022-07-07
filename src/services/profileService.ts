@@ -110,8 +110,15 @@ export default {
     };
 
     const data = new FormData();
-    const binaryFile = await fetch(file).then((r) => r.blob());
-
+    const type = file.split(';')[0].split('/')[1];
+    const binaryFile = await fetch(file)
+      .then((r) => r.blob())
+      .then(
+        (blobFile) =>
+          new File([blobFile], `${fileType}-${side}.${type}`, {
+            type,
+          })
+      );
     data.append('file', binaryFile);
 
     return (
