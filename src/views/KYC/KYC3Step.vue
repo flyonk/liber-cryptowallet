@@ -18,7 +18,7 @@
     </template>
     <template #content>
       <div class="kyc-3-step">
-        <base-radio-select :items="items" @select="onSelect" />
+        <a-base-radio-select :items="items" @select="onSelect" />
       </div>
     </template>
   </t-top-navigation>
@@ -26,8 +26,12 @@
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
-import { BaseRadioSelect, TTopNavigation } from '@/components/ui';
-import { ABaseProgressBar } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import {
+  ABaseProgressBar,
+  ABaseRadioSelect,
+} from '@liber-biz/crpw-ui-kit-liber';
+
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
