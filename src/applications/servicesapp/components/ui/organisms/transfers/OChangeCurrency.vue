@@ -28,15 +28,7 @@
         </label>
       </div>
       <div class="middle-info flex">
-        <div v-if="isOneCoinEmpty" class="choose-coin">
-          <img
-            class="icon"
-            src="@/assets/icon/help_circle_outline.svg"
-            alt="help"
-          />
-          <h1 class="title">{{ $t('views.deposit.convert.selectCoin') }}</h1>
-        </div>
-        <ul v-else class="fees-data">
+        <ul class="fees-data">
           <li class="fees-item">
             <div class="circle">-</div>
             <p class="sum">
@@ -82,7 +74,6 @@
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
-            :readonly="isOneCoinEmpty"
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
@@ -192,10 +183,6 @@ const currentSendFromCurrency = computed(
 );
 const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
-);
-
-const isOneCoinEmpty = computed(
-  () => currentSendToCurrency.value.code === 'empty'
 );
 
 const isZeroValues = computed(() => {
