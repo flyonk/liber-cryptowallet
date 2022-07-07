@@ -3,7 +3,7 @@ import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 
 import GetCoupons from '@/applications/servicesapp/views/GetCoupons/index.vue';
 import GetCouponsEmail from '@/applications/servicesapp/views/GetCoupons/GetCouponsEmail.vue';
-import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
+import ChangeCurrency from '@/applications/servicesapp/views/GetCoupons/GetCouponsPay.vue';
 
 const routes: Array<RouteRecordRaw> = [
   // === Get coupons ===
