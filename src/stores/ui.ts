@@ -12,6 +12,8 @@ export interface IUIStoreState {
   modalStates: IModalStates;
 
   loadingState: ILoadingState;
+
+  loadingStateOnce?: string[];
 }
 
 export const useUIStore = defineStore('ui', {
@@ -23,6 +25,8 @@ export const useUIStore = defineStore('ui', {
     loadingState: {
       dashboard: false,
     },
+
+    loadingStateOnce: [],
   }),
 
   getters: {
@@ -38,6 +42,13 @@ export const useUIStore = defineStore('ui', {
 
     setLoadingState(scope: keyof ILoadingState, state: boolean) {
       this.loadingState[scope] = state;
+    },
+
+    setLoadingStateOnce(scope: keyof ILoadingState, state: boolean) {
+      if (!this.loadingStateOnce?.includes(scope)) {
+        this.loadingState[scope] = state;
+        this.loadingStateOnce?.push(scope);
+      }
     },
   },
 });

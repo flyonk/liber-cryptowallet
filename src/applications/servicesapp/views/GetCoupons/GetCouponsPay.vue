@@ -41,6 +41,7 @@ const email = computed(() => {
   flex-grow: 1;
   overflow: auto;
 }
+
 .header-email {
   flex-grow: 1;
   text-align: left;
