@@ -104,7 +104,6 @@
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
 import { debounce } from 'lodash';
-import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
@@ -113,7 +112,7 @@ import {
   useFundsStore,
 } from '@/applications/servicesapp/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
-import { Route } from '@/router/types';
+import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
 import { TConvertCouponData } from '@/applications/servicesapp/models/funds/convertInfo';
@@ -136,7 +135,6 @@ const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
-const router = useRouter();
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -287,10 +285,10 @@ const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 function convertCurrency() {
   const mfaStore = useMfaStore();
   mfaStore.show({
-    button: 'transactions.convertTransaction',
-    successRoute: Route.DashboardHome,
+    button: 'services.convert.convertNow',
+    successRoute: ServicesRoutes.DashboardHome,
     callback: async () => {
-      //
+      fundsStore.$reset();
     },
   });
   convertFunds();
@@ -303,10 +301,6 @@ async function convertFunds() {
       from_code: currentSendFromCurrency.value.code,
       to_code: currentSendToCurrency.value.code,
       amount: String(Number(fundsStore.convertInfo.requestAmount)),
-    });
-    fundsStore.$reset();
-    router.push({
-      name: Route.DashboardHome,
     });
   } catch (err) {
     const code = err?.response?.data?.code;
