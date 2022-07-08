@@ -4,7 +4,7 @@ export { default as BaseBottomSheet } from './molecules/BaseBottomSheetV.vue';
 export { default as BaseCountryPhoneInput } from './organisms/BaseCountryPhoneInput.vue';
 // export { default as BaseInput } from './molecules/base-input/BaseInput.vue';
 // export { default as BaseSearchInput } from './atoms/BaseSearchInput.vue';
-export { default as BaseVerificationCodeInput } from './molecules/BaseVerificationCodeInput.vue';
+// export { default as BaseVerificationCodeInput } from './molecules/BaseVerificationCodeInput.vue';
 export { default as BottomNav } from './organisms/BottomNav.vue';
 export { default as TopNavigation } from './molecules/TopNavigation.vue';
 export { default as BasePasscode } from './atoms/BasePasscode.vue';

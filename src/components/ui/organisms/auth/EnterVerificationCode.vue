@@ -18,7 +18,7 @@
       </template>
     </p>
 
-    <base-verification-code-input
+    <m-base-verification-code-input
       :value="verificationCode"
       :is-error="isError"
       @complete="onComplete"
@@ -71,8 +71,12 @@ import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
 
-import { TopNavigation, BaseVerificationCodeInput } from '@/components/ui';
-import { MBaseCountdown, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { TopNavigation } from '@/components/ui';
+import {
+  MBaseCountdown,
+  MBaseButton,
+  MBaseVerificationCodeInput,
+} from '@liber-biz/crpw-ui-kit-liber';
 
 const errorsStore = useErrorsStore();
 const { t } = useI18n();

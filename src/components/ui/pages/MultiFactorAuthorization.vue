@@ -1,5 +1,5 @@
 <template>
-  <EnterVerificationCode
+  <enter-verification-code
     :text="text"
     :title="ctaTitle"
     left-icon-name="icon-app-navigation-close"
@@ -20,7 +20,7 @@
           {{ $t('views.passcodeEnter.currentPasscode') }}
         </p>
         <div class="passcode">
-          <base-verification-code-input
+          <m-base-verification-code-input
             type="password"
             :value="passcode"
             :fields="4"
@@ -37,7 +37,7 @@
         {{ ctaBtnText }}
       </m-base-button>
     </template>
-  </EnterVerificationCode>
+  </enter-verification-code>
 </template>
 
 <script lang="ts" setup>
@@ -48,8 +48,11 @@ import { useRouter, useRoute } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseVerificationCodeInput } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import {
+  MBaseButton,
+  MBaseVerificationCodeInput,
+} from '@liber-biz/crpw-ui-kit-liber';
+
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 
 const router = useRouter();
