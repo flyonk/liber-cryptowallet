@@ -1,51 +1,39 @@
 <template>
   <div class="middle-info flex">
     <ul class="fees-data">
-      <li class="fees-item">
-        <div class="circle">-</div>
-        <p class="sum">
-          {{ convertInfo && convertInfo.fee }}
-          {{ currentSendFromCurrency && currentSendFromCurrency.name }}
-        </p>
-        <p class="name">{{ $t('views.deposit.convert.fee') }}</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">=</div>
-        <p class="sum">
-          {{ convertInfo && convertInfo.requestAmount }}
-          {{ currentSendFromCurrency && currentSendFromCurrency.name }}
-        </p>
-        <p class="name">{{ $t('views.deposit.convert.amountCovert') }}</p>
-      </li>
-      <li class="fees-item">
-        <div class="circle">x</div>
-        <p class="sum">
-          {{ preventConvert ? '0' : convertInfo && convertInfo.rate }}
-          {{ currentSendToCurrency && currentSendToCurrency.name }}
-        </p>
-        <p :class="{ '-red': componentState === 'refresh' }" class="name">
-          <template v-if="loading">
-            {{ $t('transactions.convert.updating') }}
-          </template>
-          <template v-else-if="componentState === 'refresh'">
-            {{ $t('transactions.convert.rateChanged') }}
-          </template>
-          <template v-else>
-            {{ $t('views.deposit.convert.guaranteedRate') }}
-            ({{ preventConvert ? '30' : timer }}s)
-          </template>
-        </p>
-      </li>
+      <AConvertInfoItem
+        sign-icon="-"
+        :convert-info="convertInfo && convertInfo.fee"
+        :currency="currentSendFromCurrency && currentSendFromCurrency.name"
+        :title="$t('views.deposit.convert.fee')"
+      />
+      <AConvertInfoItem
+        sign-icon="="
+        :convert-info="convertInfo && convertInfo.requestAmount"
+        :currency="currentSendFromCurrency && currentSendFromCurrency.name"
+        :title="$t('views.deposit.convert.amountCovert')"
+      />
+      <AConvertInfoItem
+        sign-icon="x"
+        :convert-info="preventConvert ? '0' : convertInfo && convertInfo.rate"
+        :currency="currentSendToCurrency && currentSendToCurrency.name"
+        :title="rateTitle"
+        :is-warning="componentState === 'refresh'"
+      />
     </ul>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue';
+import { PropType, computed } from 'vue';
 import { IConvertInfo } from '@/applications/liber/models/funds/convertInfo';
 import { ICoinForExchange } from '@/applications/servicesapp/stores/funds';
+import { AConvertInfoItem } from '@/components/ui';
+import { useI18n } from 'vue-i18n';
 
-defineProps({
+const { tm } = useI18n();
+
+const props = defineProps({
   convertInfo: {
     type: Object as PropType<IConvertInfo>,
     required: true,
@@ -74,6 +62,18 @@ defineProps({
     type: Number,
     default: 0,
   },
+});
+
+const rateTitle = computed(() => {
+  if (props.loading) {
+    return tm('transactions.convert.updating');
+  }
+  if (props.componentState === 'refresh') {
+    return tm('transactions.convert.rateChanged');
+  }
+  return `${tm('views.deposit.convert.guaranteedRate')} ${
+    props.preventConvert ? '30' : props.timer
+  }s}`;
 });
 </script>
 
