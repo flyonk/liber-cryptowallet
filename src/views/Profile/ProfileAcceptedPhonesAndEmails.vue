@@ -16,7 +16,17 @@
     <template #content>
       <div class="content-wrapper">
         <div v-if="KYCStatus !== EKYCStatus.success" class="status-container">
-          <m-status-card :kyc-status="KYCStatus" />
+          <m-kyc-status-card
+            :title="cardInfo.title"
+            :description="cardInfo.description"
+            :icon-name="cardInfo.imgSrc"
+            :state-icon="cardInfo.stateIcon"
+            :is-cta-required="!!cardInfo.isCtaRequired"
+            :cta-text="
+              $t('views.profile.profilePhonesAndEmails.verifyIdentity')
+            "
+            @click:cta-button="$router.push({ name: Route.KYCMain })"
+          />
         </div>
         <div v-else class="profile-info">
           <h1 class="title">Liber ID</h1>
@@ -74,15 +84,18 @@
 </template>
 
 <script setup lang="ts">
-import { TTopNavigation, MStatusCard } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
-
-import { Route } from '@/router/types';
-
 import { computed } from 'vue';
+
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton, MKycStatusCard } from '@liber-biz/crpw-ui-kit-liber';
+
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
+import { useI18n } from 'vue-i18n';
+import { STATIC_BASE_URL } from '@/constants';
+import { Route } from '@/router/types';
 
+const { tm } = useI18n();
 const pStore = useProfileStore();
 
 const KYCStatus = computed(() => pStore.getUser.kycStatus);
@@ -95,6 +108,60 @@ const additionalPhones = computed(() => {
 
 const additionalEmails = computed(() => {
   return pStore?.getUser?.additionalEmails || [];
+});
+
+interface IKycStatusCard {
+  title: string;
+  description: string;
+  isCtaRequired?: string;
+  imgSrc: string;
+  stateIcon: string;
+}
+
+const cardInfo: IKycStatusCard = computed(() => {
+  switch (KYCStatus.value) {
+    case EKYCStatus.not_started: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
+    case EKYCStatus.pending: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.verificationInProgress'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.weWillEmailAndSmsToYouVerification'
+      );
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, imgSrc, stateIcon };
+    }
+    case EKYCStatus.rejected: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
+    default: {
+      return '';
+    }
+  }
 });
 </script>
 
