@@ -3,9 +3,14 @@
     <div class="select-option flex">
       <img :src="currentCurrency.img" alt class="icon" />
       <p class="name">{{ currentCurrency.name }}</p>
-      <img alt="list" :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`" />
+      <img
+        v-if="showSelectDialog"
+        alt="list"
+        :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+      />
       <div></div>
       <p-dialog
+        v-if="showSelectDialog"
         v-model:visible="showSelectCoinDialog"
         :show-header="false"
         class="p-dialog-maximized dialog"
@@ -50,6 +55,10 @@ defineProps({
   coins: {
     type: Array as PropType<ICoin[]>,
     default: () => [],
+  },
+  showSelectDialog: {
+    type: Boolean,
+    default: true,
   },
 });
 

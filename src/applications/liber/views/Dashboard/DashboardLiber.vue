@@ -138,7 +138,7 @@ let preview = ref(3);
  * Lifecycle
  */
 onBeforeMount(async () => {
-  uiStore.setLoadingState('dashboard', true);
+  uiStore.setLoadingStateOnce('dashboard', true);
 
   await profileStore.init();
 
