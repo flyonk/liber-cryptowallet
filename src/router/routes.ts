@@ -240,6 +240,11 @@ const routes: Array<RouteRecordRaw> = [
         component: ProfileDetails,
       },
       {
+        path: 'details/change-address',
+        name: Route.ProfileChangeAddress,
+        component: () => import('@/views/Profile/ProfileChangeAddress.vue'),
+      },
+      {
         path: 'privacy',
         name: Route.ProfilePrivacy,
         component: PrivacySettings,

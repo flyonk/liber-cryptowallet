@@ -1,15 +1,13 @@
 <template>
   <OChangeAddress
     :submit-button-title="$t('views.kyc.kyc2step.continue')"
-    @continue="$emit('next')"
-    @back="$emit('prev')"
+    @back="$router.back()"
+    @continue="$router.back()"
   />
 </template>
 
-<script setup lang="ts">
+<script lang="ts" setup>
 import { OChangeAddress } from '@/components/ui';
-
-defineEmits(['next', 'prev']);
 </script>
 
-<style scoped></style>
+<style lang="scss" scoped></style>
