@@ -2,7 +2,9 @@
   <t-top-navigation
     @click:left-icon="$router.push({ name: ServicesRoutes.GetCouponsEmail })"
   >
-    <template #top-right>{{ email }}</template>
+    <template #top-right>
+      <span class="header-email">{{ email }}</span>
+    </template>
     <template #title>{{ $t('services.convert.title') }}</template>
     <template #content>
       <div class="send-to">
@@ -38,5 +40,9 @@ const email = computed(() => {
   height: 100vh;
   flex-grow: 1;
   overflow: auto;
+}
+.header-email {
+  flex-grow: 1;
+  text-align: left;
 }
 </style>
