@@ -7,10 +7,9 @@
 </template>
 
 <script lang="ts" setup>
+import { MQuestionWithAnswers } from '@liber-biz/crpw-ui-kit-liber';
 import { ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-import { MQuestionWithAnswers } from '@/components/ui';
 
 const { tm } = useI18n();
 

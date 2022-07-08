@@ -26,7 +26,7 @@ export { default as TransactionStatus } from './molecules/TransactionStatus.vue'
 export { default as TTopNavigation } from './templates/TTopNavigation.vue';
 export { default as TransactionsList } from './organisms/transactions/TransactionsList.vue';
 export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswer.vue';
-export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';
+// export { default as MQuestionWithAnswers } from './molecules/MQuestionWithAnswers.vue';
 // export { default as MStatusCard } from './molecules/profile-status-cards/MKycStatusCard.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
 // export { default as KycStatusBadge } from './atoms/KycStatusBadge.vue';
