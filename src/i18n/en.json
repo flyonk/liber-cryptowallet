@@ -290,8 +290,8 @@
       "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
       "contactsCTA": "Allow access to contacts"
     },
-    "recepients": {
-      "recepients": "Recepients",
+    "recipients": {
+      "recipients": "Recipients",
       "add": "Add a new contact"
     },
     "depositecoin": {

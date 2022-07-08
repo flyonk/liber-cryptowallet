@@ -1,4 +1,4 @@
-<template name="RecepientsView">
+<template name="RecipientsView">
   <t-top-navigation nav-with-custom-top-left class="-contacts">
     <template #top-left>
       <img
@@ -19,7 +19,7 @@
         />
       </div>
     </template>
-    <template #title>{{ $t('views.recepients.recepients') }}</template>
+    <template #title>{{ $t('views.recipients.recipients') }}</template>
     <template #content>
       <div class="who-topay">
         <BaseInput v-model="filterContacts" type="text">

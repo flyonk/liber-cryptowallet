@@ -7,9 +7,9 @@ export enum CouponRoutes {
   Account = 'coupons-account',
   AccountMain = 'coupons-account-main',
 
-  Recepients = 'coupons-recepients',
-  RecepientsPhone = 'coupons-recepients-phone',
-  RecepientsLiber = 'coupons-recepients-liber',
+  Recipients = 'coupons-recipients',
+  RecipientsPhone = 'coupons-recipients-phone',
+  RecipientsLiber = 'coupons-recipients-liber',
 
   Invite = 'coupons-invite',
 

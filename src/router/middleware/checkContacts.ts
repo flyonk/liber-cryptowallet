@@ -3,7 +3,7 @@ import {
   RouteLocation,
   LocationAsRelativeRaw,
 } from 'vue-router';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 import { Route } from '@/router/types';
 
 function checkContactsLoaded(
@@ -11,7 +11,7 @@ function checkContactsLoaded(
   from: RouteLocation,
   next: NavigationGuardNext
 ) {
-  const store = useRecepientsStore();
+  const store = useRecipientsStore();
   if (to.params?.next === 'true') {
     next();
   } else if (store.getContacts.length) {
