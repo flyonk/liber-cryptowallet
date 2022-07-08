@@ -208,7 +208,10 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"    }
+      "rateChanged": "Rate have been changed",
+      "trustPay": "Do you know and trust this payee?",
+      "scumWarning": "If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment"
+    }
   },
   "ui": {
     "friends": {
@@ -588,6 +591,11 @@
       "title": "Enter Liber Save account email address",
       "email": "Liber Save Email",
       "error": "Liber Save account associated with this email address not found. Try to use another email."
+    },
+    "convert": {
+      "title": "Enter amount of euro to get coupons for",
+      "convertExactly": "Amount (€50–€1,000)",
+      "convertNow": "Get Coupons Now"
     }
   }
 }

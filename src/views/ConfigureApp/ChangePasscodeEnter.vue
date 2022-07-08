@@ -16,10 +16,17 @@
           @submit="onCreate"
         />
         <base-passcode
-          v-if="actionType === EPasscodeActions.update"
-          :action-type="EPasscodeActions.update"
+          v-if="actionType === EPasscodeActions.compare"
+          :action-type="actionType"
+          :show-touch-faceid="false"
+          @submit="onSubmit"
         />
       </div>
+      <base-toast v-model:visible="showErrorToast" severity="error">
+        <template #description>
+          <div>{{ $t('configureApp.invalidPassCode') }}</div>
+        </template>
+      </base-toast>
     </template>
   </t-top-navigation>
 </template>
@@ -27,22 +34,25 @@
 <script lang="ts" setup>
 import { computed, Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import { useMfaStore } from '@/stores/mfa';
 
 import { EPasscodeActions } from '@/types/base-component';
 import { Route } from '@/router/types';
 import { useI18n } from 'vue-i18n';
 
-import { BasePasscode, TTopNavigation } from '@/components/ui';
+import { BasePasscode, TTopNavigation, BaseToast } from '@/components/ui';
 
 const router = useRouter();
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;
 const { tm } = useI18n();
+const showErrorToast = ref(false);
+const mfaStore = useMfaStore();
 
 const title = computed(() => {
   switch (actionType.value) {
     case EPasscodeActions.store:
       return tm('views.passcodeEnter.newPasscode');
-    case EPasscodeActions.update:
+    case EPasscodeActions.compare:
       return tm('views.passcodeEnter.confirmPasscode');
     default:
       return tm('views.passcodeEnter.createPasscode');
@@ -50,7 +60,18 @@ const title = computed(() => {
 });
 function onCreate(success: boolean): void {
   if (success) {
-    actionType.value = EPasscodeActions.update;
+    actionType.value = EPasscodeActions.compare;
+  }
+}
+
+function onSubmit(success: boolean): void {
+  console.log(success);
+  if (success) {
+    mfaStore.show({
+      successRoute: Route.ProfileSettings,
+    });
+  } else {
+    showErrorToast.value = true;
   }
 }
 </script>

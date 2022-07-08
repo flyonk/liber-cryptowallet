@@ -195,7 +195,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/convert',
     name: Route.ConvertFunds,
-    meta: { authRequired: true },
+    meta: { authRequired: true, classLayout: '-full-height' },
     component: ChangeCurrency,
   },
 

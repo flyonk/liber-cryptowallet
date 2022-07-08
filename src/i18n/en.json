@@ -212,7 +212,10 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"    }
+      "rateChanged": "Rate have been changed",
+      "trustPay": "Do you know and trust this payee?",
+      "scumWarning": "If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment"
+    }
   },
   "ui": {
     "friends": {
@@ -499,12 +502,13 @@
       },
       "profileEdit": {
         "editProfile": "Edit Profile",
+        "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",
         "id": "Liber ID",
         "dateOfBirth": "Date of Birth",
         "address": "Residential Address",
-        "verify": "Verify Identity"
+        "changeHomeAddress": "Change home address"
       },
       "profilePrivacy": {
         "privacy": "Privacy",
@@ -516,7 +520,7 @@
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
       },
-      "profilePhonesAndEmails":{
+      "profilePhonesAndEmails": {
         "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "yourIdentityIsNotVerified": "Your identity is not verified",
         "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
@@ -525,21 +529,21 @@
         "verificationInProgress": "ID Verification in progress",
         "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
       },
-      "profileAddNewContactData":{
-        "title":"Add a new contact",
-        "confirmButton":"Confirm Contact"
+      "profileAddNewContactData": {
+        "title": "Add a new contact",
+        "confirmButton": "Confirm Contact"
       }
     },
-    "pEmailSent":{
-      "title":"Confirm you email address",
-      "description":"We sent confirmation email to:",
+    "pEmailSent": {
+      "title": "Confirm you email address",
+      "description": "We sent confirmation email to:",
       "footerDescription": "Check your email and click on the confirmation link to continue.",
       "goToInbox": "Go to Inbox",
       "resend": "Resend email"
     },
-    "pPhoneVerified":{
-      "title":"Your phone number has been successfully verified",
-      "description":"Now you can get money by the following phone number:",
+    "pPhoneVerified": {
+      "title": "Your phone number has been successfully verified",
+      "description": "Now you can get money by the following phone number:",
       "done": "Done"
     },
     "survey": {
@@ -638,6 +642,11 @@
       "title": "Enter Liber Save account email address",
       "email": "Liber Save Email",
       "error": "Liber Save account associated with this email address not found. Try to use another email."
+    },
+    "convert": {
+      "title": "Enter amount of euro to get coupons for",
+      "convertExactly": "Amount (€50–€1,000)",
+      "convertNow": "Get Coupons Now"
     }
   }
 }

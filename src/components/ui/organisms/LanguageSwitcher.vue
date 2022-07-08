@@ -16,7 +16,7 @@ import { useI18n } from 'vue-i18n';
 
 import { set } from '@/helpers/storage';
 import { setLocale } from '@/i18n';
-import { languages } from '../../../../tests/unit/mocks';
+import { languages } from '../../../../tests/mock/mocks';
 
 import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 

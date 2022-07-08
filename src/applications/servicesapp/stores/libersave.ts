@@ -22,7 +22,8 @@ export const useLiberSaveStore = defineStore('coupons', {
   actions: {
     async setEmail(email: string) {
       try {
-        this.email = await liberSaveService.checkLiberSaveEmail(email);
+        await liberSaveService.checkLiberSaveEmail(email);
+        this.email = email;
         return email;
       } catch (e) {
         const errorsStore = useErrorsStore();
