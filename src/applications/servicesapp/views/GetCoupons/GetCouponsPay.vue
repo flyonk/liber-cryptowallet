@@ -2,6 +2,7 @@
   <t-top-navigation
     @click:left-icon="$router.push({ name: ServicesRoutes.GetCouponsEmail })"
   >
+    <template #top-right>{{ email }}</template>
     <template #title>{{ $t('services.convert.title') }}</template>
     <template #content>
       <div class="send-to">
@@ -20,9 +21,16 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { computed } from 'vue';
 import OChangeCurrency from '@/applications/servicesapp/components/ui/organisms/transfers/OChangeCurrency.vue';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { TTopNavigation } from '@/components/ui';
+import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
+
+const store = useLiberSaveStore();
+const email = computed(() => {
+  return store.getEmail;
+});
 </script>
 
 <style lang="scss" scoped>
