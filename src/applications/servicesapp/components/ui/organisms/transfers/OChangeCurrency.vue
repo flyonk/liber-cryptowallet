@@ -27,44 +27,15 @@
           />
         </label>
       </div>
-      <div class="middle-info flex">
-        <ul class="fees-data">
-          <li class="fees-item">
-            <div class="circle">-</div>
-            <p class="sum">
-              {{ convertInfo.fee }} {{ currentSendFromCurrency.name }}
-            </p>
-            <p class="name">{{ $t('views.deposit.convert.fee') }}</p>
-          </li>
-          <li class="fees-item">
-            <div class="circle">=</div>
-            <p class="sum">
-              {{ fundsStore.convertInfo.requestAmount }}
-              {{ currentSendFromCurrency.name }}
-            </p>
-            <p class="name">{{ $t('views.deposit.convert.amountCovert') }}</p>
-          </li>
-          <li class="fees-item">
-            <div class="circle">x</div>
-            <p class="sum">
-              {{ preventConvert ? '0' : convertInfo.rate }}
-              {{ currentSendToCurrency.name }}
-            </p>
-            <p :class="{ '-red': componentState === 'refresh' }" class="name">
-              <template v-if="loading">
-                {{ $t('transactions.convert.updating') }}
-              </template>
-              <template v-else-if="componentState === 'refresh'">
-                {{ $t('transactions.convert.rateChanged') }}
-              </template>
-              <template v-else>
-                {{ $t('views.deposit.convert.guaranteedRate') }}
-                ({{ preventConvert ? '30' : timer }}s)
-              </template>
-            </p>
-          </li>
-        </ul>
-      </div>
+      <MCurrencyConvertattionInfo
+        :convert-info="convertInfo"
+        :current-send-from-currency="currentSendFromCurrency"
+        :current-send-to-currency="currentSendToCurrency"
+        :prevent-convert="preventConvert"
+        :component-state="componentState"
+        :loading="loading"
+        :timer="timer"
+      />
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
@@ -152,6 +123,8 @@ import { useMfaStore } from '@/stores/mfa';
 import { BaseButton } from '@/components/ui';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
 import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+
+import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
 
 const errorsStore = useErrorsStore();
 
@@ -432,79 +405,6 @@ watch(isZeroValues, (val) => {
     &:focus {
       border: 1px solid $color-primary-500;
     }
-  }
-}
-
-.fees-data {
-  width: 100%;
-}
-
-.fees-item {
-  display: flex;
-  margin-bottom: 10px;
-  margin-left: -10px;
-
-  > .circle {
-    background: #eaefff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 20px;
-    height: 20px;
-    margin-right: 10px;
-    padding-bottom: 2px;
-    font-weight: bold;
-    font-size: 14px;
-  }
-
-  > .sum {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    color: $color-brand-550;
-    margin-right: 8px;
-  }
-
-  > .name {
-    font-weight: normal;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    align-items: center;
-    color: $color-brand-2-300;
-
-    &.-red {
-      color: $color-red-500;
-    }
-  }
-}
-
-.middle-info {
-  display: flex;
-  justify-content: space-between;
-  min-height: 110px;
-  width: 100%;
-  border-left: 1px solid #eaefff;
-  margin-left: 10px;
-}
-
-.choose-coin {
-  display: flex;
-  align-items: center;
-  margin-left: -12px;
-
-  > .icon {
-    margin-right: 8px;
-  }
-
-  > .title {
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    color: $color-brand-550;
   }
 }
 </style>
