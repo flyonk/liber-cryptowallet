@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 
-import fundsService from '@/applications/liber/services/fundsService';
+import fundsService from '@/applications/servicesapp/services/fundsService';
 import { STATIC_BASE_URL } from '@/constants';
 
 import {
