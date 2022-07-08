@@ -5,8 +5,9 @@ import { STATIC_BASE_URL } from '@/constants';
 
 import {
   IConvertInfo,
+  TConvertCouponData,
   TConvertData,
-} from '@/applications/liber/models/funds/convertInfo';
+} from '@/applications/servicesapp/models/funds/convertInfo';
 
 export interface ICoinForExchange {
   name: string;
@@ -55,13 +56,11 @@ export const useFundsStore = defineStore('fundsLiberSave', {
   },
 
   actions: {
-    async checkConvertInfo(data: Omit<TConvertData, 'amount'>): Promise<void> {
+    async checkConvertInfo(data: TConvertCouponData): Promise<void> {
       this.convertInfo = await fundsService.convertInfo(data);
     },
 
-    async changeCurrency(
-      data: Omit<TConvertData, 'request_amount'>
-    ): Promise<void> {
+    async changeCurrency(data: TConvertData): Promise<void> {
       await fundsService.convert(data);
     },
 

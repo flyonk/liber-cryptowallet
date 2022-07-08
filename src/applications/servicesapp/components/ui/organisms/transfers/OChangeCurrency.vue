@@ -116,7 +116,7 @@ import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { Route } from '@/router/types';
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { STATIC_BASE_URL } from '@/constants';
-import { TConvertData } from '@/applications/liber/models/funds/convertInfo';
+import { TConvertCouponData } from '@/applications/servicesapp/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 
@@ -249,21 +249,22 @@ async function previewChangeInfo(direction: 'from' | 'to') {
       return;
     }
 
-    const data: Omit<TConvertData, 'amount'> = {
-      from: '',
-      to: '',
+    const data: TConvertCouponData = {
+      from_code: '',
+      to_code: '',
       request_amount: '',
+      request_coupon: '',
     };
 
-    data.from = currentSendFromCurrency.value.code;
-    data.to = currentSendToCurrency.value.code;
+    data.from_code = currentSendFromCurrency.value.code;
+    data.to_code = currentSendToCurrency.value.code;
     data.request_amount =
       direction === 'from'
         ? String(getCorrectValue(Number(fundsStore.convertInfo.requestAmount)))
         : String(
             getCorrectValue(Number(fundsStore.convertInfo.estimatedAmount))
           );
-    data.request_coin =
+    data.request_coupon =
       direction === 'from'
         ? currentSendFromCurrency.value.code
         : currentSendToCurrency.value.code;
@@ -299,8 +300,8 @@ async function convertFunds() {
   try {
     loading.value = true;
     await fundsStore.changeCurrency({
-      from: currentSendFromCurrency.value.code,
-      to: currentSendToCurrency.value.code,
+      from_code: currentSendFromCurrency.value.code,
+      to_code: currentSendToCurrency.value.code,
       amount: String(Number(fundsStore.convertInfo.requestAmount)),
     });
     fundsStore.$reset();

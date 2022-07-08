@@ -1,22 +1,21 @@
 import axios from 'axios';
-import apiService from '@/applications/liber/services/apiService';
+import apiService from '@/applications/servicesapp/services/apiService';
 
 import convertInfoMapper, {
   IConvertInfo,
   TConvertData,
-} from '@/applications/liber/models/funds/convertInfo';
+  TConvertCouponData,
+} from '@/applications/servicesapp/models/funds/convertInfo';
 
 import { TSuccessResponse } from '@/types/api';
 
 export default {
-  async convertInfo(data: Omit<TConvertData, 'amount'>): Promise<IConvertInfo> {
+  async convertInfo(data: TConvertCouponData): Promise<IConvertInfo> {
     const res = await axios.post(apiService.funds.convertInfo(), data);
     return convertInfoMapper.deserialize(res.data, data);
   },
 
-  async convert(
-    data: Omit<TConvertData, 'request_amount'>
-  ): Promise<TSuccessResponse> {
+  async convert(data: TConvertData): Promise<TSuccessResponse> {
     return (await axios.post(apiService.funds.convert(), data)).data;
   },
 };
