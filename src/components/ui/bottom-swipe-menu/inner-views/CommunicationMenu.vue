@@ -31,7 +31,7 @@ import { BaseButton } from '@/components/ui';
 import RadioButton from 'primevue/radiobutton';
 
 import { Route } from '@/router/types';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 
 const router = useRouter();
 const emit = defineEmits(['closeMenu']);
@@ -40,16 +40,16 @@ function closeMenu() {
   emit('closeMenu');
 }
 
-const recepientsStore = useRecepientsStore();
+const recipientsStore = useRecipientsStore();
 
-const contactId = recepientsStore.communicationWayContactId;
+const contactId = recipientsStore.communicationWayContactId;
 
 const contactCommunicationWays = ref([]);
 
 if (!contactId) {
   emit('closeMenu');
 } else {
-  const contact = recepientsStore.getContactInfo(contactId);
+  const contact = recipientsStore.getContactInfo(contactId);
   const phones = contact?.phoneNumbers.map((item) => {
     item.isPhone = true;
     return item;
@@ -62,7 +62,7 @@ if (!contactId) {
 
 const clickHandle = () => {
   router.push({
-    name: Route.PayRecepientsLiber,
+    name: Route.PayRecipientsLiber,
     params: { id: contactId },
   });
 };

@@ -12,7 +12,7 @@ import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
 
-interface IRecepients {
+interface IRecipients {
   contacts: Contact[];
   permission: boolean;
   friends: Set<string>;
@@ -79,8 +79,8 @@ async function loadFriends() {
 
 // === Phone contacts Store ===
 
-export const useRecepientsStore = defineStore('recepients', {
-  state: (): IRecepients => ({
+export const useRecipientsStore = defineStore('recipients', {
+  state: (): IRecipients => ({
     contacts: [],
     permission: false,
     friends: new Set<string>(),

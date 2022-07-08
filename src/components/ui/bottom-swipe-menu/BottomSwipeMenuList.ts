@@ -52,7 +52,7 @@ const itemsList: IBottomSwipeMenuItem[] = [
     onClick: () => {
       closeMenu();
       router.push({
-        name: Route.PayRecepientsLiber,
+        name: Route.PayRecipientsLiber,
       });
     },
     area: [

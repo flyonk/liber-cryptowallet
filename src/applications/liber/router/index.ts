@@ -2,8 +2,8 @@ import { RouteRecordRaw } from 'vue-router';
 import { Route } from '@/router/types';
 
 import DepositeRoutes from './routesDeposite';
-import RecepientsRoutes from './routesRecepients';
-import PayRecepientsRoutes from './routesPayRecepients';
+import RecipientsRoutes from './routesRecipients';
+import PayRecipientsRoutes from './routesPayRecipients';
 import checkContactsLoaded from '@/router/middleware/checkContacts';
 
 import Dashboard from '@/applications/liber/views/Dashboard/index.vue';
@@ -38,7 +38,7 @@ import AddAccount from '@/applications/liber/views/Dashboard/Account/AddAccount/
 import AddAccountRoutes from './routesAddAccount';
 
 import RequestContacts from '@/applications/liber/views/Contacts/RequestContacts.vue';
-import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
+import Recipients from '@/applications/liber/views/Contacts/RecipientsView.vue';
 
 import { TRANSACTIONS_ENABLED } from '@/constants';
 
@@ -160,7 +160,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: Route.ContactsWhoToPay,
         component: WhoToPay,
-        children: PayRecepientsRoutes,
+        children: PayRecipientsRoutes,
       },
       {
         path: 'send/:id',
@@ -228,15 +228,15 @@ const routes: Array<RouteRecordRaw> = [
     children: DepositeRoutes,
   },
 
-  // === Recepients ===
+  // === Recipients ===
 
   {
-    path: '/recepients',
-    name: Route.Recepients,
+    path: '/recipients',
+    name: Route.Recipients,
     meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
     beforeEnter: checkContactsLoaded,
-    children: RecepientsRoutes,
+    children: RecipientsRoutes,
   },
 
   // === Load phone contacts ===

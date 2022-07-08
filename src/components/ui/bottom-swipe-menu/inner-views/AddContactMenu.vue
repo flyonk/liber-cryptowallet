@@ -40,7 +40,7 @@
         alt="send"
       />
       <div class="inner-info">
-        <p class="name">{{ $t('views.recepients.add') }}</p>
+        <p class="name">{{ $t('views.recipients.add') }}</p>
         <p class="subtitle">Add a contact using phone or email</p>
       </div>
     </router-link>
