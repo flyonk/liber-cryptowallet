@@ -145,7 +145,7 @@ const carousel: ICarouselItem[] = [
   {
     name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
-    successRoute: Route.PayRecepientsPhone,
+    successRoute: Route.PayRecipientsPhone,
     failRoute: Route.DashboardStory,
   },
   {
