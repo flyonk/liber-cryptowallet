@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <MDashboardCoinInfo
-      :balance="totalBalance.sum"
+      :balance="currentAccount.balance"
       :subtitle="$t('views.dashboard.home.allAccounts')"
       :show-welcome-message="showWelcomeMessage"
       :coin-img="currentAccount.imgSrc"
