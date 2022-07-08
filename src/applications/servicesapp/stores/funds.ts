@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import cloneDeep from 'lodash/cloneDeep';
 
 import fundsService from '@/applications/liber/services/fundsService';
 import { STATIC_BASE_URL } from '@/constants';
@@ -22,27 +21,25 @@ interface IFundsState {
   to: ICoinForExchange | null;
 }
 
-export const emptyConvert = {
-  from: '',
-  to: '',
-  rate: '0',
-  backRate: '0',
-  fee: '0',
-  validUntil: '',
-  estimatedAmount: '0',
-  requestAmount: '0',
-} as IConvertInfo;
-
 // === transaction Store ===
 
-export const useFundsStore = defineStore('funds', {
+export const useFundsStore = defineStore('fundsLiberSave', {
   state: (): IFundsState => ({
-    convertInfo: cloneDeep(emptyConvert),
+    convertInfo: {
+      from: '',
+      to: '',
+      rate: '0',
+      backRate: '0',
+      fee: '0',
+      validUntil: '',
+      estimatedAmount: '0',
+      requestAmount: '0',
+    } as IConvertInfo,
     convertFunds: false,
     from: {
-      name: 'BTC',
-      code: 'tbtc',
-      img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
+      name: 'EUR',
+      code: 'eur',
+      img: `${STATIC_BASE_URL}/static/currencies/euro.svg`,
     },
     to: {
       name: 'BTC',
@@ -82,12 +79,6 @@ export const useFundsStore = defineStore('funds', {
           img: coin.img,
         };
       }
-    },
-
-    swapCoins(): void {
-      const _from = Object.assign({}, this.from);
-      this.from = this.to;
-      this.to = _from;
     },
   },
 });
