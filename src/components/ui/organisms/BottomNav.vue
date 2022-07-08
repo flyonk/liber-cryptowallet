@@ -1,6 +1,6 @@
 <template name="BottomNav">
   <div class="bottom-nav">
-    <ul class="navbar-list">
+    <!-- <ul class="navbar-list">
       <NavBarItem
         :route-name="computedRoute['DashboardHome']"
         :label="$t('bottomNav.home')"
@@ -39,7 +39,15 @@
         active-hash-tag="gift-active"
         hash-tag="gift"
       />
-    </ul>
+    </ul> -->
+    <m-bottom-nav
+      :nav-items="navItems"
+      :main-item="mainItem"
+      show-main-item
+      :active-item="activeItem"
+      @click:item="handleClickItem"
+      @click:main="openMenu"
+    />
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
       :menu-type="menuType"
@@ -49,22 +57,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, Ref, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { useRoute } from 'vue-router';
+import { useRouter } from 'vue-router';
+import { MBottomNav } from '@liber-biz/crpw-ui-kit-liber';
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 import { useUIStore } from '@/stores/ui';
-
 const uiStore = useUIStore();
+
+const { tm } = useI18n();
 
 let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
 
-const route = useRoute();
+const route = useRouter();
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const computedRoute = computed(() => {
   const name = route.name;
 
@@ -93,10 +106,96 @@ function closeMenu() {
   uiStore.setStateModal('sendMenu', false);
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const handleClick = (name: string) => {
   if (name === CouponRoutes.AccountMain) {
     openMenu();
     return false;
+  }
+};
+
+enum EItemHashTag {
+  home = 'home',
+  recipients = 'recipients',
+  gift = 'gift',
+  account = 'account',
+  homeActive = 'home-active',
+  recipientsActive = 'recipients-active',
+  giftActive = 'gift-active',
+  accountActive = 'account-active',
+}
+
+type TNavBarItem = {
+  isActive: boolean;
+  label: string;
+  iconSrc: string;
+  activeHashTag: string;
+  hashTag: string;
+};
+
+const navItems: Ref<TNavBarItem[] | undefined> = ref([
+  {
+    label: tm('bottomNav.home'),
+    activeHashTag: EItemHashTag.homeActive,
+    hashTag: EItemHashTag.home,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+    isActive: false,
+  },
+  {
+    label: 'Accounts',
+    activeHashTag: EItemHashTag.accountActive,
+    hashTag: EItemHashTag.account,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+    isActive: false,
+  },
+  {
+    label: 'Recipients',
+    activeHashTag: EItemHashTag.recipientsActive,
+    hashTag: EItemHashTag.recipients,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+    isActive: false,
+  },
+  {
+    label: 'Invite',
+    activeHashTag: EItemHashTag.giftActive,
+    hashTag: EItemHashTag.gift,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+    isActive: false,
+  },
+]);
+
+const mainItem = ref({
+  label: 'Send',
+  isActive: false,
+  iconSrc: require('@/assets/icon/navbar/send.svg'),
+});
+
+const activeItem = ref('');
+
+const handleClickItem = (data: TNavBarItem) => {
+  console.log('handleClickItem', data);
+  activeItem.value = data.hashTag;
+
+  switch (data.hashTag) {
+    case EItemHashTag.home: {
+      route.push({ name: computedRoute.value['DashboardHome'] });
+      break;
+    }
+    case EItemHashTag.account: {
+      route.push({ name: computedRoute.value['AccountMain'] });
+      break;
+    }
+    case EItemHashTag.recipients: {
+      route.push({ name: computedRoute.value['RecepientsPhone'] });
+      break;
+    }
+    case EItemHashTag.gift: {
+      route.push({ name: computedRoute.value['Invite'] });
+      break;
+    }
+    default: {
+      ('');
+    }
   }
 };
 </script>
