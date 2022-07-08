@@ -74,6 +74,7 @@ export interface INetTransaction {
   rate?: string;
   detailedInfo?: string;
   txid?: string;
+  isCoupon?: boolean;
   oppositeCoin?: {
     amount: string;
     code: string;
@@ -173,6 +174,7 @@ export interface IConvertTransaction extends ITransactionDefault {
   };
   to: IDirectionInfo;
   from: IDirectionInfo;
+  isCoupon?: boolean;
 }
 
 export interface ITransferTransaction extends ITransactionDefault {
@@ -200,6 +202,7 @@ export default {
         status: input.status,
         statement: undefined,
         rate: input.rate,
+        isCoupon: input.is_coupon,
         fee: {
           amount: input.fee,
           code: input.fee_code,

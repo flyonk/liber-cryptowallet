@@ -63,9 +63,6 @@ export default {
     accountsList(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/coin/accounts`;
     },
-    userTransactions(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/transactions`;
-    },
     create(coin: string): string {
       return `${BASE_API_URL}/api/${API_VERSION}/coin/accounts/${coin}/address`;
     },

@@ -15,3 +15,10 @@ export const getRelativeDate = (dateInISO: string): string => {
 
   return <string>now.minus(duration.toObject()).toRelative();
 };
+
+//October 10, 1985
+export const formatToNormalDate = (dateInISO: string): string => {
+  const parsedDate = DateTime.fromISO(dateInISO);
+
+  return parsedDate.toLocaleString(DateTime.DATE_FULL);
+};

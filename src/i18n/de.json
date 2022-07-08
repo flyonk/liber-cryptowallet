@@ -208,7 +208,10 @@
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
-      "rateChanged": "Rate have been changed"    }
+      "rateChanged": "Rate have been changed",
+      "trustPay": "Do you know and trust this payee?",
+      "scumWarning": "If you're unsure, don't pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment"
+    }
   },
   "ui": {
     "friends": {

@@ -12,115 +12,75 @@
       </div>
     </template>
     <template #content>
-      <div class="personal-information">
-        <h1 class="subtitle">
-          {{ $t('views.profile.profileEdit.personalInfo') }}
-        </h1>
-        <div class="edit-form">
-          <BaseInput v-model="user.name" type="text">
-            <template #label>
-              {{ $t('views.profile.profileEdit.name') }}
-            </template>
-          </BaseInput>
-          <BaseInput v-model="user.liberID" type="text">
-            <template #label>
-              {{ $t('views.profile.profileEdit.id') }}
-            </template>
-          </BaseInput>
-          <BaseInput v-model="user.date_of_birth" type="text" pattern="\d*">
-            <template #label>
-              {{ $t('views.profile.profileEdit.dateOfBirth') }}
-            </template>
-          </BaseInput>
-          <BaseInput v-model="user.residential_address" type="text">
-            <template #label>
-              {{ $t('views.profile.profileEdit.address') }}
-            </template>
-          </BaseInput>
+      <div class="list-title font-weight--semibold text--footnote">
+        {{ $t('views.profile.profileEdit.personalInfo') }}
+      </div>
+      <div class="list-item">
+        <div class="title text--callout font-weight--medium">
+          {{ $t('views.profile.profileEdit.name') }}
         </div>
-      </div></template
-    >
+        <div class="text--body font-weight--medium">
+          {{ accountName }}
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="title text--callout font-weight--medium">
+          {{ $t('views.profile.profileEdit.dateOfBirth') }}
+        </div>
+        <div class="text--body font-weight--medium">
+          {{ birthDate }}
+        </div>
+      </div>
+
+      <div class="list-title font-weight--semibold text--footnote -second">
+        {{ $t('views.profile.profileEdit.homeAddress') }}
+      </div>
+      <div class="list-item text--body font-weight--medium">
+        {{ addressField }}
+      </div>
+    </template>
     <template #fixed-footer>
       <BaseButton class="footer-btn">
-        {{ $t('views.profile.profileEdit.verify') }}
+        {{ $t('views.profile.profileEdit.changeHomeAddress') }}
       </BaseButton>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
+import { computed, onBeforeMount } from 'vue';
+
+import { useProfileStore } from '@/stores/profile';
+import { formatToNormalDate } from '@/helpers/datetime';
+
 import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
 import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { TTopNavigation } from '@/components/ui';
 
-const accountName = 'Abraham Watson';
-const user = {
-  name: '',
-  liberID: '',
-  date_of_birth: '',
-  residential_address: '',
-};
-// const accountID = '@abrahamwatson';
+const profileStore = useProfileStore();
+
+const user = computed(() => profileStore.getUser);
+
+const birthDate = computed(() =>
+  user.value.birthDate ? formatToNormalDate(user.value.birthDate) : ''
+);
+
+const addressField = computed(() =>
+  user.value.city && user.value.state
+    ? `${user.value.street} ${user.value.homeNum} ${user.value.postalCode} ${user.value.city}, ${user.value.country}`
+    : 'No Address selected'
+);
+
+const accountName = computed(
+  () => `${user.value.firstName} ${user.value.lastName}`
+);
+
+onBeforeMount(async () => {
+  await profileStore.init();
+});
 </script>
 
 <style lang="scss" scoped>
-.profile-edit {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  padding: 60px 16px 50px;
-  flex-grow: 1;
-  overflow: auto;
-}
-
-.profile-header {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-
-  > .back {
-    margin-bottom: 20px;
-    width: 24px;
-    height: 24px;
-  }
-}
-
-.name-info {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 8px;
-  }
-}
-
-.personal-information {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-
-  > .subtitle {
-    font-style: normal;
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    color: $color-brand-2-300;
-    margin-bottom: 15px;
-  }
-}
-
-.edit-form {
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-}
-
 .footer-btn {
   width: 100%;
 }
@@ -128,5 +88,24 @@ const user = {
 .initials-wrapper > :deep(.initials) {
   width: 56px;
   height: 56px;
+}
+
+.list-item {
+  border-bottom: 1px solid $color-grey;
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 0;
+
+  > .title {
+    color: $color-dark-grey;
+  }
+}
+
+.list-title {
+  margin: 0 0 18px;
+
+  &.-second {
+    margin: 32px 0 0;
+  }
 }
 </style>
