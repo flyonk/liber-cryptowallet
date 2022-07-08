@@ -95,7 +95,7 @@
         view="simple"
         @click="convertCurrency"
       >
-        {{ $t('transactions.convert.convertNow') }} ({{ timer }}s)
+        {{ $t('services.convert.convertNow') }} ({{ timer }}s)
       </BaseButton>
     </div>
   </keep-alive>
@@ -275,7 +275,7 @@ async function previewChangeInfo(direction: 'from' | 'to') {
       err,
       name: 'ChangeCurrency',
       ctx: 'previewChangeInfo',
-      description: "error can't retrieve convert info",
+      description: "error can't retrieve convert coupons info",
     });
   } finally {
     loading.value = false;
