@@ -13,7 +13,7 @@
       {{ $t('views.profile.profileAddNewContactData.title') }}</template
     >
     <template #content>
-      <m-base-input v-model="data">
+      <m-base-input class="m-base-input" v-model="data">
         <template #label> Email or Phone </template>
         <template v-if="data.length > 1" #append>
           <i class="icon-trash_full" @click="clearData" />
@@ -101,4 +101,8 @@ async function onComplete() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

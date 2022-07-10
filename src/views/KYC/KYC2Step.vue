@@ -4,6 +4,7 @@
     <template #subtitle> {{ $t('views.kyc.kyc2step.byLawWe') }}</template>
     <template #content>
       <m-base-input
+        class="m-base-input"
         v-model="form.street"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
@@ -21,6 +22,7 @@
         </template>
       </m-base-input>
       <m-base-input
+        class="m-base-input"
         v-model="form.flat"
         :class="form.flat && !isValid('flat') ? '-invalid' : ''"
       >
@@ -39,6 +41,7 @@
         </template>
       </m-base-input>
       <m-base-input
+        class="m-base-input"
         v-model="form.postal_code"
         type="number"
         @input="handleInputNumber"
@@ -46,6 +49,7 @@
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
       </m-base-input>
       <m-base-input
+        class="m-base-input"
         v-model="form.state"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
@@ -61,6 +65,7 @@
         </template>
       </m-base-input>
       <m-base-input
+        class="m-base-input"
         v-model="form.city"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
@@ -135,4 +140,8 @@ const isValid = (key: string) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

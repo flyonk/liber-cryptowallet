@@ -8,7 +8,7 @@
     <template #content>
       <m-base-input
         v-model.trim="form.address"
-        class="address-input"
+        class="address-input m-base-input"
         :class="{ '-error': !form.address }"
       >
         <template #label>
@@ -32,7 +32,7 @@
       </m-base-input>
       <m-base-input
         v-model="form.network"
-        class="network-input amount-input"
+        class="network-input amount-input m-base-input"
         :class="{ '-hidden': !form.address }"
         @click="openNetworkModal = true"
       >
@@ -47,7 +47,7 @@
       </m-base-input>
       <m-base-input
         v-model="form.amount"
-        class="amount-input"
+        class="amount-input m-base-input"
         type="number"
         mode="decimal"
         inputmode="decimal"
@@ -304,6 +304,10 @@ const onContinue = async () => {
 </script>
 
 <style scoped lang="scss">
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .base-input:deep {
   > .input {
     height: 78px;

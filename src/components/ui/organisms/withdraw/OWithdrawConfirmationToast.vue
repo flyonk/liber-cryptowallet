@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-bind="$attrs"
     :severity="'attention'"
     @update:visible="$emit('update:visible', $event)"
@@ -27,15 +27,14 @@
         {{ $t('views.withdraw.confirmation.button.yes') }}
       </m-base-button>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script setup lang="ts">
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
-import { BaseToast } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 
 const mfaStore = useMfaStore();
 const errorsStore = useErrorsStore();

@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-if="true"
     :visible="true"
     severity="attention"
@@ -32,13 +32,12 @@
         </m-base-button>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
 import { computed, onMounted, ref } from 'vue';
-import { BaseToast } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 import { useAuthStore } from '@/stores/auth';
 
 const emits = defineEmits(['next', 'close']);

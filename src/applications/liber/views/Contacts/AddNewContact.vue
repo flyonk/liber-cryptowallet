@@ -11,7 +11,12 @@
     <template #title> {{ $t('views.recepients.add') }}</template>
     <template #content>
       <ul class="invite-list">
-        <m-base-input v-model="newContact.name" autofocus type="text">
+        <m-base-input
+          class="m-base-input"
+          v-model="newContact.name"
+          autofocus
+          type="text"
+        >
           <template #label> Name </template>
           <template v-if="newContact.name.length > 2" #append>
             <i class="icon-transaction-small-reverted" @click="clearName" />
@@ -22,7 +27,11 @@
           :key="index"
           class="invite-item"
         >
-          <m-base-input v-model="contact.value" type="text">
+          <m-base-input
+            class="m-base-input"
+            v-model="contact.value"
+            type="text"
+          >
             <template #label> Email or Phone </template>
             <template v-if="newContact.phone.length > 1" #append>
               <i class="icon-trash_full" @click="removeContact(index)" />
@@ -141,6 +150,10 @@ function closeMenu() {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .add-contact {
   height: 100vh;
   padding: 60px 16px 0;

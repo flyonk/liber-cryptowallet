@@ -20,12 +20,14 @@
           class="invite-item"
         >
           <m-base-input
+            class="m-base-input"
             v-model="newContacts[index].name"
             :type="TypeBaseInput.Text"
           >
             <template #label> Name </template>
           </m-base-input>
           <m-base-input
+            class="m-base-input"
             v-model="newContacts[index].email"
             :type="TypeBaseInput.Text"
           >
@@ -80,6 +82,10 @@ const isBtnDisabled = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .send-invite {
   height: 100vh;
   padding: 60px 16px 0;

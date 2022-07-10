@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="$emit('prev')">
+    <m-top-navigation @click:left-icon="$emit('prev')">
       {{ $t('auth.restore.step4Title') }}
-    </top-navigation>
+    </m-top-navigation>
 
     <div class="description text--body">
       {{ $t('auth.restore.step4Description') }}
@@ -27,8 +27,7 @@
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { MBaseButton, MTopNavigation } from '@liber-biz/crpw-ui-kit-liber';
 
 defineEmits(['next', 'prev']);
 </script>

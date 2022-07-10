@@ -22,7 +22,7 @@
     <template #title>{{ $t('views.recepients.recepients') }}</template>
     <template #content>
       <div class="who-topay">
-        <m-base-input v-model="filterContacts" type="text">
+        <m-base-input class="m-base-input" v-model="filterContacts" type="text">
           <template #label> Name, @id, phone, email </template>
         </m-base-input>
 
@@ -49,6 +49,10 @@ const filterContacts = ref('');
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .who-topay {
   display: flex;
   flex-direction: column;

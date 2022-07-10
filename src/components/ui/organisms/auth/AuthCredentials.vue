@@ -12,6 +12,7 @@
       </div>
       <div class="col-8 ml-auto">
         <m-base-input
+          class="m-base-input"
           :key="updateKey"
           v-model="number"
           :use-grouping="false"
@@ -172,6 +173,10 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .auth-page-container {
   > .title {
     margin-bottom: 8px;

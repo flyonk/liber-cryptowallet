@@ -1,7 +1,7 @@
 <template>
   <div class="template-top-navigation" :class="{ untouchable: !isTouchable }">
     <div class="top-navigation">
-      <top-navigation
+      <m-top-navigation
         :left-icon-name="leftIconName"
         :without-title="navWithoutTitle"
         :with-custom-top-left="navWithCustomTopLeft"
@@ -12,7 +12,7 @@
         <template #top-right><slot name="top-right" /></template>
         <template #subtitle><slot name="subtitle" /></template>
         <template #right><slot name="right" /></template>
-      </top-navigation>
+      </m-top-navigation>
     </div>
 
     <div class="content">
@@ -26,7 +26,7 @@
 </template>
 
 <script setup lang="ts">
-import { TopNavigation } from '@/components/ui';
+import { MTopNavigation } from '@liber-biz/crpw-ui-kit-liber';
 
 defineProps({
   leftIconName: {

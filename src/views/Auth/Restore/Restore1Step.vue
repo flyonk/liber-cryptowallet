@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="$router.push({ name: Route.Login })">
+    <m-top-navigation @click:left-icon="$router.push({ name: Route.Login })">
       {{ $t('auth.restore.step1Title') }}
-    </top-navigation>
+    </m-top-navigation>
     <div class="description text--body">
       {{ $t('auth.restore.step1Description') }}
     </div>
@@ -11,7 +11,7 @@
         <base-country-phone-input />
       </div>
       <div class="col-8 ml-auto">
-        <m-base-input :use-grouping="false" type="number">
+        <m-base-input class="m-base-input" :use-grouping="false" type="number">
           <template #label>
             {{ $t('common.numberLabel') }}
           </template>
@@ -27,10 +27,20 @@
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseCountryPhoneInput } from '@/components/ui';
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { BaseCountryPhoneInput } from '@/components/ui';
+import {
+  MBaseInput,
+  MBaseButton,
+  MTopNavigation,
+} from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 
 defineEmits(['next', 'prev']);
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

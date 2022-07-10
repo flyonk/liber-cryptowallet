@@ -4,6 +4,7 @@
     <template #content>
       <div class="auth-page-container">
         <m-base-input
+          class="m-base-input"
           v-model="email"
           type="email"
           :class="isNotValid ? '-invalid' : ''"
@@ -100,6 +101,10 @@ const closeClearBtn = () => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .header-nav {
   margin-bottom: 24px;
 }

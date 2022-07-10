@@ -9,7 +9,7 @@
         <div class="send-currency">
           <p class="label">Recipient will get</p>
           <p class="sum">0.321573346 USDT</p>
-          <m-base-input type="text">
+          <m-base-input class="m-base-input" type="text">
             <template #label> Add note </template>
           </m-base-input>
         </div>
@@ -29,6 +29,10 @@ import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .send-link {
   display: flex;
   flex-direction: column;

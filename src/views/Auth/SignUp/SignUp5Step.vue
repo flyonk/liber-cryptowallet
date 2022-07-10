@@ -5,6 +5,7 @@
     <template #content
       ><div class="auth-page-container">
         <m-base-input
+          class="m-base-input"
           v-model="birth"
           mask="99.99.9999"
           :placeholder="$t('auth.signup.ddmmyyyy')"
@@ -83,3 +84,9 @@ const nextStep = () => {
   });
 };
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>
