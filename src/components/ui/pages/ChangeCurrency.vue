@@ -7,7 +7,7 @@
           <o-change-currency :has-coin-reverse="true" />
         </div>
       </div>
-      <base-toast
+      <m-base-toast
         v-if="popupStatus === 'attention'"
         v-model:visible="showPopup"
         :severity="'attention'"
@@ -34,8 +34,8 @@
             </m-base-button>
           </div>
         </template>
-      </base-toast>
-      <base-toast
+      </m-base-toast>
+      <m-base-toast
         v-if="popupStatus === 'confirmation'"
         v-model:visible="showPopup"
         :severity="'confirmation'"
@@ -49,7 +49,7 @@
             </p>
           </div>
         </template>
-      </base-toast>
+      </m-base-toast>
     </template>
   </t-top-navigation>
 </template>
@@ -64,8 +64,8 @@ export default {
 import { ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
-import { BaseToast, TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');

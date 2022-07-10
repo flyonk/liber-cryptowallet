@@ -1,5 +1,5 @@
 <template>
-  <BaseBottomSheet
+  <m-base-bottom-sheet-v
     :top-padding="2"
     :with-header="!expanded"
     class="base-bottom"
@@ -46,7 +46,7 @@
         />
       </div>
     </div>
-  </BaseBottomSheet>
+  </m-base-bottom-sheet-v>
 </template>
 
 <script lang="ts" setup>
@@ -60,7 +60,8 @@ import { Route } from '@/router/types';
 import { STATIC_BASE_URL } from '@/constants';
 import { ABaseSearchInput } from '@liber-biz/crpw-ui-kit-liber';
 
-import { BaseAccount, BaseBottomSheet } from '@/components/ui';
+import { BaseAccount } from '@/components/ui';
+import { MBaseBottomSheetV } from '@liber-biz/crpw-ui-kit-liber';
 
 const accountStore = useAccountStore();
 const router = useRouter();

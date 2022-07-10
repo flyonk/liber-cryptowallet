@@ -7,6 +7,7 @@
     <template #content>
       <div class="auth-page-container">
         <m-base-input
+          class="m-base-input"
           v-model="firstname"
           @focus="showClearFirstNameBtn"
           @blur="closeClearFirstNameBtn"
@@ -24,6 +25,7 @@
           </template>
         </m-base-input>
         <m-base-input
+          class="m-base-input"
           v-model="lastname"
           @focus="showClearLastNameBtn"
           @blur="closeClearLastNameBtn"
@@ -133,3 +135,9 @@ const lastNamePreventExtraCharacters = (event: Event) => {
   target.value = lastname.value;
 };
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

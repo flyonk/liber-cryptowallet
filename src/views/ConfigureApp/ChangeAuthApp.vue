@@ -35,7 +35,7 @@
     </template>
   </t-top-navigation>
 
-  <base-toast v-model:visible="showPopup" :severity="'attention'">
+  <m-base-toast v-model:visible="showPopup" :severity="'attention'">
     <template #description>
       <div class="popup-description">
         <h1 class="title">{{ $t('configureApp.ChangeAppPopupTitle') }}</h1>
@@ -59,7 +59,7 @@
         </m-base-button>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts">
@@ -71,8 +71,8 @@ export default {
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 
-import { TTopNavigation, BaseToast } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 

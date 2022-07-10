@@ -1,5 +1,9 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom" @close="$emit('close')">
+  <m-base-bottom-sheet-v
+    v-if="showList"
+    position="bottom"
+    @close="$emit('close')"
+  >
     <h1 v-if="title" class="page-title">{{ title }}</h1>
     <div class="country-select-block">
       <div class="grid align-items-center">
@@ -43,15 +47,17 @@
         </div>
       </div>
     </div>
-  </BaseBottomSheetV>
+  </m-base-bottom-sheet-v>
 </template>
 
 <script lang="ts" setup>
 import { computed, ComputedRef, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
 
-import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
-import { ABaseSearchInput } from '@liber-biz/crpw-ui-kit-liber';
+import {
+  ABaseSearchInput,
+  MBaseBottomSheetV,
+} from '@liber-biz/crpw-ui-kit-liber';
 
 import { STATIC_BASE_URL } from '@/constants';
 

@@ -1,10 +1,11 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation>
+    <m-top-navigation>
       {{ $t('auth.restore.step5Title') }}
-    </top-navigation>
+    </m-top-navigation>
 
     <m-base-input
+      class="m-base-input"
       v-model="birthDate"
       type="mask"
       mask="99/99/9999"
@@ -37,8 +38,11 @@
 
 <script lang="ts" setup>
 import { ref } from 'vue';
-import { TopNavigation } from '@/components/ui';
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import {
+  MBaseInput,
+  MBaseButton,
+  MTopNavigation,
+} from '@liber-biz/crpw-ui-kit-liber';
 import { computed } from '@vue/reactivity';
 
 const isClearBtnShown = ref(false);
@@ -68,3 +72,9 @@ const closeClearBtn = () => {
   isClearBtnShown.value = false;
 };
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

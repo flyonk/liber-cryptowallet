@@ -1,22 +1,22 @@
 <template>
   <template v-if="state === EState.pending">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="$emit('prev')">
+      <m-top-navigation @click:left-icon="$emit('prev')">
         {{ $t('auth.restore.step2Title') }}
-      </top-navigation>
+      </m-top-navigation>
     </div>
 
     <base-passcode class="login-passcode" @submit="onSubmit" />
 
-    <base-toast v-model:visible="showIncorrectPasswordToast" severity="error">
+    <m-base-toast v-model:visible="showIncorrectPasswordToast" severity="error">
       <template #description>
         <div>
           {{ $t('auth.restore.step2Description') }}
         </div>
       </template>
-    </base-toast>
+    </m-base-toast>
 
-    <base-toast v-model:visible="showSessionExpiredToast" severity="error">
+    <m-base-toast v-model:visible="showSessionExpiredToast" severity="error">
       <template #description>
         <div class="session-expired-toast">
           <div>
@@ -30,14 +30,14 @@
           </m-base-button>
         </div>
       </template>
-    </base-toast>
+    </m-base-toast>
   </template>
 
   <template v-else-if="state === EState.success">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="$emit('prev')">
+      <m-top-navigation @click:left-icon="$emit('prev')">
         {{ $t('auth.restore.step2VerificationTitle') }}
-      </top-navigation>
+      </m-top-navigation>
 
       <div class="description text--body">
         {{ $t('auth.restore.step2VerificationDescription') }}
@@ -70,8 +70,12 @@
 <script lang="ts" setup>
 import { Ref, ref } from 'vue';
 
-import { TopNavigation, BaseToast, BasePasscode } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { BasePasscode } from '@/components/ui';
+import {
+  MBaseButton,
+  MBaseToast,
+  MTopNavigation,
+} from '@liber-biz/crpw-ui-kit-liber';
 import { EState } from '@/types/base-component';
 
 const emit = defineEmits(['prev', 'next']);

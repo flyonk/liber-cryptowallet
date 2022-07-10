@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-if="!customContent"
     :visible="displayCurrent"
     :severity="severity"
@@ -35,7 +35,7 @@
         </m-base-button>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
   <div v-else>
     <!--TODO: implement custom content toast-->
     <component :is="customContent" />
@@ -47,8 +47,11 @@ import { computed } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
-import { ATrippleDotsSpinner, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
-import { BaseToast } from '@/components/ui';
+import {
+  ATrippleDotsSpinner,
+  MBaseButton,
+  MBaseToast,
+} from '@liber-biz/crpw-ui-kit-liber';
 
 const { loading, handleReconnect } = useCheckOffline();
 

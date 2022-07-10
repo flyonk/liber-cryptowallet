@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-bind="$attrs"
     severity="confirmation"
     @update:visible="setToastState"
@@ -14,11 +14,11 @@
         {{ $t('views.withdraw.success.description') }}
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
-import { BaseToast } from '@/components/ui';
+import { MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 
 const withdrawStore = useWithdrawStore();

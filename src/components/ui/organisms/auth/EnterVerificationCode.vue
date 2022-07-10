@@ -1,8 +1,8 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
+    <m-top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
       {{ title }}
-    </top-navigation>
+    </m-top-navigation>
 
     <p class="text-default">
       <span>{{ text }}</span>
@@ -71,11 +71,11 @@ import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
 
-import { TopNavigation } from '@/components/ui';
 import {
   MBaseCountdown,
   MBaseButton,
   MBaseVerificationCodeInput,
+  MTopNavigation,
 } from '@liber-biz/crpw-ui-kit-liber';
 
 const errorsStore = useErrorsStore();

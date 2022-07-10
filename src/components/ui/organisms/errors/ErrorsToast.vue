@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-if="displayCurrent"
     :visible="displayCurrent"
     :severity="severity"
@@ -37,14 +37,13 @@
         </template>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
 import { computed, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
-import { BaseToast } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);

@@ -43,7 +43,7 @@
     >
   </t-top-navigation>
   <!--TODO: make toasts logic-->
-  <base-toast
+  <m-base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showSuccessPopup"
     :severity="'attention'"
@@ -72,8 +72,8 @@
         </m-base-button>
       </div>
     </template>
-  </base-toast>
-  <base-toast
+  </m-base-toast>
+  <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showSuccessPopup"
     :severity="'confirmation'"
@@ -87,8 +87,8 @@
         </p>
       </div>
     </template>
-  </base-toast>
-  <base-toast
+  </m-base-toast>
+  <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showIncorrectDataPopup"
     :severity="'attention'"
@@ -101,8 +101,8 @@
         </p>
       </div>
     </template>
-  </base-toast>
-  <base-toast
+  </m-base-toast>
+  <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
     :severity="'error'"
@@ -116,16 +116,19 @@
         </p>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
-import { BaseToast, TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
-import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
+import { TTopNavigation } from '@/components/ui';
+import {
+  AContactInitials,
+  MBaseToast,
+  MBaseButton,
+} from '@liber-biz/crpw-ui-kit-liber';
 
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';

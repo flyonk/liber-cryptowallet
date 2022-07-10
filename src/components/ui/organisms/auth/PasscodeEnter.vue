@@ -17,11 +17,11 @@
           @submit="onSubmit"
         />
       </div>
-      <base-toast v-model:visible="showErrorToast" severity="error">
+      <m-base-toast v-model:visible="showErrorToast" severity="error">
         <template #description>
           <div>{{ $t('configureApp.invalidPassCode') }}</div>
         </template>
-      </base-toast></template
+      </m-base-toast></template
     >
   </t-top-navigation>
 </template>
@@ -34,7 +34,8 @@ export default {
 
 <script lang="ts" setup>
 import { computed, Ref, ref, onBeforeMount } from 'vue';
-import { BasePasscode, BaseToast, TTopNavigation } from '@/components/ui';
+import { BasePasscode } from '@/components/ui';
+import { MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
