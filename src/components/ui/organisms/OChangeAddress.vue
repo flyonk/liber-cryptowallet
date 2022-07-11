@@ -38,11 +38,7 @@
           <i v-else class="icon-input-field-eye" />
         </template>
       </base-input>
-      <base-input
-        v-model="form.postalCode"
-        type="number"
-        @input="handleInputNumber"
-      >
+      <base-input v-model="form.postalCode">
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
       </base-input>
       <base-input
@@ -104,7 +100,7 @@ defineProps({
 const form = reactive({
   street: '',
   optionalAddress: '',
-  postalCode: null as unknown as string,
+  postalCode: '',
   state: '',
   city: '',
 });
@@ -134,10 +130,6 @@ const onContinue = async () => {
   await profileStore.updateUserProfile(form);
 
   emit('continue');
-};
-
-const handleInputNumber = (val: string) => {
-  form.postalCode = val;
 };
 
 const isValid = (key: string) => {
