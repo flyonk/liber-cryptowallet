@@ -34,7 +34,7 @@ export default {
 
 <script lang="ts" setup>
 import { computed, Ref, ref, onBeforeMount } from 'vue';
-import { BasePasscode } from '@/components/ui';
+import { BasePasscode, TTopNavigation } from '@/components/ui';
 import { MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';

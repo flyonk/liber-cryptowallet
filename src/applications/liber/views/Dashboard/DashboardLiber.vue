@@ -3,7 +3,6 @@
     <MDashboardCoinInfo
       :balance="currentAccount.balance"
       :subtitle="$t('views.dashboard.home.allAccounts')"
-      :show-welcome-message="showWelcomeMessage"
       :coin-img="currentAccount.imgSrc"
       :account-code="currentAccount.code"
       :is-arrow-active="!isMenuOpen"
@@ -54,6 +53,18 @@
           >
             ...
           </button>
+        </div>
+      </template>
+      <template #welcome v-if="showWelcomeMessage">
+        <div class="main">
+          <h1 class="title">
+            {{ $t('views.dashboard.home.getYourCryptoAsset') }}
+          </h1>
+          <h4 class="description">
+            {{ $t('views.dashboard.home.noAssets') }}
+            <br />
+            {{ $t('views.dashboard.home.depositFirstCoins') }}
+          </h4>
         </div>
       </template>
     </MDashboardCoinInfo>
@@ -275,6 +286,27 @@ const showWelcomeMessage = computed(() => {
       > .notification {
         margin-right: 35px;
         font-size: 24px;
+      }
+    }
+  }
+
+  > .dashboard-coin-info {
+    > .main {
+      margin-bottom: 24px;
+
+      > .title {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.0031em;
+        margin-bottom: 8px;
+      }
+
+      > .description {
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: -0.0008em;
       }
     }
   }
