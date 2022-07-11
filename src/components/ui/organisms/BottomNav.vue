@@ -139,28 +139,24 @@ const navItems: Ref<TNavBarItem[] | undefined> = ref([
     activeHashTag: EItemHashTag.homeActive,
     hashTag: EItemHashTag.home,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
   {
     label: 'Accounts',
     activeHashTag: EItemHashTag.accountActive,
     hashTag: EItemHashTag.account,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
   {
     label: 'Recipients',
     activeHashTag: EItemHashTag.recipientsActive,
     hashTag: EItemHashTag.recipients,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
   {
     label: 'Invite',
     activeHashTag: EItemHashTag.giftActive,
     hashTag: EItemHashTag.gift,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
 ]);
 
