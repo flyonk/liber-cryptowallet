@@ -178,6 +178,15 @@ const handleClickItem = (data: TNavBarItem) => {
       break;
     }
     case EItemHashTag.account: {
+      const isNotRoute =
+        computedRoute.value['AccountMain'] === CouponRoutes.AccountMain;
+
+      if (isNotRoute) {
+        route.push('');
+        handleClick(computedRoute.value['AccountMain']);
+        return;
+      }
+
       route.push({ name: computedRoute.value['AccountMain'] });
       break;
     }
