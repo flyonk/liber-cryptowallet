@@ -69,7 +69,11 @@
       </div>
 
       <div v-if="hasTransactions">
-        <transactions-list :preview="preview" :transactions="transactions" />
+        <transactions-list
+          :preview="preview"
+          :transactions="transactions"
+          show-coin
+        />
       </div>
       <div v-else class="no-transactions">
         <i class="icon-clock mr-2" />

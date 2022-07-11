@@ -23,22 +23,13 @@
       </div>
 
       <div class="menu-list">
-        <div class="item" @click="$emit('select', 'all')">
-          <div class="image-wrap">
-            <img
-              :src="`${STATIC_BASE_URL}/static/currencies/all-accounts.svg`"
-              alt="all"
-            />
-          </div>
-          <p class="name">
-            {{ $t('views.dashboard.home.allAccounts') }}
-          </p>
-          <p class="price">
-            {{ getSymbolByCode(totalBalance.currency) }}
-            {{ totalBalance.sum }}
-          </p>
-        </div>
-        <BaseAccount
+        <m-all-accounts-fiat-sum
+          :title="$t('views.dashboard.home.allAccounts')"
+          :currency-code="getSymbolByCode(totalBalance.currency)"
+          :sum="totalBalance.sum"
+          @select="$emit('select', 'all')"
+        />
+        <m-base-account
           v-for="(account, index) in filteredList"
           :key="index"
           :data="account"
@@ -57,11 +48,13 @@ import { getSymbolByCode } from '@/helpers/currency';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
-import { STATIC_BASE_URL } from '@/constants';
-import { ABaseSearchInput } from '@liber-biz/crpw-ui-kit-liber';
 
-import { BaseAccount } from '@/components/ui';
-import { MBaseBottomSheetV } from '@liber-biz/crpw-ui-kit-liber';
+import {
+  ABaseSearchInput,
+  MAllAccountsFiatSum,
+  MBaseAccount,
+  MBaseBottomSheetV,
+} from '@liber-biz/crpw-ui-kit-liber';
 
 const accountStore = useAccountStore();
 const router = useRouter();

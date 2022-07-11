@@ -10,7 +10,7 @@
         :is="selectComponent(transaction.type)"
         :transaction="transaction"
         :main-coin="mainCoin"
-        :show-coin="showCoin"
+        :is-currency="showCoin"
         :transaction-type="transactionType"
       />
     </li>
@@ -29,8 +29,10 @@ import { Route } from '@/router/types';
 import {
   ConvertTransactionItem,
   ExternalTransactionItem,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   TransferTransactionItem,
 } from '@/components/ui/molecules/TransactionListItem';
+import { MTransferTransactionItem } from '@liber-biz/crpw-ui-kit-liber';
 
 const router = useRouter();
 
@@ -93,7 +95,7 @@ const selectComponent = (type: string) => {
     case ETransactionType.convert:
       return ConvertTransactionItem;
     case ETransactionType.transfer:
-      return TransferTransactionItem;
+      return MTransferTransactionItem;
     default:
       return ExternalTransactionItem;
   }
