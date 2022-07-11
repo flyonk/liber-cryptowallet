@@ -1,50 +1,12 @@
 <template name="BottomNav">
   <div class="bottom-nav">
-    <!-- <ul class="navbar-list">
-      <NavBarItem
-        :route-name="computedRoute['DashboardHome']"
-        :label="$t('bottomNav.home')"
-        active-hash-tag="home-active"
-        hash-tag="home"
-      />
-      <NavBarItem
-        :route-name="computedRoute['AccountMain']"
-        :label="$t('bottomNav.account')"
-        active-hash-tag="account-active"
-        hash-tag="account"
-        :is-not-route="
-          computedRoute['AccountMain'] === CouponRoutes.AccountMain
-        "
-        @click.prevent="handleClick(computedRoute['AccountMain'])"
-      />
-      <li class="item" @click="openMenu">
-        <img
-          class="icon center-image"
-          src="@/assets/icon/navbar/send.svg"
-          alt="Send"
-        />
-        <p class="label" :class="{ '-active': isMenuOpen.value === true }">
-          {{ $t('bottomNav.send') }}
-        </p>
-      </li>
-      <NavBarItem
-        :route-name="computedRoute['RecepientsPhone']"
-        :label="$t('bottomNav.recipients')"
-        active-hash-tag="recipients-active"
-        hash-tag="recipients"
-      />
-      <NavBarItem
-        :route-name="computedRoute['Invite']"
-        :label="$t('bottomNav.invite')"
-        active-hash-tag="gift-active"
-        hash-tag="gift"
-      />
-    </ul> -->
+    <!-- m-bottom-nav: 
+    the item hashtag is unique and it is used to check for the active element -->
     <m-bottom-nav
       :nav-items="navItems"
       :main-item="mainItem"
       show-main-item
-      :active-item="activeItem"
+      :active-item="currentActiveItem"
       @click:item="handleClickItem"
       @click:main="openMenu"
     />
@@ -61,11 +23,9 @@ import { computed, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { MBottomNav } from '@liber-biz/crpw-ui-kit-liber';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 import { useUIStore } from '@/stores/ui';
@@ -73,46 +33,8 @@ const uiStore = useUIStore();
 
 const { tm } = useI18n();
 
-let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
-
-const route = useRouter();
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const computedRoute = computed(() => {
-  const name = route.name;
-
-  // apply list for coupons
-  if (Object.values(CouponRoutes).includes(name)) {
-    return CouponRoutes;
-  }
-
-  // apply list for crypto by default
-  return Route;
-});
-
-const menuType = computed(() => {
-  if (route.name === Route.AccountDetail) {
-    // Menu for crypto transactions
-    return 'send';
-  }
-  return 'send';
-});
-
-function openMenu() {
-  uiStore.setStateModal('sendMenu', true);
-}
-
-function closeMenu() {
-  uiStore.setStateModal('sendMenu', false);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-const handleClick = (name: string) => {
-  if (name === CouponRoutes.AccountMain) {
-    openMenu();
-    return false;
-  }
-};
+const router = useRouter();
+const route = useRoute();
 
 enum EItemHashTag {
   home = 'home',
@@ -139,65 +61,124 @@ const navItems: Ref<TNavBarItem[] | undefined> = ref([
     activeHashTag: EItemHashTag.homeActive,
     hashTag: EItemHashTag.home,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
   {
     label: 'Accounts',
     activeHashTag: EItemHashTag.accountActive,
     hashTag: EItemHashTag.account,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
   {
     label: 'Recipients',
     activeHashTag: EItemHashTag.recipientsActive,
     hashTag: EItemHashTag.recipients,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
   {
     label: 'Invite',
     activeHashTag: EItemHashTag.giftActive,
     hashTag: EItemHashTag.gift,
     iconSrc: require('@/assets/icon/navbar/sprite.svg'),
-    isActive: false,
   },
 ]);
 
+let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
+
 const mainItem = ref({
   label: 'Send',
-  isActive: false,
+  isActive: isMenuOpen.value,
   iconSrc: require('@/assets/icon/navbar/send.svg'),
 });
 
-const activeItem = ref('');
+const computedRoute = computed(() => {
+  const name = route.name;
 
-const handleClickItem = (data: TNavBarItem) => {
-  console.log('handleClickItem', data);
-  activeItem.value = data.hashTag;
+  // apply list for coupons
+  if (Object.values(CouponRoutes).includes(name as CouponRoutes)) {
+    return CouponRoutes;
+  }
 
+  // apply list for crypto by default
+  return Route;
+});
+
+const menuType = computed(() => {
+  if (route.name === Route.AccountDetail) {
+    // Menu for crypto transactions
+    return 'send';
+  }
+  return 'send';
+});
+
+const currentActiveItem = computed(() => {
+  const mapper: { [key in Route | CouponRoutes]: EItemHashTag } = {
+    // home
+    [Route.DashboardLiber]: EItemHashTag.home,
+    [CouponRoutes.DashboardHome]: EItemHashTag.home,
+
+    // account
+    [Route.AccountMain]: EItemHashTag.account,
+    [CouponRoutes.AccountMain]: EItemHashTag.account,
+
+    // recipients
+    [Route.RecepientsPhone]: EItemHashTag.recipients,
+    [CouponRoutes.RecepientsPhone]: EItemHashTag.recipients,
+
+    // invite
+    [Route.Invite]: EItemHashTag.gift,
+    [CouponRoutes.Invite]: EItemHashTag.gift,
+  };
+
+  return mapper[route.name as Route | CouponRoutes];
+});
+
+function openMenu() {
+  uiStore.setStateModal('sendMenu', true);
+}
+
+function closeMenu() {
+  uiStore.setStateModal('sendMenu', false);
+}
+
+function handleAccountItemClick(name: string) {
+  if (name === CouponRoutes.AccountMain) {
+    openMenu();
+    return false;
+  }
+}
+
+function handleClickItem(data: TNavBarItem) {
   switch (data.hashTag) {
     case EItemHashTag.home: {
-      route.push({ name: computedRoute.value['DashboardHome'] });
+      router.push({ name: computedRoute.value['DashboardHome'] });
       break;
     }
     case EItemHashTag.account: {
-      route.push({ name: computedRoute.value['AccountMain'] });
+      const isNotRoute =
+        computedRoute.value['AccountMain'] === CouponRoutes.AccountMain;
+
+      if (isNotRoute) {
+        router.push('');
+        handleAccountItemClick(computedRoute.value['AccountMain']);
+        return;
+      }
+
+      router.push({ name: computedRoute.value['AccountMain'] });
       break;
     }
     case EItemHashTag.recipients: {
-      route.push({ name: computedRoute.value['RecepientsPhone'] });
+      router.push({ name: computedRoute.value['RecepientsPhone'] });
       break;
     }
     case EItemHashTag.gift: {
-      route.push({ name: computedRoute.value['Invite'] });
+      router.push({ name: computedRoute.value['Invite'] });
       break;
     }
     default: {
       ('');
     }
   }
-};
+}
 </script>
 
 <style lang="scss" scoped>

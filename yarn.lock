@@ -1796,10 +1796,10 @@
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
   integrity sha512-Hcv+nVC0kZnQ3tD9GVu5xSMR4VVYOteQIr/hwFPVEvPdlXqgGEuRjiheChHgdM+JyqdgNcmzZOX/tnl0JOiI7A==
 
-"@liber-biz/crpw-ui-kit-liber@^0.1.21":
-  version "0.1.21"
-  resolved "https://registry.yarnpkg.com/@liber-biz/crpw-ui-kit-liber/-/crpw-ui-kit-liber-0.1.21.tgz#46e7db52fc97bcdede927987f8313810d2b42c0d"
-  integrity sha512-VYvAEUTIu9Po9nL13xEzraqsSOfEJv3f3UJeheqC08GuLH4emU9zhMEM3fuFJ376qz2WC9FqfxR9bSAmra2IFg==
+"@liber-biz/crpw-ui-kit-liber@^0.1.24":
+  version "0.1.24"
+  resolved "https://registry.yarnpkg.com/@liber-biz/crpw-ui-kit-liber/-/crpw-ui-kit-liber-0.1.24.tgz#4b3445367b062e8d00547d9c03b9a12fffad0509"
+  integrity sha512-VQka1YE7HOkBH6hUWB/7RnBgf+Ix4uemgSKlX1/8+9f7IDqUQOj3W04gzRjZ0MdG4RvApE+WBuL/kciLDOEbRg==
   dependencies:
     core-js "^3.23.3"
     luxon "^2.4.0"
