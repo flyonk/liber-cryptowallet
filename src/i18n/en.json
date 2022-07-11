@@ -164,6 +164,7 @@
     "downloadState": "Download Statement",
     "rate": "Rate",
     "bought": "Bought",
+    "receivedCoupons": "Received coupons for",
     "cost": "Cost",
     "transactionIdCopied": "Transaction ID is copied successfully",
     "transactionIdCopyFail": "Failed when copy Transaction ID",

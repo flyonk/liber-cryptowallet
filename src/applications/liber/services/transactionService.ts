@@ -16,6 +16,8 @@ export default {
       ? `${apiService.transactions.transactionsList()}/coin/${coin}`
       : apiService.transactions.transactionsList();
     const res = await axios.get(url);
+
+    //here is mock data of coupons are added
     const realDataWithMocks = [...COUPON_TRANSACTION_EXAMPLE, ...res.data.list];
 
     return realDataWithMocks.map(
@@ -34,6 +36,13 @@ export default {
     id: string,
     coin: string
   ): Promise<TTransaction> {
+    //here is mock data of coupon transaction is added
+    if (id === 'coupon-transaction-id') {
+      return transactionMapper.deserialize(
+        COUPON_TRANSACTION_EXAMPLE[0]
+      ) as TTransaction;
+    }
+
     const response = await axios.get(
       apiService.transactions.transactionDetailsByCoin(coin, id)
     );
