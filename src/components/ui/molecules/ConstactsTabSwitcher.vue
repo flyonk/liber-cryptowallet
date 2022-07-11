@@ -31,11 +31,11 @@ const route = useRoute();
 const props = defineProps({
   liberRoute: {
     type: String,
-    default: Route.RecepientsLiber,
+    default: Route.RecipientsLiber,
   },
   allRoute: {
     type: String,
-    default: Route.RecepientsPhone,
+    default: Route.RecipientsPhone,
   },
 });
 </script>

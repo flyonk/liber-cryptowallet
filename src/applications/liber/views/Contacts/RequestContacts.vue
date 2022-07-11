@@ -37,7 +37,7 @@ export default {
 
 <script lang="ts" setup>
 import { useRouter, useRoute } from 'vue-router';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 
 import { BaseButton, TTopNavigation } from '@/components/ui';
 
@@ -46,7 +46,7 @@ import { useErrorsStore } from '@/stores/errors';
 
 const router = useRouter();
 const route = useRoute();
-const store = useRecepientsStore();
+const store = useRecipientsStore();
 
 const onEnable = (): void => {
   store
@@ -73,7 +73,7 @@ const onCancel = (): void => {
 };
 
 function nextRoute() {
-  const routerBackName = route.params.back || Route.RecepientsPhone;
+  const routerBackName = route.params.back || Route.RecipientsPhone;
   router.push({
     name: routerBackName,
     params: {

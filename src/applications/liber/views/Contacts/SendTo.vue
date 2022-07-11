@@ -2,7 +2,7 @@
   <t-top-navigation
     with-fixed-footer
     nav-with-custom-top-left
-    @click:left-icon="$router.push({ name: Route.PayRecepientsPhone })"
+    @click:left-icon="$router.push({ name: Route.PayRecipientsPhone })"
   >
     <template #top-left>
       <div class="header sendto-header">
@@ -10,22 +10,22 @@
           class="back mr-2"
           :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
           alt="arrow-left"
-          @click="$router.push({ name: Route.PayRecepientsPhone })"
+          @click="$router.push({ name: Route.PayRecipientsPhone })"
         />
-        <h4 class="username">{{ recepient.phone }}</h4>
+        <h4 class="username">{{ computedRecipient.phone }}</h4>
       </div>
     </template>
     <template #title>
-      <h1 class="title">{{ recepient.displayName }}</h1>
+      <h1 class="title">{{ computedRecipient.displayName }}</h1>
     </template>
     <template #right>
-      <ContactInitials :name="recepient.displayName"
+      <ContactInitials :name="computedRecipient.displayName"
     /></template>
     <template #content
       ><div class="send-to">
         <div class="sendto-main">
           <send-currency
-            :contact-name="recepient.displayName"
+            :contact-name="computedRecipient.displayName"
             :has-coin-reverse="true"
             @send-transaction="sendTransaction"
           />
@@ -126,7 +126,7 @@ import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
 import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { getContactPhone } from '@/helpers/contacts';
@@ -142,13 +142,13 @@ const showIncorrectDataPopup = ref(false);
 const popupStatus = ref('confirmation');
 
 const transferStore = useTransferStore();
-const recepientsStore = useRecepientsStore();
+const recipientsStore = useRecipientsStore();
 const errorsStore = useErrorsStore();
 
 const route = useRoute();
 
 const contactId = route.params.id;
-const contacts: Contact[] = recepientsStore.getContacts;
+const contacts: Contact[] = recipientsStore.getContacts;
 const _contact = contacts.filter((c) => {
   return c.contactId === contactId;
 });
@@ -156,7 +156,7 @@ const contact = _contact && _contact[0];
 
 const phone = getContactPhone(contact);
 
-const recepient = computed(() => ({
+const computedRecipient = computed(() => ({
   displayName: contact.displayName,
   phone: getContactPhone(contact),
 }));
@@ -176,7 +176,7 @@ const sendTransaction = async () => {
         successRoute: Route.DashboardHome,
         callback: async () => {
           console.log(JSON.stringify('test callback 1'));
-          await recepientsStore.addFriend(contact);
+          await recipientsStore.addFriend(contact);
           console.log('test callback 2');
           transferStore.clearTransferData();
         },

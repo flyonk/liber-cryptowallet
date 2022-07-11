@@ -28,7 +28,7 @@
         </p>
       </li>
       <NavBarItem
-        :route-name="computedRoute['RecepientsPhone']"
+        :route-name="computedRoute['RecipientsPhone']"
         :label="$t('bottomNav.recipients')"
         active-hash-tag="recipients-active"
         hash-tag="recipients"

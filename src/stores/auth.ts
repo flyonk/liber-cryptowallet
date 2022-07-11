@@ -4,7 +4,7 @@ import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
 
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 
 import authService from '@/services/authService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
@@ -81,7 +81,7 @@ export const useAuthStore = defineStore('auth', {
 
   actions: {
     async resetDependantStores() {
-      const store = useRecepientsStore();
+      const store = useRecipientsStore();
 
       store.$reset();
     },
