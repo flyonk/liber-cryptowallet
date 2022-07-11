@@ -18,7 +18,7 @@ podAnnotations: {}
 podSecurityContext: {}
   # fsGroup: 2000
 
-securityContext: {}
+securityContext:
   readOnlyRootFilesystem: false
   runAsNonRoot: true
   runAsUser: 1000
@@ -66,5 +66,5 @@ tolerations: []
 affinity: {}
 
 env:
-  CORS_ALLOWED_ORIGIN: api.liber.casa
+  CORS_ALLOWED_ORIGIN: dev.liber.casa
   EXPIRES: 30d

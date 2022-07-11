@@ -3,7 +3,7 @@ import { Route } from '@/router/types';
 export default [
   {
     path: '',
-    name: Route.RecepientsPhone,
+    name: Route.RecipientsPhone,
     component: () =>
       import(
         '@/applications/liber/views/Contacts/childrenviews/PhoneContacts.vue'
@@ -11,7 +11,7 @@ export default [
   },
   {
     path: 'liber',
-    name: Route.RecepientsLiber,
+    name: Route.RecipientsLiber,
     component: () =>
       import(
         '@/applications/liber/views/Contacts/childrenviews/PhoneContacts.vue'

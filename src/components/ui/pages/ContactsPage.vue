@@ -25,7 +25,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import { useRoute } from 'vue-router';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import ContactsList from '@/components/ui/organisms/ContactsList.vue';
@@ -36,11 +36,11 @@ import { Contact } from '@/types/contacts';
 
 const { meta } = useRoute();
 
-const recepientsStore = useRecepientsStore();
+const recipientsStore = useRecipientsStore();
 
 const contacts: Contact[] = meta?.friends
-  ? recepientsStore.getFriends
-  : recepientsStore.getContacts;
+  ? recipientsStore.getFriends
+  : recipientsStore.getContacts;
 
 let isMenuOpen = ref(false);
 

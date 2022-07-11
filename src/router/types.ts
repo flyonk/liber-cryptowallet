@@ -75,11 +75,11 @@ export enum Route {
 
   ChooseCoin = 'choose_coin',
 
-  Recepients = 'recepients',
-  RecepientsPhone = 'recepients-phone',
-  RecepientsLiber = 'recepients-liber',
-  PayRecepientsPhone = 'pay-recepients-phone',
-  PayRecepientsLiber = 'pay-recepients-liber',
+  Recipients = 'recipients',
+  RecipientsPhone = 'recipients-phone',
+  RecipientsLiber = 'recipients-liber',
+  PayRecipientsPhone = 'pay-recipients-phone',
+  PayRecipientsLiber = 'pay-recipients-liber',
 
   LoadContacts = 'request-phone-contacts',
 

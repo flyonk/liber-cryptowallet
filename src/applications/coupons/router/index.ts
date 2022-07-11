@@ -3,7 +3,7 @@ import { CouponRoutes } from '@/applications/coupons/router/types';
 
 import Account from '@/applications/liber/views/Dashboard/Account/index.vue';
 import AllAccounts from '@/applications/liber/views/Dashboard/Account/AllAccounts.vue';
-import Recipients from '@/applications/liber/views/Contacts/RecepientsView.vue';
+import Recipients from '@/applications/liber/views/Contacts/RecipientsView.vue';
 
 import Transactions from '@/applications/liber/views/Dashboard/Transactions/index.vue';
 import DashboardTransactions from '@/applications/coupons/views/Dashboard/Transactions/DashboardTransactions.vue';
@@ -11,7 +11,7 @@ import TransactionDetails from '@/applications/liber/views/Dashboard/Transaction
 import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
 
 import checkContactsLoaded from '@/router/middleware/checkContacts';
-import RecepientsRoutes from './routesRecepients';
+import RecipientsRoutes from './routesRecipients';
 
 const routes: Array<RouteRecordRaw> = [
   // === Account ===
@@ -66,15 +66,15 @@ const routes: Array<RouteRecordRaw> = [
     ],
   },
 
-  // === Recepients ===
+  // === Recipients ===
 
   {
-    path: '/recepients-coupon',
-    name: CouponRoutes.Recepients,
+    path: '/recipients-coupon',
+    name: CouponRoutes.Recipients,
     meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
     beforeEnter: checkContactsLoaded,
-    children: RecepientsRoutes,
+    children: RecipientsRoutes,
   },
 ];
 
