@@ -129,4 +129,27 @@ export default {
       )
     ).data;
   },
+
+  async kycAddResidenceFile(
+    id: string,
+    file: File,
+    country: string
+  ): Promise<TSuccessResponse> {
+    const data = new FormData();
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    data.append('residence-file', file);
+
+    return (
+      await axios.post(
+        `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}`,
+        data,
+        config
+      )
+    ).data;
+  },
 };

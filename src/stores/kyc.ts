@@ -3,6 +3,8 @@ import { EDocumentSide } from '@/types/document';
 import { ICountryInformation } from '@/types/country-phone-types';
 import profileService from '@/services/profileService';
 import { IClaim } from '@/models/profile/claim';
+import { useErrorsStore } from '@/stores/errors';
+import { AxiosError } from 'axios';
 
 // === KYC Types ===
 
@@ -124,7 +126,29 @@ export const useKYCStore = defineStore('kyc', {
           country
         );
       } catch (e) {
-        console.error(e);
+        const errorsState = useErrorsStore();
+
+        await errorsState.handle({
+          err: e as AxiosError | Error,
+          name: 'uploadImageKYC',
+          ctx: 'store/kyc',
+          description: 'Error uploading image file',
+        });
+      }
+    },
+
+    async uploadResidenceFile(claimId: string, file: File, country: string) {
+      try {
+        await profileService.kycAddResidenceFile(claimId, file, country);
+      } catch (e) {
+        const errorsState = useErrorsStore();
+
+        await errorsState.handle({
+          err: e as AxiosError | Error,
+          name: 'uploadResidenceFile',
+          ctx: 'store/kyc',
+          description: 'Error uploading residence file',
+        });
       }
     },
   },
