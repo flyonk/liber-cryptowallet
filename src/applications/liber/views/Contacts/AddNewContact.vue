@@ -12,8 +12,8 @@
     <template #content>
       <ul class="invite-list">
         <m-base-input
-          class="m-base-input"
           v-model="newContact.name"
+          class="m-base-input"
           autofocus
           type="text"
         >
@@ -28,8 +28,8 @@
           class="invite-item"
         >
           <m-base-input
-            class="m-base-input"
             v-model="contact.value"
+            class="m-base-input"
             type="text"
           >
             <template #label> Email or Phone </template>

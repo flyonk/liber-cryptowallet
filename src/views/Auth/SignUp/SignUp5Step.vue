@@ -5,8 +5,8 @@
     <template #content
       ><div class="auth-page-container">
         <m-base-input
-          class="m-base-input"
           v-model="birth"
+          class="m-base-input"
           mask="99.99.9999"
           :placeholder="$t('auth.signup.ddmmyyyy')"
           pattern="\d*"

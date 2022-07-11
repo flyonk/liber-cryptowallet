@@ -4,8 +4,8 @@
     <template #subtitle> {{ $t('views.kyc.kyc2step.byLawWe') }}</template>
     <template #content>
       <m-base-input
-        class="m-base-input"
         v-model="form.street"
+        class="m-base-input"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
         <template #label>{{
@@ -22,8 +22,8 @@
         </template>
       </m-base-input>
       <m-base-input
-        class="m-base-input"
         v-model="form.flat"
+        class="m-base-input"
         :class="form.flat && !isValid('flat') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
@@ -41,16 +41,16 @@
         </template>
       </m-base-input>
       <m-base-input
-        class="m-base-input"
         v-model="form.postal_code"
+        class="m-base-input"
         type="number"
         @input="handleInputNumber"
       >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
       </m-base-input>
       <m-base-input
-        class="m-base-input"
         v-model="form.state"
+        class="m-base-input"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
@@ -65,8 +65,8 @@
         </template>
       </m-base-input>
       <m-base-input
-        class="m-base-input"
         v-model="form.city"
+        class="m-base-input"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>

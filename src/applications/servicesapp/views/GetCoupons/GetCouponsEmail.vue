@@ -4,8 +4,8 @@
     <template #content>
       <div class="auth-page-container">
         <m-base-input
-          class="m-base-input"
           v-model="email"
+          class="m-base-input"
           type="email"
           :class="isNotValid ? '-invalid' : ''"
           @focus="showClearBtn"

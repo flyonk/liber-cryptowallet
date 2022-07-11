@@ -20,15 +20,15 @@
           class="invite-item"
         >
           <m-base-input
-            class="m-base-input"
             v-model="newContacts[index].name"
+            class="m-base-input"
             :type="TypeBaseInput.Text"
           >
             <template #label> Name </template>
           </m-base-input>
           <m-base-input
-            class="m-base-input"
             v-model="newContacts[index].email"
+            class="m-base-input"
             :type="TypeBaseInput.Text"
           >
             <template #label> Email </template>

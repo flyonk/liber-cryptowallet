@@ -5,8 +5,8 @@
     </m-top-navigation>
 
     <m-base-input
-      class="m-base-input"
       v-model="birthDate"
+      class="m-base-input"
       type="mask"
       mask="99/99/9999"
       slot-char="DD/MM/YYYY"

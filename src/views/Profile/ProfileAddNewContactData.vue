@@ -13,7 +13,7 @@
       {{ $t('views.profile.profileAddNewContactData.title') }}</template
     >
     <template #content>
-      <m-base-input class="m-base-input" v-model="data">
+      <m-base-input v-model="data" class="m-base-input">
         <template #label> Email or Phone </template>
         <template v-if="data.length > 1" #append>
           <i class="icon-trash_full" @click="clearData" />

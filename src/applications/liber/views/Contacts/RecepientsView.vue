@@ -22,7 +22,7 @@
     <template #title>{{ $t('views.recepients.recepients') }}</template>
     <template #content>
       <div class="who-topay">
-        <m-base-input class="m-base-input" v-model="filterContacts" type="text">
+        <m-base-input v-model="filterContacts" class="m-base-input" type="text">
           <template #label> Name, @id, phone, email </template>
         </m-base-input>
 

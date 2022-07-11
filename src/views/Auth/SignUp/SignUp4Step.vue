@@ -7,8 +7,8 @@
     <template #content>
       <div class="auth-page-container">
         <m-base-input
-          class="m-base-input"
           v-model="firstname"
+          class="m-base-input"
           @focus="showClearFirstNameBtn"
           @blur="closeClearFirstNameBtn"
           @input.stop="firstNamePreventExtraCharacters"
@@ -25,8 +25,8 @@
           </template>
         </m-base-input>
         <m-base-input
-          class="m-base-input"
           v-model="lastname"
+          class="m-base-input"
           @focus="showClearLastNameBtn"
           @blur="closeClearLastNameBtn"
           @input.stop="lastNamePreventExtraCharacters"

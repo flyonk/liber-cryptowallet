@@ -12,9 +12,9 @@
       </div>
       <div class="col-8 ml-auto">
         <m-base-input
-          class="m-base-input"
           :key="updateKey"
           v-model="number"
+          class="m-base-input"
           :use-grouping="false"
           :type="type"
           :mask="mask"
