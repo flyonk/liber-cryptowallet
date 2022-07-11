@@ -61,7 +61,7 @@ import { computed, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 import { MBottomNav } from '@liber-biz/crpw-ui-kit-liber';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -75,14 +75,15 @@ const { tm } = useI18n();
 
 let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
 
-const route = useRouter();
+const router = useRouter();
+const route = useRoute();
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const computedRoute = computed(() => {
   const name = route.name;
 
   // apply list for coupons
-  if (Object.values(CouponRoutes).includes(name)) {
+  if (Object.values(CouponRoutes).includes(name as CouponRoutes)) {
     return CouponRoutes;
   }
 
@@ -174,28 +175,30 @@ const handleClickItem = (data: TNavBarItem) => {
 
   switch (data.hashTag) {
     case EItemHashTag.home: {
-      route.push({ name: computedRoute.value['DashboardHome'] });
+      router.push({ name: computedRoute.value['DashboardHome'] });
       break;
     }
     case EItemHashTag.account: {
       const isNotRoute =
         computedRoute.value['AccountMain'] === CouponRoutes.AccountMain;
+      console.log('1 isNotRoute', isNotRoute);
 
       if (isNotRoute) {
-        route.push('');
+        console.log('2 isNotRoute', isNotRoute);
+        router.push('');
         handleClick(computedRoute.value['AccountMain']);
         return;
       }
 
-      route.push({ name: computedRoute.value['AccountMain'] });
+      router.push({ name: computedRoute.value['AccountMain'] });
       break;
     }
     case EItemHashTag.recipients: {
-      route.push({ name: computedRoute.value['RecepientsPhone'] });
+      router.push({ name: computedRoute.value['RecepientsPhone'] });
       break;
     }
     case EItemHashTag.gift: {
-      route.push({ name: computedRoute.value['Invite'] });
+      router.push({ name: computedRoute.value['Invite'] });
       break;
     }
     default: {
