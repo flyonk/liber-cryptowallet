@@ -80,7 +80,7 @@ export default {
     return claimMapper.deserialize(res.data);
   },
 
-  async kycProceedClaimById(id: number): Promise<TSuccessResponse> {
+  async kycProceedClaimById(id: string): Promise<TSuccessResponse> {
     return (await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`))
       .data;
   },
