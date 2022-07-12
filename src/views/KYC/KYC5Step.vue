@@ -53,13 +53,19 @@ import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
+import { IClaim } from '@/models/profile/claim';
+import { useProfileStore } from '@/stores/profile';
+
 import { useI18n } from 'vue-i18n';
+import { getFullList } from '@/services/country-phone';
+import { ICountryInformation } from '@/types/country-phone-types';
 
 const { t } = useI18n();
 
 const emit = defineEmits(['prev', 'next']);
 
 const kycStore = useKYCStore();
+const profileStore = useProfileStore();
 
 const prevStep = async () => {
   cleanupScans();
@@ -87,8 +93,32 @@ const documentSideLabel = (side: EDocumentSide) => {
     : t('views.kyc.kyc5step.backSide');
 };
 
-const onNext = () => {
+const onNext = async () => {
   emit('next');
+
+  const { id: claimId } = kycStore.claimData as IClaim;
+  const countries = await getFullList();
+  const { isoCodeAlpha: countryIso } = countries.find(
+    ({ name }) => name === profileStore.getUser.country
+  ) as ICountryInformation;
+
+  if (kycStore.getImage.front) {
+    await kycStore.uploadFile(
+      kycStore.getImage.front,
+      claimId,
+      EDocumentSide.front,
+      countryIso as string
+    );
+  }
+
+  if (kycStore.getImage.back) {
+    await kycStore.uploadFile(
+      kycStore.getImage.back,
+      claimId,
+      EDocumentSide.back,
+      countryIso as string
+    );
+  }
 
   kycStore.setPercentage(0.8);
 };

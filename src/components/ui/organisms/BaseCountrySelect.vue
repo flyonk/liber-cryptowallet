@@ -21,7 +21,7 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { ref, Ref, computed, onBeforeMount } from 'vue';
+import { computed, onBeforeMount, ref, Ref, watch } from 'vue';
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getEuropeanList, getFullList } from '@/services/country-phone';
@@ -33,6 +33,10 @@ import { ICountryInformation } from '@/types/country-phone-types';
 
 const props = defineProps({
   modelValue: {
+    type: String,
+    required: true,
+  },
+  preselectedData: {
     type: String,
     required: true,
   },
@@ -61,10 +65,18 @@ onBeforeMount(async (): Promise<void> => {
   list.value = await getFullList();
 });
 
+watch(
+  () => props.preselectedData,
+  (value) => {
+    if (value) {
+      selectedData.value = list.value.find(({ name }) => name === value);
+    }
+  }
+);
+
 function setSelectedCountry(country: ICountryInformation): void {
   selectedData.value = country;
   closeSelect();
-  showList.value = false;
 }
 
 function openSelect(): void {

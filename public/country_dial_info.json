@@ -5,14 +5,16 @@
         "isoCode": "AF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/af.svg",
         "mask": "+93-##-###-####",
-        "localPath": "/img/flags/AF.svg"
+        "localPath": "/img/flags/AF.svg",
+        "isoCodeAlpha": "AFG"
     },
     {
         "name": "Aland Islands",
         "dialCode": "+358",
         "isoCode": "AX",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ax.svg",
-        "localPath": "/img/flags/AX.svg"
+        "localPath": "/img/flags/AX.svg",
+        "isoCodeAlpha": "ALA"
     },
     {
         "name": "Albania",
@@ -20,7 +22,8 @@
         "isoCode": "AL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/al.svg",
         "mask": "+355(###)###-###",
-        "localPath": "/img/flags/AL.svg"
+        "localPath": "/img/flags/AL.svg",
+        "isoCodeAlpha": "ALB"
     },
     {
         "name": "Algeria",
@@ -28,7 +31,8 @@
         "isoCode": "DZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dz.svg",
         "mask": "+213-##-###-####",
-        "localPath": "/img/flags/DZ.svg"
+        "localPath": "/img/flags/DZ.svg",
+        "isoCodeAlpha": "DZA"
     },
     {
         "name": "American Samoa",
@@ -36,7 +40,8 @@
         "isoCode": "AS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/as.svg",
         "mask": "+1(684)###-####",
-        "localPath": "/img/flags/AS.svg"
+        "localPath": "/img/flags/AS.svg",
+        "isoCodeAlpha": "ASM"
     },
     {
         "name": "Andorra",
@@ -44,7 +49,8 @@
         "isoCode": "AD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ad.svg",
         "mask": "+376-###-###",
-        "localPath": "/img/flags/AD.svg"
+        "localPath": "/img/flags/AD.svg",
+        "isoCodeAlpha": "AND"
     },
     {
         "name": "Angola",
@@ -52,7 +58,8 @@
         "isoCode": "AO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ao.svg",
         "mask": "+244(###)###-###",
-        "localPath": "/img/flags/AO.svg"
+        "localPath": "/img/flags/AO.svg",
+        "isoCodeAlpha": "AGO"
     },
     {
         "name": "Anguilla",
@@ -60,7 +67,8 @@
         "isoCode": "AI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ai.svg",
         "mask": "+1(264)###-####",
-        "localPath": "/img/flags/AI.svg"
+        "localPath": "/img/flags/AI.svg",
+        "isoCodeAlpha": "AIA"
     },
     {
         "name": "Antarctica",
@@ -68,7 +76,8 @@
         "isoCode": "AQ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/aq.svg",
         "mask": "+672-1##-###",
-        "localPath": "/img/flags/AQ.svg"
+        "localPath": "/img/flags/AQ.svg",
+        "isoCodeAlpha": "ATA"
     },
     {
         "name": "Antigua and Barbuda",
@@ -76,7 +85,8 @@
         "isoCode": "AG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ag.svg",
         "mask": "+1(268)###-####",
-        "localPath": "/img/flags/AG.svg"
+        "localPath": "/img/flags/AG.svg",
+        "isoCodeAlpha": "ATG"
     },
     {
         "name": "Argentina",
@@ -84,7 +94,8 @@
         "isoCode": "AR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ar.svg",
         "mask": "+54(###)###-####",
-        "localPath": "/img/flags/AR.svg"
+        "localPath": "/img/flags/AR.svg",
+        "isoCodeAlpha": "ARG"
     },
     {
         "name": "Armenia",
@@ -92,7 +103,8 @@
         "isoCode": "AM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/am.svg",
         "mask": "+374-##-###-###",
-        "localPath": "/img/flags/AM.svg"
+        "localPath": "/img/flags/AM.svg",
+        "isoCodeAlpha": "ARM"
     },
     {
         "name": "Aruba",
@@ -100,7 +112,8 @@
         "isoCode": "AW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/aw.svg",
         "mask": "+297-###-####",
-        "localPath": "/img/flags/AW.svg"
+        "localPath": "/img/flags/AW.svg",
+        "isoCodeAlpha": "ABW"
     },
     {
         "name": "Ascension Island",
@@ -108,7 +121,8 @@
         "isoCode": "AC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ac.svg",
         "mask": "+247-####",
-        "localPath": "/img/flags/AC.svg"
+        "localPath": "/img/flags/AC.svg",
+        "isoCodeAlpha": "ASC"
     },
     {
         "name": "Australia",
@@ -116,7 +130,8 @@
         "isoCode": "AU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/au.svg",
         "mask": "+61-#-####-####",
-        "localPath": "/img/flags/AU.svg"
+        "localPath": "/img/flags/AU.svg",
+        "isoCodeAlpha": "AUS"
     },
     {
         "name": "Austria",
@@ -124,7 +139,8 @@
         "isoCode": "AT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/at.svg",
         "mask": "+43(###)###-####",
-        "localPath": "/img/flags/AT.svg"
+        "localPath": "/img/flags/AT.svg",
+        "isoCodeAlpha": "AUT"
     },
     {
         "name": "Azerbaijan",
@@ -132,7 +148,8 @@
         "isoCode": "AZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/az.svg",
         "mask": "+994-##-###-##-##",
-        "localPath": "/img/flags/AZ.svg"
+        "localPath": "/img/flags/AZ.svg",
+        "isoCodeAlpha": "AZE"
     },
     {
         "name": "Bahamas",
@@ -140,7 +157,8 @@
         "isoCode": "BS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bs.svg",
         "mask": "+1(242)###-####",
-        "localPath": "/img/flags/BS.svg"
+        "localPath": "/img/flags/BS.svg",
+        "isoCodeAlpha": "BHS"
     },
     {
         "name": "Bahrain",
@@ -148,7 +166,8 @@
         "isoCode": "BH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bh.svg",
         "mask": "+973-####-####",
-        "localPath": "/img/flags/BH.svg"
+        "localPath": "/img/flags/BH.svg",
+        "isoCodeAlpha": "BHR"
     },
     {
         "name": "Bangladesh",
@@ -156,7 +175,8 @@
         "isoCode": "BD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bd.svg",
         "mask": "+880-##-###-###",
-        "localPath": "/img/flags/BD.svg"
+        "localPath": "/img/flags/BD.svg",
+        "isoCodeAlpha": "BGD"
     },
     {
         "name": "Barbados",
@@ -164,7 +184,8 @@
         "isoCode": "BB",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bb.svg",
         "mask": "+1(246)###-####",
-        "localPath": "/img/flags/BB.svg"
+        "localPath": "/img/flags/BB.svg",
+        "isoCodeAlpha": "BRB"
     },
     {
         "name": "Belarus",
@@ -172,7 +193,8 @@
         "isoCode": "BY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/by.svg",
         "mask": "+375(##)###-##-##",
-        "localPath": "/img/flags/BY.svg"
+        "localPath": "/img/flags/BY.svg",
+        "isoCodeAlpha": "BLR"
     },
     {
         "name": "Belgium",
@@ -180,7 +202,8 @@
         "isoCode": "BE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/be.svg",
         "mask": "+32(###)###-###",
-        "localPath": "/img/flags/BE.svg"
+        "localPath": "/img/flags/BE.svg",
+        "isoCodeAlpha": "BEL"
     },
     {
         "name": "Belize",
@@ -188,7 +211,8 @@
         "isoCode": "BZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bz.svg",
         "mask": "+501-###-####",
-        "localPath": "/img/flags/BZ.svg"
+        "localPath": "/img/flags/BZ.svg",
+        "isoCodeAlpha": "BLZ"
     },
     {
         "name": "Benin",
@@ -196,7 +220,8 @@
         "isoCode": "BJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bj.svg",
         "mask": "+229-##-##-####",
-        "localPath": "/img/flags/BJ.svg"
+        "localPath": "/img/flags/BJ.svg",
+        "isoCodeAlpha": "BEN"
     },
     {
         "name": "Bermuda",
@@ -204,7 +229,8 @@
         "isoCode": "BM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bm.svg",
         "mask": "+1(441)###-####",
-        "localPath": "/img/flags/BM.svg"
+        "localPath": "/img/flags/BM.svg",
+        "isoCodeAlpha": "BMU"
     },
     {
         "name": "Bhutan",
@@ -212,7 +238,8 @@
         "isoCode": "BT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bt.svg",
         "mask": "+975-#-###-###",
-        "localPath": "/img/flags/BT.svg"
+        "localPath": "/img/flags/BT.svg",
+        "isoCodeAlpha": "BTN"
     },
     {
         "name": "Bolivia",
@@ -220,7 +247,8 @@
         "isoCode": "BO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bo.svg",
         "mask": "+591-#-###-####",
-        "localPath": "/img/flags/BO.svg"
+        "localPath": "/img/flags/BO.svg",
+        "isoCodeAlpha": "BOL"
     },
     {
         "name": "Bosnia and Herzegovina",
@@ -228,7 +256,8 @@
         "isoCode": "BA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ba.svg",
         "mask": "+387-##-####",
-        "localPath": "/img/flags/BA.svg"
+        "localPath": "/img/flags/BA.svg",
+        "isoCodeAlpha": "BIH"
     },
     {
         "name": "Botswana",
@@ -236,7 +265,8 @@
         "isoCode": "BW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bw.svg",
         "mask": "+267-##-###-###",
-        "localPath": "/img/flags/BW.svg"
+        "localPath": "/img/flags/BW.svg",
+        "isoCodeAlpha": "BWA"
     },
     {
         "name": "Brazil",
@@ -244,7 +274,8 @@
         "isoCode": "BR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/br.svg",
         "mask": "+55(##)-####-####",
-        "localPath": "/img/flags/BR.svg"
+        "localPath": "/img/flags/BR.svg",
+        "isoCodeAlpha": "BRA"
     },
     {
         "name": "British Indian Ocean Territory",
@@ -252,7 +283,8 @@
         "isoCode": "IO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/io.svg",
         "mask": "+246-###-####",
-        "localPath": "/img/flags/IO.svg"
+        "localPath": "/img/flags/IO.svg",
+        "isoCodeAlpha": "IOT"
     },
     {
         "name": "Brunei Darussalam",
@@ -260,7 +292,8 @@
         "isoCode": "BN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bn.svg",
         "mask": "+673-###-####",
-        "localPath": "/img/flags/BN.svg"
+        "localPath": "/img/flags/BN.svg",
+        "isoCodeAlpha": "BRN"
     },
     {
         "name": "Bulgaria",
@@ -268,7 +301,8 @@
         "isoCode": "BG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bg.svg",
         "mask": "+359(###)###-###",
-        "localPath": "/img/flags/BG.svg"
+        "localPath": "/img/flags/BG.svg",
+        "isoCodeAlpha": "BGR"
     },
     {
         "name": "Burkina Faso",
@@ -276,7 +310,8 @@
         "isoCode": "BF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bf.svg",
         "mask": "+226-##-##-####",
-        "localPath": "/img/flags/BF.svg"
+        "localPath": "/img/flags/BF.svg",
+        "isoCodeAlpha": "BFA"
     },
     {
         "name": "Burundi",
@@ -284,7 +319,8 @@
         "isoCode": "BI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bi.svg",
         "mask": "+257-##-##-####",
-        "localPath": "/img/flags/BI.svg"
+        "localPath": "/img/flags/BI.svg",
+        "isoCodeAlpha": "BDI"
     },
     {
         "name": "Cambodia",
@@ -292,7 +328,8 @@
         "isoCode": "KH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kh.svg",
         "mask": "+855-##-###-###",
-        "localPath": "/img/flags/KH.svg"
+        "localPath": "/img/flags/KH.svg",
+        "isoCodeAlpha": "KHM"
     },
     {
         "name": "Cameroon",
@@ -300,7 +337,8 @@
         "isoCode": "CM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cm.svg",
         "mask": "+237-####-####",
-        "localPath": "/img/flags/CM.svg"
+        "localPath": "/img/flags/CM.svg",
+        "isoCodeAlpha": "CMR"
     },
     {
         "name": "Canada",
@@ -308,7 +346,8 @@
         "isoCode": "CA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ca.svg",
         "mask": "+1(###)###-####",
-        "localPath": "/img/flags/CA.svg"
+        "localPath": "/img/flags/CA.svg",
+        "isoCodeAlpha": "CAN"
     },
     {
         "name": "Cape Verde",
@@ -316,7 +355,8 @@
         "isoCode": "CV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cv.svg",
         "mask": "+238(###)##-##",
-        "localPath": "/img/flags/CV.svg"
+        "localPath": "/img/flags/CV.svg",
+        "isoCodeAlpha": "CPV"
     },
     {
         "name": "Cayman Islands",
@@ -324,7 +364,8 @@
         "isoCode": "KY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ky.svg",
         "mask": "+1(345)###-####",
-        "localPath": "/img/flags/KY.svg"
+        "localPath": "/img/flags/KY.svg",
+        "isoCodeAlpha": "CYM"
     },
     {
         "name": "Central African Republic",
@@ -332,7 +373,8 @@
         "isoCode": "CF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cf.svg",
         "mask": "+236-##-##-####",
-        "localPath": "/img/flags/CF.svg"
+        "localPath": "/img/flags/CF.svg",
+        "isoCodeAlpha": "CAF"
     },
     {
         "name": "Chad",
@@ -340,7 +382,8 @@
         "isoCode": "TD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/td.svg",
         "mask": "+235-##-##-##-##",
-        "localPath": "/img/flags/TD.svg"
+        "localPath": "/img/flags/TD.svg",
+        "isoCodeAlpha": "TCD"
     },
     {
         "name": "Chile",
@@ -348,7 +391,8 @@
         "isoCode": "CL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cl.svg",
         "mask": "+56-#-####-####",
-        "localPath": "/img/flags/CL.svg"
+        "localPath": "/img/flags/CL.svg",
+        "isoCodeAlpha": "CHL"
     },
     {
         "name": "China",
@@ -356,21 +400,24 @@
         "isoCode": "CN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cn.svg",
         "mask": "+86-##-#####-#####",
-        "localPath": "/img/flags/CN.svg"
+        "localPath": "/img/flags/CN.svg",
+        "isoCodeAlpha": "CHN"
     },
     {
         "name": "Christmas Island",
         "dialCode": "+61",
         "isoCode": "CX",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cx.svg",
-        "localPath": "/img/flags/CX.svg"
+        "localPath": "/img/flags/CX.svg",
+        "isoCodeAlpha": "CXR"
     },
     {
         "name": "Cocos (Keeling) Islands",
         "dialCode": "+61",
         "isoCode": "CC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cc.svg",
-        "localPath": "/img/flags/CC.svg"
+        "localPath": "/img/flags/CC.svg",
+        "isoCodeAlpha": "CCK"
     },
     {
         "name": "Colombia",
@@ -378,7 +425,8 @@
         "isoCode": "CO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/co.svg",
         "mask": "+57(###)###-####",
-        "localPath": "/img/flags/CO.svg"
+        "localPath": "/img/flags/CO.svg",
+        "isoCodeAlpha": "COL"
     },
     {
         "name": "Comoros",
@@ -386,7 +434,8 @@
         "isoCode": "KM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/km.svg",
         "mask": "+269-##-#####",
-        "localPath": "/img/flags/KM.svg"
+        "localPath": "/img/flags/KM.svg",
+        "isoCodeAlpha": "COM"
     },
     {
         "name": "Congo",
@@ -394,7 +443,8 @@
         "isoCode": "CG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cg.svg",
         "mask": "+242-##-###-####",
-        "localPath": "/img/flags/CG.svg"
+        "localPath": "/img/flags/CG.svg",
+        "isoCodeAlpha": "COG"
     },
     {
         "name": "Cook Islands",
@@ -402,7 +452,8 @@
         "isoCode": "CK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ck.svg",
         "mask": "+682-##-###",
-        "localPath": "/img/flags/CK.svg"
+        "localPath": "/img/flags/CK.svg",
+        "isoCodeAlpha": "COK"
     },
     {
         "name": "Costa Rica",
@@ -410,7 +461,8 @@
         "isoCode": "CR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cr.svg",
         "mask": "+506-####-####",
-        "localPath": "/img/flags/CR.svg"
+        "localPath": "/img/flags/CR.svg",
+        "isoCodeAlpha": "CRI"
     },
     {
         "name": "Croatia",
@@ -418,7 +470,8 @@
         "isoCode": "HR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hr.svg",
         "mask": "+385-##-###-###",
-        "localPath": "/img/flags/HR.svg"
+        "localPath": "/img/flags/HR.svg",
+        "isoCodeAlpha": "HRV"
     },
     {
         "name": "Cuba",
@@ -426,7 +479,8 @@
         "isoCode": "CU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cu.svg",
         "mask": "+53-#-###-####",
-        "localPath": "/img/flags/CU.svg"
+        "localPath": "/img/flags/CU.svg",
+        "isoCodeAlpha": "CUB"
     },
     {
         "name": "Cyprus",
@@ -434,7 +488,8 @@
         "isoCode": "CY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cy.svg",
         "mask": "+357-##-###-###",
-        "localPath": "/img/flags/CY.svg"
+        "localPath": "/img/flags/CY.svg",
+        "isoCodeAlpha": "CYP"
     },
     {
         "name": "Czech Republic",
@@ -442,7 +497,8 @@
         "isoCode": "CZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cz.svg",
         "mask": "+420(###)###-###",
-        "localPath": "/img/flags/CZ.svg"
+        "localPath": "/img/flags/CZ.svg",
+        "isoCodeAlpha": "CZE"
     },
     {
         "name": "Democratic Republic of the Congo",
@@ -450,7 +506,8 @@
         "isoCode": "CD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cd.svg",
         "mask": "+243(###)###-###",
-        "localPath": "/img/flags/CD.svg"
+        "localPath": "/img/flags/CD.svg",
+        "isoCodeAlpha": "COD"
     },
     {
         "name": "Denmark",
@@ -458,7 +515,8 @@
         "isoCode": "DK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dk.svg",
         "mask": "+45-##-##-##-##",
-        "localPath": "/img/flags/DK.svg"
+        "localPath": "/img/flags/DK.svg",
+        "isoCodeAlpha": "DNK"
     },
     {
         "name": "Djibouti",
@@ -466,7 +524,8 @@
         "isoCode": "DJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dj.svg",
         "mask": "+253-##-##-##-##",
-        "localPath": "/img/flags/DJ.svg"
+        "localPath": "/img/flags/DJ.svg",
+        "isoCodeAlpha": "DJI"
     },
     {
         "name": "Dominica",
@@ -474,7 +533,8 @@
         "isoCode": "DM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dm.svg",
         "mask": "+1(767)###-####",
-        "localPath": "/img/flags/DM.svg"
+        "localPath": "/img/flags/DM.svg",
+        "isoCodeAlpha": "DMA"
     },
     {
         "name": "Dominican Republic",
@@ -482,7 +542,8 @@
         "isoCode": "DO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/do.svg",
         "mask": "+1(849)###-####",
-        "localPath": "/img/flags/DO.svg"
+        "localPath": "/img/flags/DO.svg",
+        "isoCodeAlpha": "DOM"
     },
     {
         "name": "Ecuador",
@@ -490,7 +551,8 @@
         "isoCode": "EC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ec.svg",
         "mask": "+593-#-###-####",
-        "localPath": "/img/flags/EC.svg"
+        "localPath": "/img/flags/EC.svg",
+        "isoCodeAlpha": "ECU"
     },
     {
         "name": "Egypt",
@@ -498,7 +560,8 @@
         "isoCode": "EG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/eg.svg",
         "mask": "+20(###)###-####",
-        "localPath": "/img/flags/EG.svg"
+        "localPath": "/img/flags/EG.svg",
+        "isoCodeAlpha": "EGY"
     },
     {
         "name": "El Salvador",
@@ -506,7 +569,8 @@
         "isoCode": "SV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sv.svg",
         "mask": "+503-##-##-####",
-        "localPath": "/img/flags/SV.svg"
+        "localPath": "/img/flags/SV.svg",
+        "isoCodeAlpha": "SLV"
     },
     {
         "name": "Equatorial Guinea",
@@ -514,7 +578,8 @@
         "isoCode": "GQ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gq.svg",
         "mask": "+240-##-###-####",
-        "localPath": "/img/flags/GQ.svg"
+        "localPath": "/img/flags/GQ.svg",
+        "isoCodeAlpha": "GNQ"
     },
     {
         "name": "Eritrea",
@@ -522,7 +587,8 @@
         "isoCode": "ER",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/er.svg",
         "mask": "+291-#-###-###",
-        "localPath": "/img/flags/ER.svg"
+        "localPath": "/img/flags/ER.svg",
+        "isoCodeAlpha": "ERI"
     },
     {
         "name": "Estonia",
@@ -530,7 +596,8 @@
         "isoCode": "EE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ee.svg",
         "mask": "+372-###-####",
-        "localPath": "/img/flags/EE.svg"
+        "localPath": "/img/flags/EE.svg",
+        "isoCodeAlpha": "EST"
     },
     {
         "name": "Eswatini",
@@ -538,7 +605,8 @@
         "isoCode": "SZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sz.svg",
         "mask": "+268-##-##-####",
-        "localPath": "/img/flags/SZ.svg"
+        "localPath": "/img/flags/SZ.svg",
+        "isoCodeAlpha": "SWZ"
     },
     {
         "name": "Ethiopia",
@@ -546,7 +614,8 @@
         "isoCode": "ET",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/et.svg",
         "mask": "+251-##-###-####",
-        "localPath": "/img/flags/ET.svg"
+        "localPath": "/img/flags/ET.svg",
+        "isoCodeAlpha": "ETH"
     },
     {
         "name": "Falkland Islands (Malvinas)",
@@ -554,7 +623,8 @@
         "isoCode": "FK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fk.svg",
         "mask": "+500-#####",
-        "localPath": "/img/flags/FK.svg"
+        "localPath": "/img/flags/FK.svg",
+        "isoCodeAlpha": "FLK"
     },
     {
         "name": "Faroe Islands",
@@ -562,7 +632,8 @@
         "isoCode": "FO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fo.svg",
         "mask": "+298-###-###",
-        "localPath": "/img/flags/FO.svg"
+        "localPath": "/img/flags/FO.svg",
+        "isoCodeAlpha": "FRO"
     },
     {
         "name": "Fiji",
@@ -570,7 +641,8 @@
         "isoCode": "FJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fj.svg",
         "mask": "+679-##-#####",
-        "localPath": "/img/flags/FJ.svg"
+        "localPath": "/img/flags/FJ.svg",
+        "isoCodeAlpha": "FJI"
     },
     {
         "name": "Finland",
@@ -578,7 +650,8 @@
         "isoCode": "FI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fi.svg",
         "mask": "+358(###)###-##-##",
-        "localPath": "/img/flags/FI.svg"
+        "localPath": "/img/flags/FI.svg",
+        "isoCodeAlpha": "FIN"
     },
     {
         "name": "France",
@@ -586,7 +659,8 @@
         "isoCode": "FR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fr.svg",
         "mask": "+590(###)###-###",
-        "localPath": "/img/flags/FR.svg"
+        "localPath": "/img/flags/FR.svg",
+        "isoCodeAlpha": "FRA"
     },
     {
         "name": "French Guiana",
@@ -594,7 +668,8 @@
         "isoCode": "GF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gf.svg",
         "mask": "+594-#####-####",
-        "localPath": "/img/flags/GF.svg"
+        "localPath": "/img/flags/GF.svg",
+        "isoCodeAlpha": "GUF"
     },
     {
         "name": "French Polynesia",
@@ -602,7 +677,8 @@
         "isoCode": "PF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pf.svg",
         "mask": "+689-##-##-##",
-        "localPath": "/img/flags/PF.svg"
+        "localPath": "/img/flags/PF.svg",
+        "isoCodeAlpha": "PYF"
     },
     {
         "name": "Gabon",
@@ -610,7 +686,8 @@
         "isoCode": "GA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ga.svg",
         "mask": "+241-#-##-##-##",
-        "localPath": "/img/flags/GA.svg"
+        "localPath": "/img/flags/GA.svg",
+        "isoCodeAlpha": "GAB"
     },
     {
         "name": "Gambia",
@@ -618,7 +695,8 @@
         "isoCode": "GM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gm.svg",
         "mask": "+220(###)##-##",
-        "localPath": "/img/flags/GM.svg"
+        "localPath": "/img/flags/GM.svg",
+        "isoCodeAlpha": "GMB"
     },
     {
         "name": "Georgia",
@@ -626,7 +704,8 @@
         "isoCode": "GE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ge.svg",
         "mask": "+995(###)###-###",
-        "localPath": "/img/flags/GE.svg"
+        "localPath": "/img/flags/GE.svg",
+        "isoCodeAlpha": "GEO"
     },
     {
         "name": "Germany",
@@ -634,7 +713,8 @@
         "isoCode": "DE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/de.svg",
         "mask": "+49-###-###",
-        "localPath": "/img/flags/DE.svg"
+        "localPath": "/img/flags/DE.svg",
+        "isoCodeAlpha": "DEU"
     },
     {
         "name": "Ghana",
@@ -642,7 +722,8 @@
         "isoCode": "GH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gh.svg",
         "mask": "+233(###)###-###",
-        "localPath": "/img/flags/GH.svg"
+        "localPath": "/img/flags/GH.svg",
+        "isoCodeAlpha": "GHA"
     },
     {
         "name": "Gibraltar",
@@ -650,7 +731,8 @@
         "isoCode": "GI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gi.svg",
         "mask": "+350-###-#####",
-        "localPath": "/img/flags/GI.svg"
+        "localPath": "/img/flags/GI.svg",
+        "isoCodeAlpha": "GIB"
     },
     {
         "name": "Greece",
@@ -658,7 +740,8 @@
         "isoCode": "GR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gr.svg",
         "mask": "+30(###)###-####",
-        "localPath": "/img/flags/GR.svg"
+        "localPath": "/img/flags/GR.svg",
+        "isoCodeAlpha": "GRC"
     },
     {
         "name": "Greenland",
@@ -666,7 +749,8 @@
         "isoCode": "GL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gl.svg",
         "mask": "+299-##-##-##",
-        "localPath": "/img/flags/GL.svg"
+        "localPath": "/img/flags/GL.svg",
+        "isoCodeAlpha": "GRL"
     },
     {
         "name": "Grenada",
@@ -674,14 +758,16 @@
         "isoCode": "GD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gd.svg",
         "mask": "+1(473)###-####",
-        "localPath": "/img/flags/GD.svg"
+        "localPath": "/img/flags/GD.svg",
+        "isoCodeAlpha": "GRD"
     },
     {
         "name": "Guadeloupe",
         "dialCode": "+590",
         "isoCode": "GP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gp.svg",
-        "localPath": "/img/flags/GP.svg"
+        "localPath": "/img/flags/GP.svg",
+        "isoCodeAlpha": "GLP"
     },
     {
         "name": "Guam",
@@ -689,7 +775,8 @@
         "isoCode": "GU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gu.svg",
         "mask": "+1(671)###-####",
-        "localPath": "/img/flags/GU.svg"
+        "localPath": "/img/flags/GU.svg",
+        "isoCodeAlpha": "GUM"
     },
     {
         "name": "Guatemala",
@@ -697,14 +784,16 @@
         "isoCode": "GT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gt.svg",
         "mask": "+502-#-###-####",
-        "localPath": "/img/flags/GT.svg"
+        "localPath": "/img/flags/GT.svg",
+        "isoCodeAlpha": "GTM"
     },
     {
         "name": "Guernsey",
         "dialCode": "+44",
         "isoCode": "GG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gg.svg",
-        "localPath": "/img/flags/GG.svg"
+        "localPath": "/img/flags/GG.svg",
+        "isoCodeAlpha": "GGY"
     },
     {
         "name": "Guinea",
@@ -712,7 +801,8 @@
         "isoCode": "GN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gn.svg",
         "mask": "+224-##-###-###",
-        "localPath": "/img/flags/GN.svg"
+        "localPath": "/img/flags/GN.svg",
+        "isoCodeAlpha": "GIN"
     },
     {
         "name": "Guinea-Bissau",
@@ -720,7 +810,8 @@
         "isoCode": "GW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gw.svg",
         "mask": "+245-#-######",
-        "localPath": "/img/flags/GW.svg"
+        "localPath": "/img/flags/GW.svg",
+        "isoCodeAlpha": "GNB"
     },
     {
         "name": "Guyana",
@@ -728,7 +819,8 @@
         "isoCode": "GY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gy.svg",
         "mask": "+592-###-####",
-        "localPath": "/img/flags/GY.svg"
+        "localPath": "/img/flags/GY.svg",
+        "isoCodeAlpha": "GUY"
     },
     {
         "name": "Haiti",
@@ -736,7 +828,8 @@
         "isoCode": "HT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ht.svg",
         "mask": "+509-##-##-####",
-        "localPath": "/img/flags/HT.svg"
+        "localPath": "/img/flags/HT.svg",
+        "isoCodeAlpha": "HTI"
     },
     {
         "name": "Holy See (Vatican City State)",
@@ -744,7 +837,8 @@
         "isoCode": "VA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/va.svg",
         "mask": "+39-6-698-#####",
-        "localPath": "/img/flags/VA.svg"
+        "localPath": "/img/flags/VA.svg",
+        "isoCodeAlpha": "VAT"
     },
     {
         "name": "Honduras",
@@ -752,7 +846,8 @@
         "isoCode": "HN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hn.svg",
         "mask": "+504-####-####",
-        "localPath": "/img/flags/HN.svg"
+        "localPath": "/img/flags/HN.svg",
+        "isoCodeAlpha": "HND"
     },
     {
         "name": "Hong Kong",
@@ -760,7 +855,8 @@
         "isoCode": "HK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hk.svg",
         "mask": "+852-####-####",
-        "localPath": "/img/flags/HK.svg"
+        "localPath": "/img/flags/HK.svg",
+        "isoCodeAlpha": "HKG"
     },
     {
         "name": "Hungary",
@@ -768,7 +864,8 @@
         "isoCode": "HU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hu.svg",
         "mask": "+36(###)###-###",
-        "localPath": "/img/flags/HU.svg"
+        "localPath": "/img/flags/HU.svg",
+        "isoCodeAlpha": "HUN"
     },
     {
         "name": "Iceland",
@@ -776,7 +873,8 @@
         "isoCode": "IS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/is.svg",
         "mask": "+354-###-####",
-        "localPath": "/img/flags/IS.svg"
+        "localPath": "/img/flags/IS.svg",
+        "isoCodeAlpha": "ISL"
     },
     {
         "name": "India",
@@ -784,7 +882,8 @@
         "isoCode": "IN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/in.svg",
         "mask": "+91(####)###-###",
-        "localPath": "/img/flags/IN.svg"
+        "localPath": "/img/flags/IN.svg",
+        "isoCodeAlpha": "IND"
     },
     {
         "name": "Indonesia",
@@ -792,7 +891,8 @@
         "isoCode": "ID",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/id.svg",
         "mask": "+62(8##)###-##-###",
-        "localPath": "/img/flags/ID.svg"
+        "localPath": "/img/flags/ID.svg",
+        "isoCodeAlpha": "IDN"
     },
     {
         "name": "Iran",
@@ -800,7 +900,8 @@
         "isoCode": "IR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ir.svg",
         "mask": "+98(###)###-####",
-        "localPath": "/img/flags/IR.svg"
+        "localPath": "/img/flags/IR.svg",
+        "isoCodeAlpha": "IRN"
     },
     {
         "name": "Iraq",
@@ -808,7 +909,8 @@
         "isoCode": "IQ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/iq.svg",
         "mask": "+964(###)###-####",
-        "localPath": "/img/flags/IQ.svg"
+        "localPath": "/img/flags/IQ.svg",
+        "isoCodeAlpha": "IRQ"
     },
     {
         "name": "Ireland",
@@ -816,14 +918,16 @@
         "isoCode": "IE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ie.svg",
         "mask": "+353(###)###-###",
-        "localPath": "/img/flags/IE.svg"
+        "localPath": "/img/flags/IE.svg",
+        "isoCodeAlpha": "IRL"
     },
     {
         "name": "Isle of Man",
         "dialCode": "+44",
         "isoCode": "IM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/im.svg",
-        "localPath": "/img/flags/IM.svg"
+        "localPath": "/img/flags/IM.svg",
+        "isoCodeAlpha": "IMN"
     },
     {
         "name": "Israel",
@@ -831,7 +935,8 @@
         "isoCode": "IL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/il.svg",
         "mask": "+972-#-###-####",
-        "localPath": "/img/flags/IL.svg"
+        "localPath": "/img/flags/IL.svg",
+        "isoCodeAlpha": "ISR"
     },
     {
         "name": "Italy",
@@ -839,7 +944,8 @@
         "isoCode": "IT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/it.svg",
         "mask": "+39(###)####-###",
-        "localPath": "/img/flags/IT.svg"
+        "localPath": "/img/flags/IT.svg",
+        "isoCodeAlpha": "ITA"
     },
     {
         "name": "Ivory Coast / Cote d'Ivoire",
@@ -847,7 +953,8 @@
         "isoCode": "CI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ci.svg",
         "mask": "+225-##-###-###",
-        "localPath": "/img/flags/CI.svg"
+        "localPath": "/img/flags/CI.svg",
+        "isoCodeAlpha": "CIV"
     },
     {
         "name": "Jamaica",
@@ -855,7 +962,8 @@
         "isoCode": "JM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/jm.svg",
         "mask": "+1(876)###-####",
-        "localPath": "/img/flags/JM.svg"
+        "localPath": "/img/flags/JM.svg",
+        "isoCodeAlpha": "JAM"
     },
     {
         "name": "Japan",
@@ -863,14 +971,16 @@
         "isoCode": "JP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/jp.svg",
         "mask": "+81(###)###-###",
-        "localPath": "/img/flags/JP.svg"
+        "localPath": "/img/flags/JP.svg",
+        "isoCodeAlpha": "JPN"
     },
     {
         "name": "Jersey",
         "dialCode": "+44",
         "isoCode": "JE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/je.svg",
-        "localPath": "/img/flags/JE.svg"
+        "localPath": "/img/flags/JE.svg",
+        "isoCodeAlpha": "JEY"
     },
     {
         "name": "Jordan",
@@ -878,7 +988,8 @@
         "isoCode": "JO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/jo.svg",
         "mask": "+962-#-####-####",
-        "localPath": "/img/flags/JO.svg"
+        "localPath": "/img/flags/JO.svg",
+        "isoCodeAlpha": "JOR"
     },
     {
         "name": "Kazakhstan",
@@ -886,7 +997,8 @@
         "isoCode": "KZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kz.svg",
         "mask": "+7(7##)###-##-##",
-        "localPath": "/img/flags/KZ.svg"
+        "localPath": "/img/flags/KZ.svg",
+        "isoCodeAlpha": "KAZ"
     },
     {
         "name": "Kenya",
@@ -894,7 +1006,8 @@
         "isoCode": "KE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ke.svg",
         "mask": "+254-###-######",
-        "localPath": "/img/flags/KE.svg"
+        "localPath": "/img/flags/KE.svg",
+        "isoCodeAlpha": "KEN"
     },
     {
         "name": "Kiribati",
@@ -902,7 +1015,8 @@
         "isoCode": "KI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ki.svg",
         "mask": "+686-##-###",
-        "localPath": "/img/flags/KI.svg"
+        "localPath": "/img/flags/KI.svg",
+        "isoCodeAlpha": "KIR"
     },
     {
         "name": "Korea, Democratic People's Republic of Korea",
@@ -910,7 +1024,8 @@
         "isoCode": "KP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kp.svg",
         "mask": "+850-####-#############",
-        "localPath": "/img/flags/KP.svg"
+        "localPath": "/img/flags/KP.svg",
+        "isoCodeAlpha": "PRK"
     },
     {
         "name": "Korea, Republic of South Korea",
@@ -918,14 +1033,16 @@
         "isoCode": "KR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kr.svg",
         "mask": "+82-##-###-####",
-        "localPath": "/img/flags/KR.svg"
+        "localPath": "/img/flags/KR.svg",
+        "isoCodeAlpha": "KOR"
     },
     {
         "name": "Kosovo",
         "dialCode": "+383",
         "isoCode": "XK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/xk.svg",
-        "localPath": "/img/flags/XK.svg"
+        "localPath": "/img/flags/XK.svg",
+        "isoCodeAlpha": "UNK"
     },
     {
         "name": "Kuwait",
@@ -933,7 +1050,8 @@
         "isoCode": "KW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kw.svg",
         "mask": "+965-####-####",
-        "localPath": "/img/flags/KW.svg"
+        "localPath": "/img/flags/KW.svg",
+        "isoCodeAlpha": "KWT"
     },
     {
         "name": "Kyrgyzstan",
@@ -941,7 +1059,8 @@
         "isoCode": "KG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kg.svg",
         "mask": "+996(###)###-###",
-        "localPath": "/img/flags/KG.svg"
+        "localPath": "/img/flags/KG.svg",
+        "isoCodeAlpha": "KGZ"
     },
     {
         "name": "Laos",
@@ -949,7 +1068,8 @@
         "isoCode": "LA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/la.svg",
         "mask": "+856-##-###-###",
-        "localPath": "/img/flags/LA.svg"
+        "localPath": "/img/flags/LA.svg",
+        "isoCodeAlpha": ""
     },
     {
         "name": "Latvia",
@@ -957,7 +1077,8 @@
         "isoCode": "LV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lv.svg",
         "mask": "+371-##-###-###",
-        "localPath": "/img/flags/LV.svg"
+        "localPath": "/img/flags/LV.svg",
+        "isoCodeAlpha": "LVA"
     },
     {
         "name": "Lebanon",
@@ -965,7 +1086,8 @@
         "isoCode": "LB",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lb.svg",
         "mask": "+961-#-###-###",
-        "localPath": "/img/flags/LB.svg"
+        "localPath": "/img/flags/LB.svg",
+        "isoCodeAlpha": "LBN"
     },
     {
         "name": "Lesotho",
@@ -973,7 +1095,8 @@
         "isoCode": "LS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ls.svg",
         "mask": "+266-#-###-####",
-        "localPath": "/img/flags/LS.svg"
+        "localPath": "/img/flags/LS.svg",
+        "isoCodeAlpha": "LSO"
     },
     {
         "name": "Liberia",
@@ -981,7 +1104,8 @@
         "isoCode": "LR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lr.svg",
         "mask": "+231-##-###-###",
-        "localPath": "/img/flags/LR.svg"
+        "localPath": "/img/flags/LR.svg",
+        "isoCodeAlpha": "LBR"
     },
     {
         "name": "Libya",
@@ -989,7 +1113,8 @@
         "isoCode": "LY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ly.svg",
         "mask": "+218-21-###-####",
-        "localPath": "/img/flags/LY.svg"
+        "localPath": "/img/flags/LY.svg",
+        "isoCodeAlpha": "LBY"
     },
     {
         "name": "Liechtenstein",
@@ -997,7 +1122,8 @@
         "isoCode": "LI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/li.svg",
         "mask": "+423(###)###-####",
-        "localPath": "/img/flags/LI.svg"
+        "localPath": "/img/flags/LI.svg",
+        "isoCodeAlpha": "LIE"
     },
     {
         "name": "Lithuania",
@@ -1005,7 +1131,8 @@
         "isoCode": "LT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lt.svg",
         "mask": "+370(###)##-###",
-        "localPath": "/img/flags/LT.svg"
+        "localPath": "/img/flags/LT.svg",
+        "isoCodeAlpha": "LTU"
     },
     {
         "name": "Luxembourg",
@@ -1013,7 +1140,8 @@
         "isoCode": "LU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lu.svg",
         "mask": "+352(###)###-###",
-        "localPath": "/img/flags/LU.svg"
+        "localPath": "/img/flags/LU.svg",
+        "isoCodeAlpha": "LUX"
     },
     {
         "name": "Macau",
@@ -1021,7 +1149,8 @@
         "isoCode": "MO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mo.svg",
         "mask": "+853-####-####",
-        "localPath": "/img/flags/MO.svg"
+        "localPath": "/img/flags/MO.svg",
+        "isoCodeAlpha": "MAC"
     },
     {
         "name": "Madagascar",
@@ -1029,7 +1158,8 @@
         "isoCode": "MG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mg.svg",
         "mask": "+261-##-##-#####",
-        "localPath": "/img/flags/MG.svg"
+        "localPath": "/img/flags/MG.svg",
+        "isoCodeAlpha": "MDG"
     },
     {
         "name": "Malawi",
@@ -1037,7 +1167,8 @@
         "isoCode": "MW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mw.svg",
         "mask": "+265-#-####-####",
-        "localPath": "/img/flags/MW.svg"
+        "localPath": "/img/flags/MW.svg",
+        "isoCodeAlpha": "MWI"
     },
     {
         "name": "Malaysia",
@@ -1045,7 +1176,8 @@
         "isoCode": "MY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/my.svg",
         "mask": "+60-#-###-###",
-        "localPath": "/img/flags/MY.svg"
+        "localPath": "/img/flags/MY.svg",
+        "isoCodeAlpha": "MYS"
     },
     {
         "name": "Maldives",
@@ -1053,7 +1185,8 @@
         "isoCode": "MV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mv.svg",
         "mask": "+960-###-####",
-        "localPath": "/img/flags/MV.svg"
+        "localPath": "/img/flags/MV.svg",
+        "isoCodeAlpha": "MDV"
     },
     {
         "name": "Mali",
@@ -1061,7 +1194,8 @@
         "isoCode": "ML",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ml.svg",
         "mask": "+223-##-##-####",
-        "localPath": "/img/flags/ML.svg"
+        "localPath": "/img/flags/ML.svg",
+        "isoCodeAlpha": "MLI"
     },
     {
         "name": "Malta",
@@ -1069,7 +1203,8 @@
         "isoCode": "MT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mt.svg",
         "mask": "+356-####-####",
-        "localPath": "/img/flags/MT.svg"
+        "localPath": "/img/flags/MT.svg",
+        "isoCodeAlpha": "MLT"
     },
     {
         "name": "Marshall Islands",
@@ -1077,7 +1212,8 @@
         "isoCode": "MH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mh.svg",
         "mask": "+692-###-####",
-        "localPath": "/img/flags/MH.svg"
+        "localPath": "/img/flags/MH.svg",
+        "isoCodeAlpha": "MHL"
     },
     {
         "name": "Martinique",
@@ -1085,7 +1221,8 @@
         "isoCode": "MQ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mq.svg",
         "mask": "+596(###)##-##-##",
-        "localPath": "/img/flags/MQ.svg"
+        "localPath": "/img/flags/MQ.svg",
+        "isoCodeAlpha": "MTQ"
     },
     {
         "name": "Mauritania",
@@ -1093,7 +1230,8 @@
         "isoCode": "MR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mr.svg",
         "mask": "+222-##-##-####",
-        "localPath": "/img/flags/MR.svg"
+        "localPath": "/img/flags/MR.svg",
+        "isoCodeAlpha": "MRT"
     },
     {
         "name": "Mauritius",
@@ -1101,14 +1239,16 @@
         "isoCode": "MU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mu.svg",
         "mask": "+230-###-####",
-        "localPath": "/img/flags/MU.svg"
+        "localPath": "/img/flags/MU.svg",
+        "isoCodeAlpha": "MUS"
     },
     {
         "name": "Mayotte",
         "dialCode": "+262",
         "isoCode": "YT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/yt.svg",
-        "localPath": "/img/flags/YT.svg"
+        "localPath": "/img/flags/YT.svg",
+        "isoCodeAlpha": "MYT"
     },
     {
         "name": "Mexico",
@@ -1116,7 +1256,8 @@
         "isoCode": "MX",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mx.svg",
         "mask": "+52-##-##-####",
-        "localPath": "/img/flags/MX.svg"
+        "localPath": "/img/flags/MX.svg",
+        "isoCodeAlpha": "MEX"
     },
     {
         "name": "Micronesia, Federated States of Micronesia",
@@ -1124,7 +1265,8 @@
         "isoCode": "FM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fm.svg",
         "mask": "+691-###-####",
-        "localPath": "/img/flags/FM.svg"
+        "localPath": "/img/flags/FM.svg",
+        "isoCodeAlpha": "FSM"
     },
     {
         "name": "Moldova",
@@ -1132,7 +1274,8 @@
         "isoCode": "MD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/md.svg",
         "mask": "+373-####-####",
-        "localPath": "/img/flags/MD.svg"
+        "localPath": "/img/flags/MD.svg",
+        "isoCodeAlpha": "MDA"
     },
     {
         "name": "Monaco",
@@ -1140,7 +1283,8 @@
         "isoCode": "MC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mc.svg",
         "mask": "+377-##-###-###",
-        "localPath": "/img/flags/MC.svg"
+        "localPath": "/img/flags/MC.svg",
+        "isoCodeAlpha": "MCO"
     },
     {
         "name": "Mongolia",
@@ -1148,7 +1292,8 @@
         "isoCode": "MN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mn.svg",
         "mask": "+976-##-##-####",
-        "localPath": "/img/flags/MN.svg"
+        "localPath": "/img/flags/MN.svg",
+        "isoCodeAlpha": "MNG"
     },
     {
         "name": "Montenegro",
@@ -1156,7 +1301,8 @@
         "isoCode": "ME",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/me.svg",
         "mask": "+382-##-###-###",
-        "localPath": "/img/flags/ME.svg"
+        "localPath": "/img/flags/ME.svg",
+        "isoCodeAlpha": "MNE"
     },
     {
         "name": "Montserrat",
@@ -1164,7 +1310,8 @@
         "isoCode": "MS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ms.svg",
         "mask": "+1(664)###-####",
-        "localPath": "/img/flags/MS.svg"
+        "localPath": "/img/flags/MS.svg",
+        "isoCodeAlpha": "MSR"
     },
     {
         "name": "Morocco",
@@ -1172,7 +1319,8 @@
         "isoCode": "MA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ma.svg",
         "mask": "+212-##-####-###",
-        "localPath": "/img/flags/MA.svg"
+        "localPath": "/img/flags/MA.svg",
+        "isoCodeAlpha": "MAR"
     },
     {
         "name": "Mozambique",
@@ -1180,7 +1328,8 @@
         "isoCode": "MZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mz.svg",
         "mask": "+258-##-###-###",
-        "localPath": "/img/flags/MZ.svg"
+        "localPath": "/img/flags/MZ.svg",
+        "isoCodeAlpha": "MOZ"
     },
     {
         "name": "Myanmar",
@@ -1188,7 +1337,8 @@
         "isoCode": "MM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mm.svg",
         "mask": "+95-###-###",
-        "localPath": "/img/flags/MM.svg"
+        "localPath": "/img/flags/MM.svg",
+        "isoCodeAlpha": "MMR"
     },
     {
         "name": "Namibia",
@@ -1196,7 +1346,8 @@
         "isoCode": "NA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/na.svg",
         "mask": "+264-##-###-####",
-        "localPath": "/img/flags/NA.svg"
+        "localPath": "/img/flags/NA.svg",
+        "isoCodeAlpha": "NAM"
     },
     {
         "name": "Nauru",
@@ -1204,7 +1355,8 @@
         "isoCode": "NR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nr.svg",
         "mask": "+674-###-####",
-        "localPath": "/img/flags/NR.svg"
+        "localPath": "/img/flags/NR.svg",
+        "isoCodeAlpha": "NRU"
     },
     {
         "name": "Nepal",
@@ -1212,7 +1364,8 @@
         "isoCode": "NP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/np.svg",
         "mask": "+977-##-###-###",
-        "localPath": "/img/flags/NP.svg"
+        "localPath": "/img/flags/NP.svg",
+        "isoCodeAlpha": "NPL"
     },
     {
         "name": "Netherlands",
@@ -1220,7 +1373,8 @@
         "isoCode": "NL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nl.svg",
         "mask": "+31-##-###-####",
-        "localPath": "/img/flags/NL.svg"
+        "localPath": "/img/flags/NL.svg",
+        "isoCodeAlpha": "NLD"
     },
     {
         "name": "Netherlands Antilles",
@@ -1228,7 +1382,8 @@
         "isoCode": "AN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/an.svg",
         "mask": "+599-9###-####",
-        "localPath": "/img/flags/AN.svg"
+        "localPath": "/img/flags/AN.svg",
+        "isoCodeAlpha": "ANT"
     },
     {
         "name": "New Caledonia",
@@ -1236,7 +1391,8 @@
         "isoCode": "NC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nc.svg",
         "mask": "+687-##-####",
-        "localPath": "/img/flags/NC.svg"
+        "localPath": "/img/flags/NC.svg",
+        "isoCodeAlpha": "NCL"
     },
     {
         "name": "New Zealand",
@@ -1244,7 +1400,8 @@
         "isoCode": "NZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nz.svg",
         "mask": "+64(###)###-####",
-        "localPath": "/img/flags/NZ.svg"
+        "localPath": "/img/flags/NZ.svg",
+        "isoCodeAlpha": "NZL"
     },
     {
         "name": "Nicaragua",
@@ -1252,7 +1409,8 @@
         "isoCode": "NI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ni.svg",
         "mask": "+505-####-####",
-        "localPath": "/img/flags/NI.svg"
+        "localPath": "/img/flags/NI.svg",
+        "isoCodeAlpha": "NIC"
     },
     {
         "name": "Niger",
@@ -1260,7 +1418,8 @@
         "isoCode": "NE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ne.svg",
         "mask": "+227-##-##-####",
-        "localPath": "/img/flags/NE.svg"
+        "localPath": "/img/flags/NE.svg",
+        "isoCodeAlpha": "NER"
     },
     {
         "name": "Nigeria",
@@ -1268,7 +1427,8 @@
         "isoCode": "NG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ng.svg",
         "mask": "+234(###)###-####",
-        "localPath": "/img/flags/NG.svg"
+        "localPath": "/img/flags/NG.svg",
+        "isoCodeAlpha": "NGA"
     },
     {
         "name": "Niue",
@@ -1276,7 +1436,8 @@
         "isoCode": "NU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nu.svg",
         "mask": "+683-####",
-        "localPath": "/img/flags/NU.svg"
+        "localPath": "/img/flags/NU.svg",
+        "isoCodeAlpha": "NIU"
     },
     {
         "name": "Norfolk Island",
@@ -1284,7 +1445,8 @@
         "isoCode": "NF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nf.svg",
         "mask": "+672-3##-###",
-        "localPath": "/img/flags/NF.svg"
+        "localPath": "/img/flags/NF.svg",
+        "isoCodeAlpha": "NFK"
     },
     {
         "name": "North Macedonia",
@@ -1292,7 +1454,8 @@
         "isoCode": "MK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mk.svg",
         "mask": "+389-##-###-###",
-        "localPath": "/img/flags/MK.svg"
+        "localPath": "/img/flags/MK.svg",
+        "isoCodeAlpha": "MKD"
     },
     {
         "name": "Northern Mariana Islands",
@@ -1300,7 +1463,8 @@
         "isoCode": "MP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mp.svg",
         "mask": "+1(670)###-####",
-        "localPath": "/img/flags/MP.svg"
+        "localPath": "/img/flags/MP.svg",
+        "isoCodeAlpha": "MNP"
     },
     {
         "name": "Norway",
@@ -1308,7 +1472,8 @@
         "isoCode": "NO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/no.svg",
         "mask": "+47(###)##-###",
-        "localPath": "/img/flags/NO.svg"
+        "localPath": "/img/flags/NO.svg",
+        "isoCodeAlpha": "NOR"
     },
     {
         "name": "Oman",
@@ -1316,7 +1481,8 @@
         "isoCode": "OM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/om.svg",
         "mask": "+968-##-###-###",
-        "localPath": "/img/flags/OM.svg"
+        "localPath": "/img/flags/OM.svg",
+        "isoCodeAlpha": "OMN"
     },
     {
         "name": "Pakistan",
@@ -1324,7 +1490,8 @@
         "isoCode": "PK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pk.svg",
         "mask": "+92(###)###-####",
-        "localPath": "/img/flags/PK.svg"
+        "localPath": "/img/flags/PK.svg",
+        "isoCodeAlpha": "PAK"
     },
     {
         "name": "Palau",
@@ -1332,7 +1499,8 @@
         "isoCode": "PW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pw.svg",
         "mask": "+680-###-####",
-        "localPath": "/img/flags/PW.svg"
+        "localPath": "/img/flags/PW.svg",
+        "isoCodeAlpha": "PLW"
     },
     {
         "name": "Palestine",
@@ -1340,7 +1508,8 @@
         "isoCode": "PS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ps.svg",
         "mask": "+970-##-###-####",
-        "localPath": "/img/flags/PS.svg"
+        "localPath": "/img/flags/PS.svg",
+        "isoCodeAlpha": "PSE"
     },
     {
         "name": "Panama",
@@ -1348,7 +1517,8 @@
         "isoCode": "PA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pa.svg",
         "mask": "+507-###-####",
-        "localPath": "/img/flags/PA.svg"
+        "localPath": "/img/flags/PA.svg",
+        "isoCodeAlpha": "PAN"
     },
     {
         "name": "Papua New Guinea",
@@ -1356,7 +1526,8 @@
         "isoCode": "PG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pg.svg",
         "mask": "+675(###)##-###",
-        "localPath": "/img/flags/PG.svg"
+        "localPath": "/img/flags/PG.svg",
+        "isoCodeAlpha": "PNG"
     },
     {
         "name": "Paraguay",
@@ -1364,7 +1535,8 @@
         "isoCode": "PY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/py.svg",
         "mask": "+595(###)###-###",
-        "localPath": "/img/flags/PY.svg"
+        "localPath": "/img/flags/PY.svg",
+        "isoCodeAlpha": "PRY"
     },
     {
         "name": "Peru",
@@ -1372,7 +1544,8 @@
         "isoCode": "PE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pe.svg",
         "mask": "+51(###)###-###",
-        "localPath": "/img/flags/PE.svg"
+        "localPath": "/img/flags/PE.svg",
+        "isoCodeAlpha": "PER"
     },
     {
         "name": "Philippines",
@@ -1380,14 +1553,16 @@
         "isoCode": "PH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ph.svg",
         "mask": "+63(###)###-####",
-        "localPath": "/img/flags/PH.svg"
+        "localPath": "/img/flags/PH.svg",
+        "isoCodeAlpha": "PHL"
     },
     {
         "name": "Pitcairn",
         "dialCode": "+872",
         "isoCode": "PN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pn.svg",
-        "localPath": "/img/flags/PN.svg"
+        "localPath": "/img/flags/PN.svg",
+        "isoCodeAlpha": "PCN"
     },
     {
         "name": "Poland",
@@ -1395,7 +1570,8 @@
         "isoCode": "PL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pl.svg",
         "mask": "+48(###)###-###",
-        "localPath": "/img/flags/PL.svg"
+        "localPath": "/img/flags/PL.svg",
+        "isoCodeAlpha": "POL"
     },
     {
         "name": "Portugal",
@@ -1403,14 +1579,16 @@
         "isoCode": "PT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pt.svg",
         "mask": "+351-##-###-####",
-        "localPath": "/img/flags/PT.svg"
+        "localPath": "/img/flags/PT.svg",
+        "isoCodeAlpha": "PRT"
     },
     {
         "name": "Puerto Rico",
         "dialCode": "+1939",
         "isoCode": "PR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pr.svg",
-        "localPath": "/img/flags/PR.svg"
+        "localPath": "/img/flags/PR.svg",
+        "isoCodeAlpha": "PRI"
     },
     {
         "name": "Qatar",
@@ -1418,7 +1596,8 @@
         "isoCode": "QA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/qa.svg",
         "mask": "+974-####-####",
-        "localPath": "/img/flags/QA.svg"
+        "localPath": "/img/flags/QA.svg",
+        "isoCodeAlpha": "QAT"
     },
     {
         "name": "Reunion",
@@ -1426,7 +1605,8 @@
         "isoCode": "RE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/re.svg",
         "mask": "+262-#####-####",
-        "localPath": "/img/flags/RE.svg"
+        "localPath": "/img/flags/RE.svg",
+        "isoCodeAlpha": "REU"
     },
     {
         "name": "Romania",
@@ -1434,7 +1614,8 @@
         "isoCode": "RO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ro.svg",
         "mask": "+40-##-###-####",
-        "localPath": "/img/flags/RO.svg"
+        "localPath": "/img/flags/RO.svg",
+        "isoCodeAlpha": "ROU"
     },
     {
         "name": "Russian Federation",
@@ -1442,7 +1623,8 @@
         "isoCode": "RU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ru.svg",
         "mask": "+7(###)###-##-##",
-        "localPath": "/img/flags/RU.svg"
+        "localPath": "/img/flags/RU.svg",
+        "isoCodeAlpha": "RUS"
     },
     {
         "name": "Rwanda",
@@ -1450,14 +1632,16 @@
         "isoCode": "RW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/rw.svg",
         "mask": "+250(###)###-###",
-        "localPath": "/img/flags/RW.svg"
+        "localPath": "/img/flags/RW.svg",
+        "isoCodeAlpha": "RWA"
     },
     {
         "name": "Saint Barthelemy",
         "dialCode": "+590",
         "isoCode": "BL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bl.svg",
-        "localPath": "/img/flags/BL.svg"
+        "localPath": "/img/flags/BL.svg",
+        "isoCodeAlpha": "BLM"
     },
     {
         "name": "Saint Helena, Ascension and Tristan Da Cunha",
@@ -1465,7 +1649,8 @@
         "isoCode": "SH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sh.svg",
         "mask": "+290-####",
-        "localPath": "/img/flags/SH.svg"
+        "localPath": "/img/flags/SH.svg",
+        "isoCodeAlpha": "SHN"
     },
     {
         "name": "Saint Kitts and Nevis",
@@ -1473,7 +1658,8 @@
         "isoCode": "KN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kn.svg",
         "mask": "+1(869)###-####",
-        "localPath": "/img/flags/KN.svg"
+        "localPath": "/img/flags/KN.svg",
+        "isoCodeAlpha": "KNA"
     },
     {
         "name": "Saint Lucia",
@@ -1481,21 +1667,24 @@
         "isoCode": "LC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lc.svg",
         "mask": "+1(758)###-####",
-        "localPath": "/img/flags/LC.svg"
+        "localPath": "/img/flags/LC.svg",
+        "isoCodeAlpha": "LCA"
     },
     {
         "name": "Saint Martin",
         "dialCode": "+590",
         "isoCode": "MF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mf.svg",
-        "localPath": "/img/flags/MF.svg"
+        "localPath": "/img/flags/MF.svg",
+        "isoCodeAlpha": "MAF"
     },
     {
         "name": "Saint Pierre and Miquelon",
         "dialCode": "+508",
         "isoCode": "PM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pm.svg",
-        "localPath": "/img/flags/PM.svg"
+        "localPath": "/img/flags/PM.svg",
+        "isoCodeAlpha": "SPM"
     },
     {
         "name": "Saint Vincent and the Grenadines",
@@ -1503,7 +1692,8 @@
         "isoCode": "VC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/vc.svg",
         "mask": "+1(784)###-####",
-        "localPath": "/img/flags/VC.svg"
+        "localPath": "/img/flags/VC.svg",
+        "isoCodeAlpha": "VCT"
     },
     {
         "name": "Samoa",
@@ -1511,7 +1701,8 @@
         "isoCode": "WS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ws.svg",
         "mask": "+685-##-####",
-        "localPath": "/img/flags/WS.svg"
+        "localPath": "/img/flags/WS.svg",
+        "isoCodeAlpha": "WSM"
     },
     {
         "name": "San Marino",
@@ -1519,7 +1710,8 @@
         "isoCode": "SM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sm.svg",
         "mask": "+378-####-######",
-        "localPath": "/img/flags/SM.svg"
+        "localPath": "/img/flags/SM.svg",
+        "isoCodeAlpha": "SMR"
     },
     {
         "name": "Sao Tome and Principe",
@@ -1527,7 +1719,8 @@
         "isoCode": "ST",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/st.svg",
         "mask": "+239-##-#####",
-        "localPath": "/img/flags/ST.svg"
+        "localPath": "/img/flags/ST.svg",
+        "isoCodeAlpha": "STP"
     },
     {
         "name": "Saudi Arabia",
@@ -1535,7 +1728,8 @@
         "isoCode": "SA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sa.svg",
         "mask": "+966-#-###-####",
-        "localPath": "/img/flags/SA.svg"
+        "localPath": "/img/flags/SA.svg",
+        "isoCodeAlpha": "SAU"
     },
     {
         "name": "Senegal",
@@ -1543,7 +1737,8 @@
         "isoCode": "SN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sn.svg",
         "mask": "+221-##-###-####",
-        "localPath": "/img/flags/SN.svg"
+        "localPath": "/img/flags/SN.svg",
+        "isoCodeAlpha": "SEN"
     },
     {
         "name": "Serbia",
@@ -1551,7 +1746,8 @@
         "isoCode": "RS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/rs.svg",
         "mask": "+381-##-###-####",
-        "localPath": "/img/flags/RS.svg"
+        "localPath": "/img/flags/RS.svg",
+        "isoCodeAlpha": "SRB"
     },
     {
         "name": "Seychelles",
@@ -1559,7 +1755,8 @@
         "isoCode": "SC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sc.svg",
         "mask": "+248-#-###-###",
-        "localPath": "/img/flags/SC.svg"
+        "localPath": "/img/flags/SC.svg",
+        "isoCodeAlpha": "SYC"
     },
     {
         "name": "Sierra Leone",
@@ -1567,7 +1764,8 @@
         "isoCode": "SL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sl.svg",
         "mask": "+232-##-######",
-        "localPath": "/img/flags/SL.svg"
+        "localPath": "/img/flags/SL.svg",
+        "isoCodeAlpha": "SLE"
     },
     {
         "name": "Singapore",
@@ -1575,7 +1773,8 @@
         "isoCode": "SG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sg.svg",
         "mask": "+65-####-####",
-        "localPath": "/img/flags/SG.svg"
+        "localPath": "/img/flags/SG.svg",
+        "isoCodeAlpha": "SGP"
     },
     {
         "name": "Sint Maarten",
@@ -1583,7 +1782,8 @@
         "isoCode": "SX",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sx.svg",
         "mask": "+1(721)###-####",
-        "localPath": "/img/flags/SX.svg"
+        "localPath": "/img/flags/SX.svg",
+        "isoCodeAlpha": "SXM"
     },
     {
         "name": "Slovakia",
@@ -1591,7 +1791,8 @@
         "isoCode": "SK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sk.svg",
         "mask": "+421(###)###-###",
-        "localPath": "/img/flags/SK.svg"
+        "localPath": "/img/flags/SK.svg",
+        "isoCodeAlpha": "SVK"
     },
     {
         "name": "Slovenia",
@@ -1599,7 +1800,8 @@
         "isoCode": "SI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/si.svg",
         "mask": "+386-##-###-###",
-        "localPath": "/img/flags/SI.svg"
+        "localPath": "/img/flags/SI.svg",
+        "isoCodeAlpha": "SVN"
     },
     {
         "name": "Solomon Islands",
@@ -1607,7 +1809,8 @@
         "isoCode": "SB",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sb.svg",
         "mask": "+677-#####",
-        "localPath": "/img/flags/SB.svg"
+        "localPath": "/img/flags/SB.svg",
+        "isoCodeAlpha": "SLB"
     },
     {
         "name": "Somalia",
@@ -1615,7 +1818,8 @@
         "isoCode": "SO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/so.svg",
         "mask": "+252-#-###-###",
-        "localPath": "/img/flags/SO.svg"
+        "localPath": "/img/flags/SO.svg",
+        "isoCodeAlpha": "SOM"
     },
     {
         "name": "South Africa",
@@ -1623,14 +1827,16 @@
         "isoCode": "ZA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/za.svg",
         "mask": "+27-##-###-####",
-        "localPath": "/img/flags/ZA.svg"
+        "localPath": "/img/flags/ZA.svg",
+        "isoCodeAlpha": "ZAF"
     },
     {
         "name": "South Georgia and the South Sandwich Islands",
         "dialCode": "+500",
         "isoCode": "GS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gs.svg",
-        "localPath": "/img/flags/GS.svg"
+        "localPath": "/img/flags/GS.svg",
+        "isoCodeAlpha": "SGS"
     },
     {
         "name": "South Sudan",
@@ -1638,7 +1844,8 @@
         "isoCode": "SS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ss.svg",
         "mask": "+211-##-###-####",
-        "localPath": "/img/flags/SS.svg"
+        "localPath": "/img/flags/SS.svg",
+        "isoCodeAlpha": "SSD"
     },
     {
         "name": "Spain",
@@ -1646,7 +1853,8 @@
         "isoCode": "ES",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/es.svg",
         "mask": "+34(###)###-###",
-        "localPath": "/img/flags/ES.svg"
+        "localPath": "/img/flags/ES.svg",
+        "isoCodeAlpha": "ESP"
     },
     {
         "name": "Sri Lanka",
@@ -1654,7 +1862,8 @@
         "isoCode": "LK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lk.svg",
         "mask": "+94-##-###-####",
-        "localPath": "/img/flags/LK.svg"
+        "localPath": "/img/flags/LK.svg",
+        "isoCodeAlpha": "LKA"
     },
     {
         "name": "Sudan",
@@ -1662,7 +1871,8 @@
         "isoCode": "SD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sd.svg",
         "mask": "+249-##-###-####",
-        "localPath": "/img/flags/SD.svg"
+        "localPath": "/img/flags/SD.svg",
+        "isoCodeAlpha": "SDN"
     },
     {
         "name": "Suriname",
@@ -1670,14 +1880,16 @@
         "isoCode": "SR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sr.svg",
         "mask": "+597-###-###",
-        "localPath": "/img/flags/SR.svg"
+        "localPath": "/img/flags/SR.svg",
+        "isoCodeAlpha": "SUR"
     },
     {
         "name": "Svalbard and Jan Mayen",
         "dialCode": "+47",
         "isoCode": "SJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sj.svg",
-        "localPath": "/img/flags/SJ.svg"
+        "localPath": "/img/flags/SJ.svg",
+        "isoCodeAlpha": "SJM"
     },
     {
         "name": "Sweden",
@@ -1685,7 +1897,8 @@
         "isoCode": "SE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/se.svg",
         "mask": "+46-##-###-####",
-        "localPath": "/img/flags/SE.svg"
+        "localPath": "/img/flags/SE.svg",
+        "isoCodeAlpha": "SWE"
     },
     {
         "name": "Switzerland",
@@ -1693,7 +1906,8 @@
         "isoCode": "CH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ch.svg",
         "mask": "+41-##-###-####",
-        "localPath": "/img/flags/CH.svg"
+        "localPath": "/img/flags/CH.svg",
+        "isoCodeAlpha": "CHE"
     },
     {
         "name": "Syrian Arab Republic",
@@ -1701,7 +1915,8 @@
         "isoCode": "SY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sy.svg",
         "mask": "+963-##-####-###",
-        "localPath": "/img/flags/SY.svg"
+        "localPath": "/img/flags/SY.svg",
+        "isoCodeAlpha": "SYR"
     },
     {
         "name": "Taiwan",
@@ -1709,7 +1924,8 @@
         "isoCode": "TW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tw.svg",
         "mask": "+886-####-####",
-        "localPath": "/img/flags/TW.svg"
+        "localPath": "/img/flags/TW.svg",
+        "isoCodeAlpha": "TWN"
     },
     {
         "name": "Tajikistan",
@@ -1717,7 +1933,8 @@
         "isoCode": "TJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tj.svg",
         "mask": "+992-##-###-####",
-        "localPath": "/img/flags/TJ.svg"
+        "localPath": "/img/flags/TJ.svg",
+        "isoCodeAlpha": "TJK"
     },
     {
         "name": "Tanzania, United Republic of Tanzania",
@@ -1725,7 +1942,8 @@
         "isoCode": "TZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tz.svg",
         "mask": "+255-##-###-####",
-        "localPath": "/img/flags/TZ.svg"
+        "localPath": "/img/flags/TZ.svg",
+        "isoCodeAlpha": "TZA"
     },
     {
         "name": "Thailand",
@@ -1733,7 +1951,8 @@
         "isoCode": "TH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/th.svg",
         "mask": "+66-##-###-###",
-        "localPath": "/img/flags/TH.svg"
+        "localPath": "/img/flags/TH.svg",
+        "isoCodeAlpha": "THA"
     },
     {
         "name": "Timor-Leste",
@@ -1741,7 +1960,8 @@
         "isoCode": "TL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tl.svg",
         "mask": "+670-78#-#####",
-        "localPath": "/img/flags/TL.svg"
+        "localPath": "/img/flags/TL.svg",
+        "isoCodeAlpha": "TLS"
     },
     {
         "name": "Togo",
@@ -1749,7 +1969,8 @@
         "isoCode": "TG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tg.svg",
         "mask": "+228-##-###-###",
-        "localPath": "/img/flags/TG.svg"
+        "localPath": "/img/flags/TG.svg",
+        "isoCodeAlpha": "TGO"
     },
     {
         "name": "Tokelau",
@@ -1757,7 +1978,8 @@
         "isoCode": "TK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tk.svg",
         "mask": "+690-####",
-        "localPath": "/img/flags/TK.svg"
+        "localPath": "/img/flags/TK.svg",
+        "isoCodeAlpha": "TKL"
     },
     {
         "name": "Tonga",
@@ -1765,7 +1987,8 @@
         "isoCode": "TO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/to.svg",
         "mask": "+676-#####",
-        "localPath": "/img/flags/TO.svg"
+        "localPath": "/img/flags/TO.svg",
+        "isoCodeAlpha": "TON"
     },
     {
         "name": "Trinidad and Tobago",
@@ -1773,7 +1996,8 @@
         "isoCode": "TT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tt.svg",
         "mask": "+1(868)###-####",
-        "localPath": "/img/flags/TT.svg"
+        "localPath": "/img/flags/TT.svg",
+        "isoCodeAlpha": "TTO"
     },
     {
         "name": "Tunisia",
@@ -1781,7 +2005,8 @@
         "isoCode": "TN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tn.svg",
         "mask": "+216-##-###-###",
-        "localPath": "/img/flags/TN.svg"
+        "localPath": "/img/flags/TN.svg",
+        "isoCodeAlpha": "TUN"
     },
     {
         "name": "Turkey",
@@ -1789,7 +2014,8 @@
         "isoCode": "TR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tr.svg",
         "mask": "+90(###)###-####",
-        "localPath": "/img/flags/TR.svg"
+        "localPath": "/img/flags/TR.svg",
+        "isoCodeAlpha": "TUR"
     },
     {
         "name": "Turkmenistan",
@@ -1797,7 +2023,8 @@
         "isoCode": "TM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tm.svg",
         "mask": "+993-#-###-####",
-        "localPath": "/img/flags/TM.svg"
+        "localPath": "/img/flags/TM.svg",
+        "isoCodeAlpha": "TKM"
     },
     {
         "name": "Turks and Caicos Islands",
@@ -1805,7 +2032,8 @@
         "isoCode": "TC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tc.svg",
         "mask": "+1(649)###-####",
-        "localPath": "/img/flags/TC.svg"
+        "localPath": "/img/flags/TC.svg",
+        "isoCodeAlpha": "TCA"
     },
     {
         "name": "Tuvalu",
@@ -1813,7 +2041,8 @@
         "isoCode": "TV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tv.svg",
         "mask": "+688-2####",
-        "localPath": "/img/flags/TV.svg"
+        "localPath": "/img/flags/TV.svg",
+        "isoCodeAlpha": "TUV"
     },
     {
         "name": "Uganda",
@@ -1821,7 +2050,8 @@
         "isoCode": "UG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ug.svg",
         "mask": "+256(###)###-###",
-        "localPath": "/img/flags/UG.svg"
+        "localPath": "/img/flags/UG.svg",
+        "isoCodeAlpha": "UGA"
     },
     {
         "name": "Ukraine",
@@ -1829,7 +2059,8 @@
         "isoCode": "UA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ua.svg",
         "mask": "+380(##)###-##-##",
-        "localPath": "/img/flags/UA.svg"
+        "localPath": "/img/flags/UA.svg",
+        "isoCodeAlpha": "UKR"
     },
     {
         "name": "United Arab Emirates",
@@ -1837,14 +2068,16 @@
         "isoCode": "AE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ae.svg",
         "mask": "+971-#-###-####",
-        "localPath": "/img/flags/AE.svg"
+        "localPath": "/img/flags/AE.svg",
+        "isoCodeAlpha": "ARE"
     },
     {
         "name": "United Kingdom",
         "dialCode": "+44",
         "isoCode": "GB",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gb.svg",
-        "localPath": "/img/flags/GB.svg"
+        "localPath": "/img/flags/GB.svg",
+        "isoCodeAlpha": "GBR"
     },
     {
         "name": "United States",
@@ -1852,14 +2085,16 @@
         "isoCode": "US",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/us.svg",
         "mask": "+1(###)###-####",
-        "localPath": "/img/flags/US.svg"
+        "localPath": "/img/flags/US.svg",
+        "isoCodeAlpha": "USA"
     },
     {
         "name": "United States Minor Outlying Islands",
         "dialCode": "+246",
         "isoCode": "UMI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/umi.svg",
-        "localPath": "/img/flags/UMI.svg"
+        "localPath": "/img/flags/UMI.svg",
+        "isoCodeAlpha": "UMI"
     },
     {
         "name": "Uruguay",
@@ -1867,7 +2102,8 @@
         "isoCode": "UY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/uy.svg",
         "mask": "+598-#-###-##-##",
-        "localPath": "/img/flags/UY.svg"
+        "localPath": "/img/flags/UY.svg",
+        "isoCodeAlpha": "URY"
     },
     {
         "name": "Uzbekistan",
@@ -1875,7 +2111,8 @@
         "isoCode": "UZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/uz.svg",
         "mask": "+998-##-###-####",
-        "localPath": "/img/flags/UZ.svg"
+        "localPath": "/img/flags/UZ.svg",
+        "isoCodeAlpha": "UZB"
     },
     {
         "name": "Vanuatu",
@@ -1883,7 +2120,8 @@
         "isoCode": "VU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/vu.svg",
         "mask": "+678-#####",
-        "localPath": "/img/flags/VU.svg"
+        "localPath": "/img/flags/VU.svg",
+        "isoCodeAlpha": "VUT"
     },
     {
         "name": "Venezuela, Bolivarian Republic of Venezuela",
@@ -1891,7 +2129,8 @@
         "isoCode": "VE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ve.svg",
         "mask": "+58(###)###-####",
-        "localPath": "/img/flags/VE.svg"
+        "localPath": "/img/flags/VE.svg",
+        "isoCodeAlpha": "VEN"
     },
     {
         "name": "Vietnam",
@@ -1899,7 +2138,8 @@
         "isoCode": "VN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/vn.svg",
         "mask": "+84(###)####-###",
-        "localPath": "/img/flags/VN.svg"
+        "localPath": "/img/flags/VN.svg",
+        "isoCodeAlpha": "VNM"
     },
     {
         "name": "Virgin Islands, British",
@@ -1907,7 +2147,8 @@
         "isoCode": "VG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/vg.svg",
         "mask": "+1(284)###-####",
-        "localPath": "/img/flags/VG.svg"
+        "localPath": "/img/flags/VG.svg",
+        "isoCodeAlpha": "VGB"
     },
     {
         "name": "Virgin Islands, U.S.",
@@ -1915,7 +2156,8 @@
         "isoCode": "VI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/vi.svg",
         "mask": "+1(340)###-####",
-        "localPath": "/img/flags/VI.svg"
+        "localPath": "/img/flags/VI.svg",
+        "isoCodeAlpha": "VIR"
     },
     {
         "name": "Wallis and Futuna",
@@ -1923,7 +2165,8 @@
         "isoCode": "WF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/wf.svg",
         "mask": "+681-##-####",
-        "localPath": "/img/flags/WF.svg"
+        "localPath": "/img/flags/WF.svg",
+        "isoCodeAlpha": "WLF"
     },
     {
         "name": "Yemen",
@@ -1931,7 +2174,8 @@
         "isoCode": "YE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ye.svg",
         "mask": "+967-##-###-###",
-        "localPath": "/img/flags/YE.svg"
+        "localPath": "/img/flags/YE.svg",
+        "isoCodeAlpha": "YEM"
     },
     {
         "name": "Zambia",
@@ -1939,7 +2183,8 @@
         "isoCode": "ZM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/zm.svg",
         "mask": "+260-##-###-####",
-        "localPath": "/img/flags/ZM.svg"
+        "localPath": "/img/flags/ZM.svg",
+        "isoCodeAlpha": "ZMB"
     },
     {
         "name": "Zimbabwe",
@@ -1947,6 +2192,7 @@
         "isoCode": "ZW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/zw.svg",
         "mask": "+263-#-######",
-        "localPath": "/img/flags/ZW.svg"
+        "localPath": "/img/flags/ZW.svg",
+        "isoCodeAlpha": "ZWE"
     }
 ]

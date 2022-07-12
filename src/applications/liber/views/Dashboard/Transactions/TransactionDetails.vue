@@ -47,6 +47,7 @@ onBeforeMount(async () => {
           route.params.id as string,
           route.query.coin as string
         )) as INetTransaction;
+
       mainCoin.value = route.params.coin as string;
 
       return;

@@ -164,6 +164,7 @@
     "downloadState": "Download Statement",
     "rate": "Rate",
     "bought": "Bought",
+    "receivedCoupons": "Received coupons for",
     "cost": "Cost",
     "transactionIdCopied": "Transaction ID is copied successfully",
     "transactionIdCopyFail": "Failed when copy Transaction ID",
@@ -502,12 +503,13 @@
       },
       "profileEdit": {
         "editProfile": "Edit Profile",
+        "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",
         "id": "Liber ID",
         "dateOfBirth": "Date of Birth",
         "address": "Residential Address",
-        "verify": "Verify Identity"
+        "changeHomeAddress": "Change home address"
       },
       "profilePrivacy": {
         "privacy": "Privacy",
@@ -641,6 +643,11 @@
       "title": "Enter Liber Save account email address",
       "email": "Liber Save Email",
       "error": "Liber Save account associated with this email address not found. Try to use another email."
+    },
+    "convert": {
+      "title": "Enter amount of euro to get coupons for",
+      "convertExactly": "Amount (€50–€1,000)",
+      "convertNow": "Get Coupons Now"
     }
   }
 }

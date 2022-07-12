@@ -1,5 +1,5 @@
 <template>
-  <div class="transaction-list-item">
+  <div v-if="!transaction.isCoupon" class="transaction-list-item">
     <transaction-icon-with-status :size="45" img-path="convert" />
     <div class="info">
       <div class="flex">
@@ -20,6 +20,11 @@
       </div>
     </div>
   </div>
+  <CouponTransactionItem
+    v-else
+    :transaction="transaction"
+    :main-coin="mainCoin"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -32,6 +37,7 @@ import {
 import { toUpperCase } from '@/helpers/filters';
 
 import { TransactionIconWithStatus } from '@/components/ui';
+import CouponTransactionItem from './CouponTransactionItem.vue';
 
 const props = defineProps({
   mainCoin: {

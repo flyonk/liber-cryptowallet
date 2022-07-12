@@ -10,6 +10,13 @@
       {{ $t('views.kyc.kyc6step.provideOneOf') }}
     </template>
     <template #content>
+      <input
+        ref="uploader"
+        style="visibility: hidden"
+        type="file"
+        name=""
+        @input="onUpload"
+      />
       <div class="kyc-6-step">
         <ul class="list" type="disc">
           <li class="item">
@@ -36,30 +43,44 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
-
-import { Camera, CameraResultType } from '@capacitor/camera';
-
-import { TTopNavigation, BaseProgressBar, BaseButton } from '@/components/ui';
+import { computed, ref } from 'vue';
 
 import { useKYCStore } from '@/stores/kyc';
+import { useProfileStore } from '@/stores/profile';
+import { IClaim } from '@/models/profile/claim';
+import { getFullList } from '@/services/country-phone';
+import { ICountryInformation } from '@/types/country-phone-types';
+
+import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
 const emit = defineEmits(['prev', 'next']);
 
 const kycStore = useKYCStore();
+const profileStore = useProfileStore();
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
+const uploader = ref();
+
+const onUpload = async () => {
+  try {
+    const file = uploader.value.files[0];
+    const { id: claimId } = kycStore.claimData as IClaim;
+    const countries = await getFullList();
+    const { isoCodeAlpha: countryIso } = countries.find(
+      ({ name }) => name === profileStore.getUser.country
+    ) as ICountryInformation;
+
+    await kycStore.uploadResidenceFile(claimId, file, countryIso);
+
+    emit('next');
+  } catch (e) {
+    console.error(e);
+  }
+};
+
 const selectPicture = async () => {
-  const image = await Camera.getPhoto({
-    quality: 90,
-    allowEditing: true,
-    resultType: CameraResultType.Uri,
-  });
-
-  console.debug(image);
-
-  emit('next');
+  uploader.value.click();
 };
 </script>
 

@@ -42,6 +42,7 @@ export enum Route {
   ProfileAddNewContactData = 'profile-add-new-contact-data',
   ProfileHelp = 'profile-help',
   ProfileEdit = 'profile-edit',
+  ProfileChangeAddress = 'profile-change-address',
   ProfilePrivacy = 'profile-privacy',
 
   ConfirmEmail = 'confirm-email',
