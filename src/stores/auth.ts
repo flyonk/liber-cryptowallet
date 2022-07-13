@@ -1,4 +1,3 @@
-import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
 import { DateTime } from 'luxon';
@@ -247,7 +246,7 @@ export const useAuthStore = defineStore('auth', {
         get(EStorageKeys.faceid),
       ]);
 
-      SecureStoragePlugin.remove({ key: SStorageKeys.user });
+      remove(SStorageKeys.user);
 
       if (this.token.token) {
         authService.logout({ user_id: userId });
