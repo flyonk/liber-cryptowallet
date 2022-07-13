@@ -8,6 +8,7 @@
       inputmode="decimal"
       :min-fraction-digits="0"
       :max-fraction-digits="10"
+      @input="syncModels"
     >
       <template #append>You send exactly</template>
       <template #prepend
@@ -58,7 +59,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 
 import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
@@ -88,11 +89,15 @@ onMounted(() => {
   transferStore.coin = currencies[0].code;
 });
 
-watch(amount, () => {
-  const fee = 0;
-  recipientAmount.value = String(+amount.value - fee);
-  transferStore.amount = recipientAmount.value;
-});
+/**
+ * watch method stopped working after adding MBaseInput from kit
+ */
+
+// watch(amount, () => {
+//   const fee = 0;
+//   recipientAmount.value = String(+amount.value - fee);
+//   transferStore.amount = recipientAmount.value;
+// });
 
 const currentSendFromCurrency = {
   name: ref('TBTC'),
@@ -105,6 +110,19 @@ const currentSendToCurrency = {
   code: ref('tbtc'),
   img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
+
+const currencies: ICoin[] = [
+  {
+    name: 'TBTC',
+    code: 'tbtc',
+    imageUrl: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
+  },
+  {
+    name: 'TLTC',
+    code: 'tltc',
+    imageUrl: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
+  },
+];
 
 let isSelectListOpen = ref(false);
 
@@ -128,28 +146,6 @@ function handleChangeCurrentCurrency(index: number, type: string) {
   isSelectListOpen.value = false;
 }
 
-const currencies: ICoin[] = [
-  {
-    name: 'TBTC',
-    code: 'tbtc',
-    imageUrl: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
-  },
-  {
-    name: 'TLTC',
-    code: 'tltc',
-    imageUrl: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
-  },
-];
-
-const _setCurrentSendToCurrency = (index: number) => {
-  currentSendToCurrency.name.value = currencies[index].name;
-  currentSendToCurrency.img = '' + currencies[index].imageUrl;
-  currentSendToCurrency.code.value = currencies[index].code;
-};
-
-const _getCurrencyIndex = (code: string) =>
-  currencies.findIndex((e) => e.code === code);
-
 const adoptedCurrentSendFromCurrency = computed(() => ({
   name: currentSendFromCurrency.name.value,
   code: currentSendFromCurrency.code.value,
@@ -161,6 +157,28 @@ const adoptedCurrentSendToCurrency = computed(() => ({
   code: currentSendToCurrency.code.value,
   img: currentSendToCurrency.img,
 }));
+
+const _setCurrentSendToCurrency = (index: number) => {
+  currentSendToCurrency.name.value = currencies[index].name;
+  currentSendToCurrency.img = '' + currencies[index].imageUrl;
+  currentSendToCurrency.code.value = currencies[index].code;
+};
+
+const _getCurrencyIndex = (code: string) =>
+  currencies.findIndex((e) => e.code === code);
+
+/**
+ * TODO: RESEARCH:
+ * the model is not updated by itself,
+ * perhaps this is an MBaseInput bug
+ * @param event
+ */
+const syncModels = (event: InputEvent) => {
+  console.log(event);
+  amount.value = '' + event;
+  recipientAmount.value = amount.value;
+  transferStore.amount = recipientAmount.value;
+};
 
 // todo: type FocusEvent not describes event as expected
 /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
