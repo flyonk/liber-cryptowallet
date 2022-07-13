@@ -2,12 +2,14 @@
   <div class="change-currency">
     <m-base-input
       v-model="amount"
+      class="m-base-input"
       type="number"
       mode="decimal"
       inputmode="decimal"
       :min-fraction-digits="0"
       :max-fraction-digits="10"
       view="flat"
+      @blur="onBlur"
     >
       <template #append>You send exactly</template>
       <template #prepend
@@ -26,48 +28,7 @@
           "
       /></template>
     </m-base-input>
-    <br />
-    <!-- <div class="input-wrapper mb-2 relative m-0">
-      <label class="change-from">
-        <p class="label">You send exactly</p>
-        <input
-          v-model="amount"
-          type="number"
-          min="0"
-          class="input"
-          autofocus
-          @blur="onBlur"
-        />
-        <div class="select">
-          <div
-            class="select-option flex"
-            style="background-color: red"
-            @click="showCryptoList(1)"
-          >
-            <img class="icon" :src="currentSendFromCurrency.img" />
-            <p class="name">{{ currentSendFromCurrency.name.value }}</p>
-            <img
-              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
-              alt="list"
-            />
-          </div>
-          <ul
-            v-if="isSelectListOpen && currentOpenedSelectId === 1"
-            class="options-list"
-          >
-            <li
-              v-for="(currency, index) in currencies"
-              :key="index"
-              class="options-item"
-              @click="handleChangeCurrentCurrency(index, 'from')"
-            >
-              <img class="icon" :src="currency.img" alt="" />
-              <p class="currency">{{ currency.name }}</p>
-            </li>
-          </ul>
-        </div>
-      </label>
-    </div> -->
+
     <ul class="fees-data">
       <li class="fees-item">
         <div class="circle">-</div>
@@ -78,11 +39,14 @@
 
     <m-base-input
       v-model="recipientAmount"
+      class="m-base-input"
       type="number"
       mode="decimal"
       inputmode="decimal"
       :min-fraction-digits="0"
       :max-fraction-digits="10"
+      disabled
+      @blur="onBlur"
     >
       <template #append>{{ props.contactName }} will get</template>
       <template #prepend
@@ -101,43 +65,6 @@
           "
       /></template>
     </m-base-input>
-    <!-- <div class="input-wrapper relative w-full mb-5">
-      <label class="change-from">
-        <p class="label">{{ props.contactName }} will get</p>
-        <input
-          v-model="recipientAmount"
-          type="number"
-          min="0"
-          disabled
-          class="input"
-          @blur="onBlur"
-        />
-        <div class="select select-to">
-          <div class="select-option flex" @click="showCryptoList(2)">
-            <img class="icon" :src="currentSendToCurrency.img" />
-            <p class="name">{{ currentSendToCurrency.name.value }}</p>
-            <img
-              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
-              alt="list"
-            />
-          </div>
-          <ul
-            v-if="isSelectListOpen && currentOpenedSelectId === 2"
-            class="options-list"
-          >
-            <li
-              v-for="(currency, index) in currencies"
-              :key="index"
-              class="options-item"
-              @click="handleChangeCurrentCurrency(index, 'to')"
-            >
-              <img class="icon" :src="currency.img" alt="" />
-              <p class="currency">{{ currency.name }}</p>
-            </li>
-          </ul>
-        </div>
-      </label>
-    </div> -->
   </div>
 </template>
 
@@ -199,7 +126,7 @@ function showCryptoList(listId: number) {
 
 function handleChangeCurrentCurrency(index: number, type: string) {
   console.log('!start! handleChangeCurrentCurrency', index, type);
-  if (type === 'from') {
+  if (type === ESendInputType.From) {
     currentSendFromCurrency.name.value = currencies[index].name;
     currentSendFromCurrency.code.value = currencies[index].code;
     currentSendFromCurrency.img = '' + currencies[index].imageUrl;
@@ -214,7 +141,7 @@ function handleChangeCurrentCurrency(index: number, type: string) {
     transferStore.coin = currentSendFromCurrency.code.value;
   }
 
-  if (type === 'to') {
+  if (type === ESendInputType.To) {
     // temporary off
     // _setCurrentSendToCurrency(index);
   }
@@ -246,7 +173,6 @@ const _setCurrentSendToCurrency = (index: number) => {
 
 // todo: type FocusEvent not describes event as expected
 /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const onBlur = (event: FocusEvent | any) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
@@ -259,6 +185,11 @@ const onBlur = (event: FocusEvent | any) => {
 <style lang="scss" scoped>
 .change-currency {
   width: 100%;
+
+  > .m-base-input {
+    height: 80px;
+    margin: 0 0 16px;
+  }
 }
 
 .change-from {
