@@ -2,16 +2,16 @@
   <div class="surprise-menu">
     <p class="cancel" @click="closeMenu">Cancel</p>
     <h2 class="title">I’ve got little surprise for you 🎁</h2>
-    <MBaseInput type="text">
+    <MBaseInput type="text" class="m-base-input">
       <template #label> To </template>
     </MBaseInput>
-    <MBaseInput type="text">
+    <MBaseInput type="text" class="m-base-input">
       <template #label> Cc </template>
     </MBaseInput>
-    <MBaseInput type="text">
+    <MBaseInput type="text" class="m-base-input">
       <template #label> Bcc </template>
     </MBaseInput>
-    <MBaseInput v-model="Subject" type="text">
+    <MBaseInput v-model="Subject" type="text" class="m-base-input">
       <template #label> Subject </template>
     </MBaseInput>
     <p class="description">
@@ -37,6 +37,10 @@ function closeMenu() {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .surprise-menu {
   bottom: 0;
   display: flex;
