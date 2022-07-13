@@ -1,4 +1,3 @@
-import { Storage } from '@capacitor/storage';
 import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 import jwt_decode, { JwtPayload } from 'jwt-decode';
 import { defineStore } from 'pinia';
@@ -86,12 +85,8 @@ export const useAuthStore = defineStore('auth', {
       store.$reset();
     },
     async recoverTokenData(): Promise<void> {
-      const { value: token } = await Storage.get({
-        key: EStorageKeys.token,
-      });
-      const { value: refreshToken } = await Storage.get({
-        key: EStorageKeys.refreshToken,
-      });
+      const token = await get(EStorageKeys.token);
+      const refreshToken = await get(EStorageKeys.refreshToken);
 
       if (token && refreshToken) {
         this.token = { ...this.token, token, refreshToken };
@@ -152,16 +147,16 @@ export const useAuthStore = defineStore('auth', {
       if (data) {
         const decodedToken = jwt_decode<JwtPayload>(data.token || '') || null;
         if (decodedToken?.exp)
-          await Storage.set({
+          await set({
             key: EStorageKeys.tokenExpire,
             value: String(decodedToken.exp),
           });
         await Promise.all([
-          Storage.set({
+          set({
             key: EStorageKeys.token,
             value: data.token,
           }),
-          Storage.set({
+          set({
             key: EStorageKeys.refreshToken,
             value: data.refreshToken,
           }),
@@ -178,7 +173,7 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async checkAuthorizedUser(): Promise<boolean> {
-      return !!(await Storage.get({ key: EStorageKeys.token })).value;
+      return !!(await get(EStorageKeys.token));
     },
 
     async savePhone(type: 'login' | 'signup'): Promise<void> {
@@ -186,7 +181,7 @@ export const useAuthStore = defineStore('auth', {
         type === 'login'
           ? JSON.stringify(this.login)
           : JSON.stringify(this.registration);
-      await Storage.set({
+      await set({
         key: EStorageKeys.phone,
         value,
       });
