@@ -16,7 +16,7 @@
           :current-currency="adoptedCurrentSendFromCurrency"
           @on-select-coin="
             handleChangeCurrentCurrency(
-              currencies.findIndex((e) => e.code === $event.code),
+              _getCurrencyIndex($event.code),
               ESendInputType.From
             )
           "
@@ -48,7 +48,7 @@
           :current-currency="adoptedCurrentSendToCurrency"
           @on-select-coin="
             handleChangeCurrentCurrency(
-              currencies.findIndex((e) => e.code === $event.code),
+              _getCurrencyIndex($event.code),
               ESendInputType.To
             )
           "
@@ -60,8 +60,8 @@
 <script setup lang="ts">
 import { computed, onMounted, ref, watch } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { MSelectCoin, MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
+
+import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
 import MSelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
 import { ICoin } from '@/applications/liber/models/funds/coin';
@@ -71,6 +71,10 @@ enum ESendInputType {
   To = 'to',
 }
 
+const transferStore = useTransferStore();
+let amount = ref('');
+let recipientAmount = ref('');
+
 const props = defineProps({
   contactName: {
     type: String,
@@ -78,16 +82,13 @@ const props = defineProps({
   },
 });
 
-const transferStore = useTransferStore();
-let amount = ref('');
-let recipientAmount = ref('');
+defineEmits(['send-transaction']);
 
 onMounted(() => {
   transferStore.coin = currencies[0].code;
 });
 
 watch(amount, () => {
-  console.log('test', amount);
   const fee = 0;
   recipientAmount.value = String(+amount.value - fee);
   transferStore.amount = recipientAmount.value;
@@ -106,25 +107,13 @@ const currentSendToCurrency = {
 };
 
 let isSelectListOpen = ref(false);
-let currentOpenedSelectId = ref(1);
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-function showCryptoList(listId: number) {
-  isSelectListOpen.value = !isSelectListOpen.value;
-  currentOpenedSelectId.value = listId;
-}
 
 function handleChangeCurrentCurrency(index: number, type: string) {
-  console.log('!start! handleChangeCurrentCurrency', index, type);
   if (type === ESendInputType.From) {
     currentSendFromCurrency.name.value = currencies[index].name;
     currentSendFromCurrency.code.value = currencies[index].code;
     currentSendFromCurrency.img = '' + currencies[index].imageUrl;
-    console.log(
-      '!from! handleChangeCurrentCurrency',
-      index,
-      currentSendFromCurrency
-    );
+
     // now API allows send X to X currency
     _setCurrentSendToCurrency(index);
     //
@@ -138,8 +127,6 @@ function handleChangeCurrentCurrency(index: number, type: string) {
 
   isSelectListOpen.value = false;
 }
-
-defineEmits(['send-transaction']);
 
 const currencies: ICoin[] = [
   {
@@ -158,8 +145,10 @@ const _setCurrentSendToCurrency = (index: number) => {
   currentSendToCurrency.name.value = currencies[index].name;
   currentSendToCurrency.img = '' + currencies[index].imageUrl;
   currentSendToCurrency.code.value = currencies[index].code;
-  console.log('_setCurrentSendToCurrency', index, currentSendFromCurrency);
 };
+
+const _getCurrencyIndex = (code: string) =>
+  currencies.findIndex((e) => e.code === code);
 
 const adoptedCurrentSendFromCurrency = computed(() => ({
   name: currentSendFromCurrency.name.value,
