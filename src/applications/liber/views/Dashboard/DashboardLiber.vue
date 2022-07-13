@@ -55,7 +55,7 @@
           </button>
         </div>
       </template>
-      <template #welcome v-if="showWelcomeMessage">
+      <template v-if="showWelcomeMessage" #welcome>
         <div class="main">
           <h1 class="title">
             {{ $t('views.dashboard.home.getYourCryptoAsset') }}

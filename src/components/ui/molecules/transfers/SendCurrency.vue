@@ -8,18 +8,12 @@
       inputmode="decimal"
       :min-fraction-digits="0"
       :max-fraction-digits="10"
-      view="flat"
-      @blur="onBlur"
     >
       <template #append>You send exactly</template>
       <template #prepend
         ><m-select-coin-input
           :coins="currencies"
-          :current-currency="{
-            name: currentSendFromCurrency.name.value,
-            code: currentSendFromCurrency.code.value,
-            img: currentSendFromCurrency.img,
-          }"
+          :current-currency="adoptedCurrentSendFromCurrency"
           @on-select-coin="
             handleChangeCurrentCurrency(
               currencies.findIndex((e) => e.code === $event.code),
@@ -46,17 +40,12 @@
       :min-fraction-digits="0"
       :max-fraction-digits="10"
       disabled
-      @blur="onBlur"
     >
       <template #append>{{ props.contactName }} will get</template>
       <template #prepend
         ><m-select-coin-input
           :coins="currencies"
-          :current-currency="{
-            name: currentSendToCurrency.name.value,
-            code: currentSendToCurrency.code.value,
-            img: currentSendToCurrency.img,
-          }"
+          :current-currency="adoptedCurrentSendToCurrency"
           @on-select-coin="
             handleChangeCurrentCurrency(
               currencies.findIndex((e) => e.code === $event.code),
@@ -69,7 +58,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref, watch } from 'vue';
+import { computed, onMounted, ref, watch } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { MSelectCoin, MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
@@ -98,6 +87,7 @@ onMounted(() => {
 });
 
 watch(amount, () => {
+  console.log('test', amount);
   const fee = 0;
   recipientAmount.value = String(+amount.value - fee);
   transferStore.amount = recipientAmount.value;
@@ -171,15 +161,27 @@ const _setCurrentSendToCurrency = (index: number) => {
   console.log('_setCurrentSendToCurrency', index, currentSendFromCurrency);
 };
 
+const adoptedCurrentSendFromCurrency = computed(() => ({
+  name: currentSendFromCurrency.name.value,
+  code: currentSendFromCurrency.code.value,
+  img: currentSendFromCurrency.img,
+}));
+
+const adoptedCurrentSendToCurrency = computed(() => ({
+  name: currentSendToCurrency.name.value,
+  code: currentSendToCurrency.code.value,
+  img: currentSendToCurrency.img,
+}));
+
 // todo: type FocusEvent not describes event as expected
 /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-const onBlur = (event: FocusEvent | any) => {
-  const newElem = event.relatedTarget?.nodeName;
-  const elem = event.target;
-  if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-    elem.focus();
-  }
-};
+// const onBlur = (event: FocusEvent | any) => {
+//   const newElem = event.relatedTarget?.nodeName;
+//   const elem = event.target;
+//   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
+//     elem.focus();
+//   }
+// };
 </script>
 
 <style lang="scss" scoped>
