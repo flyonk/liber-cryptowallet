@@ -180,9 +180,7 @@ const sendTransaction = async () => {
         button: 'transactions.send',
         successRoute: Route.DashboardHome,
         callback: async () => {
-          console.log(JSON.stringify('test callback 1'));
           await recepientsStore.addFriend(contact);
-          console.log('test callback 2');
           transferStore.clearTransferData();
         },
       });
