@@ -1,6 +1,33 @@
 <template>
   <div class="change-currency">
-    <div class="input-wrapper mb-2 relative m-0">
+    <m-base-input
+      v-model="amount"
+      type="number"
+      mode="decimal"
+      inputmode="decimal"
+      :min-fraction-digits="0"
+      :max-fraction-digits="10"
+      view="flat"
+    >
+      <template #append>You send exactly</template>
+      <template #prepend
+        ><m-select-coin-input
+          :coins="currencies"
+          :current-currency="{
+            name: currentSendFromCurrency.name.value,
+            code: currentSendFromCurrency.code.value,
+            img: currentSendFromCurrency.img,
+          }"
+          @on-select-coin="
+            handleChangeCurrentCurrency(
+              currencies.findIndex((e) => e.code === $event.code),
+              ESendInputType.From
+            )
+          "
+      /></template>
+    </m-base-input>
+    <br />
+    <!-- <div class="input-wrapper mb-2 relative m-0">
       <label class="change-from">
         <p class="label">You send exactly</p>
         <input
@@ -12,7 +39,11 @@
           @blur="onBlur"
         />
         <div class="select">
-          <div class="select-option flex" @click="showCryptoList(1)">
+          <div
+            class="select-option flex"
+            style="background-color: red"
+            @click="showCryptoList(1)"
+          >
             <img class="icon" :src="currentSendFromCurrency.img" />
             <p class="name">{{ currentSendFromCurrency.name.value }}</p>
             <img
@@ -36,7 +67,7 @@
           </ul>
         </div>
       </label>
-    </div>
+    </div> -->
     <ul class="fees-data">
       <li class="fees-item">
         <div class="circle">-</div>
@@ -44,7 +75,33 @@
         <p class="name">Transfer Fee</p>
       </li>
     </ul>
-    <div class="input-wrapper relative w-full mb-5">
+
+    <m-base-input
+      v-model="recipientAmount"
+      type="number"
+      mode="decimal"
+      inputmode="decimal"
+      :min-fraction-digits="0"
+      :max-fraction-digits="10"
+    >
+      <template #append>{{ props.contactName }} will get</template>
+      <template #prepend
+        ><m-select-coin-input
+          :coins="currencies"
+          :current-currency="{
+            name: currentSendToCurrency.name.value,
+            code: currentSendToCurrency.code.value,
+            img: currentSendToCurrency.img,
+          }"
+          @on-select-coin="
+            handleChangeCurrentCurrency(
+              currencies.findIndex((e) => e.code === $event.code),
+              ESendInputType.To
+            )
+          "
+      /></template>
+    </m-base-input>
+    <!-- <div class="input-wrapper relative w-full mb-5">
       <label class="change-from">
         <p class="label">{{ props.contactName }} will get</p>
         <input
@@ -80,15 +137,23 @@
           </ul>
         </div>
       </label>
-    </div>
+    </div> -->
   </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, ref, watch } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
-
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import { MSelectCoin, MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
+import MSelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
+import { ICoin } from '@/applications/liber/models/funds/coin';
+
+enum ESendInputType {
+  From = 'from',
+  To = 'to',
+}
 
 const props = defineProps({
   contactName: {
@@ -126,18 +191,23 @@ const currentSendToCurrency = {
 let isSelectListOpen = ref(false);
 let currentOpenedSelectId = ref(1);
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function showCryptoList(listId: number) {
   isSelectListOpen.value = !isSelectListOpen.value;
-  currentOpenedSelectId.value = null;
   currentOpenedSelectId.value = listId;
 }
 
 function handleChangeCurrentCurrency(index: number, type: string) {
+  console.log('!start! handleChangeCurrentCurrency', index, type);
   if (type === 'from') {
     currentSendFromCurrency.name.value = currencies[index].name;
     currentSendFromCurrency.code.value = currencies[index].code;
-    currentSendFromCurrency.img = currencies[index].img;
-
+    currentSendFromCurrency.img = '' + currencies[index].imageUrl;
+    console.log(
+      '!from! handleChangeCurrentCurrency',
+      index,
+      currentSendFromCurrency
+    );
     // now API allows send X to X currency
     _setCurrentSendToCurrency(index);
     //
@@ -154,47 +224,29 @@ function handleChangeCurrentCurrency(index: number, type: string) {
 
 defineEmits(['send-transaction']);
 
-const currencies = [
+const currencies: ICoin[] = [
   {
     name: 'TBTC',
     code: 'tbtc',
-    img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
+    imageUrl: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
   },
   {
     name: 'TLTC',
     code: 'tltc',
-    img: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
+    imageUrl: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
   },
-  // {
-  //   name: 'BTC',
-  //   code: 'btc',
-  //   img: require('@/assets/icon/currencies/btc.svg'),
-  // },
-  // {
-  //   name: 'USDT',
-  //   code: 'usdt',
-  //   img: require('@/assets/icon/currencies/tether.svg'),
-  // },
-  // {
-  //   name: 'ETH',
-  //   code: 'eth',
-  //   img: require('@/assets/icon/currencies/eth.svg'),
-  // },
-  // {
-  //   name: 'XRP',
-  //   code: 'xrp',
-  //   img: require('@/assets/icon/currencies/xrp.svg'),
-  // },
 ];
 
 const _setCurrentSendToCurrency = (index: number) => {
   currentSendToCurrency.name.value = currencies[index].name;
-  currentSendToCurrency.img = currencies[index].img;
-  currentSendFromCurrency.code.value = currencies[index].code;
+  currentSendToCurrency.img = '' + currencies[index].imageUrl;
+  currentSendToCurrency.code.value = currencies[index].code;
+  console.log('_setCurrentSendToCurrency', index, currentSendFromCurrency);
 };
 
 // todo: type FocusEvent not describes event as expected
 /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const onBlur = (event: FocusEvent | any) => {
   const newElem = event.relatedTarget?.nodeName;
   const elem = event.target;
