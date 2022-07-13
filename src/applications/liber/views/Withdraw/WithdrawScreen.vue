@@ -325,6 +325,9 @@ const onContinue = async () => {
 }
 
 .paste-button:deep {
+  position: absolute;
+  right: 0;
+  top: 0px;
   > .container {
     > .label {
       font-weight: 600;
