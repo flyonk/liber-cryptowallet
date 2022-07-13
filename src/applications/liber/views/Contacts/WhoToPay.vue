@@ -4,7 +4,7 @@
     <h1 class="title">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
-    <MBaseInput v-model="filterContacts" type="text">
+    <MBaseInput v-model="filterContacts" type="text" class="m-base-input">
       <template #label> Name, @id, phone, email </template>
     </MBaseInput>
 
@@ -30,6 +30,10 @@ const filterContacts = ref('');
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .who-topay {
   display: flex;
   flex-direction: column;
