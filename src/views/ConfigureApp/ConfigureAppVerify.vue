@@ -54,7 +54,7 @@ async function getSupportedIdentificationWay() {
     return Route.TouchId;
   }
 
-  return Route.PushNotifications;
+  return Route.AuthPasscode;
 }
 
 const onHideError = () => {

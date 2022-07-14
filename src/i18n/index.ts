@@ -1,6 +1,6 @@
 import { createI18n, LocaleMessages, VueMessageType } from 'vue-i18n';
 import { Device } from '@capacitor/device';
-import { Storage } from '@capacitor/storage';
+import { get } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
 import { useErrorsStore } from '@/stores/errors';
@@ -39,7 +39,7 @@ export const i18n = createI18n({
 export const setLocale = async (): Promise<void> => {
   try {
     i18n.global.locale.value =
-      (await Storage.get({ key: EStorageKeys.language })).value ||
+      (await get(EStorageKeys.language)) ||
       (await Device.getLanguageCode()).value.substr(0, 2);
   } catch (err) {
     const errorsStore = useErrorsStore();

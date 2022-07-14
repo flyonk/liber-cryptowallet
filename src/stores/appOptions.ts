@@ -1,9 +1,7 @@
-import { PushNotifications } from '@capacitor/push-notifications';
 import { defineStore } from 'pinia';
 import { AxiosError } from 'axios';
 
 import { get, remove, set } from '@/helpers/storage';
-import { getPushNotificationsPermission } from '@/helpers/identification';
 import { useErrorsStore } from '@/stores/errors';
 
 import { EStorageKeys } from '@/types/storage';
@@ -16,21 +14,8 @@ interface IappOptionsState {
 }
 
 const registerNotification = async () => {
-  let permStatus = await PushNotifications.checkPermissions();
-
-  if (permStatus.receive === 'prompt') {
-    permStatus = await PushNotifications.requestPermissions();
-  }
-
-  if (permStatus.receive === 'denied') {
-    await getPushNotificationsPermission();
-  }
-
-  if (permStatus.receive !== 'granted') {
-    throw new Error('User denied permissions!');
-  }
-
-  await PushNotifications.register();
+  // @TODO
+  // Register push notification for PWA
 };
 
 async function setOptions(value: string, key: EStorageKeys) {
