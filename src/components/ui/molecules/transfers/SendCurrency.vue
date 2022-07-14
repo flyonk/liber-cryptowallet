@@ -11,7 +11,7 @@
       @input="syncModels"
     >
       <template #append>You send exactly</template>
-      <template #prepend
+      <template #actions
         ><m-select-coin-input
           :coins="currencies"
           :current-currency="adoptedCurrentSendFromCurrency"
@@ -43,7 +43,7 @@
       disabled
     >
       <template #append>{{ props.contactName }} will get</template>
-      <template #prepend
+      <template #actions
         ><m-select-coin-input
           :coins="currencies"
           :current-currency="adoptedCurrentSendToCurrency"
@@ -195,7 +195,6 @@ const syncModels = (event: InputEvent) => {
   width: 100%;
 
   > .m-base-input {
-    height: 80px;
     margin: 0 0 16px;
   }
 }
