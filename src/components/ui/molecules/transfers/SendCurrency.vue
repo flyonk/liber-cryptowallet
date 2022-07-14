@@ -11,17 +11,25 @@
       @input="syncModels"
     >
       <template #append>You send exactly</template>
-      <template #actions
-        ><m-select-coin-input
-          :coins="currencies"
-          :current-currency="adoptedCurrentSendFromCurrency"
-          @on-select-coin="
-            handleChangeCurrentCurrency(
-              _getCurrencyIndex($event.code),
-              ESendInputType.From
-            )
-          "
-      /></template>
+      <template #actions>
+        <!-- TODO: is a temporary wrapper of SelectCoinInput, 
+        we need to remove position absolute from it, 
+        correct the withdrawal page and the 
+        OChangeCurrency component that depend 
+        on this absolute -->
+        <div style="position: relative; width: 120px; height: 70px">
+          <m-select-coin-input
+            :coins="currencies"
+            :current-currency="adoptedCurrentSendFromCurrency"
+            @on-select-coin="
+              handleChangeCurrentCurrency(
+                _getCurrencyIndex($event.code),
+                ESendInputType.From
+              )
+            "
+          />
+        </div>
+      </template>
     </m-base-input>
 
     <ul class="fees-data">
@@ -43,17 +51,25 @@
       disabled
     >
       <template #append>{{ props.contactName }} will get</template>
-      <template #actions
-        ><m-select-coin-input
-          :coins="currencies"
-          :current-currency="adoptedCurrentSendToCurrency"
-          @on-select-coin="
-            handleChangeCurrentCurrency(
-              _getCurrencyIndex($event.code),
-              ESendInputType.To
-            )
-          "
-      /></template>
+      <template #actions>
+        <!-- TODO: is a temporary wrapper of SelectCoinInput, 
+        we need to remove position absolute from it, 
+        correct the withdrawal page and the 
+        OChangeCurrency component that depend 
+        on this absolute -->
+        <div style="position: relative; width: 120px; height: 70px">
+          <m-select-coin-input
+            :coins="currencies"
+            :current-currency="adoptedCurrentSendToCurrency"
+            @on-select-coin="
+              handleChangeCurrentCurrency(
+                _getCurrencyIndex($event.code),
+                ESendInputType.To
+              )
+            "
+          />
+        </div>
+      </template>
     </m-base-input>
   </div>
 </template>
