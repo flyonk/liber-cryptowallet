@@ -3,7 +3,6 @@ import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
 import { useErrorsStore } from '@/stores/errors';
 import { showConfirm } from '@/helpers/nativeDialog';
 import { openIosAppSettings } from '@/helpers/settings';
-import { IOSSettings } from 'capacitor-native-settings';
 
 /**
  * Function tries to get permission from native settings
@@ -32,27 +31,6 @@ async function _getPermission() {
   if (approve) {
     //TODO after returning to app click face id toggle again
     await openIosAppSettings();
-  }
-}
-
-/**
- * Function tries to get permission for push notifications from native settings
- *
- * @returns {void}
- */
-export async function getPushNotificationsPermission() {
-  const identifierText = 'push notifications';
-
-  const approve = await showConfirm({
-    title: 'Change settings',
-    message: `To enable ${identifierText} please toggle on Application Settings ${identifierText} option`,
-    okButtonTitle: 'OK',
-    cancelButtonTitle: 'Cancel',
-  });
-
-  if (approve) {
-    //TODO after returning to app click face id toggle again
-    await openIosAppSettings(IOSSettings.Notifications);
   }
 }
 
