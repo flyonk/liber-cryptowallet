@@ -1,6 +1,6 @@
 <template name="send-to">
   <t-top-navigation
-    @click:left-icon="$router.push({ name: ServicesRoutes.GetCouponsEmail })"
+    @click:left-icon="$router.push({ name: ServicesRoutes.GetCryptoCoin })"
   >
     <template #title>{{ $t('services.convert.title') }}</template>
     <template #content>
