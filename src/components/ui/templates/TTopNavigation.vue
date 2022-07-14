@@ -1,5 +1,11 @@
 <template>
-  <div class="template-top-navigation" :class="{ untouchable: !isTouchable }">
+  <div
+    class="template-top-navigation"
+    :class="[
+      { untouchable: !isTouchable, '-paddingless': disablePaddings },
+      { '-paddingless': disablePaddings },
+    ]"
+  >
     <div class="top-navigation">
       <m-top-navigation
         :left-icon-name="leftIconName"
@@ -53,6 +59,11 @@ defineProps({
     type: Boolean,
     default: true,
   },
+
+  disablePaddings: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits(['click:left-icon']);
@@ -61,6 +72,10 @@ defineEmits(['click:left-icon']);
 <style lang="scss" scoped>
 .template-top-navigation {
   padding: 24px 16px 0;
+
+  &.-paddingless {
+    padding: 24px 0 0;
+  }
 
   > .content {
     margin-top: 25px;
