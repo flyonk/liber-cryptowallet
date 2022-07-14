@@ -24,7 +24,7 @@
     <template #content
       ><div class="send-to">
         <div class="sendto-main">
-          <send-currency
+          <o-send-currency
             :contact-name="recepient.displayName"
             :has-coin-reverse="true"
             @send-transaction="sendTransaction"
@@ -122,7 +122,7 @@
 <script setup lang="ts">
 import { computed, ref } from 'vue';
 
-import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
+import OSendCurrency from '@/components/ui/organisms/transfers/OSendCurrency.vue';
 import { TTopNavigation } from '@/components/ui';
 import {
   AContactInitials,

@@ -60,7 +60,7 @@
           {{ $t('views.withdraw.amount') }}
         </template>
         <template #prepend>
-          <select-coin-input
+          <o-select-coin-input
             :coins="coins"
             :current-currency="form.coin"
             @on-select-coin="onSelectCoin"
@@ -130,7 +130,7 @@ import {
   TTopNavigation,
 } from '@/components/ui';
 import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
-import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 const withdrawStore = useWithdrawStore();
 const coinStore = useCoinsStore();
