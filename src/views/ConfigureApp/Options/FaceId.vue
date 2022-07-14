@@ -43,13 +43,13 @@ const onEnable = async (): Promise<void> => {
 
   if (state) {
     await setOptions('true', EStorageKeys.faceid);
-    router.push({ name: Route.PushNotifications });
+    router.push({ name: Route.AuthPasscode });
   }
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.faceid);
-  router.push({ name: Route.PushNotifications });
+  router.push({ name: Route.AuthPasscode });
 };
 </script>
 
