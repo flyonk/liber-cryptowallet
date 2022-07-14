@@ -36,7 +36,7 @@ export default {
     return signInMapper.deserialize(res.data);
   },
 
-  async logout(data: { user_id: string }): Promise<TSuccessResponse> {
+  async logout(data: { token: string }): Promise<TSuccessResponse> {
     return (await axios.post(apiService.auth.logout(), data)).data;
   },
 

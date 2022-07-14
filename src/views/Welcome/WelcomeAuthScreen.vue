@@ -23,25 +23,26 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount } from 'vue';
+// import { onBeforeMount } from 'vue';
 
 import { STATIC_BASE_URL } from '@/constants';
 import { SwiperSlide } from 'swiper/vue';
 import { Route } from '@/router/types';
-import { useAuthStore } from '@/stores/auth';
-import { useProfileStore } from '@/stores/profile';
+// import { useAuthStore } from '@/stores/auth';
+// import { useProfileStore } from '@/stores/profile';
 
 import StoriesSliderExampleStory from '@/components/ui/organisms/StoriesSliderExampleStory.vue';
 import SwiperStoriesSlider from '@/components/ui/molecules/SwiperStoriesSlider.vue';
 
-const authStore = useAuthStore();
-const profileStore = useProfileStore();
-
-onBeforeMount(() => {
-  if (profileStore.getUser.id) {
-    authStore.logout(profileStore.getUser.id);
-  }
-});
+//TODO: WHY???????
+// const authStore = useAuthStore();
+// const profileStore = useProfileStore();
+//
+// onBeforeMount(() => {
+//   if (profileStore.getUser.id) {
+//     authStore.logout();
+//   }
+// });
 </script>
 
 <style lang="scss" scoped>

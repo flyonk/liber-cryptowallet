@@ -1,7 +1,6 @@
 import { NavigationGuardNext, RouteLocation } from 'vue-router';
 
 import { get } from '@/helpers/storage';
-import { useProfileStore } from '@/stores/profile';
 import { useAuthStore } from '@/stores/auth';
 
 import { EStorageKeys } from '@/types/storage';
@@ -18,11 +17,10 @@ const _authenticationCredentials = async (): Promise<ISuccessSignIn | null> => {
 };
 
 const _onLogout = async () => {
-  const profileStore = useProfileStore();
   const authStore = useAuthStore();
 
   authStore.setStep(0, 'login');
-  await authStore.logout(profileStore.getUser.id);
+  await authStore.logout();
 };
 
 const _syncAuthStore = async (data: ISuccessSignIn) => {
