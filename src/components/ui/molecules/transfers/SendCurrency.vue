@@ -174,7 +174,6 @@ const _getCurrencyIndex = (code: string) =>
  * @param event
  */
 const syncModels = (event: InputEvent) => {
-  console.log(event);
   amount.value = '' + event;
   recipientAmount.value = amount.value;
   transferStore.amount = recipientAmount.value;
