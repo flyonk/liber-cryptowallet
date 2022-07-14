@@ -1,6 +1,7 @@
 <template>
   <div class="select" @click.prevent="showSelectCoinDialog = true">
     <div class="select-option flex">
+      <!-- Select open button  -->
       <img
         :src="currentCurrency.img"
         :alt="`${currentCurrency.code} icon`"
@@ -17,6 +18,7 @@
       >
         <t-top-navigation
           left-icon-name="icon-app-navigation-close"
+          disable-paddings
           @click:left-icon="handleCloseModal"
         >
           <template #title>
@@ -25,8 +27,10 @@
           <template #content>
             <a-base-search-input
               v-model="query"
+              :placeholder="$t('ui.basesearchinput.search')"
               @update:model-value="query = $event"
             />
+            <br />
             <m-select-coin
               :current-currency="currentCurrency"
               :coins="availableCoins"
