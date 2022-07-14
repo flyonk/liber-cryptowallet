@@ -18,7 +18,7 @@
         OChangeCurrency component that depend 
         on this absolute -->
         <div style="position: relative; width: 120px; height: 70px">
-          <m-select-coin-input
+          <o-select-coin-input
             :coins="currencies"
             :current-currency="adoptedCurrentSendFromCurrency"
             @on-select-coin="
@@ -79,7 +79,7 @@ import { computed, onMounted, ref } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 
 import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
-import MSelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
 import { ICoin } from '@/applications/liber/models/funds/coin';
 
