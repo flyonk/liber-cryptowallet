@@ -118,6 +118,7 @@ import { STATIC_BASE_URL } from '@/constants';
 import { TConvertCouponData } from '@/applications/servicesapp/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
+import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 
 import { BaseButton } from '@/components/ui';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
@@ -131,6 +132,7 @@ defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
+const liberSaveStore = useLiberSaveStore();
 const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
 const toast = useToast();
@@ -301,6 +303,7 @@ async function convertFunds() {
       from_code: currentSendFromCurrency.value.code,
       to_code: currentSendToCurrency.value.code,
       amount: String(Number(fundsStore.convertInfo.requestAmount)),
+      email: liberSaveStore.getEmail,
     });
   } catch (err) {
     const code = err?.response?.data?.code;

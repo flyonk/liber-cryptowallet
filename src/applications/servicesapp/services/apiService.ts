@@ -9,7 +9,7 @@ export default {
       return `${BASE_API_URL}/api/${API_VERSION}/coin/liber/purchase/coupons/info`;
     },
     convert(): string {
-      return `${BASE_API_URL}/api/${API_VERSION}/coin/liber/purchase/coupon`;
+      return `${BASE_API_URL}/api/${API_VERSION}/coin/liber/purchase/coupons`;
     },
   },
 };
