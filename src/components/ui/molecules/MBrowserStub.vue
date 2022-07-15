@@ -5,11 +5,9 @@
       alt="arrow-left"
       class="image"
     />
-    <h1 class="title">Browser not supported</h1>
+    <h1 class="title">{{ $t('browserStub.title') }}</h1>
     <p class="description">
-      Currently, the Liber wallet is not available from the desktop browser.
-      <br />
-      Please use mobile phone
+      {{ $t('browserStub.description') }}
     </p>
   </div>
 </template>
@@ -51,6 +49,7 @@ import { STATIC_BASE_URL } from '@/constants';
     line-height: 32px;
     text-align: center;
     color: #36416a;
+    padding: 0 10%;
   }
 }
 </style>
