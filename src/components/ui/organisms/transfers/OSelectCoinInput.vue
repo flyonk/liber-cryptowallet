@@ -92,9 +92,6 @@ const handleCloseModal = () => {
 
 <style lang="scss" scoped>
 .select {
-  position: absolute;
-  right: 4px;
-  top: 4px;
   width: 114px;
   height: 64px;
   background: $color-white-light;

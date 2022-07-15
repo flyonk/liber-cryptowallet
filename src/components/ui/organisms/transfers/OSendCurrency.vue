@@ -12,23 +12,16 @@
     >
       <template #append>You send exactly</template>
       <template #actions>
-        <!-- TODO: is a temporary wrapper of SelectCoinInput, 
-        we need to remove position absolute from it, 
-        correct the withdrawal page and the 
-        OChangeCurrency component that depend 
-        on this absolute -->
-        <div style="position: relative; width: 120px; height: 70px">
-          <o-select-coin-input
-            :coins="currencies"
-            :current-currency="adoptedCurrentSendFromCurrency"
-            @on-select-coin="
-              handleChangeCurrentCurrency(
-                _getCurrencyIndex($event.code),
-                ESendInputType.From
-              )
-            "
-          />
-        </div>
+        <o-select-coin-input
+          :coins="currencies"
+          :current-currency="adoptedCurrentSendFromCurrency"
+          @on-select-coin="
+            handleChangeCurrentCurrency(
+              _getCurrencyIndex($event.code),
+              ESendInputType.From
+            )
+          "
+        />
       </template>
     </m-base-input>
 
@@ -52,23 +45,16 @@
     >
       <template #append>{{ props.contactName }} will get</template>
       <template #actions>
-        <!-- TODO: is a temporary wrapper of SelectCoinInput, 
-        we need to remove position absolute from it, 
-        correct the withdrawal page and the 
-        OChangeCurrency component that depend 
-        on this absolute -->
-        <div style="position: relative; width: 120px; height: 70px">
-          <m-select-coin-input
-            :coins="currencies"
-            :current-currency="adoptedCurrentSendToCurrency"
-            @on-select-coin="
-              handleChangeCurrentCurrency(
-                _getCurrencyIndex($event.code),
-                ESendInputType.To
-              )
-            "
-          />
-        </div>
+        <o-select-coin-input
+          :coins="currencies"
+          :current-currency="adoptedCurrentSendToCurrency"
+          @on-select-coin="
+            handleChangeCurrentCurrency(
+              _getCurrencyIndex($event.code),
+              ESendInputType.To
+            )
+          "
+        />
       </template>
     </m-base-input>
   </div>
@@ -104,16 +90,6 @@ defineEmits(['send-transaction']);
 onMounted(() => {
   transferStore.coin = currencies[0].code;
 });
-
-/**
- * watch method stopped working after adding MBaseInput from kit
- */
-
-// watch(amount, () => {
-//   const fee = 0;
-//   recipientAmount.value = String(+amount.value - fee);
-//   transferStore.amount = recipientAmount.value;
-// });
 
 const currentSendFromCurrency = {
   name: ref('TBTC'),
@@ -183,12 +159,6 @@ const _setCurrentSendToCurrency = (index: number) => {
 const _getCurrencyIndex = (code: string) =>
   currencies.findIndex((e) => e.code === code);
 
-/**
- * TODO: RESEARCH:
- * the model is not updated by itself,
- * perhaps this is an MBaseInput bug
- * @param event
- */
 const syncModels = (event: InputEvent) => {
   amount.value = '' + event;
   recipientAmount.value = amount.value;
