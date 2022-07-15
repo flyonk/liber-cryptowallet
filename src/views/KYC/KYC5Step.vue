@@ -47,14 +47,25 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
-import { ABaseProgressBar, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
 import { useI18n } from 'vue-i18n';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ABaseProgressBar = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressBar
+  );
+});
 
 const { t } = useI18n();
 

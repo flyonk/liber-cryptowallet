@@ -149,7 +149,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  onBeforeMount,
+  Ref,
+  ref,
+  watch,
+} from 'vue';
 import { debounce } from 'lodash';
 import { useRoute, useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -167,13 +174,31 @@ import { TConvertData } from '@/applications/liber/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 
-import {
-  ACoinSwitcher,
-  ATrippleDotsSpinner,
-  MBaseButton,
-  MBaseInput,
-} from '@liber-biz/crpw-ui-kit-liber';
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
+
+const ACoinSwitcher = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ACoinSwitcher
+  );
+});
+
+const ATrippleDotsSpinner = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ATrippleDotsSpinner
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const errorsStore = useErrorsStore();
 

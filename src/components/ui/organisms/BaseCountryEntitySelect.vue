@@ -51,17 +51,24 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, ref, Ref } from 'vue';
+import { computed, ComputedRef, defineAsyncComponent, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
-
-import {
-  ABaseSearchInput,
-  MBaseBottomSheetV,
-} from '@liber-biz/crpw-ui-kit-liber';
 
 import { STATIC_BASE_URL } from '@/constants';
 
 import { ICountryInformation } from '@/types/country-phone-types';
+
+const ABaseSearchInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseSearchInput
+  );
+});
+
+const MBaseBottomSheetV = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseBottomSheetV
+  );
+});
 
 const props = defineProps({
   entity: {

@@ -19,8 +19,14 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { TopNavigation } from '@/components/ui';
-import { MBaseVerificationCodeInput } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseVerificationCodeInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseVerificationCodeInput
+  );
+});
 
 const emit = defineEmits(['next', 'prev']);
 

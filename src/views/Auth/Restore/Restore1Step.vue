@@ -27,14 +27,28 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { BaseCountryPhoneInput } from '@/components/ui';
-import {
-  MBaseInput,
-  MBaseButton,
-  MTopNavigation,
-} from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
 
 defineEmits(['next', 'prev']);
 </script>

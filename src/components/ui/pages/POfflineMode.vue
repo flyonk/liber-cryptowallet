@@ -29,15 +29,24 @@
 </template>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
 const { loading, handleReconnect } = useCheckOffline();
 
 import { TTopNavigation } from '..';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
-//TODO:[UIKIT] fix atom title with ATripleDotsSpinner
-import { ATrippleDotsSpinner } from '@liber-biz/crpw-ui-kit-liber';
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ATrippleDotsSpinner = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ATrippleDotsSpinner
+  );
+});
 
 const emit = defineEmits(['online']);
 

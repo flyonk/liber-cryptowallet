@@ -174,7 +174,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -187,12 +187,17 @@ import { Route } from '@/router/types';
 import { showConfirm } from '@/helpers/nativeDialog';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
-import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
 import {
   TTopNavigation,
   BiometricIdentifierSwitcherButton,
 } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
+
+const AContactInitials = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AContactInitials
+  );
+});
 
 const route = useRouter();
 const authStore = useAuthStore();

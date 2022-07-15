@@ -61,10 +61,9 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onMounted, ref } from 'vue';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 
-import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
 import { ICoin } from '@/applications/liber/models/funds/coin';
@@ -73,6 +72,12 @@ enum ESendInputType {
   From = 'from',
   To = 'to',
 }
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const transferStore = useTransferStore();
 let amount = ref('');

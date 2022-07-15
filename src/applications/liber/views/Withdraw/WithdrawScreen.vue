@@ -110,7 +110,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, Ref, ref } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount, Ref, ref } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
@@ -129,8 +129,19 @@ import {
   OWithdrawSummary,
   TTopNavigation,
 } from '@/components/ui';
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const withdrawStore = useWithdrawStore();
 const coinStore = useCoinsStore();

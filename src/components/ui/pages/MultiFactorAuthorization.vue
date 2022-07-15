@@ -41,19 +41,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
-import {
-  MBaseButton,
-  MBaseVerificationCodeInput,
-} from '@liber-biz/crpw-ui-kit-liber';
-
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseVerificationCodeInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseVerificationCodeInput
+  );
+});
 
 const router = useRouter();
 const mfaStore = useMfaStore();

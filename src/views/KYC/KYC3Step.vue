@@ -25,18 +25,26 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 import { TTopNavigation } from '@/components/ui';
-import {
-  ABaseProgressBar,
-  ABaseRadioSelect,
-} from '@liber-biz/crpw-ui-kit-liber';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
+
+const ABaseProgressBar = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressBar
+  );
+});
+
+const ABaseRadioSelect = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseRadioSelect
+  );
+});
 
 const emit = defineEmits(['next']);
 

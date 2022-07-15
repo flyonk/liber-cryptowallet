@@ -32,7 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { MTopNavigation } from '@liber-biz/crpw-ui-kit-liber';
+import { defineAsyncComponent } from 'vue';
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
 
 defineProps({
   leftIconName: {

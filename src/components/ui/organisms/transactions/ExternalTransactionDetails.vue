@@ -85,7 +85,7 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue';
+import { defineAsyncComponent, PropType } from 'vue';
 
 import { IDepositTransaction } from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
@@ -95,7 +95,12 @@ import {
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 defineEmits(['copy']);
 

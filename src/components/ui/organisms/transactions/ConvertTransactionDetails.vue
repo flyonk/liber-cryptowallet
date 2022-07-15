@@ -75,7 +75,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
+import { computed, defineAsyncComponent, PropType } from 'vue';
 
 import {
   EDirection,
@@ -88,7 +88,12 @@ import {
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 defineEmits(['copy']);
 const props = defineProps({
