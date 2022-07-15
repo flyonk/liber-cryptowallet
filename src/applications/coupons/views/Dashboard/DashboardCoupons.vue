@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { CouponRoutes } from '@/applications/coupons/router/types';
@@ -78,7 +78,11 @@ import { useRouter } from 'vue-router';
 
 import { MDashboardCoinInfo, TransactionsList } from '@/components/ui';
 import { DashboardBanner } from '@/applications/coupons/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const couponsStore = useCouponsStore();
 const uiStore = useUIStore();

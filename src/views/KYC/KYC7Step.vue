@@ -27,15 +27,23 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
-import {
-  ABaseProgressCircular,
-  MBaseButton,
-} from '@liber-biz/crpw-ui-kit-liber';
 import { Route } from '@/router/types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ABaseProgressCircular = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressCircular
+  );
+});
 
 const percent = ref(50);
 const router = useRouter();

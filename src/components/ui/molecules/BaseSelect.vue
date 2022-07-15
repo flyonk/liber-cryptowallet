@@ -9,7 +9,13 @@
 </template>
 
 <script lang="ts" setup>
-import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
+import { defineAsyncComponent } from 'vue';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 defineEmits(['click']);
 </script>

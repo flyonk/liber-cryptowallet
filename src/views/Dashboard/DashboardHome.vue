@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 
@@ -62,12 +62,17 @@ import { useUIStore } from '@/stores/ui';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
-import { AKycStatusBadge } from '@liber-biz/crpw-ui-kit-liber';
 
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { COUPONS_ENABLED } from '@/constants';
+
+const AKycStatusBadge = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AKycStatusBadge
+  );
+});
 
 const { tm } = useI18n();
 const uiStore = useUIStore();

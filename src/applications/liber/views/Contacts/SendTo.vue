@@ -120,15 +120,10 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
 import OSendCurrency from '@/components/ui/organisms/transfers/OSendCurrency.vue';
 import { TTopNavigation } from '@/components/ui';
-import {
-  AContactInitials,
-  MBaseToast,
-  MBaseButton,
-} from '@liber-biz/crpw-ui-kit-liber';
 
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 import { useRecepientsStore } from '@/stores/recipients';
@@ -140,6 +135,24 @@ import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
 import { STATIC_BASE_URL } from '@/constants';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const AContactInitials = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AContactInitials
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);

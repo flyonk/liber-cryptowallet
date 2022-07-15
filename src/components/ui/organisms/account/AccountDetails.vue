@@ -90,7 +90,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ICreateAccount } from '@/models/account/createAccount';
 import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
@@ -100,9 +100,14 @@ import { useToast } from 'primevue/usetoast';
 import { check, share } from '@/helpers/nativeShare';
 
 import QrCode from 'qrcode-vue3';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import AccountDetailsSkeleton from './AccountDetailsSkeleton.vue';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const toast = useToast();
 const { tm } = useI18n();

@@ -38,7 +38,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
@@ -46,9 +46,14 @@ import { useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
 import { Route } from '@/router/types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 

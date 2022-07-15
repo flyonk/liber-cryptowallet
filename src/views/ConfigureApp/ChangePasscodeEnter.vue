@@ -32,7 +32,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, Ref, ref } from 'vue';
+import { computed, defineAsyncComponent, Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 
@@ -41,7 +41,12 @@ import { Route } from '@/router/types';
 import { useI18n } from 'vue-i18n';
 
 import { BasePasscode, TTopNavigation } from '@/components/ui';
-import { MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const router = useRouter();
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;

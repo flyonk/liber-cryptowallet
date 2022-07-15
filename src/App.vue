@@ -32,7 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, ref, computed } from 'vue';
+import {
+  onBeforeMount,
+  onBeforeUnmount,
+  ref,
+  computed,
+  defineAsyncComponent,
+} from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
@@ -50,7 +56,11 @@ import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.v
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
 
 // TODO:[UIKIT] change bundle-title with title in props
-import { AOfflineBundler } from '@liber-biz/crpw-ui-kit-liber';
+const AOfflineBundler = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AOfflineBundler
+  );
+});
 
 const { isOffline } = useCheckOffline();
 

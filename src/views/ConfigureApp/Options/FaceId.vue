@@ -24,16 +24,22 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAppOptionsStore } from '@/stores/appOptions';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
 import { verifyIdentity } from '@/helpers/identification';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 

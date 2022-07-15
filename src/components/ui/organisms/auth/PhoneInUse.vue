@@ -36,9 +36,20 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
-import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const emits = defineEmits(['next', 'close']);
 const authStore = useAuthStore();

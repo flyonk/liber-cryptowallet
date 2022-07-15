@@ -27,7 +27,19 @@
 </template>
 
 <script lang="ts" setup>
-import { MBaseButton, MTopNavigation } from '@liber-biz/crpw-ui-kit-liber';
+import { defineAsyncComponent } from 'vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
 
 defineEmits(['next', 'prev']);
 </script>

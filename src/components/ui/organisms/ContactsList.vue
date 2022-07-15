@@ -23,14 +23,19 @@
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { defineAsyncComponent, PropType } from 'vue';
 
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
-import { APhoneContactsAlphabet } from '@liber-biz/crpw-ui-kit-liber';
 
 import { getContactInitials } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
+
+const APhoneContactsAlphabet = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.APhoneContactsAlphabet
+  );
+});
 
 const props = defineProps({
   contacts: {
