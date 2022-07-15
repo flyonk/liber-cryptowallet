@@ -6,27 +6,31 @@
       @touchmove.prevent
       @scroll.prevent
     >
-      <div class="input-wrapper relative m-0">
-        <label class="change-from">
-          <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
-          <input
-            v-model="convertInfo.requestAmount"
-            autofocus
-            class="input"
-            inputmode="decimal"
-            pattern="[0-9]*"
-            type="number"
-            :readonly="isOneCoinEmpty"
-            @blur="onBlur"
-            @input="debounceChangeInfo('from')"
-          />
-          <select-coin-input
+      <m-base-input
+        v-model="convertInfo.requestAmount"
+        autofocus
+        class="input"
+        inputmode="decimal"
+        mode="decimal"
+        pattern="[0-9]*"
+        type="number"
+        :readonly="isOneCoinEmpty"
+        :min-fraction-digits="0"
+        :max-fraction-digits="10"
+        @blur="onBlur"
+        @input="debounceChangeInfo('from')"
+      >
+        <template #append>{{
+          $t('views.deposit.convert.convertExactly')
+        }}</template>
+        <template #actions>
+          <o-select-coin-input
             :coins="fromCoins"
             :current-currency="currentSendFromCurrency"
             @on-select-coin="onSelectCoin($event, 'from')"
           />
-        </label>
-      </div>
+        </template>
+      </m-base-input>
       <div class="middle-info flex">
         <div v-if="isOneCoinEmpty" class="choose-coin">
           <img
@@ -74,26 +78,30 @@
         </ul>
         <a-coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
       </div>
-      <div class="input-wrapper relative w-full mb-5">
-        <label class="change-from">
-          <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
-          <input
-            v-model="convertInfo.estimatedAmount"
-            class="input"
-            inputmode="decimal"
-            pattern="[0-9]*"
-            type="number"
-            :readonly="isOneCoinEmpty"
-            @blur="onBlur"
-            @input="debounceChangeInfo('to')"
-          />
-          <select-coin-input
+      <m-base-input
+        v-model="convertInfo.estimatedAmount"
+        class="input"
+        inputmode="decimal"
+        mode="decimal"
+        :min-fraction-digits="0"
+        :max-fraction-digits="10"
+        pattern="[0-9]*"
+        type="number"
+        :readonly="isOneCoinEmpty"
+        @blur="onBlur"
+        @input="debounceChangeInfo('to')"
+      >
+        <template #append>{{
+          $t('views.deposit.convert.convertExactly')
+        }}</template>
+        <template #actions>
+          <o-select-coin-input
             :coins="toCoins"
             :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
-        </label>
-      </div>
+        </template>
+      </m-base-input>
       <m-base-button
         v-if="loading"
         block
@@ -163,8 +171,9 @@ import {
   ACoinSwitcher,
   ATrippleDotsSpinner,
   MBaseButton,
+  MBaseInput,
 } from '@liber-biz/crpw-ui-kit-liber';
-import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 const errorsStore = useErrorsStore();
 
@@ -465,6 +474,10 @@ watch(isZeroValues, (val) => {
 <style lang="scss" scoped>
 .change-currency {
   width: 100%;
+
+  > .send-button {
+    margin-top: 37px;
+  }
 }
 
 .change-from {
