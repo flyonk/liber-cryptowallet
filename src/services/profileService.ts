@@ -142,7 +142,7 @@ export default {
       },
     };
 
-    data.append('residence-file', file);
+    data.append('file', file);
 
     return (
       await axios.post(
