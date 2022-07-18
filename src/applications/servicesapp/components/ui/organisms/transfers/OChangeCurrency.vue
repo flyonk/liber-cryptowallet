@@ -291,6 +291,11 @@ function convertCurrency() {
     successRoute: ServicesRoutes.DashboardHome,
     callback: async () => {
       fundsStore.$reset();
+      toast.add({
+        summary: tm('services.convert.success') as string,
+        life: 3000,
+        closable: false,
+      });
     },
   });
   convertFunds();
