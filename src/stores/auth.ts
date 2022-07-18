@@ -238,7 +238,7 @@ export const useAuthStore = defineStore('auth', {
       this.login.dialCode = dialCode;
     },
 
-    async logout(userId: string) {
+    async logout() {
       const [dialCode, phone, touchId, faceId] = await Promise.all([
         get('dialCode'),
         get('phone'),
@@ -249,7 +249,7 @@ export const useAuthStore = defineStore('auth', {
       remove(SStorageKeys.user);
 
       if (this.token.token) {
-        authService.logout({ user_id: userId });
+        authService.logout({ token: this.token.token });
       }
 
       this.token = { token: null, refreshToken: null };

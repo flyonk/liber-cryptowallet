@@ -80,7 +80,7 @@ export default {
     return claimMapper.deserialize(res.data);
   },
 
-  async kycProceedClaimById(id: number): Promise<TSuccessResponse> {
+  async kycProceedClaimById(id: string): Promise<TSuccessResponse> {
     return (await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`))
       .data;
   },
@@ -96,7 +96,7 @@ export default {
     ).data;
   },
 
-  async kycAddFile(
+  async kycAddFileFromCam(
     id: string,
     fileType: EKYCProofType,
     file: string,
@@ -116,7 +116,7 @@ export default {
       .then(
         (blobFile) =>
           new File([blobFile], `${fileType}-${side}.${type}`, {
-            type,
+            type: `image/${type}`,
           })
       );
     data.append('file', binaryFile);
@@ -130,7 +130,7 @@ export default {
     ).data;
   },
 
-  async kycAddResidenceFile(
+  async kycAddFile(
     id: string,
     file: File,
     country: string
@@ -141,12 +141,11 @@ export default {
         'Content-Type': 'multipart/form-data',
       },
     };
-
-    data.append('residence-file', file);
+    data.append('file', file);
 
     return (
       await axios.post(
-        `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}`,
+        `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
         data,
         config
       )

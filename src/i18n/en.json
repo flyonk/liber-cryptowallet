@@ -37,6 +37,10 @@
     "off": "Off",
     "2fainput": "2FA verification code"
   },
+  "browserStub": {
+    "title": "Browser not supported",
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone"
+  },
   "slider": {
     "title": "Transfer money around the world with the best fee"
   },

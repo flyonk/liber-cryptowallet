@@ -108,10 +108,10 @@ const form = reactive({
 onBeforeMount(async () => {
   await profileStore.init();
 
-  const { optionalAddress, street, state, city, postalCode } =
+  const { optionalAddress, street, homeNum, state, city, postalCode } =
     profileStore.getUser;
 
-  form.street = street as string;
+  form.street = `${street} ${homeNum}`;
   form.optionalAddress = optionalAddress as string;
   form.postalCode = postalCode as string;
   form.state = state as string;
@@ -122,7 +122,7 @@ const isFormValid = computed(() => {
   // TODO: need to clarify validation conditions for every field
   return Object.entries(form).every((item) => {
     const [key] = item;
-    return isValid(key);
+    return isValid(key as keyof typeof form);
   });
 });
 
@@ -132,7 +132,7 @@ const onContinue = async () => {
   emit('continue');
 };
 
-const isValid = (key: string) => {
+const isValid = (key: keyof typeof form) => {
   switch (key) {
     case 'optionalAddress':
     case 'street':
