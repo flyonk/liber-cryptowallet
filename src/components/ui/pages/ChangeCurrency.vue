@@ -1,5 +1,5 @@
 <template name="send-to">
-  <t-top-navigation :is-touchable="false" @click:left-icon="$router.go(-1)">
+  <t-top-navigation :is-touchable="false" @click:left-icon="backAndCleanState">
     <template #title>{{ $t('transactions.convert.title') }}</template>
     <template #content>
       <div class="send-to">
@@ -65,9 +65,19 @@ import { ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
 import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
+import { useFundsStore } from '@/applications/liber/stores/funds';
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const fundsStore = useFundsStore();
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');
+
+const backAndCleanState = () => {
+  router.go(-1);
+  setTimeout(() => fundsStore.cleanConvertInfo(), 1);
+};
 </script>
 
 <style lang="scss" scoped>

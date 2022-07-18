@@ -89,5 +89,9 @@ export const useFundsStore = defineStore('funds', {
       this.from = this.to;
       this.to = _from;
     },
+
+    cleanConvertInfo(): void {
+      this.convertInfo = cloneDeep(emptyConvert);
+    },
   },
 });
