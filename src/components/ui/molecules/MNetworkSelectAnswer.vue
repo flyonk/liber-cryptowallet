@@ -7,9 +7,14 @@
 </template>
 
 <script lang="ts" setup>
-import { MQuestionWithAnswers } from '@liber-biz/crpw-ui-kit-liber';
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
+
+const MQuestionWithAnswers = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MQuestionWithAnswers
+  );
+});
 
 const { tm } = useI18n();
 

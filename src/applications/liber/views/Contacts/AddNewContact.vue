@@ -63,14 +63,23 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, computed } from 'vue';
+import { Ref, ref, computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 import { Route } from '@/router/types';
 
 import { v4 as uuidv4 } from 'uuid';

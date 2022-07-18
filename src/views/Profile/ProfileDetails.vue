@@ -40,23 +40,32 @@
       </div>
     </template>
     <template #fixed-footer>
-      <BaseButton class="footer-btn">
+      <m-base-button class="footer-btn">
         {{ $t('views.profile.profileEdit.changeHomeAddress') }}
-      </BaseButton>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 import { formatToNormalDate } from '@/helpers/datetime';
 
-import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
-
 import { TTopNavigation } from '@/components/ui';
-import { AContactInitials } from '@liber-biz/crpw-ui-kit-liber';
+
+const AContactInitials = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AContactInitials
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const profileStore = useProfileStore();
 

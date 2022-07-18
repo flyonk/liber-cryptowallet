@@ -69,10 +69,9 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { defineAsyncComponent, ref, watch } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
@@ -82,6 +81,18 @@ import { useProfileStore } from '@/stores/profile';
 import { STATIC_BASE_URL } from '@/constants';
 
 import InputSwitch from 'primevue/inputswitch';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const router = useRouter();
 

@@ -37,13 +37,26 @@
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import {
-  MBaseInput,
-  MBaseButton,
-  MTopNavigation,
-} from '@liber-biz/crpw-ui-kit-liber';
+import { defineAsyncComponent, ref } from 'vue';
 import { computed } from '@vue/reactivity';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
 
 const isClearBtnShown = ref(false);
 

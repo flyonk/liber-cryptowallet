@@ -112,7 +112,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, onBeforeMount, Ref, ref } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  defineAsyncComponent,
+  onBeforeMount,
+  Ref,
+  ref,
+} from 'vue';
 
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useProfileStore } from '@/stores/profile';
@@ -126,8 +133,13 @@ import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
 import { TransactionsList, AccountListBottomSheet } from '@/components/ui';
-import { MDashboardCoinInfo } from '@liber-biz/crpw-ui-kit-liber';
 import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
+
+const MDashboardCoinInfo = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MDashboardCoinInfo
+  );
+});
 
 const VerificationStatus = ref(EKYCStatus.success);
 

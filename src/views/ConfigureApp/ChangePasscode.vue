@@ -31,13 +31,19 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 </script>

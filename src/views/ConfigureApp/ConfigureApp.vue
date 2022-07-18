@@ -53,7 +53,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -63,10 +63,15 @@ import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const { tm } = useI18n();
 

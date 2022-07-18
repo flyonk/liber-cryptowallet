@@ -29,12 +29,18 @@
 </template>
 
 <script setup lang="ts">
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { EKYCStatus } from '@/models/profile/profile';
-import { computed, PropType } from 'vue';
+import { computed, defineAsyncComponent, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
 const { tm } = useI18n();
 
 interface IKycStatusCard {

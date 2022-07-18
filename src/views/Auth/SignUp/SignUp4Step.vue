@@ -52,12 +52,24 @@
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { ref } from 'vue-demi';
 
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { computed } from '@vue/reactivity';
 import { useProfileStore } from '@/stores/profile';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const pStore = useProfileStore();
 

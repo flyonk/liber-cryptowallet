@@ -24,14 +24,19 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import RadioButton from 'primevue/radiobutton';
 
 import { Route } from '@/router/types';
 import { useRecepientsStore } from '@/stores/recipients';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const emit = defineEmits(['closeMenu']);

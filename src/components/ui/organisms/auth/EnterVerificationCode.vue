@@ -66,17 +66,35 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
 
-import {
-  MBaseCountdown,
-  MBaseButton,
-  MBaseVerificationCodeInput,
-  MTopNavigation,
-} from '@liber-biz/crpw-ui-kit-liber';
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseCountdown = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseCountdown
+  );
+});
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
+
+const MBaseVerificationCodeInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseVerificationCodeInput
+  );
+});
 
 const errorsStore = useErrorsStore();
 const { t } = useI18n();

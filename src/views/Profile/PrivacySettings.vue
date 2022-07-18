@@ -61,12 +61,17 @@
 </template>
 
 <script setup lang="ts">
-import { MBaseSwitch } from '@liber-biz/crpw-ui-kit-liber';
+import { defineAsyncComponent, ref } from 'vue';
 import { useProfileStore } from '@/stores/profile';
-import { ref } from 'vue';
 import { onMounted } from 'vue-demi';
 
 import { TTopNavigation } from '@/components/ui';
+
+const MBaseSwitch = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseSwitch
+  );
+});
 
 const profileStore = useProfileStore();
 let _isEmail = ref(false);

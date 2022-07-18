@@ -36,14 +36,25 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
 import { Camera, CameraResultType } from '@capacitor/camera';
 
 import { TTopNavigation } from '@/components/ui';
-import { ABaseProgressBar, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { useKYCStore } from '@/stores/kyc';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ABaseProgressBar = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressBar
+  );
+});
 
 const emit = defineEmits(['prev', 'next']);
 

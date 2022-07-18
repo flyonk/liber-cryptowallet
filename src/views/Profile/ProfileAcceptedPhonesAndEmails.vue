@@ -84,16 +84,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton, MKycStatusCard } from '@liber-biz/crpw-ui-kit-liber';
 
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MKycStatusCard = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MKycStatusCard
+  );
+});
 
 const { tm } = useI18n();
 const pStore = useProfileStore();

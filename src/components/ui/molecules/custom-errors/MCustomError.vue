@@ -43,15 +43,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
-import {
-  ATrippleDotsSpinner,
-  MBaseButton,
-  MBaseToast,
-} from '@liber-biz/crpw-ui-kit-liber';
+const ATrippleDotsSpinner = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ATrippleDotsSpinner
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const { loading, handleReconnect } = useCheckOffline();
 

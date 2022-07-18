@@ -35,13 +35,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
-import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 import { Route } from '@/router/types';
 

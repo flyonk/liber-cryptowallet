@@ -60,9 +60,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const isAllowAccessToContacts = ref(false);
 </script>

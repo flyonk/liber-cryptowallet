@@ -47,13 +47,24 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, defineAsyncComponent, ref } from 'vue';
 import { TTopNavigation, EnterVerificationCode } from '@/components/ui';
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import router from '@/router';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
-import { computed, ref } from 'vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const pStore = useProfileStore();
 const data = ref('');

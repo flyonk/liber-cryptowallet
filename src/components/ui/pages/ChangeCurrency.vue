@@ -61,11 +61,22 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton, MBaseToast } from '@liber-biz/crpw-ui-kit-liber';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const showPopup = ref(false);
 const popupStatus = ref('confirmation');

@@ -49,13 +49,24 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 import { STATIC_BASE_URL } from '@/constants';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const newContacts = ref([
   {

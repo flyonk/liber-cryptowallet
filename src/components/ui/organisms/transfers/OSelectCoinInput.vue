@@ -46,14 +46,25 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, ref } from 'vue';
+import { computed, defineAsyncComponent, PropType, ref } from 'vue';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { TTopNavigation } from '@/components/ui';
-import { MSelectCoin, ABaseSearchInput } from '@liber-biz/crpw-ui-kit-liber';
+
+const MSelectCoin = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MSelectCoin
+  );
+});
+
+const ABaseSearchInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseSearchInput
+  );
+});
 
 const emit = defineEmits(['on-select-coin']);
 

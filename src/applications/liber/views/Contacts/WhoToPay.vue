@@ -4,7 +4,7 @@
     <h1 class="title">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
-    <MBaseInput v-model="filterContacts" type="text">
+    <MBaseInput v-model="filterContacts" type="text" class="m-base-input">
       <template #label> Name, @id, phone, email </template>
     </MBaseInput>
 
@@ -18,18 +18,27 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
-import { MBaseInput } from '@liber-biz/crpw-ui-kit-liber';
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
 
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
 const filterContacts = ref('');
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .who-topay {
   display: flex;
   flex-direction: column;

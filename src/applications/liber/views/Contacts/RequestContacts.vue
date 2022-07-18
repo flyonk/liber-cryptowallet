@@ -36,14 +36,20 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useRecepientsStore } from '@/stores/recipients';
 
 import { TTopNavigation } from '@/components/ui';
-import { MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const route = useRoute();

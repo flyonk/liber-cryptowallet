@@ -36,7 +36,7 @@
 </template>
 
 <script lang="ts" setup>
-import { MBaseInput, MBaseButton } from '@liber-biz/crpw-ui-kit-liber';
+import { defineAsyncComponent } from 'vue';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { Route } from '@/router/types';
 import { ref } from 'vue-demi';
@@ -44,6 +44,18 @@ import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const pStore = useProfileStore();

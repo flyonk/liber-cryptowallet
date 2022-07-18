@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { defineAsyncComponent, onMounted, ref } from 'vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
@@ -14,9 +14,14 @@ import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
 import { STATIC_BASE_URL } from '@/constants';
-import { AMainPageLoader } from '@liber-biz/crpw-ui-kit-liber';
 
 import { Route } from '@/router/types';
+
+const AMainPageLoader = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AMainPageLoader
+  );
+});
 
 const { stylePaddings } = useSafeAreaPaddings();
 
