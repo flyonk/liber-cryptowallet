@@ -15,7 +15,7 @@ const { tm } = useI18n();
 const props = defineProps({
   status: {
     type: String as PropType<ETransactionStatus>,
-    required: true,
+    default: undefined,
   },
 });
 
