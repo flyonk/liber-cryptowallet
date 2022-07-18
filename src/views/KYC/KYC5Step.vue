@@ -7,35 +7,17 @@
     </template>
     <template #content>
       <div class="kyc-5-step">
-        <template v-if="proofType !== EKYCProofType.passport">
-          <div v-for="(image, side) in getImage" :key="side" class="block">
-            <template v-if="image">
-              <div class="title heading-black-lg">
-                {{ documentSideLabel(side) }}
-              </div>
-              <img :src="image" alt="front" class="image" />
-              <base-button block view="secondary" @click="onScanAgain(side)">
-                {{ $t('views.kyc.kyc5step.scanAgain') }}
-              </base-button>
-            </template>
-          </div>
-        </template>
-
-        <template v-else>
-          <div class="block">
+        <div v-for="(image, side) in getImage" :key="side" class="block">
+          <template v-if="image">
             <div class="title heading-black-lg">
-              {{ $t('views.kyc.kyc5step.passport') }}
+              {{ documentSideLabel(side) }}
             </div>
-            <img :src="getImage.front" alt="passport" class="image" />
-            <base-button
-              block
-              view="secondary"
-              @click="onScanAgain(EDocumentSide.front)"
-            >
+            <img :src="image" alt="front" class="image" />
+            <base-button block view="secondary" @click="onScanAgain(side)">
               {{ $t('views.kyc.kyc5step.scanAgain') }}
             </base-button>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
     </template>
     <template #fixed-footer>
@@ -51,7 +33,7 @@ import { computed } from 'vue';
 
 import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
 
-import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
 import { IClaim } from '@/models/profile/claim';
 import { useProfileStore } from '@/stores/profile';
@@ -82,8 +64,6 @@ const cleanupScans = () => {
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
-
-const proofType = computed(() => kycStore.getProofType);
 
 const getImage = computed(() => kycStore.getImage);
 
