@@ -37,6 +37,10 @@
     "off": "Off",
     "2fainput": "2FA verification code"
   },
+  "browserStub": {
+    "title": "Browser not supported",
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone"
+  },
   "slider": {
     "title": "Transfer money around the world with the best fee"
   },
@@ -270,8 +274,8 @@
       "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
       "contactsCTA": "Allow access to contacts"
     },
-    "recepients": {
-      "recepients": "Recepients",
+    "recipients": {
+      "recipients": "Recipients",
       "add": "Add a new contact"
     },
     "depositecoin": {
@@ -591,6 +595,11 @@
       "title": "Enter Liber Save account email address",
       "email": "Liber Save Email",
       "error": "Liber Save account associated with this email address not found. Try to use another email."
+    },
+    "convert": {
+      "title": "Enter amount of euro to get coupons for",
+      "convertExactly": "Amount (€50–€1,000)",
+      "convertNow": "Get Coupons Now"
     }
   }
 }

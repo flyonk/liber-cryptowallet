@@ -8,17 +8,20 @@
             {{ mainCoin }}
           </span>
         </div>
-      </div></template
-    >
-    <template #right
-      ><TransactionIconWithStatus
+      </div>
+    </template>
+    <template #right>
+      <TransactionIconWithStatus
         :status="transaction.status"
         img-path="convert"
-    /></template>
+      />
+    </template>
     <template #content>
       <div class="transaction-details">
         <div class="header">
-          <h2 class="sendto">{{ detailedInfo }}</h2>
+          <h2 class="sendto" :class="{ 'color-red': transaction.isCoupon }">
+            {{ detailedInfo }}
+          </h2>
           <p class="date">
             {{ relativeDate }}
           </p>
@@ -40,10 +43,15 @@
           </li>
 
           <li class="main-item">
-            <p class="name">
+            <p class="name" :class="{ 'color-red': transaction.isCoupon }">
               {{ $t('transactions.rate') }}
             </p>
-            <p class="description">{{ feeRate }}</p>
+            <p
+              class="description"
+              :class="{ 'color-red': transaction.isCoupon }"
+            >
+              {{ feeRate }}
+            </p>
           </li>
 
           <li class="main-item">
@@ -57,15 +65,29 @@
           </li>
 
           <li class="main-item">
-            <p class="name">
-              {{
-                isIncome ? $t('transactions.cost') : $t('transactions.bought')
-              }}
+            <p class="name" :class="{ 'color-red': transaction.isCoupon }">
+              <template v-if="transaction.isCoupon">
+                {{ $t('transactions.receivedCoupons') }}
+              </template>
+              <template v-else>
+                {{
+                  isIncome ? $t('transactions.cost') : $t('transactions.bought')
+                }}
+              </template>
             </p>
-            <p class="description">
-              {{ isIncome ? '-' : '+' }}
-              {{ transaction.counter.amount }}
-              {{ transaction.counter.code.toUpperCase() }}
+            <p
+              class="description"
+              :class="{ 'color-red': transaction.isCoupon }"
+            >
+              <template v-if="transaction.isCoupon">
+                {{ transaction.counter.amount }}
+                {{ transaction.counter.code.toUpperCase() }}
+              </template>
+              <template v-else>
+                {{ isIncome ? '-' : '+' }}
+                {{ transaction.counter.amount }}
+                {{ transaction.counter.code.toUpperCase() }}
+              </template>
             </p>
           </li>
         </ul>
@@ -104,7 +126,7 @@ const props = defineProps({
 
   mainCoin: {
     type: String,
-    required: true,
+    default: undefined,
   },
 });
 
@@ -115,17 +137,19 @@ const isIncome = computed(
 
 const directionSign = computed(() => (isIncome.value ? '+' : '-'));
 
-const detailedInfo = computed(() =>
-  !isIncome.value
+const detailedInfo = computed(() => {
+  if (props.transaction.isCoupon) return 'Get coupons';
+
+  return !isIncome.value
     ? 'Sold ' +
-      mainCoin.value +
-      ' to ' +
-      props.transaction.counter.code.toUpperCase()
+        mainCoin.value +
+        ' to ' +
+        props.transaction.counter.code.toUpperCase()
     : 'Bought ' +
-      mainCoin.value +
-      ' with ' +
-      props.transaction.counter.code.toUpperCase()
-);
+        mainCoin.value +
+        ' with ' +
+        props.transaction.counter.code.toUpperCase();
+});
 
 const feeRate = computed(
   () =>
@@ -141,3 +165,9 @@ const relativeDate = computed(() => {
   return getRelativeDate(props.transaction.date);
 });
 </script>
+
+<style lang="scss" scoped>
+.color-red {
+  color: $color-red-500 !important;
+}
+</style>

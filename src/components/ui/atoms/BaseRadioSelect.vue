@@ -1,6 +1,11 @@
 <template>
   <div class="base-radio-select">
-    <div v-for="(item, key) in items" :key="key" class="item-div">
+    <div
+      v-for="(item, key) in items"
+      :key="key"
+      class="item-div"
+      :class="{ '-disabled': item.disabled }"
+    >
       <label class="radio-button">
         <input
           :id="item.value"
@@ -8,9 +13,9 @@
           :value="item"
           name="items"
           style="display: none"
-          @change="$emit('change', item.value)"
+          @change="onEmit(item, 'change')"
         />
-        <div class="label" @click="$emit('select', item.value)">
+        <div class="label" @click="onEmit(item, 'select')">
           <img v-if="item.logo" :src="item.logo" :alt="item.text" />
           <p class="text text--callout font-weight--semibold">
             {{ item.text }}
@@ -33,7 +38,15 @@ defineProps({
   },
 });
 
-defineEmits(['input', 'change', 'select']);
+const emit = defineEmits(['change', 'select']);
+
+const onEmit = (item: IValueItem, emitType: 'change' | 'select') => {
+  if (item.disabled) {
+    return;
+  }
+
+  emit(emitType, item.value);
+};
 </script>
 
 <style scoped lang="scss">
@@ -42,6 +55,12 @@ defineEmits(['input', 'change', 'select']);
   border: 1px solid $color-brand-2-50;
 
   > .item-div {
+    user-select: none;
+
+    &.-disabled {
+      opacity: 0.5;
+    }
+
     > .radio-button {
       display: flex;
       width: 100%;

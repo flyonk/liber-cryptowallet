@@ -55,18 +55,19 @@ const router = useRouter();
 const items = ref([
   {
     text: 'Driver’s Licence',
-    value: 'licence',
+    value: EKYCProofType.licence,
     logo: require('@/assets/images/user-drivers-licence.svg'),
   },
   {
     text: 'Passport',
-    value: 'passport',
+    value: EKYCProofType.passport,
     logo: require('@/assets/images/user-passport.svg'),
   },
   {
     text: 'National ID',
-    value: 'id',
+    value: EKYCProofType.national_id,
     logo: require('@/assets/images/user-national-id.svg'),
+    disabled: true,
   },
 ]);
 
@@ -74,6 +75,8 @@ const getPercentage = computed(() => kycStore.getPercentage * 100);
 
 const onSelect = (proofType: EKYCProofType): void => {
   kycStore.setProofType(proofType);
+
+  kycStore.claim();
 
   emit('next');
 };

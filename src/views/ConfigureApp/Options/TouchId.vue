@@ -53,13 +53,13 @@ const onEnable = async (): Promise<void> => {
 
   if (state) {
     setOptions('true', EStorageKeys.touchid);
-    router.push({ name: Route.PushNotifications });
+    router.push({ name: Route.AuthPasscode });
   }
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.touchid);
-  router.push({ name: Route.PushNotifications });
+  router.push({ name: Route.AuthPasscode });
 };
 </script>
 

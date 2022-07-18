@@ -9,8 +9,8 @@
     </MBaseInput>
 
     <constacts-tab-switcher
-      :liber-route="Route.PayRecepientsLiber"
-      :all-route="Route.PayRecepientsPhone"
+      :liber-route="Route.PayRecipientsLiber"
+      :all-route="Route.PayRecipientsPhone"
     />
 
     <router-view :filter="filterContacts" />

@@ -11,6 +11,7 @@
       </div>
     </template>
   </p-toast>
+  <m-browser-stub v-if="!IS_DEVELOPEMENT_MODE" />
   <app-layout-switcher>
     <p-offline-mode v-if="isOfflineMode" @online="handleReconnection" />
     <div v-else>
@@ -45,6 +46,7 @@ import { useAccountStore } from '@/applications/liber/stores/account';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import SwipeBack from '@/plugins/swipe-capacitor';
+import { IS_DEVELOPEMENT_MODE } from '@/constants';
 
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
@@ -54,6 +56,7 @@ import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
+import MBrowserStub from '@/components/ui/molecules/MBrowserStub.vue';
 
 // TODO:[UIKIT] change bundle-title with title in props
 const AOfflineBundler = defineAsyncComponent(() => {

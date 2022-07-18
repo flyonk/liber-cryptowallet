@@ -263,7 +263,7 @@ async function onLogout() {
     return;
   }
 
-  await authStore.logout(profileStore.getUser.id);
+  await authStore.logout();
 
   await route.push({ name: Route.WelcomeLogoScreen });
 }

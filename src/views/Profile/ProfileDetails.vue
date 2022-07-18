@@ -40,7 +40,10 @@
       </div>
     </template>
     <template #fixed-footer>
-      <m-base-button class="footer-btn">
+      <m-base-button
+        class="footer-btn"
+        @click="$router.push({ name: Route.ProfileChangeAddress })"
+      >
         {{ $t('views.profile.profileEdit.changeHomeAddress') }}
       </m-base-button>
     </template>
@@ -52,6 +55,7 @@ import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 import { formatToNormalDate } from '@/helpers/datetime';
+import { Route } from '@/router/types';
 
 import { TTopNavigation } from '@/components/ui';
 
@@ -77,7 +81,7 @@ const birthDate = computed(() =>
 
 const addressField = computed(() =>
   user.value.city && user.value.state
-    ? `${user.value.street} ${user.value.homeNum} ${user.value.postalCode} ${user.value.city}, ${user.value.country}`
+    ? `${user.value.street} ${user.value.homeNum} ${user.value.optionalAddress}, ${user.value.postalCode}, ${user.value.state}, ${user.value.city}`
     : 'No Address selected'
 );
 

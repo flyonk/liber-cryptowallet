@@ -7,35 +7,17 @@
     </template>
     <template #content>
       <div class="kyc-5-step">
-        <template v-if="proofType !== EKYCProofType.passport">
-          <div v-for="(image, side) in getImage" :key="side" class="block">
-            <template v-if="image">
-              <div class="title heading-black-lg">
-                {{ documentSideLabel(side) }}
-              </div>
-              <img :src="image" alt="front" class="image" />
-              <m-base-button block view="secondary" @click="onScanAgain(side)">
-                {{ $t('views.kyc.kyc5step.scanAgain') }}
-              </m-base-button>
-            </template>
-          </div>
-        </template>
-
-        <template v-else>
-          <div class="block">
+        <div v-for="(image, side) in getImage" :key="side" class="block">
+          <template v-if="image">
             <div class="title heading-black-lg">
-              {{ $t('views.kyc.kyc5step.passport') }}
+              {{ documentSideLabel(side) }}
             </div>
-            <img :src="getImage.front" alt="passport" class="image" />
-            <m-base-button
-              block
-              view="secondary"
-              @click="onScanAgain(EDocumentSide.front)"
-            >
+            <img :src="image" alt="front" class="image" />
+            <m-base-button block view="secondary" @click="onScanAgain(side)">
               {{ $t('views.kyc.kyc5step.scanAgain') }}
             </m-base-button>
-          </div>
-        </template>
+          </template>
+        </div>
       </div>
     </template>
     <template #fixed-footer>
@@ -51,9 +33,14 @@ import { computed, defineAsyncComponent } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 
-import { EKYCProofType, useKYCStore } from '@/stores/kyc';
+import { useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
+import { IClaim } from '@/models/profile/claim';
+import { useProfileStore } from '@/stores/profile';
+
 import { useI18n } from 'vue-i18n';
+import { getFullList } from '@/services/country-phone';
+import { ICountryInformation } from '@/types/country-phone-types';
 
 const MBaseButton = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
@@ -72,6 +59,7 @@ const { t } = useI18n();
 const emit = defineEmits(['prev', 'next']);
 
 const kycStore = useKYCStore();
+const profileStore = useProfileStore();
 
 const prevStep = async () => {
   cleanupScans();
@@ -89,8 +77,6 @@ const cleanupScans = () => {
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
-const proofType = computed(() => kycStore.getProofType);
-
 const getImage = computed(() => kycStore.getImage);
 
 const documentSideLabel = (side: EDocumentSide) => {
@@ -99,8 +85,32 @@ const documentSideLabel = (side: EDocumentSide) => {
     : t('views.kyc.kyc5step.backSide');
 };
 
-const onNext = () => {
+const onNext = async () => {
   emit('next');
+
+  const { id: claimId } = kycStore.claimData as IClaim;
+  const countries = await getFullList();
+  const { isoCodeAlpha: countryIso } = countries.find(
+    ({ name }) => name === profileStore.getUser.country
+  ) as ICountryInformation;
+
+  if (kycStore.getImage.front) {
+    await kycStore.uploadFile(
+      kycStore.getImage.front,
+      claimId,
+      EDocumentSide.front,
+      countryIso as string
+    );
+  }
+
+  if (kycStore.getImage.back) {
+    await kycStore.uploadFile(
+      kycStore.getImage.back,
+      claimId,
+      EDocumentSide.back,
+      countryIso as string
+    );
+  }
 
   kycStore.setPercentage(0.8);
 };

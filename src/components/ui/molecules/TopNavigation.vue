@@ -83,6 +83,7 @@ defineEmits(['click:left-icon']);
   > .header-top {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   > .header-top > .controls {

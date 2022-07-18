@@ -33,7 +33,7 @@
             }"
             :disabled="VerificationStatus !== EKYCStatus.success"
             class="btn"
-            @click="$router.push({ name: Route.PayRecepientsLiber })"
+            @click="$router.push({ name: Route.PayRecipientsLiber })"
           >
             <i
               class="icon-btn icon-send"
@@ -176,7 +176,7 @@ const isMenuOpen = ref(false);
  * Lifecycle
  */
 onBeforeMount(async () => {
-  uiStore.setLoadingState('dashboard', true);
+  uiStore.setLoadingStateOnce('dashboard', true);
 
   await profileStore.init();
 

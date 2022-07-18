@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
 import { Contacts } from '@capacitor-community/contacts';
-import { Storage } from '@capacitor/storage';
+import { get, set } from '@/helpers/storage';
 
 import contactsService from '@/applications/liber/services/contactsService';
 import transactionService from '@/applications/liber/services/transactionService';
@@ -12,7 +12,7 @@ import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
 
-interface IRecepients {
+interface IRecipients {
   contacts: Contact[];
   permission: boolean;
   friends: Set<string>;
@@ -31,14 +31,12 @@ interface IContact {
 }
 
 const getStoredOption = async (key: EStorageKeys) => {
-  const { value } = await Storage.get({
-    key,
-  });
+  const value = await get(key);
   return value ? JSON.parse(value) : [];
 };
 
 async function setOptions(value: string[], key: EStorageKeys) {
-  await Storage.set({
+  await set({
     key,
     value: JSON.stringify(value),
   });
@@ -79,8 +77,8 @@ async function loadFriends() {
 
 // === Phone contacts Store ===
 
-export const useRecepientsStore = defineStore('recepients', {
-  state: (): IRecepients => ({
+export const useRecipientsStore = defineStore('recipients', {
+  state: (): IRecipients => ({
     contacts: [],
     permission: false,
     friends: new Set<string>(),

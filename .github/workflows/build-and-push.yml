@@ -1,37 +1,18 @@
-name: build-and-push
+name: deploy-dev
 on:
-  workflow_dispatch:
-    inputs:
-      brand_name:
-        default: 'liber'
-        type: choice
-        description: 'Choose the brand name to customize app'
-        required: true
-        options:
-          - 'liber'
-      brand_config_host:
-        default: 'conf.middleware.dev.k8s.domain'
-        type: choice
-        description: 'Choose the brand config manager host name'
-        required: true
-        options:
-          - 'conf.middleware.dev.k8s.domain'
-      brand_version:
-        default: '0.1.11'
-        type: string
-        description: 'Specify the brand ui-kit version'
-        required: true
   push:
     branches:
       - 'dev'
-      - 'master'
-    tags:
-      - '**'
+#      - 'master'
+#    tags:
+#      - '**'
 jobs:
-  build-and-push:
+  build-push-and-deploy:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@master
+      - name: helm lint
+        run: helm lint provisioning/liber-app
       - name: Set outputs
         id: version
         run: |
@@ -54,9 +35,16 @@ jobs:
             --build-arg VERSION=${{ steps.version.outputs.tag }} 
             --build-arg GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
             --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }}
-# uncomment these lines to use workflow_dispatch
-#            --build-arg BRANDNAME=${{ github.event.inputs.brand_name }}
-#            --build-arg BRANDNAME_VERSION=${{ github.event.inputs.brand_version }}
-#            --build-arg BRAND_CONFIGURATION_HOSTNAME=${{ github.event.inputs.brand_config_host }}
+      - name: resolve k8s kubeconfig
+        id: k8s
+        run: |
+          echo "::set-output name=kubeconfig::/root/.kube/config-dev"
+      - name: deploy
+        run: |
+          helm --kubeconfig=${{ steps.k8s.outputs.kubeconfig }} upgrade --install liber-app ./provisioning/liber-app \
+          --debug --namespace=frontend \
+          --values=./provisioning/liber-app/values.yaml \
+          --values=./provisioning/liber-app/values.dev.yaml \
+          --set image.tag=${{ steps.version.outputs.tag }}
 
 

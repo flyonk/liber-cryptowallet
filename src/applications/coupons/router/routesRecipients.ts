@@ -3,7 +3,7 @@ import { CouponRoutes } from '@/applications/coupons/router/types';
 export default [
   {
     path: '',
-    name: CouponRoutes.RecepientsPhone,
+    name: CouponRoutes.RecipientsPhone,
     component: () =>
       import(
         '@/applications/liber/views/Contacts/childrenviews/PhoneContacts.vue'
@@ -11,7 +11,7 @@ export default [
   },
   {
     path: 'liber',
-    name: CouponRoutes.RecepientsLiber,
+    name: CouponRoutes.RecipientsLiber,
     component: () =>
       import(
         '@/applications/liber/views/Contacts/childrenviews/PhoneContacts.vue'

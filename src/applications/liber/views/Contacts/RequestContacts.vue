@@ -38,7 +38,7 @@ export default {
 <script lang="ts" setup>
 import { defineAsyncComponent } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 
 import { TTopNavigation } from '@/components/ui';
 
@@ -53,7 +53,7 @@ const MBaseButton = defineAsyncComponent(() => {
 
 const router = useRouter();
 const route = useRoute();
-const store = useRecepientsStore();
+const store = useRecipientsStore();
 
 const onEnable = (): void => {
   store
@@ -80,7 +80,7 @@ const onCancel = (): void => {
 };
 
 function nextRoute() {
-  const routerBackName = route.params.back || Route.RecepientsPhone;
+  const routerBackName = route.params.back || Route.RecipientsPhone;
   router.push({
     name: routerBackName,
     params: {

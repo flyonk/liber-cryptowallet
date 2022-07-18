@@ -30,8 +30,10 @@
 import { defineAsyncComponent, ref } from 'vue';
 import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
+import { useKYCStore } from '@/stores/kyc';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
+import { IClaim } from '@/models/profile/claim';
 
 const MBaseButton = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
@@ -48,8 +50,12 @@ const ABaseProgressCircular = defineAsyncComponent(() => {
 const percent = ref(50);
 const router = useRouter();
 const pStore = useProfileStore();
+const kycStore = useKYCStore();
 
 const handleComplete = async () => {
+  const { id: claimId } = kycStore.claimData as IClaim;
+  kycStore.proceed(claimId);
+
   if (!pStore.user.id) await pStore.init();
   if (pStore.user.is2FAConfigured) {
     router.push({

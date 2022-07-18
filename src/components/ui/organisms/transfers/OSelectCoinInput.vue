@@ -8,9 +8,14 @@
         class="icon"
       />
       <p class="name">{{ currentCurrency.name }}</p>
-      <img alt="list" :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`" />
-      <!-- Fullwidth dialog with coin selector -->
+      <img
+        v-if="showSelectDialog"
+        alt="list"
+        :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+      />
+      <div></div>
       <p-dialog
+        v-if="showSelectDialog"
         v-model:visible="showSelectCoinDialog"
         :show-header="false"
         class="p-dialog-maximized dialog"
@@ -79,6 +84,10 @@ const props = defineProps({
   coins: {
     type: Array as PropType<ICoin[]>,
     default: () => [],
+  },
+  showSelectDialog: {
+    type: Boolean,
+    default: true,
   },
 });
 

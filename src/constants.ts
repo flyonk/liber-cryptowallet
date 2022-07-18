@@ -22,6 +22,7 @@ export const MULTI_LANGUAGE = process.env.VUE_APP_MULTI_LANGUAGE === 'true';
 export const TRANSACTIONS_ENABLED =
   process.env.VUE_APP_TRANSACTIONS_FOR_NOT_VERIFIED_USERS === 'true';
 export const SUPPORT_EMAIL = process.env.VUE_APP_SUPPORT_EMAIL;
+export const IS_DEVELOPEMENT_MODE = process.env.NODE_ENV === 'development';
 
 export const SUPPORTED_LANGUAGES = getArrayFromEnvVar(
   'VUE_APP_SUPPORTED_LANGUAGES'

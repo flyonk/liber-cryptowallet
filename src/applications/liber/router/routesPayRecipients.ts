@@ -4,7 +4,7 @@ import checkContactsLoaded from '@/router/middleware/checkContacts';
 export default [
   {
     path: '',
-    name: Route.PayRecepientsPhone,
+    name: Route.PayRecipientsPhone,
     beforeEnter: checkContactsLoaded,
     component: () =>
       import(
@@ -13,7 +13,7 @@ export default [
   },
   {
     path: 'liber',
-    name: Route.PayRecepientsLiber,
+    name: Route.PayRecipientsLiber,
     component: () =>
       import(
         '@/applications/liber/views/Contacts/childrenviews/PayPhoneContacts.vue'

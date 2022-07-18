@@ -8,7 +8,7 @@
       })
     "
   >
-    <template #title> {{ $t('views.recepients.add') }}</template>
+    <template #title> {{ $t('views.recipients.add') }}</template>
     <template #content>
       <ul class="invite-list">
         <m-base-input
@@ -67,7 +67,7 @@ import { Ref, ref, computed, defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
-import { useRecepientsStore } from '@/stores/recipients';
+import { useRecipientsStore } from '@/stores/recipients';
 
 import { TTopNavigation } from '@/components/ui';
 const MBaseInput = defineAsyncComponent(() => {
@@ -85,7 +85,7 @@ import { Route } from '@/router/types';
 import { v4 as uuidv4 } from 'uuid';
 
 const router = useRouter();
-const recepientsStore = useRecepientsStore();
+const recipientsStore = useRecipientsStore();
 
 const isMenuOpen = ref(false);
 
@@ -118,7 +118,7 @@ const handleAddContact = async () => {
 
   const newContactId = uuidv4();
 
-  await recepientsStore.addNewContact({
+  await recipientsStore.addNewContact({
     id: newContactId,
     name: newContact.value.name,
     phones: newContact.value.phone,
@@ -126,11 +126,11 @@ const handleAddContact = async () => {
   });
 
   if (newContact.value.phone && newContact.value.phone.length > 1) {
-    recepientsStore.selectCommunicationWay(newContactId);
+    recipientsStore.selectCommunicationWay(newContactId);
     isMenuOpen.value = true;
   } else {
     router.push({
-      name: Route.PayRecepientsLiber,
+      name: Route.PayRecipientsLiber,
       params: { id: newContactId },
     });
   }

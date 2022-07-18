@@ -5,4 +5,5 @@ export interface ICountryInformation {
   flag?: string;
   mask?: string;
   localPath: string;
+  isoCodeAlpha: string;
 }

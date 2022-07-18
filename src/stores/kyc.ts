@@ -1,12 +1,17 @@
 import { defineStore } from 'pinia';
 import { EDocumentSide } from '@/types/document';
+import { ICountryInformation } from '@/types/country-phone-types';
+import profileService from '@/services/profileService';
+import { IClaim } from '@/models/profile/claim';
+import { useErrorsStore } from '@/stores/errors';
+import { AxiosError } from 'axios';
 
 // === KYC Types ===
 
 export enum EKYCProofType {
-  licence = 'licence',
+  licence = 'driver',
   passport = 'passport',
-  national_id = 'national_id',
+  national_id = 'residence',
 }
 
 export interface IKYCImage {
@@ -15,7 +20,7 @@ export interface IKYCImage {
 }
 
 export interface IKYCFormData {
-  citizenship: string;
+  citizenship: ICountryInformation | string;
   street: string;
   flat: string;
   postal_code: string | null;
@@ -31,6 +36,8 @@ export interface IKYCState {
   data: IKYCFormData;
 
   image: IKYCImage;
+
+  claimData: IClaim | null;
 }
 
 // === KYC Store ===
@@ -54,6 +61,8 @@ export const useKYCStore = defineStore('kyc', {
       front: null,
       back: null,
     },
+
+    claimData: null,
   }),
 
   getters: {
@@ -90,6 +99,72 @@ export const useKYCStore = defineStore('kyc', {
 
     setData(data: Partial<IKYCFormData>): void {
       Object.assign(this.data, data);
+    },
+
+    async claim() {
+      try {
+        this.claimData = await profileService.kycGetClaim();
+      } catch (e: Error | any) {
+        if (e?.response && e.response.status === 404) {
+          this.claimData = await profileService.kycCreateClaim();
+        }
+      }
+    },
+
+    async proceed(claimId: string) {
+      try {
+        await profileService.kycProceedClaimById(claimId);
+      } catch (e) {
+        const errorsState = useErrorsStore();
+
+        await errorsState.handle({
+          err: e as AxiosError | Error,
+          name: 'kyc/proceed',
+          ctx: 'store/kyc',
+          description: 'Error on proceed KYC',
+        });
+      }
+    },
+
+    async uploadFile(
+      fileBinary: string,
+      claimId: string,
+      side: EDocumentSide = EDocumentSide.front,
+      country: string
+    ) {
+      try {
+        await profileService.kycAddFileFromCam(
+          claimId,
+          this.proof_type as EKYCProofType,
+          fileBinary,
+          side,
+          country
+        );
+      } catch (e) {
+        const errorsState = useErrorsStore();
+
+        await errorsState.handle({
+          err: e as AxiosError | Error,
+          name: 'uploadImageKYC',
+          ctx: 'store/kyc',
+          description: 'Error uploading image file',
+        });
+      }
+    },
+
+    async uploadResidenceFile(claimId: string, file: File, country: string) {
+      try {
+        await profileService.kycAddFile(claimId, file, country);
+      } catch (e) {
+        const errorsState = useErrorsStore();
+
+        await errorsState.handle({
+          err: e as AxiosError | Error,
+          name: 'uploadResidenceFile',
+          ctx: 'store/kyc',
+          description: 'Error uploading residence file',
+        });
+      }
     },
   },
 });

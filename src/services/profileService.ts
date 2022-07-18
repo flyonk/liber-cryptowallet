@@ -10,6 +10,8 @@ import {
   TSuccessResponse,
   TVerification,
 } from '@/types/api';
+import { EKYCProofType } from '@/stores/kyc';
+import { EDocumentSide } from '@/types/document';
 
 export default {
   async getProfile(): Promise<IProfile> {
@@ -68,25 +70,17 @@ export default {
     return (await axios.post(apiService.authenticators.verify(), data)).data;
   },
 
-  //TODO: fix any
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  async kycCreateClaim(data: any): Promise<IClaim> {
-    const res = await axios.post(apiService.profile.kycClaim(), data);
+  async kycCreateClaim(): Promise<IClaim> {
+    const res = await axios.post(apiService.profile.kycClaim());
     return claimMapper.deserialize(res.data);
   },
 
-  //TODO: fix any
-  /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-  async kycHook(data: any): Promise<TSuccessResponse> {
-    return (await axios.post(apiService.profile.kycHook(), data)).data;
-  },
-
-  async kycGetClaimById(id: number): Promise<IClaim> {
-    const res = await axios.get(`${apiService.profile.kycClaim()}/${id}`);
+  async kycGetClaim(): Promise<IClaim> {
+    const res = await axios.get(apiService.profile.kycClaim());
     return claimMapper.deserialize(res.data);
   },
 
-  async kycProceedClaimById(id: number): Promise<TSuccessResponse> {
+  async kycProceedClaimById(id: string): Promise<TSuccessResponse> {
     return (await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`))
       .data;
   },
@@ -102,9 +96,59 @@ export default {
     ).data;
   },
 
-  async kycAddFileById(id: number, fileId: number): Promise<TSuccessResponse> {
+  async kycAddFileFromCam(
+    id: string,
+    fileType: EKYCProofType,
+    file: string,
+    side: EDocumentSide = EDocumentSide.front,
+    country: string
+  ): Promise<TSuccessResponse> {
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+
+    const data = new FormData();
+    const type = file.split(';')[0].split('/')[1];
+    const binaryFile = await fetch(file)
+      .then((r) => r.blob())
+      .then(
+        (blobFile) =>
+          new File([blobFile], `${fileType}-${side}.${type}`, {
+            type: `image/${type}`,
+          })
+      );
+    data.append('file', binaryFile);
+
     return (
-      await axios.post(`${apiService.profile.kycClaim()}/${id}/file/${fileId}`)
+      await axios.post(
+        `${apiService.profile.kycClaim()}/${id}/file/${fileType}?side=${side}&country=${country}`,
+        data,
+        config
+      )
+    ).data;
+  },
+
+  async kycAddFile(
+    id: string,
+    file: File,
+    country: string
+  ): Promise<TSuccessResponse> {
+    const data = new FormData();
+    const config = {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    };
+    data.append('file', file);
+
+    return (
+      await axios.post(
+        `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
+        data,
+        config
+      )
     ).data;
   },
 };
