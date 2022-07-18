@@ -96,7 +96,7 @@ export default {
     ).data;
   },
 
-  async kycAddFile(
+  async kycAddFileFromCam(
     id: string,
     fileType: EKYCProofType,
     file: string,
@@ -130,7 +130,7 @@ export default {
     ).data;
   },
 
-  async kycAddResidenceFile(
+  async kycAddFile(
     id: string,
     file: File,
     country: string

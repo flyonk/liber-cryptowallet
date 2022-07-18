@@ -133,7 +133,7 @@ export const useKYCStore = defineStore('kyc', {
       country: string
     ) {
       try {
-        await profileService.kycAddFile(
+        await profileService.kycAddFileFromCam(
           claimId,
           this.proof_type as EKYCProofType,
           fileBinary,
@@ -154,7 +154,7 @@ export const useKYCStore = defineStore('kyc', {
 
     async uploadResidenceFile(claimId: string, file: File, country: string) {
       try {
-        await profileService.kycAddResidenceFile(claimId, file, country);
+        await profileService.kycAddFile(claimId, file, country);
       } catch (e) {
         const errorsState = useErrorsStore();
 
