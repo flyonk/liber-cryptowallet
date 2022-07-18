@@ -25,7 +25,7 @@
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('common.numberLabel') }}s </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click.prevent="clearNumber"
