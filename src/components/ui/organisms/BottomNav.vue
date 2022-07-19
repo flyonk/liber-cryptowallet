@@ -127,8 +127,8 @@ const currentActiveItem = computed(() => {
     [CouponRoutes.AccountMain]: EItemHashTag.account,
 
     // recipients
-    [Route.RecepientsPhone]: EItemHashTag.recipients,
-    [CouponRoutes.RecepientsPhone]: EItemHashTag.recipients,
+    [Route.RecipientsPhone]: EItemHashTag.recipients,
+    [CouponRoutes.RecipientsPhone]: EItemHashTag.recipients,
 
     // invite
     [Route.Invite]: EItemHashTag.gift,
