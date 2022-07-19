@@ -73,6 +73,8 @@ export const useKYCStore = defineStore('kyc', {
     getPercentage: ({ completed_percentage }) => completed_percentage,
 
     getImage: ({ image }) => image,
+
+    getClaimData: ({ claimData }) => claimData,
   },
 
   actions: {
