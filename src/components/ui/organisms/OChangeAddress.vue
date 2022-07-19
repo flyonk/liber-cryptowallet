@@ -108,10 +108,10 @@ const form = reactive({
 onBeforeMount(async () => {
   await profileStore.init();
 
-  const { optionalAddress, street, homeNum, state, city, postalCode } =
+  const { optionalAddress, streetAndNumber, state, city, postalCode } =
     profileStore.getUser;
 
-  form.street = `${street} ${homeNum}`;
+  form.street = streetAndNumber as string;
   form.optionalAddress = optionalAddress as string;
   form.postalCode = postalCode as string;
   form.state = state as string;
