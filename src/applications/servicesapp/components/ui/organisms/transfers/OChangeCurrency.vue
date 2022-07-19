@@ -317,12 +317,20 @@ function convertCurrency() {
 async function convertFunds() {
   try {
     loading.value = true;
-    await fundsStore.changeCurrency({
-      from_code: currentSendFromCurrency.value.code,
-      to_code: currentSendToCurrency.value.code,
-      amount: String(Number(fundsStore.convertInfo.requestAmount)),
-      email: liberSaveStore.getEmail,
-    });
+    if (route.name === ServicesRoutes.GetCryptoFunds) {
+      await fundsStore.getCrypto({
+        from_code: currentSendFromCurrency.value.code,
+        to_code: currentSendToCurrency.value.code,
+        amount: String(Number(fundsStore.convertInfo.requestAmount)),
+      });
+    } else {
+      await fundsStore.changeCurrency({
+        from_code: currentSendFromCurrency.value.code,
+        to_code: currentSendToCurrency.value.code,
+        amount: String(Number(fundsStore.convertInfo.requestAmount)),
+        email: liberSaveStore.getEmail,
+      });
+    }
   } catch (err) {
     const code = err?.response?.data?.code;
 
