@@ -19,6 +19,7 @@ module.exports = {
       ...(useSentryPlugin
         ? [
             new SentryWebpackPlugin({
+              release: `cw@${process.env.VUE_APP_VERSION}`,
               include: './dist',
               ignore: ['node_modules', 'vue.config.js'],
             }),
