@@ -95,7 +95,7 @@
         view="simple"
         @click="convertCurrency"
       >
-        {{ $t('services.convert.convertNow') }} ({{ timer }}s)
+        {{ convertTtitle }} ({{ timer }}s)
       </BaseButton>
     </div>
   </keep-alive>
@@ -103,6 +103,7 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -137,6 +138,14 @@ const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
+const route = useRoute();
+
+const convertTtitle = computed(() => {
+  if (route.name === ServicesRoutes.GetCryptoFunds) {
+    return tm('services.getcrypto.convertNow');
+  }
+  return tm('services.convert.convertNow');
+});
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -286,13 +295,17 @@ const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
   const mfaStore = useMfaStore();
+  const summary =
+    route.name === ServicesRoutes.GetCryptoFunds
+      ? tm('services.getcrypto.success')
+      : tm('services.convert.success');
   mfaStore.show({
     button: 'services.convert.convertNow',
     successRoute: ServicesRoutes.DashboardHome,
     callback: async () => {
       fundsStore.$reset();
       toast.add({
-        summary: tm('services.convert.success') as string,
+        summary: summary as string,
         life: 3000,
         closable: false,
       });

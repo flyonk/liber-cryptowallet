@@ -601,6 +601,10 @@
       "convertExactly": "Amount (€50–€1,000)",
       "convertNow": "Get Coupons Now",
       "success": "Your order was submitted"
+    },
+    "getcrypto": {
+      "convertNow": "Checkout with Liber Save",
+      "success": "Your purchase was successful"
     }
   }
 }
