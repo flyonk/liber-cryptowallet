@@ -173,7 +173,7 @@ function handleClickItem(data: TNavBarItem) {
       break;
     }
     case EItemHashTag.recipients: {
-      router.push({ name: computedRoute.value['RecepientsPhone'] });
+      router.push({ name: computedRoute.value['RecipientsPhone'] });
       break;
     }
     case EItemHashTag.gift: {
