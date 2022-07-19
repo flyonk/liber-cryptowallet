@@ -164,6 +164,7 @@ const _setCurrentSendToCurrency = (index: number) => {
 const _getCurrencyIndex = (code: string) =>
   currencies.findIndex((e) => e.code === code);
 
+// TODO:MBaseInput needs to be updated to work with v-model
 const syncModels = (event: InputEvent) => {
   amount.value = '' + event;
   recipientAmount.value = amount.value;
