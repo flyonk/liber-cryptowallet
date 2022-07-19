@@ -16,7 +16,7 @@
           <template #label>
             {{ $t('common.firstName') }}
           </template>
-          <template v-if="isClearFirstNameBtnShown" #append>
+          <template v-if="isClearFirstNameBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearFirstName"
@@ -34,7 +34,7 @@
           <template #label>
             {{ $t('common.lastName') }}
           </template>
-          <template v-if="isClearLastNameBtnShown" #append>
+          <template v-if="isClearLastNameBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearLastName"

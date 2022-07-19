@@ -18,7 +18,7 @@
           type="text"
         >
           <template #label> Name </template>
-          <template v-if="newContact.name.length > 2" #append>
+          <template v-if="newContact.name.length > 2" #actions>
             <i class="icon-transaction-small-reverted" @click="clearName" />
           </template>
         </m-base-input>
@@ -33,7 +33,7 @@
             type="text"
           >
             <template #label> Email or Phone </template>
-            <template v-if="newContact.phone.length > 1" #append>
+            <template v-if="newContact.phone.length > 1" #actions>
               <i class="icon-trash_full" @click="removeContact(index)" />
             </template>
           </m-base-input>

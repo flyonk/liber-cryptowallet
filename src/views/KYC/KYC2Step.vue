@@ -11,7 +11,7 @@
         <template #label>{{
           $t('views.kyc.kyc2step.streetAndNumber')
         }}</template>
-        <template v-if="form.street && !isValid('street')" #append>
+        <template v-if="form.street && !isValid('street')" #actions>
           <i
             v-tooltip.focus="
               'Please remove special characters. They do not accept in the field.'
@@ -28,7 +28,7 @@
       >
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
         <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
-        <template v-if="form.flat" #append>
+        <template v-if="form.flat" #actions>
           <i
             v-if="!isValid('flat')"
             v-tooltip.focus="
@@ -54,7 +54,7 @@
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
-        <template v-if="form.state && !isValid('state')" #append>
+        <template v-if="form.state && !isValid('state')" #actions>
           <i
             v-tooltip.focus="
               'Please remove special characters. They do not accept in the field.'
@@ -70,7 +70,7 @@
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
-        <template v-if="form.city && !isValid('city')" #append>
+        <template v-if="form.city && !isValid('city')" #actions>
           <i
             v-tooltip.focus="
               'Please remove special characters. They do not accept in the field.'

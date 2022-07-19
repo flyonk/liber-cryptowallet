@@ -12,7 +12,7 @@
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('services.getcoupons.email') }} </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearEmail"
