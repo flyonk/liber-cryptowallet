@@ -3,7 +3,7 @@
     <template #message="slotProps">
       <div class="toast-content">
         <div class="icon">
-          <i class="ci-check" />
+          <i class="icon-check" />
         </div>
         <h4 class="title">
           {{ slotProps.message.summary }}

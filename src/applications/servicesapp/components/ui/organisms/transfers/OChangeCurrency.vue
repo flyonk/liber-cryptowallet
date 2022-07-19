@@ -95,7 +95,7 @@
         view="simple"
         @click="convertCurrency"
       >
-        {{ $t('services.convert.convertNow') }} ({{ timer }}s)
+        {{ convertTtitle }} ({{ timer }}s)
       </BaseButton>
     </div>
   </keep-alive>
@@ -103,6 +103,7 @@
 
 <script lang="ts" setup>
 import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -118,6 +119,7 @@ import { STATIC_BASE_URL } from '@/constants';
 import { TConvertCouponData } from '@/applications/servicesapp/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
+import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 
 import { BaseButton } from '@/components/ui';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
@@ -131,10 +133,19 @@ defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
+const liberSaveStore = useLiberSaveStore();
 const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
+const route = useRoute();
+
+const convertTtitle = computed(() => {
+  if (route.name === ServicesRoutes.GetCryptoFunds) {
+    return tm('services.getcrypto.convertNow');
+  }
+  return tm('services.convert.convertNow');
+});
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -284,11 +295,20 @@ const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
   const mfaStore = useMfaStore();
+  const summary =
+    route.name === ServicesRoutes.GetCryptoFunds
+      ? tm('services.getcrypto.success')
+      : tm('services.convert.success');
   mfaStore.show({
     button: 'services.convert.convertNow',
     successRoute: ServicesRoutes.DashboardHome,
     callback: async () => {
       fundsStore.$reset();
+      toast.add({
+        summary: summary as string,
+        life: 3000,
+        closable: false,
+      });
     },
   });
   convertFunds();
@@ -297,11 +317,20 @@ function convertCurrency() {
 async function convertFunds() {
   try {
     loading.value = true;
-    await fundsStore.changeCurrency({
-      from_code: currentSendFromCurrency.value.code,
-      to_code: currentSendToCurrency.value.code,
-      amount: String(Number(fundsStore.convertInfo.requestAmount)),
-    });
+    if (route.name === ServicesRoutes.GetCryptoFunds) {
+      await fundsStore.getCrypto({
+        from_code: currentSendFromCurrency.value.code,
+        to_code: currentSendToCurrency.value.code,
+        amount: String(Number(fundsStore.convertInfo.requestAmount)),
+      });
+    } else {
+      await fundsStore.changeCurrency({
+        from_code: currentSendFromCurrency.value.code,
+        to_code: currentSendToCurrency.value.code,
+        amount: String(Number(fundsStore.convertInfo.requestAmount)),
+        email: liberSaveStore.getEmail,
+      });
+    }
   } catch (err) {
     const code = err?.response?.data?.code;
 

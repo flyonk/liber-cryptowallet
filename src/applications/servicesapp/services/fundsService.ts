@@ -18,4 +18,8 @@ export default {
   async convert(data: TConvertData): Promise<TSuccessResponse> {
     return (await axios.post(apiService.funds.convert(), data)).data;
   },
+
+  async getcrypto(data: TConvertData): Promise<TSuccessResponse> {
+    return (await axios.post(apiService.funds.getcrypto(), data)).data;
+  },
 };

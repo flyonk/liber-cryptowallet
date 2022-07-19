@@ -111,6 +111,21 @@ export const useKYCStore = defineStore('kyc', {
       }
     },
 
+    async proceed(claimId: string) {
+      try {
+        await profileService.kycProceedClaimById(claimId);
+      } catch (e) {
+        const errorsState = useErrorsStore();
+
+        await errorsState.handle({
+          err: e as AxiosError | Error,
+          name: 'kyc/proceed',
+          ctx: 'store/kyc',
+          description: 'Error on proceed KYC',
+        });
+      }
+    },
+
     async uploadFile(
       fileBinary: string,
       claimId: string,
@@ -118,7 +133,7 @@ export const useKYCStore = defineStore('kyc', {
       country: string
     ) {
       try {
-        await profileService.kycAddFile(
+        await profileService.kycAddFileFromCam(
           claimId,
           this.proof_type as EKYCProofType,
           fileBinary,
@@ -139,7 +154,7 @@ export const useKYCStore = defineStore('kyc', {
 
     async uploadResidenceFile(claimId: string, file: File, country: string) {
       try {
-        await profileService.kycAddResidenceFile(claimId, file, country);
+        await profileService.kycAddFile(claimId, file, country);
       } catch (e) {
         const errorsState = useErrorsStore();
 
