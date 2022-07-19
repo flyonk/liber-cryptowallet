@@ -12,9 +12,7 @@
         }}</template>
         <template v-if="form.street && !isValid('street')" #append>
           <i
-            v-tooltip.focus="
-              'Please remove special characters. They do not accept in the field.'
-            "
+            v-tooltip.focus="`${$t('common.specialCharacterError')}`"
             class="icon-input-field-help-circle"
             tabindex="1"
           />
@@ -22,24 +20,39 @@
       </base-input>
       <base-input
         v-model="form.optionalAddress"
-        :class="form.flat && !isValid('optionalAddress') ? '-invalid' : ''"
+        :class="
+          form.optionalAddress && !isValid('optionalAddress') ? '-invalid' : ''
+        "
       >
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
         <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
-        <template v-if="form.flat" #append>
+        <template
+          v-if="form.optionalAddress && !isValid('optionalAddress')"
+          #append
+        >
           <i
             v-if="!isValid('optionalAddress')"
-            v-tooltip.focus="
-              'Please remove special characters. They do not accept in the field.'
-            "
+            v-tooltip.focus="`${$t('common.specialCharacterError')}`"
             class="icon-input-field-help-circle"
             tabindex="2"
           />
           <i v-else class="icon-input-field-eye" />
         </template>
       </base-input>
-      <base-input v-model="form.postalCode">
+      <base-input
+        v-model="form.postalCode"
+        :class="form.postalCode && !isValid('postalCode') ? '-invalid' : ''"
+      >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
+        <template v-if="form.postalCode && !isValid('postalCode')" #append>
+          <i
+            v-if="!isValid('postalCode')"
+            v-tooltip.focus="`${$t('common.specialCharacterError')}`"
+            class="icon-input-field-help-circle"
+            tabindex="2"
+          />
+          <i v-else class="icon-input-field-eye" />
+        </template>
       </base-input>
       <base-input
         v-model="form.state"
@@ -48,9 +61,7 @@
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
         <template v-if="form.state && !isValid('state')" #append>
           <i
-            v-tooltip.focus="
-              'Please remove special characters. They do not accept in the field.'
-            "
+            v-tooltip.focus="`${$t('common.specialCharacterError')}`"
             class="icon-input-field-help-circle"
             tabindex="3"
           />
@@ -63,9 +74,7 @@
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
         <template v-if="form.city && !isValid('city')" #append>
           <i
-            v-tooltip.focus="
-              'Please remove special characters. They do not accept in the field.'
-            "
+            v-tooltip.focus="`${$t('common.specialCharacterError')}`"
             class="icon-input-field-help-circle"
             tabindex="4"
           />
@@ -108,10 +117,10 @@ const form = reactive({
 onBeforeMount(async () => {
   await profileStore.init();
 
-  const { optionalAddress, street, homeNum, state, city, postalCode } =
+  const { optionalAddress, streetAndNumber, state, city, postalCode } =
     profileStore.getUser;
 
-  form.street = `${street} ${homeNum}`;
+  form.street = streetAndNumber as string;
   form.optionalAddress = optionalAddress as string;
   form.postalCode = postalCode as string;
   form.state = state as string;
@@ -135,6 +144,7 @@ const onContinue = async () => {
 const isValid = (key: keyof typeof form) => {
   switch (key) {
     case 'optionalAddress':
+    case 'postalCode':
     case 'street':
     case 'city':
     case 'state':

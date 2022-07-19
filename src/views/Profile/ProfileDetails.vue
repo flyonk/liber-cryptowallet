@@ -71,7 +71,7 @@ const birthDate = computed(() =>
 
 const addressField = computed(() =>
   user.value.city && user.value.state
-    ? `${user.value.street} ${user.value.homeNum} ${user.value.optionalAddress}, ${user.value.postalCode}, ${user.value.state}, ${user.value.city}`
+    ? `${user.value.streetAndNumber}, ${user.value.optionalAddress}, ${user.value.postalCode}, ${user.value.state}, ${user.value.city}`
     : 'No Address selected'
 );
 

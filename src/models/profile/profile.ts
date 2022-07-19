@@ -70,6 +70,7 @@ export interface IProfile
   email: string;
   country?: string;
   street?: string;
+  streetAndNumber?: string;
   homeNum?: string;
   state?: string;
   city?: string;
@@ -100,6 +101,7 @@ export default {
       country: input.country || '',
       street: input?.street_and_number?.split(' ')[0] || '',
       homeNum: input?.street_and_number?.split(' ')[1] || '',
+      streetAndNumber: input?.street_and_number,
       optionalAddress: input.optional_address || '',
       postalCode: input.postal_code || '',
       birthDate: input.birthdate || '',

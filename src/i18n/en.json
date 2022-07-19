@@ -33,6 +33,7 @@
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "specialCharacterError": "Please remove special characters. They do not accept in the field.",
     "on": "On",
     "off": "Off",
     "2fainput": "2FA verification code"
