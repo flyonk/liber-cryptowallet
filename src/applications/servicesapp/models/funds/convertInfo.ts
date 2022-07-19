@@ -20,6 +20,7 @@ export type TConvertData = {
   from_code: string;
   to_code: string;
   amount: string;
+  email?: string;
 };
 
 export interface IConvertInfo {
