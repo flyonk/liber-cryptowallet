@@ -44,7 +44,7 @@
               <div class="label">Phone {{ index + 1 }}</div>
               <div class="value">
                 <div class="phone">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
             <li
@@ -55,7 +55,7 @@
               <div class="label">Email {{ index + 1 }}</div>
               <div class="value">
                 <div class="email">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
           </ul>
