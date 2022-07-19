@@ -44,7 +44,7 @@
               <div class="label">Phone {{ index + 1 }}</div>
               <div class="value">
                 <div class="phone">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
             <li
@@ -55,7 +55,7 @@
               <div class="label">Email {{ index + 1 }}</div>
               <div class="value">
                 <div class="email">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
           </ul>
@@ -74,17 +74,19 @@
 </template>
 
 <script setup lang="ts">
-import { TTopNavigation, BaseButton, MStatusCard } from '@/components/ui';
+import { computed, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
-
-import { computed } from 'vue';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
+import { useKYCStore } from '@/stores/kyc';
+
+import { BaseButton, MStatusCard, TTopNavigation } from '@/components/ui';
 
 const pStore = useProfileStore();
+const kycStore = useKYCStore();
 
-const KYCStatus = computed(() => pStore.getUser.kycStatus);
+const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);
 const email = computed(() => pStore.getUser.email);
 
@@ -94,6 +96,10 @@ const additionalPhones = computed(() => {
 
 const additionalEmails = computed(() => {
   return pStore?.getUser?.additionalEmails || [];
+});
+
+onBeforeMount(async () => {
+  await Promise.all([kycStore.claim(), pStore.init()]);
 });
 </script>
 
