@@ -9,7 +9,7 @@
       <m-base-input
         v-model="convertInfo.requestAmount"
         autofocus
-        class="input"
+        class="base-input"
         inputmode="decimal"
         mode="decimal"
         pattern="[0-9]*"
@@ -18,7 +18,7 @@
         :min-fraction-digits="0"
         :max-fraction-digits="10"
         @blur="onBlur"
-        @input="debounceChangeInfo('from')"
+        @input="syncTest('from', $event)"
       >
         <template #append>{{
           $t('views.deposit.convert.convertExactly')
@@ -80,7 +80,7 @@
       </div>
       <m-base-input
         v-model="convertInfo.estimatedAmount"
-        class="input"
+        class="base-input"
         inputmode="decimal"
         mode="decimal"
         :min-fraction-digits="0"
@@ -89,7 +89,7 @@
         type="number"
         :readonly="isOneCoinEmpty"
         @blur="onBlur"
-        @input="debounceChangeInfo('to')"
+        @input="syncTest('to', $event)"
       >
         <template #append>{{
           $t('views.deposit.convert.convertExactly')
@@ -494,6 +494,17 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 watch(isZeroValues, (val) => {
   if (val) componentState.value = 'preview';
 });
+
+const syncTest = (type: any, event: any) => {
+  console.log('syncTest', event);
+  if (type === 'from') {
+    convertInfo.value.requestAmount = event;
+    debounceChangeInfo(type);
+    return;
+  }
+  convertInfo.value.estimatedAmount = event;
+  debounceChangeInfo(type);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -503,37 +514,9 @@ watch(isZeroValues, (val) => {
   > .send-button {
     margin-top: 37px;
   }
-}
 
-.change-from {
-  > .label {
-    position: absolute;
-    left: 17px;
-    top: 6px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    color: $color-brand-2-300;
-  }
-
-  > .input {
-    width: 100%;
-    height: 72px;
-    border: 1px solid $color-primary-100;
-    border-radius: 12px;
-    background: $color-white;
-    outline: none;
-    padding: 21px 130px 10px 10px;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
-    letter-spacing: -0.0045em;
-    color: $color-brand-550;
-
-    &:focus {
-      border: 1px solid $color-primary-500;
-    }
+  > .base-input {
+    height: 70px;
   }
 }
 

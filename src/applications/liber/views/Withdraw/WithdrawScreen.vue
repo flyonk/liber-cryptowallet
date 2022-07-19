@@ -14,7 +14,7 @@
         <template #label>
           {{ $t('views.withdraw.address') }}
         </template>
-        <template #prepend>
+        <template #actions>
           <m-base-button
             v-if="!form.address"
             view="flat"
@@ -37,7 +37,7 @@
         @click="openNetworkModal = true"
       >
         <template #label> {{ $t('views.withdraw.network') }} </template>
-        <template #prepend>
+        <template #actions>
           <img
             class="arrow-down"
             alt="list"
@@ -59,7 +59,7 @@
         <template #label>
           {{ $t('views.withdraw.amount') }}
         </template>
-        <template #prepend>
+        <template #actions>
           <o-select-coin-input
             :coins="coins"
             :current-currency="form.coin"
@@ -336,10 +336,6 @@ const onContinue = async () => {
 }
 
 .paste-button:deep {
-  position: absolute;
-  right: 0;
-  top: 0;
-
   > .container {
     > .label {
       font-weight: 600;
@@ -390,13 +386,6 @@ const onContinue = async () => {
       color: $color-red-500;
     }
   }
-}
-
-.select:deep {
-  right: -4px;
-  top: 4px;
-  bottom: 4px;
-  height: auto;
 }
 
 .arrow-down {

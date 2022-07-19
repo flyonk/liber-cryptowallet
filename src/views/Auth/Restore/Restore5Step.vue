@@ -18,7 +18,7 @@
       <template v-if="isClearBtnShown" #label>
         {{ $t('auth.restore.step5BirthLabel') }}
       </template>
-      <template v-if="isClearBtnShown" #append>
+      <template v-if="isClearBtnShown" #actions>
         <i
           class="icon-transaction-small-reverted"
           @click="clearDate"
