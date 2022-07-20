@@ -7,9 +7,9 @@
         v-model="form.street"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
-        <template #label>{{
-          $t('views.kyc.kyc2step.streetAndNumber')
-        }}</template>
+        <template #label>
+          {{ $t('views.kyc.kyc2step.streetAndNumber') }}
+        </template>
         <template v-if="form.street && !isValid('street')" #append>
           <i
             v-tooltip.focus="`${$t('common.specialCharacterError')}`"
@@ -145,6 +145,7 @@ const isValid = (key: keyof typeof form) => {
   switch (key) {
     case 'optionalAddress':
     case 'postalCode':
+      return form[key] ? /^[a-zA-Z\d -]+$/.test(form[key] + '') : false;
     case 'street':
     case 'city':
     case 'state':
