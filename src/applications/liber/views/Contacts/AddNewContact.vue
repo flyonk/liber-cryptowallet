@@ -33,7 +33,7 @@
             type="text"
           >
             <template #label> Email or Phone </template>
-            <template v-if="newContact.phone.length > 1" #actions>
+            <template v-if="contact.value.length > 1" #actions>
               <i class="icon-trash_full" @click="removeContact(index)" />
             </template>
           </m-base-input>
