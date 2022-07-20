@@ -65,7 +65,7 @@ import SwiperStoriesSlider from '@/components/ui/molecules/SwiperStoriesSlider.v
     padding-top: 40px;
     z-index: 5;
     position: absolute;
-    bottom: 50px;
+    bottom: 5%;
     width: calc(100% - 48px);
     left: 50%;
     transform: translateX(-50%);

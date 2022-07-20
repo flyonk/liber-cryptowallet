@@ -124,6 +124,10 @@ async function handleSuccessVerification(): Promise<void> {
 <style lang="scss">
 .login-passcode {
   margin-top: 108px;
+
+  @media (max-height: 680px) {
+    margin-top: 20px;
+  }
 }
 
 .page-title {
@@ -146,6 +150,10 @@ async function handleSuccessVerification(): Promise<void> {
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.0043em;
+
+  @media (max-height: 680px) {
+    margin-top: 10px;
+  }
 }
 
 .recovery-link:visited {

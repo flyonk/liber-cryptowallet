@@ -28,7 +28,7 @@ import { STATIC_BASE_URL } from '@/constants';
   height: 100vh;
   width: 100%;
   background: $color-white;
-  z-index: 2;
+  z-index: 20;
 
   @media (max-width: 768px) {
     display: none;
@@ -40,6 +40,7 @@ import { STATIC_BASE_URL } from '@/constants';
     font-size: 50px;
     line-height: 56px;
     margin-bottom: 32px;
+    text-align: center;
   }
 
   > .description {

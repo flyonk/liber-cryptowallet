@@ -74,6 +74,10 @@ defineEmits(['click:left-icon']);
     bottom: 50px;
     left: 16px;
     right: 16px;
+
+    @media (max-height: 680px) {
+      bottom: 5%;
+    }
   }
 }
 
