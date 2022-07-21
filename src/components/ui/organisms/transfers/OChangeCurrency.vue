@@ -18,7 +18,7 @@
         :min-fraction-digits="0"
         :max-fraction-digits="10"
         @blur="onBlur"
-        @input="syncTest('from', $event)"
+        @input="debounceChangeInfo('from')"
       >
         <template #append>{{
           $t('views.deposit.convert.convertExactly')
@@ -89,7 +89,7 @@
         type="number"
         :readonly="isOneCoinEmpty"
         @blur="onBlur"
-        @input="syncTest('to', $event)"
+        @input="debounceChangeInfo('to')"
       >
         <template #append>{{
           $t('views.deposit.convert.convertExactly')
@@ -495,6 +495,7 @@ watch(isZeroValues, (val) => {
   if (val) componentState.value = 'preview';
 });
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const syncTest = (type: any, event: any) => {
   console.log('syncTest', event);
   if (type === 'from') {
