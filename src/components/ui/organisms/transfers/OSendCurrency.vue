@@ -186,7 +186,7 @@ const syncModels = (event: InputEvent) => {
 .change-currency {
   width: 100%;
 
-  > .m-base-input {
+  > .base-input:deep {
     margin: 0 0 16px;
     height: 70px;
   }

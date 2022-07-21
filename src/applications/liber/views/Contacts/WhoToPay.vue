@@ -55,5 +55,9 @@ const filterContacts = ref('');
     letter-spacing: 0.0038em;
     margin-bottom: 24px;
   }
+
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
 }
 </style>

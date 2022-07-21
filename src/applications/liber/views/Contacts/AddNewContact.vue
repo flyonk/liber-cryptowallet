@@ -176,5 +176,13 @@ function closeMenu() {
   margin-bottom: 20px;
   overflow: auto;
   flex-grow: 1;
+
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+
+  > .invite-item {
+    margin-bottom: 16px;
+  }
 }
 </style>
