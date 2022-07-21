@@ -152,4 +152,10 @@ const lastNamePreventExtraCharacters = (event: Event) => {
 .m-base-input {
   margin: 0 0 16px;
 }
+
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+}
 </style>

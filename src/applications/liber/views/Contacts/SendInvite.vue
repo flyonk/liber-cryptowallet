@@ -150,6 +150,10 @@ const isBtnDisabled = computed(() => {
     letter-spacing: -0.0043em;
     color: $color-primary-500;
   }
+
+  > .base-input:deep {
+    margin-top: 16px;
+  }
 }
 
 .userinfo {

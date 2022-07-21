@@ -59,6 +59,10 @@ function closeMenu() {
   height: 100%;
   padding-bottom: 50px;
 
+  > .base-input:deep {
+    margin-top: 16px;
+  }
+
   > .cancel {
     font-weight: 600;
     font-size: 17px;

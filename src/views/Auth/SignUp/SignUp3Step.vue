@@ -104,6 +104,12 @@ const closeClearBtn = () => {
 </script>
 
 <style lang="scss" scoped>
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+}
+
 .m-base-input {
   margin: 0 0 16px;
 }

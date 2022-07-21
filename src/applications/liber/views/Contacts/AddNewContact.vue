@@ -159,10 +159,6 @@ function closeMenu() {
 </script>
 
 <style lang="scss" scoped>
-.m-base-input {
-  margin: 0 0 16px;
-}
-
 .add-contact {
   height: 100vh;
   padding: 60px 16px 0;
