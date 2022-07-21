@@ -11,12 +11,13 @@
         />
       </div>
       <div class="col-8 ml-auto">
+        <!-- TODO:need to use type variable -->
         <m-base-input
           :key="updateKey"
           v-model="number"
           class="m-base-input"
           :use-grouping="false"
-          :type="type"
+          :type="TypeBaseInput.Text"
           :mask="mask"
           :unmask="true"
           :auto-clear="false"
