@@ -4,9 +4,9 @@
     <h1 class="title">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
-    <MBaseInput v-model="filterContacts" type="text" class="m-base-input">
+    <m-base-input v-model="filterContacts" type="text">
       <template #label> Name, @id, phone, email </template>
-    </MBaseInput>
+    </m-base-input>
 
     <constacts-tab-switcher
       :liber-route="Route.PayRecipientsLiber"
@@ -35,10 +35,6 @@ const filterContacts = ref('');
 </script>
 
 <style lang="scss" scoped>
-.m-base-input {
-  margin: 0 0 16px;
-}
-
 .who-topay {
   display: flex;
   flex-direction: column;
@@ -54,6 +50,10 @@ const filterContacts = ref('');
     line-height: 34px;
     letter-spacing: 0.0038em;
     margin-bottom: 24px;
+  }
+
+  > .base-input:deep {
+    margin-bottom: 16px;
   }
 }
 </style>

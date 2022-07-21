@@ -11,7 +11,7 @@
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('common.email') }} </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearEmail"
@@ -104,6 +104,12 @@ const closeClearBtn = () => {
 </script>
 
 <style lang="scss" scoped>
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+}
+
 .m-base-input {
   margin: 0 0 16px;
 }

@@ -5,14 +5,13 @@
       <div class="auth-page-container">
         <m-base-input
           v-model="email"
-          class="m-base-input"
           type="email"
           :class="isNotValid ? '-invalid' : ''"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('services.getcoupons.email') }} </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearEmail"
@@ -110,10 +109,6 @@ const closeClearBtn = () => {
 </script>
 
 <style lang="scss" scoped>
-.m-base-input {
-  margin: 0 0 16px;
-}
-
 .header-nav {
   margin-bottom: 24px;
 }

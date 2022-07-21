@@ -7,16 +7,15 @@
     <template #content>
       <div class="auth-page-container">
         <m-base-input
-          v-model="firstname"
-          class="m-base-input"
+          :modelValue="firstname"
           @focus="showClearFirstNameBtn"
           @blur="closeClearFirstNameBtn"
-          @input.stop="firstNamePreventExtraCharacters"
+          @update:modelValue="firstNamePreventExtraCharacters"
         >
           <template #label>
             {{ $t('common.firstName') }}
           </template>
-          <template v-if="isClearFirstNameBtnShown" #append>
+          <template v-if="isClearFirstNameBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearFirstName"
@@ -25,16 +24,16 @@
           </template>
         </m-base-input>
         <m-base-input
-          v-model="lastname"
+          :modelValue="lastname"
           class="m-base-input"
           @focus="showClearLastNameBtn"
           @blur="closeClearLastNameBtn"
-          @input.stop="lastNamePreventExtraCharacters"
+          @update:modelValue="lastNamePreventExtraCharacters"
         >
           <template #label>
             {{ $t('common.lastName') }}
           </template>
-          <template v-if="isClearLastNameBtnShown" #append>
+          <template v-if="isClearLastNameBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearLastName"
@@ -79,7 +78,7 @@ const firstname = ref('');
 const lastname = ref('');
 const isClearFirstNameBtnShown = ref(false);
 const isClearLastNameBtnShown = ref(false);
-const preventNumbersRegExp = new RegExp(/([\d*])/, 'g');
+const preventNumbersRegExp = new RegExp(/([\d])/, 'g');
 
 const isFullNameInvalid = computed(() => {
   return !firstname.value || !lastname.value;
@@ -117,39 +116,46 @@ const nextStep = () => {
   emit('next');
 };
 
-const firstNamePreventExtraCharacters = (event: Event) => {
+const firstNamePreventExtraCharacters = (value: string) => {
   /**
    * Trim for remove the problem after inserting a hint from the iphone keyboard.
    * This insert adds the ' ' character to the field
    */
-  if (firstname.value === ' ') {
-    firstname.value = firstname.value.replace(/\s/, '');
+  let valueToSet = value;
+  if (valueToSet === ' ') {
+    valueToSet = valueToSet.replace(/\s*/, '');
   }
-
-  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '');
-
-  const target = event.target as HTMLInputElement;
-  target.value = firstname.value;
+  firstname.value = value;
+  setTimeout(() => {
+    firstname.value = valueToSet.replaceAll(preventNumbersRegExp, '');
+  }, 0);
 };
 
-const lastNamePreventExtraCharacters = (event: Event) => {
+const lastNamePreventExtraCharacters = (value: string) => {
   /**
    * /\s/ for remove the problem after inserting a hint from the iphone keyboard.
    * This insert adds the ' ' character to the field
    */
-  if (lastname.value === ' ') {
-    lastname.value = lastname.value.replace(/\s/, '');
+  let valueToSet = value;
+  if (valueToSet === ' ') {
+    valueToSet = valueToSet.replace(/\s*/, '');
   }
+  lastname.value = value;
 
-  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '');
-
-  const target = event.target as HTMLInputElement;
-  target.value = lastname.value;
+  setTimeout(() => {
+    lastname.value = valueToSet.replaceAll(preventNumbersRegExp, '');
+  }, 0);
 };
 </script>
 
 <style lang="scss" scoped>
 .m-base-input {
   margin: 0 0 16px;
+}
+
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
 }
 </style>

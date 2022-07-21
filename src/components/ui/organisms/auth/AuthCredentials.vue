@@ -11,6 +11,7 @@
         />
       </div>
       <div class="col-8 ml-auto">
+        <!-- TODO:need to use type variable -->
         <m-base-input
           :key="updateKey"
           v-model="number"
@@ -25,7 +26,7 @@
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('common.numberLabel') }}s </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click.prevent="clearNumber"

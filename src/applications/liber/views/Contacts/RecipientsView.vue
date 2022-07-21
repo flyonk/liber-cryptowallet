@@ -65,6 +65,10 @@ const filterContacts = ref('');
   overflow: auto;
   position: relative;
 
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+
   > .title {
     font-weight: 800;
     font-size: 28px;

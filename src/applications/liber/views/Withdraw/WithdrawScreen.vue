@@ -6,76 +6,84 @@
   >
     <template #title> {{ $t('views.withdraw.withdraw') }} </template>
     <template #content>
-      <m-base-input
-        v-model.trim="form.address"
-        class="address-input m-base-input"
-        :class="{ '-error': !form.address }"
-      >
-        <template #label>
-          {{ $t('views.withdraw.address') }}
-        </template>
-        <template #prepend>
-          <m-base-button
-            v-if="!form.address"
-            view="flat"
-            class="paste-button"
-            @click="handlePaste"
-          >
-            {{ $t('views.withdraw.paste') }}
-          </m-base-button>
-          <i
-            v-else
-            class="icon-transaction-small-reverted"
-            @click="form.address = ''"
-          />
-        </template>
-      </m-base-input>
-      <m-base-input
-        v-model="form.network"
-        class="network-input amount-input m-base-input"
+      <div class="base-input-wrapper">
+        <m-base-input
+          v-model.trim="form.address"
+          class="m-base-input"
+          :is-error="!form.address"
+        >
+          <template #label>
+            {{ $t('views.withdraw.address') }}
+          </template>
+          <template #actions>
+            <m-base-button
+              v-if="!form.address"
+              view="flat"
+              class="paste-button"
+              @click="handlePaste"
+            >
+              {{ $t('views.withdraw.paste') }}
+            </m-base-button>
+            <i
+              v-else
+              class="icon-transaction-small-reverted"
+              @click="form.address = ''"
+            />
+          </template>
+        </m-base-input>
+      </div>
+      <div
+        class="base-input-wrapper network-input"
         :class="{ '-hidden': !form.address }"
-        @click="openNetworkModal = true"
       >
-        <template #label> {{ $t('views.withdraw.network') }} </template>
-        <template #prepend>
-          <img
-            class="arrow-down"
-            alt="list"
-            :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
-          />
-        </template>
-      </m-base-input>
-      <m-base-input
-        v-model="form.amount"
-        class="amount-input m-base-input"
-        type="number"
-        mode="decimal"
-        inputmode="decimal"
-        :min-fraction-digits="0"
-        :max-fraction-digits="10"
-        :class="{ '-error': isInsufficientBalance }"
-        @input="onAmountInput"
-      >
-        <template #label>
-          {{ $t('views.withdraw.amount') }}
-        </template>
-        <template #prepend>
-          <o-select-coin-input
-            :coins="coins"
-            :current-currency="form.coin"
-            @on-select-coin="onSelectCoin"
-          />
-        </template>
-        <template v-if="availableBalance" #message>
-          {{
-            isInsufficientBalance
-              ? `${$t('views.withdraw.insufficient')}. `
-              : ''
-          }}
-          {{ availableBalance }} {{ form.coin.code.toUpperCase() }}
-          {{ $t('views.withdraw.available') }}
-        </template>
-      </m-base-input>
+        <m-base-input
+          v-model="form.network"
+          :class="{ '-hidden': !form.address }"
+          @click="openNetworkModal = true"
+        >
+          <template #label> {{ $t('views.withdraw.network') }} </template>
+          <template #actions>
+            <img
+              class="arrow-down"
+              alt="list"
+              :src="`${STATIC_BASE_URL}/static/menu/arrow-down.svg`"
+            />
+          </template>
+        </m-base-input>
+      </div>
+      <div class="base-input-wrapper">
+        <m-base-input
+          v-model="form.amount"
+          class="m-base-input"
+          type="number"
+          mode="decimal"
+          inputmode="decimal"
+          :min-fraction-digits="0"
+          :max-fraction-digits="10"
+          :class="{ '-error': isInsufficientBalance }"
+          @input="onAmountInput"
+        >
+          <template #label>
+            {{ $t('views.withdraw.amount') }}
+          </template>
+          <template #actions>
+            <o-select-coin-input
+              :coins="coins"
+              :current-currency="form.coin"
+              @on-select-coin="onSelectCoin"
+            />
+          </template>
+          <template v-if="availableBalance" #message>
+            {{
+              isInsufficientBalance
+                ? `${$t('views.withdraw.insufficient')}. `
+                : ''
+            }}
+            {{ availableBalance }} {{ form.coin.code.toUpperCase() }}
+            {{ $t('views.withdraw.available') }}
+          </template>
+        </m-base-input>
+      </div>
 
       <p-dialog
         v-model:visible="openNetworkModal"
@@ -315,31 +323,7 @@ const onContinue = async () => {
 </script>
 
 <style scoped lang="scss">
-.m-base-input {
-  margin: 0 0 16px;
-}
-
-.base-input:deep {
-  > .input {
-    height: 78px;
-    background: $color-light-grey-100;
-    border-color: $color-primary-100;
-
-    > .p-input-icon-right {
-      display: flex;
-    }
-  }
-
-  &:focus {
-    background: black;
-  }
-}
-
 .paste-button:deep {
-  position: absolute;
-  right: 0;
-  top: 0;
-
   > .container {
     > .label {
       font-weight: 600;
@@ -351,54 +335,6 @@ const onContinue = async () => {
   }
 }
 
-.address-input:deep {
-  &.-error {
-    > .input {
-      border-color: $color-red-500;
-      background: $color-red-50;
-    }
-  }
-}
-
-.amount-input:deep {
-  > .input {
-    > .p-float-label {
-      > .p-component {
-        font-weight: 500;
-        font-size: 20px;
-        line-height: 25px;
-        letter-spacing: -0.0045em;
-        color: $color-brand-550;
-
-        > .p-inputtext {
-          font-weight: 500;
-          font-size: 20px;
-          line-height: 25px;
-          letter-spacing: -0.0045em;
-          color: $color-brand-550;
-        }
-      }
-    }
-  }
-
-  &.-error {
-    > .input {
-      border-color: $color-red-500;
-    }
-
-    > .message {
-      color: $color-red-500;
-    }
-  }
-}
-
-.select:deep {
-  right: -4px;
-  top: 4px;
-  bottom: 4px;
-  height: auto;
-}
-
 .arrow-down {
   width: 10px;
   height: 5px;
@@ -406,7 +342,7 @@ const onContinue = async () => {
 }
 
 .network-input {
-  height: 78px;
+  height: 90px;
   overflow: hidden;
   transition: height, 0.4s linear;
 
@@ -419,5 +355,12 @@ const onContinue = async () => {
 
 .modal-view {
   padding: 0;
+}
+
+.base-input-wrapper {
+  > .base-input:deep {
+    margin-top: 16px;
+    height: 72px;
+  }
 }
 </style>

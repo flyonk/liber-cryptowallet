@@ -164,6 +164,7 @@ const _setCurrentSendToCurrency = (index: number) => {
 const _getCurrencyIndex = (code: string) =>
   currencies.findIndex((e) => e.code === code);
 
+// TODO:MBaseInput needs to be updated to work with v-model
 const syncModels = (event: InputEvent) => {
   amount.value = '' + event;
   recipientAmount.value = amount.value;
@@ -185,112 +186,9 @@ const syncModels = (event: InputEvent) => {
 .change-currency {
   width: 100%;
 
-  > .m-base-input {
+  > .base-input:deep {
     margin: 0 0 16px;
-  }
-}
-
-.change-from {
-  > .label {
-    position: absolute;
-    left: 17px;
-    top: 6px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    color: #78809b;
-  }
-
-  > .input {
-    width: 100%;
-    height: 72px;
-    border: 1px solid $color-primary-100;
-    border-radius: 12px;
-    background: $color-white;
-    outline: none;
-    padding: 21px 130px 10px 10px;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
-    letter-spacing: -0.0045em;
-    color: $color-brand-550;
-
-    &:focus {
-      border: 1px solid $color-primary-500;
-    }
-  }
-
-  > .select {
-    position: absolute;
-    right: 4px;
-    top: 4px;
-    width: 114px;
-    height: 64px;
-    background: $color-white-light;
-    border-radius: 13px;
-    border: 0;
-  }
-}
-
-.select-option {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  height: 100%;
-
-  > .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  > .name {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-brand-550;
-    margin-right: 18px;
-  }
-}
-
-.options-list {
-  position: absolute;
-  top: 70px;
-  width: 100%;
-  right: 0;
-  background: $color-white-light;
-  border-radius: 13px;
-  padding: 10px 18px;
-  z-index: 2;
-}
-
-.options-item {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  margin-bottom: 15px;
-  cursor: pointer;
-
-  &:last-child {
-    margin-bottom: 0;
-  }
-
-  > .icon {
-    width: 24px;
-    height: 24px;
-    margin-right: 4px;
-  }
-
-  > .currency {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-brand-550;
-    margin-right: 18px;
+    height: 70px;
   }
 }
 

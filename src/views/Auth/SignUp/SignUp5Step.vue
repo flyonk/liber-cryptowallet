@@ -18,7 +18,7 @@
           <template v-if="isClearBtnShown" #label>
             {{ $t('auth.signup.date') }}
           </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearDate"
