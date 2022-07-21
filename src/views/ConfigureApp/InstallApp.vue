@@ -1,8 +1,5 @@
 <template>
-  <t-top-navigation
-    with-fixed-footer
-    @click:left-icon="$router.push({ name: prevRouteName })"
-  >
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title> {{ $t('configureApp.installAppTitle') }}</template>
     <template #subtitle>
       {{ $t('configureApp.installAppDescription') }}</template
@@ -43,18 +40,10 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button
-        block
-        @click="
-          $router.push({
-            name: Route.ConfigureApp,
-            hash: nextRouteHash,
-          })
-        "
-      >
+      <base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </base-button></template
-    >
+      </base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -91,6 +80,17 @@ const nextRouteHash = computed(() => {
   }
   return '#settings';
 });
+
+const prevStep = (): void => {
+  router.push({ name: prevRouteName.value });
+};
+
+const nextStep = (): void => {
+  router.push({
+    name: Route.ConfigureApp,
+    hash: nextRouteHash.value,
+  });
+};
 </script>
 
 <style lang="scss" scoped>
