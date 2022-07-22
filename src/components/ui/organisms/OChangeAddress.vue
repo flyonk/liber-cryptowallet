@@ -5,7 +5,6 @@
     <template #content>
       <m-base-input
         v-model="form.street"
-        class="m-base-input"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
         <template #label>{{
@@ -23,7 +22,6 @@
       </m-base-input>
       <m-base-input
         v-model="form.optionalAddress"
-        class="m-base-input"
         :class="form.flat && !isValid('optionalAddress') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.flatSuiteUnit') }}</template>
@@ -45,7 +43,6 @@
       </m-base-input>
       <m-base-input
         v-model="form.state"
-        class="m-base-input"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
@@ -61,7 +58,6 @@
       </m-base-input>
       <m-base-input
         v-model="form.city"
-        class="m-base-input"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
@@ -163,7 +159,11 @@ const isValid = (key: keyof typeof form) => {
 </script>
 
 <style scoped>
-.m-base-input {
+.base-input:deep {
   margin: 0 0 16px;
+}
+
+.base-input:nth-child(2):deep {
+  margin: 0 0 30px;
 }
 </style>
