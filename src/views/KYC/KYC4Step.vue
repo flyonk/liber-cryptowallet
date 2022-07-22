@@ -20,10 +20,8 @@
 
 <script lang="ts" setup>
 import { computed, onActivated, onMounted, ref, Ref } from 'vue';
-import {
-  CameraPreview,
-  CameraPreviewOptions,
-} from '@capacitor-community/camera-preview';
+import { CameraPreviewOptions } from '@/helpers/camera/definitions';
+import { CameraPreview } from '@/helpers/camera/CameraPreview';
 import { Device } from '@capacitor/device';
 import { useI18n } from 'vue-i18n';
 
