@@ -304,6 +304,11 @@ function convertCurrency() {
     successRoute: ServicesRoutes.DashboardHome,
     callback: async () => {
       fundsStore.$reset();
+      // @TODO redirect to liber save checkout
+      // with urls for success and fail
+      // window.location = 'https://liber.save.checkout.redirect';
+      // success callback route: ServicesRoutes.DashboardHome + '?success=getcrypto'
+      // failed callback route: ServicesRoutes.DashboardHome + '?error=getcrypto'
       toast.add({
         summary: summary as string,
         life: 3000,

@@ -17,12 +17,44 @@
 </template>
 
 <script lang="ts" setup>
+import { useRoute } from 'vue-router';
+import { useErrorsStore } from '@/stores/errors';
 import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 
+const route = useRoute();
 const { tm } = useI18n();
+const errorsStore = useErrorsStore();
+
+// const { error, success } = route.query;
+const { error } = route.query;
+
+if (error) {
+  switch (error) {
+    case 'getcrypto':
+      errorsStore.handle({
+        err: { message: 'Get crytto by liber save' },
+        name: 'getcrypto',
+        ctx: 'convertFunds',
+        description: "Error can't get crypto for liber save",
+      });
+      break;
+
+    default:
+      errorsStore.handle({
+        err: { message: 'route error' },
+        name: 'Dashboard Services route error',
+        ctx: 'DashboardServices',
+        description: 'Unknown error',
+      });
+      break;
+  }
+}
+// } else if (success) {
+
+// }
 
 const servicesItems = [
   {
