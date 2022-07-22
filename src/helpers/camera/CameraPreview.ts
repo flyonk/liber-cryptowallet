@@ -1,4 +1,3 @@
-import { WebPlugin } from '@capacitor/core';
 import {
   CameraPreviewOptions,
   CameraPreviewPictureOptions,
@@ -8,19 +7,12 @@ import {
   CameraOpacityOptions,
 } from './definitions';
 
-export class CameraPreviewWeb extends WebPlugin implements CameraPreviewPlugin {
+export class CameraPreviewWeb implements CameraPreviewPlugin {
   /**
    *  track which camera is used based on start options
    *  used in capture
    */
   private isBackCamera = true;
-
-  constructor() {
-    super({
-      name: 'CameraPreview',
-      platforms: ['web'],
-    });
-  }
 
   async start(options: CameraPreviewOptions): Promise<unknown> {
     /* eslint-disable */
