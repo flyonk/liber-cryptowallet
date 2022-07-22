@@ -13,7 +13,7 @@ export class CameraPreviewWeb extends WebPlugin implements CameraPreviewPlugin {
    *  track which camera is used based on start options
    *  used in capture
    */
-  private isBackCamera = false;
+  private isBackCamera = true;
 
   constructor() {
     super({
