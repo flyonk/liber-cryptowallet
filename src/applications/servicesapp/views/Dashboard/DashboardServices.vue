@@ -14,12 +14,25 @@
       </template>
     </ul>
   </div>
+
+  <base-toast v-model:visible="showPopup" :severity="'confirmation'">
+    <template #description>
+      <div class="popup-description">
+        <h1 class="title">{{ $t(popupTitle) }}</h1>
+        <p class="description">
+          {{ $t('configureApp.ChangeAppMessage') }}
+        </p>
+      </div>
+    </template>
+  </base-toast>
 </template>
 
 <script lang="ts" setup>
+import { ref } from 'vue';
 import { useRoute } from 'vue-router';
 import { useErrorsStore } from '@/stores/errors';
 import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
+import { BaseToast } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
@@ -27,9 +40,10 @@ import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 const route = useRoute();
 const { tm } = useI18n();
 const errorsStore = useErrorsStore();
+const showPopup = ref(false);
+const popupTitle = ref('');
 
-// const { error, success } = route.query;
-const { error } = route.query;
+const { error, success } = route.query;
 
 if (error) {
   switch (error) {
@@ -51,10 +65,18 @@ if (error) {
       });
       break;
   }
-}
-// } else if (success) {
+} else if (success) {
+  switch (success) {
+    case 'getcrypto':
+      popupTitle.value = 'services.getcrypto.success';
+      break;
 
-// }
+    default:
+      popupTitle.value = 'services.convert.success';
+      break;
+  }
+  showPopup.value = true;
+}
 
 const servicesItems = [
   {

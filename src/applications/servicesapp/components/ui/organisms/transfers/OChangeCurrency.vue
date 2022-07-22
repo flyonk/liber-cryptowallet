@@ -295,25 +295,22 @@ const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
   const mfaStore = useMfaStore();
-  const summary =
+  const successRoute =
     route.name === ServicesRoutes.GetCryptoFunds
-      ? tm('services.getcrypto.success')
-      : tm('services.convert.success');
+      ? ServicesRoutes.DashboardHome
+      : ServicesRoutes.DashboardHome + '?success=getcoupons';
   mfaStore.show({
     button: 'services.convert.convertNow',
-    successRoute: ServicesRoutes.DashboardHome,
+    successRoute: successRoute,
     callback: async () => {
       fundsStore.$reset();
-      // @TODO redirect to liber save checkout
-      // with urls for success and fail
-      // window.location = 'https://liber.save.checkout.redirect';
-      // success callback route: ServicesRoutes.DashboardHome + '?success=getcrypto'
-      // failed callback route: ServicesRoutes.DashboardHome + '?error=getcrypto'
-      toast.add({
-        summary: summary as string,
-        life: 3000,
-        closable: false,
-      });
+      if (route.name === ServicesRoutes.GetCryptoFunds) {
+        // @TODO redirect to liber save checkout
+        // with urls for success and fail
+        // window.location = 'https://liber.save.checkout.redirect';
+        // success callback route: ServicesRoutes.DashboardHome + '?success=getcrypto'
+        // failed callback route: ServicesRoutes.DashboardHome + '?error=getcrypto'
+      }
     },
   });
   convertFunds();
