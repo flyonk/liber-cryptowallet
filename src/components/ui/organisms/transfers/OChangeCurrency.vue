@@ -18,7 +18,7 @@
         :min-fraction-digits="0"
         :max-fraction-digits="10"
         @blur="onBlur"
-        @input="debounceChangeInfo('from')"
+        @input="debounceChangeInfo('from', $event)"
       >
         <template #append>{{
           $t('views.deposit.convert.convertExactly')
@@ -89,7 +89,7 @@
         type="number"
         :readonly="isOneCoinEmpty"
         @blur="onBlur"
-        @input="debounceChangeInfo('to')"
+        @input="debounceChangeInfo('to', $event)"
       >
         <template #append>{{
           $t('views.deposit.convert.convertExactly')
@@ -352,7 +352,14 @@ function changeInfoInterval() {
   loading.value = true;
 }
 
+const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
+  if (direction === 'from') convertInfo.value.requestAmount = '' + event;
+  if (direction === 'to') convertInfo.value.estimatedAmount = '' + event;
+  previewChangeInfo(direction);
+};
+
 async function previewChangeInfo(direction: 'from' | 'to') {
+  console.log('previewChangeInfo', convertInfo.value.requestAmount);
   componentState.value = 'send';
 
   try {
@@ -395,7 +402,8 @@ async function previewChangeInfo(direction: 'from' | 'to') {
   }
 }
 
-const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
+// const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
+const debounceChangeInfo = debounce(proxyPreviewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
   const mfaStore = useMfaStore();
