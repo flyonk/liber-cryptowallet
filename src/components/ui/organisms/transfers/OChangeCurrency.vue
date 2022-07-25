@@ -353,8 +353,11 @@ function changeInfoInterval() {
 }
 
 const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
-  if (direction === 'from') convertInfo.value.requestAmount = '' + event;
-  if (direction === 'to') convertInfo.value.estimatedAmount = '' + event;
+  if (direction === 'from')
+    fundsStore.getConvertInfo.requestAmount = '' + event;
+  if (direction === 'to')
+    fundsStore.getConvertInfo.estimatedAmount = '' + event;
+
   previewChangeInfo(direction);
 };
 
