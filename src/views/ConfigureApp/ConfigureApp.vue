@@ -15,12 +15,8 @@
           type="text"
           readonly
         />
-        <img
-          class="default-input-icon"
-          src="@/assets/images/copy-to-clipboard.svg"
-          alt="copy"
-          @click.stop
-        />
+
+        <i class="icon-copy icon default-input-icon" />
       </label>
 
       <p class="text-default">
@@ -193,7 +189,8 @@ const nextStep = (): void => {
 .default-input-icon {
   position: absolute;
   right: 15px;
-  top: 50%;
+  top: 40%;
+  color: blue;
   transform: translate(0, -50%);
 }
 </style>
