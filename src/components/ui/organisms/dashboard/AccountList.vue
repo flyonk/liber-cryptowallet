@@ -1,14 +1,12 @@
 <template>
-  <BaseBottomSheet
-    :top-padding="2"
-    :with-header="!expanded"
-    class="base-bottom"
-    @close="$emit('close')"
-    @expanded="onExpanded"
-  >
-    <div :class="{ '-expanded': expanded }" class="bottom-sheet">
+  <m-base-bottom-sheet-v @close="$emit('close')" @expanded="onExpanded">
+    <div class="m-base-bottom-sheet-v-wrapper">
       <div class="menu-header">
-        <i v-if="expanded" class="icon ci-close_big" @click="$emit('close')" />
+        <i
+          v-show="expanded"
+          class="icon icon-app-navigation-close"
+          @click.stop="$emit('close')"
+        />
 
         <h4 class="title">
           {{ $t('views.dashboard.home.accounts') }}
@@ -18,27 +16,18 @@
         </div>
       </div>
 
-      <div v-if="expanded" class="search-bar">
-        <BaseSearchInput v-model="searchQuery" />
+      <div v-show="expanded" class="search-bar">
+        <a-base-search-input v-model="searchQuery" />
       </div>
 
       <div class="menu-list">
-        <div class="item" @click="$emit('select', 'all')">
-          <div class="image-wrap">
-            <img
-              :src="`${STATIC_BASE_URL}/static/currencies/all-accounts.svg`"
-              alt="all"
-            />
-          </div>
-          <p class="name">
-            {{ $t('views.dashboard.home.allAccounts') }}
-          </p>
-          <p class="price">
-            {{ getSymbolByCode(totalBalance.currency) }}
-            {{ totalBalance.sum }}
-          </p>
-        </div>
-        <BaseAccount
+        <m-all-accounts-fiat-sum
+          :title="$t('views.dashboard.home.allAccounts')"
+          :currency-code="getSymbolByCode(totalBalance.currency)"
+          :sum="totalBalance.sum"
+          @select="$emit('select', 'all')"
+        />
+        <m-base-account
           v-for="(account, index) in filteredList"
           :key="index"
           :data="account"
@@ -46,20 +35,47 @@
         />
       </div>
     </div>
-  </BaseBottomSheet>
+  </m-base-bottom-sheet-v>
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, PropType, ref } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  defineAsyncComponent,
+  PropType,
+  ref,
+} from 'vue';
 import { useRouter } from 'vue-router';
 
 import { getSymbolByCode } from '@/helpers/currency';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
-import { STATIC_BASE_URL } from '@/constants';
 
-import { BaseAccount, BaseBottomSheet, BaseSearchInput } from '@/components/ui';
+const ABaseSearchInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseSearchInput
+  );
+});
+
+const MAllAccountsFiatSum = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MAllAccountsFiatSum
+  );
+});
+
+const MBaseAccount = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseAccount
+  );
+});
+
+const MBaseBottomSheetV = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseBottomSheetV
+  );
+});
 
 const accountStore = useAccountStore();
 const router = useRouter();
@@ -96,6 +112,10 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-bottom-sheet-v-wrapper {
+  height: 350px;
+}
+
 .menu-header {
   display: flex;
   align-items: center;
@@ -172,12 +192,5 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 
 .search-bar {
   margin: 24px 0;
-}
-
-.base-bottom:deep {
-  &.-expanded {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
 }
 </style>

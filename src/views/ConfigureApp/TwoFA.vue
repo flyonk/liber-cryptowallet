@@ -14,9 +14,9 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="installApp">
+      <m-base-button block @click="installApp">
         {{ $t('common.continueCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -28,14 +28,20 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { defineAsyncComponent, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 

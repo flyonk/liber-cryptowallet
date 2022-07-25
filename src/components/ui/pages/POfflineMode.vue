@@ -19,22 +19,34 @@
     </template>
     <template #fixed-footer>
       <div class="footer-wrapper">
-        <base-button class="btn" @click="checkConnection">
-          <triple-dots-spinner v-if="loading" />
+        <m-base-button class="btn" @click="checkConnection">
+          <a-tripple-dots-spinner v-if="loading" />
           {{ !loading ? $t('errors.confirmTitle') : '' }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
 const { loading, handleReconnect } = useCheckOffline();
 
-import { BaseButton, TTopNavigation } from '..';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
+import { TTopNavigation } from '..';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ATrippleDotsSpinner = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ATrippleDotsSpinner
+  );
+});
 
 const emit = defineEmits(['online']);
 

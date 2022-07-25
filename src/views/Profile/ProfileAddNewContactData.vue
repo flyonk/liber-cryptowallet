@@ -13,15 +13,15 @@
       {{ $t('views.profile.profileAddNewContactData.title') }}</template
     >
     <template #content>
-      <base-input v-model="data">
+      <m-base-input v-model="data" class="m-base-input">
         <template #label> Email or Phone </template>
-        <template v-if="data.length > 1" #append>
+        <template v-if="data.length > 1" #actions>
           <i class="icon-trash_full" @click="clearData" />
         </template>
-      </base-input>
+      </m-base-input>
     </template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         size="large"
         view="simple"
         block
@@ -30,7 +30,7 @@
       >
         {{
           $t('views.profile.profileAddNewContactData.confirmButton')
-        }}</base-button
+        }}</m-base-button
       ></template
     >
   </t-top-navigation>
@@ -47,17 +47,24 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  TTopNavigation,
-  BaseButton,
-  BaseInput,
-  EnterVerificationCode,
-} from '@/components/ui';
+import { computed, defineAsyncComponent, ref } from 'vue';
+import { TTopNavigation, EnterVerificationCode } from '@/components/ui';
 
 import router from '@/router';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
-import { computed, ref } from 'vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const pStore = useProfileStore();
 const data = ref('');
@@ -105,4 +112,8 @@ async function onComplete() {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

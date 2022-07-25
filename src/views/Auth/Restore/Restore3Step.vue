@@ -7,11 +7,7 @@
       {{ $t('auth.restore.step3Description') }}
     </div>
     <div>
-      <BaseVerificationCodeInput
-        :loading="false"
-        class="input"
-        @complete="onComplete"
-      />
+      <m-base-verification-code-input class="input" @complete="onComplete" />
     </div>
   </div>
 </template>
@@ -23,7 +19,14 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { BaseVerificationCodeInput, TopNavigation } from '@/components/ui';
+import { defineAsyncComponent } from 'vue';
+import { TopNavigation } from '@/components/ui';
+
+const MBaseVerificationCodeInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseVerificationCodeInput
+  );
+});
 
 const emit = defineEmits(['next', 'prev']);
 

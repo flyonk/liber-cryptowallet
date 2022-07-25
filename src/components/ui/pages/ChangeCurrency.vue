@@ -7,7 +7,7 @@
           <o-change-currency :has-coin-reverse="true" />
         </div>
       </div>
-      <base-toast
+      <m-base-toast
         v-if="popupStatus === 'attention'"
         v-model:visible="showPopup"
         :severity="'attention'"
@@ -22,20 +22,20 @@
         </template>
         <template #footer>
           <div class="popup-footer">
-            <BaseButton
+            <m-base-button
               class="btn mb-3"
               size="large"
               @click="showPopup = false"
             >
               No, go back
-            </BaseButton>
-            <BaseButton class="btn" size="large" view="secondary">
+            </m-base-button>
+            <m-base-button class="btn" size="large" view="secondary">
               Yes, continue
-            </BaseButton>
+            </m-base-button>
           </div>
         </template>
-      </base-toast>
-      <base-toast
+      </m-base-toast>
+      <m-base-toast
         v-if="popupStatus === 'confirmation'"
         v-model:visible="showPopup"
         :severity="'confirmation'"
@@ -49,7 +49,7 @@
             </p>
           </div>
         </template>
-      </base-toast>
+      </m-base-toast>
     </template>
   </t-top-navigation>
 </template>
@@ -61,12 +61,25 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
-import { BaseToast, BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useRouter } from 'vue-router';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const router = useRouter();
 const fundsStore = useFundsStore();

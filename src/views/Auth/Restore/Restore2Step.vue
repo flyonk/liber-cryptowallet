@@ -1,22 +1,22 @@
 <template>
   <template v-if="state === EState.pending">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="$emit('prev')">
+      <m-top-navigation @click:left-icon="$emit('prev')">
         {{ $t('auth.restore.step2Title') }}
-      </top-navigation>
+      </m-top-navigation>
     </div>
 
     <base-passcode class="login-passcode" @submit="onSubmit" />
 
-    <base-toast v-model:visible="showIncorrectPasswordToast" severity="error">
+    <m-base-toast v-model:visible="showIncorrectPasswordToast" severity="error">
       <template #description>
         <div>
           {{ $t('auth.restore.step2Description') }}
         </div>
       </template>
-    </base-toast>
+    </m-base-toast>
 
-    <base-toast v-model:visible="showSessionExpiredToast" severity="error">
+    <m-base-toast v-model:visible="showSessionExpiredToast" severity="error">
       <template #description>
         <div class="session-expired-toast">
           <div>
@@ -25,19 +25,19 @@
           <div class="text--body">
             {{ $t('auth.restore.step2ExpiredDescription') }}
           </div>
-          <base-button>
+          <m-base-button>
             {{ $t('common.retryCta') }}
-          </base-button>
+          </m-base-button>
         </div>
       </template>
-    </base-toast>
+    </m-base-toast>
   </template>
 
   <template v-else-if="state === EState.success">
     <div class="auth-page-container">
-      <top-navigation @click:left-icon="$emit('prev')">
+      <m-top-navigation @click:left-icon="$emit('prev')">
         {{ $t('auth.restore.step2VerificationTitle') }}
-      </top-navigation>
+      </m-top-navigation>
 
       <div class="description text--body">
         {{ $t('auth.restore.step2VerificationDescription') }}
@@ -59,24 +59,37 @@
       </div>
 
       <div class="sign-button-wrapper">
-        <base-button @click="$emit('next')">
+        <m-base-button @click="$emit('next')">
           {{ $t('common.okCta') }}
-        </base-button>
+        </m-base-button>
       </div>
     </div>
   </template>
 </template>
 
 <script lang="ts" setup>
-import { Ref, ref } from 'vue';
+import { defineAsyncComponent, Ref, ref } from 'vue';
 
-import {
-  TopNavigation,
-  BaseToast,
-  BasePasscode,
-  BaseButton,
-} from '@/components/ui';
+import { BasePasscode } from '@/components/ui';
 import { EState } from '@/types/base-component';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
 
 const emit = defineEmits(['prev', 'next']);
 

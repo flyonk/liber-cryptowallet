@@ -22,9 +22,9 @@
     <template #title>{{ $t('views.recipients.recipients') }}</template>
     <template #content>
       <div class="who-topay">
-        <BaseInput v-model="filterContacts" type="text">
+        <m-base-input v-model="filterContacts" class="m-base-input" type="text">
           <template #label> Name, @id, phone, email </template>
-        </BaseInput>
+        </m-base-input>
 
         <constacts-tab-switcher />
 
@@ -35,12 +35,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
-import { BaseInput, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 import { Route } from '@/router/types';
 
@@ -48,12 +54,20 @@ const filterContacts = ref('');
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .who-topay {
   display: flex;
   flex-direction: column;
   flex-grow: 1;
   overflow: auto;
   position: relative;
+
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
 
   > .title {
     font-weight: 800;

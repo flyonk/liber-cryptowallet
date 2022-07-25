@@ -3,7 +3,7 @@
     <template #title> {{ $t('views.kyc.kyc2step.homeAddress') }}</template>
     <template #subtitle> {{ $t('views.kyc.kyc2step.byLawWe') }}</template>
     <template #content>
-      <base-input
+      <m-base-input
         v-model="form.street"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
@@ -17,8 +17,8 @@
             tabindex="1"
           />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.optionalAddress"
         :class="
           form.optionalAddress && !isValid('optionalAddress') ? '-invalid' : ''
@@ -38,8 +38,8 @@
           />
           <i v-else class="icon-input-field-eye" />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.postalCode"
         :class="form.postalCode && !isValid('postalCode') ? '-invalid' : ''"
       >
@@ -53,8 +53,8 @@
           />
           <i v-else class="icon-input-field-eye" />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.state"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
@@ -66,8 +66,8 @@
             tabindex="3"
           />
         </template>
-      </base-input>
-      <base-input
+      </m-base-input>
+      <m-base-input
         v-model="form.city"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
@@ -79,21 +79,33 @@
             tabindex="4"
           />
         </template>
-      </base-input>
+      </m-base-input>
     </template>
     <template #fixed-footer>
-      <base-button block :disabled="!isFormValid" @click="onContinue">
+      <m-base-button block :disabled="!isFormValid" @click="onContinue">
         {{ submitButtonTitle }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount, reactive } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount, reactive } from 'vue';
 
-import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const profileStore = useProfileStore();
 
@@ -157,4 +169,12 @@ const isValid = (key: keyof typeof form) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.base-input:deep {
+  margin: 0 0 16px;
+}
+
+.base-input:nth-child(2):deep {
+  margin: 0 0 30px;
+}
+</style>

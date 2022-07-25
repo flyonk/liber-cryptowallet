@@ -24,13 +24,22 @@
       </router-view>
     </div>
   </app-layout-switcher>
-  <a-offline-bundler :is-active="bundlerIsActive" />
+  <a-offline-bundler
+    :is-active="bundlerIsActive"
+    :bundle-title="$t('offline.bundleTitle')"
+  />
   <errors-toast />
   <m-custom-error />
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, ref, computed } from 'vue';
+import {
+  onBeforeMount,
+  onBeforeUnmount,
+  ref,
+  computed,
+  defineAsyncComponent,
+} from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
@@ -47,8 +56,14 @@ import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
-import AOfflineBundler from '@/components/ui/atoms/AOfflineBundler.vue';
 import MBrowserStub from '@/components/ui/molecules/MBrowserStub.vue';
+
+// TODO:[UIKIT] change bundle-title with title in props
+const AOfflineBundler = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AOfflineBundler
+  );
+});
 
 const { isOffline } = useCheckOffline();
 

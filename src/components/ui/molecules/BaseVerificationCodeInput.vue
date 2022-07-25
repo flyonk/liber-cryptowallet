@@ -28,23 +28,28 @@
     </div>
 
     <div class="submit">
-      <base-button
+      <m-base-button
         v-if="withPasteButton"
         view="secondary"
         block
         @click="onPaste"
-        >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button
+        >{{ $t('ui.baseverificationcodeinput.paste') }}</m-base-button
       >
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, Ref, ref, watch } from 'vue';
+import { computed, defineAsyncComponent, Ref, ref, watch } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
-import { BaseButton } from '@/components/ui';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const props = defineProps({
   type: {

@@ -19,12 +19,12 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block class="mb-3" @click="onEnable">
+      <m-base-button block class="mb-3" @click="onEnable">
         {{ $t('configureApp.enablePushNotifications') }}
-      </base-button>
-      <base-button block view="transparent" @click="onCancel">
+      </m-base-button>
+      <m-base-button block view="transparent" @click="onCancel">
         {{ $t('common.notNowCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -36,13 +36,20 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 

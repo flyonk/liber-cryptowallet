@@ -22,17 +22,17 @@
           @submit="onSubmit"
         />
       </div>
-      <base-toast v-model:visible="showErrorToast" severity="error">
+      <m-base-toast v-model:visible="showErrorToast" severity="error">
         <template #description>
           <div>{{ $t('configureApp.invalidPassCode') }}</div>
         </template>
-      </base-toast>
+      </m-base-toast>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { computed, Ref, ref } from 'vue';
+import { computed, defineAsyncComponent, Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 
@@ -40,7 +40,13 @@ import { EPasscodeActions } from '@/types/base-component';
 import { Route } from '@/router/types';
 import { useI18n } from 'vue-i18n';
 
-import { BasePasscode, TTopNavigation, BaseToast } from '@/components/ui';
+import { BasePasscode, TTopNavigation } from '@/components/ui';
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const router = useRouter();
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;

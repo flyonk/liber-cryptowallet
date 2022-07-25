@@ -10,35 +10,42 @@
     <template #subtitle>{{ $t('views.kyc.kyc7step.yourIdentityIs') }}</template>
     <template #content>
       <div>
-        <base-progress-circular :percent="percent" :size="267">
+        <a-base-progress-circular :percent="percent" :size="267">
           <span class="percent-slot">
             <span class="text">{{ percent }}</span>
             <span class="text--large-title">%</span>
           </span>
-        </base-progress-circular>
+        </a-base-progress-circular>
       </div></template
     >
     <template #fixed-footer>
-      <base-button block @click="handleComplete">
+      <m-base-button block @click="handleComplete">
         {{ $t('views.kyc.kyc7step.continue') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
-import {
-  BaseButton,
-  BaseProgressCircular,
-  TTopNavigation,
-} from '@/components/ui';
+import { defineAsyncComponent, ref } from 'vue';
+import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
 import { useRouter } from 'vue-router';
-
 import { Route } from '@/router/types';
 import { IClaim } from '@/models/profile/claim';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ABaseProgressCircular = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressCircular
+  );
+});
 
 const percent = ref(50);
 const router = useRouter();

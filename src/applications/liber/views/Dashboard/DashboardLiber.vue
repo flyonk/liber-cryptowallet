@@ -1,13 +1,13 @@
 <template>
   <div class="dashboard-container">
     <MDashboardCoinInfo
-      :accounts="accounts"
-      :verification-status="10"
-      :total-balance="totalBalance"
-      :show-welcome-message="showWelcomeMessage"
-      :selected-account="currentAccount"
-      @coin-select="onSelectAccount"
-      @click-account="$router.push({ name: Route.AccountMain })"
+      :balance="currentAccount.balance"
+      :subtitle="$t('views.dashboard.home.allAccounts')"
+      :coin-img="currentAccount.imgSrc"
+      :account-code="currentAccount.code"
+      :is-arrow-active="!isMenuOpen"
+      @click:arrow="isMenuOpen = !isMenuOpen"
+      @click:account="$router.push({ name: Route.AccountMain })"
     >
       <template #controllers>
         <div class="controls">
@@ -55,6 +55,18 @@
           </button>
         </div>
       </template>
+      <template v-if="showWelcomeMessage" #welcome>
+        <div class="main">
+          <h1 class="title">
+            {{ $t('views.dashboard.home.getYourCryptoAsset') }}
+          </h1>
+          <h4 class="description">
+            {{ $t('views.dashboard.home.noAssets') }}
+            <br />
+            {{ $t('views.dashboard.home.depositFirstCoins') }}
+          </h4>
+        </div>
+      </template>
     </MDashboardCoinInfo>
     <template v-if="TRANSACTIONS_ENABLED">
       <div class="transactions-header">
@@ -68,7 +80,11 @@
       </div>
 
       <div v-if="hasTransactions">
-        <transactions-list :preview="preview" :transactions="transactions" />
+        <transactions-list
+          :preview="preview"
+          :transactions="transactions"
+          show-coin
+        />
       </div>
       <div v-else class="no-transactions">
         <i class="icon-clock mr-2" />
@@ -86,10 +102,28 @@
       <stories-swiper />
     </div>
   </div>
+
+  <!-- we should use template, because else occurs error  
+        https://juejin.cn/post/7095997262878212104 -->
+  <template v-if="isMenuOpen">
+    <AccountListBottomSheet
+      :accounts="accounts"
+      @close="isMenuOpen = false"
+      @select="onSelectAccount"
+    />
+  </template>
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, onBeforeMount, Ref, ref } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  defineAsyncComponent,
+  onBeforeMount,
+  Ref,
+  ref,
+} from 'vue';
+
 import { useRouter } from 'vue-router';
 
 import { useAccountStore } from '@/applications/liber/stores/account';
@@ -104,8 +138,14 @@ import { STATIC_BASE_URL, TRANSACTIONS_ENABLED } from '@/constants';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
 
-import { MDashboardCoinInfo, TransactionsList } from '@/components/ui';
+import { TransactionsList, AccountListBottomSheet } from '@/components/ui';
 import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
+
+const MDashboardCoinInfo = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MDashboardCoinInfo
+  );
+});
 
 const VerificationStatus = ref(EKYCStatus.success);
 
@@ -137,6 +177,8 @@ const currentAccount = ref({
 //TODO: Put to store
 let transactions: Ref<INetTransaction[]> = ref([]);
 let preview = ref(3);
+
+const isMenuOpen = ref(false);
 
 /**
  * Lifecycle
@@ -287,6 +329,27 @@ const moveToDepositePage = async () => {
       > .notification {
         margin-right: 35px;
         font-size: 24px;
+      }
+    }
+  }
+
+  > .dashboard-coin-info {
+    > .main {
+      margin-bottom: 24px;
+
+      > .title {
+        font-weight: 600;
+        font-size: 16px;
+        line-height: 21px;
+        letter-spacing: -0.0031em;
+        margin-bottom: 8px;
+      }
+
+      > .description {
+        font-weight: normal;
+        font-size: 13px;
+        line-height: 18px;
+        letter-spacing: -0.0008em;
       }
     }
   }
