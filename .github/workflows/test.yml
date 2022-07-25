@@ -1,0 +1,14 @@
+name: tests
+on:
+  push:
+    branches:
+      - 'feature/#387yn1r'
+
+jobs:
+  call-workflow:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@master
+      - name: autotests
+        run: |
+          curl -XPOST -u "${{ secrets.GITHUB_USERNAME}}:${{secrets.GITHUB_TOKEN}}" -H "Accept:application/vnd.github" -H "Content-Type:application/json" https://github.com/cryptowize-tech/liber-app-autotests/actions/workflows/autotest.yml/dispatches --data '{"ref": "main" }'

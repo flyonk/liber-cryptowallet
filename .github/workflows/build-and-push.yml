@@ -46,5 +46,8 @@ jobs:
           --values=./provisioning/liber-app/values.yaml \
           --values=./provisioning/liber-app/values.dev.yaml \
           --set image.tag=${{ steps.version.outputs.tag }}
+      - name: autotests
+        run: |
+               curl -XPOST -u "${{ secrets.GITHUB_USERNAME}}:${{secrets.GITHUB_TOKEN}}" -H "Accept:application/vnd.github" -H "Content-Type:application/json" https://github.com/cryptowize-tech/liber-app-autotests/actions/workflows/autotest.yml/dispatches --data '{"ref": "main" }'
 
 
