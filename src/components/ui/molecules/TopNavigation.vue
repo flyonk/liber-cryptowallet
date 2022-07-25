@@ -67,6 +67,10 @@ defineEmits(['click:left-icon']);
       letter-spacing: 0.0038em;
       margin-bottom: 8px;
       margin-top: 20px;
+
+      @media (max-width: 375px) {
+        font-size: 24px;
+      }
     }
 
     > .left > .page-subtitle {
