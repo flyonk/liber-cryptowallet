@@ -13,7 +13,7 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             await github.rest.actions.createWorkflowDispatch({
-              owner: 'CryptoWize',
+              owner: context.repo.owner,
               repo: 'liber-app-autotests',
               workflow_id: 'autotest.yml',
               ref: 'main'
