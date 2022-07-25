@@ -177,8 +177,14 @@ const setCurrentAccount = (coinCode: string) => {
       baseBalanceConversionCode: '',
     };
 
+    accountStore.setActiveAccount(null);
+
     return;
   }
+
+  const account = accounts.value.find(
+    ({ code }) => coinCode === code
+  ) as IAccount;
 
   const {
     code,
@@ -186,7 +192,7 @@ const setCurrentAccount = (coinCode: string) => {
     imageUrl: imgSrc,
     baseBalanceConversion,
     baseBalanceConversionCode,
-  } = accounts.value.find(({ code }) => coinCode === code) as IAccount;
+  } = account;
 
   currentAccount.value = {
     code: code.toUpperCase(),
@@ -195,6 +201,8 @@ const setCurrentAccount = (coinCode: string) => {
     baseBalanceConversion,
     baseBalanceConversionCode,
   };
+
+  accountStore.setActiveAccount(account);
 };
 
 const onSelectAccount = (coinCode: string) => {
