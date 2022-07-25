@@ -77,15 +77,25 @@ const itemsList: IBottomSwipeMenuItem[] = [
         accountStore.getAccountBalance(),
       ]);
 
-      const [{ code: firstAccountCode }] = accountStore.getAccounts;
+      const activeAccount = accountStore.getActiveAccount;
 
       closeMenu();
-      router.push({
-        name: Route.ConvertFunds,
-        query: {
-          code: firstAccountCode ? firstAccountCode : 'tbtc',
-        },
-      });
+      if (activeAccount) {
+        router.push({
+          name: Route.ConvertFunds,
+          query: {
+            code: activeAccount.code,
+          },
+        });
+      } else {
+        const [{ code: firstAccountCode }] = accountStore.getAccounts;
+        router.push({
+          name: Route.ConvertFunds,
+          query: {
+            code: firstAccountCode ? firstAccountCode : 'tbtc',
+          },
+        });
+      }
     },
     area: [
       CRYPTO_TRANSACTIONS.includes(ECryptoTransactionsEnvVars.convert)
@@ -118,9 +128,25 @@ const itemsList: IBottomSwipeMenuItem[] = [
     [`text${EAreaMenuItemVisible.coupons}`]:
       'transactions.operations.coupons.withdraw',
     icon: 'icon-withdraw',
-    onClick: () => {
+    onClick: async () => {
+      const accountStore = useAccountStore();
+
+      await Promise.all([
+        accountStore.getAccountList(),
+        accountStore.getAccountBalance(),
+      ]);
+
+      const activeAccount = accountStore.getActiveAccount;
+
       closeMenu();
-      router.push({ name: Route.Withdraw });
+      if (activeAccount) {
+        router.push({
+          name: Route.Withdraw,
+          params: { code: activeAccount.code },
+        });
+      } else {
+        router.push({ name: Route.Withdraw });
+      }
     },
     area: [
       CRYPTO_TRANSACTIONS.includes(ECryptoTransactionsEnvVars.withdraw)
