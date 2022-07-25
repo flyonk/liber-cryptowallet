@@ -1,14 +1,12 @@
 <template>
-  <m-base-bottom-sheet-v
-    :top-padding="2"
-    :with-header="!expanded"
-    class="base-bottom"
-    @close="$emit('close')"
-    @expanded="onExpanded"
-  >
-    <div :class="{ '-expanded': expanded }" class="bottom-sheet">
+  <m-base-bottom-sheet-v @close="$emit('close')" @expanded="onExpanded">
+    <div class="m-base-bottom-sheet-v-wrapper">
       <div class="menu-header">
-        <i v-if="expanded" class="icon ci-close_big" @click="$emit('close')" />
+        <i
+          v-show="expanded"
+          class="icon icon-app-navigation-close"
+          @click.stop="$emit('close')"
+        />
 
         <h4 class="title">
           {{ $t('views.dashboard.home.accounts') }}
@@ -18,7 +16,7 @@
         </div>
       </div>
 
-      <div v-if="expanded" class="search-bar">
+      <div v-show="expanded" class="search-bar">
         <a-base-search-input v-model="searchQuery" />
       </div>
 
@@ -114,6 +112,10 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-bottom-sheet-v-wrapper {
+  height: 350px;
+}
+
 .menu-header {
   display: flex;
   align-items: center;
@@ -190,12 +192,5 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 
 .search-bar {
   margin: 24px 0;
-}
-
-.base-bottom:deep {
-  &.-expanded {
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-  }
 }
 </style>

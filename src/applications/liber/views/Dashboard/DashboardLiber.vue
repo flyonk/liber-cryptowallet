@@ -101,14 +101,17 @@
     <div class="carousel">
       <stories-swiper />
     </div>
+  </div>
 
+  <!-- we should use template, because else occurs error  
+        https://juejin.cn/post/7095997262878212104 -->
+  <template v-if="isMenuOpen">
     <AccountListBottomSheet
-      v-if="isMenuOpen"
       :accounts="accounts"
       @close="isMenuOpen = false"
       @select="onSelectAccount"
     />
-  </div>
+  </template>
 </template>
 
 <script lang="ts" setup>

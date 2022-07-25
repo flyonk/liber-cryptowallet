@@ -7,7 +7,7 @@
     <template #content>
       <div class="auth-page-container">
         <m-base-input
-          :modelValue="firstname"
+          :model-value="firstname"
           @focus="showClearFirstNameBtn"
           @blur="closeClearFirstNameBtn"
           @update:modelValue="firstNamePreventExtraCharacters"
@@ -24,7 +24,7 @@
           </template>
         </m-base-input>
         <m-base-input
-          :modelValue="lastname"
+          :model-value="lastname"
           class="m-base-input"
           @focus="showClearLastNameBtn"
           @blur="closeClearLastNameBtn"
