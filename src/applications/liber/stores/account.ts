@@ -17,6 +17,7 @@ export interface INewAccountParams {
 // === Account Types ===
 
 export interface IAccountState {
+  activeAccount: IAccount | null;
   accountList: IAccount[];
   totalBalance: IAccountTotal;
   balanceByCoin: IAccount;
@@ -28,6 +29,7 @@ export interface IAccountState {
 
 export const useAccountStore = defineStore('account', {
   state: (): IAccountState => ({
+    activeAccount: null,
     accountList: [],
     balanceByCoin: <IAccount>{},
     totalBalance: <IAccountTotal>{},
@@ -46,6 +48,8 @@ export const useAccountStore = defineStore('account', {
     getBalanceByCoin: (state) => state.balanceByCoin,
 
     getNewAccountParams: (state) => state.newAccountParams,
+
+    getActiveAccount: (state) => state.activeAccount,
   },
 
   actions: {
@@ -131,6 +135,10 @@ export const useAccountStore = defineStore('account', {
 
     setNewAccountParams(property: keyof INewAccountParams, value: string) {
       this.newAccountParams[property] = value;
+    },
+
+    setActiveAccount(account: IAccount | null) {
+      this.activeAccount = account;
     },
   },
 });
