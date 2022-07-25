@@ -77,7 +77,8 @@ onUpdated(() => {
     case 'dashboard':
       if (!menu.value) return;
       menu.value.style.minHeight = `30%`;
-      menu.value.style.maxHeight = `90%`;
+      menu.value.style.maxHeight = `120%`;
+      menu.value.style.height = '120%';
       break;
     case 'communication':
       if (!menu.value) return;

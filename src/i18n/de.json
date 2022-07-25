@@ -33,6 +33,7 @@
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "specialCharacterError": "Please remove special characters. They do not accept in the field.",
     "on": "On",
     "off": "Off",
     "2fainput": "2FA verification code"
@@ -69,7 +70,8 @@
       "step3FooterCta": "Registration",
       "step4Title": "Enter verification code",
       "step4Description": "Get a verification code from the authenticator app",
-      "step4VerificationError": "Your code doesn't match. Please, try again!"
+      "step4VerificationError": "Your code doesn't match. Please, try again!",
+      "forgotYourPasscode": "Forgot your passcode?"
     },
     "restore": {
       "step1Title": "Your previous number",
@@ -104,7 +106,9 @@
         "title": "Welcome to",
         "transfer": "Transfer money around the world with the best fee",
         "login": "Log in",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "loginWithThisNumber": "Login with this number",
+        "goBack": "No, go back"
       }
     }
   },
@@ -150,6 +154,7 @@
     "deposit": "Deposit",
     "deposited": "Deposited",
     "send": "Send",
+    "pay": "Pay",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
@@ -164,6 +169,7 @@
     "downloadState": "Download Statement",
     "rate": "Rate",
     "bought": "Bought",
+    "receivedCoupons": "Received coupons for",
     "cost": "Cost",
     "transactionIdCopied": "Transaction ID is copied successfully",
     "transactionIdCopyFail": "Failed when copy Transaction ID",
@@ -257,7 +263,23 @@
       "insufficient": "Insufficient amount",
       "available": "Available",
       "continue": "Continue",
-      "withdrawNow": "Withdraw Now"
+      "withdrawNow": "Withdraw Now",
+      "fee": "Fee",
+      "total": "Total",
+      "success": {
+        "title": "Your withdrawal request was sent",
+        "description": "We will notify you when your withdrawal request is completed."
+      },
+      "confirmation": {
+        "text": "Withdraw confirmation",
+        "title": "Do you know and trust this payee?",
+        "description": "If you’re unsure, don’t pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment",
+        "button": {
+          "yes": "Yes, continue",
+          "no": "No, go back",
+          "submit": "Submit"
+        }
+      }
     },
     "sendfunds": {
       "whopay": "Who To Pay"
@@ -361,6 +383,7 @@
     "dashboard": {
       "home": {
         "idVerification": "ID Verification",
+        "notVerified": "Not Verified",
         "idVerified": "ID Verified",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",
@@ -432,6 +455,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -484,12 +508,13 @@
       },
       "profileEdit": {
         "editProfile": "Edit Profile",
+        "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",
         "id": "Liber ID",
         "dateOfBirth": "Date of Birth",
         "address": "Residential Address",
-        "verify": "Verify Identity"
+        "changeHomeAddress": "Change home address"
       },
       "profilePrivacy": {
         "privacy": "Privacy",
@@ -500,7 +525,32 @@
         "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      },
+      "profilePhonesAndEmails": {
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
+        "yourIdentityIsNotVerified": "Your identity is not verified",
+        "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
+        "verifyIdentity": "Verify Identity",
+        "acceptedContact": "Accepted Contacts",
+        "verificationInProgress": "ID Verification in progress",
+        "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
+      },
+      "profileAddNewContactData": {
+        "title": "Add a new contact",
+        "confirmButton": "Confirm Contact"
       }
+    },
+    "pEmailSent": {
+      "title": "Confirm you email address",
+      "description": "We sent confirmation email to:",
+      "footerDescription": "Check your email and click on the confirmation link to continue.",
+      "goToInbox": "Go to Inbox",
+      "resend": "Resend email"
+    },
+    "pPhoneVerified": {
+      "title": "Your phone number has been successfully verified",
+      "description": "Now you can get money by the following phone number:",
+      "done": "Done"
     },
     "survey": {
       "question": "Main reason for using Liber",
@@ -561,7 +611,10 @@
     "gotIt": "Got it",
     "details": "Details",
     "login2Step": "Invalid secret code",
-    "retryConnect": "Retry connect",
+    "numberAlreadyInUse": "Number already in use",
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number",
+    "confirmTitle": "Retry connect",
+    "cancelTitle": "Use offline",
     "offlineTitle": "No internet connection",
     "offlineDescription": "Please, check internet connection on your phone to use the application"
   },
@@ -599,7 +652,12 @@
     "convert": {
       "title": "Enter amount of euro to get coupons for",
       "convertExactly": "Amount (€50–€1,000)",
-      "convertNow": "Get Coupons Now"
+      "convertNow": "Get Coupons Now",
+      "success": "Your order was submitted"
+    },
+    "getcrypto": {
+      "convertNow": "Checkout with Liber Save",
+      "success": "Your purchase was successful"
     }
   }
 }

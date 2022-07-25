@@ -112,7 +112,6 @@
                 {{ $t('views.profile.profileSettings.devices') }}
               </p>
             </router-link>
-            <biometric-identifier-switcher-button />
           </ul>
           <h6 class="subtitle">
             {{ $t('views.profile.profileSettings.appearance') }}
@@ -187,10 +186,7 @@ import { Route } from '@/router/types';
 import { showConfirm } from '@/helpers/nativeDialog';
 
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
-import {
-  TTopNavigation,
-  BiometricIdentifierSwitcherButton,
-} from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 
 const AContactInitials = defineAsyncComponent(() => {

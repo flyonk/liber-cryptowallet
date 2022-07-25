@@ -54,7 +54,7 @@
               <div class="label">Phone {{ index + 1 }}</div>
               <div class="value">
                 <div class="phone">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
             <li
@@ -65,7 +65,7 @@
               <div class="label">Email {{ index + 1 }}</div>
               <div class="value">
                 <div class="email">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
           </ul>
@@ -84,15 +84,18 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
 
+import { Route } from '@/router/types';
 import { TTopNavigation } from '@/components/ui';
-
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
-import { useI18n } from 'vue-i18n';
+import { useKYCStore } from '@/stores/kyc';
 import { STATIC_BASE_URL } from '@/constants';
-import { Route } from '@/router/types';
+import { useI18n } from 'vue-i18n';
+const { tm } = useI18n();
+const pStore = useProfileStore();
+const kycStore = useKYCStore();
 
 const MBaseButton = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
@@ -106,10 +109,7 @@ const MKycStatusCard = defineAsyncComponent(() => {
   );
 });
 
-const { tm } = useI18n();
-const pStore = useProfileStore();
-
-const KYCStatus = computed(() => pStore.getUser.kycStatus);
+const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);
 const email = computed(() => pStore.getUser.email);
 
@@ -173,6 +173,10 @@ const cardInfo: IKycStatusCard = computed(() => {
       return '';
     }
   }
+});
+
+onBeforeMount(async () => {
+  await Promise.all([kycStore.claim(), pStore.init()]);
 });
 </script>
 

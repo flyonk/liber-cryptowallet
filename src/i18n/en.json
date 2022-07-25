@@ -33,6 +33,7 @@
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "specialCharacterError": "Please remove special characters. They do not accept in the field.",
     "on": "On",
     "off": "Off",
     "2fainput": "2FA verification code"
@@ -651,7 +652,12 @@
     "convert": {
       "title": "Enter amount of euro to get coupons for",
       "convertExactly": "Amount (€50–€1,000)",
-      "convertNow": "Get Coupons Now"
+      "convertNow": "Get Coupons Now",
+      "success": "Your order was submitted"
+    },
+    "getcrypto": {
+      "convertNow": "Checkout with Liber Save",
+      "success": "Your purchase was successful"
     }
   }
 }

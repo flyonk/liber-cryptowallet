@@ -158,7 +158,7 @@ import {
   watch,
 } from 'vue';
 import { debounce } from 'lodash';
-import { useRoute, useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
@@ -201,6 +201,8 @@ const MBaseInput = defineAsyncComponent(() => {
 });
 
 const errorsStore = useErrorsStore();
+const coinStore = useCoinsStore();
+const fundsStore = useFundsStore();
 
 defineEmits<{
   (event: 'show-2fa'): void;
@@ -213,11 +215,8 @@ defineProps({
   },
 });
 
-const coinStore = useCoinsStore();
-const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
-const router = useRouter();
 const route = useRoute();
 
 const DEBOUNCE_TIMER = 1000;
@@ -429,9 +428,6 @@ async function convertFunds() {
       amount: String(Number(fundsStore.convertInfo.requestAmount)),
     });
     fundsStore.$reset();
-    router.push({
-      name: Route.DashboardHome,
-    });
   } catch (err) {
     const code = err?.response?.data?.code;
 

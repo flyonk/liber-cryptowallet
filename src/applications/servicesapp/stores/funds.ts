@@ -64,6 +64,10 @@ export const useFundsStore = defineStore('fundsLiberSave', {
       await fundsService.convert(data);
     },
 
+    async getCrypto(data: TConvertData): Promise<void> {
+      await fundsService.getcrypto(data);
+    },
+
     setConvertFunds(val: boolean): void {
       this.convertFunds = val;
     },

@@ -1,8 +1,5 @@
 <template>
-  <t-top-navigation
-    with-fixed-footer
-    @click:left-icon="$router.push({ name: Route.InstallApp })"
-  >
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title> {{ $t('configureApp.configTitle') }}</template>
     <template #subtitle>{{ $t('configureApp.scanQRMessage') }}</template>
     <template #content>
@@ -34,15 +31,10 @@
       </p>
     </template>
     <template #fixed-footer
-      ><m-base-button
-        block
-        @click="
-          $router.push({ name: Route.ConfigureAppVerify, hash: nextRouteHash })
-        "
-      >
+      ><m-base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </m-base-button></template
-    >
+      </m-base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -57,7 +49,7 @@ import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
@@ -79,6 +71,7 @@ const store = use2faStore();
 const errorsStore = useErrorsStore();
 const toast = useToast();
 const route = useRoute();
+const router = useRouter();
 
 const nextRouteHash = computed(() => {
   return route.hash;
@@ -119,6 +112,17 @@ const copyToClipboard = async () => {
       description: tm('common.copyFailure') as string,
     });
   }
+};
+
+const prevStep = (): void => {
+  router.push({ name: Route.InstallApp });
+};
+
+const nextStep = (): void => {
+  router.push({
+    name: Route.ConfigureAppVerify,
+    hash: nextRouteHash.value,
+  });
 };
 </script>
 

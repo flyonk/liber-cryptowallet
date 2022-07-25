@@ -17,7 +17,7 @@
             }"
             :disabled="VerificationStatus !== EKYCStatus.success"
             class="btn"
-            @click="$router.push('/deposit')"
+            @click="moveToDepositePage"
           >
             <i
               class="icon-btn icon-plus_circle"
@@ -124,9 +124,12 @@ import {
   ref,
 } from 'vue';
 
+import { useRouter } from 'vue-router';
+
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
+import { useDepositStore } from '@/applications/liber/stores/deposit';
 import { useUIStore } from '@/stores/ui';
 import transactionService from '@/applications/liber/services/transactionService';
 import { INetTransaction } from '@/models/transaction/transaction';
@@ -146,6 +149,8 @@ const MDashboardCoinInfo = defineAsyncComponent(() => {
 
 const VerificationStatus = ref(EKYCStatus.success);
 
+const router = useRouter();
+const depositStore = useDepositStore();
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
 const errorsStore = useErrorsStore();
@@ -218,8 +223,14 @@ const setCurrentAccount = (coinCode: string) => {
       baseBalanceConversionCode: '',
     };
 
+    accountStore.setActiveAccount(null);
+
     return;
   }
+
+  const account = accounts.value.find(
+    ({ code }) => coinCode === code
+  ) as IAccount;
 
   const {
     code,
@@ -227,7 +238,7 @@ const setCurrentAccount = (coinCode: string) => {
     imageUrl: imgSrc,
     baseBalanceConversion,
     baseBalanceConversionCode,
-  } = accounts.value.find(({ code }) => coinCode === code) as IAccount;
+  } = account;
 
   currentAccount.value = {
     code: code.toUpperCase(),
@@ -236,6 +247,8 @@ const setCurrentAccount = (coinCode: string) => {
     baseBalanceConversion,
     baseBalanceConversionCode,
   };
+
+  accountStore.setActiveAccount(account);
 };
 
 const onSelectAccount = (coinCode: string) => {
@@ -247,6 +260,21 @@ const hasTransactions = computed(() => transactions.value.length > 0);
 const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
 });
+
+const moveToDepositePage = async () => {
+  const activeAccount = accountStore.getActiveAccount;
+  if (activeAccount) {
+    depositStore.setAccountInfo(activeAccount);
+
+    await router.push({
+      name: Route.DepositNetwork,
+    });
+  } else {
+    await router.push({
+      name: Route.DepositCoin,
+    });
+  }
+};
 </script>
 
 <style scoped lang="scss">

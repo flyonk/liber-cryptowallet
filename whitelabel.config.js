@@ -9,6 +9,8 @@ module.exports = {
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
+    nameApp: 'Liber App',
+    appIconsFolder: 'liber',
   },
   dark: {
     brand: 'Dark',
@@ -17,6 +19,8 @@ module.exports = {
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
+    nameApp: '',
+    appIconsFolder: '',
   },
   exampleBrand: {
     brand: 'exampleBrand',
@@ -25,5 +29,7 @@ module.exports = {
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
+    nameApp: '',
+    appIconsFolder: '',
   },
 };

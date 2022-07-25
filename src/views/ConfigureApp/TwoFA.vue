@@ -1,5 +1,9 @@
 <template>
-  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-borrow"
+    @click:left-icon="skip2FA"
+  >
     <template #title> {{ $t('configureApp.twoFATitle') }}</template>
     <template #subtitle> {{ $t('configureApp.twoFADescription') }}</template>
     <template #content>
@@ -9,11 +13,11 @@
         </div>
       </div>
     </template>
-    <template #fixed-footer
-      ><m-base-button block @click="installApp">
+    <template #fixed-footer>
+      <m-base-button block @click="installApp">
         {{ $t('common.continueCta') }}
-      </m-base-button></template
-    >
+      </m-base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -53,15 +57,17 @@ onMounted(async () => {
   }
 });
 
-function prevStep(): void {
-  router.go(-1);
-}
+const skip2FA = (): void => {
+  router.push({
+    name: Route.AuthPasscode,
+  });
+};
 
-function installApp(): void {
+const installApp = (): void => {
   router.push({
     name: Route.InstallApp,
   });
-}
+};
 </script>
 
 <style lang="scss" scoped>

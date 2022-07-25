@@ -85,6 +85,10 @@ const props = defineProps({
       line-height: 41px;
       letter-spacing: 0.004em;
       color: $color-white;
+
+      @media (max-height: 680px) {
+        font-size: 30px;
+      }
     }
 
     & > .imagecontainer {
