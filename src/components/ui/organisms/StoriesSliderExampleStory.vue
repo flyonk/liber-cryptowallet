@@ -92,10 +92,11 @@ const props = defineProps({
     }
 
     & > .imagecontainer {
+      height: 100%;
       display: flex;
       justify-content: center;
+      align-items: center;
       overflow: hidden;
-      margin-top: auto;
     }
   }
 }
