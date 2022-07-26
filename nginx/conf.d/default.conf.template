@@ -5,6 +5,7 @@ server {
     location / {
         root   /app;
         index  index.html;
+        try_files $uri $uri/ /index.html;
         location ~* ^.+\.(?:css|cur|json|js|jpe?g|gif|htc|ico|png|txt|otf|ttf|eot|woff|svg|webp|webm|zip|gz|tar|rar)$ {
             add_header Access-Control-Allow-Origin ${CORS_ALLOWED_ORIGIN};
             access_log off;
