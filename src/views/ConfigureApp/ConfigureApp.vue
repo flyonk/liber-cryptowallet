@@ -15,12 +15,8 @@
           type="text"
           readonly
         />
-        <img
-          class="default-input-icon"
-          src="@/assets/images/copy-to-clipboard.svg"
-          alt="copy"
-          @click.stop
-        />
+
+        <i class="icon-copy icon default-input-icon" />
       </label>
 
       <p class="text-default">
@@ -82,13 +78,14 @@ let qrCodeValue = ref<string>('');
 
 onMounted(async () => {
   const { secret, url } = await store.generateSecret();
-
+  const responsiveWidth =
+    document.documentElement.clientHeight <= 668 ? 180 : 240;
   qrCodeValue.value = secret;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: url,
-    width: 230,
+    width: responsiveWidth,
   });
 
   qrcode.toCanvas();
@@ -141,12 +138,21 @@ const nextStep = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+
+  @media (max-width: 375px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
 .qr-code-canvas {
   margin: 0 auto;
   width: 200px;
   display: block;
+
+  @media (max-width: 375px) {
+    width: 150px;
+  }
 }
 
 .default-input-wrapper {
@@ -189,7 +195,8 @@ const nextStep = (): void => {
 .default-input-icon {
   position: absolute;
   right: 15px;
-  top: 50%;
+  top: 40%;
+  color: blue;
   transform: translate(0, -50%);
 }
 </style>
