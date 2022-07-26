@@ -43,7 +43,7 @@
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter, useRoute } from 'vue-router';
+import { useRouter, useRoute, RouteLocation } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
@@ -114,9 +114,14 @@ const onComplete = async () => {
       await mfaStore.checkMfa(data);
       mfaStore.hide();
       if (mfaStore.data?.successRoute) {
-        router.push({
-          name: mfaStore.data.successRoute,
-        });
+        const _route = mfaStore.data?.successRoute;
+        if (typeof _route === 'string') {
+          router.push({
+            name: _route,
+          });
+        } else {
+          router.push(_route as RouteLocation);
+        }
       }
     } catch (err: Error | unknown) {
       isCodeWrong.value = true;

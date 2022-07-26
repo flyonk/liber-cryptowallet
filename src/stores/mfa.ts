@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig } from 'axios';
 
 type TMfaCallbackData = {
   title?: string;
-  successRoute?: string;
+  successRoute?: string | unknown;
   callback?: any;
   button?: string;
 };

@@ -50,7 +50,7 @@ const coins = computed(() => coinsStore.coins);
 const selectCoin = (coin: ICoin) => {
   fundsStore.setCrypto(
     {
-      name: coin.code,
+      name: coin.name,
       code: coin.code,
       img: coin.imageUrl as string,
     },
