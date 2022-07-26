@@ -46,7 +46,13 @@ const email = computed(() => {
 }
 
 .header-email {
-  flex-grow: 1;
+  margin-left: 10px;
   text-align: left;
+}
+
+:deep(.top-right-wrapper) {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
 }
 </style>

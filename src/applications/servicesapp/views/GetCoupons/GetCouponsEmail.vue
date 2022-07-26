@@ -6,7 +6,7 @@
         <m-base-input
           v-model="email"
           type="email"
-          :class="isNotValid ? '-invalid' : ''"
+          :is-error="isNotValid"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
