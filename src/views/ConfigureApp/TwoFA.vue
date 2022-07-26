@@ -1,7 +1,7 @@
 <template>
   <t-top-navigation
     with-fixed-footer
-    left-icon-name="icon-borrow"
+    left-icon-name="icon-app-navigation-close"
     @click:left-icon="skip2FA"
   >
     <template #title> {{ $t('configureApp.twoFATitle') }}</template>
