@@ -43,8 +43,12 @@ import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import { BaseInput, BaseButton } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
+import { useFundsStore } from '@/applications/servicesapp/stores/funds';
+
 const router = useRouter();
 const liberSaveStore = useLiberSaveStore();
+const fundsStore = useFundsStore();
+fundsStore.$reset();
 
 // @TODO
 // clear store with libersave email on created
