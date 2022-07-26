@@ -3,43 +3,62 @@
     <template #title> {{ $t('auth.signup.step3Title') }}</template>
     <template #content>
       <div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="email"
+          class="m-base-input m-base-input"
           type="email"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('common.email') }} </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearEmail"
               @touchend="clearEmail"
             />
           </template>
-        </base-input>
-        <base-switch v-model="sendNews" class="switch">
+        </m-base-input>
+        <m-base-switch v-model="sendNews" class="switch">
           {{ $t('auth.signup.step3SendNews') }}
-        </base-switch>
+        </m-base-switch>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button :disabled="isEmailInvalid" block @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { ref } from 'vue-demi';
 import { computed } from '@vue/reactivity';
 
 import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseInput, BaseSwitch, BaseButton } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseSwitch = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseSwitch
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();
@@ -85,6 +104,16 @@ const closeClearBtn = () => {
 </script>
 
 <style lang="scss" scoped>
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+}
+
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .header-nav {
   margin-bottom: 24px;
 }

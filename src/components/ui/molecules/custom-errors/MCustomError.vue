@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-if="!customContent"
     :visible="displayCurrent"
     :severity="severity"
@@ -18,24 +18,24 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button
+        <m-base-button
           :class="{ 'full-width': !error.cancelTitle }"
           class="btn"
           @click="handleConfirm"
         >
-          <triple-dots-spinner v-if="loading" />
+          <a-tripple-dots-spinner v-if="loading" />
           {{ !loading ? $t(`errors.${error.confirmTitle}`) : '' }}
-        </base-button>
-        <base-button
+        </m-base-button>
+        <m-base-button
           v-if="error.cancelTitle"
           class="btn"
           @click="error.cancelCallback"
         >
           {{ $t(`errors.${error.cancelTitle}`) }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
   <div v-else>
     <!--TODO: implement custom content toast-->
     <component :is="customContent" />
@@ -43,12 +43,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
-import { BaseButton, BaseToast } from '@/components/ui';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
+const ATrippleDotsSpinner = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ATrippleDotsSpinner
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const { loading, handleReconnect } = useCheckOffline();
 

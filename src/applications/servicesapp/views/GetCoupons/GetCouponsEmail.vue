@@ -3,7 +3,7 @@
     <template #title> {{ $t('services.getcoupons.title') }}</template>
     <template #content>
       <div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="email"
           type="email"
           :class="isNotValid ? '-invalid' : ''"
@@ -11,7 +11,7 @@
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('services.getcoupons.email') }} </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearEmail"
@@ -21,29 +21,39 @@
           <template v-if="isNotValid" #message>
             {{ $t('services.getcoupons.error') }}
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button :disabled="isEmailInvalid" block @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { defineAsyncComponent, ref, watch } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
-import { BaseInput, BaseButton } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 import { useFundsStore } from '@/applications/servicesapp/stores/funds';
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const liberSaveStore = useLiberSaveStore();

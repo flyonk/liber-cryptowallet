@@ -16,7 +16,17 @@
     <template #content>
       <div class="content-wrapper">
         <div v-if="KYCStatus !== EKYCStatus.success" class="status-container">
-          <m-status-card :kyc-status="KYCStatus" />
+          <m-kyc-status-card
+            :title="cardInfo.title"
+            :description="cardInfo.description"
+            :icon-name="cardInfo.imgSrc"
+            :state-icon="cardInfo.stateIcon"
+            :is-cta-required="!!cardInfo.isCtaRequired"
+            :cta-text="
+              $t('views.profile.profilePhonesAndEmails.verifyIdentity')
+            "
+            @click:cta-button="$router.push({ name: Route.KYCMain })"
+          />
         </div>
         <div v-else class="profile-info">
           <h1 class="title">Liber ID</h1>
@@ -59,14 +69,14 @@
               </div>
             </li>
           </ul>
-          <base-button
+          <m-base-button
             class="data-adder"
             view="flat"
             icon-left="icon-plus"
             @click="$router.push({ name: Route.ProfileAddNewContactData })"
           >
             + {{ $t('views.newcontact.additionalphone') }}
-          </base-button>
+          </m-base-button>
         </div>
       </div>
     </template>
@@ -74,17 +84,30 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
+import { TTopNavigation } from '@/components/ui';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
-
-import { BaseButton, MStatusCard, TTopNavigation } from '@/components/ui';
-
+import { STATIC_BASE_URL } from '@/constants';
+import { useI18n } from 'vue-i18n';
+const { tm } = useI18n();
 const pStore = useProfileStore();
 const kycStore = useKYCStore();
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MKycStatusCard = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MKycStatusCard
+  );
+});
 
 const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);
@@ -96,6 +119,60 @@ const additionalPhones = computed(() => {
 
 const additionalEmails = computed(() => {
   return pStore?.getUser?.additionalEmails || [];
+});
+
+interface IKycStatusCard {
+  title: string;
+  description: string;
+  isCtaRequired?: string;
+  imgSrc: string;
+  stateIcon: string;
+}
+
+const cardInfo: IKycStatusCard = computed(() => {
+  switch (KYCStatus.value) {
+    case EKYCStatus.not_started: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
+    case EKYCStatus.pending: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.verificationInProgress'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.weWillEmailAndSmsToYouVerification'
+      );
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, imgSrc, stateIcon };
+    }
+    case EKYCStatus.rejected: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
+    default: {
+      return '';
+    }
+  }
 });
 
 onBeforeMount(async () => {

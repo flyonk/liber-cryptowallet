@@ -2,7 +2,7 @@
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ scanText.title }}</template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ scanText.description }}
     </template>
     <template #content>
@@ -11,15 +11,22 @@
       </scan-animation>
     </template>
     <template #fixed-footer>
-      <base-button block @click="onScan">
+      <m-base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { computed, onActivated, onMounted, ref, Ref } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  onActivated,
+  onMounted,
+  ref,
+  Ref,
+} from 'vue';
 import { CameraPreviewOptions } from '@/helpers/camera/definitions';
 import { CameraPreview } from '@/helpers/camera/CameraPreview';
 import { Device } from '@capacitor/device';
@@ -28,10 +35,22 @@ import { useI18n } from 'vue-i18n';
 import { useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';
+
+const ABaseProgressBar = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressBar
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const emit = defineEmits(['next', 'prev']);
 

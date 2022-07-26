@@ -2,31 +2,41 @@
   <div class="surprise-menu">
     <p class="cancel" @click="closeMenu">Cancel</p>
     <h2 class="title">I’ve got little surprise for you 🎁</h2>
-    <BaseInput type="text">
+    <MBaseInput type="text" class="m-base-input">
       <template #label> To </template>
-    </BaseInput>
-    <BaseInput type="text">
+    </MBaseInput>
+    <MBaseInput type="text" class="m-base-input">
       <template #label> Cc </template>
-    </BaseInput>
-    <BaseInput type="text">
+    </MBaseInput>
+    <MBaseInput type="text" class="m-base-input">
       <template #label> Bcc </template>
-    </BaseInput>
-    <BaseInput v-model="Subject" type="text">
+    </MBaseInput>
+    <MBaseInput v-model="Subject" type="text" class="m-base-input">
       <template #label> Subject </template>
-    </BaseInput>
+    </MBaseInput>
     <p class="description">
       Hey managing your money would be so much easier if you had Liber. Sign up
       with my link https://cryptowize.com/referral/abraham
     </p>
     <p class="sent">Sent from my iPhone</p>
-    <BaseButton class="btn mt-auto" size="large"> Send </BaseButton>
+    <m-base-button class="btn mt-auto" size="large"> Send </m-base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
-import { BaseButton, BaseInput } from '@/components/ui';
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const Subject = ref('I’ve got little surprise for you 🎁');
 
@@ -37,6 +47,10 @@ function closeMenu() {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .surprise-menu {
   bottom: 0;
   display: flex;
@@ -44,6 +58,10 @@ function closeMenu() {
   width: 100%;
   height: 100%;
   padding-bottom: 50px;
+
+  > .base-input:deep {
+    margin-top: 16px;
+  }
 
   > .cancel {
     font-weight: 600;

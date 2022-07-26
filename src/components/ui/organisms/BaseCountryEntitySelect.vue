@@ -1,10 +1,14 @@
 <template>
-  <BaseBottomSheetV v-if="showList" position="bottom" @close="$emit('close')">
+  <m-base-bottom-sheet-v
+    v-if="showList"
+    position="bottom"
+    @close="$emit('close')"
+  >
     <h1 v-if="title" class="page-title">{{ title }}</h1>
     <div class="country-select-block">
       <div class="grid align-items-center">
         <div class="col-9">
-          <BaseSearchInput
+          <a-base-search-input
             v-model="searchQuery"
             @update:model-value="updateSearchQuery"
           />
@@ -43,18 +47,28 @@
         </div>
       </div>
     </div>
-  </BaseBottomSheetV>
+  </m-base-bottom-sheet-v>
 </template>
 
 <script lang="ts" setup>
-import { computed, ComputedRef, ref, Ref } from 'vue';
+import { computed, ComputedRef, defineAsyncComponent, ref, Ref } from 'vue';
 import { PropType } from 'vue-demi';
 
-import BaseBottomSheetV from '@/components/ui/molecules/BaseBottomSheetV.vue';
-import BaseSearchInput from '@/components/ui/atoms/BaseSearchInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { ICountryInformation } from '@/types/country-phone-types';
+
+const ABaseSearchInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseSearchInput
+  );
+});
+
+const MBaseBottomSheetV = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseBottomSheetV
+  );
+});
 
 const props = defineProps({
   entity: {

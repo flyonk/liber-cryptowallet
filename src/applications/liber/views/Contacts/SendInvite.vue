@@ -19,18 +19,20 @@
           :key="index"
           class="invite-item"
         >
-          <BaseInput
+          <m-base-input
             v-model="newContacts[index].name"
+            class="m-base-input"
             :type="TypeBaseInput.Text"
           >
             <template #label> Name </template>
-          </BaseInput>
-          <BaseInput
+          </m-base-input>
+          <m-base-input
             v-model="newContacts[index].email"
+            class="m-base-input"
             :type="TypeBaseInput.Text"
           >
             <template #label> Email </template>
-          </BaseInput>
+          </m-base-input>
           <p class="add" @click="addExtraContact">
             <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
             Additional phone or email
@@ -39,20 +41,32 @@
       </ul></template
     >
     <template #fixed-footer>
-      <BaseButton class="footer-btn" size="large" :disabled="isBtnDisabled">
+      <m-base-button class="footer-btn" size="large" :disabled="isBtnDisabled">
         Sent
-      </BaseButton>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, defineAsyncComponent, ref } from 'vue';
 
-import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 import { STATIC_BASE_URL } from '@/constants';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const newContacts = ref([
   {
@@ -79,6 +93,10 @@ const isBtnDisabled = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .send-invite {
   height: 100vh;
   padding: 60px 16px 0;
@@ -131,6 +149,10 @@ const isBtnDisabled = computed(() => {
     line-height: 22px;
     letter-spacing: -0.0043em;
     color: $color-primary-500;
+  }
+
+  > .base-input:deep {
+    margin-top: 16px;
   }
 }
 

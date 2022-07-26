@@ -15,12 +15,8 @@
           type="text"
           readonly
         />
-        <img
-          class="default-input-icon"
-          src="@/assets/images/copy-to-clipboard.svg"
-          alt="copy"
-          @click.stop
-        />
+
+        <i class="icon-copy icon default-input-icon" />
       </label>
 
       <p class="text-default">
@@ -30,10 +26,10 @@
         {{ $t('configureApp.verifyIdentityMessage') }}
       </p>
     </template>
-    <template #fixed-footer>
-      <base-button block @click="nextStep">
+    <template #fixed-footer
+      ><m-base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -45,7 +41,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -54,10 +50,16 @@ import { useRouter, useRoute } from 'vue-router';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const { tm } = useI18n();
 
@@ -76,13 +78,14 @@ let qrCodeValue = ref<string>('');
 
 onMounted(async () => {
   const { secret, url } = await store.generateSecret();
-
+  const responsiveWidth =
+    document.documentElement.clientHeight <= 668 ? 180 : 240;
   qrCodeValue.value = secret;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: url,
-    width: 230,
+    width: responsiveWidth,
   });
 
   qrcode.toCanvas();
@@ -135,12 +138,21 @@ const nextStep = (): void => {
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+
+  @media (max-width: 375px) {
+    font-size: 14px;
+    line-height: 20px;
+  }
 }
 
 .qr-code-canvas {
   margin: 0 auto;
   width: 200px;
   display: block;
+
+  @media (max-width: 375px) {
+    width: 150px;
+  }
 }
 
 .default-input-wrapper {
@@ -183,7 +195,8 @@ const nextStep = (): void => {
 .default-input-icon {
   position: absolute;
   right: 15px;
-  top: 50%;
+  top: 40%;
+  color: blue;
   transform: translate(0, -50%);
 }
 </style>

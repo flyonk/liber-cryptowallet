@@ -24,7 +24,7 @@
             @blur="onBlur"
             @input="debounceChangeInfo('from')"
           />
-          <select-coin-input
+          <o-select-coin-input
             :current-currency="currentSendFromCurrency"
             :show-select-dialog="false"
           />
@@ -53,14 +53,14 @@
             @blur="onBlur"
             @input="debounceChangeInfo('to')"
           />
-          <select-coin-input
+          <o-select-coin-input
             :coins="toCoins"
             :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
         </label>
       </div>
-      <BaseButton
+      <m-base-button
         v-if="loading"
         block
         class="send-button"
@@ -68,8 +68,8 @@
         view="simple"
       >
         <triple-dots-spinner />
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'refresh'"
         :disabled="preventConvert"
         block
@@ -79,8 +79,8 @@
         @click="onRefresh"
       >
         {{ $t('views.deposit.convert.refresh') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'preview'"
         :disabled="preventConvert"
         block
@@ -90,8 +90,8 @@
         @click="previewChangeInfo('from')"
       >
         {{ $t('transactions.convert.preview') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else
         :disabled="preventConvert"
         block
@@ -101,13 +101,20 @@
         @click="convertCurrency"
       >
         {{ convertTtitle }} ({{ timer }}s)
-      </BaseButton>
+      </m-base-button>
     </div>
   </keep-alive>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  onBeforeMount,
+  Ref,
+  ref,
+  watch,
+} from 'vue';
 import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
 import { useI18n } from 'vue-i18n';
@@ -126,11 +133,16 @@ import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 
-import { BaseButton } from '@/components/ui';
 import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
-import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const errorsStore = useErrorsStore();
 

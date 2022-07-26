@@ -13,7 +13,7 @@
     ></template>
     <template #right
       ><div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -46,17 +46,22 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed } from 'vue';
+import { onBeforeMount, computed, defineAsyncComponent } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
 
 import { useProfileStore } from '@/stores/profile';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
+
+const AContactInitials = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AContactInitials
+  );
+});
 
 const profileStore = useProfileStore();
 const toast = useToast();

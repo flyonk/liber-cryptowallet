@@ -1,7 +1,12 @@
 <template>
   <div class="select" @click.prevent="showSelectCoinDialog = true">
     <div class="select-option flex">
-      <img :src="currentCurrency.img" alt class="icon" />
+      <!-- Select open button  -->
+      <img
+        :src="currentCurrency.img"
+        :alt="`${currentCurrency.code} icon`"
+        class="icon"
+      />
       <p class="name">{{ currentCurrency.name }}</p>
       <img
         v-if="showSelectDialog"
@@ -18,13 +23,24 @@
       >
         <t-top-navigation
           left-icon-name="icon-app-navigation-close"
+          disable-paddings
           @click:left-icon="handleCloseModal"
         >
+          <template #title>
+            {{ $t('views.deposit.selectCoin.selectCoin') }}
+          </template>
           <template #content>
-            <BaseCoinListSelect
-              :coins="coins"
+            <a-base-search-input
+              v-model="query"
+              :placeholder="$t('ui.basesearchinput.search')"
+              @update:model-value="query = $event"
+            />
+            <br />
+            <m-select-coin
               :current-currency="currentCurrency"
-              @back-button="showSelectCoinDialog = false"
+              :coins="availableCoins"
+              :title="$t('views.deposit.selectCoin.allCoins')"
+              :suggested-title="$t('views.deposit.selectCoin.suggested')"
               @select-coin="handleSelect($event)"
             />
           </template>
@@ -35,19 +51,32 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType, ref } from 'vue';
+import { computed, defineAsyncComponent, PropType, ref } from 'vue';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 
-import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
+
+const MSelectCoin = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MSelectCoin
+  );
+});
+
+const ABaseSearchInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseSearchInput
+  );
+});
 
 const emit = defineEmits(['on-select-coin']);
 
 const showSelectCoinDialog = ref(false);
+const query = ref('');
 
-defineProps({
+const props = defineProps({
   currentCurrency: {
     type: Object as PropType<ICoinForExchange>,
     default: () => ({} as ICoinForExchange),
@@ -68,6 +97,14 @@ const handleSelect = (coin: ICoin): void => {
   emit('on-select-coin', coin);
 };
 
+const availableCoins = computed(() => {
+  return props.coins.filter(
+    (coin) =>
+      coin.code.toLowerCase().includes(query.value.toLowerCase()) ||
+      coin.name.toLowerCase().includes(query.value.toLowerCase())
+  );
+});
+
 const handleCloseModal = () => {
   showSelectCoinDialog.value = false;
 };
@@ -75,9 +112,6 @@ const handleCloseModal = () => {
 
 <style lang="scss" scoped>
 .select {
-  position: absolute;
-  right: 4px;
-  top: 4px;
   width: 114px;
   height: 64px;
   background: $color-white-light;

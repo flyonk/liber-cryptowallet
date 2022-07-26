@@ -31,15 +31,15 @@
           </a>
         </p>
       </div>
-      <base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
+      <m-base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
         $t('views.kyc.kyc1step.signUpSecurely')
-      }}</base-button>
+      }}</m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, Ref, ref } from 'vue';
+import { defineAsyncComponent, ref, onBeforeMount, Ref } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
@@ -48,8 +48,14 @@ import { useProfileStore } from '@/stores/profile';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 
