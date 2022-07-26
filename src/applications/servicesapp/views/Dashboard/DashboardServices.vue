@@ -20,7 +20,7 @@
       <div class="popup-description">
         <h1 class="title">{{ $t(popupTitle) }}</h1>
         <p class="description">
-          {{ $t('configureApp.ChangeAppMessage') }}
+          {{ $t(popupDescription) }}
         </p>
       </div>
     </template>
@@ -42,6 +42,7 @@ const { tm } = useI18n();
 const errorsStore = useErrorsStore();
 const showPopup = ref(false);
 const popupTitle = ref('');
+const popupDescription = ref('');
 
 const { error, success } = route.query;
 
@@ -69,10 +70,12 @@ if (error) {
   switch (success) {
     case 'getcrypto':
       popupTitle.value = 'services.getcrypto.success';
+      popupDescription.value = 'services.getcrypto.successDescription';
       break;
 
     default:
       popupTitle.value = 'services.convert.success';
+      popupDescription.value = 'services.convert.successDescription';
       break;
   }
   showPopup.value = true;
@@ -101,5 +104,6 @@ const servicesItems = [
 
 .title {
   color: $color-dark-grey;
+  margin-bottom: 15px;
 }
 </style>

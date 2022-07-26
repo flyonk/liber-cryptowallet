@@ -6,7 +6,7 @@
         <m-base-input
           v-model="email"
           type="email"
-          :class="isNotValid ? '-invalid' : ''"
+          :is-error="isNotValid"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
@@ -42,6 +42,7 @@ import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
+import { useFundsStore } from '@/applications/servicesapp/stores/funds';
 const MBaseInput = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
     (lib) => lib.MBaseInput
@@ -56,6 +57,8 @@ const MBaseButton = defineAsyncComponent(() => {
 
 const router = useRouter();
 const liberSaveStore = useLiberSaveStore();
+const fundsStore = useFundsStore();
+fundsStore.$reset();
 
 // @TODO
 // clear store with libersave email on created

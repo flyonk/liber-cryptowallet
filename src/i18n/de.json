@@ -653,11 +653,15 @@
       "title": "Enter amount of euro to get coupons for",
       "convertExactly": "Amount (€50–€1,000)",
       "convertNow": "Get Coupons Now",
-      "success": "Your order was submitted"
+      "success": "Your order was submitted",
+      "successDescription": "It may take some time. Please note the coupons will be enrolled to your Liver Save Account. ",
+      "minAmount": "The minimum amount is",
+      "maxAmount": "The maximum amount is"
     },
     "getcrypto": {
       "convertNow": "Checkout with Liber Save",
-      "success": "Your purchase was successful"
+      "success": "Your purchase was successful",
+      "successDescription": "It will be avaliable in your wallet instantly."
     }
   }
 }
