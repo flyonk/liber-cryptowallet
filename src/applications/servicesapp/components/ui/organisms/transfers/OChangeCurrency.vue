@@ -15,6 +15,9 @@
             v-model="convertInfo.requestAmount"
             autofocus
             class="input"
+            :class="{
+              '-error': !amountLimitsIsOk,
+            }"
             inputmode="decimal"
             pattern="[0-9]*"
             type="number"
@@ -28,6 +31,7 @@
         </label>
       </div>
       <MCurrencyConvertattionInfo
+        v-if="amountLimitsIsOk"
         :convert-info="convertInfo"
         :current-send-from-currency="currentSendFromCurrency"
         :current-send-to-currency="currentSendToCurrency"
@@ -36,6 +40,7 @@
         :loading="loading"
         :timer="timer"
       />
+      <p v-else class="limit-warning">{{ outOfLimitWarningText }}</p>
       <div class="input-wrapper relative w-full mb-5">
         <label class="change-from">
           <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
@@ -129,6 +134,17 @@ import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui
 
 const errorsStore = useErrorsStore();
 
+const props = defineProps({
+  minAmount: {
+    type: Number,
+    default: null,
+  },
+  maxAmount: {
+    type: Number,
+    default: null,
+  },
+});
+
 defineEmits<{
   (event: 'show-2fa'): void;
 }>();
@@ -175,11 +191,24 @@ const isZeroValues = computed(() => {
 });
 
 const preventConvert = computed(() => {
-  return (
-    loading.value ||
-    Number(fundsStore.convertInfo.requestAmount) === 0 ||
-    isZeroValues.value
-  );
+  return loading.value || isZeroValues.value || !amountLimitsIsOk.value;
+});
+
+const amountLimitsIsOk = computed(() => {
+  const _num = Number(fundsStore.convertInfo.requestAmount);
+  const minIsOk =
+    props.minAmount === null || _num > props.minAmount || _num === 0;
+  const maxIsOk = props.maxAmount === null || _num < props.maxAmount;
+  return minIsOk && maxIsOk;
+});
+
+const outOfLimitWarningText = computed(() => {
+  const _num = Number(fundsStore.convertInfo.requestAmount);
+  if (_num < props.minAmount) {
+    return `${tm('services.convert.minAmount')}: ${props.minAmount}`;
+  } else {
+    return `${tm('services.convert.maxAmount')}: ${props.maxAmount}`;
+  }
 });
 
 const toCoins = computed(() =>
@@ -431,6 +460,18 @@ watch(isZeroValues, (val) => {
     &:focus {
       border: 1px solid $color-primary-500;
     }
+
+    &.-error {
+      border: 1px solid $color-red-500;
+    }
   }
+}
+
+.limit-warning {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 26px;
+  color: $color-red-500;
+  height: 110px;
 }
 </style>

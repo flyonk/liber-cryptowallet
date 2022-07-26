@@ -653,7 +653,9 @@
       "title": "Enter amount of euro to get coupons for",
       "convertExactly": "Amount (€50–€1,000)",
       "convertNow": "Get Coupons Now",
-      "success": "Your order was submitted"
+      "success": "Your order was submitted",
+      "minAmount": "The minimum amount is",
+      "maxAmount": "The maximum amount is"
     },
     "getcrypto": {
       "convertNow": "Checkout with Liber Save",
