@@ -327,7 +327,10 @@ function convertCurrency() {
   const successRoute =
     route.name === ServicesRoutes.GetCryptoFunds
       ? ServicesRoutes.DashboardHome
-      : ServicesRoutes.DashboardHome + '?success=getcoupons';
+      : {
+          name: ServicesRoutes.DashboardHome,
+          query: { success: 'getcoupons' },
+        };
   mfaStore.show({
     button: 'services.convert.convertNow',
     successRoute: successRoute,
