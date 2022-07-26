@@ -104,5 +104,6 @@ const servicesItems = [
 
 .title {
   color: $color-dark-grey;
+  margin-bottom: 15px;
 }
 </style>
