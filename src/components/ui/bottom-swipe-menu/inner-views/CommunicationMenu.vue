@@ -17,21 +17,26 @@
         <radio-button />
       </li>
     </ul>
-    <BaseButton class="btn mt-auto" size="large" @click="clickHandle">
+    <m-base-button class="btn mt-auto" size="large" @click="clickHandle">
       Select
-    </BaseButton>
+    </m-base-button>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
-import { BaseButton } from '@/components/ui';
 import RadioButton from 'primevue/radiobutton';
 
 import { Route } from '@/router/types';
 import { useRecipientsStore } from '@/stores/recipients';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const emit = defineEmits(['closeMenu']);

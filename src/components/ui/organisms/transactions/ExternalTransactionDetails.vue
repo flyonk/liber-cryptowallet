@@ -37,9 +37,9 @@
             <p class="name">
               {{ $t('transactions.statement') }}
             </p>
-            <base-button class="button" size="medium" view="flat">
+            <m-base-button class="button" size="medium" view="flat">
               {{ $t('transactions.download') }}
-            </base-button>
+            </m-base-button>
           </li>
           <li class="main-item">
             <p class="name">
@@ -85,17 +85,22 @@
 </template>
 
 <script lang="ts" setup>
-import { PropType } from 'vue';
+import { defineAsyncComponent, PropType } from 'vue';
 
 import { IDepositTransaction } from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
-  BaseButton,
   TransactionIconWithStatus,
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 defineEmits(['copy']);
 

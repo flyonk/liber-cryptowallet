@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="$router.push({ name: Route.Login })">
+    <m-top-navigation @click:left-icon="$router.push({ name: Route.Login })">
       {{ $t('auth.restore.step1Title') }}
-    </top-navigation>
+    </m-top-navigation>
     <div class="description text--body">
       {{ $t('auth.restore.step1Description') }}
     </div>
@@ -11,30 +11,50 @@
         <base-country-phone-input />
       </div>
       <div class="col-8 ml-auto">
-        <base-input :use-grouping="false" type="number">
+        <m-base-input class="m-base-input" :use-grouping="false" type="number">
           <template #label>
             {{ $t('common.numberLabel') }}
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </div>
     <div class="sign-button-wrapper">
-      <BaseButton block @click="$emit('next')">
+      <m-base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
-      </BaseButton>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import {
-  TopNavigation,
-  BaseCountryPhoneInput,
-  BaseInput,
-  BaseButton,
-} from '@/components/ui';
+import { defineAsyncComponent } from 'vue';
+import { BaseCountryPhoneInput } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MTopNavigation = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MTopNavigation
+  );
+});
+
 defineEmits(['next', 'prev']);
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

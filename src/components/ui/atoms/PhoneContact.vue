@@ -1,5 +1,5 @@
 <template>
-  <ContactInitials
+  <a-contact-initials
     :name="props.contact.displayName"
     :is-friend="props.contact.isFriend"
   />
@@ -28,13 +28,18 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { defineAsyncComponent, PropType } from 'vue';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
+
+const AContactInitials = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AContactInitials
+  );
+});
 
 const props = defineProps({
   contact: {

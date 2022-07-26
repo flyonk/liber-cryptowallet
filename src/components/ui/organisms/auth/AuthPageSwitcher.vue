@@ -56,7 +56,6 @@ const nextStep = () => {
 
 const prevStep = () => {
   authStore.setStep(EStepDirection.prev, props.scope);
-
   if (
     props.scope === 'registration' &&
     authStore.getState.steps.registration === 1

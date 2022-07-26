@@ -1,7 +1,7 @@
 <template name="SelectCoin">
   <div class="page-wrapper">
     <div class="page-header">
-      <BackHistoryBtn icon-type="close" />
+      <ABackHistoryBtn icon-type="close" />
 
       <h1 class="main-title">
         {{ $t('views.deposit.selectCoin.selectCoin') }}
@@ -17,25 +17,40 @@
         />
       </label>
     </div>
-    <SelectCoin :coins="coins" @select-coin="selectCoin" />
+    <MSelectCoin
+      :coins="coins"
+      :title="$t('views.deposit.selectCoin.allCoins')"
+      :suggested-title="$t('views.deposit.selectCoin.suggested')"
+      @select-coin="selectCoin"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router';
-import { computed, onBeforeMount } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
 
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 import { ICoin } from '@/applications/liber/models/funds/coin';
 
 const router = useRouter();
 const route = useRoute();
 const fundsStore = useFundsStore();
 const coinsStore = useCoinsStore();
+
+const ABackHistoryBtn = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABackHistoryBtn
+  );
+});
+
+const MSelectCoin = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MSelectCoin
+  );
+});
 
 onBeforeMount(async () => {
   await coinsStore.fetchCoins();

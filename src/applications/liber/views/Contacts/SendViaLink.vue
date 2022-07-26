@@ -9,25 +9,42 @@
         <div class="send-currency">
           <p class="label">Recipient will get</p>
           <p class="sum">0.321573346 USDT</p>
-          <BaseInput type="text">
+          <m-base-input class="m-base-input" type="text">
             <template #label> Add note </template>
-          </BaseInput>
+          </m-base-input>
         </div>
       </div></template
     >
     <template #fixed-footer>
-      <BaseButton class="footer-btn" size="large">
+      <m-base-button class="footer-btn" size="large">
         Share link
-      </BaseButton></template
+      </m-base-button></template
     >
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { BaseInput, BaseButton, TTopNavigation } from '@/components/ui';
+import { defineAsyncComponent } from 'vue';
+import { TTopNavigation } from '@/components/ui';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .send-link {
   display: flex;
   flex-direction: column;

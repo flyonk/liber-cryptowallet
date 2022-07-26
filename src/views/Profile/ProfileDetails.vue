@@ -8,7 +8,7 @@
     }}</template>
     <template #right>
       <div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -40,26 +40,36 @@
       </div>
     </template>
     <template #fixed-footer>
-      <BaseButton
+      <m-base-button
         class="footer-btn"
         @click="$router.push({ name: Route.ProfileChangeAddress })"
       >
         {{ $t('views.profile.profileEdit.changeHomeAddress') }}
-      </BaseButton>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 import { formatToNormalDate } from '@/helpers/datetime';
 import { Route } from '@/router/types';
 
-import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { TTopNavigation } from '@/components/ui';
+
+const AContactInitials = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.AContactInitials
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const profileStore = useProfileStore();
 

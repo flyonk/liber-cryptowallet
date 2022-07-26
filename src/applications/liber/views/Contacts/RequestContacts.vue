@@ -19,12 +19,12 @@
       </div></template
     >
     <template #fixed-footer>
-      <base-button block class="mb-3" @click="onEnable">
+      <m-base-button block class="mb-3" @click="onEnable">
         {{ $t('views.requestcontacts.contactsCTA') }}
-      </base-button>
-      <base-button block view="secondary" @click="onCancel">
+      </m-base-button>
+      <m-base-button block view="secondary" @click="onCancel">
         {{ $t('common.notNowCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -36,13 +36,20 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { defineAsyncComponent } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useRecipientsStore } from '@/stores/recipients';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const route = useRoute();

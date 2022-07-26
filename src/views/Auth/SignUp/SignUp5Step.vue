@@ -4,8 +4,9 @@
     <template #subtitle> {{ $t('auth.signup.step4Description') }}</template>
     <template #content
       ><div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="birth"
+          class="m-base-input"
           mask="99.99.9999"
           :placeholder="$t('auth.signup.ddmmyyyy')"
           pattern="\d*"
@@ -17,25 +18,25 @@
           <template v-if="isClearBtnShown" #label>
             {{ $t('auth.signup.date') }}
           </template>
-          <template v-if="isClearBtnShown" #append>
+          <template v-if="isClearBtnShown" #actions>
             <i
               class="icon-transaction-small-reverted"
               @click="clearDate"
               @touchend="clearDate"
             />
           </template>
-        </base-input></div
+        </m-base-input></div
     ></template>
     <template #fixed-footer>
-      <base-button block :disabled="isDateInvalid" @click="nextStep">
+      <m-base-button block :disabled="isDateInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { BaseButton, BaseInput } from '@/components/ui';
+import { defineAsyncComponent } from 'vue';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { Route } from '@/router/types';
 import { ref } from 'vue-demi';
@@ -43,6 +44,18 @@ import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 const pStore = useProfileStore();
@@ -83,3 +96,9 @@ const nextStep = () => {
   });
 };
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+</style>

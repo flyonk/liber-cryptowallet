@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-if="true"
     :visible="true"
     severity="attention"
@@ -19,26 +19,37 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button class="btn mb-3" size="large" @click="goToLogin">
+        <m-base-button class="btn mb-3" size="large" @click="goToLogin">
           {{ $t('auth.signup.welcomeAuth.loginWithThisNumber') }}
-        </base-button>
-        <base-button
+        </m-base-button>
+        <m-base-button
           class="btn mb-3"
           size="large"
           view="secondary"
           @click="goBack"
         >
           {{ $t('auth.signup.welcomeAuth.goBack') }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const emits = defineEmits(['next', 'close']);
 const authStore = useAuthStore();
