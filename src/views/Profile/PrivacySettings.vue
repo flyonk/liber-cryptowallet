@@ -12,7 +12,7 @@
               <h3 class="title">
                 {{ $t('views.profile.profilePrivacy.marketingEmails') }}
               </h3>
-              <BaseSwitch
+              <MBaseSwitch
                 class="switch"
                 :model-value="_isEmail"
                 @update:model-value="handleEmailUpdate"
@@ -28,7 +28,7 @@
               <h3 class="title">
                 {{ $t('views.profile.profilePrivacy.marketingPushes') }}
               </h3>
-              <BaseSwitch
+              <MBaseSwitch
                 class="switch"
                 :model-value="_isPushNotification"
                 @update:model-value="handlePushesUpdate"
@@ -44,7 +44,7 @@
               <h3 class="title">
                 {{ $t('views.profile.profilePrivacy.social') }}
               </h3>
-              <BaseSwitch
+              <MBaseSwitch
                 class="switch"
                 :model-value="_isSocialMedia"
                 @update:model-value="handleSocialMediaUpdate"
@@ -61,12 +61,17 @@
 </template>
 
 <script setup lang="ts">
-import { BaseSwitch } from '@/components/ui';
+import { defineAsyncComponent, ref } from 'vue';
 import { useProfileStore } from '@/stores/profile';
-import { ref } from 'vue';
 import { onMounted } from 'vue-demi';
 
 import { TTopNavigation } from '@/components/ui';
+
+const MBaseSwitch = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseSwitch
+  );
+});
 
 const profileStore = useProfileStore();
 let _isEmail = ref(false);

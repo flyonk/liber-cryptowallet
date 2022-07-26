@@ -1,5 +1,5 @@
 <template>
-  <EnterVerificationCode
+  <enter-verification-code
     :text="text"
     :title="ctaTitle"
     left-icon-name="icon-app-navigation-close"
@@ -20,7 +20,7 @@
           {{ $t('views.passcodeEnter.currentPasscode') }}
         </p>
         <div class="passcode">
-          <base-verification-code-input
+          <m-base-verification-code-input
             type="password"
             :value="passcode"
             :fields="4"
@@ -33,23 +33,34 @@
     </template>
 
     <template #ctaBtn>
-      <base-button block :disabled="isDisabled" @click="onComplete">
+      <m-base-button block :disabled="isDisabled" @click="onComplete">
         {{ ctaBtnText }}
-      </base-button>
+      </m-base-button>
     </template>
-  </EnterVerificationCode>
+  </enter-verification-code>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { useRouter, useRoute } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseVerificationCodeInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseVerificationCodeInput
+  );
+});
 
 const router = useRouter();
 const mfaStore = useMfaStore();

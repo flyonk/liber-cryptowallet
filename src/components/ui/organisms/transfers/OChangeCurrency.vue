@@ -6,27 +6,31 @@
       @touchmove.prevent
       @scroll.prevent
     >
-      <div class="input-wrapper relative m-0">
-        <label class="change-from">
-          <p class="label">{{ $t('views.deposit.convert.convertExactly') }}</p>
-          <input
-            v-model="convertInfo.requestAmount"
-            autofocus
-            class="input"
-            inputmode="decimal"
-            pattern="[0-9]*"
-            type="number"
-            :readonly="isOneCoinEmpty"
-            @blur="onBlur"
-            @input="debounceChangeInfo('from')"
-          />
-          <select-coin-input
+      <m-base-input
+        v-model="convertInfo.requestAmount"
+        autofocus
+        class="base-input"
+        inputmode="decimal"
+        mode="decimal"
+        pattern="[0-9]*"
+        type="number"
+        :readonly="isOneCoinEmpty"
+        :min-fraction-digits="0"
+        :max-fraction-digits="10"
+        @blur="onBlur"
+        @input="debounceChangeInfo('from', $event)"
+      >
+        <template #append>{{
+          $t('views.deposit.convert.convertExactly')
+        }}</template>
+        <template #actions>
+          <o-select-coin-input
             :coins="fromCoins"
             :current-currency="currentSendFromCurrency"
             @on-select-coin="onSelectCoin($event, 'from')"
           />
-        </label>
-      </div>
+        </template>
+      </m-base-input>
       <div class="middle-info flex">
         <div v-if="isOneCoinEmpty" class="choose-coin">
           <img
@@ -72,38 +76,42 @@
             </p>
           </li>
         </ul>
-        <coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
+        <a-coin-switcher v-if="hasCoinReverse" @switch="swapCoins" />
       </div>
-      <div class="input-wrapper relative w-full mb-5">
-        <label class="change-from">
-          <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
-          <input
-            v-model="convertInfo.estimatedAmount"
-            class="input"
-            inputmode="decimal"
-            pattern="[0-9]*"
-            type="number"
-            :readonly="isOneCoinEmpty"
-            @blur="onBlur"
-            @input="debounceChangeInfo('to')"
-          />
-          <select-coin-input
+      <m-base-input
+        v-model="convertInfo.estimatedAmount"
+        class="base-input"
+        inputmode="decimal"
+        mode="decimal"
+        :min-fraction-digits="0"
+        :max-fraction-digits="10"
+        pattern="[0-9]*"
+        type="number"
+        :readonly="isOneCoinEmpty"
+        @blur="onBlur"
+        @input="debounceChangeInfo('to', $event)"
+      >
+        <template #append>{{
+          $t('views.deposit.convert.convertExactly')
+        }}</template>
+        <template #actions>
+          <o-select-coin-input
             :coins="toCoins"
             :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
-        </label>
-      </div>
-      <BaseButton
+        </template>
+      </m-base-input>
+      <m-base-button
         v-if="loading"
         block
         class="send-button"
         size="large"
         view="simple"
       >
-        <triple-dots-spinner />
-      </BaseButton>
-      <BaseButton
+        <a-tripple-dots-spinner />
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'refresh'"
         :disabled="preventConvert"
         block
@@ -113,8 +121,8 @@
         @click="onRefresh"
       >
         {{ $t('views.deposit.convert.refresh') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'preview'"
         :disabled="preventConvert"
         block
@@ -124,8 +132,8 @@
         @click="previewChangeInfo('from')"
       >
         {{ $t('transactions.convert.preview') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else
         :disabled="preventConvert"
         block
@@ -135,13 +143,20 @@
         @click="convertCurrency"
       >
         {{ $t('transactions.convert.convertNow') }} ({{ timer }}s)
-      </BaseButton>
+      </m-base-button>
     </div>
   </keep-alive>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
+import {
+  computed,
+  defineAsyncComponent,
+  onBeforeMount,
+  Ref,
+  ref,
+  watch,
+} from 'vue';
 import { debounce } from 'lodash';
 import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
@@ -159,10 +174,31 @@ import { TConvertData } from '@/applications/liber/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 
-import { BaseButton } from '@/components/ui';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
-import CoinSwitcher from '@/components/ui/atoms/coins/CoinSwitcher.vue';
-import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
+
+const ACoinSwitcher = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ACoinSwitcher
+  );
+});
+
+const ATrippleDotsSpinner = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ATrippleDotsSpinner
+  );
+});
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const errorsStore = useErrorsStore();
 const coinStore = useCoinsStore();
@@ -315,7 +351,17 @@ function changeInfoInterval() {
   loading.value = true;
 }
 
+const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
+  if (direction === 'from')
+    fundsStore.getConvertInfo.requestAmount = '' + event;
+  if (direction === 'to')
+    fundsStore.getConvertInfo.estimatedAmount = '' + event;
+
+  previewChangeInfo(direction);
+};
+
 async function previewChangeInfo(direction: 'from' | 'to') {
+  console.log('previewChangeInfo', convertInfo.value.requestAmount);
   componentState.value = 'send';
 
   try {
@@ -358,7 +404,8 @@ async function previewChangeInfo(direction: 'from' | 'to') {
   }
 }
 
-const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
+// const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
+const debounceChangeInfo = debounce(proxyPreviewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
   const mfaStore = useMfaStore();
@@ -454,42 +501,30 @@ const onSelectCoin = (coinInfo: ICoin, direction: 'from' | 'to') => {
 watch(isZeroValues, (val) => {
   if (val) componentState.value = 'preview';
 });
+
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const syncTest = (type: any, event: any) => {
+  console.log('syncTest', event);
+  if (type === 'from') {
+    convertInfo.value.requestAmount = event;
+    debounceChangeInfo(type);
+    return;
+  }
+  convertInfo.value.estimatedAmount = event;
+  debounceChangeInfo(type);
+};
 </script>
 
 <style lang="scss" scoped>
 .change-currency {
   width: 100%;
-}
 
-.change-from {
-  > .label {
-    position: absolute;
-    left: 17px;
-    top: 6px;
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 16px;
-    display: flex;
-    color: $color-brand-2-300;
+  > .send-button {
+    margin-top: 37px;
   }
 
-  > .input {
-    width: 100%;
-    height: 72px;
-    border: 1px solid $color-primary-100;
-    border-radius: 12px;
-    background: $color-white;
-    outline: none;
-    padding: 21px 130px 10px 10px;
-    font-weight: 500;
-    font-size: 20px;
-    line-height: 25px;
-    letter-spacing: -0.0045em;
-    color: $color-brand-550;
-
-    &:focus {
-      border: 1px solid $color-primary-500;
-    }
+  > .base-input {
+    height: 70px;
   }
 }
 

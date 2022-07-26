@@ -37,9 +37,9 @@
             <p class="name">
               {{ $t('transactions.statement') }}
             </p>
-            <base-button size="medium" view="flat">
+            <m-base-button size="medium" view="flat">
               {{ $t('transactions.download') }}
-            </base-button>
+            </m-base-button>
           </li>
 
           <li class="main-item">
@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
+import { computed, defineAsyncComponent, PropType } from 'vue';
 
 import {
   EDirection,
@@ -106,11 +106,16 @@ import {
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
-  BaseButton,
   TransactionIconWithStatus,
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 defineEmits(['copy']);
 const props = defineProps({

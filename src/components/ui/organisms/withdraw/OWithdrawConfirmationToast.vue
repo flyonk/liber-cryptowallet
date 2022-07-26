@@ -1,5 +1,5 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-bind="$attrs"
     :severity="'attention'"
     @update:visible="$emit('update:visible', $event)"
@@ -15,26 +15,38 @@
       </div>
     </template>
     <template #footer>
-      <base-button
+      <m-base-button
         class="confirmation-button"
         block
         size="large"
         @click="$emit('update:visible', false)"
       >
         {{ $t('views.withdraw.confirmation.button.no') }}
-      </base-button>
-      <base-button block size="large" view="secondary" @click="onContinue">
+      </m-base-button>
+      <m-base-button block size="large" view="secondary" @click="onContinue">
         {{ $t('views.withdraw.confirmation.button.yes') }}
-      </base-button>
+      </m-base-button>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script setup lang="ts">
+import { defineAsyncComponent } from 'vue';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
-import { BaseButton, BaseToast } from '@/components/ui';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const mfaStore = useMfaStore();
 const errorsStore = useErrorsStore();

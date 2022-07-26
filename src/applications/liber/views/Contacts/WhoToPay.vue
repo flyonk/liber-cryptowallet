@@ -4,9 +4,9 @@
     <h1 class="title">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
-    <BaseInput v-model="filterContacts" type="text">
+    <m-base-input v-model="filterContacts" type="text">
       <template #label> Name, @id, phone, email </template>
-    </BaseInput>
+    </m-base-input>
 
     <constacts-tab-switcher
       :liber-route="Route.PayRecipientsLiber"
@@ -18,13 +18,18 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { defineAsyncComponent, ref } from 'vue';
 
-import { BaseInput } from '@/components/ui';
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
+
+const MBaseInput = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseInput
+  );
+});
 
 const filterContacts = ref('');
 </script>
@@ -45,6 +50,10 @@ const filterContacts = ref('');
     line-height: 34px;
     letter-spacing: 0.0038em;
     margin-bottom: 24px;
+  }
+
+  > .base-input:deep {
+    margin-bottom: 16px;
   }
 }
 </style>

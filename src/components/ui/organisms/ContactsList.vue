@@ -18,19 +18,24 @@
         </li>
       </template>
     </ul>
-    <PhoneContactsAlphabet :active-letters="activeLetters" />
+    <a-phone-contacts-alphabet :active-letters="activeLetters" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { defineAsyncComponent, PropType } from 'vue';
 
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
-import PhoneContactsAlphabet from '@/components/ui/atoms/PhoneContactsAlphabet.vue';
 
 import { getContactInitials } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
+
+const APhoneContactsAlphabet = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.APhoneContactsAlphabet
+  );
+});
 
 const props = defineProps({
   contacts: {

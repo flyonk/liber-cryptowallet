@@ -40,9 +40,9 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="nextStep">
+      <m-base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -54,12 +54,18 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 
 import { useRouter } from 'vue-router';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const router = useRouter();
 

@@ -2,7 +2,7 @@
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ $t('views.kyc.kyc5step.haveAFinal') }}
     </template>
     <template #content>
@@ -13,25 +13,25 @@
               {{ documentSideLabel(side) }}
             </div>
             <img :src="image" alt="front" class="image" />
-            <base-button block view="secondary" @click="onScanAgain(side)">
+            <m-base-button block view="secondary" @click="onScanAgain(side)">
               {{ $t('views.kyc.kyc5step.scanAgain') }}
-            </base-button>
+            </m-base-button>
           </template>
         </div>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="onNext">
+      <m-base-button block class="footer-button" @click="onNext">
         {{ $t('views.kyc.kyc5step.upload') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
@@ -41,6 +41,18 @@ import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
+
+const ABaseProgressBar = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABaseProgressBar
+  );
+});
 
 const { t } = useI18n();
 

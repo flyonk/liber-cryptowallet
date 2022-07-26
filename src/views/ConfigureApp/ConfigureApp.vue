@@ -26,10 +26,10 @@
         {{ $t('configureApp.verifyIdentityMessage') }}
       </p>
     </template>
-    <template #fixed-footer>
-      <base-button block @click="nextStep">
+    <template #fixed-footer
+      ><m-base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -41,7 +41,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -50,10 +50,16 @@ import { useRouter, useRoute } from 'vue-router';
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+
+const MBaseButton = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseButton
+  );
+});
 
 const { tm } = useI18n();
 

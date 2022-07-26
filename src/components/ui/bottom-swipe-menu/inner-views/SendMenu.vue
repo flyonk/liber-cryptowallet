@@ -1,9 +1,10 @@
 <template>
   <ul class="send-menu">
     <template v-for="(item, id) in menuItems" :key="id">
-      <BottomSwipeMenuItem
+      <a-bottom-swipe-menu-item
         :icon="item.icon"
-        :text="getTitle(item)"
+        :text="$t('' + getTitle(item))"
+        show-menu-item
         @click="item.onClick"
       />
     </template>
@@ -11,22 +12,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { CouponRoutes } from '@/applications/coupons/router/types';
 
-import BottomSwipeMenuItem from '@/components/ui/atoms/BottomSwipeMenuItem.vue';
 import itemsList, {
   getFilteredItemsList,
   EAreaMenuItemVisible,
   IBottomSwipeMenuItem,
 } from '../BottomSwipeMenuList';
 
+const ABottomSwipeMenuItem = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.ABottomSwipeMenuItem
+  );
+});
+
 const route = useRoute();
 
 const menuItems = computed(() => {
-  const name = route.name;
+  const name = route.name as CouponRoutes;
 
   // apply list for coupons
   if (Object.values(CouponRoutes).includes(name)) {
@@ -38,7 +44,7 @@ const menuItems = computed(() => {
 });
 
 const getTitle = (item: IBottomSwipeMenuItem) => {
-  const name = route.name;
+  const name = route.name as CouponRoutes;
 
   // apply list for coupons
   if (Object.values(CouponRoutes).includes(name)) {
