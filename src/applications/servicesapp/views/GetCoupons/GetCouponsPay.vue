@@ -3,7 +3,10 @@
     @click:left-icon="$router.push({ name: ServicesRoutes.GetCouponsEmail })"
   >
     <template #top-right>
-      <span class="header-email">{{ $t('common.to') }}: {{ email }}</span>
+      <span class="header-email"
+        ><span style="text-transform: lowercase">{{ $t('common.to') }}</span
+        >: {{ email }}</span
+      >
     </template>
     <template #title>{{ $t('services.convert.title') }}</template>
     <template #content>
