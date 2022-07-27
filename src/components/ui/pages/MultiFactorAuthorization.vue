@@ -43,12 +43,13 @@
 <script lang="ts" setup>
 import { computed, defineAsyncComponent, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter, useRoute, RouteLocation } from 'vue-router';
+import { RouteLocation, useRoute, useRouter } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+import { AxiosError } from 'axios';
 
 const MBaseButton = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
@@ -63,6 +64,7 @@ const MBaseVerificationCodeInput = defineAsyncComponent(() => {
 });
 
 const router = useRouter();
+
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
@@ -115,17 +117,23 @@ const onComplete = async () => {
       mfaStore.hide();
       if (mfaStore.data?.successRoute) {
         const _route = mfaStore.data?.successRoute;
-        if (typeof _route === 'string') {
-          router.push({
-            name: _route,
-          });
-        } else {
-          router.push(_route as RouteLocation);
-        }
+
+        await router.push(_route as RouteLocation);
       }
-    } catch (err: Error | unknown) {
-      isCodeWrong.value = true;
-      isPasscodeWrong.value = true;
+    } catch (err: AxiosError | Error | unknown) {
+      const error = err as AxiosError;
+
+      if (error.response && error.response.status === 403) {
+        isCodeWrong.value = true;
+        isPasscodeWrong.value = true;
+      } else if (
+        error.response &&
+        error.response.data.message === 'insufficient funds'
+      ) {
+        mfaStore.setError(error.response);
+
+        mfaStore.hide();
+      }
     }
   }
 };
