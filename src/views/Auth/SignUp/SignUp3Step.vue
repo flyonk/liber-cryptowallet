@@ -33,7 +33,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { ref } from 'vue-demi';
 import { computed } from '@vue/reactivity';
 
@@ -42,23 +42,10 @@ import { useProfileStore } from '@/stores/profile';
 
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
-
-const MBaseSwitch = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseSwitch
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject('uiKit');
+const MBaseInput = (uiKit as any).MBaseInput;
+const MBaseSwitch = (uiKit as any).MBaseSwitch;
+const MBaseButton = (uiKit as any).MBaseButton;
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();

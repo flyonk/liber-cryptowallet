@@ -28,7 +28,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, onMounted } from 'vue';
+import { inject, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
@@ -37,11 +37,8 @@ import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject('uiKit');
+const MBaseButton = (uiKit as any).MBaseButton;
 
 const router = useRouter();
 

@@ -38,7 +38,7 @@ import {
   onBeforeUnmount,
   ref,
   computed,
-  defineAsyncComponent,
+  inject,
 } from 'vue';
 
 //TODO: use profile store instead
@@ -58,12 +58,10 @@ import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.v
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
 import MBrowserStub from '@/components/ui/molecules/MBrowserStub.vue';
 
+const uiKit = inject('uiKit');
+const AOfflineBundler = (uiKit as any).AOfflineBundler;
+
 // TODO:[UIKIT] change bundle-title with title in props
-const AOfflineBundler = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AOfflineBundler
-  );
-});
 
 const { isOffline } = useCheckOffline();
 
