@@ -30,7 +30,7 @@ import {
   ConvertTransactionItem,
   ExternalTransactionItem,
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  TransferTransactionItem,
+  // TransferTransactionItem,
 } from '@/components/ui/molecules/TransactionListItem';
 
 const MTransferTransactionItem = defineAsyncComponent(() => {

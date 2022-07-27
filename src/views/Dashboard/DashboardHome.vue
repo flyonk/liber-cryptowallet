@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 
@@ -68,11 +68,8 @@ import { TTopNavigation } from '@/components/ui';
 
 import { COUPONS_ENABLED } from '@/constants';
 
-const AKycStatusBadge = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AKycStatusBadge
-  );
-});
+const uiKit = inject('uiKit');
+const AKycStatusBadge = (uiKit as any).AKycStatusBadge;
 
 const { tm } = useI18n();
 const uiStore = useUIStore();

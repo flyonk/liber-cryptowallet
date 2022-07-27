@@ -21,6 +21,8 @@ import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
 
+const uiKit = require(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`);
+
 axiosInterceptor();
 
 const app = createApp(App)
@@ -42,6 +44,9 @@ app.component('PInputNumber', PInputNumber);
 app.component('PSwitch', PSwitch);
 
 app.directive('tooltip', PTooltip);
+
+app.provide('uiKit', uiKit);
+
 appStateListen();
 
 router.isReady().then(() => {
