@@ -38,7 +38,7 @@ const filterContacts = ref('');
 .who-topay {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 96px);
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;

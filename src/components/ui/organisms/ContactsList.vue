@@ -62,8 +62,10 @@ const scrollListHandle = () => {
   document?.activeElement?.blur();
 };
 
-const handleLetterClick = (letter: any) => {
-  location.hash = '#letter' + letter;
+//TODO: allow scrolling up, since now all keys are in the same position due to position:sticky
+const handleLetterClick = (letter: string) => {
+  const anchor = document.getElementById('letter' + letter);
+  anchor?.scrollIntoView({ behavior: 'smooth' });
 };
 
 defineEmits(['contactClick']);
@@ -72,8 +74,8 @@ defineEmits(['contactClick']);
 <style lang="scss" scoped>
 .main-list {
   width: 100%;
+  height: 100%;
   overflow: hidden;
-  padding-bottom: 95px;
   position: relative;
 }
 
@@ -106,7 +108,6 @@ defineEmits(['contactClick']);
   position: sticky;
   top: 0;
   background-color: white;
-  scroll-margin-top: 22px;
   width: 20px;
 }
 </style>
