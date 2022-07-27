@@ -144,6 +144,22 @@
       >
         {{ $t('transactions.convert.convertNow') }} ({{ timer }}s)
       </m-base-button>
+      <m-base-toast
+        :visible="isMfaErrorExists"
+        severity="error"
+        @update:visible="setToastState"
+      >
+        <template #header>
+          <div class="success-header font-weight--medium text--title-3">
+            {{ $t('transactions.convert.convertFailTitle') }}
+          </div>
+        </template>
+        <template #description>
+          <div class="success-description text--body">
+            {{ mfaErrorMessage }}
+          </div>
+        </template>
+      </m-base-toast>
     </div>
   </keep-alive>
 </template>
@@ -200,6 +216,12 @@ const MBaseInput = defineAsyncComponent(() => {
   );
 });
 
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
+
 const errorsStore = useErrorsStore();
 const coinStore = useCoinsStore();
 const fundsStore = useFundsStore();
@@ -218,6 +240,7 @@ defineProps({
 const toast = useToast();
 const { tm } = useI18n();
 const route = useRoute();
+const mfaStore = useMfaStore();
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -229,6 +252,14 @@ const startTimer = ref(0) as Ref<number>;
 
 const convertInfo = computed(() => fundsStore.getConvertInfo);
 const convert = computed(() => fundsStore.getConvertFunds);
+const isMfaErrorExists = computed(() => mfaStore.existsError);
+const mfaErrorMessage = computed(() => {
+  if (mfaStore.errorData?.data.message === 'insufficient funds') {
+    return tm('transactions.convert.insufficientfunds');
+  }
+
+  return tm('transactions.convert.unhandledError');
+});
 
 const allCoins = ref([]) as Ref<ICoin[]>;
 
@@ -310,6 +341,10 @@ onBeforeMount(async () => {
 
   fundsStore.setCrypto(emptyCryptoState.value, 'to');
 });
+
+function setToastState() {
+  mfaStore.setError(null);
+}
 
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
@@ -408,7 +443,6 @@ async function previewChangeInfo(direction: 'from' | 'to') {
 const debounceChangeInfo = debounce(proxyPreviewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
-  const mfaStore = useMfaStore();
   mfaStore.show({
     button: 'transactions.convertTransaction',
     successRoute: Route.DashboardHome,

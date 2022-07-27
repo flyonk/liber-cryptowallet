@@ -215,6 +215,8 @@
     "convert": {
       "title": "Convert Funds",
       "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "unhandledError": "Unhandled error is occurred when converting funds",
+      "convertFailTitle": "Convert funds error",
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
