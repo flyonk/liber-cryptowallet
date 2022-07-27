@@ -18,7 +18,10 @@
         </li>
       </template>
     </ul>
-    <a-phone-contacts-alphabet :active-letters="activeLetters" />
+    <a-phone-contacts-alphabet
+      :active-letters="activeLetters"
+      @click:letter="handleLetterClick"
+    />
   </div>
 </template>
 
@@ -59,6 +62,10 @@ const scrollListHandle = () => {
   document?.activeElement?.blur();
 };
 
+const handleLetterClick = (letter: any) => {
+  location.hash = '#letter' + letter;
+};
+
 defineEmits(['contactClick']);
 </script>
 
@@ -85,7 +92,6 @@ defineEmits(['contactClick']);
   display: flex;
   margin-bottom: 24px;
   position: relative;
-  z-index: 2;
 }
 
 .contact-letter {
@@ -100,7 +106,7 @@ defineEmits(['contactClick']);
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 1;
+  scroll-margin-top: 22px;
   width: 20px;
 }
 </style>
