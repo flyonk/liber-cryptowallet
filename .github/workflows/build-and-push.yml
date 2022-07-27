@@ -48,11 +48,6 @@ jobs:
           --set image.tag=${{ steps.version.outputs.tag }}
       - name: Run autotests from liber-app-autotests
         run: |
-          curl \
-          -X POST \
-          -H "Accept: application/vnd.github+json" \
-          -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
-          https://api.github.com/repos/cryptowize-tech/liber-app-autotests/actions/workflows/autotest.yml/dispatches \
-          -d '{"ref":"main","inputs":{"baseApiUrl":"https://api.dev.liber.casa/"}}'
+          sleep 60 && curl -X POST -H "Accept: application/vnd.github+json" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/cryptowize-tech/liber-app-autotests/actions/workflows/autotest.yml/dispatches -d '{"ref":"main","inputs":{"baseApiUrl":"https://api.dev.liber.casa/"}}'
 
 
