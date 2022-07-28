@@ -664,6 +664,7 @@
       "maxAmount": "The maximum amount is"
     },
     "getcrypto": {
+      "title": "Enter amount of euro to get crypto for",
       "convertNow": "Checkout with Liber Save",
       "success": "Your purchase was successful",
       "successDescription": "It will be avaliable in your wallet instantly."
