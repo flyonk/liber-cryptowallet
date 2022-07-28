@@ -69,14 +69,14 @@
               </div>
             </li>
           </ul>
-          <m-base-button
-            class="data-adder"
-            view="flat"
-            icon-left="icon-plus"
-            @click="$router.push({ name: Route.ProfileAddNewContactData })"
-          >
-            + {{ $t('views.newcontact.additionalphone') }}
-          </m-base-button>
+          <!--          <m-base-button-->
+          <!--            class="data-adder"-->
+          <!--            view="flat"-->
+          <!--            icon-left="icon-plus"-->
+          <!--            @click="$router.push({ name: Route.ProfileAddNewContactData })"-->
+          <!--          >-->
+          <!--            + {{ $t('views.newcontact.additionalphone') }}-->
+          <!--          </m-base-button>-->
         </div>
       </div>
     </template>
@@ -93,15 +93,16 @@ import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
+
 const { tm } = useI18n();
 const pStore = useProfileStore();
 const kycStore = useKYCStore();
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+// const MBaseButton = defineAsyncComponent(() => {
+//   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+//     (lib) => lib.MBaseButton
+//   );
+// });
 
 const MKycStatusCard = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
