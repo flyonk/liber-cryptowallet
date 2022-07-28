@@ -222,8 +222,8 @@ const preventConvert = computed(() => {
 const amountLimitsIsOk = computed(() => {
   const _num = Number(fundsStore.convertInfo.requestAmount);
   const minIsOk =
-    props.minAmount === null || _num > props.minAmount || _num === 0;
-  const maxIsOk = props.maxAmount === null || _num < props.maxAmount;
+    props.minAmount === null || _num >= props.minAmount || _num === 0;
+  const maxIsOk = props.maxAmount === null || _num <= props.maxAmount;
   return minIsOk && maxIsOk;
 });
 

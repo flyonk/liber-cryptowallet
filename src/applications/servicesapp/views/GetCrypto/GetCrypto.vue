@@ -6,7 +6,7 @@
     <template #content>
       <div class="send-to">
         <div class="sendto-main">
-          <o-change-currency />
+          <o-change-currency :min-amount="50" :max-amount="1000" />
         </div>
       </div>
     </template>
