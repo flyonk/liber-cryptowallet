@@ -33,13 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import {
-  onBeforeMount,
-  onBeforeUnmount,
-  ref,
-  computed,
-  inject,
-} from 'vue';
+import { onBeforeMount, onBeforeUnmount, ref, computed, inject } from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
