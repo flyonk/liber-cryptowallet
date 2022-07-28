@@ -27,13 +27,13 @@
               {{ $t('views.kyc.kyc5step.passport') }}
             </div>
             <img :src="getImage.front" alt="passport" class="image" />
-            <base-button
+            <m-base-button
               block
               view="secondary"
               @click="onScanAgain(EDocumentSide.front)"
             >
               {{ $t('views.kyc.kyc5step.scanAgain') }}
-            </base-button>
+            </m-base-button>
           </div>
         </template>
       </div>
