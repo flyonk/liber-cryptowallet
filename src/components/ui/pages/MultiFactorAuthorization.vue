@@ -70,7 +70,6 @@ const pStore = useProfileStore();
 const { tm } = useI18n();
 
 // hook to change history for back action possible
-router.push({ hash: '#mfa' });
 
 const oneTimeCode = ref('');
 const passcode = ref('');
