@@ -16,10 +16,10 @@ import { useAppOptionsStore } from '@/stores/appOptions';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { AMainPageLoader } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { AMainPageLoader } = uiKit!;
 
 const { stylePaddings } = useSafeAreaPaddings();
 

@@ -59,10 +59,10 @@ import { BaseCountryPhoneInput } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const emits = defineEmits([
   'handleSelectCountry',

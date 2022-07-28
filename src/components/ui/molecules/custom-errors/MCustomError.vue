@@ -46,10 +46,10 @@
 import { computed, inject } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { ATrippleDotsSpinner, MBaseButton, MBaseToast } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton, MBaseToast } = uiKit!;
 
 const { loading, handleReconnect } = useCheckOffline();
 

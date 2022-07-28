@@ -42,10 +42,10 @@ import { Route } from '@/router/types';
 import { PropType } from 'vue-demi';
 import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseToast } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseToast } = uiKit!;
 
 defineEmits(['back']);
 const props = defineProps({

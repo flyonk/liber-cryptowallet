@@ -57,10 +57,10 @@ import { PropType } from 'vue-demi';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { ICountryInformation } from '@/types/country-phone-types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { ABaseSearchInput, MBaseBottomSheetV } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABaseSearchInput, MBaseBottomSheetV } = uiKit!;
 
 const props = defineProps({
   entity: {

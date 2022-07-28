@@ -43,10 +43,10 @@
 <script lang="ts" setup>
 import { computed, inject, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseToast, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit!;
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);

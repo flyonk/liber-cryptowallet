@@ -71,15 +71,15 @@ import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
+const uiKit = inject(uiKitKey);
 const {
   MBaseButton,
   MBaseCountdown,
   MTopNavigation,
   MBaseVerificationCodeInput,
-} = uiKit as any;
+} = uiKit!;
 
 const errorsStore = useErrorsStore();
 const { t } = useI18n();

@@ -32,11 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { EUiKit } from '@/types/uiKit';
 import { inject } from 'vue';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MTopNavigation } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MTopNavigation } = uiKit!;
 
 defineProps({
   leftIconName: {
