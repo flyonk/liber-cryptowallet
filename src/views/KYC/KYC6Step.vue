@@ -43,7 +43,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 
@@ -52,18 +52,10 @@ import { useProfileStore } from '@/stores/profile';
 import { IClaim } from '@/models/profile/claim';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const ABaseProgressBar = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressBar
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ABaseProgressBar, MBaseButton } = uiKit as any;
 
 const emit = defineEmits(['prev', 'next']);
 

@@ -173,7 +173,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
+import { onMounted, ref, computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -188,12 +188,10 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import { TTopNavigation } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
+import { EUiKit } from '@/types/uiKit';
 
-const AContactInitials = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AContactInitials
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { AContactInitials } = uiKit as any;
 
 const route = useRouter();
 const authStore = useAuthStore();

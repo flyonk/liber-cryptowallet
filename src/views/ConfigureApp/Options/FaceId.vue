@@ -24,7 +24,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAppOptionsStore } from '@/stores/appOptions';
@@ -34,12 +34,10 @@ import { TTopNavigation } from '@/components/ui';
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
 import { verifyIdentity } from '@/helpers/identification';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseButton } = uiKit as any;
 
 const router = useRouter();
 

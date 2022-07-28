@@ -31,22 +31,14 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseToast, MBaseButton } = uiKit as any;
 
 const mfaStore = useMfaStore();
 const errorsStore = useErrorsStore();

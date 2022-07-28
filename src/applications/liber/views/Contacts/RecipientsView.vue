@@ -35,20 +35,18 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
-
 import { Route } from '@/router/types';
+import { EUiKit } from '@/types/uiKit';
+
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseInput } = uiKit as any;
 
 const filterContacts = ref('');
 </script>

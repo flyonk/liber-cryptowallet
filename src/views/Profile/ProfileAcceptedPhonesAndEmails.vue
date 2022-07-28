@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { TTopNavigation } from '@/components/ui';
@@ -93,21 +93,13 @@ import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
+import { EUiKit } from '@/types/uiKit';
 const { tm } = useI18n();
 const pStore = useProfileStore();
 const kycStore = useKYCStore();
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MKycStatusCard = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MKycStatusCard
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MKycStatusCard, MBaseButton } = uiKit as any;
 
 const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);

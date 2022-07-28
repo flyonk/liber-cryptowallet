@@ -19,14 +19,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  defineAsyncComponent,
-  onActivated,
-  onMounted,
-  ref,
-  Ref,
-} from 'vue';
+import { computed, inject, onActivated, onMounted, ref, Ref } from 'vue';
 import { CameraPreviewOptions } from '@/helpers/camera/definitions';
 import { CameraPreview } from '@/helpers/camera/CameraPreview';
 import { Device } from '@capacitor/device';
@@ -39,18 +32,10 @@ import { TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';
+import { EUiKit } from '@/types/uiKit';
 
-const ABaseProgressBar = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressBar
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ABaseProgressBar, MBaseButton } = uiKit as any;
 
 const emit = defineEmits(['next', 'prev']);
 

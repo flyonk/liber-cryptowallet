@@ -23,16 +23,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, PropType, ref } from 'vue';
+import { computed, inject, PropType, ref } from 'vue';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
+import { EUiKit } from '@/types/uiKit';
 
-const MSelectCoin = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MSelectCoin
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MSelectCoin } = uiKit as any;
 
 defineEmits(['back-button', 'select-coin']);
 

@@ -120,7 +120,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 
 import OSendCurrency from '@/components/ui/organisms/transfers/OSendCurrency.vue';
 import { TTopNavigation } from '@/components/ui';
@@ -135,24 +135,10 @@ import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
 import { STATIC_BASE_URL } from '@/constants';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const AContactInitials = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AContactInitials
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { AContactInitials, MBaseButton, MBaseToast } = uiKit as any;
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);

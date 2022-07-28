@@ -2,6 +2,7 @@ import { createApp } from 'vue';
 import App from './App.vue';
 import router from './router';
 import './registerServiceWorker';
+import { EUiKit } from './types/uiKit';
 
 import PrimeVue from 'primevue/config';
 import ToastService from 'primevue/toastservice';
@@ -45,7 +46,7 @@ app.component('PSwitch', PSwitch);
 
 app.directive('tooltip', PTooltip);
 
-app.provide('uiKit', uiKit);
+app.provide(EUiKit.uiKit, uiKit);
 
 appStateListen();
 

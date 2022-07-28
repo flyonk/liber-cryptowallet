@@ -41,20 +41,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseToast, MBaseButton } = uiKit as any;
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);

@@ -36,20 +36,12 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onMounted, ref } from 'vue';
+import { computed, inject, onMounted, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseToast, MBaseButton } = uiKit as any;
 
 const emits = defineEmits(['next', 'close']);
 const authStore = useAuthStore();

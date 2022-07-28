@@ -46,7 +46,7 @@
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, computed, defineAsyncComponent } from 'vue';
+import { onBeforeMount, computed, inject } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
@@ -56,12 +56,10 @@ import { useProfileStore } from '@/stores/profile';
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
+import { EUiKit } from '@/types/uiKit';
 
-const AContactInitials = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AContactInitials
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { AContactInitials } = uiKit as any;
 
 const profileStore = useProfileStore();
 const toast = useToast();

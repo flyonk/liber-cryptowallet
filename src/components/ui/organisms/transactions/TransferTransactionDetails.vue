@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, PropType } from 'vue';
+import { computed, inject, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -106,12 +106,10 @@ import {
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseButton } = uiKit as any;
 
 const { tm } = useI18n();
 

@@ -7,16 +7,9 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-
-const MQuestionWithAnswers = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MQuestionWithAnswers
-  );
-});
-
-const { tm } = useI18n();
+import { EUiKit } from '@/types/uiKit';
 
 export type TDictionaryItem = {
   id: number | string;
@@ -29,6 +22,11 @@ export type TDictionary = {
   question: TDictionaryItem;
   answers: TDictionaryItem[];
 };
+
+const uiKit = inject(EUiKit.uiKit);
+const { MQuestionWithAnswers } = uiKit as any;
+
+const { tm } = useI18n();
 
 defineEmits(['select']);
 

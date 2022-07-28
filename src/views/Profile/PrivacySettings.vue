@@ -61,17 +61,15 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 import { useProfileStore } from '@/stores/profile';
 import { onMounted } from 'vue-demi';
 
 import { TTopNavigation } from '@/components/ui';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseSwitch = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseSwitch
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseSwitch } = uiKit as any;
 
 const profileStore = useProfileStore();
 let _isEmail = ref(false);

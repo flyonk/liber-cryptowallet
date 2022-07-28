@@ -37,26 +37,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 import { computed } from '@vue/reactivity';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MTopNavigation = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MTopNavigation
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseInput, MBaseButton, MTopNavigation } = uiKit as any;
 
 const isClearBtnShown = ref(false);
 

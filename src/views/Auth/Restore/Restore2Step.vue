@@ -68,28 +68,14 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, Ref, ref } from 'vue';
+import { inject, Ref, ref } from 'vue';
 
 import { BasePasscode } from '@/components/ui';
 import { EState } from '@/types/base-component';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
-
-const MTopNavigation = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MTopNavigation
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseButton, MBaseToast, MTopNavigation } = uiKit as any;
 
 const emit = defineEmits(['prev', 'next']);
 

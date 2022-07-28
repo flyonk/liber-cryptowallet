@@ -29,7 +29,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, inject } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 
@@ -41,18 +41,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const ABaseProgressBar = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressBar
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ABaseProgressBar, MBaseButton } = uiKit as any;
 
 const { t } = useI18n();
 

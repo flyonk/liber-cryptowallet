@@ -43,27 +43,13 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, inject } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
+import { EUiKit } from '@/types/uiKit';
 
-const ATrippleDotsSpinner = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ATrippleDotsSpinner
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ATrippleDotsSpinner, MBaseButton, MBaseToast } = uiKit as any;
 
 const { loading, handleReconnect } = useCheckOffline();
 

@@ -27,19 +27,11 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { EUiKit } from '@/types/uiKit';
+import { inject } from 'vue';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MTopNavigation = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MTopNavigation
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MTopNavigation, MBaseButton } = uiKit as any;
 
 defineEmits(['next', 'prev']);
 </script>

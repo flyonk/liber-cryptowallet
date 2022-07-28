@@ -39,7 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, ref, onBeforeMount, Ref } from 'vue';
+import { ref, onBeforeMount, Ref, inject } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
@@ -50,12 +50,10 @@ import { Route } from '@/router/types';
 
 import { TTopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseButton } = uiKit as any;
 
 const router = useRouter();
 

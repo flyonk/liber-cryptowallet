@@ -109,14 +109,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  defineAsyncComponent,
-  onBeforeMount,
-  Ref,
-  ref,
-  watch,
-} from 'vue';
+import { computed, inject, onBeforeMount, Ref, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
 import { useI18n } from 'vue-i18n';
@@ -134,28 +127,14 @@ import { TConvertCouponData } from '@/applications/servicesapp/models/funds/conv
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
+import { EUiKit } from '@/types/uiKit';
 
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
 
-const ATrippleDotsSpinner = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ATrippleDotsSpinner
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ATrippleDotsSpinner, MBaseButton, MBaseInput } = uiKit as any;
 
 const errorsStore = useErrorsStore();
 

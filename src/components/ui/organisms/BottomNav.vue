@@ -19,7 +19,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, Ref, ref } from 'vue';
+import { computed, inject, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
@@ -28,12 +28,10 @@ import { useRouter, useRoute } from 'vue-router';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 import { useUIStore } from '@/stores/ui';
+import { EUiKit } from '@/types/uiKit';
 
-const MBottomNav = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBottomNav
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBottomNav } = uiKit as any;
 
 const uiStore = useUIStore();
 

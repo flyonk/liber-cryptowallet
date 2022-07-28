@@ -32,13 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { EUiKit } from '@/types/uiKit';
+import { inject } from 'vue';
 
-const MTopNavigation = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MTopNavigation
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MTopNavigation } = uiKit as any;
 
 defineProps({
   leftIconName: {

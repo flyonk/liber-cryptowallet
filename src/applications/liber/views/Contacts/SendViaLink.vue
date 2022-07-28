@@ -24,20 +24,12 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { TTopNavigation } from '@/components/ui';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseInput, MBaseButton } = uiKit as any;
 </script>
 
 <style lang="scss" scoped>

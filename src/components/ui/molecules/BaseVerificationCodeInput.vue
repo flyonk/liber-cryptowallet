@@ -40,16 +40,14 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, Ref, ref, watch } from 'vue';
+import { computed, inject, Ref, ref, watch } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseButton } = uiKit as any;
 
 const props = defineProps({
   type: {

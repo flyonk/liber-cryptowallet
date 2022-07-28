@@ -69,7 +69,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref, watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 import { useRouter } from 'vue-router';
@@ -81,18 +81,10 @@ import { useProfileStore } from '@/stores/profile';
 import { STATIC_BASE_URL } from '@/constants';
 
 import InputSwitch from 'primevue/inputswitch';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseToast, MBaseButton } = uiKit as any;
 
 const router = useRouter();
 

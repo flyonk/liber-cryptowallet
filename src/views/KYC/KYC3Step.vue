@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
@@ -33,18 +33,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
+import { EUiKit } from '@/types/uiKit';
 
-const ABaseProgressBar = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressBar
-  );
-});
-
-const ABaseRadioSelect = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseRadioSelect
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ABaseProgressBar, ABaseRadioSelect } = uiKit as any;
 
 const emit = defineEmits(['next']);
 

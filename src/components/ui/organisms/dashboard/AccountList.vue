@@ -39,43 +39,22 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  ComputedRef,
-  defineAsyncComponent,
-  PropType,
-  ref,
-} from 'vue';
+import { computed, ComputedRef, inject, PropType, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { getSymbolByCode } from '@/helpers/currency';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
+import { EUiKit } from '@/types/uiKit';
 
-const ABaseSearchInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseSearchInput
-  );
-});
-
-const MAllAccountsFiatSum = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MAllAccountsFiatSum
-  );
-});
-
-const MBaseAccount = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseAccount
-  );
-});
-
-const MBaseBottomSheetV = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseBottomSheetV
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const {
+  ABaseSearchInput,
+  MAllAccountsFiatSum,
+  MBaseAccount,
+  MBaseBottomSheetV,
+} = uiKit as any;
 
 const accountStore = useAccountStore();
 const router = useRouter();

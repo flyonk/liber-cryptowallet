@@ -18,18 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseInput } = uiKit as any;
 
 const filterContacts = ref('');
 </script>

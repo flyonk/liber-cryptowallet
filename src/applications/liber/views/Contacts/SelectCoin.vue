@@ -28,29 +28,21 @@
 
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router';
-import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
+import { EUiKit } from '@/types/uiKit';
 
 const router = useRouter();
 const route = useRoute();
 const fundsStore = useFundsStore();
 const coinsStore = useCoinsStore();
 
-const ABackHistoryBtn = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABackHistoryBtn
-  );
-});
-
-const MSelectCoin = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MSelectCoin
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { ABackHistoryBtn, MSelectCoin } = uiKit as any;
 
 onBeforeMount(async () => {
   await coinsStore.fetchCoins();

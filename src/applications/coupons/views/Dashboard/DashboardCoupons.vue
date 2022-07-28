@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onBeforeMount, ref } from 'vue';
+import { computed, inject, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { CouponRoutes } from '@/applications/coupons/router/types';
@@ -74,15 +74,14 @@ import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
 // import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
+import { EUiKit } from '@/types/uiKit';
 import { useRouter } from 'vue-router';
 
-import { MDashboardCoinInfo, TransactionsList } from '@/components/ui';
+import { TransactionsList, MDashboardCoinInfo } from '@/components/ui';
 import { DashboardBanner } from '@/applications/coupons/components/ui';
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseButton } = uiKit as any;
 
 const couponsStore = useCouponsStore();
 const uiStore = useUIStore();

@@ -9,13 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { EUiKit } from '@/types/uiKit';
+import { inject } from 'vue';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseInput } = uiKit as any;
 
 defineEmits(['click']);
 </script>

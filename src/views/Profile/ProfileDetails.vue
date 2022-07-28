@@ -51,25 +51,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 import { formatToNormalDate } from '@/helpers/datetime';
 import { Route } from '@/router/types';
 
 import { TTopNavigation } from '@/components/ui';
+import { EUiKit } from '@/types/uiKit';
 
-const AContactInitials = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AContactInitials
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { AContactInitials, MBaseButton } = uiKit as any;
 
 const profileStore = useProfileStore();
 

@@ -61,25 +61,17 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 
 import OChangeCurrency from '@/components/ui/organisms/transfers/OChangeCurrency.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useRouter } from 'vue-router';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseToast, MBaseButton } = uiKit as any;
 
 const router = useRouter();
 const fundsStore = useFundsStore();

@@ -115,14 +115,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  ComputedRef,
-  defineAsyncComponent,
-  onBeforeMount,
-  Ref,
-  ref,
-} from 'vue';
+import { computed, ComputedRef, inject, onBeforeMount, Ref, ref } from 'vue';
 
 import { useRouter } from 'vue-router';
 
@@ -137,15 +130,13 @@ import { EKYCStatus } from '@/models/profile/profile';
 import { STATIC_BASE_URL, TRANSACTIONS_ENABLED } from '@/constants';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
+import { EUiKit } from '@/types/uiKit';
 
 import { TransactionsList, AccountListBottomSheet } from '@/components/ui';
 import StoriesSwiper from '@/components/ui/organisms/dashboard/OStoriesSwiper.vue';
 
-const MDashboardCoinInfo = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MDashboardCoinInfo
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MDashboardCoinInfo } = uiKit as any;
 
 const VerificationStatus = ref(EKYCStatus.success);
 

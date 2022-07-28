@@ -41,7 +41,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, ref, watch } from 'vue';
+import { computed, inject, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { RouteLocation, useRoute, useRouter } from 'vue-router';
 
@@ -50,18 +50,10 @@ import { useProfileStore } from '@/stores/profile';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 import { AxiosError } from 'axios';
+import { EUiKit } from '@/types/uiKit';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseVerificationCodeInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseVerificationCodeInput
-  );
-});
+const uiKit = inject(EUiKit.uiKit);
+const { MBaseVerificationCodeInput, MBaseButton } = uiKit as any;
 
 const router = useRouter();
 
