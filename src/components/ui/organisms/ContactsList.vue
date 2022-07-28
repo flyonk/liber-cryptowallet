@@ -18,7 +18,10 @@
         </li>
       </template>
     </ul>
-    <a-phone-contacts-alphabet :active-letters="activeLetters" />
+    <a-phone-contacts-alphabet
+      :active-letters="activeLetters"
+      @click:letter="handleLetterClick"
+    />
   </div>
 </template>
 
@@ -33,6 +36,7 @@ import { Contact } from '@/types/contacts';
 import { EUiKit } from '@/types/uiKit';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { APhoneContactsAlphabet } = uiKit as any;
 
 const props = defineProps({
@@ -57,14 +61,20 @@ const scrollListHandle = () => {
   document?.activeElement?.blur();
 };
 
+//TODO: allow scrolling up, since now all keys are in the same position due to position:sticky
+const handleLetterClick = (letter: string) => {
+  const anchor = document.getElementById('letter' + letter);
+  anchor?.scrollIntoView({ behavior: 'smooth' });
+};
+
 defineEmits(['contactClick']);
 </script>
 
 <style lang="scss" scoped>
 .main-list {
   width: 100%;
+  height: 100%;
   overflow: hidden;
-  padding-bottom: 95px;
   position: relative;
 }
 
@@ -83,7 +93,6 @@ defineEmits(['contactClick']);
   display: flex;
   margin-bottom: 24px;
   position: relative;
-  z-index: 2;
 }
 
 .contact-letter {
@@ -98,7 +107,6 @@ defineEmits(['contactClick']);
   position: sticky;
   top: 0;
   background-color: white;
-  z-index: 1;
   width: 20px;
 }
 </style>

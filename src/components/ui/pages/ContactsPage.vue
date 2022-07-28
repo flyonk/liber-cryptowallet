@@ -2,6 +2,7 @@
   <template v-if="filteredContacts?.length">
     <contacts-list
       :contacts="filteredContacts"
+      :class="{ 'with-payment-option': showPaymentOptions }"
       @contact-click="handleContactClick"
     />
     <template v-if="props.showPaymentOptions">
@@ -118,5 +119,9 @@ const filteredContacts = computed(() => {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
+}
+
+.with-payment-option {
+  margin-bottom: 20px;
 }
 </style>

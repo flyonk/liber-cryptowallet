@@ -69,14 +69,14 @@
               </div>
             </li>
           </ul>
-          <m-base-button
-            class="data-adder"
-            view="flat"
-            icon-left="icon-plus"
-            @click="$router.push({ name: Route.ProfileAddNewContactData })"
-          >
-            + {{ $t('views.newcontact.additionalphone') }}
-          </m-base-button>
+          <!--          <m-base-button-->
+          <!--            class="data-adder"-->
+          <!--            view="flat"-->
+          <!--            icon-left="icon-plus"-->
+          <!--            @click="$router.push({ name: Route.ProfileAddNewContactData })"-->
+          <!--          >-->
+          <!--            + {{ $t('views.newcontact.additionalphone') }}-->
+          <!--          </m-base-button>-->
         </div>
       </div>
     </template>
@@ -99,7 +99,11 @@ const pStore = useProfileStore();
 const kycStore = useKYCStore();
 
 const uiKit = inject(EUiKit.uiKit);
-const { MKycStatusCard, MBaseButton } = uiKit as any;
+const {
+  MKycStatusCard,
+  // MBaseButton
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+} = uiKit as any;
 
 const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);

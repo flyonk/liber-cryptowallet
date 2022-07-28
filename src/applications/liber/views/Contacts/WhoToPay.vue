@@ -27,6 +27,7 @@ import { Route } from '@/router/types';
 import { EUiKit } from '@/types/uiKit';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { MBaseInput } = uiKit as any;
 
 const filterContacts = ref('');
@@ -36,7 +37,7 @@ const filterContacts = ref('');
 .who-topay {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 96px);
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;

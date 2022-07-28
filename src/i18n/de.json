@@ -89,7 +89,10 @@
       "step4Description": "To keep your account safe, we need to make sure it’s you!",
       "step5Title": "When were you born?",
       "step5BirthLabel": "Date of birth",
-      "step5Placeholder": "DD/MM/YYYY"
+      "step5Placeholder": "DD/MM/YYYY",
+      "suspendedScreenDescription": "To protect your account, we've suspended all withdrawal operation for 24h.",
+      "suspendedScreenTitle": "The withdrawal operations suspended",
+      "suspendedScreenBtn": "Got It"
     },
     "signup": {
       "step1Title": "Enter phone number",
@@ -290,7 +293,7 @@
       "aboutLiber": "Liber app protects your withdrawals and account"
     },
     "newcontact": {
-      "additionalphone": "Additional phone or email"
+      "additionalphone": "Add phone or email"
     },
     "requestcontacts": {
       "title": "Find your friends",

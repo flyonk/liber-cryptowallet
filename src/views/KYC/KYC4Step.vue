@@ -25,7 +25,7 @@ import { CameraPreview } from '@/helpers/camera/CameraPreview';
 import { Device } from '@capacitor/device';
 import { useI18n } from 'vue-i18n';
 
-import { useKYCStore } from '@/stores/kyc';
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
 import { TTopNavigation } from '@/components/ui';
@@ -35,6 +35,7 @@ import { useErrorsStore } from '@/stores/errors';
 import { EUiKit } from '@/types/uiKit';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { ABaseProgressBar, MBaseButton } = uiKit as any;
 
 const emit = defineEmits(['next', 'prev']);
@@ -56,6 +57,10 @@ const cameraPreviewOptions: CameraPreviewOptions = {
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
+const isProofTypePassport = computed(
+  () => kycStore.getProofType === EKYCProofType.passport
+);
+
 const isFrontSideEmpty = computed(
   () => kycStore.getImage[EDocumentSide.front] === null
 );
@@ -65,12 +70,12 @@ const isBackSideEmpty = computed(
 );
 
 const scanText = computed(() => {
-  // if (isProofTypePassport.value) {
-  //   return {
-  //     title: tm('views.kyc.kyc4step.scanPassport'),
-  //     description: tm('views.kyc.kyc4step.placePhoneOnTopOfPassport'),
-  //   };
-  // }
+  if (isProofTypePassport.value) {
+    return {
+      title: tm('views.kyc.kyc4step.scanPassport'),
+      description: tm('views.kyc.kyc4step.placePhoneOnTopOfPassport'),
+    };
+  }
 
   const text = {
     [EDocumentSide.front]: {
@@ -192,7 +197,12 @@ const flipScanSide = () => {
 };
 
 const calcProgressPercentage = (): void => {
-  if (!isFrontSideEmpty.value || !isBackSideEmpty.value) {
+  if (
+    (isProofTypePassport.value && !isFrontSideEmpty.value) ||
+    (!isFrontSideEmpty.value && !isBackSideEmpty.value)
+  ) {
+    kycStore.setPercentage(0.6);
+  } else if (!isFrontSideEmpty.value || !isBackSideEmpty.value) {
     kycStore.setPercentage(0.4);
   } else {
     kycStore.setPercentage(0.2);
@@ -200,6 +210,16 @@ const calcProgressPercentage = (): void => {
 };
 
 const onScan = async (): Promise<void> => {
+  if (isProofTypePassport.value) {
+    await captureCamera();
+
+    calcProgressPercentage();
+
+    await nextStep();
+    return;
+  }
+
+  // initial scan
   if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
     await captureCamera();
 

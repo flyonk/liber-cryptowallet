@@ -18,7 +18,7 @@
         </m-base-input>
       </div>
     </div>
-    <div class="sign-button-wrapper">
+    <div v-if="route.path !== '/restore/suspended'" class="sign-button-wrapper">
       <m-base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
       </m-base-button>
@@ -29,12 +29,17 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { BaseCountryPhoneInput } from '@/components/ui';
-
+import { onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { EUiKit } from '@/types/uiKit';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { MBaseInput, MBaseButton, MTopNavigation } = uiKit as any;
+const route = useRoute();
+
+onBeforeMount(() => console.log('beforeMount', route.path));
 
 defineEmits(['next', 'prev']);
 </script>

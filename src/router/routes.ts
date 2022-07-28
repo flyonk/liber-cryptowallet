@@ -5,6 +5,7 @@ import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
+import PSuspendedTransaction from '@/components/ui/pages/PSuspendedTransaction.vue';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
@@ -143,6 +144,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/restore',
     name: Route.Restore,
     component: Restore,
+    children: [
+      {
+        path: 'suspended',
+        name: 'suspended-transaction',
+        component: PSuspendedTransaction,
+        meta: {
+          classLayout: '-full-height',
+        },
+      },
+    ],
     meta: {
       layout: 'default',
     },

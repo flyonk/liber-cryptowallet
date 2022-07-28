@@ -3,7 +3,7 @@
     <template #title>
       <div class="sum">
         <div class="sum-title">
-          {{ directionSign }} {{ transaction.amount }}
+          {{ directionSign }} {{ transaction.from.amount }}
           <span class="currency">
             {{ mainCoin }}
           </span>
@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, PropType } from 'vue';
+import { computed, inject, onMounted, PropType } from 'vue';
 
 import {
   EDirection,
@@ -113,6 +113,7 @@ import {
 import { EUiKit } from '@/types/uiKit';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { MBaseButton } = uiKit as any;
 
 defineEmits(['copy']);
@@ -126,6 +127,10 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
+});
+
+onMounted(() => {
+  console.debug('props.transaction', props.transaction);
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());

@@ -1,4 +1,5 @@
 <template>
+  <router-view />
   <auth-page-switcher :components="components" scope="recover" />
 </template>
 

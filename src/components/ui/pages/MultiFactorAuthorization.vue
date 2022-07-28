@@ -53,6 +53,7 @@ import { AxiosError } from 'axios';
 import { EUiKit } from '@/types/uiKit';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { MBaseVerificationCodeInput, MBaseButton } = uiKit as any;
 
 const router = useRouter();
@@ -62,7 +63,6 @@ const pStore = useProfileStore();
 const { tm } = useI18n();
 
 // hook to change history for back action possible
-router.push({ hash: '#mfa' });
 
 const oneTimeCode = ref('');
 const passcode = ref('');

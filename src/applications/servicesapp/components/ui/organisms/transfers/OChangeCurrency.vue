@@ -134,6 +134,7 @@ import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInp
 import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
 
 const uiKit = inject(EUiKit.uiKit);
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const { ATrippleDotsSpinner, MBaseButton, MBaseInput } = uiKit as any;
 
 const errorsStore = useErrorsStore();
@@ -201,8 +202,8 @@ const preventConvert = computed(() => {
 const amountLimitsIsOk = computed(() => {
   const _num = Number(fundsStore.convertInfo.requestAmount);
   const minIsOk =
-    props.minAmount === null || _num > props.minAmount || _num === 0;
-  const maxIsOk = props.maxAmount === null || _num < props.maxAmount;
+    props.minAmount === null || _num >= props.minAmount || _num === 0;
+  const maxIsOk = props.maxAmount === null || _num <= props.maxAmount;
   return minIsOk && maxIsOk;
 });
 
