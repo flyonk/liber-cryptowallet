@@ -4,12 +4,13 @@
       left-icon-name="icon-app-navigation-back"
       @click:left-icon="$router.go(-1)"
     >
-      <template #title> The withdrawal operations suspended </template>
+      <template #title>
+        {{ $t('auth.restore.suspendedScreenTitle') }}
+      </template>
       <template #content>
         <div class="content-wrapper">
           <h1 class="description">
-            To protect your account, we've suspended all withdrawal operation
-            for 24h.
+            {{ $t('auth.restore.suspendedScreenDescription') }}
           </h1>
           <img
             :src="`${STATIC_BASE_URL}/static/illustrations/shield.png`"
@@ -23,8 +24,8 @@
               size="large"
               @click="$router.go(-1)"
             >
-              Got It</m-base-button
-            >
+              {{ $t('auth.restore.suspendedScreenBtn') }}
+            </m-base-button>
           </div>
         </div>
       </template>
