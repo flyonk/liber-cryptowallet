@@ -655,6 +655,7 @@
       "error": "Liber Save account associated with this email address not found. Try to use another email."
     },
     "convert": {
+      "mfatitle": "Enter verification code",
       "title": "Enter amount of euro to get coupons for",
       "convertExactly": "Amount (€50–€1,000)",
       "convertNow": "Get Coupons Now",
@@ -664,6 +665,7 @@
       "maxAmount": "The maximum amount is"
     },
     "getcrypto": {
+      "mfatitle": "Enter verification code",
       "title": "Enter amount of euro to get crypto for",
       "convertNow": "Checkout with Liber Save",
       "success": "Your purchase was successful",
