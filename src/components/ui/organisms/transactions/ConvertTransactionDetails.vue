@@ -3,7 +3,7 @@
     <template #title>
       <div class="sum">
         <div class="sum-title">
-          {{ directionSign }} {{ transaction.amount }}
+          {{ directionSign }} {{ transaction.from.amount }}
           <span class="currency">
             {{ mainCoin }}
           </span>
@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, PropType } from 'vue';
+import { computed, defineAsyncComponent, onMounted, PropType } from 'vue';
 
 import {
   EDirection,
@@ -128,6 +128,10 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
+});
+
+onMounted(() => {
+  console.debug('props.transaction', props.transaction);
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());
