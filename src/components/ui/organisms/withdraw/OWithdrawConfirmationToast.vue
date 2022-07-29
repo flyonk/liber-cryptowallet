@@ -1,9 +1,16 @@
 <template>
   <m-base-toast
     v-bind="$attrs"
-    :severity="'attention'"
     @update:visible="$emit('update:visible', $event)"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #header>
       <div class="confirmation-header text--title-2 font-weight--semibold">
         {{ $t('views.withdraw.confirmation.title') }}
@@ -36,6 +43,7 @@ import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit!;
@@ -84,5 +92,16 @@ const onSubmitWithdrawal = async () => {
 
 .confirmation-button {
   margin: 0 0 12px;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

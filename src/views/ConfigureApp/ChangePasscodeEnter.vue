@@ -22,7 +22,7 @@
           @submit="onSubmit"
         />
       </div>
-      <m-base-toast v-model:visible="showErrorToast" severity="error">
+      <m-base-toast v-model:visible="showErrorToast">
         <template #description>
           <div>{{ $t('configureApp.invalidPassCode') }}</div>
         </template>
