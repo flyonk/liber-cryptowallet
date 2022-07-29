@@ -15,7 +15,7 @@
     </ul>
   </div>
 
-  <base-toast v-model:visible="showPopup" :severity="'confirmation'">
+  <m-base-toast v-model:visible="showPopup" :severity="'confirmation'">
     <template #description>
       <div class="popup-description">
         <h1 class="title">{{ $t(popupTitle) }}</h1>
@@ -24,18 +24,23 @@
         </p>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
+import { ref, defineAsyncComponent } from 'vue';
 import { useRoute } from 'vue-router';
 import { useErrorsStore } from '@/stores/errors';
 import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
-import { BaseToast } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
+
+const MBaseToast = defineAsyncComponent(() => {
+  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
+    (lib) => lib.MBaseToast
+  );
+});
 
 const route = useRoute();
 const { tm } = useI18n();
