@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Contacts } from '@capacitor-community/contacts';
+import { Contacts } from '@/helpers/contacts/contacts';
 import { get, set } from '@/helpers/storage';
 
 import contactsService from '@/applications/liber/services/contactsService';
