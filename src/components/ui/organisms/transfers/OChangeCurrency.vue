@@ -396,7 +396,6 @@ const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
 };
 
 async function previewChangeInfo(direction: 'from' | 'to') {
-  console.log('previewChangeInfo', convertInfo.value.requestAmount);
   componentState.value = 'send';
 
   try {

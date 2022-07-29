@@ -17,6 +17,7 @@
         type="number"
         :min-fraction-digits="0"
         :max-fraction-digits="10"
+        :readonly="isOneCoinEmpty"
         @blur="onBlur"
         @input="debounceChangeInfo('from', $event)"
       >
@@ -48,6 +49,7 @@
         :max-fraction-digits="10"
         pattern="[0-9]*"
         type="number"
+        :readonly="isOneCoinEmpty"
         @blur="onBlur"
         @input="debounceChangeInfo('to', $event)"
       >
@@ -117,8 +119,8 @@ import {
   ref,
   watch,
 } from 'vue';
-import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
+import { useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 
@@ -158,6 +160,9 @@ const MBaseInput = defineAsyncComponent(() => {
 });
 
 const errorsStore = useErrorsStore();
+const coinStore = useCoinsStore();
+const fundsStore = useFundsStore();
+const liberSaveStore = useLiberSaveStore();
 
 const props = defineProps({
   minAmount: {
@@ -174,9 +179,6 @@ defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
-const liberSaveStore = useLiberSaveStore();
-const coinStore = useCoinsStore();
-const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
 const route = useRoute();
@@ -208,6 +210,12 @@ const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
 );
 
+const isOneCoinEmpty = computed(
+  () =>
+    currentSendFromCurrency.value.code === 'empty' ||
+    currentSendToCurrency.value.code === 'empty'
+);
+
 const isZeroValues = computed(() => {
   return (
     Number(fundsStore.convertInfo.requestAmount) === 0 &&
@@ -217,6 +225,14 @@ const isZeroValues = computed(() => {
 
 const preventConvert = computed(() => {
   return loading.value || isZeroValues.value || !amountLimitsIsOk.value;
+});
+
+const emptyCryptoState = computed(() => {
+  return {
+    name: '---',
+    code: 'empty',
+    img: getEmptyCoinImageSrc(),
+  };
 });
 
 const amountLimitsIsOk = computed(() => {
@@ -263,12 +279,18 @@ onBeforeMount(async () => {
     },
     'from'
   );
+
+  fundsStore.setCrypto(emptyCryptoState.value, 'to');
 });
 
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
   return Math.min(v1, 100000000);
+}
+
+function getEmptyCoinImageSrc() {
+  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
@@ -311,13 +333,6 @@ const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
 };
 
 async function previewChangeInfo(direction: 'from' | 'to') {
-  console.log(
-    'previes change',
-    direction,
-    fundsStore.convertInfo.requestAmount,
-    fundsStore.convertInfo.estimatedAmount
-  );
-
   componentState.value = 'send';
 
   try {
