@@ -108,7 +108,6 @@ export default {
         'Content-Type': 'multipart/form-data',
       },
     };
-
     const data = new FormData();
     const type = file.split(';')[0].split('/')[1];
     const binaryFile = await fetch(file)

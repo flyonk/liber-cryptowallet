@@ -133,7 +133,7 @@ export class CameraPreviewWeb implements CameraPreviewPlugin {
 
       if (options.quality != undefined) {
         base64EncodedImage = canvas
-          .toDataURL('image/jpeg', options.quality / 100.0)
+          .toDataURL('image/jpeg', options.quality / 30.0)
           .replace('data:image/jpeg;base64,', '');
       } else {
         base64EncodedImage = canvas
