@@ -30,7 +30,6 @@
     "peer": "add-no-save --peer-deps"
   },
   "dependencies": {
-    "@capacitor-community/contacts": "^1.1.3",
     "@capacitor/app": "^1.1.1",
     "@capacitor/clipboard": "^1.0.8",
     "@capacitor/core": "^3.3.4",
