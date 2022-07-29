@@ -14,15 +14,15 @@
       >
         <template #footer-empty-state>
           {{ $t('auth.signup.step1ExistingAcc') }}
-          <router-link :to="{ name: Route.Login }" class="link">
+          <a class="link" @click="switchToLoginFlow">
             {{ $t('common.logInCta') }}
-          </router-link>
+          </a>
         </template>
         <template #footer-valuable-state>
           {{ $t('auth.signup.step1ExistingAcc') }}
-          <router-link :to="{ name: Route.Login }" class="link">
+          <a class="link" @click="switchToLoginFlow">
             {{ $t('common.logInCta') }}
-          </router-link>
+          </a>
         </template>
       </auth-credentials>
     </template>
@@ -118,8 +118,9 @@ const continueWithExistedLogin = async () => {
     name: Route.Login,
   });
 };
-</script>
 
-<style lang="scss" scoped>
-// ...
-</style>
+const switchToLoginFlow = async () => {
+  await authStore.logout();
+  await router.push({ name: Route.Login });
+};
+</script>
