@@ -19,38 +19,23 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  defineAsyncComponent,
-  onActivated,
-  onMounted,
-  ref,
-  Ref,
-} from 'vue';
+import { computed, inject, onActivated, onMounted, ref, Ref } from 'vue';
 import { CameraPreviewOptions } from '@/helpers/camera/definitions';
 import { CameraPreview } from '@/helpers/camera/CameraPreview';
 import { Device } from '@capacitor/device';
 import { useI18n } from 'vue-i18n';
 
-import { useKYCStore } from '@/stores/kyc';
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
 import { TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
 
-const ABaseProgressBar = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressBar
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['next', 'prev']);
 
@@ -71,6 +56,10 @@ const cameraPreviewOptions: CameraPreviewOptions = {
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
+const isProofTypePassport = computed(
+  () => kycStore.getProofType === EKYCProofType.passport
+);
+
 const isFrontSideEmpty = computed(
   () => kycStore.getImage[EDocumentSide.front] === null
 );
@@ -80,12 +69,12 @@ const isBackSideEmpty = computed(
 );
 
 const scanText = computed(() => {
-  // if (isProofTypePassport.value) {
-  //   return {
-  //     title: tm('views.kyc.kyc4step.scanPassport'),
-  //     description: tm('views.kyc.kyc4step.placePhoneOnTopOfPassport'),
-  //   };
-  // }
+  if (isProofTypePassport.value) {
+    return {
+      title: tm('views.kyc.kyc4step.scanPassport'),
+      description: tm('views.kyc.kyc4step.placePhoneOnTopOfPassport'),
+    };
+  }
 
   const text = {
     [EDocumentSide.front]: {
@@ -207,7 +196,12 @@ const flipScanSide = () => {
 };
 
 const calcProgressPercentage = (): void => {
-  if (!isFrontSideEmpty.value || !isBackSideEmpty.value) {
+  if (
+    (isProofTypePassport.value && !isFrontSideEmpty.value) ||
+    (!isFrontSideEmpty.value && !isBackSideEmpty.value)
+  ) {
+    kycStore.setPercentage(0.6);
+  } else if (!isFrontSideEmpty.value || !isBackSideEmpty.value) {
     kycStore.setPercentage(0.4);
   } else {
     kycStore.setPercentage(0.2);
@@ -215,6 +209,16 @@ const calcProgressPercentage = (): void => {
 };
 
 const onScan = async (): Promise<void> => {
+  if (isProofTypePassport.value) {
+    await captureCamera();
+
+    calcProgressPercentage();
+
+    await nextStep();
+    return;
+  }
+
+  // initial scan
   if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
     await captureCamera();
 

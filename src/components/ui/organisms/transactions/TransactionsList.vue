@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, PropType } from 'vue';
+import { computed, inject, PropType } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
@@ -32,12 +32,10 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // TransferTransactionItem,
 } from '@/components/ui/molecules/TransactionListItem';
+import { uiKitKey } from '@/types/symbols';
 
-const MTransferTransactionItem = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MTransferTransactionItem
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MTransferTransactionItem } = uiKit!;
 
 const router = useRouter();
 

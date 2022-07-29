@@ -33,7 +33,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, Ref, ref, onBeforeMount, defineAsyncComponent } from 'vue';
+import { computed, Ref, ref, onBeforeMount, inject } from 'vue';
 import { BasePasscode, TTopNavigation } from '@/components/ui';
 import { EPasscodeActions } from '@/types/base-component';
 import { useRouter } from 'vue-router';
@@ -42,12 +42,10 @@ import { Route } from '@/router/types';
 import { PropType } from 'vue-demi';
 import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseToast } = uiKit!;
 
 defineEmits(['back']);
 const props = defineProps({

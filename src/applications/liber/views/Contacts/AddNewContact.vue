@@ -63,26 +63,19 @@
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, computed, defineAsyncComponent } from 'vue';
+import { Ref, ref, computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
+import { v4 as uuidv4 } from 'uuid';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import { useRecipientsStore } from '@/stores/recipients';
 
 import { TTopNavigation } from '@/components/ui';
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-import { v4 as uuidv4 } from 'uuid';
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const recipientsStore = useRecipientsStore();

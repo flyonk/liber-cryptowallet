@@ -7,17 +7,35 @@
     </template>
     <template #content>
       <div class="kyc-5-step">
-        <div v-for="(image, side) in getImage" :key="side" class="block">
-          <template v-if="image">
+        <template v-if="proofType !== EKYCProofType.passport">
+          <div v-for="(image, side) in getImage" :key="side" class="block">
+            <template v-if="image">
+              <div class="title heading-black-lg">
+                {{ documentSideLabel(side) }}
+              </div>
+              <img :src="image" alt="front" class="image" />
+              <m-base-button block view="secondary" @click="onScanAgain(side)">
+                {{ $t('views.kyc.kyc5step.scanAgain') }}
+              </m-base-button>
+            </template>
+          </div>
+        </template>
+
+        <template v-else>
+          <div class="block">
             <div class="title heading-black-lg">
-              {{ documentSideLabel(side) }}
+              {{ $t('views.kyc.kyc5step.passport') }}
             </div>
-            <img :src="image" alt="front" class="image" />
-            <m-base-button block view="secondary" @click="onScanAgain(side)">
+            <img :src="getImage.front" alt="passport" class="image" />
+            <m-base-button
+              block
+              view="secondary"
+              @click="onScanAgain(EDocumentSide.front)"
+            >
               {{ $t('views.kyc.kyc5step.scanAgain') }}
             </m-base-button>
-          </template>
-        </div>
+          </div>
+        </template>
       </div>
     </template>
     <template #fixed-footer>
@@ -29,11 +47,11 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, inject } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 
-import { useKYCStore } from '@/stores/kyc';
+import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
 import { IClaim } from '@/models/profile/claim';
 import { useProfileStore } from '@/stores/profile';
@@ -41,18 +59,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const ABaseProgressBar = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressBar
-  );
-});
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const { t } = useI18n();
 
@@ -76,6 +86,8 @@ const cleanupScans = () => {
 };
 
 const getPercentage = computed(() => kycStore.getPercentage * 100);
+
+const proofType = computed(() => kycStore.getProofType);
 
 const getImage = computed(() => kycStore.getImage);
 

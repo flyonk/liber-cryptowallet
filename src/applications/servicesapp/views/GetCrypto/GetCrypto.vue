@@ -2,11 +2,11 @@
   <t-top-navigation
     @click:left-icon="$router.push({ name: ServicesRoutes.GetCryptoCoin })"
   >
-    <template #title>{{ $t('services.convert.title') }}</template>
+    <template #title>{{ $t('services.getcrypto.title') }}</template>
     <template #content>
       <div class="send-to">
         <div class="sendto-main">
-          <o-change-currency />
+          <o-change-currency :min-amount="50" :max-amount="1000" />
         </div>
       </div>
     </template>

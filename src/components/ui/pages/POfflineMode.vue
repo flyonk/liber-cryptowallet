@@ -29,24 +29,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
+
+import { uiKitKey } from '@/types/symbols';
+import { TTopNavigation } from '..';
 
 const { loading, handleReconnect } = useCheckOffline();
 
-import { TTopNavigation } from '..';
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const ATrippleDotsSpinner = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ATrippleDotsSpinner
-  );
-});
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['online']);
 

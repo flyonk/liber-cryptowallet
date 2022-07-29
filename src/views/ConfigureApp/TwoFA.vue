@@ -36,9 +36,10 @@ import { useProfileStore } from '@/stores/profile';
 import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject('uiKit');
-const MBaseButton = (uiKit as any).MBaseButton;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 

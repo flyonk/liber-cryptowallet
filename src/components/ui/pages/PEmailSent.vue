@@ -37,18 +37,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
 import { useProfileStore } from '@/stores/profile';
 import { computed } from 'vue-demi';
 import { TTopNavigation } from '..';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const pStore = useProfileStore();
 const email = computed(() => {

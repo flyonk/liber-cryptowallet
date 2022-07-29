@@ -27,25 +27,17 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 import { IClaim } from '@/models/profile/claim';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const ABaseProgressCircular = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABaseProgressCircular
-  );
-});
+const uiKit = inject(uiKitKey);
+const { ABaseProgressCircular, MBaseButton } = uiKit!;
 
 const percent = ref(50);
 const router = useRouter();

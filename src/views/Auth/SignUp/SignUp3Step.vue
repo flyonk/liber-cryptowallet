@@ -41,11 +41,10 @@ import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject('uiKit');
-const MBaseInput = (uiKit as any).MBaseInput;
-const MBaseSwitch = (uiKit as any).MBaseSwitch;
-const MBaseButton = (uiKit as any).MBaseButton;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseSwitch, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();

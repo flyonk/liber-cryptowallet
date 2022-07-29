@@ -3,7 +3,7 @@
     <template #title>
       <div class="sum">
         <div class="sum-title">
-          {{ directionSign }} {{ transaction.amount }}
+          {{ directionSign }} {{ transaction.from.amount }}
           <span class="currency">
             {{ mainCoin }}
           </span>
@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, PropType } from 'vue';
+import { computed, inject, onMounted, PropType } from 'vue';
 
 import {
   EDirection,
@@ -110,12 +110,10 @@ import {
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 defineEmits(['copy']);
 const props = defineProps({
@@ -128,6 +126,10 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
+});
+
+onMounted(() => {
+  console.debug('props.transaction', props.transaction);
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());

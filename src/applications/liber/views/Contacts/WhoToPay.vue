@@ -18,18 +18,16 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
 
 const filterContacts = ref('');
 </script>
@@ -38,7 +36,7 @@ const filterContacts = ref('');
 .who-topay {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 96px);
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;

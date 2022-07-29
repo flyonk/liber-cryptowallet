@@ -18,7 +18,7 @@
         </m-base-input>
       </div>
     </div>
-    <div class="sign-button-wrapper">
+    <div v-if="route.path !== '/restore/suspended'" class="sign-button-wrapper">
       <m-base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
       </m-base-button>
@@ -27,28 +27,18 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { BaseCountryPhoneInput } from '@/components/ui';
-
+import { onBeforeMount } from 'vue';
+import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton, MTopNavigation } = uiKit!;
+const route = useRoute();
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MTopNavigation = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MTopNavigation
-  );
-});
+onBeforeMount(() => console.log('beforeMount', route.path));
 
 defineEmits(['next', 'prev']);
 </script>

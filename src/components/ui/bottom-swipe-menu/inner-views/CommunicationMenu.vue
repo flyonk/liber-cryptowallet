@@ -24,19 +24,17 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, ref } from 'vue';
+import { inject, ref } from 'vue';
 import { useRouter } from 'vue-router';
 
 import RadioButton from 'primevue/radiobutton';
 
 import { Route } from '@/router/types';
 import { useRecipientsStore } from '@/stores/recipients';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 const emit = defineEmits(['closeMenu']);

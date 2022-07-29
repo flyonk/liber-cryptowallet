@@ -48,11 +48,13 @@ const email = computed(() => {
 .header-email {
   margin-left: 10px;
   text-align: left;
+  white-space: nowrap;
 }
 
 :deep(.top-right-wrapper) {
   flex-grow: 1;
   display: flex;
   align-items: center;
+  overflow: hidden;
 }
 </style>

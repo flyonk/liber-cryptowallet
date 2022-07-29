@@ -41,7 +41,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed, defineAsyncComponent } from 'vue';
+import { onMounted, ref, computed, inject } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -54,12 +54,10 @@ import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const { tm } = useI18n();
 

@@ -28,18 +28,16 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { defineAsyncComponent, PropType } from 'vue';
+import { inject, PropType } from 'vue';
 
 import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-const AContactInitials = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AContactInitials
-  );
-});
+const uiKit = inject(uiKitKey);
+const { AContactInitials } = uiKit!;
 
 const props = defineProps({
   contact: {

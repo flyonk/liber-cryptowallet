@@ -30,16 +30,14 @@
 
 <script setup lang="ts">
 import { EKYCStatus } from '@/models/profile/profile';
-import { computed, defineAsyncComponent, PropType } from 'vue';
+import { computed, inject, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const { tm } = useI18n();
 

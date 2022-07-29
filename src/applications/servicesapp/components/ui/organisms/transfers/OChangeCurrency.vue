@@ -17,6 +17,7 @@
         type="number"
         :min-fraction-digits="0"
         :max-fraction-digits="10"
+        :readonly="isOneCoinEmpty"
         @blur="onBlur"
         @input="debounceChangeInfo('from', $event)"
       >
@@ -48,6 +49,7 @@
         :max-fraction-digits="10"
         pattern="[0-9]*"
         type="number"
+        :readonly="isOneCoinEmpty"
         @blur="onBlur"
         @input="debounceChangeInfo('to', $event)"
       >
@@ -109,14 +111,7 @@
 </template>
 
 <script lang="ts" setup>
-import {
-  computed,
-  defineAsyncComponent,
-  onBeforeMount,
-  Ref,
-  ref,
-  watch,
-} from 'vue';
+import { computed, inject, onBeforeMount, Ref, ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
 import { useI18n } from 'vue-i18n';
@@ -134,30 +129,19 @@ import { TConvertCouponData } from '@/applications/servicesapp/models/funds/conv
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
+import { uiKitKey } from '@/types/symbols';
 
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
 
-const ATrippleDotsSpinner = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ATrippleDotsSpinner
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton, MBaseInput } = uiKit!;
 
 const errorsStore = useErrorsStore();
+const coinStore = useCoinsStore();
+const fundsStore = useFundsStore();
+const liberSaveStore = useLiberSaveStore();
 
 const props = defineProps({
   minAmount: {
@@ -174,9 +158,6 @@ defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
-const liberSaveStore = useLiberSaveStore();
-const coinStore = useCoinsStore();
-const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
 const route = useRoute();
@@ -208,6 +189,12 @@ const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
 );
 
+const isOneCoinEmpty = computed(
+  () =>
+    currentSendFromCurrency.value.code === 'empty' ||
+    currentSendToCurrency.value.code === 'empty'
+);
+
 const isZeroValues = computed(() => {
   return (
     Number(fundsStore.convertInfo.requestAmount) === 0 &&
@@ -219,11 +206,19 @@ const preventConvert = computed(() => {
   return loading.value || isZeroValues.value || !amountLimitsIsOk.value;
 });
 
+const emptyCryptoState = computed(() => {
+  return {
+    name: '---',
+    code: 'empty',
+    img: getEmptyCoinImageSrc(),
+  };
+});
+
 const amountLimitsIsOk = computed(() => {
   const _num = Number(fundsStore.convertInfo.requestAmount);
   const minIsOk =
-    props.minAmount === null || _num > props.minAmount || _num === 0;
-  const maxIsOk = props.maxAmount === null || _num < props.maxAmount;
+    props.minAmount === null || _num >= props.minAmount || _num === 0;
+  const maxIsOk = props.maxAmount === null || _num <= props.maxAmount;
   return minIsOk && maxIsOk;
 });
 
@@ -263,12 +258,18 @@ onBeforeMount(async () => {
     },
     'from'
   );
+
+  fundsStore.setCrypto(emptyCryptoState.value, 'to');
 });
 
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
   return Math.min(v1, 100000000);
+}
+
+function getEmptyCoinImageSrc() {
+  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
@@ -311,13 +312,6 @@ const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
 };
 
 async function previewChangeInfo(direction: 'from' | 'to') {
-  console.log(
-    'previes change',
-    direction,
-    fundsStore.convertInfo.requestAmount,
-    fundsStore.convertInfo.estimatedAmount
-  );
-
   componentState.value = 'send';
 
   try {
@@ -373,6 +367,7 @@ function convertCurrency() {
           query: { success: 'getcoupons' },
         };
   mfaStore.show({
+    title: 'services.convert.mfatitle',
     button: 'services.convert.convertNow',
     successRoute: successRoute,
     callback: async () => {

@@ -118,7 +118,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, defineAsyncComponent, onBeforeMount, Ref, ref } from 'vue';
+import { computed, inject, onBeforeMount, Ref, ref } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 import { Clipboard } from '@capacitor/clipboard';
@@ -130,6 +130,7 @@ import { useAccountStore } from '@/applications/liber/stores/account';
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
 
 import {
   MNetworkSelectAnswer,
@@ -139,17 +140,8 @@ import {
 } from '@/components/ui';
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const withdrawStore = useWithdrawStore();
 const coinStore = useCoinsStore();

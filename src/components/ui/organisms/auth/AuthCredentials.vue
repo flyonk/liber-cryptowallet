@@ -52,25 +52,17 @@
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { defineAsyncComponent, Ref, ref } from 'vue';
+import { Ref, ref, inject } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
 import { BaseCountryPhoneInput } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
-
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const emits = defineEmits([
   'handleSelectCountry',

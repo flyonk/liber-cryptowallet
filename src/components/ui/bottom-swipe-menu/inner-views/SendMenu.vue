@@ -12,7 +12,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent } from 'vue';
+import { computed, inject } from 'vue';
 import { useRoute } from 'vue-router';
 
 import { CouponRoutes } from '@/applications/coupons/router/types';
@@ -22,12 +22,10 @@ import itemsList, {
   EAreaMenuItemVisible,
   IBottomSwipeMenuItem,
 } from '../BottomSwipeMenuList';
+import { uiKitKey } from '@/types/symbols';
 
-const ABottomSwipeMenuItem = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.ABottomSwipeMenuItem
-  );
-});
+const uiKit = inject(uiKitKey);
+const { ABottomSwipeMenuItem } = uiKit!;
 
 const route = useRoute();
 

@@ -6,7 +6,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineAsyncComponent, onMounted, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
@@ -16,12 +16,10 @@ import { useAppOptionsStore } from '@/stores/appOptions';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
 
-const AMainPageLoader = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.AMainPageLoader
-  );
-});
+const uiKit = inject(uiKitKey);
+const { AMainPageLoader } = uiKit!;
 
 const { stylePaddings } = useSafeAreaPaddings();
 

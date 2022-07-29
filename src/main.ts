@@ -20,6 +20,7 @@ import PTooltip from 'primevue/tooltip';
 import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
+import { uiKitKey } from '@/types/symbols';
 
 const uiKit = require(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`);
 
@@ -45,7 +46,7 @@ app.component('PSwitch', PSwitch);
 
 app.directive('tooltip', PTooltip);
 
-app.provide('uiKit', uiKit);
+app.provide(uiKitKey, uiKit);
 
 appStateListen();
 

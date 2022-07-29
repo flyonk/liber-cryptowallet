@@ -69,14 +69,14 @@
               </div>
             </li>
           </ul>
-          <m-base-button
-            class="data-adder"
-            view="flat"
-            icon-left="icon-plus"
-            @click="$router.push({ name: Route.ProfileAddNewContactData })"
-          >
-            + {{ $t('views.newcontact.additionalphone') }}
-          </m-base-button>
+          <!--          <m-base-button-->
+          <!--            class="data-adder"-->
+          <!--            view="flat"-->
+          <!--            icon-left="icon-plus"-->
+          <!--            @click="$router.push({ name: Route.ProfileAddNewContactData })"-->
+          <!--          >-->
+          <!--            + {{ $t('views.newcontact.additionalphone') }}-->
+          <!--          </m-base-button>-->
         </div>
       </div>
     </template>
@@ -84,7 +84,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, defineAsyncComponent, onBeforeMount } from 'vue';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
 import { TTopNavigation } from '@/components/ui';
@@ -93,21 +93,17 @@ import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
+import { uiKitKey } from '@/types/symbols';
+
 const { tm } = useI18n();
 const pStore = useProfileStore();
 const kycStore = useKYCStore();
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
-
-const MKycStatusCard = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MKycStatusCard
-  );
-});
+const uiKit = inject(uiKitKey);
+const {
+  MKycStatusCard,
+  // MBaseButton
+} = uiKit!;
 
 const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);

@@ -18,14 +18,12 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent } from 'vue';
+import { inject } from 'vue';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
+import { uiKitKey } from '@/types/symbols';
 
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseToast } = uiKit!;
 
 const withdrawStore = useWithdrawStore();
 

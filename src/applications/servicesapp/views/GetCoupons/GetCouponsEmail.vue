@@ -33,27 +33,20 @@
 </template>
 
 <script lang="ts" setup>
-import { defineAsyncComponent, ref, watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
+import { uiKitKey } from '@/types/symbols';
 
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 import { useFundsStore } from '@/applications/servicesapp/stores/funds';
-const MBaseInput = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseInput
-  );
-});
 
-const MBaseButton = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseButton
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const liberSaveStore = useLiberSaveStore();
