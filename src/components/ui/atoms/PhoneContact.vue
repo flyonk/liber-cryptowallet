@@ -34,10 +34,10 @@ import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { AContactInitials } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { AContactInitials } = uiKit!;
 
 const props = defineProps({
   contact: {

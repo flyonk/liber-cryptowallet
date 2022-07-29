@@ -182,18 +182,18 @@ import { STATIC_BASE_URL } from '@/constants';
 import { TConvertData } from '@/applications/liber/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
-const uiKit = inject(EUiKit.uiKit);
+const uiKit = inject(uiKitKey);
 const {
   ACoinSwitcher,
   ATrippleDotsSpinner,
   MBaseButton,
   MBaseInput,
   MBaseToast,
-} = uiKit as any;
+} = uiKit!;
 
 const errorsStore = useErrorsStore();
 const coinStore = useCoinsStore();

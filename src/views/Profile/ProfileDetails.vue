@@ -58,10 +58,10 @@ import { formatToNormalDate } from '@/helpers/datetime';
 import { Route } from '@/router/types';
 
 import { TTopNavigation } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { AContactInitials, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { AContactInitials, MBaseButton } = uiKit!;
 
 const profileStore = useProfileStore();
 

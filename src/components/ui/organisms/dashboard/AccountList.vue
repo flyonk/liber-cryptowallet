@@ -46,15 +46,15 @@ import { getSymbolByCode } from '@/helpers/currency';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { IAccount } from '@/models/account/account';
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
+const uiKit = inject(uiKitKey);
 const {
   ABaseSearchInput,
   MAllAccountsFiatSum,
   MBaseAccount,
   MBaseBottomSheetV,
-} = uiKit as any;
+} = uiKit!;
 
 const accountStore = useAccountStore();
 const router = useRouter();

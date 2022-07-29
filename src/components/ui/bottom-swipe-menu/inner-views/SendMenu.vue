@@ -22,10 +22,10 @@ import itemsList, {
   EAreaMenuItemVisible,
   IBottomSwipeMenuItem,
 } from '../BottomSwipeMenuList';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { ABottomSwipeMenuItem } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABottomSwipeMenuItem } = uiKit!;
 
 const route = useRoute();
 

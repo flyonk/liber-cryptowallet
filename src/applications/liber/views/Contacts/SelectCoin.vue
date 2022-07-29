@@ -34,15 +34,15 @@ import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 const router = useRouter();
 const route = useRoute();
 const fundsStore = useFundsStore();
 const coinsStore = useCoinsStore();
 
-const uiKit = inject(EUiKit.uiKit);
-const { ABackHistoryBtn, MSelectCoin } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABackHistoryBtn, MSelectCoin } = uiKit!;
 
 onBeforeMount(async () => {
   await coinsStore.fetchCoins();

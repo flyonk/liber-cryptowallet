@@ -38,15 +38,15 @@ import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 import { useFundsStore } from '@/applications/servicesapp/stores/funds';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const liberSaveStore = useLiberSaveStore();

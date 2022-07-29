@@ -106,10 +106,10 @@ import {
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const { tm } = useI18n();
 

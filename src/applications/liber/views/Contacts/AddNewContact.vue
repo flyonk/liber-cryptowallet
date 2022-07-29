@@ -72,10 +72,10 @@ import { useRecipientsStore } from '@/stores/recipients';
 
 import { TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const recipientsStore = useRecipientsStore();

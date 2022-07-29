@@ -9,7 +9,7 @@
 <script lang="ts" setup>
 import { inject, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 export type TDictionaryItem = {
   id: number | string;
@@ -23,8 +23,8 @@ export type TDictionary = {
   answers: TDictionaryItem[];
 };
 
-const uiKit = inject(EUiKit.uiKit);
-const { MQuestionWithAnswers } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MQuestionWithAnswers } = uiKit!;
 
 const { tm } = useI18n();
 

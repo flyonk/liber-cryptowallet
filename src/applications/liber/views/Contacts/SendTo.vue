@@ -135,10 +135,10 @@ import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
 import { STATIC_BASE_URL } from '@/constants';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { AContactInitials, MBaseButton, MBaseToast } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { AContactInitials, MBaseButton, MBaseToast } = uiKit!;
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);

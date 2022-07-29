@@ -68,10 +68,10 @@ import { TTopNavigation } from '@/components/ui';
 
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useRouter } from 'vue-router';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseToast, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const fundsStore = useFundsStore();

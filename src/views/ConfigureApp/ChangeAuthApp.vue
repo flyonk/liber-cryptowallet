@@ -81,10 +81,10 @@ import { useProfileStore } from '@/stores/profile';
 import { STATIC_BASE_URL } from '@/constants';
 
 import InputSwitch from 'primevue/inputswitch';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseToast, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit!;
 
 const router = useRouter();
 

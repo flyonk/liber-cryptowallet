@@ -60,11 +60,11 @@
 </template>
 
 <script setup lang="ts">
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 import { inject, ref } from 'vue';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const isAllowAccessToContacts = ref(false);
 </script>

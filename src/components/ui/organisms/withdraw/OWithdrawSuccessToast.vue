@@ -20,10 +20,10 @@
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseToast } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseToast } = uiKit!;
 
 const withdrawStore = useWithdrawStore();
 

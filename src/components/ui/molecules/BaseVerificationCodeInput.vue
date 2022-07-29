@@ -44,10 +44,10 @@ import { computed, inject, Ref, ref, watch } from 'vue';
 import { Clipboard } from '@capacitor/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const props = defineProps({
   type: {

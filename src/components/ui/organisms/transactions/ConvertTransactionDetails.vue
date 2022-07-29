@@ -110,11 +110,10 @@ import {
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 defineEmits(['copy']);
 const props = defineProps({

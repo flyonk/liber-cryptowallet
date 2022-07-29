@@ -32,13 +32,13 @@
 import { inject } from 'vue';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 import { TTopNavigation } from '..';
 
 const { loading, handleReconnect } = useCheckOffline();
 
-const uiKit = inject(EUiKit.uiKit);
-const { ATrippleDotsSpinner, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['online']);
 

@@ -39,10 +39,10 @@
 <script lang="ts" setup>
 import { inject, ref } from 'vue';
 import { computed } from '@vue/reactivity';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton, MTopNavigation } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton, MTopNavigation } = uiKit!;
 
 const isClearBtnShown = ref(false);
 

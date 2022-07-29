@@ -188,10 +188,10 @@ import { showConfirm } from '@/helpers/nativeDialog';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import { TTopNavigation } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { AContactInitials } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { AContactInitials } = uiKit!;
 
 const route = useRouter();
 const authStore = useAuthStore();

@@ -28,10 +28,10 @@ import { useRouter, useRoute } from 'vue-router';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 import { useUIStore } from '@/stores/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBottomNav } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBottomNav } = uiKit!;
 
 const uiStore = useUIStore();
 

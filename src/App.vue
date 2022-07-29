@@ -54,7 +54,7 @@ import MBrowserStub from '@/components/ui/molecules/MBrowserStub.vue';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
-const AOfflineBundler = uiKit!.AOfflineBundler;
+const { AOfflineBundler } = uiKit!;
 
 // TODO:[UIKIT] change bundle-title with title in props
 

@@ -93,17 +93,17 @@ import { useProfileStore } from '@/stores/profile';
 import { useKYCStore } from '@/stores/kyc';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
+
 const { tm } = useI18n();
 const pStore = useProfileStore();
 const kycStore = useKYCStore();
 
-const uiKit = inject(EUiKit.uiKit);
+const uiKit = inject(uiKitKey);
 const {
   MKycStatusCard,
   // MBaseButton
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-} = uiKit as any;
+} = uiKit!;
 
 const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);

@@ -72,10 +72,10 @@ import { inject, Ref, ref } from 'vue';
 
 import { BasePasscode } from '@/components/ui';
 import { EState } from '@/types/base-component';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton, MBaseToast, MTopNavigation } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton, MBaseToast, MTopNavigation } = uiKit!;
 
 const emit = defineEmits(['prev', 'next']);
 

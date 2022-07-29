@@ -44,10 +44,10 @@ import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const pStore = useProfileStore();

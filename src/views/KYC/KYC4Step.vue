@@ -32,11 +32,10 @@ import { TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { ABaseProgressBar, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['next', 'prev']);
 

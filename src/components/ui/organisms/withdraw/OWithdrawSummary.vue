@@ -40,10 +40,10 @@ import { computed, inject, ref } from 'vue';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 
 import { OWithdrawConfirmationToast, TTopNavigation } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const withdrawStore = useWithdrawStore();
 

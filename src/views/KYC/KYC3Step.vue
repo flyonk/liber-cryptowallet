@@ -33,10 +33,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { ABaseProgressBar, ABaseRadioSelect } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, ABaseRadioSelect } = uiKit!;
 
 const emit = defineEmits(['next']);
 

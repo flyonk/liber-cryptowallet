@@ -34,10 +34,10 @@ import { computed, inject, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const { tm } = useI18n();
 

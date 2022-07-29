@@ -41,10 +41,10 @@ import { Route } from '@/router/types';
 import { useI18n } from 'vue-i18n';
 
 import { BasePasscode, TTopNavigation } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseToast } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseToast } = uiKit!;
 
 const router = useRouter();
 const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;

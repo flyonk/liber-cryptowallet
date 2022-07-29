@@ -59,11 +59,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { ABaseProgressBar, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const { t } = useI18n();
 

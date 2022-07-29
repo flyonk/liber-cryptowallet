@@ -21,10 +21,10 @@ export default {
 <script lang="ts" setup>
 import { inject } from 'vue';
 import { TopNavigation } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseVerificationCodeInput } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseVerificationCodeInput } = uiKit!;
 
 const emit = defineEmits(['next', 'prev']);
 

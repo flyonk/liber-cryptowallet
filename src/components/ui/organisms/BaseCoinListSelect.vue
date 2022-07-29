@@ -27,10 +27,10 @@ import { computed, inject, PropType, ref } from 'vue';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MSelectCoin } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MSelectCoin } = uiKit!;
 
 defineEmits(['back-button', 'select-coin']);
 

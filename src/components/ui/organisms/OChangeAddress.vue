@@ -94,10 +94,10 @@ import { computed, inject, onBeforeMount, reactive } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
 import { useProfileStore } from '@/stores/profile';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const profileStore = useProfileStore();
 

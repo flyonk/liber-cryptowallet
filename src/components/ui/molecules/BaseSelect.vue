@@ -9,11 +9,11 @@
 </template>
 
 <script lang="ts" setup>
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 import { inject } from 'vue';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
 
 defineEmits(['click']);
 </script>

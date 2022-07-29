@@ -24,11 +24,10 @@ import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { MBaseInput } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
 
 const filterContacts = ref('');
 </script>

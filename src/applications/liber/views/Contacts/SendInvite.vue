@@ -55,10 +55,10 @@ import { TTopNavigation } from '@/components/ui';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 
 import { STATIC_BASE_URL } from '@/constants';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const newContacts = ref([
   {

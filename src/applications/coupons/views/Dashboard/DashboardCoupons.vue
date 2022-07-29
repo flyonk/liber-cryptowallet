@@ -74,14 +74,14 @@ import { useI18n } from 'vue-i18n';
 import { useUIStore } from '@/stores/ui';
 import { useErrorsStore } from '@/stores/errors';
 // import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
-import { EUiKit } from '@/types/uiKit';
 import { useRouter } from 'vue-router';
 
 import { TransactionsList, MDashboardCoinInfo } from '@/components/ui';
 import { DashboardBanner } from '@/applications/coupons/components/ui';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const couponsStore = useCouponsStore();
 const uiStore = useUIStore();

@@ -67,15 +67,15 @@ import { useTransferStore } from '@/applications/liber/stores/transfer';
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
 import { ICoin } from '@/applications/liber/models/funds/coin';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 enum ESendInputType {
   From = 'from',
   To = 'to',
 }
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
 
 const transferStore = useTransferStore();
 let amount = ref('');

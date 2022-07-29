@@ -32,10 +32,10 @@ import {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   // TransferTransactionItem,
 } from '@/components/ui/molecules/TransactionListItem';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MTransferTransactionItem } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MTransferTransactionItem } = uiKit!;
 
 const router = useRouter();
 

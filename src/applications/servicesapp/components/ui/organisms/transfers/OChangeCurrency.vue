@@ -127,15 +127,14 @@ import { TConvertCouponData } from '@/applications/servicesapp/models/funds/conv
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { ATrippleDotsSpinner, MBaseButton, MBaseInput } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton, MBaseInput } = uiKit!;
 
 const errorsStore = useErrorsStore();
 

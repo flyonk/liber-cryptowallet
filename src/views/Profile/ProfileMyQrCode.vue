@@ -56,10 +56,10 @@ import { useProfileStore } from '@/stores/profile';
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { AContactInitials } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { AContactInitials } = uiKit!;
 
 const profileStore = useProfileStore();
 const toast = useToast();

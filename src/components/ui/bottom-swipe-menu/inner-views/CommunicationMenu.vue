@@ -31,10 +31,10 @@ import RadioButton from 'primevue/radiobutton';
 
 import { Route } from '@/router/types';
 import { useRecipientsStore } from '@/stores/recipients';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 const emit = defineEmits(['closeMenu']);

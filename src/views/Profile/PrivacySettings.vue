@@ -66,10 +66,10 @@ import { useProfileStore } from '@/stores/profile';
 import { onMounted } from 'vue-demi';
 
 import { TTopNavigation } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseSwitch } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseSwitch } = uiKit!;
 
 const profileStore = useProfileStore();
 let _isEmail = ref(false);

@@ -58,10 +58,10 @@ import { ICoinForExchange } from '@/applications/liber/stores/funds';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { TTopNavigation } from '@/components/ui';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MSelectCoin, ABaseSearchInput } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MSelectCoin, ABaseSearchInput } = uiKit!;
 
 const emit = defineEmits(['on-select-coin']);
 

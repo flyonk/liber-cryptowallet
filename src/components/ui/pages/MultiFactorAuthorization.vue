@@ -50,11 +50,10 @@ import { useProfileStore } from '@/stores/profile';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 import { AxiosError } from 'axios';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { MBaseVerificationCodeInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseVerificationCodeInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 

@@ -57,10 +57,10 @@ import { ref } from 'vue-demi';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { computed } from '@vue/reactivity';
 import { useProfileStore } from '@/stores/profile';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const pStore = useProfileStore();
 

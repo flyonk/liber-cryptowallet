@@ -67,9 +67,10 @@ import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { COUPONS_ENABLED } from '@/constants';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject('uiKit');
-const AKycStatusBadge = (uiKit as any).AKycStatusBadge;
+const uiKit = inject(uiKitKey);
+const { AKycStatusBadge } = uiKit!;
 
 const { tm } = useI18n();
 const uiStore = useUIStore();

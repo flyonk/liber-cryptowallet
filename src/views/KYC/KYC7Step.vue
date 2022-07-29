@@ -34,10 +34,10 @@ import { useKYCStore } from '@/stores/kyc';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 import { IClaim } from '@/models/profile/claim';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { ABaseProgressCircular, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABaseProgressCircular, MBaseButton } = uiKit!;
 
 const percent = ref(50);
 const router = useRouter();

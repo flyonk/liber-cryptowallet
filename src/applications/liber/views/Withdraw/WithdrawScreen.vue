@@ -130,7 +130,7 @@ import { useAccountStore } from '@/applications/liber/stores/account';
 import { TDictionaryItem } from '@/components/ui/molecules/MNetworkSelectAnswer.vue';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { useErrorsStore } from '@/stores/errors';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
 import {
   MNetworkSelectAnswer,
@@ -140,8 +140,8 @@ import {
 } from '@/components/ui';
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
-const uiKit = inject(EUiKit.uiKit);
-const { MBaseInput, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const withdrawStore = useWithdrawStore();
 const coinStore = useCoinsStore();

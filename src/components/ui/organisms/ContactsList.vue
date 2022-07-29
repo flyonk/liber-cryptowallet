@@ -33,11 +33,10 @@ import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
 import { getContactInitials } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const { APhoneContactsAlphabet } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { APhoneContactsAlphabet } = uiKit!;
 
 const props = defineProps({
   contacts: {

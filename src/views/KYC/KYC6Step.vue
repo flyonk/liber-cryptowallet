@@ -52,10 +52,10 @@ import { useProfileStore } from '@/stores/profile';
 import { IClaim } from '@/models/profile/claim';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
-import { EUiKit } from '@/types/uiKit';
+import { uiKitKey } from '@/types/symbols';
 
-const uiKit = inject(EUiKit.uiKit);
-const { ABaseProgressBar, MBaseButton } = uiKit as any;
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['prev', 'next']);
 
