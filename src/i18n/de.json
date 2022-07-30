@@ -74,6 +74,9 @@
       "forgotYourPasscode": "Forgot your passcode?"
     },
     "restore": {
+      "contactSupport": "Contact support",
+      "ifYouHaveLostAccessDescription": "If you have lost access to your phone number, please contact our support at",
+      "contact": "Contact",
       "step1Title": "Your previous number",
       "step1Description": "The phone number you last logged in with.",
       "step2Title": "Enter passcode",
