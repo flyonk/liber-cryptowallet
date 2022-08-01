@@ -25,7 +25,11 @@
       </div>
     </template>
     <template #fixed-footer>
-      <m-base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button
+        :disabled="isEmailInvalid || isNotValid"
+        block
+        @click="nextStep"
+      >
         {{ $t('common.nextStep') }}
       </m-base-button>
     </template>
