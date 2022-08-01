@@ -11,13 +11,13 @@
         <div class="main">
           <ul v-for="device in devices" :key="device.id" class="list">
             <li class="item">
-              <p class="name -first">
+              <p class="text--headline text-dark-gray font-medium">
                 {{ device.deviceName }}
               </p>
               <img :alt="device.agent_type" :src="getImage(device.agentType)" />
             </li>
             <li class="item">
-              <p class="name">
+              <p class="text-default text-dark-gray">
                 {{ $t('views.profile.profileDevices.date') }}
               </p>
               <p class="description">
@@ -25,7 +25,7 @@
               </p>
             </li>
             <li class="item">
-              <p class="name">
+              <p class="text-default text-dark-gray">
                 {{ $t('views.profile.profileDevices.location') }}
               </p>
               <p class="description">
@@ -33,7 +33,7 @@
               </p>
             </li>
             <li class="item">
-              <p class="name">
+              <p class="text-default text-dark-gray">
                 {{ $t('views.profile.profileDevices.ip') }}
               </p>
               <p class="description">
@@ -93,22 +93,6 @@ function getImage(agentType: TAgentType): string {
 
         &:first-child {
           margin-bottom: 20px;
-        }
-
-        > .name {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 21px;
-          letter-spacing: -0.0031em;
-          color: $color-dark-grey;
-
-          &.-first {
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: -0.0043em;
-            color: $color-brand-primary;
-          }
         }
 
         > .description {
