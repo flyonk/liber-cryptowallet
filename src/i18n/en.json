@@ -489,7 +489,8 @@
         "confirmNativeVerification": "Are you sure to disable",
         "appearance": "Appearance",
         "language": "Language",
-        "selectLanguage": "Select Language"
+        "selectLanguage": "Select Language",
+        "myID": "My ID:"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",

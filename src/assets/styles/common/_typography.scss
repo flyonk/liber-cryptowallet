@@ -9,6 +9,7 @@
 .text--title-1 {
   font-size: 28px;
   line-height: 34px;
+  font-weight: 800;
   letter-spacing: 0.0038em;
 }
 
@@ -16,12 +17,14 @@
   font-size: 22px;
   line-height: 28px;
   letter-spacing: -0.0026em;
+  font-weight: 600;
 }
 
 .text--title-3 {
   font-size: 20px;
   line-height: 25px;
   letter-spacing: -0.0045em;
+  font-weight: 400;
 }
 
 .text--headline {
@@ -41,6 +44,7 @@
   font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.0031em;
+  color: $color-brand-primary;
 }
 
 //typical small description text
