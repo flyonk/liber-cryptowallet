@@ -1,5 +1,8 @@
 <template>
-  <t-top-navigation @click:left-icon="prevStep">
+  <t-top-navigation
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="prevStep"
+  >
     <template #title>{{ $t('auth.signup.step1Title') }}</template>
     <template #subtitle>{{ $t('auth.signup.step1Description') }} </template>
     <template #content>
