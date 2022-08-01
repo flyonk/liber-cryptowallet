@@ -28,13 +28,14 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineAsyncComponent } from 'vue';
+import { ref, defineAsyncComponent, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useErrorsStore } from '@/stores/errors';
 import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
+import { useFundsStore } from '@/applications/servicesapp/stores/funds';
 
 const MBaseToast = defineAsyncComponent(() => {
   return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
@@ -48,6 +49,7 @@ const errorsStore = useErrorsStore();
 const showPopup = ref(false);
 const popupTitle = ref('');
 const popupDescription = ref('');
+const fundsStore = useFundsStore();
 
 const { error, success } = route.query;
 
@@ -100,6 +102,20 @@ const servicesItems = [
     routeName: ServicesRoutes.GetCryptoCoin,
   },
 ];
+
+function getEmptyCoinImageSrc() {
+  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
+}
+
+const emptyCryptoState = computed(() => {
+  return {
+    name: '---',
+    code: 'empty',
+    img: getEmptyCoinImageSrc(),
+  };
+});
+
+fundsStore.setCrypto(emptyCryptoState.value, 'to');
 </script>
 
 <style lang="scss" scoped>

@@ -206,14 +206,6 @@ const preventConvert = computed(() => {
   return loading.value || isZeroValues.value || !amountLimitsIsOk.value;
 });
 
-const emptyCryptoState = computed(() => {
-  return {
-    name: '---',
-    code: 'empty',
-    img: getEmptyCoinImageSrc(),
-  };
-});
-
 const amountLimitsIsOk = computed(() => {
   const _num = Number(fundsStore.convertInfo.requestAmount);
   const minIsOk =
@@ -258,18 +250,12 @@ onBeforeMount(async () => {
     },
     'from'
   );
-
-  fundsStore.setCrypto(emptyCryptoState.value, 'to');
 });
 
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
   return Math.min(v1, 100000000);
-}
-
-function getEmptyCoinImageSrc() {
-  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {

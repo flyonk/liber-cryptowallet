@@ -43,9 +43,9 @@ export const useFundsStore = defineStore('fundsLiberSave', {
       img: `${STATIC_BASE_URL}/static/currencies/euro.svg`,
     },
     to: {
-      name: 'BTC',
-      code: 'tbtc',
-      img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
+      name: '---',
+      code: 'empty',
+      img: `${STATIC_BASE_URL}/static/currencies/empty_token.svg`,
     },
   }),
 
