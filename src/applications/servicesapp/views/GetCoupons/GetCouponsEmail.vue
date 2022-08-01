@@ -112,4 +112,17 @@ const closeClearBtn = () => {
 .header-nav {
   margin-bottom: 24px;
 }
+
+:deep(.-error .p-float-label label) {
+  color: $color-red-500;
+}
+
+:deep(.base-input > .message) {
+  color: $color-red-500 !important;
+  //styleName: Caption 2/Medium;
+  font-size: 11px;
+  font-weight: 500 !important;
+  line-height: 13px;
+  letter-spacing: 0.0006em !important;
+}
 </style>
