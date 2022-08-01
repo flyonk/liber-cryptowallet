@@ -19,9 +19,13 @@
               class="icon"
               :src="`${STATIC_BASE_URL}/static/currencies/euro.svg`"
             />
-            <h4 class="title">{{ totalBalance.currency }}</h4>
-            <p class="description">{{ $t('views.account.allAccounts') }}</p>
-            <h5 class="sum">
+            <h4 class="text-default font-semibold">
+              {{ totalBalance.currency }}
+            </h4>
+            <p class="text--footnote mb-1">
+              {{ $t('views.account.allAccounts') }}
+            </p>
+            <h5 class="text-default font-semibold">
               {{ getSymbolByCode(totalBalance.currency) }}
               {{ totalBalance.sum }}
             </h5>
@@ -34,9 +38,11 @@
               @click="$router.replace(getCurrencyUrl(currency.code))"
             >
               <img class="icon" :src="currency.imageUrl" />
-              <h4 class="title">{{ currency.code.toUpperCase() }}</h4>
-              <p class="description">{{ currency.name }}</p>
-              <h5 class="sum">{{ currency.balance }}</h5>
+              <h4 class="text-default font-semibold">
+                {{ currency.code.toUpperCase() }}
+              </h4>
+              <p class="text--footnote mb-1">{{ currency.name }}</p>
+              <h5 class="text-default font-semibold">{{ currency.balance }}</h5>
             </li>
           </template>
         </ul>
@@ -82,14 +88,6 @@ function getCurrencyUrl(code: string): string {
   flex-grow: 1;
   overflow: auto;
 
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 24px;
-  }
-
   > .currencies {
     display: flex;
     flex-wrap: wrap;
@@ -110,30 +108,6 @@ function getCurrencyUrl(code: string): string {
         width: 28px;
         border-radius: 50%;
         background-color: $color-dark-grey;
-      }
-
-      > .title {
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 21px;
-        letter-spacing: -0.0031em;
-        margin-bottom: 1px;
-      }
-
-      > .description {
-        font-weight: 500;
-        font-size: 13px;
-        line-height: 18px;
-        letter-spacing: -0.0008em;
-        margin-bottom: 8px;
-        color: $color-brand-300;
-      }
-
-      > .sum {
-        font-weight: 600;
-        font-size: 16px;
-        line-height: 21px;
-        letter-spacing: -0.0031em;
       }
     }
   }
