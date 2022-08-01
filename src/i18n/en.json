@@ -378,7 +378,9 @@
       "kyc7step": {
         "wereVerifyingYourId": "We’re verifying your ID",
         "yourIdentityIs": "Your identity is being verified. We will email and sms to you once your verification has completed.",
-        "continue": "Continue"
+        "continue": "Continue",
+        "errorMessage": "Something went wrong, try later or contact support ",
+        "documentError": "Your documents do not meet our requirements, please upload again."
       }
     },
     "passcodeEnter": {

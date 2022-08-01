@@ -81,8 +81,7 @@ export default {
   },
 
   async kycProceedClaimById(id: string): Promise<TSuccessResponse> {
-    return (await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`))
-      .data;
+    return await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`);
   },
 
   async kycDeleteFileById(
