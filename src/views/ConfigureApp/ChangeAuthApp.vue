@@ -35,7 +35,15 @@
     </template>
   </t-top-navigation>
 
-  <m-base-toast v-model:visible="showPopup" :severity="'attention'">
+  <m-base-toast v-model:visible="showPopup">
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <h1 class="title">{{ $t('configureApp.ChangeAppPopupTitle') }}</h1>
@@ -202,5 +210,16 @@ watch(is2FAConfigured, (val) => {
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

@@ -46,8 +46,15 @@
   <m-base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showSuccessPopup"
-    :severity="'attention'"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <h1 class="title">Do you know and trust this payee?</h1>
@@ -76,9 +83,16 @@
   <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showSuccessPopup"
-    :severity="'confirmation'"
     @click="showSuccessPopup = false"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/confirmation.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <p class="description">
@@ -91,9 +105,16 @@
   <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showIncorrectDataPopup"
-    :severity="'attention'"
     @click="showIncorrectDataPopup = false"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <p class="description">
@@ -105,7 +126,6 @@
   <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
-    :severity="'error'"
     @click="showFailurePopup = false"
   >
     <template #description>
@@ -262,5 +282,16 @@ const sendTransaction = async () => {
 
 .send-button {
   width: 100%;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>
