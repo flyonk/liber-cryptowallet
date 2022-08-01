@@ -1,6 +1,8 @@
 <template>
   <div class="page-header">
-    <h1 class="title">{{ $t('views.deposit.selectCoin.selectCoin') }}</h1>
+    <h1 class="text--title-1 font-bold mb-3">
+      {{ $t('views.deposit.selectCoin.selectCoin') }}
+    </h1>
     <label class="input-label" for="searchCoin">
       <i class="icon-search" />
       <input
@@ -74,15 +76,6 @@ const availableCoins = computed(() => {
 
 .page-header {
   margin-bottom: 32px;
-
-  > .title {
-    font-family: Inter, sans-serif;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 16px;
-  }
 }
 
 .input-label {
