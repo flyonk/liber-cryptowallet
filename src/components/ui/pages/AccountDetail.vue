@@ -92,6 +92,7 @@ import {
   TransactionsList,
   TTopNavigation,
 } from '@/components/ui';
+import { IAccount } from '@/applications/liber/models/account/account';
 
 interface ICarouselItem {
   name: LocaleMessageValue<VueMessageType>;
@@ -166,6 +167,15 @@ const carousel: ICarouselItem[] = [
 
 const onClick = (carouselItem: ICarouselItem) => {
   const { kycStatus } = profileStore.getUser;
+
+  if (carouselItem.successRoute === Route.PayRecipientsPhone) {
+    const accountToSend: IAccount | undefined = accountStore.getAccounts.find(
+      ({ code }) => code === route.params.coin
+    );
+
+    accountStore.accountToSend = accountToSend ? accountToSend : null;
+  }
+
   switch (kycStatus) {
     case EKYCStatus.success:
       if (carouselItem.query) {

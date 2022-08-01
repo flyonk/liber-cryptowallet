@@ -18,6 +18,7 @@ export interface INewAccountParams {
 
 export interface IAccountState {
   activeAccount: IAccount | null;
+  accountToSend: IAccount | null;
   accountList: IAccount[];
   totalBalance: IAccountTotal;
   balanceByCoin: IAccount;
@@ -30,6 +31,7 @@ export interface IAccountState {
 export const useAccountStore = defineStore('account', {
   state: (): IAccountState => ({
     activeAccount: null,
+    accountToSend: null,
     accountList: [],
     balanceByCoin: <IAccount>{},
     totalBalance: <IAccountTotal>{},
