@@ -6,8 +6,8 @@
         {{ $t('auth.login.step1Description') }}
       </div>
     </template>
-    <template #content
-      ><auth-credentials
+    <template #content>
+      <auth-credentials
         :key="updateKey"
         :next-title="$t('common.logInCta')"
         :initial-number="number"
@@ -33,8 +33,8 @@
             {{ $t('auth.login.step1AccountExistsLink') }}
           </router-link>
         </template>
-      </auth-credentials></template
-    >
+      </auth-credentials>
+    </template>
   </t-top-navigation>
 </template>
 
