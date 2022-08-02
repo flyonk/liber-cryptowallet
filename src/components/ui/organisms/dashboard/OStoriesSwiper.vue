@@ -1,5 +1,5 @@
 <template>
-  <swiper class="swiper" :slides-per-view="2.2" :space-between="8">
+  <swiper class="swiper" :slides-per-view="2.12" :space-between="8">
     <swiper-slide
       v-for="(item, index) in stories"
       :key="index"
