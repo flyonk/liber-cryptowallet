@@ -17,7 +17,7 @@
             }"
             :disabled="VerificationStatus !== EKYCStatus.success"
             class="btn"
-            @click="moveToDepositePage"
+            @click="moveToDepositPage"
           >
             <i
               class="icon-btn icon-plus_circle"
@@ -244,6 +244,7 @@ const setCurrentAccount = (coinCode: string) => {
 
 const onSelectAccount = (coinCode: string) => {
   setCurrentAccount(coinCode);
+  isMenuOpen.value = false;
 };
 
 const hasTransactions = computed(() => transactions.value.length > 0);
@@ -252,7 +253,7 @@ const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
 });
 
-const moveToDepositePage = async () => {
+const moveToDepositPage = async () => {
   const activeAccount = accountStore.getActiveAccount;
   if (activeAccount) {
     depositStore.setAccountInfo(activeAccount);

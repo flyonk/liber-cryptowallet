@@ -1,6 +1,6 @@
 <template name="who-topay">
   <div class="who-topay">
-    <contacts-header />
+    <contacts-header @click:left-icon="handle" />
     <h1 class="title">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
@@ -25,9 +25,24 @@ import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher
 
 import { Route } from '@/router/types';
 import { uiKitKey } from '@/types/symbols';
+import { useRouter } from 'vue-router';
+import { useAccountStore } from '@/applications/liber/stores/account';
+
+const router = useRouter();
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput } = uiKit!;
+
+const accountStore = useAccountStore();
+
+const handle = () => {
+  /**
+   *  This using for preselected sended coin in flow:
+   * (dashboard -> accounts -> concrete coin account -> send -> contact )
+   * */
+  if (accountStore.accountToSend) accountStore.accountToSend = null;
+  router.push({ name: Route.DashboardHome });
+};
 
 const filterContacts = ref('');
 </script>
