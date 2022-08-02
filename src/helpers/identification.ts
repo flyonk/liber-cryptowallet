@@ -1,4 +1,5 @@
-import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
+import { BiometryType } from '@/helpers/biometric/definitions';
+import { NativeBiometric } from '@/helpers/biometric/NativeBiometric';
 
 import { useErrorsStore } from '@/stores/errors';
 import { showConfirm } from '@/helpers/nativeDialog';
