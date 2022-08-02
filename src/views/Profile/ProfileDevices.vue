@@ -11,13 +11,13 @@
         <div class="main">
           <ul v-for="device in devices" :key="device.id" class="list">
             <li class="item">
-              <p class="text--headline text-dark-gray font-medium">
+              <p class="text--headline color-dark-gray font-medium">
                 {{ device.deviceName }}
               </p>
               <img :alt="device.agent_type" :src="getImage(device.agentType)" />
             </li>
             <li class="item">
-              <p class="text-default text-dark-gray">
+              <p class="text-default ay">
                 {{ $t('views.profile.profileDevices.date') }}
               </p>
               <p class="description">
@@ -25,7 +25,7 @@
               </p>
             </li>
             <li class="item">
-              <p class="text-default text-dark-gray">
+              <p class="text-default color-dark-gray">
                 {{ $t('views.profile.profileDevices.location') }}
               </p>
               <p class="description">
@@ -33,7 +33,7 @@
               </p>
             </li>
             <li class="item">
-              <p class="text-default text-dark-gray">
+              <p class="text-default color-dark-gray">
                 {{ $t('views.profile.profileDevices.ip') }}
               </p>
               <p class="description">
