@@ -9,6 +9,21 @@
       <scan-animation class="p-0">
         <div id="camera" class="camera" />
       </scan-animation>
+
+      <input
+        ref="uploader"
+        style="visibility: hidden"
+        type="file"
+        accept="image/*"
+        name=""
+        @input="onUpload"
+      />
+
+      <div class="memory-button">
+        <m-base-button block view="secondary" @click="onSelectPicture">
+          Upload image from memory
+        </m-base-button>
+      </div>
     </template>
     <template #fixed-footer>
       <m-base-button block @click="onScan">
@@ -45,6 +60,7 @@ const { tm } = useI18n();
 const errorsStore = useErrorsStore();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
+const uploader = ref();
 
 const cameraPreviewOptions: CameraPreviewOptions = {
   parent: 'camera',
@@ -99,6 +115,44 @@ onActivated(() => {
   calcProgressPercentage();
   detectScanSide();
 });
+
+const onSelectPicture = () => {
+  uploader.value.click();
+};
+
+const onUpload = async () => {
+  try {
+    const file = uploader.value.files[0];
+
+    const toBase64 = (file: File): Promise<string> =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+      });
+
+    if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
+      kycStore.setImage(await toBase64(file), scanningSide.value);
+
+      calcProgressPercentage();
+
+      flipScanSide();
+
+      if (!isBackSideEmpty.value) {
+        await nextStep();
+      }
+    } else {
+      kycStore.setImage(await toBase64(file), scanningSide.value);
+
+      calcProgressPercentage();
+
+      await nextStep();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 const resetScanSide = () => {
   scanningSide.value = EDocumentSide.front;
@@ -240,6 +294,10 @@ const onScan = async (): Promise<void> => {
 </script>
 
 <style lang="scss" scoped>
+.memory-button {
+  margin: 18px 0 0;
+}
+
 .camera {
   width: 100%;
   height: 100%;
