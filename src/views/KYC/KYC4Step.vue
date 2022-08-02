@@ -132,6 +132,15 @@ const onUpload = async () => {
         reader.onerror = (error) => reject(error);
       });
 
+    if (isProofTypePassport.value) {
+      kycStore.setImage(await toBase64(file), scanningSide.value);
+
+      calcProgressPercentage();
+
+      await nextStep();
+      return;
+    }
+
     if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
       kycStore.setImage(await toBase64(file), scanningSide.value);
 
