@@ -15,7 +15,15 @@
     </ul>
   </div>
 
-  <m-base-toast v-model:visible="showPopup" :severity="'confirmation'">
+  <m-base-toast v-model:visible="showPopup">
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/confirmation.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <h1 class="title">{{ $t(popupTitle) }}</h1>
@@ -28,20 +36,18 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, defineAsyncComponent, computed } from 'vue';
+import { ref, inject, computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useErrorsStore } from '@/stores/errors';
 import { ADashboardServiceItem } from '@/applications/servicesapp/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 import { useI18n } from 'vue-i18n';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
+import { uiKitKey } from '@/types/symbols';
 import { useFundsStore } from '@/applications/servicesapp/stores/funds';
 
-const MBaseToast = defineAsyncComponent(() => {
-  return import(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`).then(
-    (lib) => lib.MBaseToast
-  );
-});
+const uiKit = inject(uiKitKey);
+const { MBaseToast } = uiKit!;
 
 const route = useRoute();
 const { tm } = useI18n();
@@ -126,5 +132,12 @@ fundsStore.setCrypto(emptyCryptoState.value, 'to');
 .title {
   color: $color-dark-grey;
   margin-bottom: 15px;
+}
+
+.popup-image {
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

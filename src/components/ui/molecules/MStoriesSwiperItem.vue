@@ -21,9 +21,11 @@ const props = defineProps<IProps>();
 const isSimple = computed(() => {
   return props.item.color === 'blue' ? '-simple' : '';
 });
+
 const isGreen = computed(() => {
   return props.item.color === 'green' ? '-green' : '';
 });
+
 const isYellow = computed(() => {
   return props.item.color === 'yellow' ? '-yellow' : '';
 });
@@ -31,6 +33,7 @@ const isYellow = computed(() => {
 const isColorGreen = computed(() => {
   return props.item.text === 'green' ? '-green' : '';
 });
+
 const isColorBlack = computed(() => {
   return props.item.text === 'black' ? '-black' : '';
 });
@@ -42,7 +45,6 @@ const isColorBlack = computed(() => {
   padding: 16px;
   height: 160px;
   border-radius: 16px;
-  margin-right: 8px;
 
   > .image {
     margin-bottom: 20px;

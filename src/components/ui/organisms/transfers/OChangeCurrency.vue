@@ -144,11 +144,7 @@
       >
         {{ $t('transactions.convert.convertNow') }} ({{ timer }}s)
       </m-base-button>
-      <m-base-toast
-        :visible="isMfaErrorExists"
-        severity="error"
-        @update:visible="setToastState"
-      >
+      <m-base-toast :visible="isMfaErrorExists" @update:visible="setToastState">
         <template #header>
           <div class="success-header font-weight--medium text--title-3">
             {{ $t('transactions.convert.convertFailTitle') }}
