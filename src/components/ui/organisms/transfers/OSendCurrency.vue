@@ -48,6 +48,7 @@
         <o-select-coin-input
           :coins="currencies"
           :current-currency="adoptedCurrentSendToCurrency"
+          class="select-coin -disabled"
           @on-select-coin="
             handleChangeCurrentCurrency(
               _getCurrencyIndex($event.code),
@@ -208,9 +209,17 @@ const syncModels = (event: InputEvent) => {
 .change-currency {
   width: 100%;
 
-  > .base-input:deep {
+  > :deep(.base-input) {
     margin: 0 0 16px;
     height: 70px;
+
+    > .input-wrapper {
+      &.-default {
+        &.-disabled {
+          opacity: 1;
+        }
+      }
+    }
   }
 }
 
@@ -257,6 +266,12 @@ const syncModels = (event: InputEvent) => {
     display: flex;
     align-items: center;
     color: $color-brand-2-300;
+  }
+}
+
+.select-coin {
+  &.-disabled {
+    opacity: 0.73;
   }
 }
 </style>
