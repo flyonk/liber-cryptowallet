@@ -90,7 +90,11 @@ const handleStep = async (phone: number) => {
     });
   } catch (err: AxiosError | Error | unknown) {
     const code = (err as AxiosError).response?.status;
-    if (code === 406) {
+    /**
+     * 406 - 2fa enabled
+     * 403 - user is not authorized (returns when 2fa is turned off)
+     */
+    if (code === 406 || code === 403) {
       phoneExist.value = true;
       return;
     }
