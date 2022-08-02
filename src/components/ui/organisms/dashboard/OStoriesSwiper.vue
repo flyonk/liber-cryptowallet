@@ -6,7 +6,7 @@
       class="stories-swiper"
       @click="$router.push({ name: item.route })"
     >
-      <MStoriesSwiperItem :item="item"></MStoriesSwiperItem>
+      <MStoriesSwiperItem :item="item" />
     </swiper-slide>
   </swiper>
 </template>
