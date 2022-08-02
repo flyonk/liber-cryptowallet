@@ -45,7 +45,6 @@ const isColorBlack = computed(() => {
   padding: 16px;
   height: 160px;
   border-radius: 16px;
-  margin-right: 8px;
 
   > .image {
     margin-bottom: 20px;
