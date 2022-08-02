@@ -67,7 +67,6 @@ import {
   inject,
   onBeforeMount,
   onMounted,
-  onUnmounted,
   ref,
 } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
@@ -141,10 +140,6 @@ onBeforeMount(() => {
 
 onMounted(() => {
   transferStore.coin = currencies[0].code;
-});
-
-onUnmounted(() => {
-  accountStore.accountToSend = null;
 });
 
 let isSelectListOpen = ref(false);
