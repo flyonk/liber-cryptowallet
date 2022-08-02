@@ -6,9 +6,10 @@
     <template #title>{{ accountName }}</template>
     <template #subtitle>
       <div class="flex">
-        <p class="key">
-          My ID: <a class="link-to">{{ accountID }}</a>
+        <p class="text--title-3 mr-1">
+          {{ $t('views.profile.profileSettings.myID') }}
         </p>
+        <a class="link-to">{{ accountID }}</a>
         <img src="@/assets/icon/edit.svg" alt="edit" /></div
     ></template>
     <template #right
@@ -20,7 +21,9 @@
       <div class="account-profile">
         <div class="main">
           <img class="qrcode" src="@/assets/images/qr-code.png" alt="qr" />
-          <p class="text">{{ $t('views.profile.profileQRCode.getPaid') }}</p>
+          <p class="text--body">
+            {{ $t('views.profile.profileQRCode.getPaid') }}
+          </p>
           <div class="flex">
             <a class="link-to">{{ linkToCopy }}</a>
             <img
@@ -123,15 +126,6 @@ const copyToClipboard = async () => {
         letter-spacing: 0.0038em;
         margin-bottom: 8px;
       }
-
-      > .key {
-        font-size: 20px;
-        line-height: 25px;
-        display: flex;
-        align-items: center;
-        letter-spacing: -0.0045em;
-        color: $color-dark-grey;
-      }
     }
   }
 
@@ -143,15 +137,6 @@ const copyToClipboard = async () => {
 
     > .qrcode {
       margin-bottom: 40px;
-    }
-
-    > .text {
-      font-weight: 500;
-      font-size: 17px;
-      line-height: 22px;
-      text-align: center;
-      letter-spacing: -0.0043em;
-      color: $color-dark-grey;
     }
 
     > .controls {
