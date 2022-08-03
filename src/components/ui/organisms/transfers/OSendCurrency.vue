@@ -132,9 +132,15 @@ const currencies: ICoin[] = [
 defineEmits(['send-transaction']);
 
 onBeforeMount(() => {
-  const code = accountStore.accountToSend?.code
-    ? accountStore.accountToSend.code
-    : 'tbtc';
+  let code;
+
+  if (accountStore.accountToSend?.code) {
+    code = accountStore.accountToSend.code;
+  } else if (accountStore.activeAccount?.code) {
+    code = accountStore.activeAccount.code;
+  } else {
+    code = 'tbtc';
+  }
 
   handleChangeCurrentCurrency(_getCurrencyIndex(code), 'from');
 });
