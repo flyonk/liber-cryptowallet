@@ -82,13 +82,15 @@
                 <img :src="transaction.img" class="icon" />
                 <div class="info">
                   <div class="flex">
-                    <h1 class="title">{{ transaction.info }}</h1>
+                    <h1 class="text-default">{{ transaction.info }}</h1>
                     <p :class="{ received: transaction.sum.startsWith('+') }">
                       {{ transaction.sum }}
                     </p>
                   </div>
                   <div class="flex">
-                    <div class="subtitle">{{ transaction.from }}</div>
+                    <div class="text--footnote color-dark-gray">
+                      {{ transaction.from }}
+                    </div>
                     <div
                       v-if="transaction.status"
                       :class="{ pending: transaction.status === 'Pending' }"
@@ -99,7 +101,9 @@
                         {{ transaction.status }}
                       </p>
                     </div>
-                    <p v-else class="sum">{{ transaction.sum }}</p>
+                    <p v-else class="text--footnote color-dark-gray text-right">
+                      {{ transaction.sum }}
+                    </p>
                   </div>
                 </div>
               </li>
@@ -108,15 +112,15 @@
             <div v-if="activeTab === 2" class="wallet">
               <img alt="qr-code" class="qr" src="@/assets/images/qr-code.png" />
               <div class="wallet-address">
-                <h4 class="title">
+                <h4 class="text--footnote text-dark-gray mb-1">
                   {{ $t('transactions.walletAddress') }}
                 </h4>
                 <div class="account">
                   <div class="crypto-number">
-                    <p class="text">
+                    <p class="text-default">
                       {{ wallet }}
-                      <br />sd21213
-                      <span class="bold">Opa139z0l</span>
+                      <br />
+                      <span class="font-bold">Opa139z0l</span>
                     </p>
                   </div>
                   <img alt="folders" src="@/assets/icon/folders.svg" />
@@ -266,13 +270,6 @@ const shareAddress = async () => {
           width: 56px;
           margin-left: auto;
         }
-
-        > .title {
-          font-weight: 600;
-          font-size: 28px;
-          line-height: 34px;
-          letter-spacing: 0.0038em;
-        }
       }
 
       > .subtitle {
@@ -326,34 +323,12 @@ const shareAddress = async () => {
         width: 100%;
         justify-content: space-between;
 
-        > .title {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 21px;
-          letter-spacing: -0.0031em;
-        }
-
-        > .subtitle {
-          font-size: 13px;
-          line-height: 18px;
-          letter-spacing: -0.0008em;
-          color: $color-dark-grey;
-        }
-
         > .pending {
           color: $color-yellow-600;
         }
 
         > .received {
           color: $color-green-600;
-        }
-
-        > .sum {
-          font-size: 13px;
-          line-height: 18px;
-          text-align: right;
-          letter-spacing: -0.0008em;
-          color: $color-dark-grey;
         }
       }
     }
@@ -400,16 +375,6 @@ const shareAddress = async () => {
     color: $color-brand-secondary;
   }
 }
-
-.title-currency {
-  & > .currency {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 34px;
-    letter-spacing: -0.0026em;
-  }
-}
-
 .carousel-slider {
   margin-bottom: 24px;
 }
@@ -439,32 +404,11 @@ const shareAddress = async () => {
   }
 }
 
-.crypto-number {
-  > .text {
-    font-size: 16px;
-    line-height: 21px;
-    letter-spacing: -0.0031em;
-    color: $color-black;
-
-    > .bold {
-      font-weight: bold;
-    }
-  }
-}
-
 .wallet-address {
   width: 100%;
   background: $color-white;
   box-shadow: 0 0 24px rgb(64 70 105 / 8%);
   padding: 34px 32px 50px;
-
-  > .title {
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-dark-grey;
-    margin-bottom: 4px;
-  }
 
   > .account {
     display: flex;
