@@ -116,6 +116,7 @@ export default {
       .then((r) => r.blob())
       .then((blobFile) =>
         //Hack for Safari
+        //TODO: REFACTOR ME!!!! need a separate compress methode
         reduce.toBlob(blobFile, { max: 1000 }).then((blob: Blob) => {
           binaryFile = new File([blob], `${fileType}-${side}.${type}`, {
             type: `image/${type}`,
@@ -133,25 +134,38 @@ export default {
     ).data;
   },
 
-  async kycAddFile(
-    id: string,
-    file: File,
-    country: string
-  ): Promise<TSuccessResponse> {
+  async kycAddFile(id: string, file: File, country: string): Promise<void> {
     const data = new FormData();
     const config = {
       headers: {
         'Content-Type': 'multipart/form-data',
       },
     };
-    data.append('file', file);
+    let binaryFile = '' as string | Blob;
 
-    return (
-      await axios.post(
-        `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
-        data,
-        config
-      )
-    ).data;
+    const reader = new FileReader();
+    reader.onload = async (readedFile: any) => {
+      if (readedFile?.target?.result) {
+        const blob = new Blob([readedFile?.target?.result], {
+          type: file.type,
+        });
+        //TODO: REFACTOR ME!!!!
+        await reduce.toBlob(blob, { max: 1000 }).then((newBlob: Blob) => {
+          binaryFile = new File([newBlob], file.name, {
+            type: file.type,
+          });
+        });
+        data.append('file', binaryFile);
+
+        return (
+          await axios.post(
+            `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
+            data,
+            config
+          )
+        ).data;
+      }
+    };
+    reader.readAsArrayBuffer(file);
   },
 };
