@@ -187,7 +187,11 @@ onBeforeMount(async () => {
     ]);
     transactions.value = _transactions;
 
-    setCurrentAccount('all');
+    const currentAccount = accountStore.activeAccount
+      ? accountStore.activeAccount.code
+      : 'all';
+
+    setCurrentAccount(currentAccount);
   } catch (err) {
     errorsStore.handle({
       err,
@@ -240,6 +244,7 @@ const setCurrentAccount = (coinCode: string) => {
   };
 
   accountStore.setActiveAccount(account);
+  accountStore.accountToSend = account;
 };
 
 const onSelectAccount = (coinCode: string) => {
