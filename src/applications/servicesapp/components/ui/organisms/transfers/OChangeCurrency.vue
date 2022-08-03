@@ -2,6 +2,7 @@
   <keep-alive>
     <div
       class="change-currency"
+      :class="isOneCoinEmpty ? '-readonly' : ''"
       @wheel.prevent
       @touchmove.prevent
       @scroll.prevent
@@ -206,14 +207,6 @@ const preventConvert = computed(() => {
   return loading.value || isZeroValues.value || !amountLimitsIsOk.value;
 });
 
-const emptyCryptoState = computed(() => {
-  return {
-    name: '---',
-    code: 'empty',
-    img: getEmptyCoinImageSrc(),
-  };
-});
-
 const amountLimitsIsOk = computed(() => {
   const _num = Number(fundsStore.convertInfo.requestAmount);
   const minIsOk =
@@ -258,18 +251,12 @@ onBeforeMount(async () => {
     },
     'from'
   );
-
-  fundsStore.setCrypto(emptyCryptoState.value, 'to');
 });
 
 function getCorrectValue(value: number) {
   if (value === 0) return 0;
   const v1 = Math.max(value, 0.000005);
   return Math.min(v1, 100000000);
-}
-
-function getEmptyCoinImageSrc() {
-  return `${STATIC_BASE_URL}/static/currencies/empty_token.svg`;
 }
 
 function onRefresh() {
@@ -520,5 +507,20 @@ watch(isZeroValues, (val) => {
   line-height: 26px;
   color: $color-red-500;
   height: 110px;
+}
+
+.change-currency.-readonly {
+  & > :deep(.base-input > .input-wrapper) {
+    background-color: $color-input-bg !important;
+  }
+
+  &:deep(.actions:focus),
+  &:deep(.actions:focus-within),
+  &:deep(.actions:active),
+  &:deep(.actions .select:focus-within),
+  &:deep(.actions .select:focus),
+  &:deep(.actions .select:active) {
+    background-color: $color-white-light !important;
+  }
 }
 </style>

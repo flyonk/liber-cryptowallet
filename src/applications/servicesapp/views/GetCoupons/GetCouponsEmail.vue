@@ -12,8 +12,9 @@
         >
           <template #label> {{ $t('services.getcoupons.email') }} </template>
           <template v-if="isClearBtnShown" #actions>
-            <i
-              class="icon-transaction-small-reverted"
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearEmail"
               @touchend="clearEmail"
             />
@@ -25,7 +26,11 @@
       </div>
     </template>
     <template #fixed-footer>
-      <m-base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button
+        :disabled="isEmailInvalid || isNotValid"
+        block
+        @click="nextStep"
+      >
         {{ $t('common.nextStep') }}
       </m-base-button>
     </template>
@@ -44,6 +49,7 @@ import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 import { useFundsStore } from '@/applications/servicesapp/stores/funds';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseButton } = uiKit!;
@@ -107,5 +113,18 @@ const closeClearBtn = () => {
 <style lang="scss" scoped>
 .header-nav {
   margin-bottom: 24px;
+}
+
+:deep(.-error .p-float-label label) {
+  color: $color-red-500;
+}
+
+:deep(.base-input > .message) {
+  color: $color-red-500 !important;
+  //styleName: Caption 2/Medium;
+  font-size: 11px;
+  font-weight: 500 !important;
+  line-height: 13px;
+  letter-spacing: 0.0006em !important;
 }
 </style>

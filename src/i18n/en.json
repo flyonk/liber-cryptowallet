@@ -378,7 +378,9 @@
       "kyc7step": {
         "wereVerifyingYourId": "We’re verifying your ID",
         "yourIdentityIs": "Your identity is being verified. We will email and sms to you once your verification has completed.",
-        "continue": "Continue"
+        "continue": "Continue",
+        "errorMessage": "Something went wrong, try later or contact support ",
+        "documentError": "Your documents do not meet our requirements, please upload again."
       }
     },
     "passcodeEnter": {
@@ -490,7 +492,8 @@
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language",
-        "myID": "My ID:"
+        "myID": "My ID:",
+        "saveChanges": "Save changes"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -516,7 +519,7 @@
         "topUpAccount": "Can I still top-up my Liber account in CZK and HUF?"
       },
       "profileEdit": {
-        "editProfile": "Edit Profile",
+        "editProfile": "Personal details",
         "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",

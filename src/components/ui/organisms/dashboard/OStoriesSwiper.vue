@@ -1,12 +1,12 @@
 <template>
-  <swiper class="swiper" :slides-per-view="2.2" :space-between="8">
+  <swiper class="swiper" :slides-per-view="2.12" :space-between="8">
     <swiper-slide
       v-for="(item, index) in stories"
       :key="index"
       class="stories-swiper"
       @click="$router.push({ name: item.route })"
     >
-      <MStoriesSwiperItem :item="item"></MStoriesSwiperItem>
+      <MStoriesSwiperItem :item="item" />
     </swiper-slide>
   </swiper>
 </template>

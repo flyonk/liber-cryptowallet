@@ -48,6 +48,7 @@
         <o-select-coin-input
           :coins="currencies"
           :current-currency="adoptedCurrentSendToCurrency"
+          class="select-coin -disabled"
           @on-select-coin="
             handleChangeCurrentCurrency(
               _getCurrencyIndex($event.code),
@@ -61,13 +62,27 @@
 </template>
 
 <script setup lang="ts">
-import { computed, inject, onMounted, ref } from 'vue';
+import {
+  computed,
+  ComputedRef,
+  inject,
+  onBeforeMount,
+  onMounted,
+  ref,
+} from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { uiKitKey } from '@/types/symbols';
+import { useAccountStore } from '@/applications/liber/stores/account';
+
+interface ISelectCoin {
+  name: string;
+  code: string;
+  img: string;
+}
 
 enum ESendInputType {
   From = 'from',
@@ -80,6 +95,7 @@ const { MBaseInput } = uiKit!;
 const transferStore = useTransferStore();
 let amount = ref('');
 let recipientAmount = ref('');
+const accountStore = useAccountStore();
 
 const props = defineProps({
   contactName: {
@@ -88,13 +104,7 @@ const props = defineProps({
   },
 });
 
-defineEmits(['send-transaction']);
-
-onMounted(() => {
-  transferStore.coin = currencies[0].code;
-});
-
-const currentSendFromCurrency = {
+let currentSendFromCurrency = {
   name: ref('TBTC'),
   code: ref('tbtc'),
   img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
@@ -119,6 +129,20 @@ const currencies: ICoin[] = [
   },
 ];
 
+defineEmits(['send-transaction']);
+
+onBeforeMount(() => {
+  const code = accountStore.accountToSend?.code
+    ? accountStore.accountToSend.code
+    : 'tbtc';
+
+  handleChangeCurrentCurrency(_getCurrencyIndex(code), 'from');
+});
+
+onMounted(() => {
+  transferStore.coin = currencies[0].code;
+});
+
 let isSelectListOpen = ref(false);
 
 function handleChangeCurrentCurrency(index: number, type: string) {
@@ -141,13 +165,15 @@ function handleChangeCurrentCurrency(index: number, type: string) {
   isSelectListOpen.value = false;
 }
 
-const adoptedCurrentSendFromCurrency = computed(() => ({
-  name: currentSendFromCurrency.name.value,
-  code: currentSendFromCurrency.code.value,
-  img: currentSendFromCurrency.img,
-}));
+const adoptedCurrentSendFromCurrency: ComputedRef<ISelectCoin> = computed(
+  () => ({
+    name: currentSendFromCurrency.name.value,
+    code: currentSendFromCurrency.code.value,
+    img: currentSendFromCurrency.img,
+  })
+);
 
-const adoptedCurrentSendToCurrency = computed(() => ({
+const adoptedCurrentSendToCurrency: ComputedRef<ISelectCoin> = computed(() => ({
   name: currentSendToCurrency.name.value,
   code: currentSendToCurrency.code.value,
   img: currentSendToCurrency.img,
@@ -162,7 +188,6 @@ const _setCurrentSendToCurrency = (index: number) => {
 const _getCurrencyIndex = (code: string) =>
   currencies.findIndex((e) => e.code === code);
 
-// TODO:MBaseInput needs to be updated to work with v-model
 const syncModels = (event: InputEvent) => {
   amount.value = '' + event;
   recipientAmount.value = amount.value;
@@ -184,9 +209,17 @@ const syncModels = (event: InputEvent) => {
 .change-currency {
   width: 100%;
 
-  > .base-input:deep {
+  > :deep(.base-input) {
     margin: 0 0 16px;
     height: 70px;
+
+    > .input-wrapper {
+      &.-default {
+        &.-disabled {
+          opacity: 1;
+        }
+      }
+    }
   }
 }
 
@@ -233,6 +266,12 @@ const syncModels = (event: InputEvent) => {
     display: flex;
     align-items: center;
     color: $color-brand-2-300;
+  }
+}
+
+.select-coin {
+  &.-disabled {
+    opacity: 0.73;
   }
 }
 </style>

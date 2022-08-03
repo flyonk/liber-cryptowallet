@@ -19,7 +19,11 @@
         >
           <template #label> Name </template>
           <template v-if="newContact.name.length > 2" #actions>
-            <i class="icon-transaction-small-reverted" @click="clearName" />
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
+              @click="clearName"
+            />
           </template>
         </m-base-input>
         <li
@@ -34,11 +38,15 @@
           >
             <template #label> Email or Phone </template>
             <template v-if="contact.value.length > 1" #actions>
-              <i class="icon-trash_full" @click="removeContact(index)" />
+              <i class="icon icon-trash_full" @click="removeContact(index)" />
             </template>
           </m-base-input>
         </li>
-        <m-base-button view="flat" icon-left="ci-plus" @click="addExtraContact">
+        <m-base-button
+          view="flat"
+          icon-left="icon-plus_circle"
+          @click="addExtraContact"
+        >
           {{ $t('views.newcontact.additionalphone') }}
         </m-base-button>
       </ul>
@@ -73,6 +81,7 @@ import { useRecipientsStore } from '@/stores/recipients';
 import { TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseButton } = uiKit!;
@@ -173,5 +182,9 @@ function closeMenu() {
   > .invite-item {
     margin-bottom: 16px;
   }
+}
+
+.icon {
+  font-size: 24px;
 }
 </style>

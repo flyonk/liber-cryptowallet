@@ -8,7 +8,7 @@
 
     <base-passcode class="login-passcode" @submit="onSubmit" />
 
-    <m-base-toast v-model:visible="showIncorrectPasswordToast" severity="error">
+    <m-base-toast v-model:visible="showIncorrectPasswordToast">
       <template #description>
         <div>
           {{ $t('auth.restore.step2Description') }}
@@ -16,7 +16,7 @@
       </template>
     </m-base-toast>
 
-    <m-base-toast v-model:visible="showSessionExpiredToast" severity="error">
+    <m-base-toast v-model:visible="showSessionExpiredToast">
       <template #description>
         <div class="session-expired-toast">
           <div>

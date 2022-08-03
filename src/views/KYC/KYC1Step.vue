@@ -85,9 +85,19 @@ const setCountry = (selectedCountry: string): void => {
   kycStore.changeData('citizenship', selectedCountry);
 };
 
+const routeProps = router.resolve({ name: Route.ProfilePhonesAndEmails });
+const prevRouteIsProfile =
+  routeProps.path === router.options.history?.state?.back;
+
 const prevStep = async () => {
-  if (!pStore.user.id) await pStore.init();
-  if (pStore.user.is2FAConfigured) {
+  if (!pStore.user.id) {
+    await pStore.init();
+  }
+  if (prevRouteIsProfile) {
+    router.push({
+      name: Route.ProfilePhonesAndEmails,
+    });
+  } else if (pStore.user.is2FAConfigured) {
     router.push({
       name: Route.AuthPasscode,
     });

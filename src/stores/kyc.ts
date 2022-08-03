@@ -106,6 +106,11 @@ export const useKYCStore = defineStore('kyc', {
     async claim() {
       try {
         this.claimData = await profileService.kycGetClaim();
+
+        //If current claim is rejected then recreate
+        if (this.claimData.status === 40) {
+          this.claimData = await profileService.kycCreateClaim();
+        }
       } catch (e: Error | any) {
         if (e?.response && e.response.status === 404) {
           this.claimData = await profileService.kycCreateClaim();
@@ -114,18 +119,7 @@ export const useKYCStore = defineStore('kyc', {
     },
 
     async proceed(claimId: string) {
-      try {
-        await profileService.kycProceedClaimById(claimId);
-      } catch (e) {
-        const errorsState = useErrorsStore();
-
-        await errorsState.handle({
-          err: e as AxiosError | Error,
-          name: 'kyc/proceed',
-          ctx: 'store/kyc',
-          description: 'Error on proceed KYC',
-        });
-      }
+      return await profileService.kycProceedClaimById(claimId);
     },
 
     async uploadFile(
