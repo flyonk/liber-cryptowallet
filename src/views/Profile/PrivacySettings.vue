@@ -4,12 +4,12 @@
     <template #content
       ><div class="privacy-settings">
         <main class="main">
-          <h6 class="subtitle">
+          <h6 class="text--footnote mb-2 color-dark-gray">
             {{ $t('views.profile.profilePrivacy.marketing') }}
           </h6>
           <section class="section">
             <div class="header">
-              <h3 class="title">
+              <h3 class="text--body color-main font-medium">
                 {{ $t('views.profile.profilePrivacy.marketingEmails') }}
               </h3>
               <MBaseSwitch
@@ -18,14 +18,14 @@
                 @update:model-value="handleEmailUpdate"
               />
             </div>
-            <div class="description">
+            <div class="description text--footnote">
               {{ $t('views.profile.profilePrivacy.receiveEmails') }}
             </div>
           </section>
           <hr class="separator" />
           <section class="section">
             <div class="header">
-              <h3 class="title">
+              <h3 class="text--body color-main font-medium">
                 {{ $t('views.profile.profilePrivacy.marketingPushes') }}
               </h3>
               <MBaseSwitch
@@ -34,14 +34,14 @@
                 @update:model-value="handlePushesUpdate"
               />
             </div>
-            <div class="description">
+            <div class="description text--footnote">
               {{ $t('views.profile.profilePrivacy.receivePushNotifications') }}
             </div>
           </section>
           <hr class="separator" />
           <section class="section">
             <div class="header">
-              <h3 class="title">
+              <h3 class="text--body color-main font-medium mb-1">
                 {{ $t('views.profile.profilePrivacy.social') }}
               </h3>
               <MBaseSwitch
@@ -50,7 +50,7 @@
                 @update:model-value="handleSocialMediaUpdate"
               />
             </div>
-            <div class="description">
+            <div class="description text--footnote">
               {{ $t('views.profile.profilePrivacy.shareInformation') }}
             </div>
           </section>
@@ -119,23 +119,6 @@ const handleSocialMediaUpdate = async () => {
     margin-bottom: 20px;
   }
 
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 24px;
-  }
-
-  > .main > .subtitle {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-dark-grey;
-    margin-bottom: 10px;
-  }
-
   > .main > .section {
     margin: 17px 0;
   }
@@ -146,24 +129,9 @@ const handleSocialMediaUpdate = async () => {
     justify-content: space-between;
   }
 
-  > .main > .section > .header > .title {
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
-    color: $color-brand-primary;
-  }
-
   > .main > .section > .description {
     width: 235px;
     font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: normal;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
     color: $color-dark-grey;
   }
 
