@@ -1,4 +1,6 @@
 import axios from 'axios';
+const reduce = require('image-blob-reduce')();
+
 import apiService from '@/services/apiService';
 
 import profileMapper, { IProfile } from '@/models/profile/profile';
@@ -107,15 +109,18 @@ export default {
         'Content-Type': 'multipart/form-data',
       },
     };
+    let binaryFile = '' as string | Blob;
     const data = new FormData();
     const type = file.split(';')[0].split('/')[1];
-    const binaryFile = await fetch(file)
+    await fetch(file)
       .then((r) => r.blob())
-      .then(
-        (blobFile) =>
-          new File([blobFile], `${fileType}-${side}.${type}`, {
+      .then((blobFile) =>
+        //Hack for Safari
+        reduce.toBlob(blobFile, { max: 1000 }).then((blob: Blob) => {
+          binaryFile = new File([blob], `${fileType}-${side}.${type}`, {
             type: `image/${type}`,
-          })
+          });
+        })
       );
     data.append('file', binaryFile);
 
