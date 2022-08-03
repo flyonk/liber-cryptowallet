@@ -3,7 +3,14 @@
 .text--large-title {
   font-size: 34px;
   line-height: 41px;
+  font-weight: 800;
   letter-spacing: 0.004em;
+
+  @media (max-height: 680px) {
+    font-size: 28px !important;
+    line-height: 34px !important;
+    letter-spacing: 0.0038em !important;
+  }
 }
 
 .text--title-1 {
@@ -103,10 +110,16 @@
   line-height: 34px;
 }
 
+// text colors
+
 .color-dark-gray {
   color: $color-dark-grey;
 }
 
 .color-main {
   color: $color-brand-primary;
+}
+
+.color-white {
+  color: $color-white;
 }
