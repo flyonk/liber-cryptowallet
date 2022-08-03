@@ -127,8 +127,10 @@ watch(is2FAConfigured, (val) => {
   } else {
     if (pStore.user.is2FAConfigured) {
       const mfaStore = useMfaStore();
+      const routePath = router.resolve({ name: Route.ProfileSettings }).path;
+
       mfaStore.show({
-        successRoute: Route.ProfileSettings,
+        successRoute: routePath,
         async callback() {
           // update profile info about 2fa is enabled or not
           await pStore.init();
