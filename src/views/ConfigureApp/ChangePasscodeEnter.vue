@@ -82,7 +82,7 @@ function onSubmit(success: boolean): void {
   console.log(success);
   if (success) {
     mfaStore.show({
-      successRoute: Route.ProfileSettings,
+      successRoute: Route.ProfileMainView,
     });
   } else {
     showErrorToast.value = true;
