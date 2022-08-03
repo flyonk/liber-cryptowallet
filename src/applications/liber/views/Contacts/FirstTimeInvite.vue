@@ -7,12 +7,14 @@
         alt="arrow-left"
         @click="$router.push('/contacts')"
       />
-      <h1 v-if="isAllowAccessToContacts" class="title">Invite Friends</h1>
-      <h1 v-else class="title">Find youd friends</h1>
+      <h1 v-if="isAllowAccessToContacts" class="text--title-1 mb-2">
+        Invite Friends
+      </h1>
+      <h1 v-else class="text--title-1 mb-2">Find youd friends</h1>
       <p v-if="isAllowAccessToContacts" class="description">
         Invite a friend and share the Liber experience with them
       </p>
-      <p v-else class="description">
+      <p v-else class="description text--body">
         Send and request money from your friends more easily, split bills and
         much more.
       </p>
@@ -29,8 +31,8 @@
     </div>
     <div v-if="isAllowAccessToContacts" class="invite-main">
       <img class="dragndrop" src="@/assets/images/dragndrop-bg.png" />
-      <h2 class="title">Enable contacts permission</h2>
-      <p class="description">
+      <h2 class="text--title-3 mb-1">Enable contacts permission</h2>
+      <p class="text-default mb-4">
         Quickly invite friends from your <br />
         contacts list
       </p>
@@ -86,19 +88,7 @@ const isAllowAccessToContacts = ref(false);
     margin-bottom: 21px;
   }
 
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    color: $color-black;
-    margin-bottom: 8px;
-  }
-
   > .description {
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
     color: $color-brand-550;
   }
 }
@@ -137,24 +127,6 @@ const isAllowAccessToContacts = ref(false);
   > .dragndrop {
     max-height: 315px;
     margin-bottom: 24px;
-  }
-
-  > .title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
-    text-align: center;
-    letter-spacing: -0.0045em;
-    color: $color-black;
-    margin-bottom: 8px;
-  }
-
-  > .description {
-    font-size: 16px;
-    line-height: 21px;
-    text-align: center;
-    letter-spacing: -0.0031em;
-    margin-bottom: 20px;
   }
 
   > .link {
