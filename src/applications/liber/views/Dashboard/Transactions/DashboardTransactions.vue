@@ -375,6 +375,7 @@ const shareAddress = async () => {
     color: $color-brand-secondary;
   }
 }
+
 .carousel-slider {
   margin-bottom: 24px;
 }
