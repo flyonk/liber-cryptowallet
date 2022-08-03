@@ -45,6 +45,12 @@
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
+
+  @media (max-width: 375px) {
+    font-size: 16px !important;
+    line-height: 21px !important;
+    letter-spacing: -0.0031em !important;
+  }
 }
 
 .text-default {
