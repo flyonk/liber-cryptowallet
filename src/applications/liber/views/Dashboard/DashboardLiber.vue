@@ -219,6 +219,7 @@ const setCurrentAccount = (coinCode: string) => {
     };
 
     accountStore.setActiveAccount(null);
+    accountStore.accountToSend = null;
 
     return;
   }
