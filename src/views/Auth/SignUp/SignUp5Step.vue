@@ -19,8 +19,9 @@
             {{ $t('auth.signup.date') }}
           </template>
           <template v-if="isClearBtnShown" #actions>
-            <i
-              class="icon-transaction-small-reverted"
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearDate"
               @touchend="clearDate"
             />
@@ -45,6 +46,7 @@ import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseButton } = uiKit!;

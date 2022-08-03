@@ -1,10 +1,13 @@
 <template>
-  <m-base-toast
-    v-if="true"
-    :visible="true"
-    severity="attention"
-    @update:visible="hideErrorMsg"
-  >
+  <m-base-toast v-if="true" :visible="true" @update:visible="hideErrorMsg">
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <p class="heading-black-lg">
         {{ $t('errors.numberAlreadyInUse') }}
@@ -39,6 +42,7 @@
 import { computed, inject, onMounted, ref } from 'vue';
 import { useAuthStore } from '@/stores/auth';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit!;
@@ -79,5 +83,16 @@ const goBack = () => {
 
 .phone-in-use-error-description {
   margin-top: 8px;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

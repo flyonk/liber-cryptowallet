@@ -5,21 +5,25 @@
     <template #content>
       <m-base-input
         v-model="form.street"
+        :is-error="form.street.length > 0 && !isValid('street')"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
         <template #label>
           {{ $t('views.kyc.kyc2step.streetAndNumber') }}
         </template>
-        <template v-if="form.street && !isValid('street')" #append>
+        <template v-if="form.street && !isValid('street')" #actions>
           <i
             v-tooltip.focus="`${$t('common.specialCharacterError')}`"
-            class="icon-input-field-help-circle"
+            class="icon icon-input-field-help-circle"
             tabindex="1"
           />
         </template>
       </m-base-input>
       <m-base-input
         v-model="form.optionalAddress"
+        :is-error="
+          form.optionalAddress.length > 0 && !isValid('optionalAddress')
+        "
         :class="
           form.optionalAddress && !isValid('optionalAddress') ? '-invalid' : ''
         "
@@ -28,54 +32,61 @@
         <template #message>{{ $t('views.kyc.kyc2step.optional') }}</template>
         <template
           v-if="form.optionalAddress && !isValid('optionalAddress')"
-          #append
+          #actions
         >
           <i
             v-if="!isValid('optionalAddress')"
             v-tooltip.focus="`${$t('common.specialCharacterError')}`"
-            class="icon-input-field-help-circle"
+            class="icon icon-input-field-help-circle"
             tabindex="2"
           />
-          <i v-else class="icon-input-field-eye" />
         </template>
+        <template v-else-if="form.optionalAddress" #actions>
+          <i class="icon icon-input-field-eye"
+        /></template>
       </m-base-input>
       <m-base-input
         v-model="form.postalCode"
+        :is-error="form.postalCode.length > 0 && !isValid('postalCode')"
         :class="form.postalCode && !isValid('postalCode') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
-        <template v-if="form.postalCode && !isValid('postalCode')" #append>
+        <template v-if="form.postalCode && !isValid('postalCode')" #actions>
           <i
             v-if="!isValid('postalCode')"
             v-tooltip.focus="`${$t('common.specialCharacterError')}`"
-            class="icon-input-field-help-circle"
+            class="icon icon-input-field-help-circle"
             tabindex="2"
           />
-          <i v-else class="icon-input-field-eye" />
+        </template>
+        <template v-else-if="form.postalCode" #actions>
+          <i class="icon icon-input-field-eye" />
         </template>
       </m-base-input>
       <m-base-input
         v-model="form.state"
+        :is-error="form.state.length > 0 && !isValid('state')"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
-        <template v-if="form.state && !isValid('state')" #append>
+        <template v-if="form.state && !isValid('state')" #actions>
           <i
             v-tooltip.focus="`${$t('common.specialCharacterError')}`"
-            class="icon-input-field-help-circle"
+            class="icon icon-input-field-help-circle"
             tabindex="3"
           />
         </template>
       </m-base-input>
       <m-base-input
         v-model="form.city"
+        :is-error="form.city.length > 0 && !isValid('city')"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
-        <template v-if="form.city && !isValid('city')" #append>
+        <template v-if="form.city && !isValid('city')" #actions>
           <i
             v-tooltip.focus="`${$t('common.specialCharacterError')}`"
-            class="icon-input-field-help-circle"
+            class="icon icon-input-field-help-circle"
             tabindex="4"
           />
         </template>
@@ -168,5 +179,9 @@ const isValid = (key: keyof typeof form) => {
 
 .base-input:nth-child(2):deep {
   margin: 0 0 30px;
+}
+
+.icon {
+  font-size: 24px;
 }
 </style>

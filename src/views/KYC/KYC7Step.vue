@@ -35,6 +35,10 @@ import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 import { IClaim } from '@/models/profile/claim';
 import { uiKitKey } from '@/types/symbols';
+import { useErrorsStore } from '@/stores/errors';
+import { AxiosError } from 'axios';
+import { SUPPORT_EMAIL } from '@/constants';
+import { useI18n } from 'vue-i18n';
 
 const uiKit = inject(uiKitKey);
 const { ABaseProgressCircular, MBaseButton } = uiKit!;
@@ -43,20 +47,50 @@ const percent = ref(50);
 const router = useRouter();
 const pStore = useProfileStore();
 const kycStore = useKYCStore();
+const { tm } = useI18n();
 
 const handleComplete = async () => {
-  const { id: claimId } = kycStore.claimData as IClaim;
-  kycStore.proceed(claimId);
+  try {
+    const { id: claimId } = kycStore.claimData as IClaim;
+    await kycStore.proceed(claimId);
 
-  if (!pStore.user.id) await pStore.init();
-  if (pStore.user.is2FAConfigured) {
-    router.push({
-      name: Route.AuthPasscode,
-    });
-  } else {
-    router.push({
-      name: Route.Survey,
-    });
+    if (!pStore.user.id) await pStore.init();
+    if (pStore.user.is2FAConfigured) {
+      router.push({
+        name: Route.AuthPasscode,
+      });
+    } else {
+      router.push({
+        name: Route.Survey,
+      });
+    }
+  } catch (e) {
+    const errorsState = useErrorsStore();
+
+    if ((e as AxiosError).response?.status === 409) {
+      await errorsState.handle({
+        err: e as AxiosError | Error,
+        name: 'handleComplete',
+        ctx: 'views/kyc7step',
+        description: tm('views.kyc.kyc7step.documentError') as string,
+      });
+
+      router.push({
+        name: Route.KYCMain,
+        query: {
+          step: 2,
+        },
+      });
+    } else {
+      await errorsState.handle({
+        err: e as AxiosError | Error,
+        name: 'handleComplete',
+        ctx: 'views/kyc7step',
+        description: `${tm(
+          'views.kyc.kyc7step.errorMessage'
+        )} ${SUPPORT_EMAIL}`,
+      });
+    }
   }
 };
 </script>

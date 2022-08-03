@@ -10,8 +10,15 @@
       <m-base-toast
         v-if="popupStatus === 'attention'"
         v-model:visible="showPopup"
-        :severity="'attention'"
       >
+        <template #image>
+          <div class="popup-image">
+            <img
+              :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+              class="image"
+            />
+          </div>
+        </template>
         <template #description>
           <div class="popup-description">
             <h1 class="title">{{ $t('transactions.convert.trustPay') }}</h1>
@@ -38,9 +45,16 @@
       <m-base-toast
         v-if="popupStatus === 'confirmation'"
         v-model:visible="showPopup"
-        :severity="'confirmation'"
         @click="showPopup = false"
       >
+        <template #image>
+          <div class="popup-image">
+            <img
+              :src="`${STATIC_BASE_URL}/static/media/confirmation.svg`"
+              class="image"
+            />
+          </div>
+        </template>
         <template #description>
           <div class="popup-description">
             <p class="description">
@@ -69,6 +83,7 @@ import { TTopNavigation } from '@/components/ui';
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useRouter } from 'vue-router';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit!;
@@ -149,5 +164,16 @@ const backAndCleanState = () => {
 .default-layout.-full-height {
   touch-action: none !important;
   display: none;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

@@ -16,7 +16,7 @@
       <m-base-input v-model="data" class="m-base-input">
         <template #label> Email or Phone </template>
         <template v-if="data.length > 1" #actions>
-          <i class="icon-trash_full" @click="clearData" />
+          <i class="icon icon-trash_full" @click="clearData" />
         </template>
       </m-base-input>
     </template>
@@ -107,5 +107,9 @@ async function onComplete() {
 <style lang="scss" scoped>
 .m-base-input {
   margin: 0 0 16px;
+}
+
+.icon {
+  font-size: 24px;
 }
 </style>

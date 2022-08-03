@@ -12,8 +12,9 @@
         >
           <template #label> {{ $t('common.email') }} </template>
           <template v-if="isClearBtnShown" #actions>
-            <i
-              class="icon-transaction-small-reverted"
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearEmail"
               @touchend="clearEmail"
             />
@@ -42,6 +43,7 @@ import { useProfileStore } from '@/stores/profile';
 
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseSwitch, MBaseButton } = uiKit!;

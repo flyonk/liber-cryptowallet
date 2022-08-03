@@ -49,6 +49,8 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .user-contact {
+  width: 100%;
+
   > .name {
     font-weight: 500;
     font-size: 17px;

@@ -2,9 +2,16 @@
   <m-base-toast
     v-if="displayCurrent"
     :visible="displayCurrent"
-    :severity="severity"
     @update:visible="hideErrorMsg"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/${toastImg}.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <p v-if="displayMultipleErrorMessage" class="description">
@@ -44,6 +51,7 @@
 import { computed, inject, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit!;
@@ -75,7 +83,9 @@ const displayAllErrors = computed(() => {
 });
 
 const displayCurrent = computed(() => errorsStore.displayCurrent);
-const severity = computed(() => errorsStore.severity);
+const toastImg = computed(() =>
+  errorsStore.severity ? 'sapphire-error' : 'sapphire-error'
+);
 const isSingleError = computed(() => errorsStore.isSingleError);
 const customComponent = computed(() => errorsStore.getCustomComponent);
 const hasCustomComponent = computed(() => !!errorsStore.getCustomComponent);
@@ -88,5 +98,16 @@ const displayMultipleErrorMessage = computed(
 .popup-footer {
   display: flex;
   justify-content: space-around;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

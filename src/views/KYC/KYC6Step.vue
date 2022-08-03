@@ -75,7 +75,7 @@ const onUpload = async () => {
       ({ name }) => name === profileStore.getUser.country
     ) as ICountryInformation;
 
-    await kycStore.uploadResidenceFile(claimId, file, countryIso);
+    kycStore.uploadResidenceFile(claimId, file, countryIso);
 
     emit('next');
   } catch (e) {

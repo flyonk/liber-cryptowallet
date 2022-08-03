@@ -20,7 +20,7 @@
       </template>
       <template v-if="isClearBtnShown" #actions>
         <i
-          class="icon-transaction-small-reverted"
+          class="icon icon-transaction-small-reverted"
           @click="clearDate"
           @touchend="clearDate"
         />
@@ -75,5 +75,9 @@ const closeClearBtn = () => {
 <style lang="scss" scoped>
 .m-base-input {
   margin: 0 0 16px;
+}
+
+.icon {
+  font-size: 24px;
 }
 </style>
