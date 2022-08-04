@@ -11,6 +11,8 @@ import {
   Credentials,
 } from './definitions';
 
+import { set } from '@/helpers/storage';
+
 class NativeBiometricWeb implements NativeBiometricPlugin {
   async isAvailable(): Promise<AvailableResult> {
     try {
@@ -41,6 +43,13 @@ class NativeBiometricWeb implements NativeBiometricPlugin {
       const publicKeyCredential = await navigator.credentials.create(
         getAttestationOptions as any
       );
+
+      // @TODO save to server
+      set({
+        key: 'BIOMETRIC_PUBLIC_KEY_ID',
+        value: publicKeyCredential?.id as string,
+      });
+
       return publicKeyCredential;
     } catch (error) {
       throw new Error('Method not implemented.');
