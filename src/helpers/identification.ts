@@ -64,8 +64,7 @@ export async function verifyIdentity(): Promise<boolean | undefined> {
  */
 export async function getSupportedOptions() {
   try {
-    const result = await NativeBiometric.isAvailable();
-    const biometryType = result.biometryType;
+    const { biometryType } = await NativeBiometric.isAvailable();
     if (biometryType === BiometryType.FACE_ID) {
       return 'face-id';
     }

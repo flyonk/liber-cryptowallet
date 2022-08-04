@@ -5,12 +5,22 @@ import {
   // GetCredentialOptions,
   // SetCredentialOptions,
   // DeleteCredentialOptions,
+  BiometryType,
   Credentials,
 } from './definitions';
 
 class NativeBiometricWeb implements NativeBiometricPlugin {
-  isAvailable(): Promise<AvailableResult> {
-    throw new Error('Method not implemented.');
+  async isAvailable(): Promise<AvailableResult> {
+    try {
+      const isAvailable =
+        await PublicKeyCredential.isUserVerifyingPlatformAuthenticatorAvailable();
+      return {
+        isAvailable,
+        biometryType: BiometryType.TOUCH_ID,
+      };
+    } catch (error) {
+      throw new Error('Method not implemented.');
+    }
   }
 
   // verifyIdentity(_options?: BiometricOptions): Promise<any> {
