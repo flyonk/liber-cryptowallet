@@ -33,7 +33,7 @@ import { TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
-import { verifyIdentity } from '@/helpers/identification';
+import { enableNativeBiometric } from '@/helpers/identification';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
@@ -44,11 +44,13 @@ const router = useRouter();
 const { setOptions } = useAppOptionsStore();
 
 const onEnable = async (): Promise<void> => {
-  const state = await verifyIdentity();
+  const state = await enableNativeBiometric();
 
   if (state) {
     await setOptions('true', EStorageKeys.faceid);
     router.push({ name: Route.AuthPasscode });
+  } else {
+    // handle error case
   }
 };
 

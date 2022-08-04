@@ -1,3 +1,5 @@
+import { getAttestationOptions } from './server/datafromserver';
+
 import {
   NativeBiometricPlugin,
   AvailableResult,
@@ -29,11 +31,20 @@ class NativeBiometricWeb implements NativeBiometricPlugin {
   }
   // getCredentials(_options: GetCredentialOptions): Promise<Credentials> {
   getCredentials(): Promise<Credentials> {
+    // navigator.credentials.get()
     throw new Error('Method not implemented.');
   }
-  // setCredentials(_options: SetCredentialOptions): Promise<any> {
-  setCredentials(): Promise<any> {
-    throw new Error('Method not implemented.');
+
+  // async setCredentials(_options: SetCredentialOptions): Promise<any> {
+  async setCredentials(): Promise<any> {
+    try {
+      const publicKeyCredential = await navigator.credentials.create(
+        getAttestationOptions as any
+      );
+      return publicKeyCredential;
+    } catch (error) {
+      throw new Error('Method not implemented.');
+    }
   }
   // deleteCredentials(_options: DeleteCredentialOptions): Promise<any> {
   deleteCredentials(): Promise<any> {

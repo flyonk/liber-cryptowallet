@@ -36,7 +36,7 @@ async function _getPermission() {
 }
 
 /**
- * Function tries to enable biometrical identification
+ * Function tries to enable check identification
  *
  * @returns {boolean}
  */
@@ -54,6 +54,22 @@ export async function verifyIdentity(): Promise<boolean | undefined> {
       await _getPermission();
       return false;
     }
+  }
+}
+
+/**
+ * Function tries to enable biometrical identification
+ *
+ * @returns {boolean}
+ */
+export async function enableNativeBiometric(): Promise<boolean | undefined> {
+  try {
+    const result = await NativeBiometric.setCredentials();
+
+    return result;
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (error: any) {
+    return false;
   }
 }
 
