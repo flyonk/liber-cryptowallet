@@ -1,7 +1,7 @@
 import axios from 'axios';
-const reduce = require('image-blob-reduce')();
 
 import apiService from '@/services/apiService';
+import { compressFileOrBlob } from '@/helpers/image';
 
 import profileMapper, { IProfile } from '@/models/profile/profile';
 import claimMapper, { IClaim } from '@/models/profile/claim';
@@ -109,21 +109,18 @@ export default {
         'Content-Type': 'multipart/form-data',
       },
     };
-    let binaryFile = '' as string | Blob;
     const data = new FormData();
     const type = file.split(';')[0].split('/')[1];
     await fetch(file)
       .then((r) => r.blob())
-      .then((blobFile) =>
-        //Hack for Safari
-        //TODO: REFACTOR ME!!!! need a separate compress methode
-        reduce.toBlob(blobFile, { max: 1000 }).then((blob: Blob) => {
-          binaryFile = new File([blob], `${fileType}-${side}.${type}`, {
-            type: `image/${type}`,
-          });
-        })
-      );
-    data.append('file', binaryFile);
+      .then(async (blobFile) => {
+        const binaryFile = await compressFileOrBlob(
+          blobFile,
+          `${fileType}-${side}.${type}`,
+          `image/${type}`
+        );
+        data.append('file', binaryFile);
+      });
 
     return (
       await axios.post(
@@ -141,20 +138,14 @@ export default {
         'Content-Type': 'multipart/form-data',
       },
     };
-    let binaryFile = '' as string | Blob;
 
     const reader = new FileReader();
-    reader.onload = async (readedFile: any) => {
+    reader.onload = async (readedFile: ProgressEvent<FileReader>) => {
       if (readedFile?.target?.result) {
         const blob = new Blob([readedFile?.target?.result], {
           type: file.type,
         });
-        //TODO: REFACTOR ME!!!!
-        await reduce.toBlob(blob, { max: 1000 }).then((newBlob: Blob) => {
-          binaryFile = new File([newBlob], file.name, {
-            type: file.type,
-          });
-        });
+        const binaryFile = await compressFileOrBlob(blob, file.name, file.type);
         data.append('file', binaryFile);
 
         return (
