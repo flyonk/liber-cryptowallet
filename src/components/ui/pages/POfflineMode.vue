@@ -67,6 +67,7 @@ function checkConnection() {
 .footer-wrapper {
   display: flex;
   margin-bottom: 15%;
+
   > .btn {
     flex-grow: 100;
   }
