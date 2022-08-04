@@ -5,7 +5,7 @@
     <template #content>
       <m-base-input
         v-model="form.street"
-        :is-error="form.street.length > 0 && !isValid('street')"
+        :is-error="form.street?.length > 0 && !isValid('street')"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
         <template #label>
@@ -22,7 +22,7 @@
       <m-base-input
         v-model="form.optionalAddress"
         :is-error="
-          form.optionalAddress.length > 0 && !isValid('optionalAddress')
+          form.optionalAddress?.length > 0 && !isValid('optionalAddress')
         "
         :class="
           form.optionalAddress && !isValid('optionalAddress') ? '-invalid' : ''
@@ -47,7 +47,7 @@
       </m-base-input>
       <m-base-input
         v-model="form.postalCode"
-        :is-error="form.postalCode.length > 0 && !isValid('postalCode')"
+        :is-error="form.postalCode?.length > 0 && !isValid('postalCode')"
         :class="form.postalCode && !isValid('postalCode') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.postalCode') }}</template>
@@ -65,7 +65,7 @@
       </m-base-input>
       <m-base-input
         v-model="form.state"
-        :is-error="form.state.length > 0 && !isValid('state')"
+        :is-error="form.state?.length > 0 && !isValid('state')"
         :class="form.state && !isValid('state') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.state') }}</template>
@@ -79,7 +79,7 @@
       </m-base-input>
       <m-base-input
         v-model="form.city"
-        :is-error="form.city.length > 0 && !isValid('city')"
+        :is-error="form.city?.length > 0 && !isValid('city')"
         :class="form.city && !isValid('city') ? '-invalid' : ''"
       >
         <template #label>{{ $t('views.kyc.kyc2step.city') }}</template>
@@ -135,11 +135,11 @@ onBeforeMount(async () => {
   const { optionalAddress, streetAndNumber, state, city, postalCode } =
     profileStore.getUser;
 
-  form.street = streetAndNumber as string;
-  form.optionalAddress = optionalAddress as string;
-  form.postalCode = postalCode as string;
-  form.state = state as string;
-  form.city = city as string;
+  form.street = streetAndNumber ? streetAndNumber : '';
+  form.optionalAddress = optionalAddress ? optionalAddress : '';
+  form.postalCode = postalCode ? postalCode : '';
+  form.state = state ? state : '';
+  form.city = city ? city : '';
 });
 
 const isFormValid = computed(() => {

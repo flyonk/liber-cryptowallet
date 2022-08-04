@@ -14,7 +14,7 @@ setCacheNameDetails({
 registerRoute(
   new RegExp(`${process.env.VUE_APP_STATIC_STORAGE_URL}\\/.*`),
   new CacheFirst({
-    cacheName: 'assets',
+    cacheName: `assets-${process.env.VUE_APP_VERSION}`,
     plugins: [
       new RangeRequestsPlugin(),
       new CacheableResponsePlugin({
@@ -49,7 +49,7 @@ registerRoute(
 self.addEventListener('install', (event) => {
   // console.log(event);
   event.waitUntil(
-    caches.open('assets').then(function (cache) {
+    caches.open(`assets-${process.env.VUE_APP_VERSION}`).then(function (cache) {
       return cache.addAll([
         '/',
         `${process.env.VUE_APP_STATIC_STORAGE_URL}/build/fonts/${process.env.VUE_APP_BRAND}/iconmoon.css`,
