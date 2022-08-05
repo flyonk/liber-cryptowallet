@@ -9,11 +9,19 @@
     <p class="description">
       {{ $t('browserStub.description') }}
     </p>
+    <m-base-button class="btn mb-3" size="large" view="simple">
+      {{ $t('browserStub.installButton') }}
+    </m-base-button>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { inject } from 'vue';
 import { STATIC_BASE_URL } from '@/constants';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 </script>
 
 <style lang="scss" scoped>
@@ -51,6 +59,10 @@ import { STATIC_BASE_URL } from '@/constants';
     text-align: center;
     color: #36416a;
     padding: 0 10%;
+  }
+
+  > .btn {
+    margin-top: 5%;
   }
 }
 </style>
