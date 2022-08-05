@@ -7,6 +7,7 @@ import {
   NativeBiometricPlugin,
   AvailableResult,
   BiometryType,
+  SetCredentialOptions,
 } from './definitions';
 
 import { set, get } from '@/helpers/storage';
@@ -74,10 +75,10 @@ class NativeBiometricWeb implements NativeBiometricPlugin {
   }
 
   // async setCredentials(_options: SetCredentialOptions): Promise<any> {
-  async setCredentials(): Promise<any> {
+  async setCredentials(options: SetCredentialOptions): Promise<any> {
     try {
       const publicKeyCredential = (await navigator.credentials.create(
-        getAttestationOptions as any
+        getAttestationOptions(options) as any
       )) as PublicKeyCredential;
 
       // @TODO save to server

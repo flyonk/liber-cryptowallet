@@ -35,9 +35,8 @@ export interface GetCredentialOptions {
 }
 
 export interface SetCredentialOptions {
-  username: string;
-  password: string;
-  server: string;
+  id: string;
+  email: string;
 }
 
 export interface DeleteCredentialOptions {

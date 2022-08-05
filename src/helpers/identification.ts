@@ -62,9 +62,15 @@ export async function verifyIdentity(): Promise<boolean | undefined> {
  *
  * @returns {boolean}
  */
-export async function enableNativeBiometric(): Promise<boolean | undefined> {
+export async function enableNativeBiometric(options: {
+  id: string;
+  email: string;
+}): Promise<boolean | undefined> {
   try {
-    const result = await NativeBiometric.setCredentials();
+    const result = await NativeBiometric.setCredentials({
+      id: options.id,
+      email: options.email,
+    });
 
     return result;
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */

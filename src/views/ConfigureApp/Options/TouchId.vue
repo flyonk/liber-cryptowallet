@@ -31,6 +31,7 @@
 import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { useProfileStore } from '@/stores/profile';
 
 import { TTopNavigation } from '@/components/ui';
 
@@ -44,10 +45,16 @@ const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 
+const pStore = useProfileStore();
 const { setOptions } = useAppOptionsStore();
 
 const onEnable = async (): Promise<void> => {
-  const state = await enableNativeBiometric();
+  if (!pStore.user.id) await pStore.init();
+
+  const state = await enableNativeBiometric({
+    id: pStore.user.id,
+    email: pStore.user.email,
+  });
 
   if (state) {
     setOptions('true', EStorageKeys.touchid);
