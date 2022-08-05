@@ -1,7 +1,6 @@
 <template name="ProfileEdit">
   <t-top-navigation
     with-fixed-footer
-    left-icon-name="icon-app-navigation-close"
     @click:left-icon="$router.push({ name: Route.ProfileSettings })"
   >
     <template #title>{{

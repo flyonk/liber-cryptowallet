@@ -37,7 +37,7 @@
 import { computed, inject, onActivated, onMounted, ref, Ref } from 'vue';
 import { CameraPreviewOptions } from '@/helpers/camera/definitions';
 import { CameraPreview } from '@/helpers/camera/CameraPreview';
-import { Device } from '@capacitor/device';
+import { Device } from '@/helpers/device/device';
 import { useI18n } from 'vue-i18n';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';

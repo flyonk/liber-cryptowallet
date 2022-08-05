@@ -1,5 +1,5 @@
 import { createI18n, LocaleMessages, VueMessageType } from 'vue-i18n';
-import { Device } from '@capacitor/device';
+import { Device } from '@/helpers/device/device';
 import { get } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
@@ -13,7 +13,7 @@ import { SUPPORTED_LANGUAGES } from '@/constants';
  */
 function getLocaleMessages(): LocaleMessages<VueMessageType> {
   const locales = require.context('./', true, /[A-Za-z0-9-_,\s]+\.json$/i);
-  const messages: LocaleMessages = {};
+  const messages: LocaleMessages<VueMessageType> = {};
   locales.keys().forEach((key) => {
     const matched = key.match(/([A-Za-z0-9-_]+)\./i);
     const locale = matched && matched.length > 1 ? matched[1] : undefined;

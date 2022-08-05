@@ -1,8 +1,5 @@
-import { Share } from '@capacitor/share';
-import {
-  ShareOptions,
-  ShareResult,
-} from '@capacitor/share/dist/esm/definitions';
+import { Share } from '@/helpers/share/share';
+import { ShareOptions, ShareResult } from '@/helpers/share/definitions';
 
 export const check = async (): Promise<boolean> => {
   const { value } = await Share.canShare();

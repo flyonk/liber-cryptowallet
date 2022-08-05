@@ -42,12 +42,14 @@
       :min-fraction-digits="0"
       :max-fraction-digits="10"
       disabled
+      disabled-opacity
     >
       <template #append>{{ props.contactName }} will get</template>
       <template #actions>
         <o-select-coin-input
           :coins="currencies"
           :current-currency="adoptedCurrentSendToCurrency"
+          :show-select-dialog="false"
           class="select-coin -disabled"
           @on-select-coin="
             handleChangeCurrentCurrency(
@@ -216,22 +218,16 @@ const syncModels = (event: InputEvent) => {
   width: 100%;
 
   > :deep(.base-input) {
-    margin: 0 0 16px;
     height: 70px;
-
-    > .input-wrapper {
-      &.-default {
-        &.-disabled {
-          opacity: 1;
-        }
-      }
-    }
   }
 }
 
 .fees-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-left: 1px solid $color-primary-50;
-  margin-bottom: 10px;
+  min-height: 112px;
   margin-left: 10px;
   width: 100%;
 }
@@ -242,7 +238,7 @@ const syncModels = (event: InputEvent) => {
   margin-left: -10px;
 
   > .circle {
-    background: #eaefff;
+    background: $color-primary-50;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -272,12 +268,6 @@ const syncModels = (event: InputEvent) => {
     display: flex;
     align-items: center;
     color: $color-brand-2-300;
-  }
-}
-
-.select-coin {
-  &.-disabled {
-    opacity: 0.73;
   }
 }
 </style>

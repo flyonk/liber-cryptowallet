@@ -68,7 +68,7 @@ export default {
 <script setup lang="ts">
 import { inject } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
 import { uiKitKey } from '@/types/symbols';
