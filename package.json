@@ -34,7 +34,6 @@
     "@capacitor/clipboard": "^1.0.8",
     "@capacitor/core": "^3.3.4",
     "@capacitor/device": "^1.1.2",
-    "@capacitor/dialog": "^1.0.7",
     "@capacitor/ios": "^3.3.4",
     "@capacitor/project": "^2.0.10",
     "@capacitor/share": "^1.1.2",
