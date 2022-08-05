@@ -36,6 +36,7 @@ import { computed, inject, Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { usePasscodeStore } from '@/stores/passcode';
 
 import { EPasscodeActions } from '@/types/base-component';
 import { Route } from '@/router/types';
@@ -53,6 +54,7 @@ const { tm } = useI18n();
 const showErrorToast = ref(false);
 const mfaStore = useMfaStore();
 const appOptionsStore = useAppOptionsStore();
+const passcodeStore = usePasscodeStore();
 
 const title = computed(() => {
   switch (actionType.value) {
@@ -86,6 +88,7 @@ function onSubmit(success: boolean): void {
     mfaStore.show({
       successRoute: router.resolve({ name: Route.ProfileMainView }).path,
     });
+    passcodeStore.toggleSuccessPasscodeToast(true);
   } else {
     showErrorToast.value = true;
   }

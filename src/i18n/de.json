@@ -400,7 +400,8 @@
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
       "currentPasscode": "Current passcode",
-      "newPasscode": "Enter new passcode"
+      "newPasscode": "Enter new passcode",
+      "successChange": "You have successfully changed the passcode"
     },
     "dashboard": {
       "home": {

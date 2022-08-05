@@ -166,6 +166,7 @@
       <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
     </template>
   </t-top-navigation>
+  <ChangePasscodeSuccess />
 </template>
 
 <script lang="ts">
@@ -191,6 +192,7 @@ import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
 import { TTopNavigation } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
 import { uiKitKey } from '@/types/symbols';
+import ChangePasscodeSuccess from '@/views/ConfigureApp/ChangePasscodeSuccess.vue';
 
 const uiKit = inject(uiKitKey);
 const { AContactInitials } = uiKit!;
