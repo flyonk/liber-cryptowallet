@@ -1,6 +1,6 @@
 <template>
   <OChangeAddress
-    :submit-button-title="$t('views.kyc.kyc2step.continue')"
+    :submit-button-title="$t('views.profile.profileSettings.saveChanges')"
     @back="$router.back()"
     @continue="$router.back()"
   />

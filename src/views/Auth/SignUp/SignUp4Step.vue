@@ -16,8 +16,9 @@
             {{ $t('common.firstName') }}
           </template>
           <template v-if="isClearFirstNameBtnShown" #actions>
-            <i
-              class="icon-transaction-small-reverted"
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearFirstName"
               @touchend="clearFirstName"
             />
@@ -34,8 +35,9 @@
             {{ $t('common.lastName') }}
           </template>
           <template v-if="isClearLastNameBtnShown" #actions>
-            <i
-              class="icon-transaction-small-reverted"
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearLastName"
               @touchend="clearLastName"
             />
@@ -58,6 +60,7 @@ import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { computed } from '@vue/reactivity';
 import { useProfileStore } from '@/stores/profile';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseButton } = uiKit!;

@@ -491,7 +491,8 @@
         "confirmNativeVerification": "Are you sure to disable",
         "appearance": "Appearance",
         "language": "Language",
-        "selectLanguage": "Select Language"
+        "selectLanguage": "Select Language",
+        "saveChanges": "Save changes"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -517,7 +518,7 @@
         "topUpAccount": "Can I still top-up my Liber account in CZK and HUF?"
       },
       "profileEdit": {
-        "editProfile": "Edit Profile",
+        "editProfile": "Personal details",
         "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",

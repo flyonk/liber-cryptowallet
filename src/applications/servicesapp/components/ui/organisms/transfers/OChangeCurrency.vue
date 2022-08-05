@@ -2,6 +2,7 @@
   <keep-alive>
     <div
       class="change-currency"
+      :class="isOneCoinEmpty ? '-readonly' : ''"
       @wheel.prevent
       @touchmove.prevent
       @scroll.prevent
@@ -506,5 +507,20 @@ watch(isZeroValues, (val) => {
   line-height: 26px;
   color: $color-red-500;
   height: 110px;
+}
+
+.change-currency.-readonly {
+  & > :deep(.base-input > .input-wrapper) {
+    background-color: $color-input-bg !important;
+  }
+
+  &:deep(.actions:focus),
+  &:deep(.actions:focus-within),
+  &:deep(.actions:active),
+  &:deep(.actions .select:focus-within),
+  &:deep(.actions .select:focus),
+  &:deep(.actions .select:active) {
+    background-color: $color-white-light !important;
+  }
 }
 </style>

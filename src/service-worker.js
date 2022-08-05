@@ -7,14 +7,20 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 import { RangeRequestsPlugin } from 'workbox-range-requests';
 
+import { IS_DEVELOPEMENT_MODE } from '@/constants';
+
 setCacheNameDetails({
   prefix: 'cw',
 });
 
+const cacheName = IS_DEVELOPEMENT_MODE
+  ? `assets-${Math.floor(Math.random() * 1000)}`
+  : `assets-${process.env.VUE_APP_VERSION}`;
+
 registerRoute(
   new RegExp(`${process.env.VUE_APP_STATIC_STORAGE_URL}\\/.*`),
   new CacheFirst({
-    cacheName: 'assets',
+    cacheName: cacheName,
     plugins: [
       new RangeRequestsPlugin(),
       new CacheableResponsePlugin({
@@ -49,7 +55,7 @@ registerRoute(
 self.addEventListener('install', (event) => {
   // console.log(event);
   event.waitUntil(
-    caches.open('assets').then(function (cache) {
+    caches.open(cacheName).then(function (cache) {
       return cache.addAll([
         '/',
         `${process.env.VUE_APP_STATIC_STORAGE_URL}/build/fonts/${process.env.VUE_APP_BRAND}/iconmoon.css`,

@@ -27,8 +27,9 @@
         >
           <template #label> {{ $t('common.numberLabel') }}s </template>
           <template v-if="isClearBtnShown" #actions>
-            <i
-              class="icon-transaction-small-reverted"
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click.prevent="clearNumber"
               @touchend.prevent="clearNumber"
             />
@@ -60,6 +61,7 @@ import { BaseCountryPhoneInput } from '@/components/ui';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
 import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseButton } = uiKit!;

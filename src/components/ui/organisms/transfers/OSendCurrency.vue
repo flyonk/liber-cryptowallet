@@ -42,12 +42,15 @@
       :min-fraction-digits="0"
       :max-fraction-digits="10"
       disabled
+      disabled-opacity
     >
       <template #append>{{ props.contactName }} will get</template>
       <template #actions>
         <o-select-coin-input
           :coins="currencies"
           :current-currency="adoptedCurrentSendToCurrency"
+          :show-select-dialog="false"
+          class="select-coin -disabled"
           @on-select-coin="
             handleChangeCurrentCurrency(
               _getCurrencyIndex($event.code),
@@ -67,7 +70,6 @@ import {
   inject,
   onBeforeMount,
   onMounted,
-  onUnmounted,
   ref,
 } from 'vue';
 import { useTransferStore } from '@/applications/liber/stores/transfer';
@@ -132,19 +134,21 @@ const currencies: ICoin[] = [
 defineEmits(['send-transaction']);
 
 onBeforeMount(() => {
-  const code = accountStore.accountToSend?.code
-    ? accountStore.accountToSend.code
-    : 'tbtc';
+  let code;
+
+  if (accountStore.accountToSend?.code) {
+    code = accountStore.accountToSend.code;
+  } else if (accountStore.activeAccount?.code) {
+    code = accountStore.activeAccount.code;
+  } else {
+    code = 'tbtc';
+  }
 
   handleChangeCurrentCurrency(_getCurrencyIndex(code), 'from');
 });
 
 onMounted(() => {
   transferStore.coin = currencies[0].code;
-});
-
-onUnmounted(() => {
-  accountStore.accountToSend = null;
 });
 
 let isSelectListOpen = ref(false);
@@ -213,15 +217,17 @@ const syncModels = (event: InputEvent) => {
 .change-currency {
   width: 100%;
 
-  > .base-input:deep {
-    margin: 0 0 16px;
+  > :deep(.base-input) {
     height: 70px;
   }
 }
 
 .fees-data {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   border-left: 1px solid $color-primary-50;
-  margin-bottom: 10px;
+  min-height: 112px;
   margin-left: 10px;
   width: 100%;
 }
@@ -232,7 +238,7 @@ const syncModels = (event: InputEvent) => {
   margin-left: -10px;
 
   > .circle {
-    background: #eaefff;
+    background: $color-primary-50;
     border-radius: 50%;
     display: flex;
     justify-content: center;

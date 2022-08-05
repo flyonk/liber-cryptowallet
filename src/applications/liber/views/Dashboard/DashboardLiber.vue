@@ -17,7 +17,7 @@
             }"
             :disabled="VerificationStatus !== EKYCStatus.success"
             class="btn"
-            @click="moveToDepositePage"
+            @click="moveToDepositPage"
           >
             <i
               class="icon-btn icon-plus_circle"
@@ -187,7 +187,11 @@ onBeforeMount(async () => {
     ]);
     transactions.value = _transactions;
 
-    setCurrentAccount('all');
+    const currentAccount = accountStore.activeAccount
+      ? accountStore.activeAccount.code
+      : 'all';
+
+    setCurrentAccount(currentAccount);
   } catch (err) {
     errorsStore.handle({
       err,
@@ -215,6 +219,7 @@ const setCurrentAccount = (coinCode: string) => {
     };
 
     accountStore.setActiveAccount(null);
+    accountStore.accountToSend = null;
 
     return;
   }
@@ -240,10 +245,12 @@ const setCurrentAccount = (coinCode: string) => {
   };
 
   accountStore.setActiveAccount(account);
+  accountStore.accountToSend = account;
 };
 
 const onSelectAccount = (coinCode: string) => {
   setCurrentAccount(coinCode);
+  isMenuOpen.value = false;
 };
 
 const hasTransactions = computed(() => transactions.value.length > 0);
@@ -252,7 +259,7 @@ const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
 });
 
-const moveToDepositePage = async () => {
+const moveToDepositPage = async () => {
   const activeAccount = accountStore.getActiveAccount;
   if (activeAccount) {
     depositStore.setAccountInfo(activeAccount);

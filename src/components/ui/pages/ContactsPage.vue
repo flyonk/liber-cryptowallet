@@ -3,7 +3,6 @@
     <contacts-list
       :contacts="filteredContacts"
       :class="{ 'with-payment-option': showPaymentOptions }"
-      @contact-click="handleContactClick"
     />
     <template v-if="props.showPaymentOptions">
       <button
@@ -52,10 +51,6 @@ const getMenuType = computed(() => {
 function closeMenu() {
   isMenuOpen.value = false;
 }
-
-const handleContactClick = () => {
-  isMenuOpen.value = !isMenuOpen.value;
-};
 
 const props = defineProps({
   showPaymentOptions: {

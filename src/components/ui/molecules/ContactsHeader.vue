@@ -3,13 +3,13 @@
     <img
       v-if="props.avatarIcon"
       src="@/assets/images/avatar.png"
-      @click="$router.push({ name: props.routeBack })"
+      @click="$emit('click:left-icon')"
     />
     <img
       v-else
       :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
       alt="arrow-left"
-      @click="$router.push({ name: props.routeBack })"
+      @click="$emit('click:left-icon')"
     />
     <div class="flex">
       <img
@@ -35,15 +35,13 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  routeBack: {
-    type: String,
-    default: Route.DashboardHome,
-  },
   routeCoin: {
     type: String,
     default: Route.DepositCoin,
   },
 });
+
+defineEmits(['click:left-icon']);
 </script>
 
 <style lang="scss" scoped>

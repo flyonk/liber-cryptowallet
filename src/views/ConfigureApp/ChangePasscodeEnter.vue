@@ -1,6 +1,6 @@
 <template>
   <t-top-navigation
-    left-icon-name="icon-app-navigation-close"
+    :left-icon-name="iconName"
     class="passcode-container"
     @click:left-icon="router.push({ name: Route.ChangePasscode })"
   >
@@ -64,6 +64,16 @@ const title = computed(() => {
       return tm('views.passcodeEnter.createPasscode');
   }
 });
+
+const iconName = computed(() => {
+  switch (actionType.value) {
+    case EPasscodeActions.compare:
+      return undefined;
+    default:
+      return 'icon-app-navigation-close';
+  }
+});
+
 function onCreate(success: boolean): void {
   if (success) {
     actionType.value = EPasscodeActions.compare;
@@ -74,7 +84,7 @@ function onSubmit(success: boolean): void {
   console.log(success);
   if (success) {
     mfaStore.show({
-      successRoute: Route.ProfileSettings,
+      successRoute: router.resolve({ name: Route.ProfileMainView }).path,
     });
   } else {
     showErrorToast.value = true;

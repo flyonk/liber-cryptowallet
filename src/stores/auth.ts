@@ -137,7 +137,7 @@ export const useAuthStore = defineStore('auth', {
           err,
           name: 'auth.ts',
           ctx: 'refresh',
-          description: "Error can't refresh token",
+          description: 'Something went wrong. Please try to login again',
         });
       }
     },
