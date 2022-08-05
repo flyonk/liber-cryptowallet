@@ -33,7 +33,7 @@
   <phone-in-use
     v-if="phoneExist"
     :phone="number"
-    :dial-code="number"
+    :dial-code="countryDialCode"
     @next="continueWithExistedLogin"
     @close="closePhoneModal"
   />
@@ -49,13 +49,11 @@ import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
-import { AxiosError } from 'axios';
-
 const router = useRouter();
 
 const authStore = useAuthStore();
 
-const emits = defineEmits(['next']);
+const emit = defineEmits(['next']);
 
 const number = ref('');
 const countryDialCode = ref('');
@@ -80,29 +78,22 @@ const handleSelectCountry = (dialCode: string) => {
 };
 
 const handleStep = async (phone: number) => {
-  authStore.setDialCode(authStore.registration.dialCode);
-  authStore.setPhone(String(phone));
-  try {
-    await authStore.signInProceed({
-      phone: authStore.getLoginPhone,
-      otp: '',
-      code_2fa: '',
-    });
-  } catch (err: AxiosError | Error | unknown) {
-    const code = (err as AxiosError).response?.status;
-    /**
-     * 406 - 2fa enabled
-     * 403 - user is not authorized (returns when 2fa is turned off)
-     */
-    if (code === 406 || code === 403) {
-      phoneExist.value = true;
-      return;
-    }
+  console.log('signUp1step handleStep', phone);
 
-    authStore.registration.phone = String(phone);
-    authStore.savePhone('signup');
-    emits('next');
+  const stringifiedPhone = '' + phone;
+  await authStore.getFromStorage();
+  const loginPhone = authStore.getLoginPhone;
+
+  if (loginPhone.includes(stringifiedPhone)) {
+    phoneExist.value = true;
+    number.value = stringifiedPhone;
+    return;
   }
+
+  authStore.registration.phone = stringifiedPhone;
+  authStore.savePhone('signup');
+
+  emit('next');
 };
 
 const prevStep = () => {
