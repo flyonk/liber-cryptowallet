@@ -290,7 +290,19 @@
       }
     },
     "sendfunds": {
-      "whopay": "Who To Pay"
+      "whopay": "Who To Pay",
+      "firstTimeInvite": {
+        "inviteFriends": "Invite Friends",
+        "findFriends": "Find youd friends",
+        "inviteAndShare": "Invite a friend and share the Liber experience with them",
+        "requestMoney": "Send and request money from your friends more easily, split bills and much more.",
+        "shareLink": "Share link",
+        "invitePhone": "Invite by phone or email",
+        "enablePermissions": "Enable contacts permission",
+        "accessContacts": "Allow access to contacts",
+        "hideYourself": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
+        "notNow": "Not now"
+      }
     },
     "changePasscode": {
       "aboutLiber": "Liber app protects your withdrawals and account"
@@ -492,6 +504,7 @@
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language",
+        "myID": "My ID:",
         "saveChanges": "Save changes"
       },
       "profileQRCode": {
@@ -538,6 +551,7 @@
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
       },
       "profilePhonesAndEmails": {
+        "liberID": "Liber ID",
         "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "yourIdentityIsNotVerified": "Your identity is not verified",
         "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",

@@ -20,7 +20,7 @@
     </template>
     <template #fixed-footer>
       <div class="info">
-        <p class="heading-dark-gray-md font-weight--semibold text">
+        <p class="text--footnote color-light-gray font-weight--semibold text">
           {{ $t('views.kyc.kyc1step.byPressingSign') }}
           <a class="link" href="http://">{{
             $t('views.kyc.kyc1step.termsAmpConditions')

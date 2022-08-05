@@ -98,16 +98,6 @@ const nextStep = (): void => {
 </script>
 
 <style lang="scss" scoped>
-.text-default {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-  color: $color-brand-primary;
-  margin-bottom: 40px;
-}
-
 .store-link {
   display: block;
   max-width: 180px;

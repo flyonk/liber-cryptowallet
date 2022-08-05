@@ -1,7 +1,7 @@
 <template>
   <section class="example-story" :style="stylePaddings">
     <header class="header">
-      <h1 class="title">{{ props.headerTitle }}</h1>
+      <h1 class="text--footnote color-white title">{{ props.headerTitle }}</h1>
       <img
         class="logo"
         alt="logo"
@@ -11,7 +11,7 @@
       />
     </header>
     <main class="main">
-      <h1 class="title">{{ props.baseTitle }}</h1>
+      <h1 class="text--large-title color-white">{{ props.baseTitle }}</h1>
       <div class="imagecontainer">
         <img class="image" :src="props.baseImg" @contextmenu.prevent.stop />
       </div>
@@ -63,12 +63,7 @@ const props = defineProps({
     margin: 24px 0;
 
     & > .title {
-      font-family: Inter, sans-serif;
-      font-style: normal;
       font-weight: 600;
-      font-size: 13px;
-      line-height: 18px;
-      color: $color-white;
     }
   }
 
@@ -78,18 +73,6 @@ const props = defineProps({
     flex: 1;
     overflow: scroll;
     padding-bottom: 70px;
-
-    & > .title {
-      font-weight: 800;
-      font-size: 34px;
-      line-height: 41px;
-      letter-spacing: 0.004em;
-      color: $color-white;
-
-      @media (max-height: 680px) {
-        font-size: 30px;
-      }
-    }
 
     & > .imagecontainer {
       height: 100%;

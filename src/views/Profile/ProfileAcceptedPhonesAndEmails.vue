@@ -28,7 +28,9 @@
           />
         </div>
         <div v-else class="profile-info">
-          <h1 class="title">Liber ID</h1>
+          <h1 class="text--title-3 font-bold">
+            {{ $t('views.profile.profilePhonesAndEmails.liberID') }}
+          </h1>
           <div class="data-container">
             <div class="row">
               <div class="wrapper">
@@ -41,7 +43,7 @@
         </div>
         <br />
         <div class="body-container">
-          <h1 class="title">
+          <h1 class="text--title-3 font-bold">
             {{ $t('views.profile.profilePhonesAndEmails.acceptedContact') }}
           </h1>
           <ul class="data-list">
@@ -50,9 +52,11 @@
               :key="index"
               class="item"
             >
-              <div class="label">Phone {{ index + 1 }}</div>
-              <div class="value">
-                <div class="phone">{{ value }}</div>
+              <div class="text--caption-2 font-medium color-dark-gray">
+                Phone {{ index + 1 }}
+              </div>
+              <div class="flex justify-between">
+                <div class="text--body font-medium">{{ value }}</div>
                 <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
@@ -61,9 +65,11 @@
               :key="index"
               class="item"
             >
-              <div class="label">Email {{ index + 1 }}</div>
-              <div class="value">
-                <div class="email">{{ value }}</div>
+              <div class="text--caption-2 font-medium color-dark-gray">
+                Email {{ index + 1 }}
+              </div>
+              <div class="justify-between">
+                <div class="text--body font-medium">{{ value }}</div>
                 <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
@@ -178,14 +184,6 @@ onBeforeMount(async () => {
 <style lang="scss" scoped>
 .content-wrapper {
   > .profile-info {
-    > .title {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 25px;
-      letter-spacing: -0.0045em;
-      color: $color-brand-primary;
-    }
-
     > .data-container {
       > .row {
         border-bottom: 1px solid rgb(175 179 195 / 30%);
@@ -199,17 +197,6 @@ onBeforeMount(async () => {
           > .icon {
             color: $color-green-400;
             font-size: 20px;
-          }
-
-          > .id {
-            margin-left: 5px;
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            display: flex;
-            align-items: center;
-            letter-spacing: -0.0043em;
-            color: $color-brand-primary;
           }
         }
 
@@ -226,87 +213,17 @@ onBeforeMount(async () => {
     width: calc(100% + 40px);
     left: -20px;
     background: $color-light-grey-300;
-
-    > .header {
-      display: flex;
-      justify-content: space-between;
-      justify-items: start;
-
-      > .icon {
-        color: $color-primary;
-        font-size: 20px;
-      }
-    }
-
-    > .body {
-      margin-top: 16px;
-
-      > .title {
-        font-weight: 700;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.0043em;
-        color: $color-brand-primary;
-      }
-
-      > .description {
-        margin-top: 8px;
-        font-weight: 400;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.0043em;
-        color: $color-brand-primary;
-      }
-
-      > .cta {
-        margin-top: 16px;
-        width: 100%;
-      }
-    }
   }
 
   > .body-container {
     margin-top: 24px;
-
-    > .title {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 25px;
-      letter-spacing: -0.0045em;
-      color: $color-brand-primary;
-    }
 
     > .data-list {
       > .item {
         border-bottom: 1px solid rgb(175 179 195 / 30%);
         padding: 16px 0;
 
-        > .label {
-          font-weight: 500;
-          font-size: 11px;
-          line-height: 13px;
-          letter-spacing: 0.0006em;
-          color: $color-dark-grey;
-        }
-
         > .value {
-          display: flex;
-          justify-content: space-between;
-
-          > .phone {
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: -0.0043em;
-          }
-
-          > .email {
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: -0.0043em;
-          }
-
           > .icon {
             color: $color-grey-500;
             font-size: 20px;

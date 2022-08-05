@@ -1,7 +1,7 @@
 <template name="who-topay">
   <div class="who-topay">
     <contacts-header @click:left-icon="handle" />
-    <h1 class="title">
+    <h1 class="text--title-1 mb-4">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
     <m-base-input v-model="filterContacts" type="text">
@@ -56,14 +56,6 @@ const filterContacts = ref('');
   flex-grow: 1;
   overflow: auto;
   position: relative;
-
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 24px;
-  }
 
   > .base-input:deep {
     margin-bottom: 16px;

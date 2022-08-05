@@ -3,7 +3,7 @@
     <div class="page-header">
       <ABackHistoryBtn icon-type="close" />
 
-      <h1 class="main-title">
+      <h1 class="main-title text--title-1">
         {{ $t('views.deposit.selectCoin.selectCoin') }}
       </h1>
 
@@ -68,11 +68,6 @@ const selectCoin = (item: ICoin) => {
 }
 
 .main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
   margin-bottom: 10px;
   margin-top: 20px;
 }
@@ -107,17 +102,6 @@ const selectCoin = (item: ICoin) => {
     top: 12px;
     left: 10px;
     z-index: 1;
-  }
-}
-
-.page-main {
-  > .title {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-brand-primary;
-    margin-bottom: 16px;
   }
 }
 
