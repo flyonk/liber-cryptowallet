@@ -49,9 +49,9 @@ export interface NativeBiometricPlugin {
 
   verifyIdentity(options?: BiometricOptions): Promise<any>;
 
-  getCredentials(options: GetCredentialOptions): Promise<Credentials>;
+  getCredentials(options?: GetCredentialOptions): Promise<Credential>;
 
-  setCredentials(options: SetCredentialOptions): Promise<any>;
+  setCredentials(options?: SetCredentialOptions): Promise<any>;
 
   deleteCredentials(options: DeleteCredentialOptions): Promise<any>;
 }

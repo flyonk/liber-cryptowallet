@@ -42,7 +42,7 @@ async function _getPermission() {
  */
 export async function verifyIdentity(): Promise<boolean | undefined> {
   try {
-    await NativeBiometric.verifyIdentity();
+    await NativeBiometric.getCredentials();
 
     return true;
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
