@@ -42,7 +42,7 @@ export default {
 
 <script setup lang="ts">
 import { onMounted, ref, computed, inject } from 'vue';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useRouter, useRoute } from 'vue-router';

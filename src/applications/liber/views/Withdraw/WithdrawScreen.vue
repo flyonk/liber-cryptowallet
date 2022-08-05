@@ -121,7 +121,7 @@
 import { computed, inject, onBeforeMount, Ref, ref } from 'vue';
 import { onBeforeRouteLeave, useRoute } from 'vue-router';
 import { useI18n } from 'vue-i18n';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { ICoin } from '@/applications/liber/models/funds/coin';

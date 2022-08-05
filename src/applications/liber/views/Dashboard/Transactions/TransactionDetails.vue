@@ -19,7 +19,7 @@ import {
   ETransactionType,
   INetTransaction,
 } from '@/models/transaction/transaction';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { useErrorsStore } from '@/stores/errors';
 

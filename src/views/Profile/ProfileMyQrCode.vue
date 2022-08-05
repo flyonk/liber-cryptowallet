@@ -47,7 +47,7 @@
 
 <script setup lang="ts">
 import { onBeforeMount, computed, inject } from 'vue';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { useI18n } from 'vue-i18n';
 

@@ -41,7 +41,7 @@
 
 <script lang="ts" setup>
 import { computed, inject, Ref, ref, watch } from 'vue';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
 import { uiKitKey } from '@/types/symbols';
