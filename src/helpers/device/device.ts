@@ -17,6 +17,7 @@ declare global {
     InstallTrigger?: any;
     ApplePaySession?: any;
     chrome?: any;
+    MSStream?: any;
   }
 }
 
