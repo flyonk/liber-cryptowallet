@@ -32,7 +32,6 @@
   "dependencies": {
     "@capacitor/app": "^1.1.1",
     "@capacitor/core": "^3.3.4",
-    "@capacitor/device": "^1.1.2",
     "@capacitor/ios": "^3.3.4",
     "@capacitor/project": "^2.0.10",
     "@capacitor/share": "^1.1.2",
