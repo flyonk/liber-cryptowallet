@@ -1,11 +1,11 @@
-import { getAttestationOptions } from './server/datafromserver';
+import {
+  getAttestationOptions,
+  randomStringFromServer,
+} from './server/datafromserver';
 
 import {
   NativeBiometricPlugin,
   AvailableResult,
-  // BiometricOptions,
-  // SetCredentialOptions,
-  // DeleteCredentialOptions,
   BiometryType,
 } from './definitions';
 
@@ -15,6 +15,7 @@ const BIOMETRIC_PUBLIC_KEY_ID = 'BIOMETRIC_PUBLIC_KEY_ID';
 
 const bufferToBase64 = (buffer: any) =>
   btoa(String.fromCharCode(...new Uint8Array(buffer)));
+
 const base64ToBuffer = (base64: any) =>
   Uint8Array.from(atob(base64), (c) => c.charCodeAt(0));
 
@@ -36,18 +37,18 @@ class NativeBiometricWeb implements NativeBiometricPlugin {
   verifyIdentity(): Promise<any> {
     throw new Error('Method not implemented.');
   }
+
   async getCredentials(): Promise<Credential> {
-    // navigator.credentials.get()
     try {
       const id = await get(BIOMETRIC_PUBLIC_KEY_ID);
 
+      if (!id) {
+        throw new Error('Method not implemented.');
+      }
+
       const publicKeyCredentialRequestOptions: PublicKeyCredentialRequestOptions =
         {
-          challenge: new Uint8Array([
-            220, 39, 125, 203, 142, 208, 157, 184, 138, 8, 138, 16, 96, 33, 162,
-            245, 83, 135, 27, 147, 52, 21, 222, 160, 254, 112, 91, 86, 225, 68,
-            94, 182,
-          ]),
+          challenge: new Uint8Array(randomStringFromServer),
           allowCredentials: [
             {
               id: base64ToBuffer(id),
@@ -55,12 +56,16 @@ class NativeBiometricWeb implements NativeBiometricPlugin {
               transports: ['internal'],
             },
           ],
+          userVerification: 'required',
           timeout: 60000,
         };
 
       const credential = await navigator.credentials.get({
         publicKey: publicKeyCredentialRequestOptions,
       });
+
+      // @TODO
+      // Send assertion to server for verification
 
       return credential as Credential;
     } catch (error) {

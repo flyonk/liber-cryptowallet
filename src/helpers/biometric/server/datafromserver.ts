@@ -1,12 +1,15 @@
+const randomStringFromServer = [
+  220, 39, 125, 203, 142, 208, 157, 184, 138, 8, 138, 16, 96, 33, 162, 245, 83,
+  135, 27, 147, 52, 21, 222, 160, 254, 112, 91, 86, 225, 68, 94, 182,
+];
+
 const getAttestationOptions = {
   publicKey: {
-    challenge: new Uint8Array([
-      220, 39, 125, 203, 142, 208, 157, 184, 138, 8, 138, 16, 96, 33, 162, 245,
-      83, 135, 27, 147, 52, 21, 222, 160, 254, 112, 91, 86, 225, 68, 94, 182,
-    ]),
+    challenge: new Uint8Array(randomStringFromServer),
     rp: {
       name: 'liber',
-      id: 'localhost',
+      id:
+        process.env.NODE_ENV === 'production' ? 'dev.liber.casa' : 'localhost',
     },
     user: {
       name: 'vxcvxc',
@@ -67,4 +70,4 @@ const getAttestationOptions = {
   },
 };
 
-export { getAttestationOptions };
+export { getAttestationOptions, randomStringFromServer };
