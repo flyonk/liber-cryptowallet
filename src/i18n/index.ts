@@ -1,5 +1,5 @@
 import { createI18n, LocaleMessages, VueMessageType } from 'vue-i18n';
-import { Device } from '@capacitor/device';
+import { Device } from '@/helpers/device/device';
 import { get } from '@/helpers/storage';
 
 import { EStorageKeys } from '@/types/storage';
