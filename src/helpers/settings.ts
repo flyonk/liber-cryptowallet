@@ -1,8 +1,6 @@
-import { IOSSettings, NativeSettings } from 'capacitor-native-settings';
+import { NativeSettings } from '@/helpers/native-settings/native-settings';
 
-export const openIosAppSettings = async (option = IOSSettings.App) => {
+export const openIosAppSettings = async () => {
   //TODO only works for IOs, work around when connect Android
-  await NativeSettings.openIOS({
-    option,
-  });
+  await NativeSettings.openIOS();
 };
