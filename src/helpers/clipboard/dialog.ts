@@ -11,7 +11,7 @@ declare let ClipboardItem: any;
 
 const UNIMPLEMENTED_CODE_ERROR = 'UNIMPLEMENTED';
 
-function DialogException(message: string, code: string) {
+function ClipboardException(message: string, code: string) {
   // eslint-disable-next-line @typescript-eslint/ban-ts-comment
   // @ts-ignore
   this.message = message;
@@ -23,7 +23,7 @@ function DialogException(message: string, code: string) {
 export class ClipboardWeb implements ClipboardPlugin {
   async write(options: WriteOptions): Promise<void> {
     if (typeof navigator === 'undefined' || !navigator.clipboard) {
-      throw new (DialogException as any)(
+      throw new (ClipboardException as any)(
         'Clipboard API not available in this browser',
         UNIMPLEMENTED_CODE_ERROR
       );
@@ -43,7 +43,7 @@ export class ClipboardWeb implements ClipboardPlugin {
           throw new Error('Failed to write image');
         }
       } else {
-        throw new (DialogException as any)(
+        throw new (ClipboardException as any)(
           'Writing images to the clipboard is not supported in this browser',
           UNIMPLEMENTED_CODE_ERROR
         );
@@ -55,7 +55,7 @@ export class ClipboardWeb implements ClipboardPlugin {
 
   async read(): Promise<ReadResult> {
     if (typeof navigator === 'undefined' || !navigator.clipboard) {
-      throw new (DialogException as any)(
+      throw new (ClipboardException as any)(
         'Clipboard API not available in this browser',
         UNIMPLEMENTED_CODE_ERROR
       );
@@ -82,7 +82,7 @@ export class ClipboardWeb implements ClipboardPlugin {
       !navigator.clipboard ||
       !navigator.clipboard.readText
     ) {
-      throw new (DialogException as any)(
+      throw new (ClipboardException as any)(
         'Reading from clipboard not supported in this browser',
         UNIMPLEMENTED_CODE_ERROR
       );
@@ -98,7 +98,7 @@ export class ClipboardWeb implements ClipboardPlugin {
       !navigator.clipboard ||
       !navigator.clipboard.writeText
     ) {
-      throw new (DialogException as any)(
+      throw new (ClipboardException as any)(
         'Writting to clipboard not supported in this browser',
         UNIMPLEMENTED_CODE_ERROR
       );
