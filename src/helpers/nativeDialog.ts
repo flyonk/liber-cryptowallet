@@ -1,4 +1,4 @@
-import { Dialog } from '@capacitor/dialog';
+import { Dialog } from '@/helpers/dialog/dialog';
 import {
   AlertOptions,
   ConfirmOptions,
