@@ -10,7 +10,7 @@
         <template v-if="proofType !== EKYCProofType.passport">
           <div v-for="(image, side) in getImage" :key="side" class="block">
             <template v-if="image">
-              <div class="title heading-black-lg">
+              <div class="title text--title-2">
                 {{ documentSideLabel(side) }}
               </div>
               <img :src="image" alt="front" class="image" />
@@ -23,7 +23,7 @@
 
         <template v-else>
           <div class="block">
-            <div class="title heading-black-lg">
+            <div class="title text--title-2">
               {{ $t('views.kyc.kyc5step.passport') }}
             </div>
             <img :src="getImage.front" alt="passport" class="image" />

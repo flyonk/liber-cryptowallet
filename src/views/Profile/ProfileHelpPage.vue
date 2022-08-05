@@ -14,10 +14,14 @@
             </template>
           </BaseInput>
         </div>
-        <h6 class="subtitle">{{ $t('views.profile.profileHelp.issue') }}</h6>
+        <h6 class="text--footnote mb-3 color-dark-gray font-bold">
+          {{ $t('views.profile.profileHelp.issue') }}
+        </h6>
         <ul class="issues-list">
           <li class="item">
-            <p class="text">{{ $t('views.profile.profileHelp.secure') }}</p>
+            <p class="text-default font-medium text">
+              {{ $t('views.profile.profileHelp.secure') }}
+            </p>
             <img
               class="right"
               :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
@@ -25,7 +29,7 @@
             />
           </li>
           <li class="item">
-            <p class="text">
+            <p class="text-default font-medium text">
               {{ $t('views.profile.profileHelp.destinationTag') }}
             </p>
             <img
@@ -35,7 +39,9 @@
             />
           </li>
           <li class="item">
-            <p class="text">{{ $t('views.profile.profileHelp.process') }}</p>
+            <p class="text-default font-medium text">
+              {{ $t('views.profile.profileHelp.process') }}
+            </p>
             <img
               class="right"
               :src="`${STATIC_BASE_URL}/static/menu/arrow-right.svg`"
@@ -43,7 +49,7 @@
             />
           </li>
           <li class="item">
-            <p class="text">
+            <p class="text-default font-medium text">
               {{ $t('views.profile.profileHelp.gamblingBlock') }}
             </p>
             <img
@@ -53,7 +59,7 @@
             />
           </li>
           <li class="item">
-            <p class="text">
+            <p class="text-default font-medium text">
               {{ $t('views.profile.profileHelp.topUpAccount') }}
             </p>
             <img
@@ -104,15 +110,6 @@ const value = ref('');
       margin-bottom: 15px;
     }
   }
-
-  > .subtitle {
-    font-weight: 600;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-dark-grey;
-    margin-bottom: 15px;
-  }
 }
 
 .issues-list {
@@ -138,12 +135,8 @@ const value = ref('');
     }
 
     > .text {
-      font-weight: 500;
-      font-size: 16px;
-      line-height: 21px;
       display: flex;
       align-items: center;
-      letter-spacing: -0.0031em;
       color: $color-brand-primary;
     }
   }

@@ -72,14 +72,6 @@ const filterContacts = ref('');
   > .base-input:deep {
     margin-bottom: 16px;
   }
-
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 24px;
-  }
 }
 
 .circle-add {

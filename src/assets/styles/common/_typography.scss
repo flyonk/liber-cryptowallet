@@ -3,12 +3,20 @@
 .text--large-title {
   font-size: 34px;
   line-height: 41px;
+  font-weight: 800;
   letter-spacing: 0.004em;
+
+  @include iPhoneSE {
+    font-size: 28px !important;
+    line-height: 34px !important;
+    letter-spacing: 0.0038em !important;
+  }
 }
 
 .text--title-1 {
   font-size: 28px;
   line-height: 34px;
+  font-weight: 800;
   letter-spacing: 0.0038em;
 }
 
@@ -16,6 +24,7 @@
   font-size: 22px;
   line-height: 28px;
   letter-spacing: -0.0026em;
+  font-weight: 600;
 }
 
 .text--title-3 {
@@ -29,19 +38,34 @@
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
+
+  @include iPhoneSE {
+    font-size: 16px !important;
+    line-height: 21px !important;
+    letter-spacing: -0.0031em !important;
+  }
 }
 
 .text--body {
   font-size: 17px;
   line-height: 22px;
   letter-spacing: -0.0043em;
+
+  @include iPhoneSE {
+    font-size: 16px !important;
+    line-height: 21px !important;
+    letter-spacing: -0.0031em !important;
+  }
 }
 
-.text--callout {
+.text-default {
   font-size: 16px;
   line-height: 21px;
   letter-spacing: -0.0031em;
+  color: $color-brand-primary;
 }
+
+//typical small description text
 
 .text--footnote {
   font-size: 13px;
@@ -60,43 +84,20 @@
   letter-spacing: 0.0006em;
 }
 
-.font-weight--normal {
-  font-weight: normal;
-}
+// text colors
 
-.font-weight--medium {
-  font-weight: 500;
-}
-
-.font-weight--semibold {
-  font-weight: 600;
-}
-
-.font-weight--extra-bold {
-  font-weight: 800;
-}
-
-.heading-gray-md {
-  font-size: 13px;
-  line-height: 18px;
-  letter-spacing: -0.0008em;
-  color: #5c697d;
-}
-
-.heading-dark-gray-md {
-  font-size: 13px;
-  line-height: 18px;
-  letter-spacing: -0.0008em;
+.color-light-gray {
   color: $color-light-grey-850;
 }
 
-.heading-black-lg {
-  font-style: normal;
-  font-weight: 600;
-  font-size: 22px;
-  line-height: 34px;
+.color-dark-gray {
+  color: $color-dark-grey;
 }
 
-.text-dark-gray {
-  color: $color-light-grey-850;
+.color-main {
+  color: $color-brand-primary;
+}
+
+.color-white {
+  color: $color-white;
 }

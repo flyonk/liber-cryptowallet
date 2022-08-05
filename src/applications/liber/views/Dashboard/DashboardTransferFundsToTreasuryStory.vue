@@ -18,7 +18,7 @@
         </header></template
       >
       <template #subtitle>
-        <div class="description">
+        <div class="description text--body mt-3">
           <p>{{ $t('views.dashboard.transferFundsToTreasury.provide') }}</p>
           <br />
           <p>{{ $t('views.dashboard.transferFundsToTreasury.fees') }}</p>
@@ -33,17 +33,17 @@
             width="200"
             height="200"
           />
-          <!-- <div class="label">
+          <!-- <div class="label text--body font-bold">
             {{ $t('views.dashboard.transferFundsToTreasury.noAgain') }}
           </div> -->
         </div>
       </template>
       <template #fixed-footer>
         <footer class="footer">
-          <div class="label">
+          <div class="label text--body">
             {{ $t('views.dashboard.transferFundsToTreasury.noAgain') }}
           </div>
-          <button class="btn">
+          <button class="btn text--body">
             {{ $t('views.dashboard.transferFundsToTreasury.liquidity') }}
           </button>
         </footer>
@@ -63,11 +63,6 @@ import { Route } from '@/router/types';
 }
 
 .description {
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-  margin-top: 15px;
-  font-style: normal;
   font-weight: normal;
   color: $color-brand-primary;
   width: 295px;
@@ -86,12 +81,6 @@ import { Route } from '@/router/types';
     text-align: center;
     width: 100%;
     color: $color-primary;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    letter-spacing: -0.0043em;
   }
 }
 
@@ -106,11 +95,6 @@ import { Route } from '@/router/types';
     text-align: center;
     width: 100%;
     color: $color-primary;
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    font-style: normal;
-    letter-spacing: -0.0043em;
     margin-bottom: 30px;
   }
 

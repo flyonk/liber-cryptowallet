@@ -7,7 +7,7 @@
       </h1>
       <img :src="coinIconUrl" alt class="icon" />
     </div>
-    <p class="subtitle heading-gray-md">
+    <p class="subtitle text--footnote color-dark-gray">
       {{ currency }} {{ baseConversionSum }}
     </p>
   </div>
