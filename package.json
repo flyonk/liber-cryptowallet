@@ -30,7 +30,6 @@
     "peer": "add-no-save --peer-deps"
   },
   "dependencies": {
-    "@capacitor/app": "^1.1.1",
     "@capacitor/core": "^3.3.4",
     "@capacitor/ios": "^3.3.4",
     "@sentry/browser": "^6.19.2",

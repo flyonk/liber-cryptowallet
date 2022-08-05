@@ -10,7 +10,6 @@ import { i18n, setLocale } from './i18n';
 import sentry from '@/plugins/sentry';
 import axiosInterceptor from '@/plugins/axiosInterceptor';
 import filters from '@/helpers/filters';
-import appStateListen from '@/helpers/appStateListen';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
@@ -47,8 +46,6 @@ app.component('PSwitch', PSwitch);
 app.directive('tooltip', PTooltip);
 
 app.provide(uiKitKey, uiKit);
-
-appStateListen();
 
 router.isReady().then(() => {
   app.mount('#app');
