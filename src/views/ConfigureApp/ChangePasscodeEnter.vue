@@ -12,13 +12,13 @@
         <base-passcode
           v-if="actionType === EPasscodeActions.store"
           :action-type="actionType"
-          :show-touch-faceid="false"
+          :show-touch-faceid="showNativeVerification"
           @submit="onCreate"
         />
         <base-passcode
           v-if="actionType === EPasscodeActions.compare"
           :action-type="actionType"
-          :show-touch-faceid="false"
+          :show-touch-faceid="showNativeVerification"
           @submit="onSubmit"
         />
       </div>
@@ -35,6 +35,7 @@
 import { computed, inject, Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
+import { useAppOptionsStore } from '@/stores/appOptions';
 
 import { EPasscodeActions } from '@/types/base-component';
 import { Route } from '@/router/types';
@@ -51,6 +52,7 @@ const actionType = ref(EPasscodeActions.store) as Ref<EPasscodeActions>;
 const { tm } = useI18n();
 const showErrorToast = ref(false);
 const mfaStore = useMfaStore();
+const appOptionsStore = useAppOptionsStore();
 
 const title = computed(() => {
   switch (actionType.value) {
@@ -78,6 +80,11 @@ function onSubmit(success: boolean): void {
     showErrorToast.value = true;
   }
 }
+
+const showNativeVerification = computed(() => {
+  const { faceid, touchid } = appOptionsStore.getOptions;
+  return faceid || touchid;
+});
 </script>
 
 <style lang="scss" scoped>
