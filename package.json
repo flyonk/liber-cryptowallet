@@ -31,7 +31,6 @@
   },
   "dependencies": {
     "@capacitor/app": "^1.1.1",
-    "@capacitor/clipboard": "^1.0.8",
     "@capacitor/core": "^3.3.4",
     "@capacitor/device": "^1.1.2",
     "@capacitor/ios": "^3.3.4",
