@@ -2,7 +2,7 @@
   <t-top-navigation
     :left-icon-name="iconName"
     class="passcode-container"
-    @click:left-icon="router.push({ name: Route.ChangePasscode })"
+    @click:left-icon="router.back()"
   >
     <template #title>
       {{ title }}
@@ -16,7 +16,7 @@
           @submit="onCreate"
         />
         <base-passcode
-          v-if="actionType === EPasscodeActions.compare"
+          v-if="actionType === EPasscodeActions.update"
           :action-type="actionType"
           :show-touch-faceid="showNativeVerification"
           @submit="onSubmit"
@@ -36,6 +36,7 @@ import { computed, inject, Ref, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useMfaStore } from '@/stores/mfa';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { usePasscodeStore } from '@/stores/passcode';
 
 import { EPasscodeActions } from '@/types/base-component';
 import { Route } from '@/router/types';
@@ -53,6 +54,7 @@ const { tm } = useI18n();
 const showErrorToast = ref(false);
 const mfaStore = useMfaStore();
 const appOptionsStore = useAppOptionsStore();
+const passcodeStore = usePasscodeStore();
 
 const title = computed(() => {
   switch (actionType.value) {
@@ -76,16 +78,16 @@ const iconName = computed(() => {
 
 function onCreate(success: boolean): void {
   if (success) {
-    actionType.value = EPasscodeActions.compare;
+    actionType.value = EPasscodeActions.update;
   }
 }
 
 function onSubmit(success: boolean): void {
-  console.log(success);
   if (success) {
     mfaStore.show({
       successRoute: router.resolve({ name: Route.ProfileMainView }).path,
     });
+    passcodeStore.toggleSuccessPasscodeToast(true);
   } else {
     showErrorToast.value = true;
   }

@@ -40,7 +40,8 @@
   },
   "browserStub": {
     "title": "Browser not supported",
-    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone"
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone",
+    "installButton": "Install app"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -400,7 +401,8 @@
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
       "currentPasscode": "Current passcode",
-      "newPasscode": "Enter new passcode"
+      "newPasscode": "Enter new passcode",
+      "successChange": "You have successfully changed the passcode"
     },
     "dashboard": {
       "home": {
@@ -504,6 +506,7 @@
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language",
+        "saveChanges": "Save changes",
         "myID": "My ID:"
       },
       "profileQRCode": {

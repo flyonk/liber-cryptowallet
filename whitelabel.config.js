@@ -12,6 +12,7 @@ module.exports = {
     nameApp: 'Liber App',
     appIconsFolder: 'liber',
     version: '0.1.47',
+    mainColor: '#2862ff',
   },
   dark: {
     brand: 'Dark',
@@ -22,6 +23,7 @@ module.exports = {
     storageUrl: '',
     nameApp: '',
     appIconsFolder: '',
+    mainColor: '',
   },
   exampleBrand: {
     brand: 'exampleBrand',
@@ -32,5 +34,6 @@ module.exports = {
     storageUrl: '',
     nameApp: '',
     appIconsFolder: '',
+    mainColor: '',
   },
 };

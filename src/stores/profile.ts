@@ -58,6 +58,7 @@ export const useProfileStore = defineStore('profile', {
       try {
         return await profileService.getProfile();
       } catch (err) {
+        console.error(err);
         const errorsStore = useErrorsStore();
 
         errorsStore.handle({

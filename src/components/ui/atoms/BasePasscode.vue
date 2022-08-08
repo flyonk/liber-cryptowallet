@@ -52,6 +52,12 @@ const mfaStore = useMfaStore();
 
 const errorsStore = useErrorsStore();
 
+/**
+ * emit true value if passcode is correct
+ * emit false value if passcode is wrong
+ */
+const emit = defineEmits(['submit']);
+
 const props = defineProps({
   actionType: {
     type: String as PropType<EPasscodeActions>,
@@ -61,16 +67,25 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
+  successRoute: {
+    type: String,
+    default: Route.ProfileSettings,
+  },
 });
+
+const identificationIcon = ref('');
+const passcode = ref('');
 
 async function updatePassCode(passcode: string) {
   mfaStore.show({
-    successRoute: Route.ProfileSettings,
+    successRoute: {
+      name: props.successRoute,
+    },
   });
   return await passcodeStore.update({ new_pass_code: passcode });
 }
 
-async function checkPasscode(passcode: string) {
+async function comparePasscode(passcode: string) {
   return await passcodeStore.verify({ pass_code: passcode });
 }
 
@@ -87,16 +102,23 @@ async function setPasscode(passcode: string) {
   return isCreated;
 }
 
+async function checkPasscode(passcode: string) {
+  emit('submit', passcode);
+}
+
 function getSubmitFunction(actionType: string) {
   switch (actionType) {
     case EPasscodeActions.store:
       return setPasscode;
     case EPasscodeActions.compare:
-      return checkPasscode;
+      return comparePasscode;
     case EPasscodeActions.update:
       return updatePassCode;
-    default:
+    case EPasscodeActions.check:
+    case EPasscodeActions.restore:
       return checkPasscode;
+    default:
+      return comparePasscode;
   }
 }
 
@@ -120,25 +142,18 @@ const showTouchId = () => {
   }
 };
 
-const identificationIcon = ref('');
-const passcode = ref('');
-
 onBeforeMount(async (): Promise<void> => {
-  const option = await getSupportedOptions();
+  if (props.showTouchFaceid) {
+    const option = await getSupportedOptions();
 
-  if (option === 'face-id') {
-    identificationIcon.value = `${STATIC_BASE_URL}/static/media/faceid.svg`;
-  }
-  if (option === 'touch-id') {
-    identificationIcon.value = `${STATIC_BASE_URL}/static/menu/touchid.svg`;
+    if (option === 'face-id') {
+      identificationIcon.value = `${STATIC_BASE_URL}/static/media/faceid.svg`;
+    }
+    if (option === 'touch-id') {
+      identificationIcon.value = `${STATIC_BASE_URL}/static/menu/touchid.svg`;
+    }
   }
 });
-
-/**
- * emit true value if passcode is correct
- * emit false value if passcode is wrong
- */
-const emit = defineEmits(['submit']);
 
 function setNumber(number: string): void {
   if (passcode.value.length < 4) {

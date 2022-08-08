@@ -56,6 +56,7 @@ module.exports = {
     name: whitelabelConfigPath.nameApp,
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    themeColor: whitelabelConfigPath.mainColor,
 
     // configure the workbox plugin
     workboxPluginMode: 'InjectManifest',

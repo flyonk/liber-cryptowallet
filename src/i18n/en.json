@@ -40,7 +40,8 @@
   },
   "browserStub": {
     "title": "Browser not supported",
-    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone"
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone",
+    "installButton": "Install app"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -72,6 +73,15 @@
       "step4Description": "Get a verification code from the authenticator app",
       "step4VerificationError": "Your code doesn't match. Please, try again!",
       "forgotYourPasscode": "Forgot your passcode?"
+    },
+    "passcodeRestore": {
+      "emailText": "Enter security code we’ve sent an email to",
+      "numberText": "Enter the security code we’ve sent to"
+    },
+    "passcodeRestoreSuccess": {
+      "title": "Passcode successfully changed",
+      "description": "To protect your account, we’ve suspended all withdrawal operation for 24 hours.",
+      "gotIt": "Got it"
     },
     "restore": {
       "contactSupport": "Contact support",
@@ -400,7 +410,8 @@
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
       "currentPasscode": "Current passcode",
-      "newPasscode": "Enter new passcode"
+      "newPasscode": "Enter new passcode",
+      "successChange": "You have successfully changed the passcode"
     },
     "dashboard": {
       "home": {

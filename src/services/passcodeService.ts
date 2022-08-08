@@ -45,6 +45,12 @@ export default {
     return response.data;
   },
 
+  async restore(data: IPasscodeUpdateRequestBody): Promise<TSuccessResponse> {
+    console.log(data);
+
+    return { message: 'success' };
+  },
+
   async delete(): Promise<TSuccessResponse> {
     return await axios.delete(apiService.passcode.global());
   },

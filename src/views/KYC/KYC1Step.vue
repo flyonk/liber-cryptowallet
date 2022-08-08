@@ -42,15 +42,16 @@
 import { ref, onBeforeMount, Ref, inject } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
+import { uiKitKey } from '@/types/symbols';
 
 import { useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
+import { IClaim } from '@/models/profile/claim';
 
 import { TTopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
-import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
 const { MBaseButton } = uiKit!;
@@ -79,6 +80,16 @@ const onSignUp = async () => {
 
 onBeforeMount(async () => {
   await pStore.init();
+  if (!kycStore.getClaimData) {
+    await kycStore.claim();
+    if (
+      (kycStore.getClaimData as unknown as IClaim).status > 10 &&
+      (kycStore.getClaimData as unknown as IClaim).status < 30
+    )
+      router.push({
+        name: Route.Survey,
+      });
+  }
 });
 
 const setCountry = (selectedCountry: string): void => {
