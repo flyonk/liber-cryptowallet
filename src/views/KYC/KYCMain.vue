@@ -44,20 +44,4 @@ const components = computed(() => [
     letter-spacing: -0.0043em;
   }
 }
-
-.footer {
-  position: absolute;
-  bottom: 50px;
-  left: 16px;
-  right: 16px;
-
-  > .text {
-    padding: 0 0 32px;
-
-    > .link {
-      text-decoration: none;
-      color: $color-primary;
-    }
-  }
-}
 </style>

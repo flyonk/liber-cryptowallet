@@ -40,7 +40,8 @@
   },
   "browserStub": {
     "title": "Browser not supported",
-    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone"
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone",
+    "installButton": "Install app"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -72,15 +73,6 @@
       "step4Description": "Get a verification code from the authenticator app",
       "step4VerificationError": "Your code doesn't match. Please, try again!",
       "forgotYourPasscode": "Forgot your passcode?"
-    },
-    "passcodeRestore": {
-      "emailText": "Enter security code we’ve sent an email to",
-      "numberText": "Enter the security code we’ve sent to"
-    },
-    "passcodeRestoreSuccess": {
-      "title": "Passcode successfully changed",
-      "description": "To protect your account, we’ve suspended all withdrawal operation for 24 hours.",
-      "gotIt": "Got it"
     },
     "restore": {
       "contactSupport": "Contact support",
@@ -299,7 +291,19 @@
       }
     },
     "sendfunds": {
-      "whopay": "Who To Pay"
+      "whopay": "Who To Pay",
+      "firstTimeInvite": {
+        "inviteFriends": "Invite Friends",
+        "findFriends": "Find youd friends",
+        "inviteAndShare": "Invite a friend and share the Liber experience with them",
+        "requestMoney": "Send and request money from your friends more easily, split bills and much more.",
+        "shareLink": "Share link",
+        "invitePhone": "Invite by phone or email",
+        "enablePermissions": "Enable contacts permission",
+        "accessContacts": "Allow access to contacts",
+        "hideYourself": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
+        "notNow": "Not now"
+      }
     },
     "changePasscode": {
       "aboutLiber": "Liber app protects your withdrawals and account"
@@ -397,7 +401,8 @@
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
       "currentPasscode": "Current passcode",
-      "newPasscode": "Enter new passcode"
+      "newPasscode": "Enter new passcode",
+      "successChange": "You have successfully changed the passcode"
     },
     "dashboard": {
       "home": {
@@ -501,7 +506,8 @@
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language",
-        "saveChanges": "Save changes"
+        "saveChanges": "Save changes",
+        "myID": "My ID:"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -547,6 +553,7 @@
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
       },
       "profilePhonesAndEmails": {
+        "liberID": "Liber ID",
         "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "yourIdentityIsNotVerified": "Your identity is not verified",
         "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",

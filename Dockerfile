@@ -6,7 +6,7 @@ ARG GITHUB_TOKEN
 ARG VERSION
 
 ARG BRANDNAME="liber"
-ARG BRANDNAME_VERSION="0.1.45"
+ARG BRANDNAME_VERSION="0.1.47"
 ARG BRAND_CONFIGURATION_HOSTNAME="conf.middleware.dev.k8s.domain"
 
 # configure git with token

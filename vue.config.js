@@ -48,7 +48,7 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "${process.env.VUE_APP_STATIC_STORAGE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css"; @import "@liber-biz/crpw-ui-kit-${whitelabelConfigPath.brand}/dist/crpw.css";`,
+        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "@/assets/styles/common/mixins.scss"; @import "${process.env.VUE_APP_STATIC_STORAGE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css"; @import "@liber-biz/crpw-ui-kit-${whitelabelConfigPath.brand}/dist/crpw.css";`,
       },
     },
   },
@@ -56,6 +56,7 @@ module.exports = {
     name: whitelabelConfigPath.nameApp,
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    themeColor: whitelabelConfigPath.mainColor,
 
     // configure the workbox plugin
     workboxPluginMode: 'InjectManifest',

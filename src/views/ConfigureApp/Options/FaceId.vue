@@ -28,12 +28,13 @@ import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { useProfileStore } from '@/stores/profile';
 
 import { TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
-import { verifyIdentity } from '@/helpers/identification';
+import { enableNativeBiometric } from '@/helpers/identification';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
@@ -41,14 +42,22 @@ const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 
+const pStore = useProfileStore();
 const { setOptions } = useAppOptionsStore();
 
 const onEnable = async (): Promise<void> => {
-  const state = await verifyIdentity();
+  if (!pStore.user.id) await pStore.init();
+
+  const state = await enableNativeBiometric({
+    id: pStore.user.id,
+    email: pStore.user.email,
+  });
 
   if (state) {
     await setOptions('true', EStorageKeys.faceid);
     router.push({ name: Route.AuthPasscode });
+  } else {
+    // handle error case
   }
 };
 

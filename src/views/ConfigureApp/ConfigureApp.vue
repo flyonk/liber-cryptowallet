@@ -19,10 +19,10 @@
         <i class="icon-copy icon default-input-icon" />
       </label>
 
-      <p class="text-default">
+      <p class="text--body color-main mb-4">
         {{ $t('configureApp.backupCodeMessage') }}
       </p>
-      <p class="text-default">
+      <p class="text--body color-main">
         {{ $t('configureApp.verifyIdentityMessage') }}
       </p>
     </template>
@@ -42,7 +42,7 @@ export default {
 
 <script setup lang="ts">
 import { onMounted, ref, computed, inject } from 'vue';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
 import { useRouter, useRoute } from 'vue-router';
@@ -126,21 +126,6 @@ const nextStep = (): void => {
   margin: 15px;
   flex-grow: 1;
   overflow: auto;
-}
-
-.text-default {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-  color: $color-brand-primary;
-  margin-bottom: 20px;
-
-  @media (max-width: 375px) {
-    font-size: 14px;
-    line-height: 20px;
-  }
 }
 
 .qr-code-canvas {

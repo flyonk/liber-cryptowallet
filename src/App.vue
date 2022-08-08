@@ -38,8 +38,6 @@ import { onBeforeMount, onBeforeUnmount, ref, computed, inject } from 'vue';
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useMfaStore } from '@/stores/mfa';
-import { useErrorsStore } from '@/stores/errors';
-import SwipeBack from '@/plugins/swipe-capacitor';
 import { IS_DEVELOPEMENT_MODE } from '@/constants';
 
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
@@ -65,8 +63,6 @@ const mfaStore = useMfaStore();
 const store = useAccountStore();
 store.init();
 
-const errorsStore = useErrorsStore();
-
 const bundlerIsActive = ref(false);
 
 function onOffline() {
@@ -86,21 +82,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('offline', onOffline);
   window.removeEventListener('online', onOnline);
 });
-
-SwipeBack.enable()
-  .then()
-  .catch((err) => {
-    const { code } = err;
-    if (code !== 'UNIMPLEMENTED') {
-      //TODO:disable display in toast (dev dependency)
-      errorsStore.handle({
-        err,
-        name: 'App',
-        ctx: 'SwipeBack',
-        description: 'Capacitor SwipeBack plugin error',
-      });
-    }
-  });
 
 const showMfa = computed(() => {
   return mfaStore.enabled;

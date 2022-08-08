@@ -10,7 +10,7 @@
       ><div class="page-content">
         <img
           alt="Puch notifications"
-          class="mb-3"
+          class="dragndrop mb-3"
           src="@/assets/images/dragndrop-bg.png"
         />
         <p class="text-default -annotation">
@@ -119,5 +119,13 @@ function nextRoute() {
   justify-content: center;
   text-align: center;
   flex-direction: column;
+
+  > .dragndrop {
+    width: 100%;
+
+    @include iPhoneSE {
+      width: 220px;
+    }
+  }
 }
 </style>
