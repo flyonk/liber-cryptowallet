@@ -49,6 +49,8 @@ import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { get } from '@/helpers/storage';
+import { SStorageKeys } from '@/types/storage';
 const router = useRouter();
 
 const authStore = useAuthStore();
@@ -82,17 +84,20 @@ const handleStep = async (phone: number) => {
 
   const stringifiedPhone = '' + phone;
   await authStore.getFromStorage();
-  const loginPhone = authStore.getLoginPhone;
 
-  if (loginPhone.includes(stringifiedPhone)) {
-    phoneExist.value = true;
+  const rawUser = await get(SStorageKeys.user);
+  const user = JSON.parse(rawUser ? rawUser : 'null');
+  const isPhoneNumberExist = user && user.phone.includes(stringifiedPhone);
+
+  if (isPhoneNumberExist) {
     number.value = stringifiedPhone;
+    authStore.setLoginPhone(stringifiedPhone);
+    phoneExist.value = true;
     return;
   }
 
-  authStore.registration.phone = stringifiedPhone;
+  authStore.setRegistrationPhone(stringifiedPhone);
   authStore.savePhone('signup');
-
   emit('next');
 };
 
