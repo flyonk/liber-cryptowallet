@@ -230,12 +230,20 @@ export const useAuthStore = defineStore('auth', {
       ]);
     },
 
-    setPhone(phone: string) {
+    setLoginPhone(phone: string) {
       this.login.phone = phone;
     },
 
-    setDialCode(dialCode: string) {
+    setLoginDialCode(dialCode: string) {
       this.login.dialCode = dialCode;
+    },
+
+    setRegistrationPhone(phone: string) {
+      this.registration.phone = phone;
+    },
+
+    setRegistrationDialCode(dialCode: string) {
+      this.registration.dialCode = dialCode;
     },
 
     async logout() {

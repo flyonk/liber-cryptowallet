@@ -37,10 +37,11 @@ const handle = () => {
 };
 
 const continueWithExistedLogin = async () => {
-  authStore.setPhone(authStore.getRegistrationPhone);
+  authStore.setLoginPhone(authStore.getRegistrationPhone);
 
   await twoFAStore.set2FADate();
   authStore.setStep(2, 'login');
+
   await router.push({
     name: Route.Login,
   });
