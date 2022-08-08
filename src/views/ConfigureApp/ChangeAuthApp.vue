@@ -114,6 +114,10 @@ const onConfirm = () => {
 
     mfaStore.show({
       successRoute: routePath,
+      async callback() {
+        // update profile info about 2fa is enabled or not
+        await pStore.init();
+      },
     });
     twofaStore.disable();
   } else {
