@@ -1,5 +1,5 @@
 <template>
-  <VerifyCode :flow="VerifyCodeFlow.Signup" @next="handle($event)" />
+  <VerifyCode :flow="VerifyCodeFlow.Signup" @next="handle" />
   <phone-in-use
     v-if="phoneExist"
     :phone="number"
@@ -30,6 +30,9 @@ const dialCode = ref('');
 
 defineEmits(['next']);
 
+/**
+ * the event appears when an existing number needs to be processed
+ */
 const handle = () => {
   number.value = authStore.registration.phone;
   dialCode.value = authStore.registration.dialCode;
