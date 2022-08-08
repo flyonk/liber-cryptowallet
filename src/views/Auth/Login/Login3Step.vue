@@ -9,7 +9,10 @@
           @submit="onSubmit"
         />
 
-        <router-link :to="{ name: Route.SignUp }" class="recovery-link">
+        <router-link
+          :to="{ name: Route.RestorePasscode }"
+          class="recovery-link"
+        >
           {{ $t('auth.login.forgotYourPasscode') }}
         </router-link>
       </div>

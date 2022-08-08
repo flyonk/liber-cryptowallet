@@ -506,6 +506,7 @@
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language",
+        "saveChanges": "Save changes",
         "myID": "My ID:"
       },
       "profileQRCode": {

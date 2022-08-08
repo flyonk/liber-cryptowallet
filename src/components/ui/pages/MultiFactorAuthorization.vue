@@ -1,5 +1,11 @@
 <template>
+  <EmailAndNumberVerificationCode
+    v-if="mfaStore.data.confirmations.length"
+    @complete="onEmailAndNumberComplete"
+  />
+
   <enter-verification-code
+    v-else
     :text="text"
     :title="ctaTitle"
     left-icon-name="icon-app-navigation-close"
@@ -49,6 +55,7 @@ import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+import EmailAndNumberVerificationCode from '@/components/ui/organisms/auth/EmailAndNumberVerificationCode.vue';
 import { AxiosError } from 'axios';
 import { uiKitKey } from '@/types/symbols';
 
@@ -95,6 +102,12 @@ const onTimeIsUp = () => {
 
 const resend = async () => {
   showCountdown.value = true;
+};
+
+const onEmailAndNumberComplete = (form: { phone: string; email: string }) => {
+  console.log('passcodes to approve', form);
+
+  mfaStore.hide();
 };
 
 const onComplete = async () => {

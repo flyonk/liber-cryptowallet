@@ -37,6 +37,12 @@ export const usePasscodeStore = defineStore('passcode', {
       return message === 'success';
     },
 
+    async restore(data: IPasscodeUpdateRequestBody) {
+      const { message } = await passcodeService.restore(data);
+
+      return message === 'success';
+    },
+
     async delete() {
       const { message } = await passcodeService.delete();
 

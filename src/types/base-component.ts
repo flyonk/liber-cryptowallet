@@ -19,11 +19,13 @@ export enum EState {
 }
 
 export enum EPasscodeActions {
+  check = 'check',
   store = 'store',
   receive = 'receive',
   compare = 'compare',
   clear = 'clear',
   update = 'update',
+  restore = 'restore',
 }
 
 export interface IValueItem {

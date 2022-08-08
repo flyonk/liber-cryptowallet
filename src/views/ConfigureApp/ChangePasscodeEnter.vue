@@ -2,7 +2,7 @@
   <t-top-navigation
     :left-icon-name="iconName"
     class="passcode-container"
-    @click:left-icon="router.push({ name: Route.ChangePasscode })"
+    @click:left-icon="router.back()"
   >
     <template #title>
       {{ title }}
@@ -16,7 +16,7 @@
           @submit="onCreate"
         />
         <base-passcode
-          v-if="actionType === EPasscodeActions.compare"
+          v-if="actionType === EPasscodeActions.update"
           :action-type="actionType"
           :show-touch-faceid="showNativeVerification"
           @submit="onSubmit"
@@ -78,12 +78,11 @@ const iconName = computed(() => {
 
 function onCreate(success: boolean): void {
   if (success) {
-    actionType.value = EPasscodeActions.compare;
+    actionType.value = EPasscodeActions.update;
   }
 }
 
 function onSubmit(success: boolean): void {
-  console.log(success);
   if (success) {
     mfaStore.show({
       successRoute: router.resolve({ name: Route.ProfileMainView }).path,
