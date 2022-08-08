@@ -247,14 +247,13 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      const [dialCode, phone, touchId, faceId] = await Promise.all([
+      const [dialCode, phone, touchId, faceId, loginPhone] = await Promise.all([
         get(EStorageKeys.dialCode),
         get(EStorageKeys.phone),
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
+        get(EStorageKeys.loginPhone),
       ]);
-
-      // remove(SStorageKeys.user);
 
       if (this.token.token) {
         authService.logout({ token: this.token.token });
@@ -264,10 +263,7 @@ export const useAuthStore = defineStore('auth', {
 
       await clearAll();
 
-      const lastSessionPhone = JSON.stringify({
-        phone,
-        dialCode,
-      } as ICommonPhoneNumber);
+      const lastSessionPhone = loginPhone ? loginPhone : 'null';
 
       await Promise.all([
         set({
