@@ -25,3 +25,4 @@ export { default as TTopNavigation } from './templates/TTopNavigation.vue';
 export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswer.vue';
 export { default as AConvertInfoItem } from './atoms/AConvertInfoItem.vue';
 export { default as OChangeAddress } from './organisms/OChangeAddress.vue';
+export { default as OInputConfirmationCode } from './organisms/auth/OInputConfirmationCode.vue';

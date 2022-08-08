@@ -1,8 +1,5 @@
 <template>
-  <t-top-navigation
-    with-fixed-footer
-    @click:left-icon="router.push({ name: Route.ProfileSettings })"
-  >
+  <t-top-navigation with-fixed-footer @click:left-icon="router.back()">
     <template #title>
       {{ $t('views.profile.profileSettings.changePasscode') }}
     </template>
