@@ -1,8 +1,5 @@
-import { Dialog } from '@capacitor/dialog';
-import {
-  AlertOptions,
-  ConfirmOptions,
-} from '@capacitor/dialog/dist/esm/definitions';
+import { Dialog } from '@/helpers/dialog/dialog';
+import { AlertOptions, ConfirmOptions } from '@/helpers/dialog/definitions';
 import { useErrorsStore } from '@/stores/errors';
 
 export const showAlert = async (options: AlertOptions) => {

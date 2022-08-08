@@ -9,7 +9,7 @@
     >
       <template #controllers>
         <div class="controls">
-          <base-button
+          <m-base-button
             v-for="({ icon, title }, index) in availableActionButtons"
             :key="index"
             view="finance-action"
@@ -17,8 +17,10 @@
             :icon-left="icon"
           >
             {{ title }}
-          </base-button>
-          <base-button view="finance-action" size="medium"> ... </base-button>
+          </m-base-button>
+          <m-base-button view="finance-action" size="medium">
+            ...
+          </m-base-button>
         </div>
       </template>
     </MDashboardCoinInfo>
@@ -28,14 +30,14 @@
         <span class="title text--footnote font-weight--semibold">
           {{ $t('views.dashboard.home.transactions') }}
         </span>
-        <base-button
+        <m-base-button
           size="medium"
           view="flat"
           class="button"
           @click="$router.push({ name: CouponRoutes.TransactionsAll })"
         >
           {{ $t('views.dashboard.home.seeAll') }}
-        </base-button>
+        </m-base-button>
       </div>
 
       <transactions-list
@@ -62,7 +64,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, inject, onBeforeMount, ref } from 'vue';
 
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { CouponRoutes } from '@/applications/coupons/router/types';
@@ -74,12 +76,12 @@ import { useErrorsStore } from '@/stores/errors';
 // import { COUPON_ACCOUNTS } from '@/../tests/mock/couponAccounts';
 import { useRouter } from 'vue-router';
 
-import {
-  BaseButton,
-  MDashboardCoinInfo,
-  TransactionsList,
-} from '@/components/ui';
+import { TransactionsList, MDashboardCoinInfo } from '@/components/ui';
 import { DashboardBanner } from '@/applications/coupons/components/ui';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const couponsStore = useCouponsStore();
 const uiStore = useUIStore();

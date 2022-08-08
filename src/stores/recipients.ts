@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia';
-import { Contacts } from '@capacitor-community/contacts';
-import { Storage } from '@capacitor/storage';
+import { Contacts } from '@/helpers/contacts/contacts';
+import { get, set } from '@/helpers/storage';
 
 import contactsService from '@/applications/liber/services/contactsService';
 import transactionService from '@/applications/liber/services/transactionService';
@@ -31,14 +31,12 @@ interface IContact {
 }
 
 const getStoredOption = async (key: EStorageKeys) => {
-  const { value } = await Storage.get({
-    key,
-  });
+  const value = await get(key);
   return value ? JSON.parse(value) : [];
 };
 
 async function setOptions(value: string[], key: EStorageKeys) {
-  await Storage.set({
+  await set({
     key,
     value: JSON.stringify(value),
   });

@@ -33,9 +33,15 @@
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
+    "specialCharacterError": "Please remove special characters. They do not accept in the field.",
     "on": "On",
     "off": "Off",
     "2fainput": "2FA verification code"
+  },
+  "browserStub": {
+    "title": "Browser not supported",
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone",
+    "installButton": "Install app"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -65,9 +71,13 @@
       "step3FooterCta": "Registration",
       "step4Title": "Enter verification code",
       "step4Description": "Get a verification code from the authenticator app",
-      "step4VerificationError": "Your code doesn't match. Please, try again!"
+      "step4VerificationError": "Your code doesn't match. Please, try again!",
+      "forgotYourPasscode": "Forgot your passcode?"
     },
     "restore": {
+      "contactSupport": "Contact support",
+      "ifYouHaveLostAccessDescription": "If you have lost access to your phone number, please contact our support at",
+      "contact": "Contact",
       "step1Title": "Your previous number",
       "step1Description": "The phone number you last logged in with.",
       "step2Title": "Enter passcode",
@@ -83,7 +93,10 @@
       "step4Description": "To keep your account safe, we need to make sure it’s you!",
       "step5Title": "When were you born?",
       "step5BirthLabel": "Date of birth",
-      "step5Placeholder": "DD/MM/YYYY"
+      "step5Placeholder": "DD/MM/YYYY",
+      "suspendedScreenDescription": "To protect your account, we've suspended all withdrawal operation for 24h.",
+      "suspendedScreenTitle": "The withdrawal operations suspended",
+      "suspendedScreenBtn": "Got It"
     },
     "signup": {
       "step1Title": "Enter phone number",
@@ -100,7 +113,9 @@
         "title": "Welcome to",
         "transfer": "Transfer money around the world with the best fee",
         "login": "Log in",
-        "signUp": "Sign up"
+        "signUp": "Sign up",
+        "loginWithThisNumber": "Login with this number",
+        "goBack": "No, go back"
       }
     }
   },
@@ -146,6 +161,7 @@
     "deposit": "Deposit",
     "deposited": "Deposited",
     "send": "Send",
+    "pay": "Pay",
     "exchange": "Exchange",
     "generateAddress": "Generate New Address",
     "shareAddress": "Share Address",
@@ -160,6 +176,7 @@
     "downloadState": "Download Statement",
     "rate": "Rate",
     "bought": "Bought",
+    "receivedCoupons": "Received coupons for",
     "cost": "Cost",
     "transactionIdCopied": "Transaction ID is copied successfully",
     "transactionIdCopyFail": "Failed when copy Transaction ID",
@@ -205,6 +222,8 @@
     "convert": {
       "title": "Convert Funds",
       "insufficientfunds": "It seems you don't have enough funds to proceed",
+      "unhandledError": "Unhandled error is occurred when converting funds",
+      "convertFailTitle": "Convert funds error",
       "preview": "Preview",
       "convertNow": "Convert Now",
       "updating": "Updating...",
@@ -253,16 +272,44 @@
       "insufficient": "Insufficient amount",
       "available": "Available",
       "continue": "Continue",
-      "withdrawNow": "Withdraw Now"
+      "withdrawNow": "Withdraw Now",
+      "fee": "Fee",
+      "total": "Total",
+      "success": {
+        "title": "Your withdrawal request was sent",
+        "description": "We will notify you when your withdrawal request is completed."
+      },
+      "confirmation": {
+        "text": "Withdraw confirmation",
+        "title": "Do you know and trust this payee?",
+        "description": "If you’re unsure, don’t pay them, as we may not be able to help you get your money back. Remember, fraudsters can impersonate others, and we will never ask you to make a payment",
+        "button": {
+          "yes": "Yes, continue",
+          "no": "No, go back",
+          "submit": "Submit"
+        }
+      }
     },
     "sendfunds": {
-      "whopay": "Who To Pay"
+      "whopay": "Who To Pay",
+      "firstTimeInvite": {
+        "inviteFriends": "Invite Friends",
+        "findFriends": "Find youd friends",
+        "inviteAndShare": "Invite a friend and share the Liber experience with them",
+        "requestMoney": "Send and request money from your friends more easily, split bills and much more.",
+        "shareLink": "Share link",
+        "invitePhone": "Invite by phone or email",
+        "enablePermissions": "Enable contacts permission",
+        "accessContacts": "Allow access to contacts",
+        "hideYourself": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
+        "notNow": "Not now"
+      }
     },
     "changePasscode": {
       "aboutLiber": "Liber app protects your withdrawals and account"
     },
     "newcontact": {
-      "additionalphone": "Additional phone or email"
+      "additionalphone": "Add phone or email"
     },
     "requestcontacts": {
       "title": "Find your friends",
@@ -344,7 +391,9 @@
       "kyc7step": {
         "wereVerifyingYourId": "We’re verifying your ID",
         "yourIdentityIs": "Your identity is being verified. We will email and sms to you once your verification has completed.",
-        "continue": "Continue"
+        "continue": "Continue",
+        "errorMessage": "Something went wrong, try later or contact support ",
+        "documentError": "Your documents do not meet our requirements, please upload again."
       }
     },
     "passcodeEnter": {
@@ -352,11 +401,13 @@
       "confirmPasscode": "Confirm passcode",
       "changePasscode": "Change passcode",
       "currentPasscode": "Current passcode",
-      "newPasscode": "Enter new passcode"
+      "newPasscode": "Enter new passcode",
+      "successChange": "You have successfully changed the passcode"
     },
     "dashboard": {
       "home": {
         "idVerification": "ID Verification",
+        "notVerified": "Not Verified",
         "idVerified": "ID Verified",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",
@@ -428,6 +479,7 @@
         "profile": "Profile",
         "QRCode": "My QR Code and Liber ID",
         "details": "Personal details",
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
         "allAccounts": "All accounts",
         "help": "Help",
         "security": "Security",
@@ -453,7 +505,9 @@
         "confirmNativeVerification": "Are you sure to disable",
         "appearance": "Appearance",
         "language": "Language",
-        "selectLanguage": "Select Language"
+        "selectLanguage": "Select Language",
+        "saveChanges": "Save changes",
+        "myID": "My ID:"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -479,13 +533,14 @@
         "topUpAccount": "Can I still top-up my Liber account in CZK and HUF?"
       },
       "profileEdit": {
-        "editProfile": "Edit Profile",
+        "editProfile": "Personal details",
+        "homeAddress": "Home address",
         "personalInfo": "Personal Information",
         "name": "Name",
         "id": "Liber ID",
         "dateOfBirth": "Date of Birth",
         "address": "Residential Address",
-        "verify": "Verify Identity"
+        "changeHomeAddress": "Change home address"
       },
       "profilePrivacy": {
         "privacy": "Privacy",
@@ -496,7 +551,33 @@
         "receivePushNotifications": "I am happy to receive push notifications about Liber product, services and offers that may interest me",
         "social": "Social media & advertising platforms",
         "shareInformation": "I am happy for Liber to share information, such as my name, emals address and app events witg social media and advertising platforms, to allow Liber to advertise to me and others like me and to conduct"
+      },
+      "profilePhonesAndEmails": {
+        "liberID": "Liber ID",
+        "acceptedPhonesAndEmails": "Accepted Phones & Emails",
+        "yourIdentityIsNotVerified": "Your identity is not verified",
+        "friendsCanSendYouMoney": "Friends can send you money. You will receive funds after verifying your identity.",
+        "verifyIdentity": "Verify Identity",
+        "acceptedContact": "Accepted Contacts",
+        "verificationInProgress": "ID Verification in progress",
+        "weWillEmailAndSmsToYouVerification": "We will email and sms to you once your verification has completed."
+      },
+      "profileAddNewContactData": {
+        "title": "Add a new contact",
+        "confirmButton": "Confirm Contact"
       }
+    },
+    "pEmailSent": {
+      "title": "Confirm you email address",
+      "description": "We sent confirmation email to:",
+      "footerDescription": "Check your email and click on the confirmation link to continue.",
+      "goToInbox": "Go to Inbox",
+      "resend": "Resend email"
+    },
+    "pPhoneVerified": {
+      "title": "Your phone number has been successfully verified",
+      "description": "Now you can get money by the following phone number:",
+      "done": "Done"
     },
     "survey": {
       "question": "Main reason for using Liber",
@@ -557,7 +638,10 @@
     "gotIt": "Got it",
     "details": "Details",
     "login2Step": "Invalid secret code",
-    "retryConnect": "Retry connect",
+    "numberAlreadyInUse": "Number already in use",
+    "numberInUseDetail": "The number {numberPhone} is already in use. Change it or sign in with this number",
+    "confirmTitle": "Retry connect",
+    "cancelTitle": "Use offline",
     "offlineTitle": "No internet connection",
     "offlineDescription": "Please, check internet connection on your phone to use the application"
   },
@@ -593,9 +677,21 @@
       "error": "Liber Save account associated with this email address not found. Try to use another email."
     },
     "convert": {
+      "mfatitle": "Enter verification code",
       "title": "Enter amount of euro to get coupons for",
       "convertExactly": "Amount (€50–€1,000)",
-      "convertNow": "Get Coupons Now"
+      "convertNow": "Get Coupons Now",
+      "success": "Your order was submitted",
+      "successDescription": "It may take some time. Please note the coupons will be enrolled to your Liver Save Account. ",
+      "minAmount": "The minimum amount is",
+      "maxAmount": "The maximum amount is"
+    },
+    "getcrypto": {
+      "mfatitle": "Enter verification code",
+      "title": "Enter amount of euro to get crypto for",
+      "convertNow": "Checkout with Liber Save",
+      "success": "Your purchase was successful",
+      "successDescription": "It will be avaliable in your wallet instantly."
     }
   }
 }

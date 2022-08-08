@@ -1,12 +1,12 @@
 <template name="who-topay">
   <div class="who-topay">
-    <contacts-header />
-    <h1 class="title">
+    <contacts-header @click:left-icon="handle" />
+    <h1 class="text--title-1 mb-4">
       {{ $t('views.sendfunds.whopay') }}
     </h1>
-    <BaseInput v-model="filterContacts" type="text">
+    <m-base-input v-model="filterContacts" type="text">
       <template #label> Name, @id, phone, email </template>
-    </BaseInput>
+    </m-base-input>
 
     <constacts-tab-switcher
       :liber-route="Route.PayRecipientsLiber"
@@ -18,13 +18,31 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 
-import { BaseInput } from '@/components/ui';
 import ContactsHeader from '@/components/ui/molecules/ContactsHeader.vue';
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+import { useRouter } from 'vue-router';
+import { useAccountStore } from '@/applications/liber/stores/account';
+
+const router = useRouter();
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
+
+const accountStore = useAccountStore();
+
+const handle = () => {
+  /**
+   *  This using for preselected sended coin in flow:
+   * (dashboard -> accounts -> concrete coin account -> send -> contact )
+   * */
+  if (accountStore.accountToSend) accountStore.accountToSend = null;
+  router.push({ name: Route.DashboardHome });
+};
 
 const filterContacts = ref('');
 </script>
@@ -33,18 +51,14 @@ const filterContacts = ref('');
 .who-topay {
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: calc(100vh - 96px);
   padding: 60px 16px 0;
   flex-grow: 1;
   overflow: auto;
   position: relative;
 
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 24px;
+  > .base-input:deep {
+    margin-bottom: 16px;
   }
 }
 </style>

@@ -5,18 +5,18 @@
   >
     <template #title>
       <div class="left">
-        <h1 class="title">{{ accountName }}</h1>
+        <h1 class="text--title-1 mb-2">{{ accountName }}</h1>
         <div class="flex">
-          <p class="account">
-            My ID:
-            <a class="link">{{ accountID }}</a>
+          <p class="text--title-3">
+            {{ $t('views.profile.profileSettings.myID') }}
           </p>
+          <a class="text--title-3">{{ accountID }}</a>
         </div>
       </div>
     </template>
     <template #right>
       <div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -31,7 +31,7 @@
           </button>
         </div>
         <div class="main">
-          <h6 class="subtitle">
+          <h6 class="text--footnote mb-2 font-medium">
             {{ $t('views.profile.profileSettings.profile') }}
           </h6>
           <ul class="list list--profile">
@@ -40,7 +40,7 @@
               @click="$router.push({ name: Route.ProfileMyQrCode })"
             >
               <img class="icon" :src="`${menuStaticFolder}qr-mini.svg`" />
-              <p class="text">
+              <p class="text-default text-brand-primary">
                 {{ $t('views.profile.profileSettings.QRCode') }}
               </p>
             </li>
@@ -49,7 +49,7 @@
               class="item"
             >
               <img class="icon" :src="`${menuStaticFolder}user_circle.svg`" />
-              <p class="text">
+              <p class="text-default text-brand-primary">
                 {{ $t('views.profile.profileSettings.details') }}
               </p>
             </router-link>
@@ -61,7 +61,7 @@
                 class="icon"
                 :src="`${menuStaticFolder}circle_check_outline.svg`"
               />
-              <p class="text">
+              <p class="text-default">
                 {{
                   $t('views.profile.profileSettings.acceptedPhonesAndEmails')
                 }}
@@ -69,22 +69,24 @@
             </router-link>
             <router-link :to="{ name: Route.AccountMain }" class="item">
               <img class="icon" :src="`${menuStaticFolder}data.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.allAccounts') }}
               </p>
             </router-link>
             <router-link :to="{ name: Route.ProfileHelp }" class="item">
               <img class="icon" :src="`${menuStaticFolder}help_circle.svg`" />
-              <p class="text">{{ $t('views.profile.profileSettings.help') }}</p>
+              <p class="text-default">
+                {{ $t('views.profile.profileSettings.help') }}
+              </p>
             </router-link>
           </ul>
-          <h6 class="subtitle">
+          <h6 class="text--footnote mb-2 font-medium">
             {{ $t('views.profile.profileSettings.security') }}
           </h6>
           <ul class="list security--profile">
             <router-link :to="{ name: Route.ChangePasscode }" class="item">
               <img class="icon" :src="`${menuStaticFolder}lock.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.changePasscode') }}
               </p>
             </router-link>
@@ -93,13 +95,13 @@
               @click="$router.push({ name: Route.ProfilePrivacy })"
             >
               <img class="icon" :src="`${menuStaticFolder}shield.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.privacy') }}
               </p>
             </li>
             <router-link :to="{ name: Route.ChangeAuthapp }" class="item">
               <img class="icon" :src="`${menuStaticFolder}google.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.2FAGoogle') }}
               </p>
               <p class="text selected-language">
@@ -108,13 +110,12 @@
             </router-link>
             <router-link class="item" disabled to="/profile/devices">
               <img class="icon" :src="`${menuStaticFolder}devices.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.devices') }}
               </p>
             </router-link>
-            <biometric-identifier-switcher-button />
           </ul>
-          <h6 class="subtitle">
+          <h6 class="text--footnote mb-2 font-medium">
             {{ $t('views.profile.profileSettings.appearance') }}
           </h6>
           <ul class="list label--profile">
@@ -124,13 +125,13 @@
               @close="showLanguageSelect = false"
             >
               <img class="icon" :src="`${menuStaticFolder}world.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.language') }}
               </p>
               <p class="text selected-language">{{ locale }}</p>
             </li>
           </ul>
-          <h6 class="subtitle">
+          <h6 class="text--footnote mb-2 font-medium">
             {{ $t('views.profile.profileSettings.system') }}
           </h6>
           <ul class="list label--profile">
@@ -142,7 +143,7 @@
             </li>
             <li class="item" @click="onLogout">
               <img class="icon" :src="`${menuStaticFolder}log_out.svg`" />
-              <p class="text">
+              <p class="text-default">
                 {{ $t('views.profile.profileSettings.logOut') }}
               </p>
             </li>
@@ -165,6 +166,7 @@
       <CloseAccount :show-menu="showCloseAccount" @close-menu="closeMenu" />
     </template>
   </t-top-navigation>
+  <ChangePasscodeSuccess />
 </template>
 
 <script lang="ts">
@@ -174,7 +176,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { onMounted, ref, computed } from 'vue';
+import { onMounted, ref, computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -186,13 +188,14 @@ import { STATIC_BASE_URL, MULTI_LANGUAGE } from '@/constants';
 import { Route } from '@/router/types';
 import { showConfirm } from '@/helpers/nativeDialog';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import CloseAccount from '@/components/ui/organisms/CloseAccount.vue';
-import {
-  TTopNavigation,
-  BiometricIdentifierSwitcherButton,
-} from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import LanguageSwitcher from '@/components/ui/organisms/LanguageSwitcher.vue';
+import { uiKitKey } from '@/types/symbols';
+import ChangePasscodeSuccess from '@/views/ConfigureApp/ChangePasscodeSuccess.vue';
+
+const uiKit = inject(uiKitKey);
+const { AContactInitials } = uiKit!;
 
 const route = useRouter();
 const authStore = useAuthStore();
@@ -258,7 +261,7 @@ async function onLogout() {
     return;
   }
 
-  await authStore.logout(profileStore.getUser.id);
+  await authStore.logout();
 
   await route.push({ name: Route.WelcomeLogoScreen });
 }
@@ -288,21 +291,12 @@ async function onLogout() {
         margin-bottom: 20px;
       }
 
-      > .title {
-        font-weight: 800;
-        font-size: 28px;
-        line-height: 34px;
-        letter-spacing: 0.0038em;
-        margin-bottom: 8px;
-      }
-
       > .account {
         font-size: 20px;
         line-height: 25px;
         display: flex;
         align-items: center;
         letter-spacing: -0.0045em;
-        color: $color-dark-grey;
       }
     }
   }
@@ -342,15 +336,6 @@ async function onLogout() {
   }
 
   > .main {
-    > .subtitle {
-      font-weight: 600;
-      font-size: 13px;
-      line-height: 18px;
-      letter-spacing: -0.0008em;
-      color: $color-dark-grey;
-      margin-bottom: 10px;
-    }
-
     > .list {
       display: flex;
       flex-direction: column;
@@ -368,16 +353,6 @@ async function onLogout() {
 
         > .icon {
           margin-right: 12px;
-        }
-
-        > .text {
-          font-weight: 500;
-          font-size: 16px;
-          line-height: 21px;
-          display: flex;
-          align-items: center;
-          letter-spacing: -0.0031em;
-          color: $color-brand-primary;
         }
 
         > .selected-language {
@@ -408,32 +383,6 @@ async function onLogout() {
 .left {
   > .back {
     margin-bottom: 20px;
-  }
-
-  > .title {
-    width: 74vw;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 8px;
-  }
-
-  > .flex > .account {
-    font-size: 20px;
-    line-height: 25px;
-    display: flex;
-    align-items: center;
-    letter-spacing: -0.0045em;
-    color: $color-dark-grey;
-    font-family: Inter, sans-serif;
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 25px;
   }
 }
 

@@ -29,13 +29,21 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="onContinue">{{
+      <m-base-button block @click="onContinue">{{
         $t('configureApp.changeAppCTA')
-      }}</base-button>
+      }}</m-base-button>
     </template>
   </t-top-navigation>
 
-  <base-toast v-model:visible="showPopup" :severity="'attention'">
+  <m-base-toast v-model:visible="showPopup">
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <h1 class="title">{{ $t('configureApp.ChangeAppPopupTitle') }}</h1>
@@ -46,20 +54,20 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <BaseButton class="btn mb-3" size="large" @click="onConfirm">
+        <m-base-button class="btn mb-3" size="large" @click="onConfirm">
           {{ $t('common.continueCta') }}
-        </BaseButton>
-        <BaseButton
+        </m-base-button>
+        <m-base-button
           class="btn"
           size="large"
           view="secondary"
           @click="showPopup = false"
         >
           {{ $t('common.cancelCta') }}
-        </BaseButton>
+        </m-base-button>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts">
@@ -69,9 +77,9 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 
-import { TTopNavigation, BaseButton, BaseToast } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 
@@ -81,6 +89,10 @@ import { useProfileStore } from '@/stores/profile';
 import { STATIC_BASE_URL } from '@/constants';
 
 import InputSwitch from 'primevue/inputswitch';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit!;
 
 const router = useRouter();
 
@@ -98,8 +110,10 @@ const onConfirm = () => {
   showPopup.value = false;
   if (pStore.user.is2FAConfigured) {
     const mfaStore = useMfaStore();
+    const routePath = router.resolve({ name: Route.ProfileSettings }).path;
+
     mfaStore.show({
-      successRoute: Route.InstallApp,
+      successRoute: routePath,
     });
     twofaStore.disable();
   } else {
@@ -115,8 +129,10 @@ watch(is2FAConfigured, (val) => {
   } else {
     if (pStore.user.is2FAConfigured) {
       const mfaStore = useMfaStore();
+      const routePath = router.resolve({ name: Route.ProfileSettings }).path;
+
       mfaStore.show({
-        successRoute: Route.ProfileSettings,
+        successRoute: routePath,
         async callback() {
           // update profile info about 2fa is enabled or not
           await pStore.init();
@@ -198,5 +214,16 @@ watch(is2FAConfigured, (val) => {
   display: flex;
   justify-content: space-between;
   margin-top: 50px;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

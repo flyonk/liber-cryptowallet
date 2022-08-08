@@ -2,7 +2,7 @@
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ $t('views.kyc.kyc5step.proofOfIdentity') }}</template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ $t('views.kyc.kyc5step.haveAFinal') }}
     </template>
     <template #content>
@@ -10,46 +10,46 @@
         <template v-if="proofType !== EKYCProofType.passport">
           <div v-for="(image, side) in getImage" :key="side" class="block">
             <template v-if="image">
-              <div class="title heading-black-lg">
+              <div class="title text--title-2">
                 {{ documentSideLabel(side) }}
               </div>
               <img :src="image" alt="front" class="image" />
-              <base-button block view="secondary" @click="onScanAgain(side)">
+              <m-base-button block view="secondary" @click="onScanAgain(side)">
                 {{ $t('views.kyc.kyc5step.scanAgain') }}
-              </base-button>
+              </m-base-button>
             </template>
           </div>
         </template>
 
         <template v-else>
           <div class="block">
-            <div class="title heading-black-lg">
+            <div class="title text--title-2">
               {{ $t('views.kyc.kyc5step.passport') }}
             </div>
             <img :src="getImage.front" alt="passport" class="image" />
-            <base-button
+            <m-base-button
               block
               view="secondary"
               @click="onScanAgain(EDocumentSide.front)"
             >
               {{ $t('views.kyc.kyc5step.scanAgain') }}
-            </base-button>
+            </m-base-button>
           </div>
         </template>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="onNext">
+      <m-base-button block class="footer-button" @click="onNext">
         {{ $t('views.kyc.kyc5step.upload') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { EDocumentSide } from '@/types/document';
@@ -59,6 +59,10 @@ import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const { t } = useI18n();
 

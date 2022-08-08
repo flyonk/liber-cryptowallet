@@ -17,42 +17,56 @@
       </div></template
     >
     <template #fixed-footer>
-      <base-button block class="mb-3" @click="onEnable">
+      <m-base-button block class="mb-3" @click="onEnable">
         {{ $t('configureApp.enableTouchId') }}
-      </base-button>
-      <base-button block view="transparent" @click="onCancel">
+      </m-base-button>
+      <m-base-button block view="transparent" @click="onCancel">
         {{ $t('common.notNowCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
+import { inject } from 'vue';
 import { useRouter } from 'vue-router';
 import { useAppOptionsStore } from '@/stores/appOptions';
+import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { EStorageKeys } from '@/types/storage';
 import { Route } from '@/router/types';
-import { verifyIdentity } from '@/helpers/identification';
+import { enableNativeBiometric } from '@/helpers/identification';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 
+const pStore = useProfileStore();
 const { setOptions } = useAppOptionsStore();
 
 const onEnable = async (): Promise<void> => {
-  const state = await verifyIdentity();
+  if (!pStore.user.id) await pStore.init();
+
+  const state = await enableNativeBiometric({
+    id: pStore.user.id,
+    email: pStore.user.email,
+  });
 
   if (state) {
     setOptions('true', EStorageKeys.touchid);
-    router.push({ name: Route.PushNotifications });
+    router.push({ name: Route.AuthPasscode });
+  } else {
+    // handle error case
   }
 };
 
 const onCancel = (): void => {
   setOptions('', EStorageKeys.touchid);
-  router.push({ name: Route.PushNotifications });
+  router.push({ name: Route.AuthPasscode });
 };
 </script>
 

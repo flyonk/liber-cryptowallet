@@ -6,7 +6,7 @@
   >
     <template #title>{{ $t('views.kyc.kyc6step.proofOfResidence') }}</template>
     <template #subtitle>
-      <base-progress-bar class="mb-3" :value="getPercentage" />
+      <a-base-progress-bar class="mb-3" :value="getPercentage" />
       {{ $t('views.kyc.kyc6step.provideOneOf') }}
     </template>
     <template #content>
@@ -35,23 +35,27 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button block class="footer-button" @click="selectPicture">
+      <m-base-button block class="footer-button" @click="selectPicture">
         {{ $t('views.kyc.kyc6step.upload') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
+
+import { TTopNavigation } from '@/components/ui';
 
 import { useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { IClaim } from '@/models/profile/claim';
 import { getFullList } from '@/services/country-phone';
 import { ICountryInformation } from '@/types/country-phone-types';
+import { uiKitKey } from '@/types/symbols';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['prev', 'next']);
 
@@ -71,7 +75,7 @@ const onUpload = async () => {
       ({ name }) => name === profileStore.getUser.country
     ) as ICountryInformation;
 
-    await kycStore.uploadResidenceFile(claimId, file, countryIso);
+    kycStore.uploadResidenceFile(claimId, file, countryIso);
 
     emit('next');
   } catch (e) {

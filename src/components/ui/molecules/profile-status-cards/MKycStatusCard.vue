@@ -15,26 +15,30 @@
       <h1 class="description">
         {{ cardInfo.description }}
       </h1>
-      <base-button
+      <m-base-button
         v-if="cardInfo.isCtaRequired"
         class="cta"
         @click="$router.push({ name: Route.KYCMain })"
       >
         {{
           $t('views.profile.profilePhonesAndEmails.verifyIdentity')
-        }}</base-button
+        }}</m-base-button
       >
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { BaseButton } from '@/components/ui';
 import { EKYCStatus } from '@/models/profile/profile';
-import { computed, PropType } from 'vue';
+import { computed, inject, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { STATIC_BASE_URL } from '@/constants';
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
+
 const { tm } = useI18n();
 
 interface IKycStatusCard {

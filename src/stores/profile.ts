@@ -1,5 +1,4 @@
 import { defineStore } from 'pinia';
-import { SecureStoragePlugin } from 'capacitor-secure-storage-plugin';
 
 import profileService from '@/services/profileService';
 import { IProfile, TMarketing } from '@/models/profile/profile';
@@ -42,7 +41,7 @@ export const useProfileStore = defineStore('profile', {
 
     syncUserDataInStorage(): void {
       const value = JSON.stringify(this.user);
-      SecureStoragePlugin.set({
+      set({
         key: SStorageKeys.user,
         value,
       });
@@ -59,6 +58,7 @@ export const useProfileStore = defineStore('profile', {
       try {
         return await profileService.getProfile();
       } catch (err) {
+        console.error(err);
         const errorsStore = useErrorsStore();
 
         errorsStore.handle({

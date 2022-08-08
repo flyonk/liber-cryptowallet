@@ -1,9 +1,9 @@
-import { BiometryType, NativeBiometric } from 'capacitor-native-biometric';
+import { BiometryType } from '@/helpers/biometric/definitions';
+import { NativeBiometric } from '@/helpers/biometric/NativeBiometric';
 
 import { useErrorsStore } from '@/stores/errors';
 import { showConfirm } from '@/helpers/nativeDialog';
 import { openIosAppSettings } from '@/helpers/settings';
-import { IOSSettings } from 'capacitor-native-settings';
 
 /**
  * Function tries to get permission from native settings
@@ -36,34 +36,13 @@ async function _getPermission() {
 }
 
 /**
- * Function tries to get permission for push notifications from native settings
- *
- * @returns {void}
- */
-export async function getPushNotificationsPermission() {
-  const identifierText = 'push notifications';
-
-  const approve = await showConfirm({
-    title: 'Change settings',
-    message: `To enable ${identifierText} please toggle on Application Settings ${identifierText} option`,
-    okButtonTitle: 'OK',
-    cancelButtonTitle: 'Cancel',
-  });
-
-  if (approve) {
-    //TODO after returning to app click face id toggle again
-    await openIosAppSettings(IOSSettings.Notifications);
-  }
-}
-
-/**
- * Function tries to enable biometrical identification
+ * Function tries to enable check identification
  *
  * @returns {boolean}
  */
 export async function verifyIdentity(): Promise<boolean | undefined> {
   try {
-    await NativeBiometric.verifyIdentity();
+    await NativeBiometric.getCredentials();
 
     return true;
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
@@ -79,14 +58,35 @@ export async function verifyIdentity(): Promise<boolean | undefined> {
 }
 
 /**
+ * Function tries to enable biometrical identification
+ *
+ * @returns {boolean}
+ */
+export async function enableNativeBiometric(options: {
+  id: string;
+  email: string;
+}): Promise<boolean | undefined> {
+  try {
+    const result = await NativeBiometric.setCredentials({
+      id: options.id,
+      email: options.email,
+    });
+
+    return result;
+    /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
+  } catch (error: any) {
+    return false;
+  }
+}
+
+/**
  * Function to check support faceId and TouchId
  *
  * @returns {string} allowed values: ['touch-id', 'face-id', '']
  */
 export async function getSupportedOptions() {
   try {
-    const result = await NativeBiometric.isAvailable();
-    const biometryType = result.biometryType;
+    const { biometryType } = await NativeBiometric.isAvailable();
     if (biometryType === BiometryType.FACE_ID) {
       return 'face-id';
     }

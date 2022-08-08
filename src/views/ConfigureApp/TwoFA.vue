@@ -1,5 +1,9 @@
 <template>
-  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
+  <t-top-navigation
+    with-fixed-footer
+    left-icon-name="icon-app-navigation-close"
+    @click:left-icon="skip2FA"
+  >
     <template #title> {{ $t('configureApp.twoFATitle') }}</template>
     <template #subtitle> {{ $t('configureApp.twoFADescription') }}</template>
     <template #content>
@@ -9,11 +13,11 @@
         </div>
       </div>
     </template>
-    <template #fixed-footer
-      ><base-button block @click="installApp">
+    <template #fixed-footer>
+      <m-base-button block @click="installApp">
         {{ $t('common.continueCta') }}
-      </base-button></template
-    >
+      </m-base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -24,14 +28,18 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { inject, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
-import { onMounted } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 
@@ -47,15 +55,17 @@ onMounted(async () => {
   }
 });
 
-function prevStep(): void {
-  router.go(-1);
-}
+const skip2FA = (): void => {
+  router.push({
+    name: Route.AuthPasscode,
+  });
+};
 
-function installApp(): void {
+const installApp = (): void => {
   router.push({
     name: Route.InstallApp,
   });
-}
+};
 </script>
 
 <style lang="scss" scoped>

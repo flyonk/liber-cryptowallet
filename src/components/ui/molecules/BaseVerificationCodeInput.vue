@@ -28,23 +28,26 @@
     </div>
 
     <div class="submit">
-      <base-button
+      <m-base-button
         v-if="withPasteButton"
         view="secondary"
         block
         @click="onPaste"
-        >{{ $t('ui.baseverificationcodeinput.paste') }}</base-button
+        >{{ $t('ui.baseverificationcodeinput.paste') }}</m-base-button
       >
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, Ref, ref, watch } from 'vue';
-import { Clipboard } from '@capacitor/clipboard';
+import { computed, inject, Ref, ref, watch } from 'vue';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 
-import { BaseButton } from '@/components/ui';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const props = defineProps({
   type: {

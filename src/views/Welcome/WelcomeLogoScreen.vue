@@ -1,12 +1,12 @@
 <template>
   <div class="welcome-screen" :style="stylePaddings">
-    <main-page-loader v-if="loading" />
+    <a-main-page-loader v-if="loading" />
     <img v-else :src="`${STATIC_BASE_URL}/static/media/logo.png`" alt="logo" />
   </div>
 </template>
 
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
+import { inject, onMounted, ref } from 'vue';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
 import router from '@/router';
@@ -14,9 +14,12 @@ import { useAuthStore } from '@/stores/auth';
 import { useAppOptionsStore } from '@/stores/appOptions';
 
 import { STATIC_BASE_URL } from '@/constants';
-import MainPageLoader from '@/components/ui/atoms/MainPageLoader.vue';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { AMainPageLoader } = uiKit!;
 
 const { stylePaddings } = useSafeAreaPaddings();
 

@@ -13,29 +13,30 @@
       {{ $t('views.kyc.kyc3step.proofOfIdentity') }}
     </template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ $t('views.kyc.kyc3step.yourDocumentPhoto') }}
     </template>
     <template #content>
       <div class="kyc-3-step">
-        <base-radio-select :items="items" @select="onSelect" />
+        <a-base-radio-select :items="items" @select="onSelect" />
       </div>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
-import {
-  BaseProgressBar,
-  BaseRadioSelect,
-  TTopNavigation,
-} from '@/components/ui';
+import { computed, inject, ref } from 'vue';
+import { TTopNavigation } from '@/components/ui';
+
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { useRouter } from 'vue-router';
 
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, ABaseRadioSelect } = uiKit!;
 
 const emit = defineEmits(['next']);
 

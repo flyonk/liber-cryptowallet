@@ -8,4 +8,8 @@ export enum ServicesRoutes {
   GetCouponsEmail = 'services-coupons-email',
 
   ConvertFunds = 'services-convert',
+
+  GetCrypto = 'services-crypto',
+  GetCryptoCoin = 'services-crypto-coin',
+  GetCryptoFunds = 'sservices-crypto-funds',
 }

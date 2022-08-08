@@ -9,6 +9,10 @@ module.exports = {
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
+    nameApp: 'Liber App',
+    appIconsFolder: 'liber',
+    version: '0.1.47',
+    mainColor: '#2862ff',
   },
   dark: {
     brand: 'Dark',
@@ -17,6 +21,9 @@ module.exports = {
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
+    nameApp: '',
+    appIconsFolder: '',
+    mainColor: '',
   },
   exampleBrand: {
     brand: 'exampleBrand',
@@ -25,5 +32,8 @@ module.exports = {
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
+    nameApp: '',
+    appIconsFolder: '',
+    mainColor: '',
   },
 };

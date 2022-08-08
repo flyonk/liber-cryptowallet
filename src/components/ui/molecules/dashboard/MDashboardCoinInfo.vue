@@ -18,7 +18,7 @@
         @click="$emit('click-account')"
       />
     </div>
-    <h3 class="heading-gray-md mb-4">
+    <h3 class="text--footnote color-dark-gray mb-4">
       {{ subtitle }}
     </h3>
     <div v-show="showWelcomeMessage" class="main">

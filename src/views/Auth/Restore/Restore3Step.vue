@@ -7,11 +7,7 @@
       {{ $t('auth.restore.step3Description') }}
     </div>
     <div>
-      <BaseVerificationCodeInput
-        :loading="false"
-        class="input"
-        @complete="onComplete"
-      />
+      <m-base-verification-code-input class="input" @complete="onComplete" />
     </div>
   </div>
 </template>
@@ -23,7 +19,12 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { BaseVerificationCodeInput, TopNavigation } from '@/components/ui';
+import { inject } from 'vue';
+import { TopNavigation } from '@/components/ui';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseVerificationCodeInput } = uiKit!;
 
 const emit = defineEmits(['next', 'prev']);
 

@@ -3,17 +3,18 @@
     <template #title> {{ $t('services.getcoupons.title') }}</template>
     <template #content>
       <div class="auth-page-container">
-        <base-input
+        <m-base-input
           v-model="email"
           type="email"
-          :class="isNotValid ? '-invalid' : ''"
+          :is-error="isNotValid"
           @focus="showClearBtn"
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('services.getcoupons.email') }} </template>
-          <template v-if="isClearBtnShown" #append>
-            <i
-              class="icon-transaction-small-reverted"
+          <template v-if="isClearBtnShown" #actions>
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearEmail"
               @touchend="clearEmail"
             />
@@ -21,30 +22,42 @@
           <template v-if="isNotValid" #message>
             {{ $t('services.getcoupons.error') }}
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </template>
     <template #fixed-footer>
-      <base-button :disabled="isEmailInvalid" block @click="nextStep">
+      <m-base-button
+        :disabled="isEmailInvalid || isNotValid"
+        block
+        @click="nextStep"
+      >
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { ref, watch } from 'vue';
+import { inject, ref, watch } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
 
 import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
+import { uiKitKey } from '@/types/symbols';
 
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
-import { BaseInput, BaseButton } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+
+import { useFundsStore } from '@/applications/servicesapp/stores/funds';
+import { STATIC_BASE_URL } from '@/constants';
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const liberSaveStore = useLiberSaveStore();
+const fundsStore = useFundsStore();
+fundsStore.$reset();
 
 // @TODO
 // clear store with libersave email on created
@@ -100,5 +113,18 @@ const closeClearBtn = () => {
 <style lang="scss" scoped>
 .header-nav {
   margin-bottom: 24px;
+}
+
+:deep(.-error .p-float-label label) {
+  color: $color-red-500;
+}
+
+:deep(.base-input > .message) {
+  color: $color-red-500 !important;
+  //styleName: Caption 2/Medium;
+  font-size: 11px;
+  font-weight: 500 !important;
+  line-height: 13px;
+  letter-spacing: 0.0006em !important;
 }
 </style>

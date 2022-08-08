@@ -1,10 +1,17 @@
 <template>
-  <base-toast
+  <m-base-toast
     v-if="displayCurrent"
     :visible="displayCurrent"
-    :severity="severity"
     @update:visible="hideErrorMsg"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/${toastImg}.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <p v-if="displayMultipleErrorMessage" class="description">
@@ -17,12 +24,12 @@
     </template>
     <template v-if="displayMultipleErrorMessage" #footer>
       <div class="popup-footer">
-        <base-button class="btn mb-3" size="large" @click="resetErrors">
+        <m-base-button class="btn mb-3" size="large" @click="resetErrors">
           {{ $t('errors.gotIt') }}
-        </base-button>
-        <base-button class="btn mb-3" size="large" @click="showErrorsDetails">
+        </m-base-button>
+        <m-base-button class="btn mb-3" size="large" @click="showErrorsDetails">
           {{ $t('errors.details') }}
-        </base-button>
+        </m-base-button>
       </div>
     </template>
     <template v-else #footer>
@@ -31,19 +38,23 @@
           <component :is="customComponent" />
         </template>
         <template v-else-if="isSingleError || displayAllErrors">
-          <base-button class="btn mb-3" size="large" @click="hideErrorMsg">
+          <m-base-button class="btn mb-3" size="large" @click="hideErrorMsg">
             {{ $t('errors.gotIt') }}
-          </base-button>
+          </m-base-button>
         </template>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
-import { BaseButton, BaseToast } from '@/components/ui';
+import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
+
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit!;
 
 const errorsStore = useErrorsStore();
 const mode = ref<'DISPLAY_ALL_ERRORS' | null>(null);
@@ -72,7 +83,9 @@ const displayAllErrors = computed(() => {
 });
 
 const displayCurrent = computed(() => errorsStore.displayCurrent);
-const severity = computed(() => errorsStore.severity);
+const toastImg = computed(() =>
+  errorsStore.severity ? 'sapphire-error' : 'sapphire-error'
+);
 const isSingleError = computed(() => errorsStore.isSingleError);
 const customComponent = computed(() => errorsStore.getCustomComponent);
 const hasCustomComponent = computed(() => !!errorsStore.getCustomComponent);
@@ -85,5 +98,16 @@ const displayMultipleErrorMessage = computed(
 .popup-footer {
   display: flex;
   justify-content: space-around;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

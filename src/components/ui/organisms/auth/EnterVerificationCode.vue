@@ -1,24 +1,24 @@
 <template>
   <div class="page-wrapper">
-    <top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
+    <m-top-navigation :left-icon-name="leftIconName" @click:left-icon="onPrev">
       {{ title }}
-    </top-navigation>
+    </m-top-navigation>
 
     <p class="text-default">
       <span>{{ text }}</span>
       <template v-if="showPasteBtn">
-        <BaseButton
+        <m-base-button
           class="resend-button"
           size="medium"
           view="flat"
           @click="pasteFromClipboard"
         >
           {{ $t('common.pasteCta') }}
-        </BaseButton>
+        </m-base-button>
       </template>
     </p>
 
-    <base-verification-code-input
+    <m-base-verification-code-input
       :value="verificationCode"
       :is-error="isError"
       @complete="onComplete"
@@ -28,21 +28,21 @@
     <slot name="footer">
       <div v-if="withCountdown" class="footer">
         <span class="text--footnote font-weight--semibold">
-          <BaseCountdown v-if="showCountdown" @time:up="onTimeIsUp">
+          <m-base-countdown v-if="showCountdown" @time:up="onTimeIsUp">
             <template #countdown="{ minute, second }">
               {{ $t('auth.login.step2ResendTitle') }}
               {{ minute }}:{{ second }}
             </template>
-          </BaseCountdown>
+          </m-base-countdown>
           <template v-else>
-            <BaseButton
+            <m-base-button
               class="resend-button"
               size="medium"
               view="flat"
               @click="onResend"
             >
               {{ $t('auth.login.step2ResendCta') }}
-            </BaseButton>
+            </m-base-button>
           </template>
         </span>
       </div>
@@ -52,9 +52,9 @@
   </div>
   <div style="padding: 15px; padding-bottom: 50px">
     <slot name="ctaBtn">
-      <base-button block @click="pasteFromClipboard">
+      <m-base-button block @click="pasteFromClipboard">
         {{ $t('common.pasteCta') }}
-      </base-button>
+      </m-base-button>
     </slot>
   </div>
 </template>
@@ -66,17 +66,20 @@ export default {
 </script>
 
 <script setup lang="ts">
+import { inject } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
 
-import {
-  TopNavigation,
-  BaseButton,
-  BaseVerificationCodeInput,
-  BaseCountdown,
-} from '@/components/ui';
+const uiKit = inject(uiKitKey);
+const {
+  MBaseButton,
+  MBaseCountdown,
+  MTopNavigation,
+  MBaseVerificationCodeInput,
+} = uiKit!;
 
 const errorsStore = useErrorsStore();
 const { t } = useI18n();

@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation @click:left-icon="$emit('prev')">
+    <m-top-navigation @click:left-icon="$emit('prev')">
       {{ $t('auth.restore.step4Title') }}
-    </top-navigation>
+    </m-top-navigation>
 
     <div class="description text--body">
       {{ $t('auth.restore.step4Description') }}
@@ -19,15 +19,19 @@
     </div>
 
     <div class="sign-button-wrapper">
-      <base-button block @click="$emit('next')">
+      <m-base-button block @click="$emit('next')">
         {{ $t('common.continueCta') }}
-      </base-button>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { TopNavigation, BaseButton } from '@/components/ui';
+import { inject } from 'vue';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MTopNavigation, MBaseButton } = uiKit!;
 
 defineEmits(['next', 'prev']);
 </script>

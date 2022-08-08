@@ -5,8 +5,18 @@ import passcodeService, {
   IPasscodeUpdateRequestBody,
 } from '@/services/passcodeService';
 
+interface IPasscodeState {
+  successPasscodeToast: boolean;
+}
+
 export const usePasscodeStore = defineStore('passcode', {
-  getters: {},
+  state: (): IPasscodeState => ({
+    successPasscodeToast: false,
+  }),
+
+  getters: {
+    getShowPasscodeToast: (state) => state.successPasscodeToast,
+  },
 
   actions: {
     async create(request: IPasscodeRequestBody) {
@@ -27,10 +37,20 @@ export const usePasscodeStore = defineStore('passcode', {
       return message === 'success';
     },
 
+    async restore(data: IPasscodeUpdateRequestBody) {
+      const { message } = await passcodeService.restore(data);
+
+      return message === 'success';
+    },
+
     async delete() {
       const { message } = await passcodeService.delete();
 
       return message;
+    },
+
+    async toggleSuccessPasscodeToast(value: boolean) {
+      this.successPasscodeToast = value;
     },
   },
 });

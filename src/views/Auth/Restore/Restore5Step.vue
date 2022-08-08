@@ -1,11 +1,12 @@
 <template>
   <div class="auth-page-container">
-    <top-navigation>
+    <m-top-navigation>
       {{ $t('auth.restore.step5Title') }}
-    </top-navigation>
+    </m-top-navigation>
 
-    <base-input
+    <m-base-input
       v-model="birthDate"
+      class="m-base-input"
       type="mask"
       mask="99/99/9999"
       slot-char="DD/MM/YYYY"
@@ -17,28 +18,31 @@
       <template v-if="isClearBtnShown" #label>
         {{ $t('auth.restore.step5BirthLabel') }}
       </template>
-      <template v-if="isClearBtnShown" #append>
+      <template v-if="isClearBtnShown" #actions>
         <i
-          class="icon-transaction-small-reverted"
+          class="icon icon-transaction-small-reverted"
           @click="clearDate"
           @touchend="clearDate"
         />
       </template>
-    </base-input>
+    </m-base-input>
 
     <!-- TODO: make separated component -->
     <div class="sign-button-wrapper">
-      <BaseButton block :disabled="isDateInvalid" @click="$emit('next')">
+      <m-base-button block :disabled="isDateInvalid" @click="$emit('next')">
         {{ $t('common.continueCta') }}
-      </BaseButton>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { ref } from 'vue';
-import { TopNavigation, BaseInput, BaseButton } from '@/components/ui';
+import { inject, ref } from 'vue';
 import { computed } from '@vue/reactivity';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton, MTopNavigation } = uiKit!;
 
 const isClearBtnShown = ref(false);
 
@@ -67,3 +71,13 @@ const closeClearBtn = () => {
   isClearBtnShown.value = false;
 };
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
+.icon {
+  font-size: 24px;
+}
+</style>

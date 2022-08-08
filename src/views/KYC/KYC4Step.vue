@@ -2,38 +2,55 @@
   <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title>{{ scanText.title }}</template>
     <template #subtitle>
-      <base-progress-bar :value="getPercentage" class="mb-3" />
+      <a-base-progress-bar :value="getPercentage" class="mb-3" />
       {{ scanText.description }}
     </template>
     <template #content>
       <scan-animation class="p-0">
         <div id="camera" class="camera" />
       </scan-animation>
+
+      <input
+        ref="uploader"
+        style="visibility: hidden"
+        type="file"
+        accept="image/*"
+        name=""
+        @input="onUpload"
+      />
+
+      <div class="memory-button">
+        <m-base-button block view="secondary" @click="onSelectPicture">
+          Upload image from memory
+        </m-base-button>
+      </div>
     </template>
     <template #fixed-footer>
-      <base-button block @click="onScan">
+      <m-base-button block @click="onScan">
         {{ $t('views.kyc.kyc4step.scanNow') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { computed, onActivated, onMounted, ref, Ref } from 'vue';
-import {
-  CameraPreview,
-  CameraPreviewOptions,
-} from '@capacitor-community/camera-preview';
-import { Device } from '@capacitor/device';
+import { computed, inject, onActivated, onMounted, ref, Ref } from 'vue';
+import { CameraPreviewOptions } from '@/helpers/camera/definitions';
+import { CameraPreview } from '@/helpers/camera/CameraPreview';
+import { Device } from '@/helpers/device/device';
 import { useI18n } from 'vue-i18n';
 
 import { EKYCProofType, useKYCStore } from '@/stores/kyc';
 import { cropImage } from '@/helpers/image';
 
-import { BaseButton, BaseProgressBar, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import ScanAnimation from '@/components/ui/organisms/kyc/ScanAnimation.vue';
 import { EDocumentSide } from '@/types/document';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { ABaseProgressBar, MBaseButton } = uiKit!;
 
 const emit = defineEmits(['next', 'prev']);
 
@@ -43,6 +60,7 @@ const { tm } = useI18n();
 const errorsStore = useErrorsStore();
 
 const scanningSide = ref(EDocumentSide.front) as Ref<EDocumentSide>;
+const uploader = ref();
 
 const cameraPreviewOptions: CameraPreviewOptions = {
   parent: 'camera',
@@ -97,6 +115,53 @@ onActivated(() => {
   calcProgressPercentage();
   detectScanSide();
 });
+
+const onSelectPicture = () => {
+  uploader.value.click();
+};
+
+const onUpload = async () => {
+  try {
+    const file = uploader.value.files[0];
+
+    const toBase64 = (file: File): Promise<string> =>
+      new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+      });
+
+    if (isProofTypePassport.value) {
+      kycStore.setImage(await toBase64(file), scanningSide.value);
+
+      calcProgressPercentage();
+
+      await nextStep();
+      return;
+    }
+
+    if (isFrontSideEmpty.value && scanningSide.value === EDocumentSide.front) {
+      kycStore.setImage(await toBase64(file), scanningSide.value);
+
+      calcProgressPercentage();
+
+      flipScanSide();
+
+      if (!isBackSideEmpty.value) {
+        await nextStep();
+      }
+    } else {
+      kycStore.setImage(await toBase64(file), scanningSide.value);
+
+      calcProgressPercentage();
+
+      await nextStep();
+    }
+  } catch (e) {
+    console.error(e);
+  }
+};
 
 const resetScanSide = () => {
   scanningSide.value = EDocumentSide.front;
@@ -238,6 +303,10 @@ const onScan = async (): Promise<void> => {
 </script>
 
 <style lang="scss" scoped>
+.memory-button {
+  margin: 18px 0 0;
+}
+
 .camera {
   width: 100%;
   height: 100%;

@@ -10,7 +10,7 @@
         :is="selectComponent(transaction.type)"
         :transaction="transaction"
         :main-coin="mainCoin"
-        :show-coin="showCoin"
+        :is-currency="showCoin"
         :transaction-type="transactionType"
       />
     </li>
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
+import { computed, inject, PropType } from 'vue';
 import { useRouter } from 'vue-router';
 
 import {
@@ -29,8 +29,13 @@ import { Route } from '@/router/types';
 import {
   ConvertTransactionItem,
   ExternalTransactionItem,
-  TransferTransactionItem,
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  // TransferTransactionItem,
 } from '@/components/ui/molecules/TransactionListItem';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MTransferTransactionItem } = uiKit!;
 
 const router = useRouter();
 
@@ -93,7 +98,7 @@ const selectComponent = (type: string) => {
     case ETransactionType.convert:
       return ConvertTransactionItem;
     case ETransactionType.transfer:
-      return TransferTransactionItem;
+      return MTransferTransactionItem;
     default:
       return ExternalTransactionItem;
   }

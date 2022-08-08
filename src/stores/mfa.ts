@@ -1,11 +1,20 @@
 import { defineStore } from 'pinia';
-import axios, { AxiosRequestConfig } from 'axios';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+
+export enum EConfirmationTypes {
+  email = 'email',
+  number = 'number',
+  totp = 'totp',
+  otp = 'otp',
+  passcode = 'passcode',
+}
 
 type TMfaCallbackData = {
   title?: string;
-  successRoute?: string;
+  successRoute?: string | unknown;
   callback?: any;
   button?: string;
+  confirmations?: EConfirmationTypes[];
 };
 
 interface IMfaState {
@@ -13,6 +22,9 @@ interface IMfaState {
   btnTitle: string;
   config?: AxiosRequestConfig<any> | null;
   data?: TMfaCallbackData;
+
+  existsError: boolean;
+  errorData: AxiosResponse | null;
 }
 
 export enum EMfaHeaders {
@@ -28,13 +40,16 @@ type TMfaData = {
   passcode?: string;
 };
 
-// === 2fa Store ===
+// === mfa Store ===
 
 export const useMfaStore = defineStore('mfa', {
   state: (): IMfaState => ({
     shown: false,
     btnTitle: '',
     config: null,
+
+    existsError: false,
+    errorData: null,
   }),
 
   getters: {
@@ -50,7 +65,9 @@ export const useMfaStore = defineStore('mfa', {
       this.shown = true;
     },
     hide() {
-      this.$reset();
+      this.shown = false;
+      this.btnTitle = '';
+      this.config = null;
     },
     saveConfig(config: AxiosRequestConfig<any>) {
       this.config = config;
@@ -61,6 +78,15 @@ export const useMfaStore = defineStore('mfa', {
         this.config.data = {
           isMfaRequest: true,
         };
+      }
+    },
+    setError(data: AxiosResponse | null) {
+      if (data) {
+        this.existsError = true;
+        this.errorData = data;
+      } else {
+        this.existsError = false;
+        this.errorData = null;
       }
     },
     async checkMfa(data: TMfaData) {

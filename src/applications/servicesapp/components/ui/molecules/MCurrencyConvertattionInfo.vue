@@ -1,6 +1,14 @@
 <template>
   <div class="middle-info flex">
-    <ul class="fees-data">
+    <div v-if="isOneCoinEmpty" class="choose-coin">
+      <img
+        class="icon"
+        src="@/assets/icon/help_circle_outline.svg"
+        alt="help"
+      />
+      <h1 class="title">{{ $t('views.deposit.convert.selectCoin') }}</h1>
+    </div>
+    <ul v-else class="fees-data">
       <AConvertInfoItem
         sign-icon="-"
         :convert-info="convertInfo && convertInfo.fee"
@@ -75,6 +83,12 @@ const rateTitle = computed(() => {
     props.preventConvert ? '30' : props.timer
   }s}`;
 });
+
+const isOneCoinEmpty = computed(
+  () =>
+    props.currentSendFromCurrency.code === 'empty' ||
+    props.currentSendToCurrency.code === 'empty'
+);
 </script>
 
 <style lang="scss" scoped>
@@ -89,5 +103,22 @@ const rateTitle = computed(() => {
   width: 100%;
   border-left: 1px solid #eaefff;
   margin-left: 10px;
+}
+
+.choose-coin {
+  display: flex;
+  align-items: center;
+  margin-left: -12px;
+
+  > .icon {
+    margin-right: 8px;
+  }
+
+  > .title {
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 16px;
+    color: $color-brand-550;
+  }
 }
 </style>

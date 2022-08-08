@@ -1,6 +1,8 @@
 <template>
   <div class="page-header">
-    <h1 class="title">{{ $t('views.deposit.selectCoin.selectCoin') }}</h1>
+    <h1 class="text--title-1 font-bold mb-3">
+      {{ $t('views.deposit.selectCoin.selectCoin') }}
+    </h1>
     <label class="input-label" for="searchCoin">
       <i class="icon-search" />
       <input
@@ -13,20 +15,24 @@
       />
     </label>
   </div>
-  <SelectCoin
+  <m-select-coin
     :current-currency="currentCurrency"
     :coins="availableCoins"
+    :title="$t('views.deposit.selectCoin.allCoins')"
+    :suggested-title="$t('views.deposit.selectCoin.suggested')"
     @select-coin="$emit('select-coin', $event)"
   />
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType, ref } from 'vue';
+import { computed, inject, PropType, ref } from 'vue';
 
 import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
+import { uiKitKey } from '@/types/symbols';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
+const uiKit = inject(uiKitKey);
+const { MSelectCoin } = uiKit!;
 
 defineEmits(['back-button', 'select-coin']);
 
@@ -70,15 +76,6 @@ const availableCoins = computed(() => {
 
 .page-header {
   margin-bottom: 32px;
-
-  > .title {
-    font-family: Inter, sans-serif;
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    margin-bottom: 16px;
-  }
 }
 
 .input-label {

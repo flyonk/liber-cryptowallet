@@ -7,62 +7,68 @@
         alt="arrow-left"
         @click="$router.push('/contacts')"
       />
-      <h1 v-if="isAllowAccessToContacts" class="title">Invite Friends</h1>
-      <h1 v-else class="title">Find youd friends</h1>
+      <h1 v-if="isAllowAccessToContacts" class="text--title-1 mb-2">
+        {{ $t('views.sendfunds.firstTimeInvite.inviteFriends') }}
+      </h1>
+      <h1 v-else class="text--title-1 mb-2">
+        {{ $t('views.sendfunds.firstTimeInvite.findFriends') }}
+      </h1>
       <p v-if="isAllowAccessToContacts" class="description">
-        Invite a friend and share the Liber experience with them
+        {{ $t('views.sendfunds.firstTimeInvite.inviteAndShare') }}
       </p>
-      <p v-else class="description">
-        Send and request money from your friends more easily, split bills and
-        much more.
+      <p v-else class="description text--body">
+        {{ $t('views.sendfunds.firstTimeInvite.requestMoney') }}
       </p>
     </div>
     <div v-if="isAllowAccessToContacts" class="invite-controls">
       <button class="btn" @click="$router.push('/contacts/send_link')">
         <img src="@/assets/icon/chain.svg" class="icon mr-2" />
-        Share link
+        {{ $t('views.sendfunds.firstTimeInvite.shareLink') }}
       </button>
       <button class="btn" @click="$router.push('/contacts/send/invite')">
         <img src="@/assets/icon/invite.svg" class="icon mr-2" />
-        Invite by phone or email
+        {{ $t('views.sendfunds.firstTimeInvite.invitePhone') }}
       </button>
     </div>
     <div v-if="isAllowAccessToContacts" class="invite-main">
       <img class="dragndrop" src="@/assets/images/dragndrop-bg.png" />
-      <h2 class="title">Enable contacts permission</h2>
-      <p class="description">
+      <h2 class="text--title-3 mb-1">
+        {{ $t('views.sendfunds.firstTimeInvite.enablePermissions') }}
+      </h2>
+      <p class="text-default mb-4">
         Quickly invite friends from your <br />
         contacts list
       </p>
-      <a class="link" @click="isAllowAccessToContacts = false"
-        >Allow access to contacts</a
-      >
+      <a class="link text--headline" @click="isAllowAccessToContacts = false">{{
+        $t('views.sendfunds.firstTimeInvite.accessContacts')
+      }}</a>
     </div>
     <div v-else class="invite-main">
       <img class="dragndrop" src="@/assets/images/dragndrop-bg.png" />
-      <p class="annotation">
-        You can hide yourself from being visible to your CryptoWize friends at
-        any time through your privacy settings.
+      <p class="annotation text--footnote">
+        {{ $t('views.sendfunds.firstTimeInvite.hideYourself') }}
       </p>
-      <BaseButton class="btn mb-2" size="large" view="simple">
-        Allow access to contacts
-      </BaseButton>
-      <BaseButton
+      <m-base-button class="btn mb-2" size="large" view="simple">
+        {{ $t('views.sendfunds.firstTimeInvite.accessContacts') }}
+      </m-base-button>
+      <m-base-button
         class="btn"
         size="large"
         view="flat"
         @click="isAllowAccessToContacts = true"
       >
-        Not now
-      </BaseButton>
+        {{ $t('views.sendfunds.firstTimeInvite.notNow') }}
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { uiKitKey } from '@/types/symbols';
+import { inject, ref } from 'vue';
 
-import { BaseButton } from '@/components/ui';
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const isAllowAccessToContacts = ref(false);
 </script>
@@ -84,19 +90,7 @@ const isAllowAccessToContacts = ref(false);
     margin-bottom: 21px;
   }
 
-  > .title {
-    font-weight: 800;
-    font-size: 28px;
-    line-height: 34px;
-    letter-spacing: 0.0038em;
-    color: $color-black;
-    margin-bottom: 8px;
-  }
-
   > .description {
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
     color: $color-brand-550;
   }
 }
@@ -137,38 +131,13 @@ const isAllowAccessToContacts = ref(false);
     margin-bottom: 24px;
   }
 
-  > .title {
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 25px;
-    text-align: center;
-    letter-spacing: -0.0045em;
-    color: $color-black;
-    margin-bottom: 8px;
-  }
-
-  > .description {
-    font-size: 16px;
-    line-height: 21px;
-    text-align: center;
-    letter-spacing: -0.0031em;
-    margin-bottom: 20px;
-  }
-
   > .link {
-    font-weight: 600;
-    font-size: 17px;
-    line-height: 22px;
-    letter-spacing: -0.0043em;
     color: $color-primary-500;
     text-shadow: 0 1px 2px rgb(0 0 0 / 4%);
   }
 
   > .annotation {
-    font-size: 13px;
-    line-height: 18px;
     text-align: center;
-    letter-spacing: -0.0008em;
     color: $color-brand-2-300;
     margin-bottom: 24px;
   }

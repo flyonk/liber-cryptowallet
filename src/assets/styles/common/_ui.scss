@@ -135,5 +135,9 @@ li {
 // end toast
 
 [disabled] {
-  opacity: .5;
+  opacity: 0.5;
+}
+
+::-webkit-scrollbar {
+  display: none !important;
 }

@@ -1,8 +1,5 @@
 <template>
-  <t-top-navigation
-    with-fixed-footer
-    @click:left-icon="$router.push({ name: prevRouteName })"
-  >
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title> {{ $t('configureApp.installAppTitle') }}</template>
     <template #subtitle>
       {{ $t('configureApp.installAppDescription') }}</template
@@ -43,18 +40,10 @@
       </div>
     </template>
     <template #fixed-footer>
-      <base-button
-        block
-        @click="
-          $router.push({
-            name: Route.ConfigureApp,
-            hash: nextRouteHash,
-          })
-        "
-      >
+      <m-base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </base-button></template
-    >
+      </m-base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -65,12 +54,16 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 
 import { useRouter } from 'vue-router';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 
@@ -91,19 +84,20 @@ const nextRouteHash = computed(() => {
   }
   return '#settings';
 });
+
+const prevStep = (): void => {
+  router.push({ name: prevRouteName.value });
+};
+
+const nextStep = (): void => {
+  router.push({
+    name: Route.ConfigureApp,
+    hash: nextRouteHash.value,
+  });
+};
 </script>
 
 <style lang="scss" scoped>
-.text-default {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-  color: $color-brand-primary;
-  margin-bottom: 40px;
-}
-
 .store-link {
   display: block;
   max-width: 180px;

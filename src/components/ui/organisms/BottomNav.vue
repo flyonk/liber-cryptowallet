@@ -1,45 +1,15 @@
 <template name="BottomNav">
   <div class="bottom-nav">
-    <ul class="navbar-list">
-      <NavBarItem
-        :route-name="computedRoute['DashboardHome']"
-        :label="$t('bottomNav.home')"
-        active-hash-tag="home-active"
-        hash-tag="home"
-      />
-      <NavBarItem
-        :route-name="computedRoute['AccountMain']"
-        :label="$t('bottomNav.account')"
-        active-hash-tag="account-active"
-        hash-tag="account"
-        :is-not-route="
-          computedRoute['AccountMain'] === CouponRoutes.AccountMain
-        "
-        @click.prevent="handleClick(computedRoute['AccountMain'])"
-      />
-      <li class="item" @click="openMenu">
-        <img
-          class="icon center-image"
-          src="@/assets/icon/navbar/send.svg"
-          alt="Send"
-        />
-        <p class="label" :class="{ '-active': isMenuOpen.value === true }">
-          {{ $t('bottomNav.send') }}
-        </p>
-      </li>
-      <NavBarItem
-        :route-name="computedRoute['RecipientsPhone']"
-        :label="$t('bottomNav.recipients')"
-        active-hash-tag="recipients-active"
-        hash-tag="recipients"
-      />
-      <NavBarItem
-        :route-name="computedRoute['Invite']"
-        :label="$t('bottomNav.invite')"
-        active-hash-tag="gift-active"
-        hash-tag="gift"
-      />
-    </ul>
+    <!-- m-bottom-nav: 
+    the item hashtag is unique and it is used to check for the active element -->
+    <m-bottom-nav
+      :nav-items="navItems"
+      :main-item="mainItem"
+      show-main-item
+      :active-item="currentActiveItem"
+      @click:item="handleClickItem"
+      @click:main="openMenu"
+    />
     <bottom-swipe-menu
       :is-menu-open="isMenuOpen"
       :menu-type="menuType"
@@ -49,27 +19,86 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject, Ref, ref } from 'vue';
+import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
-import { NavBarItem } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 
 import { useUIStore } from '@/stores/ui';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBottomNav } = uiKit!;
 
 const uiStore = useUIStore();
 
+const { tm } = useI18n();
+
+const router = useRouter();
+const route = useRoute();
+
+enum EItemHashTag {
+  home = 'home',
+  recipients = 'recipients',
+  gift = 'gift',
+  account = 'account',
+  homeActive = 'home-active',
+  recipientsActive = 'recipients-active',
+  giftActive = 'gift-active',
+  accountActive = 'account-active',
+}
+
+type TNavBarItem = {
+  isActive: boolean;
+  label: string;
+  iconSrc: string;
+  activeHashTag: string;
+  hashTag: string;
+};
+
+const navItems: Ref<TNavBarItem[] | undefined> = ref([
+  {
+    label: tm('bottomNav.home'),
+    activeHashTag: EItemHashTag.homeActive,
+    hashTag: EItemHashTag.home,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+  },
+  {
+    label: 'Accounts',
+    activeHashTag: EItemHashTag.accountActive,
+    hashTag: EItemHashTag.account,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+  },
+  {
+    label: 'Recipients',
+    activeHashTag: EItemHashTag.recipientsActive,
+    hashTag: EItemHashTag.recipients,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+  },
+  {
+    label: 'Invite',
+    activeHashTag: EItemHashTag.giftActive,
+    hashTag: EItemHashTag.gift,
+    iconSrc: require('@/assets/icon/navbar/sprite.svg'),
+  },
+]);
+
 let isMenuOpen = computed(() => uiStore.getModalStates.sendMenu);
 
-const route = useRoute();
+const mainItem = ref({
+  label: 'Send',
+  isActive: isMenuOpen.value,
+  iconSrc: require('@/assets/icon/navbar/send.svg'),
+});
 
 const computedRoute = computed(() => {
   const name = route.name;
 
   // apply list for coupons
-  if (Object.values(CouponRoutes).includes(name)) {
+  if (Object.values(CouponRoutes).includes(name as CouponRoutes)) {
     return CouponRoutes;
   }
 
@@ -85,6 +114,28 @@ const menuType = computed(() => {
   return 'send';
 });
 
+const currentActiveItem = computed(() => {
+  const mapper: { [key in Route | CouponRoutes]: EItemHashTag } = {
+    // home
+    [Route.DashboardLiber]: EItemHashTag.home,
+    [CouponRoutes.DashboardHome]: EItemHashTag.home,
+
+    // account
+    [Route.AccountMain]: EItemHashTag.account,
+    [CouponRoutes.AccountMain]: EItemHashTag.account,
+
+    // recipients
+    [Route.RecipientsPhone]: EItemHashTag.recipients,
+    [CouponRoutes.RecipientsPhone]: EItemHashTag.recipients,
+
+    // invite
+    [Route.Invite]: EItemHashTag.gift,
+    [CouponRoutes.Invite]: EItemHashTag.gift,
+  };
+
+  return mapper[route.name as Route | CouponRoutes];
+});
+
 function openMenu() {
   uiStore.setStateModal('sendMenu', true);
 }
@@ -93,12 +144,45 @@ function closeMenu() {
   uiStore.setStateModal('sendMenu', false);
 }
 
-const handleClick = (name: string) => {
+function handleAccountItemClick(name: string) {
   if (name === CouponRoutes.AccountMain) {
     openMenu();
     return false;
   }
-};
+}
+
+function handleClickItem(data: TNavBarItem) {
+  switch (data.hashTag) {
+    case EItemHashTag.home: {
+      router.push({ name: computedRoute.value['DashboardHome'] });
+      break;
+    }
+    case EItemHashTag.account: {
+      const isNotRoute =
+        computedRoute.value['AccountMain'] === CouponRoutes.AccountMain;
+
+      if (isNotRoute) {
+        router.push('');
+        handleAccountItemClick(computedRoute.value['AccountMain']);
+        return;
+      }
+
+      router.push({ name: computedRoute.value['AccountMain'] });
+      break;
+    }
+    case EItemHashTag.recipients: {
+      router.push({ name: computedRoute.value['RecipientsPhone'] });
+      break;
+    }
+    case EItemHashTag.gift: {
+      router.push({ name: computedRoute.value['Invite'] });
+      break;
+    }
+    default: {
+      ('');
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

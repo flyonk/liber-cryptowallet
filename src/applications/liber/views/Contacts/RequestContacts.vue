@@ -10,7 +10,7 @@
       ><div class="page-content">
         <img
           alt="Puch notifications"
-          class="mb-3"
+          class="dragndrop mb-3"
           src="@/assets/images/dragndrop-bg.png"
         />
         <p class="text-default -annotation">
@@ -19,12 +19,12 @@
       </div></template
     >
     <template #fixed-footer>
-      <base-button block class="mb-3" @click="onEnable">
+      <m-base-button block class="mb-3" @click="onEnable">
         {{ $t('views.requestcontacts.contactsCTA') }}
-      </base-button>
-      <base-button block view="secondary" @click="onCancel">
+      </m-base-button>
+      <m-base-button block view="secondary" @click="onCancel">
         {{ $t('common.notNowCta') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
@@ -36,13 +36,18 @@ export default {
 </script>
 
 <script lang="ts" setup>
+import { inject } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useRecipientsStore } from '@/stores/recipients';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 const route = useRoute();
@@ -114,5 +119,13 @@ function nextRoute() {
   justify-content: center;
   text-align: center;
   flex-direction: column;
+
+  > .dragndrop {
+    width: 100%;
+
+    @include iPhoneSE {
+      width: 220px;
+    }
+  }
 }
 </style>

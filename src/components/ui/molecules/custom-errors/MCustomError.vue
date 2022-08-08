@@ -1,61 +1,73 @@
 <template>
-  <base-toast
-    v-if="!customContent"
-    :visible="displayCurrent"
-    :severity="severity"
-  >
-    <template #header>
-      <div>
-        <h3>{{ $t(`errors.${error.title}`) }}</h3>
-      </div>
-    </template>
-    <template #description>
-      <div class="popup-description">
-        <p class="description">
-          {{ $t(`errors.${error.description}`) }}
-        </p>
-      </div>
-    </template>
-    <template #footer>
-      <div class="popup-footer">
-        <base-button
-          :class="{ 'full-width': !error.cancelTitle }"
-          class="btn"
-          @click="handleConfirm"
-        >
-          <triple-dots-spinner v-if="loading" />
-          {{ !loading ? $t(`errors.${error.confirmTitle}`) : '' }}
-        </base-button>
-        <base-button
-          v-if="error.cancelTitle"
-          class="btn"
-          @click="error.cancelCallback"
-        >
-          {{ $t(`errors.${error.cancelTitle}`) }}
-        </base-button>
-      </div>
-    </template>
-  </base-toast>
-  <div v-else>
+  <template v-if="!customContent">
+    <m-base-toast :visible="displayCurrent">
+      <template #image>
+        <div class="popup-image">
+          <img
+            :src="`${STATIC_BASE_URL}/static/media/${toastImg}.svg`"
+            class="image"
+          />
+        </div>
+      </template>
+      <template #header>
+        <div>
+          <h3>{{ $t(`errors.${error.title}`) }}</h3>
+        </div>
+      </template>
+      <template #description>
+        <div class="popup-description">
+          <p class="description">
+            {{ $t(`errors.${error.description}`) }}
+          </p>
+        </div>
+      </template>
+      <template #footer>
+        <div class="popup-footer">
+          <m-base-button
+            :class="{ 'full-width': !error.cancelTitle }"
+            class="btn"
+            @click="handleConfirm"
+          >
+            <a-tripple-dots-spinner v-if="loading" />
+            {{ !loading ? $t(`errors.${error.confirmTitle}`) : '' }}
+          </m-base-button>
+          <m-base-button
+            v-if="error.cancelTitle"
+            class="btn"
+            @click="error.cancelCallback"
+          >
+            {{ $t(`errors.${error.cancelTitle}`) }}
+          </m-base-button>
+        </div>
+      </template>
+    </m-base-toast>
+  </template>
+  <template v-else>
     <!--TODO: implement custom content toast-->
     <component :is="customContent" />
-  </div>
+  </template>
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue';
+import { computed, inject } from 'vue';
 import { useErrorsStore } from '@/stores/errors';
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
+import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
-import { BaseButton, BaseToast } from '@/components/ui';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton, MBaseToast } = uiKit!;
 
 const { loading, handleReconnect } = useCheckOffline();
 
 const errorsStore = useErrorsStore();
 
 const displayCurrent = computed(() => errorsStore.customError?.display);
-const severity = computed(() => errorsStore.customError?.severity);
+const toastImg = computed(() => {
+  if (errorsStore.customError?.severity === 'error') return 'sapphire-error';
+  return 'sapphire-error';
+});
+
 const error = computed(() => errorsStore.customError);
 const customContent = computed(
   () => errorsStore.customError?.customErrorComponent

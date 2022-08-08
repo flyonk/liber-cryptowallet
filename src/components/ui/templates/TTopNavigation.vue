@@ -1,7 +1,13 @@
 <template>
-  <div class="template-top-navigation" :class="{ untouchable: !isTouchable }">
+  <div
+    class="template-top-navigation"
+    :class="[
+      { untouchable: !isTouchable, '-paddingless': disablePaddings },
+      { '-paddingless': disablePaddings },
+    ]"
+  >
     <div class="top-navigation">
-      <top-navigation
+      <m-top-navigation
         :left-icon-name="leftIconName"
         :without-title="navWithoutTitle"
         :with-custom-top-left="navWithCustomTopLeft"
@@ -12,7 +18,7 @@
         <template #top-right><slot name="top-right" /></template>
         <template #subtitle><slot name="subtitle" /></template>
         <template #right><slot name="right" /></template>
-      </top-navigation>
+      </m-top-navigation>
     </div>
 
     <div class="content">
@@ -26,7 +32,11 @@
 </template>
 
 <script setup lang="ts">
-import { TopNavigation } from '@/components/ui';
+import { inject } from 'vue';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MTopNavigation } = uiKit!;
 
 defineProps({
   leftIconName: {
@@ -53,6 +63,11 @@ defineProps({
     type: Boolean,
     default: true,
   },
+
+  disablePaddings: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits(['click:left-icon']);
@@ -61,6 +76,10 @@ defineEmits(['click:left-icon']);
 <style lang="scss" scoped>
 .template-top-navigation {
   padding: 24px 16px 0;
+
+  &.-paddingless {
+    padding: 24px 0 0;
+  }
 
   > .content {
     margin-top: 25px;
@@ -74,6 +93,10 @@ defineEmits(['click:left-icon']);
     bottom: 50px;
     left: 16px;
     right: 16px;
+
+    @media (max-height: 680px) {
+      bottom: 5%;
+    }
   }
 }
 

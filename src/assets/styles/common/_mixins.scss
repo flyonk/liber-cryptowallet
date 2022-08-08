@@ -1,0 +1,12 @@
+//Adaptive Breakpoints
+
+@mixin iPhoneMax {
+  @media (max-height: 844px) and (max-width: 390px) {
+    @content;
+  }
+}
+@mixin iPhoneSE {
+  @media (max-height: 667px) and (max-width: 375px) {
+    @content;
+  }
+}

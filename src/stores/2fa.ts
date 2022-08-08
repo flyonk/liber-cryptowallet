@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { Storage } from '@capacitor/storage';
+import { get, set } from '@/helpers/storage';
 import profileService from '@/services/profileService';
 
 import { checkExpiration } from '@/helpers/2fa';
@@ -54,16 +54,14 @@ export const use2faStore = defineStore('2fa', {
     },
 
     async set2FADate(): Promise<void> {
-      await Storage.set({
+      await set({
         key: EStorageKeys.twofaDate,
         value: String(Date.now()),
       });
     },
 
     async check2FAExpire(): Promise<boolean> {
-      const timestamp = Number(
-        (await Storage.get({ key: EStorageKeys.twofaDate })).value
-      );
+      const timestamp = Number(await get(EStorageKeys.twofaDate));
       /*
        * Return true if expired
        */

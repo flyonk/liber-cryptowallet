@@ -11,14 +11,14 @@
       contact to make the first transfer.
     </p>
     <br />
-    <BaseButton
+    <m-base-button
       class="btn"
       size="large"
       view="simple"
       @click="isMenuOpen = !isMenuOpen"
     >
       + Add
-    </BaseButton>
+    </m-base-button>
   </div>
   <bottom-swipe-menu
     :is-menu-open="isMenuOpen"
@@ -28,10 +28,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, inject } from 'vue';
 
-import { BaseButton } from '@/components/ui';
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 let isMenuOpen = ref(false);
 let hasFriends = ref(true);

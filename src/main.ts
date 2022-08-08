@@ -10,7 +10,6 @@ import { i18n, setLocale } from './i18n';
 import sentry from '@/plugins/sentry';
 import axiosInterceptor from '@/plugins/axiosInterceptor';
 import filters from '@/helpers/filters';
-import appStateListen from '@/helpers/appStateListen';
 
 import PInput from 'primevue/inputtext';
 import PInputNumber from 'primevue/inputnumber';
@@ -20,6 +19,9 @@ import PTooltip from 'primevue/tooltip';
 import FloatingVue from 'floating-vue';
 
 import '@/assets/styles/index.scss';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = require(`@liber-biz/crpw-ui-kit-${process.env.VUE_APP_BRAND}`);
 
 axiosInterceptor();
 
@@ -42,7 +44,8 @@ app.component('PInputNumber', PInputNumber);
 app.component('PSwitch', PSwitch);
 
 app.directive('tooltip', PTooltip);
-appStateListen();
+
+app.provide(uiKitKey, uiKit);
 
 router.isReady().then(() => {
   app.mount('#app');

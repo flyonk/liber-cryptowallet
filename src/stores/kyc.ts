@@ -73,6 +73,8 @@ export const useKYCStore = defineStore('kyc', {
     getPercentage: ({ completed_percentage }) => completed_percentage,
 
     getImage: ({ image }) => image,
+
+    getClaimData: ({ claimData }) => claimData,
   },
 
   actions: {
@@ -104,11 +106,20 @@ export const useKYCStore = defineStore('kyc', {
     async claim() {
       try {
         this.claimData = await profileService.kycGetClaim();
+
+        //If current claim is rejected then recreate
+        if (this.claimData.status === 40) {
+          this.claimData = await profileService.kycCreateClaim();
+        }
       } catch (e: Error | any) {
         if (e?.response && e.response.status === 404) {
           this.claimData = await profileService.kycCreateClaim();
         }
       }
+    },
+
+    async proceed(claimId: string) {
+      return await profileService.kycProceedClaimById(claimId);
     },
 
     async uploadFile(
@@ -118,7 +129,7 @@ export const useKYCStore = defineStore('kyc', {
       country: string
     ) {
       try {
-        await profileService.kycAddFile(
+        await profileService.kycAddFileFromCam(
           claimId,
           this.proof_type as EKYCProofType,
           fileBinary,
@@ -139,7 +150,7 @@ export const useKYCStore = defineStore('kyc', {
 
     async uploadResidenceFile(claimId: string, file: File, country: string) {
       try {
-        await profileService.kycAddResidenceFile(claimId, file, country);
+        await profileService.kycAddFile(claimId, file, country);
       } catch (e) {
         const errorsState = useErrorsStore();
 

@@ -2,32 +2,36 @@
   <keep-alive>
     <div
       class="change-currency"
+      :class="isOneCoinEmpty ? '-readonly' : ''"
       @wheel.prevent
       @touchmove.prevent
       @scroll.prevent
     >
-      <div class="input-wrapper relative m-0">
-        <label class="change-from">
-          <p class="label">
-            {{ $t('services.convert.convertExactly') }}
-          </p>
-          <input
-            v-model="convertInfo.requestAmount"
-            autofocus
-            class="input"
-            inputmode="decimal"
-            pattern="[0-9]*"
-            type="number"
-            @blur="onBlur"
-            @input="debounceChangeInfo('from')"
-          />
-          <select-coin-input
+      <m-base-input
+        v-model="convertInfo.requestAmount"
+        autofocus
+        class="base-input"
+        :is-error="!amountLimitsIsOk"
+        inputmode="decimal"
+        mode="decimal"
+        pattern="[0-9]*"
+        type="number"
+        :min-fraction-digits="0"
+        :max-fraction-digits="10"
+        :readonly="isOneCoinEmpty"
+        @blur="onBlur"
+        @input="debounceChangeInfo('from', $event)"
+      >
+        <template #append>{{ $t('services.convert.convertExactly') }}</template>
+        <template #actions>
+          <o-select-coin-input
             :current-currency="currentSendFromCurrency"
             :show-select-dialog="false"
           />
-        </label>
-      </div>
+        </template>
+      </m-base-input>
       <MCurrencyConvertattionInfo
+        v-if="amountLimitsIsOk"
         :convert-info="convertInfo"
         :current-send-from-currency="currentSendFromCurrency"
         :current-send-to-currency="currentSendToCurrency"
@@ -36,35 +40,41 @@
         :loading="loading"
         :timer="timer"
       />
-      <div class="input-wrapper relative w-full mb-5">
-        <label class="change-from">
-          <p class="label">{{ $t('views.deposit.convert.youWillGet') }}</p>
-          <input
-            v-model="convertInfo.estimatedAmount"
-            class="input"
-            inputmode="decimal"
-            pattern="[0-9]*"
-            type="number"
-            @blur="onBlur"
-            @input="debounceChangeInfo('to')"
-          />
-          <select-coin-input
+      <p v-else class="limit-warning">{{ outOfLimitWarningText }}</p>
+      <m-base-input
+        v-model="convertInfo.estimatedAmount"
+        class="base-input"
+        inputmode="decimal"
+        mode="decimal"
+        :min-fraction-digits="0"
+        :max-fraction-digits="10"
+        pattern="[0-9]*"
+        type="number"
+        :readonly="isOneCoinEmpty"
+        @blur="onBlur"
+        @input="debounceChangeInfo('to', $event)"
+      >
+        <template #append>{{
+          $t('views.deposit.convert.youWillGet')
+        }}</template>
+        <template #actions>
+          <o-select-coin-input
             :coins="toCoins"
             :current-currency="currentSendToCurrency"
             @on-select-coin="onSelectCoin($event, 'to')"
           />
-        </label>
-      </div>
-      <BaseButton
+        </template>
+      </m-base-input>
+      <m-base-button
         v-if="loading"
         block
         class="send-button"
         size="large"
         view="simple"
       >
-        <triple-dots-spinner />
-      </BaseButton>
-      <BaseButton
+        <a-tripple-dots-spinner />
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'refresh'"
         :disabled="preventConvert"
         block
@@ -74,8 +84,8 @@
         @click="onRefresh"
       >
         {{ $t('views.deposit.convert.refresh') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else-if="componentState === 'preview'"
         :disabled="preventConvert"
         block
@@ -85,8 +95,8 @@
         @click="previewChangeInfo('from')"
       >
         {{ $t('transactions.convert.preview') }}
-      </BaseButton>
-      <BaseButton
+      </m-base-button>
+      <m-base-button
         v-else
         :disabled="preventConvert"
         block
@@ -95,14 +105,15 @@
         view="simple"
         @click="convertCurrency"
       >
-        {{ $t('services.convert.convertNow') }} ({{ timer }}s)
-      </BaseButton>
+        {{ convertTtitle }} ({{ timer }}s)
+      </m-base-button>
     </div>
   </keep-alive>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, Ref, ref, watch } from 'vue';
+import { computed, inject, onBeforeMount, Ref, ref, watch } from 'vue';
+import { useRoute } from 'vue-router';
 import { debounce } from 'lodash';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
@@ -118,23 +129,46 @@ import { STATIC_BASE_URL } from '@/constants';
 import { TConvertCouponData } from '@/applications/servicesapp/models/funds/convertInfo';
 import { useErrorsStore } from '@/stores/errors';
 import { useMfaStore } from '@/stores/mfa';
+import { useLiberSaveStore } from '@/applications/servicesapp/stores/libersave';
+import { uiKitKey } from '@/types/symbols';
 
-import { BaseButton } from '@/components/ui';
-import TripleDotsSpinner from '@/components/ui/atoms/TripleDotsSpinner.vue';
-import SelectCoinInput from '@/components/ui/molecules/transfers/SelectCoinInput.vue';
+import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 
 import MCurrencyConvertattionInfo from '@/applications/servicesapp/components/ui/molecules/MCurrencyConvertattionInfo.vue';
 
+const uiKit = inject(uiKitKey);
+const { ATrippleDotsSpinner, MBaseButton, MBaseInput } = uiKit!;
+
 const errorsStore = useErrorsStore();
+const coinStore = useCoinsStore();
+const fundsStore = useFundsStore();
+const liberSaveStore = useLiberSaveStore();
+
+const props = defineProps({
+  minAmount: {
+    type: Number,
+    default: null,
+  },
+  maxAmount: {
+    type: Number,
+    default: null,
+  },
+});
 
 defineEmits<{
   (event: 'show-2fa'): void;
 }>();
 
-const coinStore = useCoinsStore();
-const fundsStore = useFundsStore();
 const toast = useToast();
 const { tm } = useI18n();
+const route = useRoute();
+
+const convertTtitle = computed(() => {
+  if (route.name === ServicesRoutes.GetCryptoFunds) {
+    return tm('services.getcrypto.convertNow');
+  }
+  return tm('services.convert.convertNow');
+});
 
 const DEBOUNCE_TIMER = 1000;
 
@@ -156,6 +190,12 @@ const currentSendToCurrency = computed(
   () => fundsStore.getState.to as ICoinForExchange
 );
 
+const isOneCoinEmpty = computed(
+  () =>
+    currentSendFromCurrency.value.code === 'empty' ||
+    currentSendToCurrency.value.code === 'empty'
+);
+
 const isZeroValues = computed(() => {
   return (
     Number(fundsStore.convertInfo.requestAmount) === 0 &&
@@ -164,11 +204,24 @@ const isZeroValues = computed(() => {
 });
 
 const preventConvert = computed(() => {
-  return (
-    loading.value ||
-    Number(fundsStore.convertInfo.requestAmount) === 0 ||
-    isZeroValues.value
-  );
+  return loading.value || isZeroValues.value || !amountLimitsIsOk.value;
+});
+
+const amountLimitsIsOk = computed(() => {
+  const _num = Number(fundsStore.convertInfo.requestAmount);
+  const minIsOk =
+    props.minAmount === null || _num >= props.minAmount || _num === 0;
+  const maxIsOk = props.maxAmount === null || _num <= props.maxAmount;
+  return minIsOk && maxIsOk;
+});
+
+const outOfLimitWarningText = computed(() => {
+  const _num = Number(fundsStore.convertInfo.requestAmount);
+  if (_num < props.minAmount) {
+    return `${tm('services.convert.minAmount')}: ${props.minAmount}`;
+  } else {
+    return `${tm('services.convert.maxAmount')}: ${props.maxAmount}`;
+  }
 });
 
 const toCoins = computed(() =>
@@ -236,6 +289,15 @@ function changeInfoInterval() {
   loading.value = true;
 }
 
+const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
+  if (direction === 'from')
+    fundsStore.getConvertInfo.requestAmount = '' + event;
+  if (direction === 'to')
+    fundsStore.getConvertInfo.estimatedAmount = '' + event;
+
+  previewChangeInfo(direction);
+};
+
 async function previewChangeInfo(direction: 'from' | 'to') {
   componentState.value = 'send';
 
@@ -280,15 +342,30 @@ async function previewChangeInfo(direction: 'from' | 'to') {
   }
 }
 
-const debounceChangeInfo = debounce(previewChangeInfo, DEBOUNCE_TIMER);
+const debounceChangeInfo = debounce(proxyPreviewChangeInfo, DEBOUNCE_TIMER);
 
 function convertCurrency() {
   const mfaStore = useMfaStore();
+  const successRoute =
+    route.name === ServicesRoutes.GetCryptoFunds
+      ? ServicesRoutes.DashboardHome
+      : {
+          name: ServicesRoutes.DashboardHome,
+          query: { success: 'getcoupons' },
+        };
   mfaStore.show({
+    title: 'services.convert.mfatitle',
     button: 'services.convert.convertNow',
-    successRoute: ServicesRoutes.DashboardHome,
+    successRoute: successRoute,
     callback: async () => {
       fundsStore.$reset();
+      if (route.name === ServicesRoutes.GetCryptoFunds) {
+        // @TODO redirect to liber save checkout
+        // with urls for success and fail
+        // window.location = 'https://liber.save.checkout.redirect';
+        // success callback route: ServicesRoutes.DashboardHome + '?success=getcrypto'
+        // failed callback route: ServicesRoutes.DashboardHome + '?error=getcrypto'
+      }
     },
   });
   convertFunds();
@@ -297,11 +374,20 @@ function convertCurrency() {
 async function convertFunds() {
   try {
     loading.value = true;
-    await fundsStore.changeCurrency({
-      from_code: currentSendFromCurrency.value.code,
-      to_code: currentSendToCurrency.value.code,
-      amount: String(Number(fundsStore.convertInfo.requestAmount)),
-    });
+    if (route.name === ServicesRoutes.GetCryptoFunds) {
+      await fundsStore.getCrypto({
+        from_code: currentSendFromCurrency.value.code,
+        to_code: currentSendToCurrency.value.code,
+        amount: String(Number(fundsStore.convertInfo.requestAmount)),
+      });
+    } else {
+      await fundsStore.changeCurrency({
+        from_code: currentSendFromCurrency.value.code,
+        to_code: currentSendToCurrency.value.code,
+        amount: String(Number(fundsStore.convertInfo.requestAmount)),
+        email: liberSaveStore.getEmail,
+      });
+    }
   } catch (err) {
     const code = err?.response?.data?.code;
 
@@ -369,6 +455,14 @@ watch(isZeroValues, (val) => {
 <style lang="scss" scoped>
 .change-currency {
   width: 100%;
+
+  > .send-button {
+    margin-top: 37px;
+  }
+
+  > .base-input {
+    height: 70px;
+  }
 }
 
 .change-from {
@@ -400,6 +494,33 @@ watch(isZeroValues, (val) => {
     &:focus {
       border: 1px solid $color-primary-500;
     }
+
+    &.-error {
+      border: 1px solid $color-red-500;
+    }
+  }
+}
+
+.limit-warning {
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 26px;
+  color: $color-red-500;
+  height: 110px;
+}
+
+.change-currency.-readonly {
+  & > :deep(.base-input > .input-wrapper) {
+    background-color: $color-input-bg !important;
+  }
+
+  &:deep(.actions:focus),
+  &:deep(.actions:focus-within),
+  &:deep(.actions:active),
+  &:deep(.actions .select:focus-within),
+  &:deep(.actions .select:focus),
+  &:deep(.actions .select:active) {
+    background-color: $color-white-light !important;
   }
 }
 </style>

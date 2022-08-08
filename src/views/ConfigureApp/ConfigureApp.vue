@@ -1,8 +1,5 @@
 <template>
-  <t-top-navigation
-    with-fixed-footer
-    @click:left-icon="$router.push({ name: Route.InstallApp })"
-  >
+  <t-top-navigation with-fixed-footer @click:left-icon="prevStep">
     <template #title> {{ $t('configureApp.configTitle') }}</template>
     <template #subtitle>{{ $t('configureApp.scanQRMessage') }}</template>
     <template #content>
@@ -18,31 +15,22 @@
           type="text"
           readonly
         />
-        <img
-          class="default-input-icon"
-          src="@/assets/images/copy-to-clipboard.svg"
-          alt="copy"
-          @click.stop
-        />
+
+        <i class="icon-copy icon default-input-icon" />
       </label>
 
-      <p class="text-default">
+      <p class="text--body color-main mb-4">
         {{ $t('configureApp.backupCodeMessage') }}
       </p>
-      <p class="text-default">
+      <p class="text--body color-main">
         {{ $t('configureApp.verifyIdentityMessage') }}
       </p>
     </template>
     <template #fixed-footer
-      ><base-button
-        block
-        @click="
-          $router.push({ name: Route.ConfigureAppVerify, hash: nextRouteHash })
-        "
-      >
+      ><m-base-button block @click="nextStep">
         {{ $t('common.continueCta') }}
-      </base-button></template
-    >
+      </m-base-button>
+    </template>
   </t-top-navigation>
 </template>
 
@@ -53,19 +41,23 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { onMounted, ref, computed } from 'vue';
-import { Clipboard } from '@capacitor/clipboard';
+import { onMounted, ref, computed, inject } from 'vue';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useI18n } from 'vue-i18n';
 import { useToast } from 'primevue/usetoast';
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import QrCodeWithLogo from 'qrcode-with-logos';
 import { use2faStore } from '@/stores/2fa';
 
-import { TTopNavigation, BaseButton } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const { tm } = useI18n();
 
@@ -73,6 +65,7 @@ const store = use2faStore();
 const errorsStore = useErrorsStore();
 const toast = useToast();
 const route = useRoute();
+const router = useRouter();
 
 const nextRouteHash = computed(() => {
   return route.hash;
@@ -83,13 +76,14 @@ let qrCodeValue = ref<string>('');
 
 onMounted(async () => {
   const { secret, url } = await store.generateSecret();
-
+  const responsiveWidth =
+    document.documentElement.clientHeight <= 668 ? 180 : 240;
   qrCodeValue.value = secret;
 
   let qrcode = new QrCodeWithLogo({
     canvas: canvas.value,
     content: url,
-    width: 230,
+    width: responsiveWidth,
   });
 
   qrcode.toCanvas();
@@ -114,6 +108,17 @@ const copyToClipboard = async () => {
     });
   }
 };
+
+const prevStep = (): void => {
+  router.push({ name: Route.InstallApp });
+};
+
+const nextStep = (): void => {
+  router.push({
+    name: Route.ConfigureAppVerify,
+    hash: nextRouteHash.value,
+  });
+};
 </script>
 
 <style lang="scss" scoped>
@@ -123,20 +128,14 @@ const copyToClipboard = async () => {
   overflow: auto;
 }
 
-.text-default {
-  font-style: normal;
-  font-weight: normal;
-  font-size: 17px;
-  line-height: 22px;
-  letter-spacing: -0.0043em;
-  color: $color-brand-primary;
-  margin-bottom: 20px;
-}
-
 .qr-code-canvas {
   margin: 0 auto;
   width: 200px;
   display: block;
+
+  @media (max-width: 375px) {
+    width: 150px;
+  }
 }
 
 .default-input-wrapper {
@@ -179,7 +178,8 @@ const copyToClipboard = async () => {
 .default-input-icon {
   position: absolute;
   right: 15px;
-  top: 50%;
+  top: 40%;
+  color: blue;
   transform: translate(0, -50%);
 }
 </style>

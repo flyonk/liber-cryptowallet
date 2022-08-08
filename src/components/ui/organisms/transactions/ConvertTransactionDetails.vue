@@ -3,7 +3,7 @@
     <template #title>
       <div class="sum">
         <div class="sum-title">
-          {{ directionSign }} {{ transaction.amount }}
+          {{ directionSign }} {{ transaction.from.amount }}
           <span class="currency">
             {{ mainCoin }}
           </span>
@@ -37,9 +37,9 @@
             <p class="name">
               {{ $t('transactions.statement') }}
             </p>
-            <base-button size="medium" view="flat">
+            <m-base-button size="medium" view="flat">
               {{ $t('transactions.download') }}
-            </base-button>
+            </m-base-button>
           </li>
 
           <li class="main-item">
@@ -97,7 +97,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
+import { computed, inject, onMounted, PropType } from 'vue';
 
 import {
   EDirection,
@@ -106,11 +106,14 @@ import {
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
-  BaseButton,
   TransactionIconWithStatus,
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 defineEmits(['copy']);
 const props = defineProps({
@@ -123,6 +126,10 @@ const props = defineProps({
     type: String,
     default: undefined,
   },
+});
+
+onMounted(() => {
+  console.debug('props.transaction', props.transaction);
 });
 
 const mainCoin = computed(() => props.transaction.code.toUpperCase());

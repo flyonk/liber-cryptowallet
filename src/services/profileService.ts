@@ -1,5 +1,7 @@
 import axios from 'axios';
+
 import apiService from '@/services/apiService';
+import { compressFileOrBlob } from '@/helpers/image';
 
 import profileMapper, { IProfile } from '@/models/profile/profile';
 import claimMapper, { IClaim } from '@/models/profile/claim';
@@ -16,6 +18,7 @@ import { EDocumentSide } from '@/types/document';
 export default {
   async getProfile(): Promise<IProfile> {
     const res = await axios.get(apiService.profile.baseUrl());
+    console.log('here', res);
     return profileMapper.deserialize(res.data);
   },
 
@@ -80,9 +83,8 @@ export default {
     return claimMapper.deserialize(res.data);
   },
 
-  async kycProceedClaimById(id: number): Promise<TSuccessResponse> {
-    return (await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`))
-      .data;
+  async kycProceedClaimById(id: string): Promise<TSuccessResponse> {
+    return await axios.post(`${apiService.profile.kycClaim()}/${id}/proceed`);
   },
 
   async kycDeleteFileById(
@@ -96,7 +98,7 @@ export default {
     ).data;
   },
 
-  async kycAddFile(
+  async kycAddFileFromCam(
     id: string,
     fileType: EKYCProofType,
     file: string,
@@ -108,18 +110,18 @@ export default {
         'Content-Type': 'multipart/form-data',
       },
     };
-
     const data = new FormData();
     const type = file.split(';')[0].split('/')[1];
-    const binaryFile = await fetch(file)
+    await fetch(file)
       .then((r) => r.blob())
-      .then(
-        (blobFile) =>
-          new File([blobFile], `${fileType}-${side}.${type}`, {
-            type,
-          })
-      );
-    data.append('file', binaryFile);
+      .then(async (blobFile) => {
+        const binaryFile = await compressFileOrBlob(
+          blobFile,
+          `${fileType}-${side}.${type}`,
+          `image/${type}`
+        );
+        data.append('file', binaryFile);
+      });
 
     return (
       await axios.post(
@@ -130,11 +132,7 @@ export default {
     ).data;
   },
 
-  async kycAddResidenceFile(
-    id: string,
-    file: File,
-    country: string
-  ): Promise<TSuccessResponse> {
+  async kycAddFile(id: string, file: File, country: string): Promise<void> {
     const data = new FormData();
     const config = {
       headers: {
@@ -142,14 +140,24 @@ export default {
       },
     };
 
-    data.append('residence-file', file);
+    const reader = new FileReader();
+    reader.onload = async (readedFile: ProgressEvent<FileReader>) => {
+      if (readedFile?.target?.result) {
+        const blob = new Blob([readedFile?.target?.result], {
+          type: file.type,
+        });
+        const binaryFile = await compressFileOrBlob(blob, file.name, file.type);
+        data.append('file', binaryFile);
 
-    return (
-      await axios.post(
-        `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}`,
-        data,
-        config
-      )
-    ).data;
+        return (
+          await axios.post(
+            `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
+            data,
+            config
+          )
+        ).data;
+      }
+    };
+    reader.readAsArrayBuffer(file);
   },
 };

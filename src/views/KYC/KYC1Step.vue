@@ -20,7 +20,7 @@
     </template>
     <template #fixed-footer>
       <div class="info">
-        <p class="heading-dark-gray-md font-weight--semibold text">
+        <p class="text--footnote color-light-gray font-weight--semibold text">
           {{ $t('views.kyc.kyc1step.byPressingSign') }}
           <a class="link" href="http://">{{
             $t('views.kyc.kyc1step.termsAmpConditions')
@@ -31,25 +31,30 @@
           </a>
         </p>
       </div>
-      <base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
+      <m-base-button :disabled="!isCountrySelected" block @click="onSignUp">{{
         $t('views.kyc.kyc1step.signUpSecurely')
-      }}</base-button>
+      }}</m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
-import { onBeforeMount, Ref, ref } from 'vue';
+import { ref, onBeforeMount, Ref, inject } from 'vue';
 import { computed } from '@vue/reactivity';
 import { useRouter } from 'vue-router';
+import { uiKitKey } from '@/types/symbols';
 
 import { useKYCStore } from '@/stores/kyc';
 import { useProfileStore } from '@/stores/profile';
 import { ICountryInformation } from '@/types/country-phone-types';
 import { Route } from '@/router/types';
+import { IClaim } from '@/models/profile/claim';
 
-import { BaseButton, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import BaseCountrySelect from '@/components/ui/organisms/BaseCountrySelect.vue';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const router = useRouter();
 
@@ -75,15 +80,35 @@ const onSignUp = async () => {
 
 onBeforeMount(async () => {
   await pStore.init();
+  if (!kycStore.getClaimData) {
+    await kycStore.claim();
+    if (
+      (kycStore.getClaimData as unknown as IClaim).status > 10 &&
+      (kycStore.getClaimData as unknown as IClaim).status < 30
+    )
+      router.push({
+        name: Route.Survey,
+      });
+  }
 });
 
 const setCountry = (selectedCountry: string): void => {
   kycStore.changeData('citizenship', selectedCountry);
 };
 
+const routeProps = router.resolve({ name: Route.ProfilePhonesAndEmails });
+const prevRouteIsProfile =
+  routeProps.path === router.options.history?.state?.back;
+
 const prevStep = async () => {
-  if (!pStore.user.id) await pStore.init();
-  if (pStore.user.is2FAConfigured) {
+  if (!pStore.user.id) {
+    await pStore.init();
+  }
+  if (prevRouteIsProfile) {
+    router.push({
+      name: Route.ProfilePhonesAndEmails,
+    });
+  } else if (pStore.user.is2FAConfigured) {
     router.push({
       name: Route.AuthPasscode,
     });

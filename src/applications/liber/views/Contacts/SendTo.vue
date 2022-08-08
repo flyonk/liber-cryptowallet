@@ -19,12 +19,12 @@
       <h1 class="title">{{ computedRecipient.displayName }}</h1>
     </template>
     <template #right>
-      <ContactInitials :name="computedRecipient.displayName"
+      <a-contact-initials :name="computedRecipient.displayName"
     /></template>
     <template #content
       ><div class="send-to">
         <div class="sendto-main">
-          <send-currency
+          <o-send-currency
             :contact-name="computedRecipient.displayName"
             :has-coin-reverse="true"
             @send-transaction="sendTransaction"
@@ -32,22 +32,29 @@
         </div></div
     ></template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         class="send-button"
         size="large"
         view="simple"
         @click="sendTransaction"
       >
         Send
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
   <!--TODO: make toasts logic-->
-  <base-toast
+  <m-base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showSuccessPopup"
-    :severity="'attention'"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <h1 class="title">Do you know and trust this payee?</h1>
@@ -60,25 +67,32 @@
     </template>
     <template #footer>
       <div class="popup-footer">
-        <base-button
+        <m-base-button
           class="btn mb-3"
           size="large"
           @click="showSuccessPopup = false"
         >
           No, go back
-        </base-button>
-        <base-button class="btn" size="large" view="secondary">
+        </m-base-button>
+        <m-base-button class="btn" size="large" view="secondary">
           Yes, continue
-        </base-button>
+        </m-base-button>
       </div>
     </template>
-  </base-toast>
-  <base-toast
+  </m-base-toast>
+  <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showSuccessPopup"
-    :severity="'confirmation'"
     @click="showSuccessPopup = false"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/confirmation.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <p class="description">
@@ -87,13 +101,20 @@
         </p>
       </div>
     </template>
-  </base-toast>
-  <base-toast
+  </m-base-toast>
+  <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showIncorrectDataPopup"
-    :severity="'attention'"
     @click="showIncorrectDataPopup = false"
   >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
     <template #description>
       <div class="popup-description">
         <p class="description">
@@ -101,11 +122,10 @@
         </p>
       </div>
     </template>
-  </base-toast>
-  <base-toast
+  </m-base-toast>
+  <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
-    :severity="'error'"
     @click="showFailurePopup = false"
   >
     <template #description>
@@ -116,15 +136,15 @@
         </p>
       </div>
     </template>
-  </base-toast>
+  </m-base-toast>
 </template>
 
 <script setup lang="ts">
-import { computed, ref } from 'vue';
+import { computed, inject, ref } from 'vue';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
-import SendCurrency from '@/components/ui/molecules/transfers/SendCurrency.vue';
-import { BaseButton, BaseToast, TTopNavigation } from '@/components/ui';
+import OSendCurrency from '@/components/ui/organisms/transfers/OSendCurrency.vue';
+import { TTopNavigation } from '@/components/ui';
+
 import { useTransferStore } from '@/applications/liber/stores/transfer';
 import { useRecipientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';
@@ -135,6 +155,10 @@ import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { formatPhoneNumber } from '@/helpers/auth';
 import { STATIC_BASE_URL } from '@/constants';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { AContactInitials, MBaseButton, MBaseToast } = uiKit!;
 
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
@@ -258,5 +282,16 @@ const sendTransaction = async () => {
 
 .send-button {
   width: 100%;
+}
+
+.popup-image {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  > .image {
+    width: 50px;
+    height: 50px;
+  }
 }
 </style>

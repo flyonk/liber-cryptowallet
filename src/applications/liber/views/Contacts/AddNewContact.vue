@@ -11,27 +11,44 @@
     <template #title> {{ $t('views.recipients.add') }}</template>
     <template #content>
       <ul class="invite-list">
-        <base-input v-model="newContact.name" autofocus type="text">
+        <m-base-input
+          v-model="newContact.name"
+          class="m-base-input"
+          autofocus
+          type="text"
+        >
           <template #label> Name </template>
-          <template v-if="newContact.name.length > 2" #append>
-            <i class="icon-transaction-small-reverted" @click="clearName" />
+          <template v-if="newContact.name.length > 2" #actions>
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
+              @click="clearName"
+            />
           </template>
-        </base-input>
+        </m-base-input>
         <li
           v-for="(contact, index) in newContact.phone"
           :key="index"
           class="invite-item"
         >
-          <base-input v-model="contact.value" type="text">
+          <m-base-input
+            v-model="contact.value"
+            class="m-base-input"
+            type="text"
+          >
             <template #label> Email or Phone </template>
-            <template v-if="newContact.phone.length > 1" #append>
-              <i class="icon-trash_full" @click="removeContact(index)" />
+            <template v-if="contact.value.length > 1" #actions>
+              <i class="icon icon-trash_full" @click="removeContact(index)" />
             </template>
-          </base-input>
+          </m-base-input>
         </li>
-        <base-button view="flat" icon-left="ci-plus" @click="addExtraContact">
+        <m-base-button
+          view="flat"
+          icon-left="icon-plus_circle"
+          @click="addExtraContact"
+        >
           {{ $t('views.newcontact.additionalphone') }}
-        </base-button>
+        </m-base-button>
       </ul>
       <bottom-swipe-menu
         :is-menu-open="isMenuOpen"
@@ -40,7 +57,7 @@
       />
     </template>
     <template #fixed-footer
-      ><base-button
+      ><m-base-button
         size="large"
         view="simple"
         block
@@ -48,22 +65,26 @@
         @click="handleAddContact"
       >
         {{ $t('common.continueCta') }}
-      </base-button></template
+      </m-base-button></template
     >
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { Ref, ref, computed } from 'vue';
+import { Ref, ref, computed, inject } from 'vue';
 import { useRouter } from 'vue-router';
+import { v4 as uuidv4 } from 'uuid';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 import { useRecipientsStore } from '@/stores/recipients';
 
-import { BaseButton, BaseInput, TTopNavigation } from '@/components/ui';
+import { TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
 
-import { v4 as uuidv4 } from 'uuid';
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
 const recipientsStore = useRecipientsStore();
@@ -153,5 +174,17 @@ function closeMenu() {
   margin-bottom: 20px;
   overflow: auto;
   flex-grow: 1;
+
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+
+  > .invite-item {
+    margin-bottom: 16px;
+  }
+}
+
+.icon {
+  font-size: 24px;
 }
 </style>

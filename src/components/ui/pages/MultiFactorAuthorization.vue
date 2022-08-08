@@ -1,5 +1,11 @@
 <template>
-  <EnterVerificationCode
+  <EmailAndNumberVerificationCode
+    v-if="mfaStore.data.confirmations.length"
+    @complete="onEmailAndNumberComplete"
+  />
+
+  <enter-verification-code
+    v-else
     :text="text"
     :title="ctaTitle"
     left-icon-name="icon-app-navigation-close"
@@ -20,7 +26,7 @@
           {{ $t('views.passcodeEnter.currentPasscode') }}
         </p>
         <div class="passcode">
-          <base-verification-code-input
+          <m-base-verification-code-input
             type="password"
             :value="passcode"
             :fields="4"
@@ -33,31 +39,36 @@
     </template>
 
     <template #ctaBtn>
-      <base-button block :disabled="isDisabled" @click="onComplete">
+      <m-base-button block :disabled="isDisabled" @click="onComplete">
         {{ ctaBtnText }}
-      </base-button>
+      </m-base-button>
     </template>
-  </EnterVerificationCode>
+  </enter-verification-code>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
+import { computed, inject, ref, watch } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { useRouter, useRoute } from 'vue-router';
+import { RouteLocation, useRoute, useRouter } from 'vue-router';
 
 import { useMfaStore } from '@/stores/mfa';
 import { useProfileStore } from '@/stores/profile';
 
-import { BaseButton, BaseVerificationCodeInput } from '@/components/ui';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
+import EmailAndNumberVerificationCode from '@/components/ui/organisms/auth/EmailAndNumberVerificationCode.vue';
+import { AxiosError } from 'axios';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseVerificationCodeInput, MBaseButton } = uiKit!;
 
 const router = useRouter();
+
 const mfaStore = useMfaStore();
 const pStore = useProfileStore();
 const { tm } = useI18n();
 
 // hook to change history for back action possible
-router.push({ hash: '#mfa' });
 
 const oneTimeCode = ref('');
 const passcode = ref('');
@@ -93,6 +104,12 @@ const resend = async () => {
   showCountdown.value = true;
 };
 
+const onEmailAndNumberComplete = (form: { phone: string; email: string }) => {
+  console.log('passcodes to approve', form);
+
+  mfaStore.hide();
+};
+
 const onComplete = async () => {
   if (oneTimeCode.value.length === 6 && passcode.value.length === 4) {
     const data = {
@@ -103,13 +120,24 @@ const onComplete = async () => {
       await mfaStore.checkMfa(data);
       mfaStore.hide();
       if (mfaStore.data?.successRoute) {
-        router.push({
-          name: mfaStore.data.successRoute,
-        });
+        const _route = mfaStore.data?.successRoute;
+
+        await router.push(_route as RouteLocation);
       }
-    } catch (err: Error | unknown) {
-      isCodeWrong.value = true;
-      isPasscodeWrong.value = true;
+    } catch (err: AxiosError | Error | unknown) {
+      const error = err as AxiosError;
+
+      if (error.response && error.response.status === 403) {
+        isCodeWrong.value = true;
+        isPasscodeWrong.value = true;
+      } else if (
+        error.response &&
+        error.response.data.message === 'insufficient funds'
+      ) {
+        mfaStore.setError(error.response);
+
+        mfaStore.hide();
+      }
     }
   }
 };

@@ -3,7 +3,7 @@
     <template #message="slotProps">
       <div class="toast-content">
         <div class="icon">
-          <i class="ci-check" />
+          <i class="icon-check" />
         </div>
         <h4 class="title">
           {{ slotProps.message.summary }}
@@ -11,6 +11,7 @@
       </div>
     </template>
   </p-toast>
+  <m-browser-stub v-if="!IS_DEVELOPEMENT_MODE" />
   <app-layout-switcher>
     <p-offline-mode v-if="isOfflineMode" @online="handleReconnection" />
     <div v-else>
@@ -23,19 +24,21 @@
       </router-view>
     </div>
   </app-layout-switcher>
-  <a-offline-bundler :is-active="bundlerIsActive" />
+  <a-offline-bundler
+    :is-active="bundlerIsActive"
+    :bundle-title="$t('offline.bundleTitle')"
+  />
   <errors-toast />
   <m-custom-error />
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, ref, computed } from 'vue';
+import { onBeforeMount, onBeforeUnmount, ref, computed, inject } from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useMfaStore } from '@/stores/mfa';
-import { useErrorsStore } from '@/stores/errors';
-import SwipeBack from '@/plugins/swipe-capacitor';
+import { IS_DEVELOPEMENT_MODE } from '@/constants';
 
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
 
@@ -45,7 +48,13 @@ import ErrorsToast from '@/components/ui/organisms/errors/ErrorsToast.vue';
 import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthorization.vue';
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
-import AOfflineBundler from '@/components/ui/atoms/AOfflineBundler.vue';
+import MBrowserStub from '@/components/ui/molecules/MBrowserStub.vue';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { AOfflineBundler } = uiKit!;
+
+// TODO:[UIKIT] change bundle-title with title in props
 
 const { isOffline } = useCheckOffline();
 
@@ -53,8 +62,6 @@ const mfaStore = useMfaStore();
 
 const store = useAccountStore();
 store.init();
-
-const errorsStore = useErrorsStore();
 
 const bundlerIsActive = ref(false);
 
@@ -75,21 +82,6 @@ onBeforeUnmount(() => {
   window.removeEventListener('offline', onOffline);
   window.removeEventListener('online', onOnline);
 });
-
-SwipeBack.enable()
-  .then()
-  .catch((err) => {
-    const { code } = err;
-    if (code !== 'UNIMPLEMENTED') {
-      //TODO:disable display in toast (dev dependency)
-      errorsStore.handle({
-        err,
-        name: 'App',
-        ctx: 'SwipeBack',
-        description: 'Capacitor SwipeBack plugin error',
-      });
-    }
-  });
 
 const showMfa = computed(() => {
   return mfaStore.enabled;

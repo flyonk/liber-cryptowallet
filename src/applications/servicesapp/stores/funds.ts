@@ -43,9 +43,9 @@ export const useFundsStore = defineStore('fundsLiberSave', {
       img: `${STATIC_BASE_URL}/static/currencies/euro.svg`,
     },
     to: {
-      name: 'BTC',
-      code: 'tbtc',
-      img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
+      name: '---',
+      code: 'empty',
+      img: `${STATIC_BASE_URL}/static/currencies/empty_token.svg`,
     },
   }),
 
@@ -62,6 +62,10 @@ export const useFundsStore = defineStore('fundsLiberSave', {
 
     async changeCurrency(data: TConvertData): Promise<void> {
       await fundsService.convert(data);
+    },
+
+    async getCrypto(data: TConvertData): Promise<void> {
+      await fundsService.getcrypto(data);
     },
 
     setConvertFunds(val: boolean): void {

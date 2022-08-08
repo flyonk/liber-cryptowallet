@@ -8,7 +8,7 @@
     }}</template>
     <template #right>
       <div class="initials-wrapper">
-        <ContactInitials :name="accountName" />
+        <a-contact-initials :name="accountName" />
       </div>
     </template>
     <template #content>
@@ -40,26 +40,28 @@
       </div>
     </template>
     <template #fixed-footer>
-      <BaseButton
+      <m-base-button
         class="footer-btn"
         @click="$router.push({ name: Route.ProfileChangeAddress })"
       >
         {{ $t('views.profile.profileEdit.changeHomeAddress') }}
-      </BaseButton>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { useProfileStore } from '@/stores/profile';
 import { formatToNormalDate } from '@/helpers/datetime';
 import { Route } from '@/router/types';
 
-import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { TTopNavigation } from '@/components/ui';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { AContactInitials, MBaseButton } = uiKit!;
 
 const profileStore = useProfileStore();
 
@@ -71,7 +73,7 @@ const birthDate = computed(() =>
 
 const addressField = computed(() =>
   user.value.city && user.value.state
-    ? `${user.value.street} ${user.value.optionalAddress}, ${user.value.postalCode}, ${user.value.state}, ${user.value.city}`
+    ? `${user.value.streetAndNumber}, ${user.value.optionalAddress}, ${user.value.postalCode}, ${user.value.state}, ${user.value.city}`
     : 'No Address selected'
 );
 

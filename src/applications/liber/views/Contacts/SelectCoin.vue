@@ -1,9 +1,9 @@
 <template name="SelectCoin">
   <div class="page-wrapper">
     <div class="page-header">
-      <BackHistoryBtn icon-type="close" />
+      <ABackHistoryBtn icon-type="close" />
 
-      <h1 class="main-title">
+      <h1 class="main-title text--title-1">
         {{ $t('views.deposit.selectCoin.selectCoin') }}
       </h1>
 
@@ -17,25 +17,32 @@
         />
       </label>
     </div>
-    <SelectCoin :coins="coins" @select-coin="selectCoin" />
+    <MSelectCoin
+      :coins="coins"
+      :title="$t('views.deposit.selectCoin.allCoins')"
+      :suggested-title="$t('views.deposit.selectCoin.suggested')"
+      @select-coin="selectCoin"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useRoute, useRouter } from 'vue-router';
-import { computed, onBeforeMount } from 'vue';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { useFundsStore } from '@/applications/liber/stores/funds';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 
-import SelectCoin from '@/components/ui/molecules/deposit/SelectCoin.vue';
-import BackHistoryBtn from '@/components/ui/atoms/BackHistoryBtn.vue';
 import { ICoin } from '@/applications/liber/models/funds/coin';
+import { uiKitKey } from '@/types/symbols';
 
 const router = useRouter();
 const route = useRoute();
 const fundsStore = useFundsStore();
 const coinsStore = useCoinsStore();
+
+const uiKit = inject(uiKitKey);
+const { ABackHistoryBtn, MSelectCoin } = uiKit!;
 
 onBeforeMount(async () => {
   await coinsStore.fetchCoins();
@@ -61,11 +68,6 @@ const selectCoin = (item: ICoin) => {
 }
 
 .main-title {
-  font-style: normal;
-  font-weight: 800;
-  font-size: 28px;
-  line-height: 34px;
-  letter-spacing: 0.0038em;
   margin-bottom: 10px;
   margin-top: 20px;
 }
@@ -100,17 +102,6 @@ const selectCoin = (item: ICoin) => {
     top: 12px;
     left: 10px;
     z-index: 1;
-  }
-}
-
-.page-main {
-  > .title {
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 18px;
-    letter-spacing: -0.0008em;
-    color: $color-brand-primary;
-    margin-bottom: 16px;
   }
 }
 

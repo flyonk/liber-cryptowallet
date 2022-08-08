@@ -1,7 +1,6 @@
 <template name="ProfileEdit">
   <t-top-navigation
     with-fixed-footer
-    left-icon-name="icon-app-navigation-close"
     @click:left-icon="$router.push({ name: Route.ProfileSettings })"
   >
     <template #title>{{
@@ -16,10 +15,22 @@
     <template #content>
       <div class="content-wrapper">
         <div v-if="KYCStatus !== EKYCStatus.success" class="status-container">
-          <m-status-card :kyc-status="KYCStatus" />
+          <m-kyc-status-card
+            :title="cardInfo.title"
+            :description="cardInfo.description"
+            :icon-name="cardInfo.imgSrc"
+            :state-icon="cardInfo.stateIcon"
+            :is-cta-required="!!cardInfo.isCtaRequired"
+            :cta-text="
+              $t('views.profile.profilePhonesAndEmails.verifyIdentity')
+            "
+            @click:cta-button="$router.push({ name: Route.KYCMain })"
+          />
         </div>
         <div v-else class="profile-info">
-          <h1 class="title">Liber ID</h1>
+          <h1 class="text--title-3 font-bold">
+            {{ $t('views.profile.profilePhonesAndEmails.liberID') }}
+          </h1>
           <div class="data-container">
             <div class="row">
               <div class="wrapper">
@@ -32,7 +43,7 @@
         </div>
         <br />
         <div class="body-container">
-          <h1 class="title">
+          <h1 class="text--title-3 font-bold">
             {{ $t('views.profile.profilePhonesAndEmails.acceptedContact') }}
           </h1>
           <ul class="data-list">
@@ -41,10 +52,12 @@
               :key="index"
               class="item"
             >
-              <div class="label">Phone {{ index + 1 }}</div>
-              <div class="value">
-                <div class="phone">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+              <div class="text--caption-2 font-medium color-dark-gray">
+                Phone {{ index + 1 }}
+              </div>
+              <div class="flex justify-between">
+                <div class="text--body font-medium">{{ value }}</div>
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
             <li
@@ -52,21 +65,23 @@
               :key="index"
               class="item"
             >
-              <div class="label">Email {{ index + 1 }}</div>
-              <div class="value">
-                <div class="email">{{ value }}</div>
-                <i class="icon-trash_full icon" />
+              <div class="text--caption-2 font-medium color-dark-gray">
+                Email {{ index + 1 }}
+              </div>
+              <div class="justify-between">
+                <div class="text--body font-medium">{{ value }}</div>
+                <i v-if="index !== 0" class="icon-trash_full icon" />
               </div>
             </li>
           </ul>
-          <base-button
-            class="data-adder"
-            view="flat"
-            icon-left="icon-plus"
-            @click="$router.push({ name: Route.ProfileAddNewContactData })"
-          >
-            + {{ $t('views.newcontact.additionalphone') }}
-          </base-button>
+          <!--          <m-base-button-->
+          <!--            class="data-adder"-->
+          <!--            view="flat"-->
+          <!--            icon-left="icon-plus"-->
+          <!--            @click="$router.push({ name: Route.ProfileAddNewContactData })"-->
+          <!--          >-->
+          <!--            + {{ $t('views.newcontact.additionalphone') }}-->
+          <!--          </m-base-button>-->
         </div>
       </div>
     </template>
@@ -74,17 +89,28 @@
 </template>
 
 <script setup lang="ts">
-import { TTopNavigation, BaseButton, MStatusCard } from '@/components/ui';
+import { computed, inject, onBeforeMount } from 'vue';
 
 import { Route } from '@/router/types';
-
-import { computed } from 'vue';
+import { TTopNavigation } from '@/components/ui';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useProfileStore } from '@/stores/profile';
+import { useKYCStore } from '@/stores/kyc';
+import { STATIC_BASE_URL } from '@/constants';
+import { useI18n } from 'vue-i18n';
+import { uiKitKey } from '@/types/symbols';
 
+const { tm } = useI18n();
 const pStore = useProfileStore();
+const kycStore = useKYCStore();
 
-const KYCStatus = computed(() => pStore.getUser.kycStatus);
+const uiKit = inject(uiKitKey);
+const {
+  MKycStatusCard,
+  // MBaseButton
+} = uiKit!;
+
+const KYCStatus = computed(() => kycStore.getClaimData?.status || 10);
 const phone = computed(() => pStore.getUser.phone);
 const email = computed(() => pStore.getUser.email);
 
@@ -95,19 +121,69 @@ const additionalPhones = computed(() => {
 const additionalEmails = computed(() => {
   return pStore?.getUser?.additionalEmails || [];
 });
+
+interface IKycStatusCard {
+  title: string;
+  description: string;
+  isCtaRequired?: string;
+  imgSrc: string;
+  stateIcon: string;
+}
+
+const cardInfo: IKycStatusCard = computed(() => {
+  switch (KYCStatus.value) {
+    case EKYCStatus.not_started: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
+    case EKYCStatus.pending: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.verificationInProgress'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.weWillEmailAndSmsToYouVerification'
+      );
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, imgSrc, stateIcon };
+    }
+    case EKYCStatus.rejected: {
+      const title = tm(
+        'views.profile.profilePhonesAndEmails.yourIdentityIsNotVerified'
+      );
+      const description = tm(
+        'views.profile.profilePhonesAndEmails.friendsCanSendYouMoney'
+      );
+      const isCtaRequired = true;
+      const imgSrc = `${STATIC_BASE_URL}/static/todo/empty-profile.svg`;
+      const stateIcon = 'icon-attention_error';
+
+      return { title, description, isCtaRequired, imgSrc, stateIcon };
+    }
+    default: {
+      return '';
+    }
+  }
+});
+
+onBeforeMount(async () => {
+  await Promise.all([kycStore.claim(), pStore.init()]);
+});
 </script>
 
 <style lang="scss" scoped>
 .content-wrapper {
   > .profile-info {
-    > .title {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 25px;
-      letter-spacing: -0.0045em;
-      color: $color-brand-primary;
-    }
-
     > .data-container {
       > .row {
         border-bottom: 1px solid rgb(175 179 195 / 30%);
@@ -121,17 +197,6 @@ const additionalEmails = computed(() => {
           > .icon {
             color: $color-green-400;
             font-size: 20px;
-          }
-
-          > .id {
-            margin-left: 5px;
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            display: flex;
-            align-items: center;
-            letter-spacing: -0.0043em;
-            color: $color-brand-primary;
           }
         }
 
@@ -148,87 +213,17 @@ const additionalEmails = computed(() => {
     width: calc(100% + 40px);
     left: -20px;
     background: $color-light-grey-300;
-
-    > .header {
-      display: flex;
-      justify-content: space-between;
-      justify-items: start;
-
-      > .icon {
-        color: $color-primary;
-        font-size: 20px;
-      }
-    }
-
-    > .body {
-      margin-top: 16px;
-
-      > .title {
-        font-weight: 700;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.0043em;
-        color: $color-brand-primary;
-      }
-
-      > .description {
-        margin-top: 8px;
-        font-weight: 400;
-        font-size: 17px;
-        line-height: 22px;
-        letter-spacing: -0.0043em;
-        color: $color-brand-primary;
-      }
-
-      > .cta {
-        margin-top: 16px;
-        width: 100%;
-      }
-    }
   }
 
   > .body-container {
     margin-top: 24px;
-
-    > .title {
-      font-weight: 600;
-      font-size: 20px;
-      line-height: 25px;
-      letter-spacing: -0.0045em;
-      color: $color-brand-primary;
-    }
 
     > .data-list {
       > .item {
         border-bottom: 1px solid rgb(175 179 195 / 30%);
         padding: 16px 0;
 
-        > .label {
-          font-weight: 500;
-          font-size: 11px;
-          line-height: 13px;
-          letter-spacing: 0.0006em;
-          color: $color-dark-grey;
-        }
-
         > .value {
-          display: flex;
-          justify-content: space-between;
-
-          > .phone {
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: -0.0043em;
-          }
-
-          > .email {
-            font-weight: 500;
-            font-size: 17px;
-            line-height: 22px;
-            letter-spacing: -0.0043em;
-          }
-
           > .icon {
             color: $color-grey-500;
             font-size: 20px;

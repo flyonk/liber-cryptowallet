@@ -1,5 +1,6 @@
 // --- Only imports ---
 @import './common/reset';
+@import './common/mixins';
 
 // Common
 //@import './common/variables';
@@ -20,6 +21,7 @@
 
 // ui
 @import './theme/index';
+
 // No styles here
 
 //Icon Fonts

@@ -24,16 +24,16 @@
             {{ getRelativeDate(transaction.date) }}
           </p>
           <div v-if="isPendingStatus" class="controls">
-            <base-button size="medium" icon-left="ci-share">
+            <m-base-button size="medium" icon-left="ci-share">
               <p>{{ $t('common.shareCta') }}</p>
-            </base-button>
-            <base-button
+            </m-base-button>
+            <m-base-button
               class="btn -cancel"
               icon-left="ci-close_big"
               size="medium"
             >
               {{ $t('common.cancelCta') }}
-            </base-button>
+            </m-base-button>
           </div>
         </div>
         <div v-if="isPendingStatus" class="notification">
@@ -55,9 +55,9 @@
             <p class="name">
               {{ $t('transactions.statement') }}
             </p>
-            <base-button class="button" size="medium" view="flat">
+            <m-base-button class="button" size="medium" view="flat">
               {{ $t('transactions.download') }}
-            </base-button>
+            </m-base-button>
           </li>
           <li v-if="transaction.fee" class="main-item">
             <p class="name">
@@ -77,12 +77,12 @@
             <i class="ci-chevron_big_right" />
           </div>
           <div v-else class="button-container">
-            <base-button v-if="isFailedStatus" block view="secondary">
+            <m-base-button v-if="isFailedStatus" block view="secondary">
               Retry Transaction
-            </base-button>
-            <base-button v-else block view="secondary">
+            </m-base-button>
+            <m-base-button v-else block view="secondary">
               Repeat Transaction
-            </base-button>
+            </m-base-button>
           </div>
         </template></template
       >
@@ -91,7 +91,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, PropType } from 'vue';
+import { computed, inject, PropType } from 'vue';
 import { useI18n } from 'vue-i18n';
 
 import {
@@ -102,11 +102,14 @@ import {
 import { getRelativeDate } from '@/helpers/datetime';
 
 import {
-  BaseButton,
   TransactionIconWithStatus,
   TransactionStatus,
   TTopNavigation,
 } from '@/components/ui';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const { tm } = useI18n();
 

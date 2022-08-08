@@ -1,5 +1,5 @@
 <template>
-  <ContactInitials
+  <a-contact-initials
     :name="props.contact.displayName"
     :is-friend="props.contact.isFriend"
   />
@@ -28,13 +28,16 @@ export default {
 </script>
 
 <script setup lang="ts">
-import { PropType } from 'vue';
+import { inject, PropType } from 'vue';
 
-import ContactInitials from '@/components/ui/atoms/ContactInitials.vue';
 import { getContactPhone } from '@/helpers/contacts';
 
 import { Contact } from '@/types/contacts';
 import { Route } from '@/router/types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { AContactInitials } = uiKit!;
 
 const props = defineProps({
   contact: {
@@ -46,6 +49,8 @@ const props = defineProps({
 
 <style lang="scss" scoped>
 .user-contact {
+  width: 100%;
+
   > .name {
     font-weight: 500;
     font-size: 17px;

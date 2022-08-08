@@ -5,7 +5,7 @@
     :is-error="isError"
     @on-hide="onHideError"
     @on-complete="onComplete"
-    @on-prev="$router.push({ name: Route.ConfigureApp })"
+    @on-prev="prevStep"
   />
 </template>
 
@@ -54,7 +54,7 @@ async function getSupportedIdentificationWay() {
     return Route.TouchId;
   }
 
-  return Route.PushNotifications;
+  return Route.AuthPasscode;
 }
 
 const onHideError = () => {
@@ -102,6 +102,10 @@ const onComplete = async (code: string) => {
 const getFormattedPhone = async (): Promise<void> => {
   const { dialCode: dc, phone: ph } = await authStore.recoverPhoneFromStorage();
   phone.value = formatPhone(dc, ph);
+};
+
+const prevStep = (): void => {
+  router.push({ name: Route.ConfigureApp });
 };
 </script>
 

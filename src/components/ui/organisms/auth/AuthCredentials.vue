@@ -11,9 +11,11 @@
         />
       </div>
       <div class="col-8 ml-auto">
-        <base-input
+        <!-- TODO:need to use type variable -->
+        <m-base-input
           :key="updateKey"
           v-model="number"
+          class="m-base-input"
           :use-grouping="false"
           :type="type"
           :mask="mask"
@@ -24,14 +26,15 @@
           @blur="closeClearBtn"
         >
           <template #label> {{ $t('common.numberLabel') }}s </template>
-          <template v-if="isClearBtnShown" #append>
-            <i
-              class="icon-transaction-small-reverted"
+          <template v-if="isClearBtnShown" #actions>
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click.prevent="clearNumber"
               @touchend.prevent="clearNumber"
             />
           </template>
-        </base-input>
+        </m-base-input>
       </div>
     </div>
     <div class="footer">
@@ -41,22 +44,27 @@
       </span>
     </div>
     <div class="sign-button-wrapper">
-      <base-button :disabled="isNumberInvalid" block @click="handleStep">
+      <m-base-button :disabled="isNumberInvalid" block @click="handleStep">
         {{ nextTitle }}
-      </base-button>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { Ref, ref } from 'vue';
+import { Ref, ref, inject } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
-import { BaseButton, BaseCountryPhoneInput, BaseInput } from '@/components/ui';
+import { BaseCountryPhoneInput } from '@/components/ui';
 
 import { ICountryInformation } from '@/types/country-phone-types';
 import { TypeBaseInput } from '@/components/ui/molecules/base-input/types';
+import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const emits = defineEmits([
   'handleSelectCountry',
@@ -171,6 +179,10 @@ const forceUpdate = () => {
 </script>
 
 <style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
 .auth-page-container {
   > .title {
     margin-bottom: 8px;

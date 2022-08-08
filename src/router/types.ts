@@ -5,6 +5,8 @@ export enum Route {
   AuthCode = 'auth-code',
   AuthPasscode = 'auth-passcode',
   ChangePasscode = 'change-passcode',
+  RestorePasscode = 'restore-passcode',
+  RestorePasscodeSuccess = 'restore-passcode-success',
   ChangePasscodeEnter = 'change-passcode-enter',
   ChangeAuthapp = 'change-authapp',
   SignUp = 'sign-up',

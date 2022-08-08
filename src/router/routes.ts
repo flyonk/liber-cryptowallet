@@ -5,6 +5,7 @@ import CodeEnter from '@/views/Auth/CodeEnter.vue';
 import SignUp from '@/views/Auth/SignUp/SignUp.vue';
 import Login from '@/views/Auth/Login/MainLogin.vue';
 import Restore from '@/views/Auth/Restore/MainRestore.vue';
+import PSuspendedTransaction from '@/components/ui/pages/PSuspendedTransaction.vue';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
 import { ServicesRoutes } from '@/applications/servicesapp/router/types';
@@ -16,6 +17,8 @@ import PasscodeEnter from '@/views/ConfigureApp/PasscodeEnter.vue';
 import ChangePasscode from '@/views/ConfigureApp/ChangePasscode.vue';
 import ChangePasscodeEnter from '@/views/ConfigureApp/ChangePasscodeEnter.vue';
 import ChangeAuthApp from '@/views/ConfigureApp/ChangeAuthApp.vue';
+import RestorePasscode from '@/views/ConfigureApp/RestorePasscode.vue';
+import RestorePasscodeSuccess from '@/views/ConfigureApp/RestorePasscodeSuccess.vue';
 
 import FaceId from '@/views/ConfigureApp/Options/FaceId.vue';
 import TouchId from '@/views/ConfigureApp/Options/TouchId.vue';
@@ -108,6 +111,20 @@ const routes: Array<RouteRecordRaw> = [
   },
 
   {
+    path: '/restore-passcode',
+    name: Route.RestorePasscode,
+    component: RestorePasscode,
+    meta: { layout: 'default' },
+  },
+
+  {
+    path: '/restore-passcode-success',
+    name: Route.RestorePasscodeSuccess,
+    component: RestorePasscodeSuccess,
+    meta: { layout: 'default' },
+  },
+
+  {
     path: '/change-passcode-enter',
     name: Route.ChangePasscodeEnter,
     component: ChangePasscodeEnter,
@@ -143,6 +160,16 @@ const routes: Array<RouteRecordRaw> = [
     path: '/restore',
     name: Route.Restore,
     component: Restore,
+    children: [
+      {
+        path: 'suspended',
+        name: 'suspended-transaction',
+        component: PSuspendedTransaction,
+        meta: {
+          classLayout: '-full-height',
+        },
+      },
+    ],
     meta: {
       layout: 'default',
     },

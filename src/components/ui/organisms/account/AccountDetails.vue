@@ -74,35 +74,38 @@
       </div>
 
       <div class="btns-container">
-        <base-button
+        <m-base-button
           :view="ViewBaseButton.Secondary"
           disabled
           @click="saveImage"
         >
           {{ $t('views.deposit.wallet.saveImage') }}
-        </base-button>
-        <base-button @click="shareAddress">
+        </m-base-button>
+        <m-base-button @click="shareAddress">
           {{ $t('views.deposit.wallet.shareAddress') }}
-        </base-button>
+        </m-base-button>
       </div>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref } from 'vue';
+import { computed, inject, onBeforeMount, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { ICreateAccount } from '@/models/account/createAccount';
 import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
 import { useAccountStore } from '@/applications/liber/stores/account';
-import { Clipboard } from '@capacitor/clipboard';
+import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useToast } from 'primevue/usetoast';
 import { check, share } from '@/helpers/nativeShare';
 
 import QrCode from 'qrcode-vue3';
-import { BaseButton } from '@/components/ui';
 import AccountDetailsSkeleton from './AccountDetailsSkeleton.vue';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const toast = useToast();
 const { tm } = useI18n();

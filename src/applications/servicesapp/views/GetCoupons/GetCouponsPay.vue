@@ -3,13 +3,16 @@
     @click:left-icon="$router.push({ name: ServicesRoutes.GetCouponsEmail })"
   >
     <template #top-right>
-      <span class="header-email">{{ email }}</span>
+      <span class="header-email"
+        ><span style="text-transform: lowercase">{{ $t('common.to') }}</span
+        >: {{ email }}</span
+      >
     </template>
     <template #title>{{ $t('services.convert.title') }}</template>
     <template #content>
       <div class="send-to">
         <div class="sendto-main">
-          <o-change-currency />
+          <o-change-currency :min-amount="50" :max-amount="1000" />
         </div>
       </div>
     </template>
@@ -43,7 +46,15 @@ const email = computed(() => {
 }
 
 .header-email {
-  flex-grow: 1;
+  margin-left: 10px;
   text-align: left;
+  white-space: nowrap;
+}
+
+:deep(.top-right-wrapper) {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
 }
 </style>

@@ -1,3 +1,5 @@
+const reduce = require('image-blob-reduce')();
+
 export const cropImage = async (
   base64: string,
   x: number,
@@ -37,3 +39,25 @@ const crop = (
   ctx?.drawImage(image, x, y, newWidth, newHeight, 0, 0, newWidth, newHeight);
   return canvas.toDataURL('image/jpeg');
 };
+
+/**
+ * Function compress provided blob and return file created from it
+ *
+ * @param blob - The blob
+ * @param fileName - Expected name of new file
+ * @param fileType - Expected type of new file
+ * @returns {File}
+ */
+export async function compressFileOrBlob(
+  blob: Blob,
+  fileName: string,
+  fileType: string
+): Promise<File> {
+  let binaryFile = {} as File;
+  await reduce.toBlob(blob, { max: 1000 }).then((compressedBlob: Blob) => {
+    binaryFile = new File([compressedBlob], fileName, {
+      type: fileType,
+    });
+  });
+  return binaryFile;
+}

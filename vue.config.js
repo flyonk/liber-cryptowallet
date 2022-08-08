@@ -19,6 +19,7 @@ module.exports = {
       ...(useSentryPlugin
         ? [
             new SentryWebpackPlugin({
+              release: `cw@${process.env.VUE_APP_VERSION}`,
               include: './dist',
               ignore: ['node_modules', 'vue.config.js'],
             }),
@@ -47,17 +48,51 @@ module.exports = {
   css: {
     loaderOptions: {
       scss: {
-        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "${process.env.VUE_APP_STATIC_STORAGE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css";`,
+        additionalData: `@import "@/assets/styles/common/variables.scss"; @import "@/assets/styles/common/mixins.scss"; @import "${process.env.VUE_APP_STATIC_STORAGE_URL}/build/styles/common/${whitelabelConfigPath.brand}/variables.css"; @import "@liber-biz/crpw-ui-kit-${whitelabelConfigPath.brand}/dist/crpw.css";`,
       },
     },
   },
   pwa: {
-    name: 'Liber App',
+    name: whitelabelConfigPath.nameApp,
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
+    themeColor: whitelabelConfigPath.mainColor,
 
     // configure the workbox plugin
     workboxPluginMode: 'InjectManifest',
+    iconPaths: {
+      favicon32: `img/icons/${whitelabelConfigPath.appIconsFolder}/favicon-32x32.png`,
+      favicon16: `img/icons/${whitelabelConfigPath.appIconsFolder}/favicon-16x16.png`,
+      appleTouchIcon: `img/icons/${whitelabelConfigPath.appIconsFolder}/apple-touch-icon-152x152.png`,
+      maskIcon: `img/icons/${whitelabelConfigPath.appIconsFolder}/safari-pinned-tab.svg`,
+      msTileImage: `img/icons/${whitelabelConfigPath.appIconsFolder}/msapplication-icon-144x144.png`,
+    },
+    manifestOptions: {
+      icons: [
+        {
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-192x192.png`,
+          sizes: '192x192',
+          type: 'image/png',
+        },
+        {
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-512x512.png`,
+          sizes: '512x512',
+          type: 'image/png',
+        },
+        {
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-maskable-192x192.png`,
+          sizes: '192x192',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
+        {
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-maskable-512x512.png`,
+          sizes: '512x512',
+          type: 'image/png',
+          purpose: 'maskable',
+        },
+      ],
+    },
     workboxOptions: {
       // swSrc is required in InjectManifest mode.
       swSrc: './src/service-worker.js',

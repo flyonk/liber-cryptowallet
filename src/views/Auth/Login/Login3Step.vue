@@ -9,7 +9,10 @@
           @submit="onSubmit"
         />
 
-        <router-link :to="{ name: Route.SignUp }" class="recovery-link">
+        <router-link
+          :to="{ name: Route.RestorePasscode }"
+          class="recovery-link"
+        >
           {{ $t('auth.login.forgotYourPasscode') }}
         </router-link>
       </div>
@@ -37,7 +40,6 @@ import { useI18n } from 'vue-i18n';
 import { useAuthStore } from '@/stores/auth';
 import { use2faStore } from '@/stores/2fa';
 import { useAppOptionsStore } from '@/stores/appOptions';
-import { usePasscodeStore } from '@/stores/passcode';
 import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
 
@@ -48,7 +50,6 @@ import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscod
 const router = useRouter();
 const { t } = useI18n();
 
-const passcodeStore = usePasscodeStore();
 const authStore = useAuthStore();
 const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
@@ -91,16 +92,14 @@ async function onSubmit(success: boolean): Promise<void> {
   }
 }
 
-async function deletePasscode(): Promise<void> {
-  await passcodeStore.delete();
-}
+// async function deletePasscode(): Promise<void> {
+//   await passcodeStore.delete();
+// }
 
 async function prevStep(): Promise<void> {
   if (show2FA.value) {
     authStore.setStep(1, 'login');
   } else {
-    await deletePasscode();
-
     await authStore.clearTokenData();
     authStore.setStep(0, 'login');
   }
@@ -124,6 +123,10 @@ async function handleSuccessVerification(): Promise<void> {
 <style lang="scss">
 .login-passcode {
   margin-top: 108px;
+
+  @media (max-height: 680px) {
+    margin-top: 20px;
+  }
 }
 
 .page-title {
@@ -146,6 +149,10 @@ async function handleSuccessVerification(): Promise<void> {
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.0043em;
+
+  @media (max-height: 680px) {
+    margin-top: 10px;
+  }
 }
 
 .recovery-link:visited {

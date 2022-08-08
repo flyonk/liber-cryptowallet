@@ -6,56 +6,64 @@
     </template>
     <template #content>
       <div class="auth-page-container">
-        <base-input
-          v-model="firstname"
+        <m-base-input
+          :model-value="firstname"
           @focus="showClearFirstNameBtn"
           @blur="closeClearFirstNameBtn"
-          @input.stop="firstNamePreventExtraCharacters"
+          @update:modelValue="firstNamePreventExtraCharacters"
         >
           <template #label>
             {{ $t('common.firstName') }}
           </template>
-          <template v-if="isClearFirstNameBtnShown" #append>
-            <i
-              class="icon-transaction-small-reverted"
+          <template v-if="isClearFirstNameBtnShown" #actions>
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearFirstName"
               @touchend="clearFirstName"
             />
           </template>
-        </base-input>
-        <base-input
-          v-model="lastname"
+        </m-base-input>
+        <m-base-input
+          :model-value="lastname"
+          class="m-base-input"
           @focus="showClearLastNameBtn"
           @blur="closeClearLastNameBtn"
-          @input.stop="lastNamePreventExtraCharacters"
+          @update:modelValue="lastNamePreventExtraCharacters"
         >
           <template #label>
             {{ $t('common.lastName') }}
           </template>
-          <template v-if="isClearLastNameBtnShown" #append>
-            <i
-              class="icon-transaction-small-reverted"
+          <template v-if="isClearLastNameBtnShown" #actions>
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
               @click="clearLastName"
               @touchend="clearLastName"
             />
           </template>
-        </base-input></div
+        </m-base-input></div
     ></template>
     <template #fixed-footer>
-      <base-button block :disabled="isFullNameInvalid" @click="nextStep">
+      <m-base-button block :disabled="isFullNameInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
-      </base-button>
+      </m-base-button>
     </template>
   </t-top-navigation>
 </template>
 
 <script lang="ts" setup>
+import { inject } from 'vue';
 import { ref } from 'vue-demi';
 
-import { BaseButton, BaseInput } from '@/components/ui';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { computed } from '@vue/reactivity';
 import { useProfileStore } from '@/stores/profile';
+import { uiKitKey } from '@/types/symbols';
+import { STATIC_BASE_URL } from '@/constants';
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput, MBaseButton } = uiKit!;
 
 const pStore = useProfileStore();
 
@@ -65,7 +73,7 @@ const firstname = ref('');
 const lastname = ref('');
 const isClearFirstNameBtnShown = ref(false);
 const isClearLastNameBtnShown = ref(false);
-const preventNumbersRegExp = new RegExp(/([\d*])/, 'g');
+const preventNumbersRegExp = new RegExp(/([\d])/, 'g');
 
 const isFullNameInvalid = computed(() => {
   return !firstname.value || !lastname.value;
@@ -103,33 +111,46 @@ const nextStep = () => {
   emit('next');
 };
 
-const firstNamePreventExtraCharacters = (event: Event) => {
+const firstNamePreventExtraCharacters = (value: string) => {
   /**
    * Trim for remove the problem after inserting a hint from the iphone keyboard.
    * This insert adds the ' ' character to the field
    */
-  if (firstname.value === ' ') {
-    firstname.value = firstname.value.replace(/\s/, '');
+  let valueToSet = value;
+  if (valueToSet === ' ') {
+    valueToSet = valueToSet.replace(/\s*/, '');
   }
-
-  firstname.value = firstname.value.replaceAll(preventNumbersRegExp, '');
-
-  const target = event.target as HTMLInputElement;
-  target.value = firstname.value;
+  firstname.value = value;
+  setTimeout(() => {
+    firstname.value = valueToSet.replaceAll(preventNumbersRegExp, '');
+  }, 0);
 };
 
-const lastNamePreventExtraCharacters = (event: Event) => {
+const lastNamePreventExtraCharacters = (value: string) => {
   /**
    * /\s/ for remove the problem after inserting a hint from the iphone keyboard.
    * This insert adds the ' ' character to the field
    */
-  if (lastname.value === ' ') {
-    lastname.value = lastname.value.replace(/\s/, '');
+  let valueToSet = value;
+  if (valueToSet === ' ') {
+    valueToSet = valueToSet.replace(/\s*/, '');
   }
+  lastname.value = value;
 
-  lastname.value = lastname.value.replaceAll(preventNumbersRegExp, '');
-
-  const target = event.target as HTMLInputElement;
-  target.value = lastname.value;
+  setTimeout(() => {
+    lastname.value = valueToSet.replaceAll(preventNumbersRegExp, '');
+  }, 0);
 };
 </script>
+
+<style lang="scss" scoped>
+.m-base-input {
+  margin: 0 0 16px;
+}
+
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
+}
+</style>
