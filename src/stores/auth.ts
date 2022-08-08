@@ -8,7 +8,7 @@ import authService from '@/services/authService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
-import { EStorageKeys, SStorageKeys } from '@/types/storage';
+import { EStorageKeys } from '@/types/storage';
 import { EStepDirection } from '@/types/base-component';
 import { useErrorsStore } from '@/stores/errors';
 
@@ -181,13 +181,13 @@ export const useAuthStore = defineStore('auth', {
           ? JSON.stringify(this.login)
           : JSON.stringify(this.registration);
       await set({
-        key: EStorageKeys.phone,
+        key: EStorageKeys.loginPhone,
         value,
       });
     },
 
     async recoverPhoneFromStorage(): Promise<Record<string, string>> {
-      const json = await get(EStorageKeys.phone);
+      const json = await get(EStorageKeys.loginPhone);
       return json ? JSON.parse(json) : { dialCode: '', phone: '' };
     },
 
@@ -198,8 +198,8 @@ export const useAuthStore = defineStore('auth', {
     //TODO: rename method ex: getPhoneFromStorage
     async getFromStorage() {
       const [dialCode, phone] = await Promise.all([
-        get('dialCode'),
-        get('phone'),
+        get(EStorageKeys.dialCode),
+        get(EStorageKeys.phone),
       ]);
 
       if (dialCode === 'null' || dialCode === null) {
@@ -220,11 +220,11 @@ export const useAuthStore = defineStore('auth', {
     async setPhoneToStorage() {
       await Promise.all([
         set({
-          key: 'dialCode',
+          key: EStorageKeys.dialCode,
           value: this.login.dialCode,
         }),
         set({
-          key: 'phone',
+          key: EStorageKeys.phone,
           value: this.login.phone,
         }),
       ]);
@@ -247,12 +247,11 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      const [dialCode, phone, touchId, faceId, user] = await Promise.all([
-        get('dialCode'),
-        get('phone'),
+      const [dialCode, phone, touchId, faceId] = await Promise.all([
+        get(EStorageKeys.dialCode),
+        get(EStorageKeys.phone),
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
-        get(SStorageKeys.user),
       ]);
 
       // remove(SStorageKeys.user);
@@ -265,18 +264,23 @@ export const useAuthStore = defineStore('auth', {
 
       await clearAll();
 
+      const lastSessionPhone = JSON.stringify({
+        phone,
+        dialCode,
+      } as ICommonPhoneNumber);
+
       await Promise.all([
         set({
-          key: 'dialCode',
+          key: EStorageKeys.dialCode,
           value: dialCode as string,
         }),
         set({
-          key: 'phone',
+          key: EStorageKeys.phone,
           value: phone as string,
         }),
         set({
-          key: SStorageKeys.user,
-          value: user as string,
+          key: EStorageKeys.lastSessionPhone,
+          value: lastSessionPhone,
         }),
       ]);
 
@@ -299,6 +303,11 @@ export const useAuthStore = defineStore('auth', {
         remove(EStorageKeys.tokenExpire),
       ]);
       this.$reset();
+    },
+
+    async getLastSessionPhone(): Promise<ICommonPhoneNumber | null> {
+      const rawLastSessionPhone = await get(EStorageKeys.lastSessionPhone);
+      return JSON.parse(rawLastSessionPhone ? rawLastSessionPhone : 'null');
     },
   },
 });
