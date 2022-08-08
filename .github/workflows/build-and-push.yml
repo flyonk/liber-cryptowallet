@@ -47,7 +47,7 @@ jobs:
             --build-arg GITHUB_TOKEN=${{ secrets.ACCESS_TOKEN }}
             --build-arg NPM_TOKEN=${{ secrets.NPM_TOKEN }}
             --build-arg BRAND_CONFIGURATION_HOSTNAME=conf.middleware.${{ steps.k8s.outputs.cluster }}.k8s.domain
-            --build-arg BRAND_CONFIGURATION_IP=.${{ steps.k8s.outputs.cluster_front_ip }}
+            --build-arg BRAND_CONFIGURATION_IP=${{ steps.k8s.outputs.cluster_front_ip }}
       - name: deploy
         run: |
           helm --kubeconfig=${{ steps.k8s.outputs.kubeconfig }} upgrade --install liber-app ./provisioning/liber-app \
