@@ -218,6 +218,11 @@ function clear(): void {
   border-radius: 50%;
   user-select: none;
 
+  @include iPhoneSE {
+    width: 70px;
+    height: 70px;
+  }
+
   &:active {
     background-color: $color-primary-50;
   }
