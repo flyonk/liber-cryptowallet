@@ -199,9 +199,8 @@ const startCamera = async () => {
   try {
     await CameraPreview.start(cameraPreviewOptions);
   } catch (err) {
-    await CameraPreview.stop();
-
-    await CameraPreview.start(cameraPreviewOptions);
+    // await CameraPreview.stop();
+    // await CameraPreview.start(cameraPreviewOptions);
 
     errorsStore.handle({
       err,
@@ -244,7 +243,7 @@ const stopCamera = async () => {
       ctx: 'stopCamera',
       description: 'Error when stopping the camera',
     });
-    throw err;
+    // throw err;
   }
 };
 
