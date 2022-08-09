@@ -34,7 +34,7 @@ COPY --chown=node .npmrc ./
 #RUN curl http://$BRAND_CONFIGURATION_HOSTNAME/tenant-config/$BRANDNAME -o env.json
 RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://$BRAND_CONFIGURATION_IP/tenant-config/$BRANDNAME -o env.json
 
-RUN cat env.json
+#RUN cat env.json
 
 RUN yarn install
 
@@ -49,7 +49,7 @@ COPY --chown=node . .
 
 RUN yarn lint
 
-RUN yarn test
+#RUN yarn test
 
 RUN yarn env:from:json
 
