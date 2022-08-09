@@ -34,6 +34,8 @@ COPY --chown=node .npmrc ./
 #RUN curl http://$BRAND_CONFIGURATION_HOSTNAME/tenant-config/$BRANDNAME -o env.json
 RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://$BRAND_CONFIGURATION_IP/tenant-config/$BRANDNAME -o env.json
 
+RUN cat env.json
+
 RUN yarn install
 
 RUN echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > ~/.npmrc
