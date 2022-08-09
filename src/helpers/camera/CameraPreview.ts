@@ -101,7 +101,7 @@ export class CameraPreviewWeb implements CameraPreviewPlugin {
       video.pause();
 
       const st: any = video.srcObject;
-      const tracks = st.getTracks();
+      const tracks = st?.getTracks();
 
       for (let i = 0; i < tracks.length; i++) {
         const track = tracks[i];

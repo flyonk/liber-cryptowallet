@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onMounted, ref } from 'vue';
+import { computed, onDeactivated, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
@@ -29,12 +29,9 @@ import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { PropType } from 'vue-demi';
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AxiosError } from 'axios';
 
 const { t, tm } = useI18n();
-const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 const pStore = useProfileStore();
 const twoFAStore = use2faStore();
@@ -46,6 +43,7 @@ const is2fa = ref(false);
 const verificationCode = ref('');
 const _otp = ref('');
 
+const emit = defineEmits(['next', 'prev']);
 const props = defineProps({
   flow: {
     type: String as PropType<VerifyCodeFlow>,
@@ -78,6 +76,13 @@ onMounted(async () => {
     await authStore.signIn({ phone: phone.value, flow: props.flow });
   } catch (err) {
     errorsStore.handle({ err, name: 'VerifyCode.vue', ctx: 'onMounted' });
+  }
+});
+
+// it is necessary to update the status after 406 in signup
+onDeactivated(() => {
+  if (props.flow === VerifyCodeFlow.Signup) {
+    is2fa.value = false;
   }
 });
 
@@ -132,6 +137,11 @@ const onComplete = async (data: string) => {
           query: { step: 2 },
         });
       case EUserStatus.registered:
+        if (props.flow === VerifyCodeFlow.Signup) {
+          nextStep();
+          return;
+        }
+
         await twoFAStore.set2FADate();
         if (passcode) return nextStep();
         return await router.push({

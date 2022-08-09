@@ -33,6 +33,9 @@
           </li>
         </ul>
       </div>
+      <div v-if="processing" class="overlay">
+        <a-tripple-dots-spinner />
+      </div>
     </template>
     <template #fixed-footer>
       <m-base-button block class="footer-button" @click="selectPicture">
@@ -55,7 +58,7 @@ import { ICountryInformation } from '@/types/country-phone-types';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
-const { ABaseProgressBar, MBaseButton } = uiKit!;
+const { ABaseProgressBar, MBaseButton, ATrippleDotsSpinner } = uiKit!;
 
 const emit = defineEmits(['prev', 'next']);
 
@@ -65,6 +68,7 @@ const profileStore = useProfileStore();
 const getPercentage = computed(() => kycStore.getPercentage * 100);
 
 const uploader = ref();
+const processing = ref(false);
 
 const onUpload = async () => {
   try {
@@ -75,10 +79,15 @@ const onUpload = async () => {
       ({ name }) => name === profileStore.getUser.country
     ) as ICountryInformation;
 
-    kycStore.uploadResidenceFile(claimId, file, countryIso);
+    // @totdo start loader
+    processing.value = true;
+    await kycStore.uploadResidenceFile(claimId, file, countryIso);
+    processing.value = false;
+    // @todo finish loader
 
     emit('next');
   } catch (e) {
+    processing.value = false;
     console.error(e);
   }
 };
@@ -113,5 +122,18 @@ const selectPicture = async () => {
       }
     }
   }
+}
+
+.overlay {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #bfc2ce;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 </style>

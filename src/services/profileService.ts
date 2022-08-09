@@ -133,31 +133,41 @@ export default {
   },
 
   async kycAddFile(id: string, file: File, country: string): Promise<void> {
-    const data = new FormData();
-    const config = {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    };
+    const uploadFiles = new Promise((resolve, reject) => {
+      const data = new FormData();
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
+      const reader = new FileReader();
+      reader.onload = async (readedFile: ProgressEvent<FileReader>) => {
+        if (readedFile?.target?.result) {
+          const blob = new Blob([readedFile?.target?.result], {
+            type: file.type,
+          });
+          const binaryFile = await compressFileOrBlob(
+            blob,
+            file.name,
+            file.type
+          );
+          data.append('file', binaryFile);
 
-    const reader = new FileReader();
-    reader.onload = async (readedFile: ProgressEvent<FileReader>) => {
-      if (readedFile?.target?.result) {
-        const blob = new Blob([readedFile?.target?.result], {
-          type: file.type,
-        });
-        const binaryFile = await compressFileOrBlob(blob, file.name, file.type);
-        data.append('file', binaryFile);
+          try {
+            const result = await axios.post(
+              `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
+              data,
+              config
+            );
+            resolve(result?.data);
+          } catch (error) {
+            reject(error);
+          }
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    });
 
-        return (
-          await axios.post(
-            `${apiService.profile.kycClaim()}/${id}/file/residence?country=${country}&side=front`,
-            data,
-            config
-          )
-        ).data;
-      }
-    };
-    reader.readAsArrayBuffer(file);
+    await uploadFiles;
   },
 };

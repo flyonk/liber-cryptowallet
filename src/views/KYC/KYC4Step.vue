@@ -200,7 +200,6 @@ const startCamera = async () => {
     await CameraPreview.start(cameraPreviewOptions);
   } catch (err) {
     await CameraPreview.stop();
-
     await CameraPreview.start(cameraPreviewOptions);
 
     errorsStore.handle({

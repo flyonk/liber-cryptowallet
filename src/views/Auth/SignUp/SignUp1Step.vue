@@ -33,7 +33,7 @@
   <phone-in-use
     v-if="phoneExist"
     :phone="number"
-    :dial-code="number"
+    :dial-code="countryDialCode"
     @next="continueWithExistedLogin"
     @close="closePhoneModal"
   />
@@ -49,13 +49,11 @@ import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
-import { AxiosError } from 'axios';
-
 const router = useRouter();
 
 const authStore = useAuthStore();
 
-const emits = defineEmits(['next']);
+const emit = defineEmits(['next']);
 
 const number = ref('');
 const countryDialCode = ref('');
@@ -80,25 +78,29 @@ const handleSelectCountry = (dialCode: string) => {
 };
 
 const handleStep = async (phone: number) => {
-  authStore.setDialCode(authStore.registration.dialCode);
-  authStore.setPhone(String(phone));
-  try {
-    await authStore.signInProceed({
-      phone: authStore.getLoginPhone,
-      otp: '',
-      code_2fa: '',
-    });
-  } catch (err: AxiosError | Error | unknown) {
-    const code = (err as AxiosError).response?.status;
-    if (code === 406) {
+  console.log('signUp1step handleStep', phone);
+
+  const stringifiedPhone = '' + phone;
+  await authStore.getFromStorage();
+  const lastSessionPhone = await authStore.getLastSessionPhone();
+
+  if (lastSessionPhone) {
+    const { dialCode: dc, phone: ph } = lastSessionPhone;
+    const currentPhone = countryDialCode.value + stringifiedPhone;
+    const lastSessionPhoneNumber = dc + ph;
+    const isPhoneNumberExist = currentPhone === lastSessionPhoneNumber;
+
+    if (isPhoneNumberExist) {
+      number.value = stringifiedPhone;
+      authStore.setLoginPhone(stringifiedPhone);
       phoneExist.value = true;
       return;
     }
-
-    authStore.registration.phone = String(phone);
-    authStore.savePhone('signup');
-    emits('next');
   }
+
+  authStore.setRegistrationPhone(stringifiedPhone);
+  authStore.savePhone('signup');
+  emit('next');
 };
 
 const prevStep = () => {
