@@ -1,7 +1,7 @@
 <template>
   <m-base-toast
-    @click="closePasscodeToast()"
     v-model:visible="showPasscodeToast"
+    @click="closePasscodeToast()"
   >
     <template #image>
       <div class="popup-image">
