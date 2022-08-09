@@ -9,5 +9,5 @@ dist
 *.sh
 
 #ENV files
-.env
-.env.*
+#.env
+#.env.*
