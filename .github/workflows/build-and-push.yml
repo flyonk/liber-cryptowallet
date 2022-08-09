@@ -25,7 +25,7 @@ jobs:
         run: |
           cluster='dev'
           cluster_front_ip='172.31.27.226'
-          if [[ 'master' == ${{ github.ref_name }} ]]; then
+          if [[ 'dev' == ${{ github.ref_name }} ]]; then
             cluster='prod'
             cluster_front_ip='172.31.18.220'
           fi;
