@@ -1,5 +1,9 @@
 <template name="invite-friends">
-  <t-top-navigation class="min-h-screen">
+  <t-top-navigation
+    leftIconName="icon-app-navigation-close"
+    class="min-h-screen"
+    @click:left-icon="$router.go(-1)"
+  >
     <template #title>{{ $t('views.inviteFriends.title') }}</template>
     <template #content>
       <div class="content-block flex flex-column justify-center h-full">
