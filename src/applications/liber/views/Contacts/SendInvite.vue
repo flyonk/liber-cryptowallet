@@ -33,7 +33,7 @@
           >
             <template #label> Email </template>
           </m-base-input>
-          <p class="add" @click="addExtraContact">
+          <p class="add mt-2" @click="addExtraContact">
             <img src="@/assets/icon/blue_plus.svg" class="mr-2" />
             Additional phone or email
           </p>
@@ -68,10 +68,13 @@ const newContacts = ref([
 ]);
 
 function addExtraContact() {
-  newContacts.value.push({
-    name: '',
-    email: '',
-  });
+  return console.warn(
+    'function temporary deactivated, logick will be added after API'
+  );
+  // newContacts.value.push({
+  //   name: '',
+  //   email: '',
+  // });
 }
 
 const isBtnDisabled = computed(() => {

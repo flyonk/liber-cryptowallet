@@ -16,7 +16,10 @@
               <i class="icon-link" /> {{ $t('views.inviteFriends.shareLink') }}
             </p></m-base-button
           >
-          <m-base-button size="large" class="w-1/2"
+          <m-base-button
+            @click="$router.push({ name: Route.ContactsSendInvite })"
+            size="large"
+            class="w-1/2"
             ><p class="text--footnote whitespace-nowrap">
               {{ $t('views.inviteFriends.invitePhone') }}
             </p></m-base-button
@@ -45,7 +48,7 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
-// import { Route } from '@/router/types';
+import { Route } from '@/router/types';
 // import { uiKitKey } from '@/types/symbols';
 // import { useRouter } from 'vue-router';
 // import { useAccountStore } from '@/applications/liber/stores/account';
