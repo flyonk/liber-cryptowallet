@@ -4,12 +4,11 @@
     class="min-h-screen"
     @click:left-icon="$router.go(-1)"
   >
-    <template #title>Find your friends</template>
+    <template #title>{{ $t('views.findYourFriends.title') }}</template>
     <template #content>
       <div class="content-block flex flex-column justify-center h-full">
         <p class="description text--body">
-          Send and request money from your friends more easily, split bills and
-          much more.
+          {{ $t('views.findYourFriends.sendMeRequest') }}
         </p>
         <div class="main">
           <img
@@ -18,17 +17,16 @@
             class="image"
           />
           <p class="text--footnote text-center mb-5">
-            You can hide yourself from being visible to your Liber friends at
-            any time through your privacy settings.
+            {{ $t('views.findYourFriends.hideYourSelf') }}
           </p>
           <div class="flex w-full justify-center mb-2">
             <m-base-button size="large" class="w-full">
-              Allow access to contacts
+              {{ $t('views.findYourFriends.accessContacts') }}
             </m-base-button>
           </div>
           <div class="flex w-full justify-center">
             <m-base-button size="large" view="flat" class="w-full">
-              Not Now
+              {{ $t('views.findYourFriends.notNow') }}
             </m-base-button>
           </div>
         </div>
