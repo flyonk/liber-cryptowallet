@@ -66,6 +66,7 @@ export enum Route {
   Deposit = 'deposit',
 
   Contacts = 'contacts',
+  ContactsInviteFriends = 'contacts.invite.friends',
   ContactsAddNewContact = 'contacts.add.new.contact',
   ContactsPay = 'contacts.who-to-pay',
   ContactsSend = 'contacts-send',

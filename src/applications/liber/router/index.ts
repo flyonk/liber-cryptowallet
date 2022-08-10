@@ -25,6 +25,7 @@ import WhoToPay from '@/applications/liber/views/Contacts/WhoToPay.vue';
 import SendTo from '@/applications/liber/views/Contacts/SendTo.vue';
 import FirstTimeInvite from '@/applications/liber/views/Contacts/FirstTimeInvite.vue';
 import SendInvite from '@/applications/liber/views/Contacts/SendInvite.vue';
+import InviteFriends from '@/applications/liber/views/Contacts/InviteFriends.vue';
 import AddNewContact from '@/applications/liber/views/Contacts/AddNewContact.vue';
 import SendViaLink from '@/applications/liber/views/Contacts/SendViaLink.vue';
 
@@ -161,6 +162,12 @@ const routes: Array<RouteRecordRaw> = [
         name: Route.ContactsWhoToPay,
         component: WhoToPay,
         children: PayRecipientsRoutes,
+      },
+      {
+        path: 'invite',
+        name: Route.ContactsInviteFriends,
+        component: InviteFriends,
+        meta: { classLayout: '-full-height' },
       },
       {
         path: 'send/:id',
