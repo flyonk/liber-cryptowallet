@@ -35,7 +35,7 @@
     </template>
   </t-top-navigation>
 
-  <m-base-toast v-model:visible="showPopup">
+  <m-base-toast v-model:visible="showPopup" @update:visible="onCancel">
     <template #image>
       <div class="popup-image">
         <img
@@ -61,7 +61,7 @@
           class="btn"
           size="large"
           view="secondary"
-          @click="showPopup = false"
+          @click="onCancel"
         >
           {{ $t('common.cancelCta') }}
         </m-base-button>
@@ -125,6 +125,11 @@ const onConfirm = () => {
       name: Route.InstallApp,
     });
   }
+};
+
+const onCancel = () => {
+  showPopup.value = false;
+  is2FAConfigured.value = pStore.getUser.is2FAConfigured;
 };
 
 watch(is2FAConfigured, (val) => {

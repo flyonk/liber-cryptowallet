@@ -47,11 +47,15 @@ COPY --chown=node . .
 
 RUN yarn lint
 
-RUN yarn test
+RUN touch ~/.env
 
 RUN yarn env:from:json
 
+#RUN yarn test
+
 RUN yarn build
+
+RUN rm -f ~/.env
 
 FROM nginxinc/nginx-unprivileged:1.21.6
 
