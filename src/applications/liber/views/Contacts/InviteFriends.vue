@@ -1,20 +1,20 @@
 <template name="invite-friends">
   <t-top-navigation class="min-h-screen">
-    <template #title>Invite Friends</template>
+    <template #title>{{ $t('views.inviteFriends.title') }}</template>
     <template #content>
       <div class="content-block flex flex-column justify-center h-full">
         <p class="text--body mb-3">
-          Invite a friend and share the Liber experience with them
+          {{ $t('views.inviteFriends.inviteFriend') }}
         </p>
         <div class="controls flex w-full h-full">
           <m-base-button size="large" class="mr-2 w-1/2"
             ><p class="text--footnote whitespace-nowrap">
-              <i class="icon-link" /> Share Link
+              <i class="icon-link" /> {{ $t('views.inviteFriends.shareLink') }}
             </p></m-base-button
           >
           <m-base-button size="large" class="w-1/2"
             ><p class="text--footnote whitespace-nowrap">
-              Invite by Phone or Email
+              {{ $t('views.inviteFriends.invitePhone') }}
             </p></m-base-button
           >
         </div>
@@ -25,12 +25,14 @@
             class="image"
           />
           <h2 class="text--title-3 font-semibold mb-1">
-            Enable contacts permission
+            {{ $t('views.inviteFriends.enableContacts') }}
           </h2>
           <p class="text-default mb-4">
-            Quickly invite friends from your contacts list
+            {{ $t('views.inviteFriends.quickInvite') }}
           </p>
-          <p class="link text--headline">Allow access to contacts</p>
+          <p class="link text--headline">
+            {{ $t('views.inviteFriends.acessContacts') }}
+          </p>
         </div>
       </div>
     </template>

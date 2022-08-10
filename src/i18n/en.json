@@ -317,6 +317,15 @@
       "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
       "contactsCTA": "Allow access to contacts"
     },
+    "inviteFriends": {
+      "title": "Invite Friends",
+      "inviteFriend": "Invite a friend and share the Liber experience with them",
+      "shareLink": "Share Link",
+      "invitePhone": "Invite by Phone or Email",
+      "enableContacts": "Enable contacts permission",
+      "quickInvite": "Quickly invite friends from your contacts list",
+      "acessContacts": "Allow access to contacts"
+    },
     "recipients": {
       "recipients": "Recipients",
       "add": "Add a new contact"
