@@ -42,7 +42,7 @@
           </p>
         </div>
         <div class="main" v-else>
-          <h1>temporary</h1>
+          <contacts-list :contacts="contacts" />
         </div>
       </div>
     </template>
@@ -52,15 +52,24 @@
 <script setup lang="ts">
 import { inject, ref } from 'vue';
 import { Route } from '@/router/types';
-// import { useRouter } from 'vue-router';
+import { useRoute } from 'vue-router';
 // import { useAccountStore } from '@/applications/liber/stores/account';
 import { STATIC_BASE_URL } from '@/constants';
 import { TTopNavigation } from '@/components/ui';
 import { uiKitKey } from '@/types/symbols';
+import ContactsList from '@/components/ui/organisms/ContactsList.vue';
+import { useRecipientsStore } from '@/stores/recipients';
+import { Contact } from '@/types/contacts';
 
+const { meta } = useRoute();
 const uiKit = inject(uiKitKey);
 const { MBaseButton } = uiKit!;
-const isContactsListAllowed = ref(true);
+const isContactsListAllowed = ref(false);
+const recipientsStore = useRecipientsStore();
+
+const contacts: Contact[] = meta?.friends
+  ? recipientsStore.getFriends
+  : recipientsStore.getContacts;
 </script>
 
 <style lang="scss" scoped>
