@@ -25,7 +25,7 @@
             </p></m-base-button
           >
         </div>
-        <div class="main">
+        <div class="main" v-if="isContactsListAllowed">
           <img
             :src="`${STATIC_BASE_URL}/static/illustrations/empty_friend.png`"
             alt="friend"
@@ -41,15 +41,17 @@
             {{ $t('views.inviteFriends.acessContacts') }}
           </p>
         </div>
+        <div class="main" v-else>
+          <h1>temporary</h1>
+        </div>
       </div>
     </template>
   </t-top-navigation>
 </template>
 
 <script setup lang="ts">
-import { inject } from 'vue';
+import { inject, ref } from 'vue';
 import { Route } from '@/router/types';
-// import { uiKitKey } from '@/types/symbols';
 // import { useRouter } from 'vue-router';
 // import { useAccountStore } from '@/applications/liber/stores/account';
 import { STATIC_BASE_URL } from '@/constants';
@@ -58,6 +60,7 @@ import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
 const { MBaseButton } = uiKit!;
+const isContactsListAllowed = ref(true);
 </script>
 
 <style lang="scss" scoped>
