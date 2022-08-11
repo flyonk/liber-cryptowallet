@@ -1,41 +1,43 @@
 <template>
-  <m-base-bottom-sheet-v @close="$emit('close')" @expanded="onExpanded">
-    <div class="m-base-bottom-sheet-v-wrapper">
-      <div class="menu-header">
-        <i
-          v-show="expanded"
-          class="icon icon-app-navigation-close"
-          @click.stop="$emit('close')"
-        />
+  <div class="account-list">
+    <m-base-bottom-sheet-v @close="$emit('close')" @expanded="onExpanded">
+      <div class="m-base-bottom-sheet-v-wrapper">
+        <div class="menu-header">
+          <i
+            v-show="expanded"
+            class="icon icon-app-navigation-close"
+            @click.stop="$emit('close')"
+          />
 
-        <h4 class="title">
-          {{ $t('views.dashboard.home.accounts') }}
-        </h4>
-        <div class="add" @click="router.push({ name: Route.AccountAdd })">
-          +
+          <h4 class="title">
+            {{ $t('views.dashboard.home.accounts') }}
+          </h4>
+          <div class="add" @click="router.push({ name: Route.AccountAdd })">
+            +
+          </div>
+        </div>
+
+        <div v-show="expanded" class="search-bar">
+          <a-base-search-input v-model="searchQuery" />
+        </div>
+
+        <div class="menu-list">
+          <m-all-accounts-fiat-sum
+            :title="$t('views.dashboard.home.allAccounts')"
+            :currency-code="getSymbolByCode(totalBalance.currency)"
+            :sum="totalBalance.sum"
+            @select="$emit('select', 'all')"
+          />
+          <m-base-account
+            v-for="(account, index) in filteredList"
+            :key="index"
+            :data="account"
+            @click="$emit('select', account.code)"
+          />
         </div>
       </div>
-
-      <div v-show="expanded" class="search-bar">
-        <a-base-search-input v-model="searchQuery" />
-      </div>
-
-      <div class="menu-list">
-        <m-all-accounts-fiat-sum
-          :title="$t('views.dashboard.home.allAccounts')"
-          :currency-code="getSymbolByCode(totalBalance.currency)"
-          :sum="totalBalance.sum"
-          @select="$emit('select', 'all')"
-        />
-        <m-base-account
-          v-for="(account, index) in filteredList"
-          :key="index"
-          :data="account"
-          @click="$emit('select', account.code)"
-        />
-      </div>
-    </div>
-  </m-base-bottom-sheet-v>
+    </m-base-bottom-sheet-v>
+  </div>
 </template>
 
 <script lang="ts" setup>
@@ -91,10 +93,20 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 </script>
 
 <style lang="scss" scoped>
+.account-list {
+
+  > :deep(.base-bottom-sheet-v) {
+    > .background-locker {
+      opacity: 0.8;
+      background-color: $color-brand-500;
+      left: 0;
+    }
+  }
+}
+
 .m-base-bottom-sheet-v-wrapper {
   height: 350px;
 }
-
 .menu-header {
   display: flex;
   align-items: center;
@@ -168,7 +180,6 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
     }
   }
 }
-
 .search-bar {
   margin: 24px 0;
 }
