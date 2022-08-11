@@ -64,9 +64,9 @@ import { Contact } from '@/types/contacts';
 const { meta } = useRoute();
 const uiKit = inject(uiKitKey);
 const { MBaseButton } = uiKit!;
-const isContactsListAllowed = ref(false);
 const recipientsStore = useRecipientsStore();
 
+const isContactsListAllowed = ref(false);
 const contacts: Contact[] = meta?.friends
   ? recipientsStore.getFriends
   : recipientsStore.getContacts;

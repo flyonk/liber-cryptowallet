@@ -22,6 +22,7 @@ import DashboardHomeMenu from '@/components/ui/bottom-swipe-menu/inner-views/Das
 import SurpriseGiftMenu from '@/components/ui/bottom-swipe-menu/inner-views/SurpriseGiftMenu.vue';
 import SendMenu from '@/components/ui/bottom-swipe-menu/inner-views/SendMenu.vue';
 import AddContactMenu from '@/components/ui/bottom-swipe-menu/inner-views/AddContactMenu.vue';
+import MessageMenu from '@/components/ui/bottom-swipe-menu/inner-views/MessageMenu.vue';
 
 const menu = ref();
 
@@ -65,6 +66,8 @@ const currentComponent = computed(() => {
       return SendMenu;
     case 'add_contact':
       return AddContactMenu;
+    case 'message':
+      return MessageMenu;
     default:
       return DashboardHomeMenu;
   }
