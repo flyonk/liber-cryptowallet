@@ -8,7 +8,7 @@
     "build": "cross-env process.env.VUE_APP_BRAND='liber' vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --config=jest-unit.config.js",
     "test:e2e": "vue-cli-service test:e2e",
-    "test": "yarn test:unit",
+    "test": "cross-env process.env.VUE_APP_BRAND='liber' yarn test:unit",
     "lint": "cross-env process.env.VUE_APP_BRAND='liber' yarn lint:code && yarn lint:style",
     "devtools": "PORT=8020 vue-devtools",
     "format": "yarn prettier && yarn lint:all:fix",
