@@ -1,5 +1,7 @@
 import { defineStore } from 'pinia';
 
+import { IToast } from '@/types/toast';
+
 export interface IModalStates {
   sendMenu: boolean;
 }
@@ -14,6 +16,8 @@ export interface IUIStoreState {
   loadingState: ILoadingState;
 
   loadingStateOnce?: string[];
+
+  toasts: IToast[];
 }
 
 export const useUIStore = defineStore('ui', {
@@ -27,12 +31,16 @@ export const useUIStore = defineStore('ui', {
     },
 
     loadingStateOnce: [],
+
+    toasts: [],
   }),
 
   getters: {
     getModalStates: (state) => state.modalStates,
 
     getLoadingState: (state) => state.loadingState,
+
+    getToasts: (state) => state.toasts,
   },
 
   actions: {
@@ -49,6 +57,16 @@ export const useUIStore = defineStore('ui', {
         this.loadingState[scope] = state;
         this.loadingStateOnce?.push(scope);
       }
+    },
+
+    showToast(toastData: IToast) {
+      this.toasts = [...this.toasts, toastData];
+    },
+
+    deleteToast() {
+      const [, ...restToasts] = this.toasts;
+
+      this.toasts = restToasts;
     },
   },
 });

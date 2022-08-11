@@ -101,8 +101,6 @@
           </template>
         </t-top-navigation>
       </p-dialog>
-
-      <o-withdraw-success-toast v-model:visible="showSuccessToast" />
     </template>
     <template #fixed-footer>
       <m-base-button
@@ -134,7 +132,6 @@ import { uiKitKey } from '@/types/symbols';
 
 import {
   MNetworkSelectAnswer,
-  OWithdrawSuccessToast,
   OWithdrawSummary,
   TTopNavigation,
 } from '@/components/ui';
@@ -165,7 +162,6 @@ const form = ref({
 });
 
 const networks = ref([]) as Ref<string[]>;
-const showSuccessToast = computed(() => withdrawStore.showSuccessToast);
 
 const coins = computed(() => {
   return coinStore.getCoins.filter((coin) => {

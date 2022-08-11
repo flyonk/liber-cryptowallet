@@ -1,14 +1,14 @@
-export enum EToastSeverity {
-  'error' = 'error',
-  'warning' = 'warning',
-  'success' = 'success',
+import { LocaleMessageValue, VueMessageType } from 'vue-i18n';
+
+export interface IToast {
+  severity: EToastSeverity;
+  title: string | LocaleMessageValue<VueMessageType>;
+  description: string | LocaleMessageValue<VueMessageType>;
+  additionalContent?: object;
 }
 
-export interface IToastStore {
-  open: boolean;
-  header: string | null;
-  description: string | null;
-  footer: string | null;
-
-  severity: EToastSeverity;
+export enum EToastSeverity {
+  warning = 'warning',
+  error = 'error',
+  success = 'success',
 }
