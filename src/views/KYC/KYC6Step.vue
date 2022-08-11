@@ -97,7 +97,7 @@ const selectPicture = async () => {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .kyc-6-step {
   > .list {
     margin: 0 0 0 8px;
@@ -131,9 +131,13 @@ const selectPicture = async () => {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: #bfc2ce;
+  background-color: $color-white;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  &:deep(.bounce) {
+    background-color: #bfc2ce;
+  }
 }
 </style>
