@@ -94,7 +94,6 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 
 <style lang="scss" scoped>
 .account-list {
-
   > :deep(.base-bottom-sheet-v) {
     > .background-locker {
       opacity: 0.8;
@@ -107,6 +106,7 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
 .m-base-bottom-sheet-v-wrapper {
   height: 350px;
 }
+
 .menu-header {
   display: flex;
   align-items: center;
@@ -180,6 +180,7 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
     }
   }
 }
+
 .search-bar {
   margin: 24px 0;
 }
