@@ -45,7 +45,7 @@
             {{ $t('views.inviteFriends.acessContacts') }}
           </p>
         </div>
-        <div v-else class="main w-full h-full">
+        <div v-else class="main w-full">
           <h2 class="text--footnote color-dark-gray font-medium mb-1">
             {{ $t('views.inviteFriends.contactsList.contacts') }}
           </h2>
@@ -59,7 +59,14 @@
               }}</template
             >
           </m-base-input>
-          <contacts-list :contacts="mockedContacts" />
+          <contacts-list :contacts="mockedContacts" with-radio />
+          <m-base-button
+            size="large"
+            view="simple"
+            class="invite-btn"
+            disabled
+            >{{ $t('views.inviteFriends.title') }}</m-base-button
+          >
         </div>
       </div>
     </template>
@@ -99,7 +106,7 @@ const isContactsListAllowed = ref(false);
 
   > .main {
     display: flex;
-    height: 400px;
+    height: 500px;
     flex-direction: column;
 
     > .image {
@@ -115,6 +122,10 @@ const isContactsListAllowed = ref(false);
       color: #2862ff;
     }
   }
+}
+
+.invite-btn {
+  bottom: 20px;
 }
 
 :deep(.container) {
