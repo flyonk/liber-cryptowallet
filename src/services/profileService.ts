@@ -18,7 +18,6 @@ import { EDocumentSide } from '@/types/document';
 export default {
   async getProfile(): Promise<IProfile> {
     const res = await axios.get(apiService.profile.baseUrl());
-    console.log('here', res);
     return profileMapper.deserialize(res.data);
   },
 

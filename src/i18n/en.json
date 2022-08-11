@@ -417,6 +417,8 @@
         "idVerification": "ID Verification",
         "notVerified": "Not Verified",
         "idVerified": "ID Verified",
+        "notStarted": "Not started",
+        "pending": "Pending",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",
         "accounts": "Accounts",

@@ -122,6 +122,26 @@ export const useKYCStore = defineStore('kyc', {
       return await profileService.kycProceedClaimById(claimId);
     },
 
+    async getClaimStatus() {
+      try {
+        const { status } = await profileService.kycGetClaim();
+        return status;
+      } catch (e: Error | any) {
+        if (e?.response && e.response.status === 404) {
+          return 10;
+        } else {
+          const errorsState = useErrorsStore();
+
+          await errorsState.handle({
+            err: e as AxiosError | Error,
+            name: 'getClaim',
+            ctx: 'store/kyc',
+            description: 'Error when get claim data',
+          });
+        }
+      }
+    },
+
     async uploadFile(
       fileBinary: string,
       claimId: string,
