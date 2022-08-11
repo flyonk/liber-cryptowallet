@@ -16,8 +16,8 @@
             />
             <AKycStatusBadge
               class="status"
-              :status="VerificationStatus"
-              :title="$t('views.dashboard.home.idVerified')"
+              :status="verificationStatus"
+              :title="verificationText"
             />
           </div>
         </div>
@@ -52,7 +52,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, ref } from 'vue';
+import { computed, inject, onBeforeMount, Ref, ref } from 'vue';
 
 import { useI18n } from 'vue-i18n';
 
@@ -68,18 +68,31 @@ import { TTopNavigation } from '@/components/ui';
 
 import { COUPONS_ENABLED } from '@/constants';
 import { uiKitKey } from '@/types/symbols';
+import { UiKitInterface } from '@/types/uiKit';
+import { useKYCStore } from '@/stores/kyc';
 
 const uiKit = inject(uiKitKey);
-const { AKycStatusBadge } = uiKit!;
+const { AKycStatusBadge } = uiKit as UiKitInterface;
 
 const { tm } = useI18n();
 const uiStore = useUIStore();
+const kycStore = useKYCStore();
 
-const VerificationStatus = ref(EKYCStatuses.success);
+const verificationStatus = ref(EKYCStatuses.success) as Ref<EKYCStatuses>;
 
 const { stylePaddings } = useSafeAreaPaddings();
 
 const loading = computed(() => uiStore.getLoadingState.dashboard);
+const verificationText = computed(() => {
+  const kycStatusMessageMapper = {
+    not_started: tm('views.dashboard.home.notStarted'),
+    pending: tm('views.dashboard.home.pending'),
+    rejected: tm('views.dashboard.home.notVerified'),
+    success: tm('views.dashboard.home.idVerified'),
+  };
+
+  return kycStatusMessageMapper[verificationStatus.value];
+});
 
 const tabs = [
   {
@@ -101,6 +114,23 @@ if (COUPONS_ENABLED) {
     route: { name: CouponRoutes.DashboardHome },
   });
 }
+
+const setKycStatus = async () => {
+  const kycStatusMapper = {
+    10: EKYCStatuses.not_started,
+    20: EKYCStatuses.pending,
+    30: EKYCStatuses.rejected,
+    40: EKYCStatuses.success,
+  };
+
+  const statusCode = await kycStore.getClaimStatus();
+
+  verificationStatus.value = kycStatusMapper[statusCode as 10 | 20 | 30 | 40];
+};
+
+onBeforeMount(async () => {
+  await setKycStatus();
+});
 </script>
 
 <style lang="scss" scoped>
