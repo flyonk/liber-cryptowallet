@@ -204,7 +204,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/withdraw',
     name: Route.Withdraw,
-    meta: { authRequired: true },
+    meta: { authRequired: true, classLayout: '-full-height' },
     component: Withdraw,
   },
 

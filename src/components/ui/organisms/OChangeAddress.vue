@@ -158,9 +158,9 @@ const onContinue = async () => {
 
 const isValid = (key: keyof typeof form) => {
   switch (key) {
-    case 'optionalAddress':
     case 'postalCode':
       return form[key] ? /^[a-zA-Z\d -]+$/.test(form[key] + '') : false;
+    case 'optionalAddress':
     case 'street':
     case 'city':
     case 'state':

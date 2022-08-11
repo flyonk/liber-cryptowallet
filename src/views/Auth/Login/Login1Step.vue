@@ -78,13 +78,15 @@ onMounted(async () => {
 const handleSelectCountry = (dialCode: string) => {
   // need for sync data with AuthCredentials isNumberInvalid function
   countryDialCode.value = dialCode;
-  authStore.setDialCode(dialCode);
+  authStore.setLoginDialCode(dialCode);
 };
 
 const nextStep = async (phone: string) => {
-  authStore.setPhone(phone);
+  authStore.setLoginPhone(phone);
 
-  authStore.setDialCode(countryDialCode.value ? countryDialCode.value : '+7');
+  authStore.setLoginDialCode(
+    countryDialCode.value ? countryDialCode.value : '+7'
+  );
 
   try {
     await authStore.setPhoneToStorage();

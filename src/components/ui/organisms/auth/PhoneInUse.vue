@@ -39,8 +39,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onMounted, ref } from 'vue';
-import { useAuthStore } from '@/stores/auth';
+import { computed, inject } from 'vue';
 import { uiKitKey } from '@/types/symbols';
 import { STATIC_BASE_URL } from '@/constants';
 
@@ -48,22 +47,18 @@ const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit!;
 
 const emits = defineEmits(['next', 'close']);
-const authStore = useAuthStore();
 
-const dialCode = ref('');
-const number = ref('');
-
-onMounted(() => {
-  dialCode.value = authStore.getLoginDialCode;
-  number.value = authStore.getLoginSubscriberPhone;
+const props = defineProps({
+  phone: { type: String, default: '' },
+  dialCode: { type: String, default: '' },
 });
 
 const formattedPhone = computed(() => {
-  const formattedPhone = `${number.value.slice(0, 3)} ${number.value.slice(
+  const formattedPhone = `${props.phone.slice(0, 3)} ${props.phone.slice(
     3,
     6
-  )} ${number.value.slice(6)}`;
-  return `${dialCode.value} ${formattedPhone}`;
+  )} ${props.phone.slice(6)}`;
+  return `${props.dialCode} ${formattedPhone}`;
 });
 
 const goToLogin = () => {

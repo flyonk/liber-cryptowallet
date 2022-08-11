@@ -6,10 +6,7 @@
   >
     <template #image>
       <div class="popup-image">
-        <img
-          :src="`${STATIC_BASE_URL}/static/media/${toastImg}.svg`"
-          class="image"
-        />
+        <img :src="toastImgUrl" class="image" alt="error" />
       </div>
     </template>
     <template #description>
@@ -83,8 +80,9 @@ const displayAllErrors = computed(() => {
 });
 
 const displayCurrent = computed(() => errorsStore.displayCurrent);
-const toastImg = computed(() =>
-  errorsStore.severity ? 'sapphire-error' : 'sapphire-error'
+
+const toastImgUrl = computed(
+  () => `${STATIC_BASE_URL}/static/media/sapphire-error.svg`
 );
 const isSingleError = computed(() => errorsStore.isSingleError);
 const customComponent = computed(() => errorsStore.getCustomComponent);

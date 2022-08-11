@@ -18,7 +18,11 @@
     </template>
     <template #fixed-footer>
       <div class="footer-wrapper">
-        <m-base-button class="btn" @click="contactSupport">
+        <m-base-button
+          v-if="route.name === Route.Restore"
+          class="btn"
+          @click="contactSupport"
+        >
           {{ $t('auth.restore.contact') }}
         </m-base-button>
       </div>
@@ -28,7 +32,7 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
 
 import { Route } from '@/router/types';
 import { SUPPORT_EMAIL } from '@/constants';
@@ -41,6 +45,7 @@ const { MBaseButton } = uiKit!;
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 
 const router = useRouter();
+const route = useRoute();
 
 const backToLogin = (): void => {
   router.push({
