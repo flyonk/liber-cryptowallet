@@ -15,7 +15,3 @@ export enum EStorageKeys {
   phone = 'phone',
   lastSessionPhone = 'last-session-phone-data',
 }
-
-export enum SStorageKeys {
-  user = 'liber-app-user',
-}

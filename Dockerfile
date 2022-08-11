@@ -51,7 +51,7 @@ RUN touch ~/.env
 
 RUN yarn env:from:json
 
-#RUN yarn test
+RUN yarn test
 
 RUN yarn build
 

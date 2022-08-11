@@ -1,7 +1,7 @@
 const webpack = require('webpack');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const whitelabelConfig = require('./whitelabel.config');
-const path = require('path');
+// const path = require('path');
 process.env.VUE_APP_VERSION = require('./package.json').version;
 
 const useSentryPlugin = process.env.VUE_APP_SENTRY_ENABLED === '1';
@@ -30,10 +30,6 @@ module.exports = {
       // }),
     ],
     resolve: {
-      alias: {
-        // create alias for whitelabel theme
-        brandVariables: path.resolve(__dirname, whitelabelConfigPath.theme),
-      },
       extensions: ['.ts', '.js'],
       fallback: {
         // "util": false,
