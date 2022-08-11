@@ -1,6 +1,6 @@
 <template>
   <EmailAndNumberVerificationCode
-    v-if="mfaStore.data.confirmations.length"
+    v-if="mfaStore.data.confirmations && mfaStore.data.confirmations.length"
     @complete="onEmailAndNumberComplete"
   />
 
