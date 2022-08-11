@@ -10,7 +10,6 @@ export { default as TransactionsList } from './organisms/transactions/Transactio
 export { default as BiometricIdentifierSwitcherButton } from './organisms/BiometricIdentifierSwitcherButton.vue';
 export { default as OWithdrawSummary } from './organisms/withdraw/OWithdrawSummary.vue';
 export { default as OWithdrawConfirmationToast } from './organisms/withdraw/OWithdrawConfirmationToast.vue';
-export { default as OWithdrawSuccessToast } from './organisms/withdraw/OWithdrawSuccessToast.vue';
 export { default as EnterVerificationCode } from './organisms/auth/EnterVerificationCode.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
 export { default as BaseCoinListSelect } from './organisms/BaseCoinListSelect.vue';
@@ -26,3 +25,4 @@ export { default as MNetworkSelectAnswer } from './molecules/MNetworkSelectAnswe
 export { default as AConvertInfoItem } from './atoms/AConvertInfoItem.vue';
 export { default as OChangeAddress } from './organisms/OChangeAddress.vue';
 export { default as OInputConfirmationCode } from './organisms/auth/OInputConfirmationCode.vue';
+export { default as OMainToast } from './organisms/OMainToast.vue';
