@@ -324,7 +324,12 @@
       "invitePhone": "Invite by Phone or Email",
       "enableContacts": "Enable contacts permission",
       "quickInvite": "Quickly invite friends from your contacts list",
-      "acessContacts": "Allow access to contacts"
+      "acessContacts": "Allow access to contacts",
+      "contactsList": {
+        "contacts": "Contacts",
+        "privacy": "For privacy reasons some people are not show as Liber users until you pay them",
+        "searchFilter": "Name, phone, email"
+      }
     },
     "findYourFriends": {
       "title": "Find your friends",
