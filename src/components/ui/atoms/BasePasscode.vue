@@ -217,6 +217,7 @@ function clear(): void {
   justify-content: center;
   border-radius: 50%;
   user-select: none;
+  font-weight: 400;
 
   @include iPhoneSE {
     width: 70px;
