@@ -40,7 +40,8 @@
   },
   "browserStub": {
     "title": "Browser not supported",
-    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone"
+    "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone",
+    "rotateTitle": "Flip your device to portrait mode"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"

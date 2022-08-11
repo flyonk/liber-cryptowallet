@@ -11,7 +11,7 @@
       </div>
     </template>
   </p-toast>
-  <m-browser-stub v-if="!IS_DEVELOPEMENT_MODE" />
+  <m-browser-stub v-if="IS_DEVELOPEMENT_MODE" />
   <app-layout-switcher>
     <p-offline-mode v-if="isOfflineMode" @online="handleReconnection" />
     <div v-else>
