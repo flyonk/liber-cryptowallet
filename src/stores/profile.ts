@@ -5,7 +5,7 @@ import { IProfile, TMarketing } from '@/models/profile/profile';
 import { clearAll, get, set } from '@/helpers/storage';
 import SentryUtil from '@/helpers/sentryUtil';
 
-import { EStorageKeys, SStorageKeys } from '@/types/storage';
+import { EStorageKeys } from '@/types/storage';
 import { useErrorsStore } from '@/stores/errors';
 
 export interface IUserProfile {
@@ -34,17 +34,8 @@ export const useProfileStore = defineStore('profile', {
         key: EStorageKeys.passcode,
       });
       if (this.user.id) {
-        this.syncUserDataInStorage();
         SentryUtil.setUser();
       }
-    },
-
-    syncUserDataInStorage(): void {
-      const value = JSON.stringify(this.user);
-      set({
-        key: SStorageKeys.user,
-        value,
-      });
     },
 
     async closeAccount(): Promise<void> {
@@ -78,7 +69,6 @@ export const useProfileStore = defineStore('profile', {
           this.user[key] = val;
         }
         await profileService.updateProfile(this.user);
-        this.syncUserDataInStorage();
       } catch (err) {
         const errorsStore = useErrorsStore();
 
