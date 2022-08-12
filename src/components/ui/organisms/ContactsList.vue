@@ -14,6 +14,14 @@
           {{ getLetter(contact) }}
         </li>
         <li class="contact-item" @click="$emit('contactClick', contact)">
+          <label for="radio" class="radio">
+            <input
+              v-if="props.withRadio"
+              type="radio"
+              name="contact"
+              class="radio hidden"
+            />
+          </label>
           <PhoneContact :contact="contact" />
         </li>
       </template>
@@ -42,6 +50,10 @@ const props = defineProps({
   contacts: {
     type: Array as PropType<Contact[]>,
     default: [] as PropType<Contact[]>,
+  },
+  withRadio: {
+    type: Boolean,
+    default: false,
   },
 });
 
@@ -92,6 +104,16 @@ defineEmits(['contactClick']);
   display: flex;
   margin-bottom: 24px;
   position: relative;
+  align-items: center;
+  justify-content: center;
+
+  > .radio {
+    width: 24px;
+    height: 24px;
+    margin-right: 16px;
+    border-radius: 50%;
+    border: 2px solid #afb3c3;
+  }
 }
 
 .contact-letter {

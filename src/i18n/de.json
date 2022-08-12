@@ -326,6 +326,27 @@
       "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
       "contactsCTA": "Allow access to contacts"
     },
+    "inviteFriends": {
+      "title": "Invite Friends",
+      "inviteFriend": "Invite a friend and share the Liber experience with them",
+      "shareLink": "Share Link",
+      "invitePhone": "Invite by Phone or Email",
+      "enableContacts": "Enable contacts permission",
+      "quickInvite": "Quickly invite friends from your contacts list",
+      "acessContacts": "Allow access to contacts",
+      "contactsList": {
+        "contacts": "Contacts",
+        "privacy": "For privacy reasons some people are not show as Liber users until you pay them",
+        "searchFilter": "Name, phone, email"
+      }
+    },
+    "findYourFriends": {
+      "title": "Find your friends",
+      "sendMeRequest": "Send and request money from your friends more easily, split bills and much more.",
+      "hideYourSelf": "You can hide yourself from being visible to your Liber friends at any time through your privacy settings.",
+      "accessContacts": "Allow access to contacts",
+      "notNow": "Not Now"
+    },
     "recipients": {
       "recipients": "Recipients",
       "add": "Add a new contact"
