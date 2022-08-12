@@ -5,14 +5,13 @@ export enum EStorageKeys {
   faceid = 'liber-app-face-id',
   touchid = 'liber-app-touch-id',
   language = 'liber-app-language',
-  phone = 'login-phone',
+  loginPhone = 'login-phone',
   token = 'access_token',
   refreshToken = 'refresh_token',
   tokenExpire = 'token_expire',
   marketing = 'marketing',
   friends = 'liber-app-friends',
-}
-
-export enum SStorageKeys {
-  user = 'liber-app-user',
+  dialCode = 'dial-code',
+  phone = 'phone',
+  lastSessionPhone = 'last-session-phone-data',
 }

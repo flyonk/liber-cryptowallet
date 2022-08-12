@@ -10,6 +10,8 @@
 
 <style lang="scss" scoped>
 .default-layout {
+  overflow: hidden;
+
   &.-full-height {
     display: flex;
     flex-direction: column;

@@ -4,7 +4,7 @@ import { Route } from '@/router/types';
 import DepositeRoutes from './routesDeposite';
 import RecipientsRoutes from './routesRecipients';
 import PayRecipientsRoutes from './routesPayRecipients';
-import checkContactsLoaded from '@/router/middleware/checkContacts';
+// import checkContactsLoaded from '@/router/middleware/checkContacts';
 
 import Dashboard from '@/applications/liber/views/Dashboard/index.vue';
 import DashboardVerification from '@/applications/liber/views/Dashboard/DashboardVerification.vue';
@@ -218,7 +218,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/withdraw',
     name: Route.Withdraw,
-    meta: { authRequired: true },
+    meta: { authRequired: true, classLayout: '-full-height' },
     component: Withdraw,
   },
 
@@ -249,7 +249,7 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Recipients,
     meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
-    beforeEnter: checkContactsLoaded,
+    // beforeEnter: checkContactsLoaded,
     children: RecipientsRoutes,
   },
 

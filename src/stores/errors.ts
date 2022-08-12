@@ -10,6 +10,7 @@ interface IError {
   description?: string;
   display?: boolean;
   customErrorComponent?: Component;
+  silence?: boolean;
 }
 
 interface ICustomError {
@@ -54,6 +55,7 @@ export const useErrorsStore = defineStore('errors', {
       description,
       display = true,
       customErrorComponent,
+      silence = false,
     }: IError): Promise<void> {
       if (err.message.includes('Network Error')) return;
       if (display) {
@@ -65,7 +67,9 @@ export const useErrorsStore = defineStore('errors', {
           customErrorComponent,
         });
       }
-      await errorService.logError(err, name, ctx, description);
+      if (!silence) {
+        await errorService.logError(err, name, ctx, description);
+      }
     },
 
     async handleCustom(config: ICustomError): Promise<void> {

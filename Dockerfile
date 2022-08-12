@@ -8,6 +8,8 @@ ARG VERSION
 ARG BRANDNAME="liber"
 ARG BRANDNAME_VERSION="0.1.47"
 ARG BRAND_CONFIGURATION_HOSTNAME="conf.middleware.dev.k8s.domain"
+ARG BRAND_CONFIGURATION_IP="172.31.27.226"
+
 
 # configure git with token
 RUN git config --global url."https://${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
@@ -30,7 +32,7 @@ COPY --chown=node yarn.lock ./
 COPY --chown=node .npmrc ./
 
 #RUN curl http://$BRAND_CONFIGURATION_HOSTNAME/tenant-config/$BRANDNAME -o env.json
-RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://172.31.27.226/tenant-config/$BRANDNAME -o env.json
+RUN curl -H "Host: $BRAND_CONFIGURATION_HOSTNAME" http://$BRAND_CONFIGURATION_IP/tenant-config/$BRANDNAME -o env.json
 
 RUN yarn install
 
@@ -45,11 +47,15 @@ COPY --chown=node . .
 
 RUN yarn lint
 
-RUN yarn test
+RUN touch ~/.env
 
 RUN yarn env:from:json
 
+RUN yarn test
+
 RUN yarn build
+
+RUN rm -f ~/.env
 
 FROM nginxinc/nginx-unprivileged:1.21.6
 

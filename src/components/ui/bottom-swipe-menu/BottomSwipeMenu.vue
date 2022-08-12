@@ -114,7 +114,9 @@ onUpdated(() => {
   right: 0;
   top: 0;
   bottom: 0;
-  background-color: rgba($color-brand-primary, 80%);
+  background-color: $color-brand-primary;
+  z-index: 0;
+  opacity: 0.8;
 }
 
 .bottom-menu {

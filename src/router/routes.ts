@@ -17,6 +17,8 @@ import PasscodeEnter from '@/views/ConfigureApp/PasscodeEnter.vue';
 import ChangePasscode from '@/views/ConfigureApp/ChangePasscode.vue';
 import ChangePasscodeEnter from '@/views/ConfigureApp/ChangePasscodeEnter.vue';
 import ChangeAuthApp from '@/views/ConfigureApp/ChangeAuthApp.vue';
+import RestorePasscode from '@/views/ConfigureApp/RestorePasscode.vue';
+import RestorePasscodeSuccess from '@/views/ConfigureApp/RestorePasscodeSuccess.vue';
 
 import FaceId from '@/views/ConfigureApp/Options/FaceId.vue';
 import TouchId from '@/views/ConfigureApp/Options/TouchId.vue';
@@ -105,6 +107,20 @@ const routes: Array<RouteRecordRaw> = [
     path: '/change-passcode',
     name: Route.ChangePasscode,
     component: ChangePasscode,
+    meta: { layout: 'default' },
+  },
+
+  {
+    path: '/restore-passcode',
+    name: Route.RestorePasscode,
+    component: RestorePasscode,
+    meta: { layout: 'default' },
+  },
+
+  {
+    path: '/restore-passcode-success',
+    name: Route.RestorePasscodeSuccess,
+    component: RestorePasscodeSuccess,
     meta: { layout: 'default' },
   },
 

@@ -1,11 +1,20 @@
 import { defineStore } from 'pinia';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
+export enum EConfirmationTypes {
+  email = 'email',
+  number = 'number',
+  totp = 'totp',
+  otp = 'otp',
+  passcode = 'passcode',
+}
+
 type TMfaCallbackData = {
   title?: string;
   successRoute?: string | unknown;
   callback?: any;
   button?: string;
+  confirmations?: EConfirmationTypes[];
 };
 
 interface IMfaState {
