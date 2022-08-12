@@ -31,7 +31,7 @@
             <template #label> Name, @id, phone, email </template>
           </m-base-input>
 
-          <constacts-tab-switcher />
+          <constacts-tab-switcher all-route="" />
 
           <router-view :filter="filterContacts" />
         </div>

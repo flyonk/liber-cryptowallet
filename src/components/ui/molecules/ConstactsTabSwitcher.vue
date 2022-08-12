@@ -10,6 +10,7 @@
       {{ $t('ui.friends.liber') }}
     </router-link>
     <router-link
+      v-if="props.allRoute"
       :to="{ name: props.allRoute }"
       class="contact-tabs-item"
       :class="{

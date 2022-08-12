@@ -146,7 +146,7 @@ const carousel: ICarouselItem[] = [
   {
     name: tm('transactions.carousel.sendFunds'),
     img: require('@/assets/icon/transactions/carousel/send.svg'),
-    successRoute: Route.PayRecipientsPhone,
+    successRoute: Route.PayRecipientsLiber,
     failRoute: Route.DashboardStory,
   },
   {
@@ -168,7 +168,7 @@ const carousel: ICarouselItem[] = [
 const onClick = (carouselItem: ICarouselItem) => {
   const { kycStatus } = profileStore.getUser;
 
-  if (carouselItem.successRoute === Route.PayRecipientsPhone) {
+  if (carouselItem.successRoute === Route.PayRecipientsLiber) {
     const accountToSend: IAccount | undefined = accountStore.getAccounts.find(
       ({ code }) => code === route.params.coin
     );

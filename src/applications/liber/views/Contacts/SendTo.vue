@@ -2,7 +2,7 @@
   <t-top-navigation
     with-fixed-footer
     nav-with-custom-top-left
-    @click:left-icon="$router.push({ name: Route.PayRecipientsPhone })"
+    @click:left-icon="$router.push({ name: Route.PayRecipientsLiber })"
   >
     <template #top-left>
       <div class="header sendto-header">
@@ -10,7 +10,7 @@
           class="back mr-2"
           :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
           alt="arrow-left"
-          @click="$router.push({ name: Route.PayRecipientsPhone })"
+          @click="$router.push({ name: Route.PayRecipientsLiber })"
         />
         <h4 class="username">{{ computedRecipient.phone }}</h4>
       </div>
