@@ -10,7 +10,7 @@ import DashboardTransactions from '@/applications/coupons/views/Dashboard/Transa
 import TransactionDetails from '@/applications/liber/views/Dashboard/Transactions/TransactionDetails.vue';
 import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
 
-import checkContactsLoaded from '@/router/middleware/checkContacts';
+// import checkContactsLoaded from '@/router/middleware/checkContacts';
 import RecipientsRoutes from './routesRecipients';
 
 const routes: Array<RouteRecordRaw> = [
@@ -73,7 +73,7 @@ const routes: Array<RouteRecordRaw> = [
     name: CouponRoutes.Recipients,
     meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
-    beforeEnter: checkContactsLoaded,
+    // beforeEnter: checkContactsLoaded,
     children: RecipientsRoutes,
   },
 ];
