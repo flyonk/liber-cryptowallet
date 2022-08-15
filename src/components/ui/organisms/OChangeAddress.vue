@@ -5,6 +5,7 @@
     <template #content>
       <m-base-input
         v-model="form.street"
+        class="test-btn"
         :is-error="form.street?.length > 0 && !isValid('street')"
         :class="form.street && !isValid('street') ? '-invalid' : ''"
       >
@@ -172,9 +173,13 @@ const isValid = (key: keyof typeof form) => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .base-input:deep {
   margin: 0 0 16px;
+
+  @include iPhoneSE {
+    min-height: 50px !important;
+  }
 }
 
 .base-input:nth-child(2):deep {
