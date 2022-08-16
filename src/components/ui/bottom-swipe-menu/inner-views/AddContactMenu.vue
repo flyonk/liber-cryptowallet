@@ -33,7 +33,7 @@
         <p class="subtitle">Share a link to join Liber</p>
       </div>
     </li>
-    <router-link to="/contacts/add" class="menu-item">
+    <router-link to="/contacts/invite" class="menu-item">
       <img
         class="icon"
         :src="`${STATIC_BASE_URL}/static/menu/add_contact.svg`"

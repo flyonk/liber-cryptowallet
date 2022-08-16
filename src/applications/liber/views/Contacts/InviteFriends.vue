@@ -29,7 +29,7 @@
             </p></m-base-button
           >
         </div>
-        <div v-if="isContactsListAllowed" class="main">
+        <div v-if="isContactsListAllowed" class="main items-center">
           <img
             :src="`${STATIC_BASE_URL}/static/illustrations/empty_friend.png`"
             alt="friend"
@@ -90,7 +90,7 @@ const uiKit = inject(uiKitKey);
 const { MBaseButton, MBaseInput } = uiKit!;
 // const recipientsStore = useRecipientsStore();
 
-const isContactsListAllowed = ref(false);
+const isContactsListAllowed = ref(true);
 // const contacts: Contact[] = recipientsStore.getContacts;
 </script>
 
