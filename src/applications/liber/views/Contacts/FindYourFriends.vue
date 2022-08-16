@@ -1,6 +1,6 @@
 <template name="find-friends">
   <t-top-navigation
-    leftIconName="icon-app-navigation-close"
+    left-icon-name="icon-app-navigation-close"
     class="min-h-screen"
     @click:left-icon="$router.go(-1)"
   >

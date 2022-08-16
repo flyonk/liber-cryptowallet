@@ -1,6 +1,6 @@
 <template name="invite-friends">
   <t-top-navigation
-    leftIconName="icon-app-navigation-close"
+    left-icon-name="icon-app-navigation-close"
     class="max-h-screen overflow-hidden"
     @click:left-icon="$router.go(-1)"
   >
