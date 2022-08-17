@@ -65,7 +65,7 @@ export const use2faStore = defineStore('2fa', {
       /*
        * Return true if expired
        */
-      return checkExpiration(timestamp, 3);
+      return checkExpiration(timestamp, 14);
     },
   },
 });
