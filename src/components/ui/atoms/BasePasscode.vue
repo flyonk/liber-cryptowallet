@@ -143,6 +143,9 @@ const showTouchId = () => {
 };
 
 onBeforeMount(async (): Promise<void> => {
+  //Hack for iOS bug when passcode is not cleared
+  passcode.value = '';
+
   if (props.showTouchFaceid) {
     const option = await getSupportedOptions();
 

@@ -83,6 +83,7 @@ const title = computed(() => {
 });
 
 onBeforeMount(async () => {
+  //Check passcode confirm equality
   const isExists = (await get(EStorageKeys.passcode)) === 'true';
 
   if (isExists) {
