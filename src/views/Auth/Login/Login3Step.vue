@@ -2,26 +2,15 @@
   <t-top-navigation left-icon-name="icon-log_out" @click:left-icon="prevStep">
     <template #title>{{ $t('auth.login.step3Title') }}</template>
     <template #content>
-      <div v-if="!show2FA">
-        <base-passcode
-          :show-touch-faceid="showNativeVerification"
-          class="login-passcode"
-          @submit="onSubmit"
-        />
+      <base-passcode
+        :show-touch-faceid="showNativeVerification"
+        class="login-passcode"
+        @submit="onSubmit"
+      />
 
-        <router-link
-          :to="{ name: Route.RestorePasscode }"
-          class="recovery-link"
-        >
-          {{ $t('auth.login.forgotYourPasscode') }}
-        </router-link>
-      </div>
-      <div v-else>
-        <auth2-f-a-verification-component
-          @close="onClose"
-          @success-verification="handleSuccessVerification"
-        />
-      </div>
+      <router-link :to="{ name: Route.RestorePasscode }" class="recovery-link">
+        {{ $t('auth.login.forgotYourPasscode') }}
+      </router-link>
     </template>
   </t-top-navigation>
 </template>
@@ -33,7 +22,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, markRaw, ref } from 'vue';
+import { computed, markRaw } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -44,7 +33,6 @@ import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
 
 import { BasePasscode, TTopNavigation } from '@/components/ui';
-import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscodeError.vue';
 
 const router = useRouter();
@@ -54,8 +42,6 @@ const authStore = useAuthStore();
 const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
 const errorsStore = useErrorsStore();
-
-const show2FA = ref(false);
 
 appOptionsStore.init();
 
@@ -73,7 +59,9 @@ async function onSubmit(success: boolean): Promise<void> {
     const is2FAIsExpired = await twoFAStore.check2FAExpire();
 
     if (is2FAIsExpired) {
-      show2FA.value = true;
+      await authStore.logout();
+      authStore.setStep(0, 'login');
+      await router.push({ name: Route.Login });
     } else {
       await router.push({
         name: Route.DashboardHome,
@@ -97,26 +85,8 @@ async function onSubmit(success: boolean): Promise<void> {
 // }
 
 async function prevStep(): Promise<void> {
-  if (show2FA.value) {
-    authStore.setStep(1, 'login');
-  } else {
-    await authStore.clearTokenData();
-    authStore.setStep(0, 'login');
-  }
-}
-
-function onClose() {
-  show2FA.value = false;
-}
-
-async function handleSuccessVerification(): Promise<void> {
-  /*
-   * Set new 2fa dateTime
-   */
-  twoFAStore.set2FADate();
-  router.push({
-    name: Route.DashboardHome,
-  });
+  await authStore.clearTokenData();
+  authStore.setStep(0, 'login');
 }
 </script>
 
