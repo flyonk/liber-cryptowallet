@@ -34,6 +34,12 @@ export default {
     kycHook(): string {
       return `${BASE_API_URL}/api/${API_VERSION}/profile/kyc/claim/hook`;
     },
+    sendEmail(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/user/email`;
+    },
+    confirmEmail(): string {
+      return `${BASE_API_URL}/api/${API_VERSION}/user/email/confirm`;
+    },
   },
   authenticators: {
     disable(): string {

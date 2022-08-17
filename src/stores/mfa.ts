@@ -31,6 +31,7 @@ export enum EMfaHeaders {
   otp = 'x-otp-code',
   totp = 'x-totp-code',
   passcode = 'x-pass-code',
+  userId = 'x-user-id',
 }
 
 // type for record event occur time
@@ -38,6 +39,7 @@ type TMfaData = {
   otp?: string;
   totp?: string;
   passcode?: string;
+  userId?: string;
 };
 
 // === mfa Store ===

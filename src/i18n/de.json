@@ -125,6 +125,11 @@
         "signUp": "Sign up",
         "loginWithThisNumber": "Login with this number",
         "goBack": "No, go back"
+      },
+      "confirmEmail": {
+        "title": "Confirm email address",
+        "text": "Enter security code we’ve sent an email to",
+        "resendCode": "Resend code"
       }
     }
   },
@@ -675,7 +680,8 @@
     "confirmTitle": "Retry connect",
     "cancelTitle": "Use offline",
     "offlineTitle": "No internet connection",
-    "offlineDescription": "Please, check internet connection on your phone to use the application"
+    "offlineDescription": "Please, check internet connection on your phone to use the application",
+    "confrimVerificationCode": "Confirm verification code incorrect"
   },
   "offline": {
     "title": "No Internet Connection",
