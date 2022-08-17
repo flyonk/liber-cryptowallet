@@ -8,11 +8,11 @@
     <template #content>
       <div class="personal-details">
         <div class="header">
-          <BaseInput v-model="value" type="text">
+          <m-base-input v-model="value" type="text">
             <template #label>
               {{ $t('views.profile.profileHelp.question') }}
             </template>
-          </BaseInput>
+          </m-base-input>
         </div>
         <h6 class="text--footnote mb-3 color-dark-gray font-bold">
           {{ $t('views.profile.profileHelp.issue') }}
@@ -74,13 +74,16 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { inject, ref } from 'vue';
 
-import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 import { TTopNavigation } from '@/components/ui';
 import { STATIC_BASE_URL } from '@/constants';
 
 import { useProfileStore } from '@/stores/profile';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
 
 const profileStore = useProfileStore();
 let { firstName, lastName } = profileStore.getUser;
