@@ -161,8 +161,8 @@ function setNumber(number: string): void {
 
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
-        .then((result: boolean) => {
-          if (!result) passcode.value = '';
+        .then((result) => {
+          passcode.value = '';
           emit('submit', result);
         })
         .catch(() => {
