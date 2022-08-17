@@ -79,11 +79,8 @@ onMounted(async () => {
   }
 });
 
-// it is necessary to update the status after 406 in signup
 onDeactivated(() => {
-  if (props.flow === VerifyCodeFlow.Signup) {
-    is2fa.value = false;
-  }
+  is2fa.value = false;
 });
 
 const text = computed(() => {
