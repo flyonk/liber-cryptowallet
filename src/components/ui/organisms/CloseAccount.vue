@@ -12,18 +12,23 @@
       {{ $t('views.profile.profileSettings.freeToKeep') }}
     </p>
     <div class="control-buttons">
-      <BaseButton class="keepopen" size="large" @click="$emit('closeMenu')">
+      <m-base-button class="keepopen" size="large" @click="$emit('closeMenu')">
         {{ $t('views.profile.profileSettings.keepOpen') }}
-      </BaseButton>
-      <button class="close" size="large" @click="onCloseAccount">
+      </m-base-button>
+      <m-base-button
+        class="close"
+        size="large"
+        view="flat"
+        @click="onCloseAccount"
+      >
         {{ $t('views.profile.profileSettings.close') }}
-      </button>
+      </m-base-button>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { toRefs } from 'vue';
+import { inject, toRefs } from 'vue';
 import { useRouter } from 'vue-router';
 
 import { useProfileStore } from '@/stores/profile';
@@ -31,7 +36,10 @@ import { Route } from '@/router/types';
 
 import { STATIC_BASE_URL } from '@/constants';
 
-import BaseButton from '@/components/ui/molecules/base-button/BaseButton.vue';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseButton } = uiKit!;
 
 const profileStore = useProfileStore();
 const router = useRouter();
