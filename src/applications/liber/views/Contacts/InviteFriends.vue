@@ -14,7 +14,11 @@
           class="controls flex w-full h-full"
           :class="{ 'mb-5': !isContactsListAllowed }"
         >
-          <m-base-button icon-left="icon-link" size="medium" class="grow mr-2"
+          <m-base-button
+            icon-left="icon-link"
+            size="medium"
+            class="grow mr-2"
+            disabled
             ><p class="text--footnote whitespace-nowrap">
               {{ $t('views.inviteFriends.shareLink') }}
             </p></m-base-button
@@ -35,13 +39,13 @@
             alt="friend"
             class="image"
           />
-          <h2 class="text--title-3 font-semibold mb-1">
+          <h2 class="text--title-3 font-semibold mb-1 hidden">
             {{ $t('views.inviteFriends.enableContacts') }}
           </h2>
-          <p class="text-default mb-4">
+          <p class="text-default mb-4 hidden">
             {{ $t('views.inviteFriends.quickInvite') }}
           </p>
-          <p class="link text--headline">
+          <p class="link text--headline hidden">
             {{ $t('views.inviteFriends.acessContacts') }}
           </p>
         </div>
@@ -92,6 +96,8 @@ import { mockedContacts } from '@/helpers/contacts';
 
 const uiKit = inject(uiKitKey);
 const { MBaseButton, MBaseInput } = uiKit!;
+
+// todo handler for check first time user on this page or not after adding API someday
 const isContactsListAllowed = ref(false);
 
 const handleContactClick = (data: Contact) => {
