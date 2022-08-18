@@ -202,4 +202,8 @@ const onPrev = (): void => {
     justify-content: flex-end;
   }
 }
+
+:deep(.text--title-1) {
+  font-weight: 600;
+}
 </style>
