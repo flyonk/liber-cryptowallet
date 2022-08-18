@@ -1,5 +1,5 @@
 <template>
-  <VerifyCode :flow="VerifyCodeFlow.Signup" @next="handle" />
+  <VerifyCode v-bind="$attrs" :flow="VerifyCodeFlow.Signup" @next="handle" />
   <phone-in-use
     v-if="phoneExist"
     :phone="number"

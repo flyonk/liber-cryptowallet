@@ -1,14 +1,14 @@
 <template>
   <div class="base-country-input flex align-items-center">
     <span class="p-float-label">
-      <BaseInput
+      <m-base-input
         v-model="selectedData.name"
         inputmode="none"
         readonly
         @click="openSelect"
       >
         <template #label>{{ $t('ui.basecountryselect.country') }}</template>
-      </BaseInput>
+      </m-base-input>
     </span>
     <BaseCountryEntitySelect
       entity="isoCode"
@@ -21,15 +21,17 @@
   </div>
 </template>
 <script lang="ts" setup>
-import { computed, onBeforeMount, ref, Ref, watch } from 'vue';
+import { computed, inject, onBeforeMount, ref, Ref, watch } from 'vue';
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { getEuropeanList, getFullList } from '@/services/country-phone';
 
-import BaseInput from '@/components/ui/molecules/base-input/BaseInput.vue';
 import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MBaseInput } = uiKit!;
 
 const props = defineProps({
   modelValue: {

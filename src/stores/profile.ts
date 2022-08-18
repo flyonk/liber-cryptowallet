@@ -101,5 +101,12 @@ export const useProfileStore = defineStore('profile', {
         isSocialMedia: false,
       };
     },
+
+    async sendEmail(): Promise<void> {
+      await profileService.sendEmail({ email: this.user.email });
+    },
+    async confirmEmail(otp: string): Promise<void> {
+      await profileService.confirmEmail({ email: this.user.email }, otp);
+    },
   },
 });

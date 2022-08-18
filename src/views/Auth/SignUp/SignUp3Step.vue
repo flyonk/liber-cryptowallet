@@ -75,6 +75,7 @@ const nextStep = () => {
   pStore.updateUserProfile({
     email: email.value,
   });
+  pStore.sendEmail();
   emit('next');
 };
 

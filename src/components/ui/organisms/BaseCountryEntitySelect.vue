@@ -10,6 +10,7 @@
         <div class="col-9">
           <a-base-search-input
             v-model="searchQuery"
+            autofocus="autofocus"
             @update:model-value="updateSearchQuery"
           />
         </div>

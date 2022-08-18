@@ -51,7 +51,7 @@
           </template>
         </m-base-input>
       </div>
-      <div class="base-input-wrapper">
+      <div class="base-input-wrapper -message">
         <m-base-input
           v-model="form.amount"
           class="m-base-input"
@@ -349,6 +349,14 @@ const onContinue = async () => {
   > .base-input:deep {
     margin-top: 16px;
     height: 72px;
+  }
+
+  &.-message:deep(.base-input) {
+    height: auto;
+
+    & > .input-wrapper {
+      height: 72px;
+    }
   }
 }
 </style>

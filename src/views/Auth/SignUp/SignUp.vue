@@ -11,6 +11,7 @@ import {
   SignUp3Step,
   SignUp4Step,
   SignUp5Step,
+  SignUp6Step,
 } from '@/views/Auth/SignUp/index';
 import AuthPageSwitcher from '@/components/ui/organisms/auth/AuthPageSwitcher.vue';
 
@@ -20,5 +21,6 @@ const components = computed(() => [
   SignUp3Step,
   SignUp4Step,
   SignUp5Step,
+  SignUp6Step,
 ]);
 </script>

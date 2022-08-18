@@ -76,6 +76,9 @@ const _requestHandler = async (
         config.headers[EMfaHeaders.passcode]
       );
     }
+    if (config.headers?.[EMfaHeaders.userId]) {
+      headers[EMfaHeaders.userId] = String(config.headers[EMfaHeaders.userId]);
+    }
   }
 
   config.timeout = 30000;

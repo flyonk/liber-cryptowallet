@@ -169,4 +169,18 @@ export default {
 
     await uploadFiles;
   },
+
+  async sendEmail(data: { email: string }): Promise<void> {
+    return (await axios.post(apiService.profile.sendEmail(), data)).data;
+  },
+
+  async confirmEmail(data: { email: string }, otp: string): Promise<void> {
+    const config = {
+      headers: {
+        [EMfaHeaders.otp]: otp,
+      },
+    };
+    return (await axios.post(apiService.profile.confirmEmail(), data, config))
+      .data;
+  },
 };

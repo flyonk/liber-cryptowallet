@@ -1,35 +1,51 @@
 <template>
   <t-top-navigation with-fixed-footer @click:left-icon="$emit('prev')">
-    <template #title> {{ $t('auth.signup.step5Title') }}</template>
-    <template #subtitle> {{ $t('auth.signup.step4Description') }}</template>
-    <template #content
-      ><div class="auth-page-container">
+    <template #title> {{ $t('auth.signup.step4Title') }}</template>
+    <template #subtitle>
+      {{ $t('auth.signup.step4Description') }}
+    </template>
+    <template #content>
+      <div class="auth-page-container">
         <m-base-input
-          v-model="birth"
-          class="m-base-input"
-          mask="99.99.9999"
-          :placeholder="$t('auth.signup.ddmmyyyy')"
-          pattern="\d*"
-          type="mask"
-          slot-char="dd.mm.yyyy"
-          @focus="showClearBtn"
-          @blur="closeClearBtn"
+          :model-value="firstname"
+          @focus="showClearFirstNameBtn"
+          @blur="closeClearFirstNameBtn"
+          @update:modelValue="firstNamePreventExtraCharacters"
         >
-          <template v-if="isClearBtnShown" #label>
-            {{ $t('auth.signup.date') }}
+          <template #label>
+            {{ $t('common.firstName') }}
           </template>
-          <template v-if="isClearBtnShown" #actions>
+          <template v-if="isClearFirstNameBtnShown" #actions>
             <img
               class="icon"
               :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
-              @click="clearDate"
-              @touchend="clearDate"
+              @click="clearFirstName"
+              @touchend="clearFirstName"
+            />
+          </template>
+        </m-base-input>
+        <m-base-input
+          :model-value="lastname"
+          class="m-base-input"
+          @focus="showClearLastNameBtn"
+          @blur="closeClearLastNameBtn"
+          @update:modelValue="lastNamePreventExtraCharacters"
+        >
+          <template #label>
+            {{ $t('common.lastName') }}
+          </template>
+          <template v-if="isClearLastNameBtnShown" #actions>
+            <img
+              class="icon"
+              :src="`${STATIC_BASE_URL}/static/menu/circle_close.svg`"
+              @click="clearLastName"
+              @touchend="clearLastName"
             />
           </template>
         </m-base-input></div
     ></template>
     <template #fixed-footer>
-      <m-base-button block :disabled="isDateInvalid" @click="nextStep">
+      <m-base-button block :disabled="isFullNameInvalid" @click="nextStep">
         {{ $t('common.nextStep') }}
       </m-base-button>
     </template>
@@ -38,12 +54,10 @@
 
 <script lang="ts" setup>
 import { inject } from 'vue';
-import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
-import { Route } from '@/router/types';
 import { ref } from 'vue-demi';
-import { computed } from '@vue/reactivity';
-import { useRouter } from 'vue-router';
 
+import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
+import { computed } from '@vue/reactivity';
 import { useProfileStore } from '@/stores/profile';
 import { uiKitKey } from '@/types/symbols';
 import { STATIC_BASE_URL } from '@/constants';
@@ -51,48 +65,92 @@ import { STATIC_BASE_URL } from '@/constants';
 const uiKit = inject(uiKitKey);
 const { MBaseInput, MBaseButton } = uiKit!;
 
-const router = useRouter();
 const pStore = useProfileStore();
 
-const birth = ref('');
+const emit = defineEmits(['next', 'prev']);
 
-defineEmits(['next', 'prev']);
+const firstname = ref('');
+const lastname = ref('');
+const isClearFirstNameBtnShown = ref(false);
+const isClearLastNameBtnShown = ref(false);
+const preventNumbersRegExp = new RegExp(/([\d])/, 'g');
 
-const isClearBtnShown = ref(false);
-
-const isDateInvalid = computed(() => {
-  if (!birth.value) return true;
-  // eslint-disable-next-line
-  const correct = new RegExp(
-    /^(?:(?:31(\/|-|\.)(?:0?[13578]|1[02]))\1|(?:(?:29|30)(\/|-|\.)(?:0?[13-9]|1[0-2])\2))(?:(?:1[6-9]|[2-9]\d)?\d{2})$|^(?:29(\/|-|\.)0?2\3(?:(?:(?:1[6-9]|[2-9]\d)?(?:0[48]|[2468][048]|[13579][26])|(?:(?:16|[2468][048]|[3579][26])00))))$|^(?:0?[1-9]|1\d|2[0-8])(\/|-|\.)(?:(?:0?[1-9])|(?:1[0-2]))\4(?:(?:1[6-9]|[2-9]\d)?\d{2})$/
-  ).test(birth.value);
-  return !correct;
+const isFullNameInvalid = computed(() => {
+  return !firstname.value || !lastname.value;
 });
 
-const clearDate = () => {
-  birth.value = '';
+const clearFirstName = () => {
+  firstname.value = '';
 };
 
-const showClearBtn = () => {
-  isClearBtnShown.value = true;
+const showClearFirstNameBtn = () => {
+  isClearFirstNameBtnShown.value = true;
 };
 
-const closeClearBtn = () => {
-  isClearBtnShown.value = false;
+const closeClearFirstNameBtn = () => {
+  isClearFirstNameBtnShown.value = false;
+};
+
+const clearLastName = () => {
+  lastname.value = '';
+};
+
+const showClearLastNameBtn = () => {
+  isClearLastNameBtnShown.value = true;
+};
+
+const closeClearLastNameBtn = () => {
+  isClearLastNameBtnShown.value = false;
 };
 
 const nextStep = () => {
   pStore.updateUserProfile({
-    birthDate: birth.value,
+    firstName: firstname.value,
+    lastName: lastname.value,
   });
-  router.push({
-    name: Route.KYCMain,
-  });
+  emit('next');
+};
+
+const firstNamePreventExtraCharacters = (value: string) => {
+  /**
+   * Trim for remove the problem after inserting a hint from the iphone keyboard.
+   * This insert adds the ' ' character to the field
+   */
+  let valueToSet = value;
+  if (valueToSet === ' ') {
+    valueToSet = valueToSet.replace(/\s*/, '');
+  }
+  firstname.value = value;
+  setTimeout(() => {
+    firstname.value = valueToSet.replaceAll(preventNumbersRegExp, '');
+  }, 0);
+};
+
+const lastNamePreventExtraCharacters = (value: string) => {
+  /**
+   * /\s/ for remove the problem after inserting a hint from the iphone keyboard.
+   * This insert adds the ' ' character to the field
+   */
+  let valueToSet = value;
+  if (valueToSet === ' ') {
+    valueToSet = valueToSet.replace(/\s*/, '');
+  }
+  lastname.value = value;
+
+  setTimeout(() => {
+    lastname.value = valueToSet.replaceAll(preventNumbersRegExp, '');
+  }, 0);
 };
 </script>
 
 <style lang="scss" scoped>
 .m-base-input {
   margin: 0 0 16px;
+}
+
+.auth-page-container {
+  > .base-input:deep {
+    margin-bottom: 16px;
+  }
 }
 </style>
