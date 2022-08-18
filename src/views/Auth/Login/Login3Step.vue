@@ -13,6 +13,24 @@
       </router-link>
     </template>
   </t-top-navigation>
+  <m-base-toast :visible="sessionExpiredToast">
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
+    <template #description>
+      {{ $t('auth.login.step3SessionExpired') }}
+    </template>
+    <template #footer>
+      <m-base-button block size="large" @click="onLogin">
+        {{ $t('common.logInCta') }}
+      </m-base-button>
+    </template>
+  </m-base-toast>
 </template>
 
 <script lang="ts">
@@ -22,7 +40,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, markRaw } from 'vue';
+import { computed, inject, markRaw, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -34,6 +52,12 @@ import { useErrorsStore } from '@/stores/errors';
 
 import { BasePasscode, TTopNavigation } from '@/components/ui';
 import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscodeError.vue';
+import { uiKitKey } from '@/types/symbols';
+import { UiKitInterface } from '@/types/uiKit';
+import { STATIC_BASE_URL } from '@/constants';
+
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit as UiKitInterface;
 
 const router = useRouter();
 const { t } = useI18n();
@@ -42,6 +66,8 @@ const authStore = useAuthStore();
 const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
 const errorsStore = useErrorsStore();
+
+const sessionExpiredToast = ref(false);
 
 appOptionsStore.init();
 
@@ -59,9 +85,7 @@ async function onSubmit(success: boolean): Promise<void> {
     const is2FAIsExpired = await twoFAStore.check2FAExpire();
 
     if (is2FAIsExpired) {
-      await authStore.logout();
-      authStore.setStep(0, 'login');
-      await router.push({ name: Route.Login });
+      sessionExpiredToast.value = true;
     } else {
       await router.push({
         name: Route.DashboardHome,
@@ -87,6 +111,13 @@ async function onSubmit(success: boolean): Promise<void> {
 async function prevStep(): Promise<void> {
   await authStore.clearTokenData();
   authStore.setStep(0, 'login');
+}
+
+async function onLogin() {
+  sessionExpiredToast.value = false;
+  await authStore.logout();
+  authStore.setStep(0, 'login');
+  await router.push({ name: Route.Login });
 }
 </script>
 
