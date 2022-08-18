@@ -2,8 +2,7 @@
   <enter-verification-code
     :title="$t('auth.signup.confirmEmail.title')"
     :text="text"
-    :is-error="errorCode"
-    @on-hide="onHideError"
+    :verification-code="verificationCode"
     @on-complete="confirmEmail"
     @on-prev="onPrevStep"
   >
@@ -16,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, Ref } from 'vue';
+import { computed, ref } from 'vue';
 import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificationCode.vue';
 import { useProfileStore } from '@/stores/profile';
 import { useI18n } from 'vue-i18n';
@@ -27,24 +26,19 @@ const emit = defineEmits(['prev', 'next']);
 const pStore = useProfileStore();
 const errorsStore = useErrorsStore();
 
+const verificationCode = ref('');
 const text = computed(
   () => `${tm('auth.signup.confirmEmail.text')} ${pStore.user.email}`
 );
 
-let errorCode = ref(false) as Ref<boolean>;
-
-const onHideError = () => {
-  errorCode.value = false;
-};
-
 const confirmEmail = (otp: string) => {
+  verificationCode.value = otp;
   pStore.confirmEmail(otp).then(
     () => {
       emit('next');
     },
     (err) => {
-      errorCode.value = true;
-
+      verificationCode.value = '';
       errorsStore.handle({
         err,
         name: 'ConfigureAppVuetify',
