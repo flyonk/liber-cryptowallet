@@ -59,7 +59,11 @@
               }}</template
             >
           </m-base-input>
-          <contacts-list :contacts="mockedContacts" with-radio />
+          <contacts-list
+            :contacts="mockedContacts"
+            with-radio
+            @contact-click="handleContactClick"
+          />
           <m-base-button
             size="large"
             view="simple"
@@ -83,15 +87,17 @@ import { TTopNavigation } from '@/components/ui';
 import { uiKitKey } from '@/types/symbols';
 import ContactsList from '@/components/ui/organisms/ContactsList.vue';
 // import { useRecipientsStore } from '@/stores/recipients';
-// import { Contact } from '@/types/contacts';
+import { Contact } from '@/types/contacts';
 import { mockedContacts } from '@/helpers/contacts';
 
 const uiKit = inject(uiKitKey);
 const { MBaseButton, MBaseInput } = uiKit!;
-// const recipientsStore = useRecipientsStore();
+const isContactsListAllowed = ref(false);
 
-const isContactsListAllowed = ref(true);
-// const contacts: Contact[] = recipientsStore.getContacts;
+const handleContactClick = (data: Contact) => {
+  // todo implement logic for invite friends
+  console.warn('contact data', data);
+};
 </script>
 
 <style lang="scss" scoped>

@@ -5,7 +5,10 @@
       @scroll="scrollListHandle"
       @touchmove="scrollListHandle"
     >
-      <template v-for="contact in props.contacts" :key="contact.contactId">
+      <template
+        v-for="(contact, index) in props.contacts"
+        :key="contact.contactId"
+      >
         <li
           v-if="activeLetters[getLetter(contact)] === contact.contactId"
           :id="'letter' + getLetter(contact)"
@@ -14,13 +17,17 @@
           {{ getLetter(contact) }}
         </li>
         <li class="contact-item" @click="$emit('contactClick', contact)">
-          <label for="radio" class="radio">
+          <label for="contact" class="radio" @click="targetFriend(index)">
             <input
               v-if="props.withRadio"
+              ref="contactInput"
               type="radio"
               name="contact"
-              class="radio hidden"
+              class="contact-input hidden"
+              checked
+              :value="contact.contactId"
             />
+            <div></div>
           </label>
           <PhoneContact :contact="contact" />
         </li>
@@ -34,7 +41,7 @@
 </template>
 
 <script setup lang="ts">
-import { inject, PropType } from 'vue';
+import { inject, PropType, ref } from 'vue';
 
 import PhoneContact from '@/components/ui/atoms/PhoneContact.vue';
 
@@ -45,6 +52,7 @@ import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
 const { APhoneContactsAlphabet } = uiKit!;
+const contactInput = ref();
 
 const props = defineProps({
   contacts: {
@@ -66,6 +74,10 @@ const getLetter = (contact: Contact): string => {
     activeLetters[letter] = contact.contactId;
   }
   return letter;
+};
+
+const targetFriend = (index: number): void => {
+  contactInput.value[index].checked = true;
 };
 
 const scrollListHandle = () => {
@@ -113,6 +125,16 @@ defineEmits(['contactClick']);
     margin-right: 16px;
     border-radius: 50%;
     border: 2px solid #afb3c3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    > input:checked + div {
+      min-width: 12px;
+      min-height: 12px;
+      border-radius: 50%;
+      background: #afb3c3;
+    }
   }
 }
 
