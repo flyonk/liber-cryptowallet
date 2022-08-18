@@ -13,7 +13,10 @@
       </router-link>
     </template>
   </t-top-navigation>
-  <m-base-toast :visible="sessionExpiredToast">
+  <m-base-toast
+    :visible="sessionExpiredToast"
+    @update:visible="sessionExpiredToast = false"
+  >
     <template #image>
       <div class="popup-image">
         <img
@@ -114,9 +117,9 @@ async function prevStep(): Promise<void> {
 }
 
 async function onLogin() {
-  sessionExpiredToast.value = false;
   await authStore.logout();
   authStore.setStep(0, 'login');
+  sessionExpiredToast.value = false;
   await router.push({ name: Route.Login });
 }
 </script>
