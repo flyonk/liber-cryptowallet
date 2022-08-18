@@ -202,4 +202,8 @@ watch(
   color: $color-brand-primary;
   margin-bottom: 20px;
 }
+
+:deep(.text--title-1) {
+  font-weight: 600;
+}
 </style>
