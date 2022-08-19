@@ -14,7 +14,7 @@
   <m-browser-stub v-if="IS_DEVELOPEMENT_MODE" />
   <app-layout-switcher>
     <p-offline-mode v-if="isOfflineMode" @online="handleReconnection" />
-    <div v-else>
+    <template v-else>
       <multi-factor-authorization v-if="showMfa" />
       <router-view v-else v-slot="{ Component, route }" class="router-view">
         <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
@@ -22,7 +22,7 @@
         <component :is="Component" :key="route.path" />
         <!-- </transition> -->
       </router-view>
-    </div>
+    </template>
   </app-layout-switcher>
   <a-offline-bundler
     :is-active="bundlerIsActive"

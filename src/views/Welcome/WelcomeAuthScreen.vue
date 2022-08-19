@@ -47,7 +47,8 @@ import SwiperStoriesSlider from '@/components/ui/molecules/SwiperStoriesSlider.v
 
 <style lang="scss" scoped>
 .welcome-auth {
-  height: 100vh;
+  height: 100%;
+  max-height: fill-available;
   position: relative;
 
   > .slider {

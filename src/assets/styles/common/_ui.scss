@@ -143,6 +143,17 @@ li {
   touch-action: none;
 }
 
+.profile > .template-top-navigation {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+
+  & > .content {
+    overflow: hidden;
+  }
+}
+
 ::-webkit-scrollbar {
   display: none !important;
 }
