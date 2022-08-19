@@ -163,16 +163,18 @@ const { AContactInitials, MBaseButton, MBaseToast } = uiKit!;
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
 const showIncorrectDataPopup = ref(false);
-const popupStatus = ref('confirmation');
+const popupStatus = ref('');
 
 const transferStore = useTransferStore();
 const recipientsStore = useRecipientsStore();
 const errorsStore = useErrorsStore();
 
 const route = useRoute();
+console.log('ga', route.params.contacts);
 
 const contactId = route.params.id;
 const contacts: Contact[] = recipientsStore.getContacts;
+console.log('contacts', contacts);
 const _contact = contacts.filter((c) => {
   return c.contactId === contactId;
 });
@@ -192,6 +194,7 @@ const recipient = {
 transferStore.recipient = recipient;
 
 const sendTransaction = async () => {
+  console.log('send transaction');
   if (transferStore.isReadyForTransfer) {
     try {
       const mfaStore = useMfaStore();
@@ -199,13 +202,10 @@ const sendTransaction = async () => {
         button: 'transactions.send',
         successRoute: Route.DashboardHome,
         callback: async () => {
-          console.log(JSON.stringify('test callback 1'));
           await recipientsStore.addFriend(contact);
-          console.log('test callback 2');
           transferStore.clearTransferData();
         },
       });
-      console.log('transferStore.transfer()');
       await transferStore.transfer();
     } catch (err) {
       // todo: not required handling

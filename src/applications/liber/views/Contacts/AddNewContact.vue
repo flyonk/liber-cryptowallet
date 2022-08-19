@@ -45,6 +45,7 @@
         <m-base-button
           view="flat"
           icon-left="icon-plus_circle"
+          class="hidden"
           @click="addExtraContact"
         >
           {{ $t('views.newcontact.additionalphone') }}
@@ -113,12 +114,14 @@ function addExtraContact() {
 
 const handleAddContact = async () => {
   const _contact = newContact.value;
-
+  console.log('wtf', _contact.name, newContact.value.phone);
   if (!_contact.name) {
     return;
   }
 
   const newContactId = uuidv4();
+
+  console.log('massiv?', newContact.value.phone);
 
   await recipientsStore.addNewContact({
     id: newContactId,
@@ -132,7 +135,7 @@ const handleAddContact = async () => {
     isMenuOpen.value = true;
   } else {
     router.push({
-      name: Route.PayRecipientsLiber,
+      name: Route.ContactsSend,
       params: { id: newContactId },
     });
   }
