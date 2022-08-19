@@ -3,6 +3,7 @@
   padding: 0;
   margin: 0;
   font-family: 'Inter', sans-serif;
+  touch-action: pan-y;
 }
 
 html,
@@ -136,6 +137,10 @@ li {
 
 [disabled] {
   opacity: 0.5;
+}
+
+.template-top-navigation {
+  touch-action: none;
 }
 
 ::-webkit-scrollbar {
