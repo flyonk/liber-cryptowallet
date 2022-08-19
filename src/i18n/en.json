@@ -67,6 +67,7 @@
       "step2ResendCta": "Resend",
       "step3Title": "Enter passcode",
       "step3InvalidInput": "Invalid password or phone number",
+      "step3SessionExpired": "Your session is expired, you need to login",
       "step3FooterTitle": "You do not have an account?",
       "step3FooterCta": "Registration",
       "step4Title": "Enter verification code",

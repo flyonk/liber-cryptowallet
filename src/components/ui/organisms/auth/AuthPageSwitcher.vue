@@ -1,5 +1,5 @@
 <template>
-  <keep-alive>
+  <keep-alive :exclude="['Login2Step', 'SignUp2Step']">
     <component :is="currentComponent" @next="nextStep" @prev="prevStep" />
   </keep-alive>
 </template>

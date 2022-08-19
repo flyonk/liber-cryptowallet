@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { computed, onDeactivated, onMounted, ref } from 'vue';
+import { computed, onMounted, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import router from '@/router';
 import { useAuthStore } from '@/stores/auth';
@@ -79,10 +79,6 @@ onMounted(async () => {
   }
 });
 
-onDeactivated(() => {
-  is2fa.value = false;
-});
-
 const text = computed(() => {
   if (is2fa.value) {
     return tm('auth.login.step4Description');
@@ -101,22 +97,32 @@ const withCountdown = computed(() => {
   return !is2fa.value;
 });
 
-const prevStep = () => {
+const prevStep = async () => {
   if (is2fa.value) {
     is2fa.value = false;
+    try {
+      await authStore.signIn({ phone: phone.value, flow: props.flow });
+      is2fa.value = false;
+    } catch (err) {
+      errorsStore.handle({ err, name: 'VerifyCode.vue', ctx: 'prevStep' });
+    }
     return;
   }
   emit('prev');
 };
+
 const nextStep = () => {
   emit('next');
 };
+
 const onHideError = () => {
   isError.value = false;
 };
+
 const onTimeIsUp = () => {
   showCountdown.value = false;
 };
+
 const onComplete = async (data: string) => {
   const otp = is2fa.value ? _otp.value : data;
   const totp = is2fa.value ? data : '';
@@ -126,8 +132,18 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone: phone.value, otp, code_2fa: totp });
     await pStore.init();
     const passcode = (await get(EStorageKeys.passcode)) === 'true';
+    const secret = localStorage.getItem(EStorageKeys.inviteSecret);
+
     switch (pStore.getUser.status) {
       case EUserStatus.authenticated:
+        // invited user with verified email
+        if (secret && pStore.getUser.email) {
+          authStore.setStep(4, 'registration');
+          return await router.push({
+            name: Route.SignUp,
+            query: { step: 4 },
+          });
+        }
         authStore.setStep(2, 'registration');
         return await router.push({
           name: Route.SignUp,
@@ -187,6 +203,7 @@ const onComplete = async (data: string) => {
     verificationCode.value = '';
   }
 };
+
 const formatPhone = () => {
   const formattedPhone = Array.from(phone.value)
     .map((e, index) => {
@@ -195,6 +212,7 @@ const formatPhone = () => {
     .join('');
   return dialCode.value + formattedPhone;
 };
+
 const resend = async () => {
   showCountdown.value = true;
   try {

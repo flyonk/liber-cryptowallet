@@ -128,11 +128,9 @@ defineProps({
 
 const pasteFromClipboard = async () => {
   try {
-    const content = await Clipboard.read();
+    const { value } = await Clipboard.read();
 
-    if (content && content.type === 'text/plain') {
-      emit('onComplete', content.value);
-    }
+    emit('onComplete', value);
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   } catch (err: any) {
     if (
@@ -201,5 +199,9 @@ const onPrev = (): void => {
   > :deep(.base-button .container) {
     justify-content: flex-end;
   }
+}
+
+:deep(.text--title-1) {
+  font-weight: 600;
 }
 </style>
