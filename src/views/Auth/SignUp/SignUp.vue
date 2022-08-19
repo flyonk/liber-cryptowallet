@@ -4,6 +4,9 @@
 
 <script lang="ts" setup>
 import { computed } from 'vue-demi';
+import { useRoute } from 'vue-router';
+
+import { EStorageKeys } from '@/types/storage';
 
 import {
   SignUp1Step,
@@ -23,4 +26,11 @@ const components = computed(() => [
   SignUp5Step,
   SignUp6Step,
 ]);
+
+const { query } = useRoute();
+const secret = query?.secret as string;
+
+if (secret) {
+  sessionStorage.setItem(EStorageKeys.inviteSecret, secret);
+}
 </script>

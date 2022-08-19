@@ -14,4 +14,5 @@ export enum EStorageKeys {
   dialCode = 'dial-code',
   phone = 'phone',
   lastSessionPhone = 'last-session-phone-data',
+  inviteSecret = 'invitation-secret',
 }
