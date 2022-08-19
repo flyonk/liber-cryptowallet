@@ -8,7 +8,7 @@
       })
     "
   >
-    <template #title> Send Invite </template>
+    <template #title> {{ $t('views.sendInvite.title') }} </template>
     <template #content>
       <ul class="invite-list">
         <m-base-input
@@ -17,7 +17,7 @@
           autofocus
           type="text"
         >
-          <template #label> Name </template>
+          <template #label> {{ $t('views.sendInvite.name') }} </template>
           <template v-if="newContact.name.length > 2" #actions>
             <img
               class="icon"
@@ -36,7 +36,9 @@
             class="m-base-input"
             type="text"
           >
-            <template #label> Email or Phone </template>
+            <template #label>
+              {{ $t('views.sendInvite.emailPhone') }}
+            </template>
             <template v-if="contact.value.length > 1" #actions>
               <i class="icon icon-trash_full" @click="removeContact(index)" />
             </template>
