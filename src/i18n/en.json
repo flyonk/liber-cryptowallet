@@ -345,6 +345,12 @@
         "searchFilter": "Name, phone, email"
       }
     },
+    "addNewContacts": {
+      "title": "Add a new contact",
+      "name": "Name",
+      "mail": "Email",
+      "additionalphone": "Add phone or email"
+    },
     "findYourFriends": {
       "title": "Find your friends",
       "sendMeRequest": "Send and request money from your friends more easily, split bills and much more.",
