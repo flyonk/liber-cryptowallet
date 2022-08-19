@@ -128,11 +128,9 @@ defineProps({
 
 const pasteFromClipboard = async () => {
   try {
-    const content = await Clipboard.read();
+    const { value } = await Clipboard.read();
 
-    if (content && content.type === 'text/plain') {
-      emit('onComplete', content.value);
-    }
+    emit('onComplete', value);
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   } catch (err: any) {
     if (

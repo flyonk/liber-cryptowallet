@@ -234,11 +234,9 @@ onBeforeMount(async () => {
 
 const handlePaste = async () => {
   try {
-    const content = await Clipboard.read();
+    const { value } = await Clipboard.read();
 
-    if (content && content.type === 'text/plain') {
-      form.value.address = content.value;
-    }
+    form.value.address = value;
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   } catch (err: any) {
     if (
