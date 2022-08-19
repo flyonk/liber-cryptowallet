@@ -8,7 +8,7 @@
       })
     "
   >
-    <template #title> {{ $t('views.recipients.add') }}</template>
+    <template #title> {{ $t('views.addNewContacts.title') }}</template>
     <template #content>
       <ul class="invite-list">
         <m-base-input
@@ -17,7 +17,7 @@
           autofocus
           type="text"
         >
-          <template #label> Name </template>
+          <template #label> {{ $t('views.addNewContacts.name') }} </template>
           <template v-if="newContact.name.length > 2" #actions>
             <img
               class="icon"
@@ -36,7 +36,7 @@
             class="m-base-input"
             type="text"
           >
-            <template #label> Email or Phone </template>
+            <template #label> {{ $t('views.addNewContacts.mail') }} </template>
             <template v-if="contact.value.length > 1" #actions>
               <i class="icon icon-trash_full" @click="removeContact(index)" />
             </template>
@@ -45,9 +45,10 @@
         <m-base-button
           view="flat"
           icon-left="icon-plus_circle"
+          class="hidden"
           @click="addExtraContact"
         >
-          {{ $t('views.newcontact.additionalphone') }}
+          {{ $t('views.addNewContacts.additionalphone') }}
         </m-base-button>
       </ul>
       <bottom-swipe-menu
@@ -113,7 +114,6 @@ function addExtraContact() {
 
 const handleAddContact = async () => {
   const _contact = newContact.value;
-
   if (!_contact.name) {
     return;
   }
@@ -132,7 +132,7 @@ const handleAddContact = async () => {
     isMenuOpen.value = true;
   } else {
     router.push({
-      name: Route.PayRecipientsLiber,
+      name: Route.ContactsSend,
       params: { id: newContactId },
     });
   }

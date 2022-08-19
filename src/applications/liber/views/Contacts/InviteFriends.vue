@@ -14,7 +14,11 @@
           class="controls flex w-full h-full"
           :class="{ 'mb-5': !isContactsListAllowed }"
         >
-          <m-base-button icon-left="icon-link" size="medium" class="grow mr-2"
+          <m-base-button
+            icon-left="icon-link"
+            size="medium"
+            class="grow mr-2"
+            disabled
             ><p class="text--footnote whitespace-nowrap">
               {{ $t('views.inviteFriends.shareLink') }}
             </p></m-base-button
@@ -35,13 +39,13 @@
             alt="friend"
             class="image"
           />
-          <h2 class="text--title-3 font-semibold mb-1">
+          <h2 class="text--title-3 font-semibold mb-1 hidden">
             {{ $t('views.inviteFriends.enableContacts') }}
           </h2>
-          <p class="text-default mb-4">
+          <p class="text-default mb-4 hidden">
             {{ $t('views.inviteFriends.quickInvite') }}
           </p>
-          <p class="link text--headline">
+          <p class="link text--headline hidden">
             {{ $t('views.inviteFriends.acessContacts') }}
           </p>
         </div>
@@ -59,7 +63,11 @@
               }}</template
             >
           </m-base-input>
-          <contacts-list :contacts="mockedContacts" with-radio />
+          <contacts-list
+            :contacts="mockedContacts"
+            with-radio
+            @contact-click="handleContactClick"
+          />
           <m-base-button
             size="large"
             view="simple"
@@ -83,15 +91,19 @@ import { TTopNavigation } from '@/components/ui';
 import { uiKitKey } from '@/types/symbols';
 import ContactsList from '@/components/ui/organisms/ContactsList.vue';
 // import { useRecipientsStore } from '@/stores/recipients';
-// import { Contact } from '@/types/contacts';
+import { Contact } from '@/types/contacts';
 import { mockedContacts } from '@/helpers/contacts';
 
 const uiKit = inject(uiKitKey);
 const { MBaseButton, MBaseInput } = uiKit!;
-// const recipientsStore = useRecipientsStore();
 
-const isContactsListAllowed = ref(true);
-// const contacts: Contact[] = recipientsStore.getContacts;
+// todo handler for check first time user on this page or not after adding API someday
+const isContactsListAllowed = ref(false);
+
+const handleContactClick = (data: Contact) => {
+  // todo implement logic for invite friends
+  console.warn('contact data', data);
+};
 </script>
 
 <style lang="scss" scoped>
