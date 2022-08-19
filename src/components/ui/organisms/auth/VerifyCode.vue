@@ -132,12 +132,11 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone: phone.value, otp, code_2fa: totp });
     await pStore.init();
     const passcode = (await get(EStorageKeys.passcode)) === 'true';
-    const secret = localStorage.getItem(EStorageKeys.inviteSecret);
 
     switch (pStore.getUser.status) {
       case EUserStatus.authenticated:
         // invited user with verified email
-        if (secret && pStore.getUser.email) {
+        if (pStore.getUser.email) {
           authStore.setStep(4, 'registration');
           return await router.push({
             name: Route.SignUp,
