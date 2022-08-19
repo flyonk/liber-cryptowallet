@@ -45,12 +45,15 @@ const props = defineProps({
 const emit = defineEmits(['closeMenu']);
 
 function closeMenu() {
+  console.log('close menu');
   emit('closeMenu');
 }
 
 function startMove($event: TouchEvent) {
   if (menu?.value) {
-    menu.value.style.height = `calc(100% - ${$event.touches[0].pageY}px)`;
+    menu.value.style.height = `calc(100% - ${Math.round(
+      $event.touches[0].pageY * 0.75
+    )}px)`;
   }
 }
 
@@ -125,7 +128,7 @@ onUpdated(() => {
   left: 0;
   width: 100%;
   background: $color-white;
-  border-radius: 10% 10% 0 0;
+  border-radius: 4.5vh 4.5vh 0 0;
 
   /* offset-x | offset-y | blur-radius | spread-radius | color */
   max-height: 90%;
