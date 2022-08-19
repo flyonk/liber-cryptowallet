@@ -79,6 +79,11 @@ const _requestHandler = async (
     if (config.headers?.[EMfaHeaders.userId]) {
       headers[EMfaHeaders.userId] = String(config.headers[EMfaHeaders.userId]);
     }
+    if (config.headers?.[EMfaHeaders.inviteSecret]) {
+      headers[EMfaHeaders.inviteSecret] = String(
+        config.headers[EMfaHeaders.inviteSecret]
+      );
+    }
   }
 
   config.timeout = 30000;
