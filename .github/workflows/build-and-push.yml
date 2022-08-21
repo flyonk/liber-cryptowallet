@@ -4,6 +4,7 @@ on:
     branches:
       - 'dev'
       - 'master'
+      - 'stage'
 jobs:
   build-push-and-deploy:
     runs-on: self-hosted
@@ -28,6 +29,10 @@ jobs:
           if [[ 'master' == ${{ github.ref_name }} ]]; then
             cluster='prod'
             cluster_front_ip='172.31.18.220'
+          fi;
+          if [[ 'stage' == ${{ github.ref_name }} ]]; then
+            cluster='demo'
+            cluster_front_ip='172.31.28.178'
           fi;
           
           echo "::set-output name=cluster::${cluster}"
