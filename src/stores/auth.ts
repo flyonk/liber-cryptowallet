@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', {
       kyc: 0,
     },
     registration: {
-      dialCode: '+7',
+      dialCode: '',
       phone: '',
       email: '',
     },
