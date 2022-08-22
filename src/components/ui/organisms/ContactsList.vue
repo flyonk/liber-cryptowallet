@@ -120,7 +120,7 @@ defineEmits(['contactClick']);
   justify-content: center;
 
   > .radio {
-    width: 24px;
+    width: 30px;
     height: 24px;
     margin-right: 16px;
     border-radius: 50%;
@@ -151,5 +151,9 @@ defineEmits(['contactClick']);
   top: 0;
   background-color: white;
   width: 20px;
+}
+
+:deep(.initials) {
+  width: 50px !important;
 }
 </style>
