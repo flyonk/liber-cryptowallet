@@ -94,7 +94,7 @@ const nextStep = async (phone: string) => {
   );
 
   try {
-    await authStore.setPhoneToStorage();
+    await authStore.savePhone('login');
   } catch (error) {
     errorsStore.handle({
       err: error,
