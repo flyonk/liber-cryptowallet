@@ -75,6 +75,7 @@ onMounted(() => {
 
 const handleSelectCountry = (dialCode: string) => {
   authStore.registration.dialCode = dialCode;
+  countryDialCode.value = dialCode;
 };
 
 const handleStep = async (phone: number) => {
