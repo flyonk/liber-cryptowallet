@@ -71,7 +71,7 @@ onMounted(async () => {
 });
 
 const handleSelectCountry = (dialCode: string) => {
-  authStore.registration.dialCode = dialCode;
+  authStore.setRegistrationDialCode(dialCode);
   countryDialCode.value = dialCode;
 };
 
@@ -96,7 +96,6 @@ const handleStep = async (phone: number) => {
   }
 
   authStore.setRegistrationPhone(stringifiedPhone);
-  authStore.savePhone('signup');
   emit('next');
 };
 
