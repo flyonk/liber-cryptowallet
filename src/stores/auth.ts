@@ -197,39 +197,20 @@ export const useAuthStore = defineStore('auth', {
       return await authService.devices();
     },
 
-    //TODO: rename method ex: getPhoneFromStorage
-    async getFromStorage() {
-      const [dialCode, phone] = await Promise.all([
-        get(EStorageKeys.dialCode),
-        get(EStorageKeys.phone),
-      ]);
+    async getPhoneFromStorage(
+      type: 'login' | 'signup'
+    ): Promise<undefined | ICommonPhoneNumber> {
+      const isLogin = type === 'login';
 
-      if (dialCode === 'null' || dialCode === null) {
-        this.login.dialCode = '+7';
-      } else {
-        this.login.dialCode = dialCode;
-      }
+      const rawData: string | null = isLogin
+        ? await get(EStorageKeys.loginPhone)
+        : await get(EStorageKeys.signUpPhone);
 
-      if (phone === 'null' || phone === null) {
-        this.login.phone = '';
-      } else {
-        this.login.phone = phone;
-      }
+      const phoneData = JSON.parse(rawData ? rawData : 'null');
 
-      // this.login.dialCode = dialCode || '+7';
-    },
+      if (!phoneData) return;
 
-    async setPhoneToStorage() {
-      await Promise.all([
-        set({
-          key: EStorageKeys.dialCode,
-          value: this.login.dialCode,
-        }),
-        set({
-          key: EStorageKeys.phone,
-          value: this.login.phone,
-        }),
-      ]);
+      return phoneData;
     },
 
     setLoginPhone(phone: string) {
