@@ -6,6 +6,7 @@ export enum EStorageKeys {
   touchid = 'liber-app-touch-id',
   language = 'liber-app-language',
   loginPhone = 'login-phone',
+  signUpPhone = 'signup-phone',
   token = 'access_token',
   refreshToken = 'refresh_token',
   tokenExpire = 'token_expire',
