@@ -59,18 +59,15 @@ const number = ref('');
 const countryDialCode = ref('');
 const phoneExist = ref(false);
 
-onMounted(() => {
-  const { phone, dialCode } = authStore.registration;
+onMounted(async () => {
+  const phoneData = await authStore.getPhoneFromStorage('signup');
 
-  if (phone) {
-    number.value = authStore.login.phone;
-  }
+  if (phoneData) {
+    const { dialCode, phone } = phoneData;
 
-  if (!dialCode) {
-    //TODO:Change to the default value taken from the smartphone
-    authStore.registration.dialCode = '+7';
+    countryDialCode.value = dialCode;
+    number.value = phone;
   }
-  countryDialCode.value = authStore.registration.dialCode;
 });
 
 const handleSelectCountry = (dialCode: string) => {
