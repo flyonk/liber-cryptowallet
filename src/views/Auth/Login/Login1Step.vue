@@ -64,12 +64,17 @@ onMounted(async () => {
     authStore.setStep(2, 'login');
   }
 
-  await authStore.getFromStorage();
+  const phoneData = await authStore.getLastSessionPhone();
+
+  if (!phoneData) return;
+
+  const { dialCode, phone } = phoneData;
+
+  authStore.setLoginDialCode(dialCode);
+  authStore.setLoginPhone(phone);
 
   number.value = authStore.login.phone;
-  countryDialCode.value = authStore.login.dialCode
-    ? authStore.login.dialCode
-    : '+7';
+  countryDialCode.value = authStore.login.dialCode;
 
   // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
   forceUpdate();
