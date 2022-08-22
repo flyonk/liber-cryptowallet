@@ -176,12 +176,14 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async savePhone(type: 'login' | 'signup'): Promise<void> {
-      const value =
-        type === 'login'
-          ? JSON.stringify(this.login)
-          : JSON.stringify(this.registration);
+      const isLogin = type === 'login';
+
+      const value = isLogin
+        ? JSON.stringify(this.login)
+        : JSON.stringify(this.registration);
+
       await set({
-        key: EStorageKeys.loginPhone,
+        key: isLogin ? EStorageKeys.loginPhone : EStorageKeys.signUpPhone,
         value,
       });
     },
