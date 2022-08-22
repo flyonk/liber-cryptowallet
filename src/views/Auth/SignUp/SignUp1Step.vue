@@ -76,21 +76,20 @@ const handleSelectCountry = (dialCode: string) => {
 };
 
 const handleStep = async (phone: number) => {
-  console.log('signUp1step handleStep', phone);
-
   const stringifiedPhone = '' + phone;
-  await authStore.getFromStorage();
+
   const lastSessionPhone = await authStore.getLastSessionPhone();
 
   if (lastSessionPhone) {
-    const { dialCode: dc, phone: ph } = lastSessionPhone;
+    const { dialCode, phone } = lastSessionPhone;
     const currentPhone = countryDialCode.value + stringifiedPhone;
-    const lastSessionPhoneNumber = dc + ph;
+    const lastSessionPhoneNumber = dialCode + phone;
     const isPhoneNumberExist = currentPhone === lastSessionPhoneNumber;
 
     if (isPhoneNumberExist) {
       number.value = stringifiedPhone;
       authStore.setLoginPhone(stringifiedPhone);
+      authStore.setLoginDialCode(dialCode);
       phoneExist.value = true;
       return;
     }
