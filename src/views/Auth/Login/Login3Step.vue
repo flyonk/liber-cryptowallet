@@ -92,7 +92,10 @@ async function onSubmit(success: boolean): Promise<void> {
     if (is2FAIsExpired) {
       sessionExpiredToast.value = true;
     } else {
+      // removes unnecessary data for a new login
       await remove(EStorageKeys.signUpPhone);
+      await remove(EStorageKeys.lastSessionPhone);
+
       await router.push({
         name: Route.DashboardHome,
       });
