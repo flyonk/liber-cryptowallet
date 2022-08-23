@@ -94,6 +94,7 @@ onBeforeMount(async () => {
 .initials-wrapper > :deep(.initials) {
   width: 56px;
   height: 56px;
+  flex-shrink: 0;
 }
 
 .list-item {

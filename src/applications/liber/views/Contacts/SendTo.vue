@@ -19,7 +19,9 @@
       <h1 class="title">{{ computedRecipient.displayName }}</h1>
     </template>
     <template #right>
-      <a-contact-initials :name="computedRecipient.displayName"
+      <a-contact-initials
+        :name="computedRecipient.displayName"
+        class="initials-wrapper"
     /></template>
     <template #content
       ><div class="send-to">
@@ -293,5 +295,9 @@ const sendTransaction = async () => {
     width: 50px;
     height: 50px;
   }
+}
+
+.initials-wrapper {
+  flex-shrink: 0;
 }
 </style>

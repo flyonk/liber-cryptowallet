@@ -50,6 +50,7 @@ const color = computed(() => `#${Math.floor(letterValue.value).toString(16)}`);
   color: rgb(255 255 255 / 50%);
   margin-right: 12px;
   position: relative;
+  flex-shrink: 0;
 
   > .icon-verification {
     position: absolute;
