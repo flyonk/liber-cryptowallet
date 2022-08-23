@@ -58,6 +58,8 @@ import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscod
 import { uiKitKey } from '@/types/symbols';
 import { UiKitInterface } from '@/types/uiKit';
 import { STATIC_BASE_URL } from '@/constants';
+import { EStorageKeys } from '@/types/storage';
+import { remove } from '@/helpers/storage';
 
 const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit as UiKitInterface;
@@ -90,6 +92,7 @@ async function onSubmit(success: boolean): Promise<void> {
     if (is2FAIsExpired) {
       sessionExpiredToast.value = true;
     } else {
+      await remove(EStorageKeys.signUpPhone);
       await router.push({
         name: Route.DashboardHome,
       });
