@@ -64,6 +64,19 @@ onMounted(async () => {
     authStore.setStep(2, 'login');
   }
 
+  const loginPhone = await authStore.getPhoneFromStorage('login');
+
+  if (loginPhone) {
+    const { dialCode, phone } = loginPhone;
+
+    authStore.setLoginDialCode(dialCode);
+    authStore.setLoginPhone(phone);
+
+    number.value = authStore.login.phone;
+    countryDialCode.value = authStore.login.dialCode;
+    return;
+  }
+
   const phoneData = await authStore.getLastSessionPhone();
 
   if (!phoneData) return;
