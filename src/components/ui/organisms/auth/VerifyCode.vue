@@ -55,7 +55,7 @@ const phone = computed(() => {
     case VerifyCodeFlow.Login:
       return authStore.getLoginPhone;
     case VerifyCodeFlow.Signup:
-      return authStore.getRegistrationPhone;
+      return authStore.getRegistrationFullPhone;
     default:
       return '';
   }
