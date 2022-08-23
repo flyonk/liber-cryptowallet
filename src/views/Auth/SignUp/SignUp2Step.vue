@@ -41,7 +41,14 @@ const handle = () => {
 
 const continueWithExistedLogin = async () => {
   authStore.setLoginPhone(authStore.getRegistrationPhone);
-  authStore.setLoginDialCode(authStore.registration.dialCode);
+  authStore.setLoginDialCode(authStore.getRegistrationDialCode);
+
+  /**
+   * savePhone('login') is necessary for the logout to save
+   * the last-session-phone-data that is involved
+   * in determining the existing number in signup
+   */
+  await authStore.savePhone('login');
 
   await twoFAStore.set2FADate();
   authStore.setStep(2, 'login');
