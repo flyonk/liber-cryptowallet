@@ -59,47 +59,43 @@ const number = ref('');
 const countryDialCode = ref('');
 const phoneExist = ref(false);
 
-onMounted(() => {
-  const { phone, dialCode } = authStore.registration;
+onMounted(async () => {
+  const phoneData = await authStore.getPhoneFromStorage('signup');
 
-  if (phone) {
-    number.value = authStore.login.phone;
-  }
+  if (phoneData) {
+    const { dialCode, phone } = phoneData;
 
-  if (!dialCode) {
-    //TODO:Change to the default value taken from the smartphone
-    authStore.registration.dialCode = '+7';
+    countryDialCode.value = dialCode;
+    number.value = phone;
   }
-  countryDialCode.value = authStore.registration.dialCode;
 });
 
 const handleSelectCountry = (dialCode: string) => {
-  authStore.registration.dialCode = dialCode;
+  authStore.setRegistrationDialCode(dialCode);
+  countryDialCode.value = dialCode;
 };
 
 const handleStep = async (phone: number) => {
-  console.log('signUp1step handleStep', phone);
-
   const stringifiedPhone = '' + phone;
-  await authStore.getFromStorage();
+
   const lastSessionPhone = await authStore.getLastSessionPhone();
 
   if (lastSessionPhone) {
-    const { dialCode: dc, phone: ph } = lastSessionPhone;
+    const { dialCode, phone } = lastSessionPhone;
     const currentPhone = countryDialCode.value + stringifiedPhone;
-    const lastSessionPhoneNumber = dc + ph;
+    const lastSessionPhoneNumber = dialCode + phone;
     const isPhoneNumberExist = currentPhone === lastSessionPhoneNumber;
 
     if (isPhoneNumberExist) {
       number.value = stringifiedPhone;
       authStore.setLoginPhone(stringifiedPhone);
+      authStore.setLoginDialCode(dialCode);
       phoneExist.value = true;
       return;
     }
   }
 
   authStore.setRegistrationPhone(stringifiedPhone);
-  authStore.savePhone('signup');
   emit('next');
 };
 

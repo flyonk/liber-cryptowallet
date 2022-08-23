@@ -64,12 +64,30 @@ onMounted(async () => {
     authStore.setStep(2, 'login');
   }
 
-  await authStore.getFromStorage();
+  const loginPhone = await authStore.getPhoneFromStorage('login');
+
+  if (loginPhone) {
+    const { dialCode, phone } = loginPhone;
+
+    authStore.setLoginDialCode(dialCode);
+    authStore.setLoginPhone(phone);
+
+    number.value = authStore.login.phone;
+    countryDialCode.value = authStore.login.dialCode;
+    return;
+  }
+
+  const phoneData = await authStore.getLastSessionPhone();
+
+  if (!phoneData) return;
+
+  const { dialCode, phone } = phoneData;
+
+  authStore.setLoginDialCode(dialCode);
+  authStore.setLoginPhone(phone);
 
   number.value = authStore.login.phone;
-  countryDialCode.value = authStore.login.dialCode
-    ? authStore.login.dialCode
-    : '+7';
+  countryDialCode.value = authStore.login.dialCode;
 
   // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
   forceUpdate();
@@ -89,7 +107,7 @@ const nextStep = async (phone: string) => {
   );
 
   try {
-    await authStore.setPhoneToStorage();
+    await authStore.savePhone('login');
   } catch (error) {
     errorsStore.handle({
       err: error,

@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', {
       kyc: 0,
     },
     registration: {
-      dialCode: '+7',
+      dialCode: '',
       phone: '',
       email: '',
     },
@@ -176,12 +176,14 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async savePhone(type: 'login' | 'signup'): Promise<void> {
-      const value =
-        type === 'login'
-          ? JSON.stringify(this.login)
-          : JSON.stringify(this.registration);
+      const isLogin = type === 'login';
+
+      const value = isLogin
+        ? JSON.stringify(this.login)
+        : JSON.stringify(this.registration);
+
       await set({
-        key: EStorageKeys.loginPhone,
+        key: isLogin ? EStorageKeys.loginPhone : EStorageKeys.signUpPhone,
         value,
       });
     },
@@ -195,39 +197,20 @@ export const useAuthStore = defineStore('auth', {
       return await authService.devices();
     },
 
-    //TODO: rename method ex: getPhoneFromStorage
-    async getFromStorage() {
-      const [dialCode, phone] = await Promise.all([
-        get(EStorageKeys.dialCode),
-        get(EStorageKeys.phone),
-      ]);
+    async getPhoneFromStorage(
+      type: 'login' | 'signup'
+    ): Promise<undefined | ICommonPhoneNumber> {
+      const isLogin = type === 'login';
 
-      if (dialCode === 'null' || dialCode === null) {
-        this.login.dialCode = '+7';
-      } else {
-        this.login.dialCode = dialCode;
-      }
+      const rawData: string | null = isLogin
+        ? await get(EStorageKeys.loginPhone)
+        : await get(EStorageKeys.signUpPhone);
 
-      if (phone === 'null' || phone === null) {
-        this.login.phone = '';
-      } else {
-        this.login.phone = phone;
-      }
+      const phoneData = JSON.parse(rawData ? rawData : 'null');
 
-      // this.login.dialCode = dialCode || '+7';
-    },
+      if (!phoneData) return;
 
-    async setPhoneToStorage() {
-      await Promise.all([
-        set({
-          key: EStorageKeys.dialCode,
-          value: this.login.dialCode,
-        }),
-        set({
-          key: EStorageKeys.phone,
-          value: this.login.phone,
-        }),
-      ]);
+      return phoneData;
     },
 
     setLoginPhone(phone: string) {
@@ -247,9 +230,7 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async logout() {
-      const [dialCode, phone, touchId, faceId, loginPhone] = await Promise.all([
-        get(EStorageKeys.dialCode),
-        get(EStorageKeys.phone),
+      const [touchId, faceId, loginPhone] = await Promise.all([
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
         get(EStorageKeys.loginPhone),
@@ -266,14 +247,6 @@ export const useAuthStore = defineStore('auth', {
       const lastSessionPhone = loginPhone ? loginPhone : 'null';
 
       await Promise.all([
-        set({
-          key: EStorageKeys.dialCode,
-          value: dialCode as string,
-        }),
-        set({
-          key: EStorageKeys.phone,
-          value: phone as string,
-        }),
         set({
           key: EStorageKeys.lastSessionPhone,
           value: lastSessionPhone,

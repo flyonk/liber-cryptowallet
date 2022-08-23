@@ -41,6 +41,7 @@ const handle = () => {
 
 const continueWithExistedLogin = async () => {
   authStore.setLoginPhone(authStore.getRegistrationPhone);
+  authStore.setLoginDialCode(authStore.registration.dialCode);
 
   await twoFAStore.set2FADate();
   authStore.setStep(2, 'login');
