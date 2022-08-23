@@ -47,6 +47,7 @@
         <m-base-button
           view="flat"
           icon-left="icon-plus_circle"
+          class="hidden"
           @click="addExtraContact"
         >
           {{ $t('views.newcontact.additionalphone') }}
