@@ -6,6 +6,10 @@
   touch-action: pan-y;
 }
 
+div {
+  touch-action: none;
+}
+
 html,
 body {
   margin: 0;
@@ -26,6 +30,7 @@ a {
   margin: 0;
   padding: 0;
   list-style: none;
+  touch-action: pan-y;
 }
 
 button {

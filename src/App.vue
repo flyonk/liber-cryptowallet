@@ -112,10 +112,6 @@ function handleReconnection() {
   }
 }
 
-.router-view {
-  touch-action: manipulation;
-}
-
 .dissolve-enter-active {
   animation: dissolve 0.3s;
 }

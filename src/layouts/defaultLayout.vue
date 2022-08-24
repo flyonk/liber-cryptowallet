@@ -19,5 +19,11 @@
     height: fill-available; // ios fix
     min-height: fill-available;
   }
+
+  &.-full-viewport {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
 }
 </style>

@@ -39,6 +39,19 @@ watch(route.currentRoute, (val) => {
   height: 100%;
   position: relative;
 
+  &.-full-height {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: fill-available;
+  }
+
+  &.-full-viewport {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
+
   > .main {
     height: 100%;
     overflow: scroll;

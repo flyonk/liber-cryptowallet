@@ -121,6 +121,10 @@ const handleContactClick = (data: Contact) => {
     height: 500px;
     flex-direction: column;
 
+    @include iPhoneSE {
+      height: 350px;
+    }
+
     > .image {
       width: 155px;
       margin-bottom: 105px;
