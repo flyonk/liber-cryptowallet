@@ -147,6 +147,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'all',
         name: Route.TransactionsAll,
         component: TransactionsAll,
+        meta: { classLayout: '-full-viewport' },
       },
     ],
   },

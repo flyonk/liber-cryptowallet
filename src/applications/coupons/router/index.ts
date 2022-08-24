@@ -8,7 +8,7 @@ import Recipients from '@/applications/liber/views/Contacts/RecipientsView.vue';
 import Transactions from '@/applications/liber/views/Dashboard/Transactions/index.vue';
 import DashboardTransactions from '@/applications/coupons/views/Dashboard/Transactions/DashboardTransactions.vue';
 import TransactionDetails from '@/applications/liber/views/Dashboard/Transactions/TransactionDetails.vue';
-import CouponsTransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
+import TransactionsAll from '@/applications/coupons/views/Dashboard/Transactions/TransactionsAll.vue';
 
 // import checkContactsLoaded from '@/router/middleware/checkContacts';
 import RecipientsRoutes from './routesRecipients';
@@ -62,7 +62,8 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: 'all',
         name: CouponRoutes.TransactionsAll,
-        component: CouponsTransactionsAll,
+        component: TransactionsAll,
+        meta: { classLayout: '-full-viewport' },
       },
     ],
   },

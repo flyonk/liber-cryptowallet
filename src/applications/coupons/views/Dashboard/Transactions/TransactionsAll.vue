@@ -1,5 +1,7 @@
 <template>
   <t-top-navigation
+    full-height
+    with-navbar
     @click:left-icon="$router.push({ name: CouponRoutes.DashboardHome })"
   >
     <template #title>{{ $t('views.dashboard.home.transactions') }}</template>
