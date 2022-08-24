@@ -69,11 +69,8 @@ onMounted(async () => {
   if (loginPhone) {
     const { dialCode, phone } = loginPhone;
 
-    authStore.setLoginDialCode(dialCode);
-    authStore.setLoginPhone(phone);
+    setPhoneData(dialCode, phone);
 
-    number.value = authStore.login.phone;
-    countryDialCode.value = authStore.login.dialCode;
     return;
   }
 
@@ -83,15 +80,19 @@ onMounted(async () => {
 
   const { dialCode, phone } = phoneData;
 
+  setPhoneData(dialCode, phone);
+
+  // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
+  forceUpdate();
+});
+
+function setPhoneData(dialCode: string, phone: string) {
   authStore.setLoginDialCode(dialCode);
   authStore.setLoginPhone(phone);
 
   number.value = authStore.login.phone;
   countryDialCode.value = authStore.login.dialCode;
-
-  // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
-  forceUpdate();
-});
+}
 
 const handleSelectCountry = (dialCode: string) => {
   // need for sync data with AuthCredentials isNumberInvalid function

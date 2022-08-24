@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { Ref, ref, inject } from 'vue';
+import { Ref, ref, inject, toRef, watch } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
 import { BaseCountryPhoneInput } from '@/components/ui';
@@ -104,7 +104,7 @@ const mask = ref('');
 const updateKey = ref(0);
 const type = ref(TypeBaseInput.Mask) as Ref<TypeBaseInput>;
 const isClearBtnShown = ref(false);
-const number: Ref<string | null> = ref(props.initialNumber);
+const number: Ref<number | string | null> = ref(props.initialNumber);
 
 const isInitialStep = ref(true) as Ref<boolean>;
 
@@ -183,6 +183,15 @@ const closeClearBtn = () => {
 const forceUpdate = () => {
   updateKey.value++;
 };
+
+watch(toRef(props, 'initialNumber'), () => {
+  number.value = props.initialNumber;
+
+  /**
+   * need to update input after getting phone from storage
+   */
+  forceUpdate();
+});
 </script>
 
 <style lang="scss" scoped>
