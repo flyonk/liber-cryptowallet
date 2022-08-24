@@ -129,8 +129,6 @@ const isNumberInvalid = computed(() => {
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
-  number.value = null;
-
   const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
 
   type.value = TypeBaseInput.Number;
@@ -147,6 +145,15 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
   emits('handleSelectCountry', data.dialCode);
   type.value = data.mask ? TypeBaseInput.Mask : TypeBaseInput.Number;
+
+  /**
+   * in order to avoid the appearance of '0'
+   * when changing the m-base-input type to "number" from 'mask'
+   * with the value ""
+   * */
+  if (type.value === TypeBaseInput.Number && number.value === '') {
+    number.value = null;
+  }
 
   // Need to update v-model in BaseInput -> PrimeVue InputMask -> mask
   forceUpdate();
