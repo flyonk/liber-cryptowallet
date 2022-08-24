@@ -102,6 +102,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: Route.AccountMain,
         component: AllAccounts,
+        meta: { classLayout: '-full-viewport' },
       },
       {
         path: ':coin',

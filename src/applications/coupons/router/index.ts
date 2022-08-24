@@ -26,6 +26,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: CouponRoutes.AccountMain,
         component: AllAccounts,
+        meta: { classLayout: '-full-viewport' },
       },
     ],
   },

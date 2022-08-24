@@ -4,4 +4,8 @@
 
 <script setup lang="ts"></script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.main {
+  height: 100vh !important;
+}
+</style>
