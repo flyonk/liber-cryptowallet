@@ -176,10 +176,20 @@ function setClickableBehaviorForPagItem(swiper) {
 <style lang="scss" scoped>
 .swiper-container {
   height: 100%;
+  height: fill-available; // ios fix
+  min-height: 100%;
 
   & > .swiper {
     height: 100%;
+    height: fill-available; //ios fix
+    min-height: 100%;
   }
+}
+
+:deep(.swiper-wrapper),
+:deep(.example-story) {
+  min-height: 100%;
+  height: fill-available !important; //ios fix
 }
 
 :deep(.pagination) {
