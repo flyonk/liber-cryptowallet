@@ -337,6 +337,7 @@ async function onLogout() {
 
   > .main {
     touch-action: manipulation;
+
     > .list {
       display: flex;
       flex-direction: column;
