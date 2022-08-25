@@ -1,18 +1,18 @@
 <template>
   <t-top-navigation left-icon-name="icon-log_out" @click:left-icon="prevStep">
     <template #title>{{ $t('auth.login.step3Title') }}</template>
-    <template #content>
-      <base-passcode
-        :show-touch-faceid="showNativeVerification"
-        class="login-passcode"
-        @submit="onSubmit"
-      />
-
-      <router-link :to="{ name: Route.RestorePasscode }" class="recovery-link">
-        {{ $t('auth.login.forgotYourPasscode') }}
-      </router-link>
-    </template>
   </t-top-navigation>
+  <div class="content">
+    <base-passcode
+      :show-touch-faceid="showNativeVerification"
+      class="login-passcode"
+      @submit="onSubmit"
+    />
+
+    <router-link :to="{ name: Route.RestorePasscode }" class="recovery-link">
+      {{ $t('auth.login.forgotYourPasscode') }}
+    </router-link>
+  </div>
   <m-base-toast
     :visible="sessionExpiredToast"
     @update:visible="sessionExpiredToast = false"
@@ -131,11 +131,13 @@ async function onLogin() {
 </script>
 
 <style lang="scss">
-.login-passcode {
-  margin-top: 20%;
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 
-  @media (max-height: 680px) {
-    margin-top: 5%;
+  & > .login-passcode {
+    margin-top: auto;
   }
 }
 
@@ -150,7 +152,7 @@ async function onLogin() {
 }
 
 .recovery-link {
-  margin-top: 8vh;
+  margin-top: 5vh;
   display: flex;
   justify-content: center;
   color: $color-primary-500;
@@ -159,7 +161,7 @@ async function onLogin() {
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.0043em;
-
+  margin-bottom: auto;
   @media (max-height: 680px) {
     margin-top: 10px;
   }
