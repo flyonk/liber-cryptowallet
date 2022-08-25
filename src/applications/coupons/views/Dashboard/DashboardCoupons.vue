@@ -206,6 +206,10 @@ onBeforeMount(async () => {
   height: 500px;
   overflow: scroll;
 
+  @include iPhoneSE {
+    height: 350px;
+  }
+
   > .transactions {
     margin: 22px 0 0;
 
