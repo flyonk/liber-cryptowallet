@@ -44,21 +44,24 @@ const props = defineProps({
 });
 
 const list = ref([]) as Ref<Array<ICountryInformation>>;
-const selectedData = ref(null) as Ref<ICountryInformation | null>;
+const selectedData = ref(null) as Ref<ICountryInformation | null | undefined>;
 const showList = ref(false) as Ref<boolean>;
 
 onBeforeMount(async (): Promise<void> => {
-  if (props.onlyEuropean) {
-    list.value = await getEuropeanList();
-  } else {
-    list.value = await getFullList();
-  }
+  list.value = props.onlyEuropean
+    ? await getEuropeanList()
+    : await getFullList();
 
   const _selectedCode = list.value.filter((item) => {
     return item.dialCode === props.dialCode;
   });
 
-  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0];
+  const germanyByDefault = list.value.find((e) => e.dialCode === '+49');
+
+  selectedData.value = _selectedCode.length
+    ? _selectedCode[0]
+    : germanyByDefault;
+
   emits('ready', selectedData.value);
 });
 
