@@ -132,10 +132,10 @@ async function onLogin() {
 
 <style lang="scss">
 .login-passcode {
-  margin-top: 108px;
+  margin-top: 20%;
 
   @media (max-height: 680px) {
-    margin-top: 20px;
+    margin-top: 5%;
   }
 }
 
