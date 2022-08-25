@@ -1,13 +1,18 @@
 <template>
   <div class="transaction-filters">
-    <AFilterItems :filters="timeFilters" />
-    <AFilterItems :filters="typeFilters" class="-gap" />
-    <AFilterItems :filters="accountFilters" />
+    <a-filter-items :filters="timeFilters" />
+    <a-filter-items :filters="typeFilters" class="-gap" />
+    <a-filter-items :filters="accountFilters" />
   </div>
 </template>
 
 <script lang="ts" setup>
-import AFilterItems from '@/components/ui/atoms/AFilterItems.vue';
+import { inject } from 'vue';
+
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { AFilterItems } = uiKit!;
 
 const timeFilters = [
   {
