@@ -172,11 +172,9 @@ const recipientsStore = useRecipientsStore();
 const errorsStore = useErrorsStore();
 
 const route = useRoute();
-console.log('ga', route.params.contacts);
 
 const contactId = route.params.id;
 const contacts: Contact[] = recipientsStore.getContacts;
-console.log('contacts', contacts);
 const _contact = contacts.filter((c) => {
   return c.contactId === contactId;
 });
