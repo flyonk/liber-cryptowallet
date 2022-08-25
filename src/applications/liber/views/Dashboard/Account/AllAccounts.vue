@@ -103,7 +103,7 @@ function getCurrencyUrl(code: string): string {
       height: 164px;
       width: 164px;
 
-      @media (max-width: 350px) {
+      @media (max-width: 370px) {
         width: 100%;
       }
 

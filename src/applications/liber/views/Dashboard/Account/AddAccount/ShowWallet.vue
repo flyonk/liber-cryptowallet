@@ -1,5 +1,6 @@
 <template>
   <t-top-navigation
+    full-height
     left-icon-name="icon-app-navigation-close"
     @click:left-icon="$router.push({ name: Route.DashboardHome })"
   >
@@ -21,4 +22,13 @@ const accountStore = useAccountStore();
 const coinCode = computed(() => accountStore.getNewAccountParams.coin);
 </script>
 
-<style scoped></style>
+<style scoped lang="scss">
+:deep(.content) {
+  height: 100%;
+
+  @include iPhoneSE {
+    max-height: 480px !important;
+    overflow: scroll !important;
+  }
+}
+</style>
