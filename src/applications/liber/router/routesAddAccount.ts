@@ -24,5 +24,6 @@ export default [
       import(
         '@/applications/liber/views/Dashboard/Account/AddAccount/ShowWallet.vue'
       ),
+    meta: { classLayout: '-full-viewport' },
   },
 ];

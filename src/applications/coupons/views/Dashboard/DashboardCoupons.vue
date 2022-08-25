@@ -203,11 +203,15 @@ onBeforeMount(async () => {
 }
 
 .dashboard-container {
-  min-height: 100%;
+  height: 500px;
+  overflow: scroll;
+
+  @include iPhoneSE {
+    height: 350px;
+  }
 
   > .transactions {
     margin: 22px 0 0;
-    height: 100%;
 
     > .header {
       margin: 0 0 16px;
