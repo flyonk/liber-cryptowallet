@@ -2,7 +2,6 @@ export { default as BaseCountryPhoneInput } from './organisms/BaseCountryPhoneIn
 export { default as BottomNav } from './organisms/BottomNav.vue';
 export { default as BaseCountrySelect } from './organisms/BaseCountrySelect.vue';
 export { default as LanguageSwitcher } from './organisms/LanguageSwitcher.vue';
-export { default as BaseBottomSheet } from './molecules/BaseBottomSheetV.vue';
 export { default as MDashboardCoinInfo } from './molecules/dashboard/MDashboardCoinInfo.vue';
 export { default as AccountListBottomSheet } from './organisms/dashboard/AccountList.vue';
 export { default as AccountDetails } from './organisms/account/AccountDetails.vue';
