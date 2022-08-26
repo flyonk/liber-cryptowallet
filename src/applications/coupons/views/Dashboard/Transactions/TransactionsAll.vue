@@ -16,14 +16,17 @@
 </template>
 
 <script setup lang="ts">
-import { computed, onBeforeMount } from 'vue';
+import { computed, onBeforeMount, inject } from 'vue';
 
-import MTransactionFilters from '@/components/ui/molecules/MTransactionFilters.vue';
 import { TransactionsList, TTopNavigation } from '@/components/ui';
 
 import { CouponRoutes } from '@/applications/coupons/router/types';
 import { useCouponsStore } from '@/applications/coupons/stores/coupons';
 import { useErrorsStore } from '@/stores/errors';
+import { uiKitKey } from '@/types/symbols';
+
+const uiKit = inject(uiKitKey);
+const { MTransactionFilters } = uiKit!;
 
 const couponsStore = useCouponsStore();
 const errorsStore = useErrorsStore();
