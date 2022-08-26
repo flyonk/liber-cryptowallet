@@ -26,16 +26,14 @@ import {
   INetTransaction,
 } from '@/models/transaction/transaction';
 import { Route } from '@/router/types';
-import {
-  ConvertTransactionItem,
-  ExternalTransactionItem,
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  // TransferTransactionItem,
-} from '@/components/ui/molecules/TransactionListItem';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
-const { MTransferTransactionItem } = uiKit!;
+const {
+  MTransferTransactionItem,
+  MConvertTransactionItem,
+  MExternalTransactionItem,
+} = uiKit!;
 
 const router = useRouter();
 
@@ -96,11 +94,11 @@ const goToRoute = (
 const selectComponent = (type: string) => {
   switch (type) {
     case ETransactionType.convert:
-      return ConvertTransactionItem;
+      return MConvertTransactionItem;
     case ETransactionType.transfer:
       return MTransferTransactionItem;
     default:
-      return ExternalTransactionItem;
+      return MExternalTransactionItem;
   }
 };
 </script>

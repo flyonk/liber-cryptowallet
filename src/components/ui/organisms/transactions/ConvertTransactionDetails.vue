@@ -31,7 +31,7 @@
             <p class="name">
               {{ $t('status.title') }}
             </p>
-            <TransactionStatus :status="transaction.status" />
+            <ATransactionStatus :status="transaction.status" />
           </li>
           <li class="main-item">
             <p class="name">
@@ -105,15 +105,11 @@ import {
 } from '@/models/transaction/transaction';
 import { getRelativeDate } from '@/helpers/datetime';
 
-import {
-  TransactionIconWithStatus,
-  TransactionStatus,
-  TTopNavigation,
-} from '@/components/ui';
+import { TransactionIconWithStatus, TTopNavigation } from '@/components/ui';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
-const { MBaseButton } = uiKit!;
+const { MBaseButton, ATransactionStatus } = uiKit!;
 
 defineEmits(['copy']);
 const props = defineProps({
