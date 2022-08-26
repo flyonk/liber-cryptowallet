@@ -152,8 +152,4 @@ defineEmits(['contactClick']);
   background-color: white;
   width: 20px;
 }
-
-:deep(.initials) {
-  width: 50px !important;
-}
 </style>

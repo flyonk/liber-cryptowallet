@@ -8,7 +8,7 @@
       <div class="content-wrapper">
         <p class="auth-item" style="margin-bottom: 15px">
           <img
-            src="@/assets/brands/ga.png"
+            src="@/assets/brands/ga.svg"
             alt="Google Authenticator"
             class="auth-app-icon"
           />

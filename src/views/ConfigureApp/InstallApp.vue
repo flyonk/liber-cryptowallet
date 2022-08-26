@@ -6,36 +6,15 @@
     >
     <template #content>
       <div class="page-wrapper">
-        <p class="auth-item" style="margin-bottom: 15px">
-          <img
-            src="@/assets/brands/ga.png"
-            alt="Google Authenticator"
-            class="auth-app-icon"
-          />
-          <span>{{ $t('common.googleAuthenticator') }}</span>
-        </p>
-        <p class="auth-item" style="margin-bottom: 50px">
-          <img
-            src="@/assets/brands/ma.svg"
-            alt="Microsoft Authenticator"
-            class="auth-app-icon"
-          />
-          <span>{{ $t('common.microsoftAuthenticator') }}</span>
-        </p>
-
-        <a href="https://apps.apple.com/lb/app" class="store-link">
-          <img
-            class="store-link-img"
-            src="@/assets/brands/appstore.png"
-            alt="App Store"
-          />
-        </a>
-        <a href="https://play.google.com/store/apps" class="store-link">
-          <img
-            class="store-link-img"
-            src="@/assets/brands/googleplay.png"
-            alt="Google play"
-          />
+        <a
+          v-for="item in apps"
+          :key="item.text"
+          class="auth-item"
+          style="margin-bottom: 15px"
+          :href="isIOS() ? item.linkIos : item.linkGoogle"
+        >
+          <img :src="item.img" :alt="item.text" class="auth-app-icon" />
+          <span>{{ item.text }}</span>
         </a>
       </div>
     </template>
@@ -95,6 +74,57 @@ const nextStep = (): void => {
     hash: nextRouteHash.value,
   });
 };
+
+const isIOS = (): boolean => {
+  return (
+    [
+      'iPad Simulator',
+      'iPhone Simulator',
+      'iPod Simulator',
+      'iPad',
+      'iPhone',
+      'iPod',
+    ].includes(navigator.platform) ||
+    (navigator.userAgent.includes('Mac') && 'ontouchend' in document)
+  );
+};
+
+const apps = [
+  {
+    img: require('@/assets/brands/ma.svg'),
+    text: 'Microsoft Authenticator',
+    linkIos: 'https://apps.apple.com/ru/app/microsoft-authenticator',
+    linkGoogle:
+      'https://play.google.com/store/apps/details?id=com.azure.authenticator',
+  },
+  {
+    img: require('@/assets/brands/ga.svg'),
+    text: 'Google Authenticator',
+    linkIos: 'https://apps.apple.com/ru/app/google-authenticator',
+    linkGoogle:
+      'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2',
+  },
+  {
+    img: require('@/assets/brands/authy.svg'),
+    text: 'Authy',
+    linkIos: 'https://apps.apple.com/ru/app/twilio-authy',
+    linkGoogle: 'https://play.google.com/store/apps/details?id=com.authy.authy',
+  },
+  {
+    img: require('@/assets/brands/dm.svg'),
+    text: 'Duo Mobile',
+    linkIos: 'https://apps.apple.com/ru/app/duo-mobile',
+    linkGoogle:
+      'https://play.google.com/store/apps/details?id=com.duosecurity.duomobile',
+  },
+  {
+    img: require('@/assets/brands/op.svg'),
+    text: '1Password',
+    linkIos: 'https://apps.apple.com/us/app/1password-7-password-manager',
+    linkGoogle:
+      'https://play.google.com/store/apps/details?id=com.onepassword.android',
+  },
+];
 </script>
 
 <style lang="scss" scoped>
@@ -112,10 +142,14 @@ const nextStep = (): void => {
 .auth-item {
   display: flex;
   align-items: center;
+  color: $color-dark-grey;
+  font-weight: 600;
+  font-size: 17px;
+  line-height: 22px;
 }
 
 .auth-app-icon {
-  max-width: 40px;
+  max-width: 56px;
   margin-right: 10px;
 }
 </style>
