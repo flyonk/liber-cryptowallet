@@ -6,7 +6,7 @@ ARG GITHUB_TOKEN
 ARG VERSION
 
 ARG BRANDNAME="liber"
-ARG BRANDNAME_VERSION="0.1.47"
+ARG BRANDNAME_VERSION="0.1.52"
 ARG BRAND_CONFIGURATION_HOSTNAME="conf.middleware.dev.k8s.domain"
 ARG BRAND_CONFIGURATION_IP="172.31.27.226"
 
@@ -47,11 +47,15 @@ COPY --chown=node . .
 
 RUN yarn lint
 
-RUN yarn test
+RUN touch ~/.env
 
 RUN yarn env:from:json
 
+RUN yarn test
+
 RUN yarn build
+
+RUN rm -f ~/.env
 
 FROM nginxinc/nginx-unprivileged:1.21.6
 

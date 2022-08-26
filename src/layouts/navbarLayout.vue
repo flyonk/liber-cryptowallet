@@ -36,8 +36,21 @@ watch(route.currentRoute, (val) => {
 
 <style lang="scss" scoped>
 .navbar-layout {
-  height: 100vh;
+  height: 100%;
   position: relative;
+
+  &.-full-height {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: fill-available;
+  }
+
+  &.-full-viewport {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
 
   > .main {
     height: 100%;

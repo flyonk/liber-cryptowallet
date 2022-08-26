@@ -8,7 +8,7 @@ import authService from '@/services/authService';
 import { clearAll, get, remove, set } from '@/helpers/storage';
 import { ISuccessSignIn } from '@/models/auth/successSignIn';
 
-import { EStorageKeys, SStorageKeys } from '@/types/storage';
+import { EStorageKeys } from '@/types/storage';
 import { EStepDirection } from '@/types/base-component';
 import { useErrorsStore } from '@/stores/errors';
 
@@ -52,7 +52,7 @@ export const useAuthStore = defineStore('auth', {
       kyc: 0,
     },
     registration: {
-      dialCode: '+7',
+      dialCode: '',
       phone: '',
       email: '',
     },
@@ -71,7 +71,9 @@ export const useAuthStore = defineStore('auth', {
     getLoginPhone: (state) => state.login.dialCode + state.login.phone,
     getLoginDialCode: (state) => state.login.dialCode,
     getLoginSubscriberPhone: (state) => state.login.phone,
-    getRegistrationPhone: (state) =>
+    getRegistrationDialCode: (state) => state.registration.dialCode,
+    getRegistrationPhone: (state) => state.registration.phone,
+    getRegistrationFullPhone: (state) =>
       state.registration.dialCode + state.registration.phone,
     getToken: ({ token }) => token,
     isLoggedIn: ({ token }) => !!token.token && !!token.refreshToken,
@@ -176,18 +178,20 @@ export const useAuthStore = defineStore('auth', {
     },
 
     async savePhone(type: 'login' | 'signup'): Promise<void> {
-      const value =
-        type === 'login'
-          ? JSON.stringify(this.login)
-          : JSON.stringify(this.registration);
+      const isLogin = type === 'login';
+
+      const value = isLogin
+        ? JSON.stringify(this.login)
+        : JSON.stringify(this.registration);
+
       await set({
-        key: EStorageKeys.phone,
+        key: isLogin ? EStorageKeys.loginPhone : EStorageKeys.signUpPhone,
         value,
       });
     },
 
     async recoverPhoneFromStorage(): Promise<Record<string, string>> {
-      const json = await get(EStorageKeys.phone);
+      const json = await get(EStorageKeys.loginPhone);
       return json ? JSON.parse(json) : { dialCode: '', phone: '' };
     },
 
@@ -195,58 +199,44 @@ export const useAuthStore = defineStore('auth', {
       return await authService.devices();
     },
 
-    //TODO: rename method ex: getPhoneFromStorage
-    async getFromStorage() {
-      const [dialCode, phone] = await Promise.all([
-        get('dialCode'),
-        get('phone'),
-      ]);
+    async getPhoneFromStorage(
+      type: 'login' | 'signup'
+    ): Promise<undefined | ICommonPhoneNumber> {
+      const isLogin = type === 'login';
 
-      if (dialCode === 'null' || dialCode === null) {
-        this.login.dialCode = '+7';
-      } else {
-        this.login.dialCode = dialCode;
-      }
+      const rawData: string | null = isLogin
+        ? await get(EStorageKeys.loginPhone)
+        : await get(EStorageKeys.signUpPhone);
 
-      if (phone === 'null' || phone === null) {
-        this.login.phone = '';
-      } else {
-        this.login.phone = phone;
-      }
+      const phoneData = JSON.parse(rawData ? rawData : 'null');
 
-      // this.login.dialCode = dialCode || '+7';
+      if (!phoneData) return;
+
+      return phoneData;
     },
 
-    async setPhoneToStorage() {
-      await Promise.all([
-        set({
-          key: 'dialCode',
-          value: this.login.dialCode,
-        }),
-        set({
-          key: 'phone',
-          value: this.login.phone,
-        }),
-      ]);
-    },
-
-    setPhone(phone: string) {
+    setLoginPhone(phone: string) {
       this.login.phone = phone;
     },
 
-    setDialCode(dialCode: string) {
+    setLoginDialCode(dialCode: string) {
       this.login.dialCode = dialCode;
     },
 
+    setRegistrationPhone(phone: string) {
+      this.registration.phone = phone;
+    },
+
+    setRegistrationDialCode(dialCode: string) {
+      this.registration.dialCode = dialCode;
+    },
+
     async logout() {
-      const [dialCode, phone, touchId, faceId] = await Promise.all([
-        get('dialCode'),
-        get('phone'),
+      const [touchId, faceId, loginPhone] = await Promise.all([
         get(EStorageKeys.touchid),
         get(EStorageKeys.faceid),
+        get(EStorageKeys.loginPhone),
       ]);
-
-      remove(SStorageKeys.user);
 
       if (this.token.token) {
         authService.logout({ token: this.token.token });
@@ -256,16 +246,15 @@ export const useAuthStore = defineStore('auth', {
 
       await clearAll();
 
+      const lastSessionPhone = loginPhone ? loginPhone : 'null';
+
       await Promise.all([
         set({
-          key: 'dialCode',
-          value: dialCode as string,
-        }),
-        set({
-          key: 'phone',
-          value: phone as string,
+          key: EStorageKeys.lastSessionPhone,
+          value: lastSessionPhone,
         }),
       ]);
+
       if (touchId)
         await set({
           key: EStorageKeys.touchid,
@@ -285,6 +274,11 @@ export const useAuthStore = defineStore('auth', {
         remove(EStorageKeys.tokenExpire),
       ]);
       this.$reset();
+    },
+
+    async getLastSessionPhone(): Promise<ICommonPhoneNumber | null> {
+      const rawLastSessionPhone = await get(EStorageKeys.lastSessionPhone);
+      return JSON.parse(rawLastSessionPhone ? rawLastSessionPhone : 'null');
     },
   },
 });

@@ -3,7 +3,7 @@
     class="template-top-navigation"
     :class="[
       { untouchable: !isTouchable, '-paddingless': disablePaddings },
-      { '-paddingless': disablePaddings },
+      { '-paddingless': disablePaddings, 'h-full': fullHeight },
     ]"
   >
     <div class="top-navigation">
@@ -21,7 +21,7 @@
       </m-top-navigation>
     </div>
 
-    <div class="content">
+    <div class="content" :class="{ '-pb-navbar': withNavbar && fullHeight }">
       <slot name="content" />
     </div>
 
@@ -68,6 +68,14 @@ defineProps({
     type: Boolean,
     default: false,
   },
+  fullHeight: {
+    type: Boolean,
+    default: false,
+  },
+  withNavbar: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 defineEmits(['click:left-icon']);
@@ -76,16 +84,27 @@ defineEmits(['click:left-icon']);
 <style lang="scss" scoped>
 .template-top-navigation {
   padding: 24px 16px 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 
   &.-paddingless {
     padding: 24px 0 0;
   }
 
   > .content {
+    overflow: visible;
     margin-top: 25px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;
+    max-height: 100%;
+    touch-action: manipulation;
+
+    &.-pb-navbar {
+      padding-bottom: 70px;
+      max-height: 80%;
+    }
   }
 
   > .footer {

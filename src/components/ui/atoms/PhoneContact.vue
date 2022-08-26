@@ -2,6 +2,7 @@
   <a-contact-initials
     :name="props.contact.displayName"
     :is-friend="props.contact.isFriend"
+    class="initials-wrapper"
   />
   <router-link
     :to="{
@@ -65,5 +66,9 @@ const props = defineProps({
     line-height: 16px;
     color: $color-brand-2-300;
   }
+}
+
+.initials-wrapper {
+  flex-shrink: 0;
 }
 </style>

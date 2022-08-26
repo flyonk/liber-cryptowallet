@@ -1,6 +1,6 @@
 <template>
   <EmailAndNumberVerificationCode
-    v-if="mfaStore.data.confirmations.length"
+    v-if="mfaStore.data?.confirmations && mfaStore.data.confirmations.length"
     @complete="onEmailAndNumberComplete"
   />
 
@@ -201,5 +201,9 @@ watch(
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
   margin-bottom: 20px;
+}
+
+:deep(.text--title-1) {
+  font-weight: 600;
 }
 </style>

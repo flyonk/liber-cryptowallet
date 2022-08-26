@@ -41,7 +41,7 @@
   "browserStub": {
     "title": "Browser not supported",
     "description": "Currently, the Liber wallet is not available from the desktop browser. Please use mobile phone",
-    "installButton": "Install app"
+    "rotateTitle": "Flip your device to portrait mode"
   },
   "slider": {
     "title": "Transfer money around the world with the best fee"
@@ -67,12 +67,22 @@
       "step2ResendCta": "Resend",
       "step3Title": "Enter passcode",
       "step3InvalidInput": "Invalid password or phone number",
+      "step3SessionExpired": "Your session is expired, you need to login",
       "step3FooterTitle": "You do not have an account?",
       "step3FooterCta": "Registration",
       "step4Title": "Enter verification code",
       "step4Description": "Get a verification code from the authenticator app",
       "step4VerificationError": "Your code doesn't match. Please, try again!",
       "forgotYourPasscode": "Forgot your passcode?"
+    },
+    "passcodeRestore": {
+      "emailText": "Enter security code we’ve sent an email to",
+      "numberText": "Enter the security code we’ve sent to"
+    },
+    "passcodeRestoreSuccess": {
+      "title": "Passcode successfully changed",
+      "description": "To protect your account, we’ve suspended all withdrawal operation for 24 hours.",
+      "gotIt": "Got it"
     },
     "restore": {
       "contactSupport": "Contact support",
@@ -116,6 +126,11 @@
         "signUp": "Sign up",
         "loginWithThisNumber": "Login with this number",
         "goBack": "No, go back"
+      },
+      "confirmEmail": {
+        "title": "Confirm email address",
+        "text": "Enter security code we’ve sent an email to",
+        "resendCode": "Resend code"
       }
     }
   },
@@ -317,6 +332,38 @@
       "annotation": "You can hide yourself from being visible to your CryptoWize friends at any time through your privacy settings.",
       "contactsCTA": "Allow access to contacts"
     },
+    "inviteFriends": {
+      "title": "Invite Friends",
+      "inviteFriend": "Invite a friend and share the Liber experience with them",
+      "shareLink": "Share Link",
+      "invitePhone": "Invite by Phone or Email",
+      "enableContacts": "Enable contacts permission",
+      "quickInvite": "Quickly invite friends from your contacts list",
+      "acessContacts": "Allow access to contacts",
+      "contactsList": {
+        "contacts": "Contacts",
+        "privacy": "For privacy reasons some people are not show as Liber users until you pay them",
+        "searchFilter": "Name, phone, email"
+      }
+    },
+    "addNewContacts": {
+      "title": "Add a new contact",
+      "name": "Name",
+      "mail": "Email",
+      "additionalphone": "Add phone or email"
+    },
+    "sendInvite": {
+      "title": "Send Invite",
+      "name": "Name",
+      "emailPhone": "Email or Phone"
+    },
+    "findYourFriends": {
+      "title": "Find your friends",
+      "sendMeRequest": "Send and request money from your friends more easily, split bills and much more.",
+      "hideYourSelf": "You can hide yourself from being visible to your Liber friends at any time through your privacy settings.",
+      "accessContacts": "Allow access to contacts",
+      "notNow": "Not Now"
+    },
     "recipients": {
       "recipients": "Recipients",
       "add": "Add a new contact"
@@ -409,6 +456,8 @@
         "idVerification": "ID Verification",
         "notVerified": "Not Verified",
         "idVerified": "ID Verified",
+        "notStarted": "Not started",
+        "pending": "Pending",
         "iDVerificationFailed": "ID Verification Failed",
         "allAccounts": "All Accounts",
         "accounts": "Accounts",
@@ -506,8 +555,8 @@
         "appearance": "Appearance",
         "language": "Language",
         "selectLanguage": "Select Language",
-        "saveChanges": "Save changes",
-        "myID": "My ID:"
+        "myID": "My ID:",
+        "saveChanges": "Save changes"
       },
       "profileQRCode": {
         "getPaid": "Get paid with",
@@ -643,7 +692,8 @@
     "confirmTitle": "Retry connect",
     "cancelTitle": "Use offline",
     "offlineTitle": "No internet connection",
-    "offlineDescription": "Please, check internet connection on your phone to use the application"
+    "offlineDescription": "Please, check internet connection on your phone to use the application",
+    "confrimVerificationCode": "Confirm verification code incorrect"
   },
   "offline": {
     "title": "No Internet Connection",

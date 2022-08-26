@@ -12,7 +12,6 @@ import coinMapper, { ICoin } from '@/applications/liber/models/funds/coin';
 
 import { TSuccessResponse } from '@/types/api';
 import { TRecipient } from '@/applications/liber/stores/transfer';
-import { formatPhoneNumber } from '@/helpers/auth';
 import withdrawInfoMapper, {
   IWithdrawalInfo,
   IWithdrawalInfoRequest,
@@ -50,8 +49,6 @@ export default {
     coin: string,
     payload: { recipient: TRecipient; amount: string }
   ): Promise<number> {
-    payload.recipient.phone = formatPhoneNumber(payload.recipient.phone);
-
     return (await axios.post(apiService.transfer.send(coin), payload)).data;
   },
 

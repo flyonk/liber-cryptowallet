@@ -1,29 +1,39 @@
 <template>
   <t-top-navigation left-icon-name="icon-log_out" @click:left-icon="prevStep">
     <template #title>{{ $t('auth.login.step3Title') }}</template>
-    <template #content>
-      <div v-if="!show2FA">
-        <base-passcode
-          :show-touch-faceid="showNativeVerification"
-          class="login-passcode"
-          @submit="onSubmit"
-        />
+  </t-top-navigation>
+  <div class="content">
+    <base-passcode
+      :show-touch-faceid="showNativeVerification"
+      class="login-passcode"
+      @submit="onSubmit"
+    />
 
-        <router-link
-          :to="{ name: Route.RestorePasscode }"
-          class="recovery-link"
-        >
-          {{ $t('auth.login.forgotYourPasscode') }}
-        </router-link>
-      </div>
-      <div v-else>
-        <auth2-f-a-verification-component
-          @close="onClose"
-          @success-verification="handleSuccessVerification"
+    <router-link :to="{ name: Route.RestorePasscode }" class="recovery-link">
+      {{ $t('auth.login.forgotYourPasscode') }}
+    </router-link>
+  </div>
+  <m-base-toast
+    :visible="sessionExpiredToast"
+    @update:visible="sessionExpiredToast = false"
+  >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
         />
       </div>
     </template>
-  </t-top-navigation>
+    <template #description>
+      {{ $t('auth.login.step3SessionExpired') }}
+    </template>
+    <template #footer>
+      <m-base-button block size="large" @click="onLogin">
+        {{ $t('common.logInCta') }}
+      </m-base-button>
+    </template>
+  </m-base-toast>
 </template>
 
 <script lang="ts">
@@ -33,7 +43,7 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { computed, markRaw, ref } from 'vue';
+import { computed, inject, markRaw, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
@@ -44,8 +54,15 @@ import { Route } from '@/router/types';
 import { useErrorsStore } from '@/stores/errors';
 
 import { BasePasscode, TTopNavigation } from '@/components/ui';
-import Auth2FAVerificationComponent from '@/components/ui/organisms/2fa/Auth2FAVerificationComponent.vue';
 import Login3StepPasscodeErrorVue from '@/components/ui/errors/Login3StepPasscodeError.vue';
+import { uiKitKey } from '@/types/symbols';
+import { UiKitInterface } from '@/types/uiKit';
+import { STATIC_BASE_URL } from '@/constants';
+import { EStorageKeys } from '@/types/storage';
+import { remove } from '@/helpers/storage';
+
+const uiKit = inject(uiKitKey);
+const { MBaseToast, MBaseButton } = uiKit as UiKitInterface;
 
 const router = useRouter();
 const { t } = useI18n();
@@ -55,7 +72,7 @@ const twoFAStore = use2faStore();
 const appOptionsStore = useAppOptionsStore();
 const errorsStore = useErrorsStore();
 
-const show2FA = ref(false);
+const sessionExpiredToast = ref(false);
 
 appOptionsStore.init();
 
@@ -73,8 +90,12 @@ async function onSubmit(success: boolean): Promise<void> {
     const is2FAIsExpired = await twoFAStore.check2FAExpire();
 
     if (is2FAIsExpired) {
-      show2FA.value = true;
+      sessionExpiredToast.value = true;
     } else {
+      // removes unnecessary data for a new login
+      await remove(EStorageKeys.signUpPhone);
+      await remove(EStorageKeys.lastSessionPhone);
+
       await router.push({
         name: Route.DashboardHome,
       });
@@ -97,35 +118,26 @@ async function onSubmit(success: boolean): Promise<void> {
 // }
 
 async function prevStep(): Promise<void> {
-  if (show2FA.value) {
-    authStore.setStep(1, 'login');
-  } else {
-    await authStore.clearTokenData();
-    authStore.setStep(0, 'login');
-  }
+  await authStore.clearTokenData();
+  authStore.setStep(0, 'login');
 }
 
-function onClose() {
-  show2FA.value = false;
-}
-
-async function handleSuccessVerification(): Promise<void> {
-  /*
-   * Set new 2fa dateTime
-   */
-  twoFAStore.set2FADate();
-  router.push({
-    name: Route.DashboardHome,
-  });
+async function onLogin() {
+  await authStore.logout();
+  authStore.setStep(0, 'login');
+  sessionExpiredToast.value = false;
+  await router.push({ name: Route.Login });
 }
 </script>
 
 <style lang="scss">
-.login-passcode {
-  margin-top: 108px;
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 
-  @media (max-height: 680px) {
-    margin-top: 20px;
+  & > .login-passcode {
+    margin-top: auto;
   }
 }
 
@@ -140,7 +152,7 @@ async function handleSuccessVerification(): Promise<void> {
 }
 
 .recovery-link {
-  margin-top: 8vh;
+  margin-top: 5vh;
   display: flex;
   justify-content: center;
   color: $color-primary-500;
@@ -149,7 +161,7 @@ async function handleSuccessVerification(): Promise<void> {
   font-weight: 600;
   line-height: 22px;
   letter-spacing: -0.0043em;
-
+  margin-bottom: auto;
   @media (max-height: 680px) {
     margin-top: 10px;
   }

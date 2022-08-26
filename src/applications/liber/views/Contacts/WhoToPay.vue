@@ -10,7 +10,7 @@
 
     <constacts-tab-switcher
       :liber-route="Route.PayRecipientsLiber"
-      :all-route="Route.PayRecipientsPhone"
+      all-route=""
     />
 
     <router-view :filter="filterContacts" />

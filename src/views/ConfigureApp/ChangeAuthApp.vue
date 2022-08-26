@@ -8,7 +8,7 @@
       <div class="content-wrapper">
         <p class="auth-item" style="margin-bottom: 15px">
           <img
-            src="@/assets/brands/ga.png"
+            src="@/assets/brands/ga.svg"
             alt="Google Authenticator"
             class="auth-app-icon"
           />
@@ -35,7 +35,7 @@
     </template>
   </t-top-navigation>
 
-  <m-base-toast v-model:visible="showPopup">
+  <m-base-toast v-model:visible="showPopup" @update:visible="onCancel">
     <template #image>
       <div class="popup-image">
         <img
@@ -61,7 +61,7 @@
           class="btn"
           size="large"
           view="secondary"
-          @click="showPopup = false"
+          @click="onCancel"
         >
           {{ $t('common.cancelCta') }}
         </m-base-button>
@@ -114,6 +114,10 @@ const onConfirm = () => {
 
     mfaStore.show({
       successRoute: routePath,
+      async callback() {
+        // update profile info about 2fa is enabled or not
+        await pStore.init();
+      },
     });
     twofaStore.disable();
   } else {
@@ -121,6 +125,11 @@ const onConfirm = () => {
       name: Route.InstallApp,
     });
   }
+};
+
+const onCancel = () => {
+  showPopup.value = false;
+  is2FAConfigured.value = pStore.getUser.is2FAConfigured;
 };
 
 watch(is2FAConfigured, (val) => {

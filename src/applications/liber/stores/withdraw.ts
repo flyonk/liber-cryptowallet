@@ -9,8 +9,6 @@ import {
 
 export interface IWithdrawState {
   info: IWithdrawalInfo;
-
-  showSuccessToast: boolean;
 }
 
 export const useWithdrawStore = defineStore('withdraw', {
@@ -25,8 +23,6 @@ export const useWithdrawStore = defineStore('withdraw', {
       fee: '',
       address: '',
     },
-
-    showSuccessToast: false,
   }),
 
   getters: {
@@ -49,10 +45,6 @@ export const useWithdrawStore = defineStore('withdraw', {
 
     resetData() {
       this.$reset();
-    },
-
-    setSuccessToastState(state: boolean) {
-      this.showSuccessToast = state;
     },
   },
 });

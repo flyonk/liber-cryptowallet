@@ -2,7 +2,7 @@
   <t-top-navigation
     with-fixed-footer
     nav-with-custom-top-left
-    @click:left-icon="$router.push({ name: Route.PayRecipientsPhone })"
+    @click:left-icon="$router.push({ name: Route.PayRecipientsLiber })"
   >
     <template #top-left>
       <div class="header sendto-header">
@@ -10,7 +10,7 @@
           class="back mr-2"
           :src="`${STATIC_BASE_URL}/static/menu/arrow-left.svg`"
           alt="arrow-left"
-          @click="$router.push({ name: Route.PayRecipientsPhone })"
+          @click="$router.push({ name: Route.PayRecipientsLiber })"
         />
         <h4 class="username">{{ computedRecipient.phone }}</h4>
       </div>
@@ -19,7 +19,9 @@
       <h1 class="title">{{ computedRecipient.displayName }}</h1>
     </template>
     <template #right>
-      <a-contact-initials :name="computedRecipient.displayName"
+      <a-contact-initials
+        :name="computedRecipient.displayName"
+        class="initials-wrapper"
     /></template>
     <template #content
       ><div class="send-to">
@@ -153,7 +155,6 @@ import { getContactPhone } from '@/helpers/contacts';
 import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
-import { formatPhoneNumber } from '@/helpers/auth';
 import { STATIC_BASE_URL } from '@/constants';
 import { uiKitKey } from '@/types/symbols';
 
@@ -163,7 +164,7 @@ const { AContactInitials, MBaseButton, MBaseToast } = uiKit!;
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
 const showIncorrectDataPopup = ref(false);
-const popupStatus = ref('confirmation');
+const popupStatus = ref('');
 
 const transferStore = useTransferStore();
 const recipientsStore = useRecipientsStore();
@@ -182,14 +183,15 @@ const phone = getContactPhone(contact);
 
 const computedRecipient = computed(() => ({
   displayName: contact.displayName,
-  phone: getContactPhone(contact),
+  phone,
 }));
 
 const recipient = {
   id: contact.contactId,
-  phone: formatPhoneNumber(phone || ''),
+  email: phone || '',
 };
-transferStore.recipient = recipient;
+
+transferStore.setRecipient(recipient);
 
 const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
@@ -199,13 +201,10 @@ const sendTransaction = async () => {
         button: 'transactions.send',
         successRoute: Route.DashboardHome,
         callback: async () => {
-          console.log(JSON.stringify('test callback 1'));
           await recipientsStore.addFriend(contact);
-          console.log('test callback 2');
           transferStore.clearTransferData();
         },
       });
-      console.log('transferStore.transfer()');
       await transferStore.transfer();
     } catch (err) {
       // todo: not required handling
@@ -293,5 +292,9 @@ const sendTransaction = async () => {
     width: 50px;
     height: 50px;
   }
+}
+
+.initials-wrapper {
+  flex-shrink: 0;
 }
 </style>

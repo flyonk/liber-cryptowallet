@@ -33,7 +33,7 @@
   <phone-in-use
     v-if="phoneExist"
     :phone="number"
-    :dial-code="number"
+    :dial-code="countryDialCode"
     @next="continueWithExistedLogin"
     @close="closePhoneModal"
   />
@@ -49,56 +49,54 @@ import PhoneInUse from '@/components/ui/organisms/auth/PhoneInUse.vue';
 import { TTopNavigation } from '@/components/ui';
 
 import { Route } from '@/router/types';
-import { AxiosError } from 'axios';
-
 const router = useRouter();
 
 const authStore = useAuthStore();
 
-const emits = defineEmits(['next']);
+const emit = defineEmits(['next']);
 
 const number = ref('');
 const countryDialCode = ref('');
 const phoneExist = ref(false);
 
-onMounted(() => {
-  const { phone, dialCode } = authStore.registration;
+onMounted(async () => {
+  const phoneData = await authStore.getPhoneFromStorage('signup');
 
-  if (phone) {
-    number.value = authStore.login.phone;
-  }
+  if (phoneData) {
+    const { dialCode, phone } = phoneData;
 
-  if (!dialCode) {
-    //TODO:Change to the default value taken from the smartphone
-    authStore.registration.dialCode = '+7';
+    countryDialCode.value = dialCode;
+    number.value = phone;
   }
-  countryDialCode.value = authStore.registration.dialCode;
 });
 
 const handleSelectCountry = (dialCode: string) => {
-  authStore.registration.dialCode = dialCode;
+  authStore.setRegistrationDialCode(dialCode);
+  countryDialCode.value = dialCode;
 };
 
 const handleStep = async (phone: number) => {
-  authStore.setDialCode(authStore.registration.dialCode);
-  authStore.setPhone(String(phone));
-  try {
-    await authStore.signInProceed({
-      phone: authStore.getLoginPhone,
-      otp: '',
-      code_2fa: '',
-    });
-  } catch (err: AxiosError | Error | unknown) {
-    const code = (err as AxiosError).response?.status;
-    if (code === 406) {
+  const stringifiedPhone = '' + phone;
+
+  const lastSessionPhone = await authStore.getLastSessionPhone();
+
+  if (lastSessionPhone) {
+    const { dialCode, phone } = lastSessionPhone;
+    const currentPhone = countryDialCode.value + stringifiedPhone;
+    const lastSessionPhoneNumber = dialCode + phone;
+    const isPhoneNumberExist = currentPhone === lastSessionPhoneNumber;
+
+    if (isPhoneNumberExist) {
+      number.value = stringifiedPhone;
+      authStore.setLoginPhone(stringifiedPhone);
+      authStore.setLoginDialCode(dialCode);
       phoneExist.value = true;
       return;
     }
-
-    authStore.registration.phone = String(phone);
-    authStore.savePhone('signup');
-    emits('next');
   }
+
+  authStore.setRegistrationPhone(stringifiedPhone);
+  emit('next');
 };
 
 const prevStep = () => {

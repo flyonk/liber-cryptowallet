@@ -51,7 +51,7 @@
           </template>
         </m-base-input>
       </div>
-      <div class="base-input-wrapper">
+      <div class="base-input-wrapper -message">
         <m-base-input
           v-model="form.amount"
           class="m-base-input"
@@ -101,8 +101,6 @@
           </template>
         </t-top-navigation>
       </p-dialog>
-
-      <o-withdraw-success-toast v-model:visible="showSuccessToast" />
     </template>
     <template #fixed-footer>
       <m-base-button
@@ -134,7 +132,6 @@ import { uiKitKey } from '@/types/symbols';
 
 import {
   MNetworkSelectAnswer,
-  OWithdrawSuccessToast,
   OWithdrawSummary,
   TTopNavigation,
 } from '@/components/ui';
@@ -165,7 +162,6 @@ const form = ref({
 });
 
 const networks = ref([]) as Ref<string[]>;
-const showSuccessToast = computed(() => withdrawStore.showSuccessToast);
 
 const coins = computed(() => {
   return coinStore.getCoins.filter((coin) => {
@@ -238,11 +234,9 @@ onBeforeMount(async () => {
 
 const handlePaste = async () => {
   try {
-    const content = await Clipboard.read();
+    const { value } = await Clipboard.read();
 
-    if (content && content.type === 'text/plain') {
-      form.value.address = content.value;
-    }
+    form.value.address = value;
     /* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
   } catch (err: any) {
     if (
@@ -353,6 +347,14 @@ const onContinue = async () => {
   > .base-input:deep {
     margin-top: 16px;
     height: 72px;
+  }
+
+  &.-message:deep(.base-input) {
+    height: auto;
+
+    & > .input-wrapper {
+      height: 72px;
+    }
   }
 }
 </style>

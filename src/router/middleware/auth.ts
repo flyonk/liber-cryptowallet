@@ -34,6 +34,20 @@ const authGuard = async (
   from: RouteLocation,
   next: NavigationGuardNext
 ) => {
+  // Case fow swipe back and back btn in browser
+  // on login passcode screen
+  if (from.name === Route.Login) {
+    const authStore = useAuthStore();
+    const state = await authStore.getState.steps.login;
+    const name = to?.name;
+    // instead of loading screen will show screen with phone input for login
+    if (state === 2 && name === Route.WelcomeLogoScreen) {
+      authStore.setStep(0, 'login');
+      next({ name: Route.Login });
+      return;
+    }
+  }
+
   if (to.matched.some((route) => route.meta.authRequired)) {
     const credentials = await _authenticationCredentials();
 

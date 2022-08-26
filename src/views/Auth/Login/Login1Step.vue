@@ -64,30 +64,51 @@ onMounted(async () => {
     authStore.setStep(2, 'login');
   }
 
-  await authStore.getFromStorage();
+  const loginPhone = await authStore.getPhoneFromStorage('login');
 
-  number.value = authStore.login.phone;
-  countryDialCode.value = authStore.login.dialCode
-    ? authStore.login.dialCode
-    : '+7';
+  if (loginPhone) {
+    const { dialCode, phone } = loginPhone;
+
+    setPhoneData(dialCode, phone);
+
+    return;
+  }
+
+  const phoneData = await authStore.getLastSessionPhone();
+
+  if (!phoneData) return;
+
+  const { dialCode, phone } = phoneData;
+
+  setPhoneData(dialCode, phone);
 
   // Need to update AuthCredentials -> BaseInput -> PrimeVue Input's v-model
   forceUpdate();
 });
 
+function setPhoneData(dialCode: string, phone: string) {
+  authStore.setLoginDialCode(dialCode);
+  authStore.setLoginPhone(phone);
+
+  number.value = authStore.login.phone;
+  countryDialCode.value = authStore.login.dialCode;
+}
+
 const handleSelectCountry = (dialCode: string) => {
   // need for sync data with AuthCredentials isNumberInvalid function
   countryDialCode.value = dialCode;
-  authStore.setDialCode(dialCode);
+  authStore.setLoginDialCode(dialCode);
 };
 
 const nextStep = async (phone: string) => {
-  authStore.setPhone(phone);
+  authStore.setLoginPhone(phone);
 
-  authStore.setDialCode(countryDialCode.value ? countryDialCode.value : '+7');
+  authStore.setLoginDialCode(
+    countryDialCode.value ? countryDialCode.value : '+7'
+  );
 
   try {
-    await authStore.setPhoneToStorage();
+    await authStore.savePhone('login');
   } catch (error) {
     errorsStore.handle({
       err: error,

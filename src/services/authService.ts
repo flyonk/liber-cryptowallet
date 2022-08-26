@@ -6,6 +6,7 @@ import { TSuccessResponse } from '@/types/api';
 import { IUserDevice } from '@/models/auth/devices';
 import { formatPhoneNumber } from '@/helpers/auth';
 import { EMfaHeaders } from '@/stores/mfa';
+import { EStorageKeys } from '@/types/storage';
 
 export default {
   async signIn(data: { phone: string }): Promise<TSuccessResponse> {
@@ -22,6 +23,8 @@ export default {
     data.phone = formatPhoneNumber(data.phone);
     const { phone, otp, code_2fa } = data;
 
+    const secret = sessionStorage.getItem(EStorageKeys.inviteSecret) || '';
+
     const res = await axios.post(
       apiService.auth.signInProceed(),
       { phone },
@@ -29,6 +32,7 @@ export default {
         headers: {
           [EMfaHeaders.otp]: otp,
           [EMfaHeaders.totp]: code_2fa,
+          [EMfaHeaders.inviteSecret]: secret,
         },
       }
     );

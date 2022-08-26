@@ -14,7 +14,7 @@
   <m-browser-stub v-if="!IS_DEVELOPEMENT_MODE" />
   <app-layout-switcher>
     <p-offline-mode v-if="isOfflineMode" @online="handleReconnection" />
-    <div v-else>
+    <template v-else>
       <multi-factor-authorization v-if="showMfa" />
       <router-view v-else v-slot="{ Component, route }" class="router-view">
         <!-- TODO: Implement good transitions, when needed: name="dissolve" -->
@@ -22,7 +22,7 @@
         <component :is="Component" :key="route.path" />
         <!-- </transition> -->
       </router-view>
-    </div>
+    </template>
   </app-layout-switcher>
   <a-offline-bundler
     :is-active="bundlerIsActive"
@@ -30,17 +30,19 @@
   />
   <errors-toast />
   <m-custom-error />
+  <o-main-toast v-if="uiStore.getToasts.length" />
 </template>
 
 <script setup lang="ts">
-import { onBeforeMount, onBeforeUnmount, ref, computed, inject } from 'vue';
+import { computed, inject, onBeforeMount, onBeforeUnmount, ref } from 'vue';
 
 //TODO: use profile store instead
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useMfaStore } from '@/stores/mfa';
 import { IS_DEVELOPEMENT_MODE } from '@/constants';
-
 import { useCheckOffline } from '@/helpers/composables/checkOffline';
+import { uiKitKey } from '@/types/symbols';
+import { UiKitInterface } from '@/types/uiKit';
 
 import PToast from 'primevue/toast';
 import AppLayoutSwitcher from './components/ui/organisms/common/AppLayoutSwitcher.vue';
@@ -49,16 +51,18 @@ import MultiFactorAuthorization from '@/components/ui/pages/MultiFactorAuthoriza
 import MCustomError from '@/components/ui/molecules/custom-errors/MCustomError.vue';
 import POfflineMode from '@/components/ui/pages/POfflineMode.vue';
 import MBrowserStub from '@/components/ui/molecules/MBrowserStub.vue';
-import { uiKitKey } from '@/types/symbols';
+import { OMainToast } from '@/components/ui';
+import { useUIStore } from '@/stores/ui';
 
 const uiKit = inject(uiKitKey);
-const { AOfflineBundler } = uiKit!;
+const { AOfflineBundler } = uiKit as UiKitInterface;
 
 // TODO:[UIKIT] change bundle-title with title in props
 
 const { isOffline } = useCheckOffline();
 
 const mfaStore = useMfaStore();
+const uiStore = useUIStore();
 
 const store = useAccountStore();
 store.init();
@@ -106,10 +110,6 @@ function handleReconnection() {
       color: #42b983;
     }
   }
-}
-
-.router-view {
-  touch-action: manipulation;
 }
 
 .dissolve-enter-active {

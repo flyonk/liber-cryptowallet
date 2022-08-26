@@ -72,9 +72,8 @@ const prevStep = () => {
 
 const nextStep = () => {
   authStore.registration.email = email.value;
-  pStore.updateUserProfile({
-    email: email.value,
-  });
+  pStore.user.email = email.value;
+  pStore.sendEmail();
   emit('next');
 };
 

@@ -1,8 +1,8 @@
 <template>
   <div class="auth-page-container">
-    <TopNavigation @click:left-icon="prevStep">
+    <m-top-navigation @click:left-icon="prevStep">
       {{ $t('auth.restore.step3Title') }}
-    </TopNavigation>
+    </m-top-navigation>
     <div class="description text--body">
       {{ $t('auth.restore.step3Description') }}
     </div>
@@ -20,11 +20,10 @@ export default {
 
 <script lang="ts" setup>
 import { inject } from 'vue';
-import { TopNavigation } from '@/components/ui';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
-const { MBaseVerificationCodeInput } = uiKit!;
+const { MBaseVerificationCodeInput, MTopNavigation } = uiKit!;
 
 const emit = defineEmits(['next', 'prev']);
 

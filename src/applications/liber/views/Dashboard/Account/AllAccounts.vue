@@ -1,5 +1,5 @@
 <template name="AllAccounts">
-  <t-top-navigation @click:left-icon="$router.back()">
+  <t-top-navigation full-height with-navbar @click:left-icon="$router.back()">
     <template #title>{{ $t('views.account.allAccounts') }}</template>
     <template #top-right>
       <i
@@ -91,6 +91,7 @@ function getCurrencyUrl(code: string): string {
   > .currencies {
     display: flex;
     flex-wrap: wrap;
+    max-height: 100%;
 
     > .item {
       display: flex;
@@ -101,6 +102,10 @@ function getCurrencyUrl(code: string): string {
       border-radius: 16px;
       height: 164px;
       width: 164px;
+
+      @media (max-width: 370px) {
+        width: 100%;
+      }
 
       > .icon {
         margin-bottom: 25px;
@@ -122,5 +127,9 @@ function getCurrencyUrl(code: string): string {
 .add {
   font-size: 38px;
   color: blue;
+}
+
+:deep(.main) {
+  height: 100vh !important;
 }
 </style>

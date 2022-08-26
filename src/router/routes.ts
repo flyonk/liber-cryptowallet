@@ -89,6 +89,9 @@ const routes: Array<RouteRecordRaw> = [
     path: '/welcome-auth',
     name: Route.WelcomeAuthScreen,
     component: WelcomeAuthScreen,
+    meta: {
+      classLayout: '-full-height',
+    },
   },
   {
     path: '/code',
@@ -218,7 +221,10 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/profile',
     name: Route.ProfileMainView,
-    meta: { authRequired: true },
+    meta: {
+      authRequired: true,
+      classLayout: '-full-height profile',
+    },
     component: Profile,
     children: [
       {

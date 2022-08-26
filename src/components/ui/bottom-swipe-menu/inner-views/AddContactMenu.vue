@@ -22,7 +22,7 @@
         <p class="subtitle">Send money to anyone with a link</p>
       </div>
     </li>
-    <li class="menu-item">
+    <router-link class="menu-item" to="/contacts/invite">
       <img
         class="icon"
         :src="`${STATIC_BASE_URL}/static/menu/invite_friend.svg`"
@@ -32,7 +32,7 @@
         <p class="name">Invite a friend</p>
         <p class="subtitle">Share a link to join Liber</p>
       </div>
-    </li>
+    </router-link>
     <router-link to="/contacts/add" class="menu-item">
       <img
         class="icon"

@@ -4,19 +4,19 @@
 module.exports = {
   liber: {
     brand: 'liber',
-    theme: '../src/assets/styles/common/liber',
+    theme: '../src/assets/styles/common',
     backgroundURL: '',
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
     storageUrl: '',
     nameApp: 'Liber App',
     appIconsFolder: 'liber',
-    version: '0.1.47',
+    version: '0.1.52',
     mainColor: '#2862ff',
   },
   dark: {
-    brand: 'Dark',
-    theme: '../src/assets/styles/common/dark',
+    brand: 'dark',
+    theme: '../src/assets/styles/common',
     backgroundURL: '',
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',
@@ -27,7 +27,7 @@ module.exports = {
   },
   exampleBrand: {
     brand: 'exampleBrand',
-    theme: '../src/assets/styles/common/exampleBrand',
+    theme: '../src/assets/styles/common',
     backgroundURL: '',
     logoURL: '/img/logo.82b9c7a5.png',
     contactEmail: '',

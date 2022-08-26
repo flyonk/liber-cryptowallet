@@ -336,6 +336,8 @@ async function onLogout() {
   }
 
   > .main {
+    touch-action: manipulation;
+
     > .list {
       display: flex;
       flex-direction: column;
@@ -389,5 +391,6 @@ async function onLogout() {
 .initials-wrapper > :deep(.initials) {
   width: 56px;
   height: 56px;
+  flex-shrink: 0;
 }
 </style>

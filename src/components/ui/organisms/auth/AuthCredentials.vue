@@ -53,7 +53,7 @@
 
 <script lang="ts" setup>
 import { computed } from '@vue/reactivity';
-import { Ref, ref, inject } from 'vue';
+import { Ref, ref, inject, toRef, watch } from 'vue';
 
 import { formatPhoneNumber } from '@/helpers/auth';
 import { BaseCountryPhoneInput } from '@/components/ui';
@@ -104,7 +104,7 @@ const mask = ref('');
 const updateKey = ref(0);
 const type = ref(TypeBaseInput.Mask) as Ref<TypeBaseInput>;
 const isClearBtnShown = ref(false);
-const number: Ref<string | null> = ref(props.initialNumber);
+const number: Ref<number | string | null> = ref(props.initialNumber);
 
 const isInitialStep = ref(true) as Ref<boolean>;
 
@@ -129,8 +129,6 @@ const isNumberInvalid = computed(() => {
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
-  number.value = null;
-
   const maskRegEx = new RegExp(/(\(|\)|#|-)*$/);
 
   type.value = TypeBaseInput.Number;
@@ -147,6 +145,15 @@ const handleSelectCountry = (data: ICountryInformation) => {
 
   emits('handleSelectCountry', data.dialCode);
   type.value = data.mask ? TypeBaseInput.Mask : TypeBaseInput.Number;
+
+  /**
+   * in order to avoid the appearance of '0'
+   * when changing the m-base-input type to "number" from 'mask'
+   * with the value ""
+   * */
+  if (type.value === TypeBaseInput.Number && number.value === '') {
+    number.value = null;
+  }
 
   // Need to update v-model in BaseInput -> PrimeVue InputMask -> mask
   forceUpdate();
@@ -176,6 +183,15 @@ const closeClearBtn = () => {
 const forceUpdate = () => {
   updateKey.value++;
 };
+
+watch(toRef(props, 'initialNumber'), () => {
+  number.value = props.initialNumber;
+
+  /**
+   * need to update input after getting phone from storage
+   */
+  forceUpdate();
+});
 </script>
 
 <style lang="scss" scoped>

@@ -3,10 +3,7 @@
     <m-base-toast :visible="displayCurrent">
       <template #image>
         <div class="popup-image">
-          <img
-            :src="`${STATIC_BASE_URL}/static/media/${toastImg}.svg`"
-            class="image"
-          />
+          <img :src="toastImgUrl" class="image" alt="error" />
         </div>
       </template>
       <template #header>
@@ -63,10 +60,11 @@ const { loading, handleReconnect } = useCheckOffline();
 const errorsStore = useErrorsStore();
 
 const displayCurrent = computed(() => errorsStore.customError?.display);
-const toastImg = computed(() => {
-  if (errorsStore.customError?.severity === 'error') return 'sapphire-error';
-  return 'sapphire-error';
-});
+const toastImgUrl = computed(() =>
+  errorsStore.customError?.severity === 'offline'
+    ? require('@/assets/images/no-wifi.svg')
+    : `${STATIC_BASE_URL}/static/media/sapphire-error.svg`
+);
 
 const error = computed(() => errorsStore.customError);
 const customContent = computed(

@@ -29,12 +29,9 @@ import { get } from '@/helpers/storage';
 import { EStorageKeys } from '@/types/storage';
 import { PropType } from 'vue-demi';
 import { VerifyCodeFlow } from '@/components/ui/organisms/auth/types';
-
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { AxiosError } from 'axios';
 
 const { t, tm } = useI18n();
-const emit = defineEmits(['next', 'prev']);
 const authStore = useAuthStore();
 const pStore = useProfileStore();
 const twoFAStore = use2faStore();
@@ -46,6 +43,7 @@ const is2fa = ref(false);
 const verificationCode = ref('');
 const _otp = ref('');
 
+const emit = defineEmits(['next', 'prev']);
 const props = defineProps({
   flow: {
     type: String as PropType<VerifyCodeFlow>,
@@ -57,7 +55,7 @@ const phone = computed(() => {
     case VerifyCodeFlow.Login:
       return authStore.getLoginPhone;
     case VerifyCodeFlow.Signup:
-      return authStore.getRegistrationPhone;
+      return authStore.getRegistrationFullPhone;
     default:
       return '';
   }
@@ -99,22 +97,32 @@ const withCountdown = computed(() => {
   return !is2fa.value;
 });
 
-const prevStep = () => {
+const prevStep = async () => {
   if (is2fa.value) {
     is2fa.value = false;
+    try {
+      await authStore.signIn({ phone: phone.value, flow: props.flow });
+      is2fa.value = false;
+    } catch (err) {
+      errorsStore.handle({ err, name: 'VerifyCode.vue', ctx: 'prevStep' });
+    }
     return;
   }
   emit('prev');
 };
+
 const nextStep = () => {
   emit('next');
 };
+
 const onHideError = () => {
   isError.value = false;
 };
+
 const onTimeIsUp = () => {
   showCountdown.value = false;
 };
+
 const onComplete = async (data: string) => {
   const otp = is2fa.value ? _otp.value : data;
   const totp = is2fa.value ? data : '';
@@ -124,14 +132,28 @@ const onComplete = async (data: string) => {
     await authStore.signInProceed({ phone: phone.value, otp, code_2fa: totp });
     await pStore.init();
     const passcode = (await get(EStorageKeys.passcode)) === 'true';
+
     switch (pStore.getUser.status) {
       case EUserStatus.authenticated:
+        // invited user with verified email
+        if (pStore.getUser.email) {
+          authStore.setStep(4, 'registration');
+          return await router.push({
+            name: Route.SignUp,
+            query: { step: 4 },
+          });
+        }
         authStore.setStep(2, 'registration');
         return await router.push({
           name: Route.SignUp,
           query: { step: 2 },
         });
       case EUserStatus.registered:
+        if (props.flow === VerifyCodeFlow.Signup) {
+          nextStep();
+          return;
+        }
+
         await twoFAStore.set2FADate();
         if (passcode) return nextStep();
         return await router.push({
@@ -180,6 +202,7 @@ const onComplete = async (data: string) => {
     verificationCode.value = '';
   }
 };
+
 const formatPhone = () => {
   const formattedPhone = Array.from(phone.value)
     .map((e, index) => {
@@ -188,6 +211,7 @@ const formatPhone = () => {
     .join('');
   return dialCode.value + formattedPhone;
 };
+
 const resend = async () => {
   showCountdown.value = true;
   try {

@@ -39,18 +39,27 @@
 
 <script setup lang="ts">
 import { inject } from 'vue';
+import { useI18n } from 'vue-i18n';
+import { useRouter } from 'vue-router';
+
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { useWithdrawStore } from '@/applications/liber/stores/withdraw';
 import { uiKitKey } from '@/types/symbols';
 import { STATIC_BASE_URL } from '@/constants';
+import { UiKitInterface } from '@/types/uiKit';
+import { useUIStore } from '@/stores/ui';
+import { EToastSeverity } from '@/types/toast';
 
 const uiKit = inject(uiKitKey);
-const { MBaseToast, MBaseButton } = uiKit!;
+const { MBaseToast, MBaseButton } = uiKit as UiKitInterface;
 
 const mfaStore = useMfaStore();
 const errorsStore = useErrorsStore();
 const withdrawStore = useWithdrawStore();
+const uiStore = useUIStore();
+const { tm } = useI18n();
+const router = useRouter();
 
 defineEmits(['update:visible', 'success']);
 
@@ -59,9 +68,16 @@ const onContinue = async () => {
     button: 'views.withdraw.confirmation.button.submit',
     title: 'views.withdraw.confirmation.text',
     callback: () => {
-      withdrawStore.setSuccessToastState(true);
+      router.back();
+
+      uiStore.showToast({
+        severity: EToastSeverity.success,
+        title: tm('views.withdraw.success.title'),
+        description: tm('views.withdraw.success.description'),
+      });
     },
   });
+
   await onSubmitWithdrawal();
 };
 

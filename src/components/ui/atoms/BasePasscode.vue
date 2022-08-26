@@ -143,6 +143,9 @@ const showTouchId = () => {
 };
 
 onBeforeMount(async (): Promise<void> => {
+  //Hack for iOS bug when passcode is not cleared
+  passcode.value = '';
+
   if (props.showTouchFaceid) {
     const option = await getSupportedOptions();
 
@@ -161,8 +164,8 @@ function setNumber(number: string): void {
 
     if (passcode.value.length === 4) {
       onSubmit(passcode.value)
-        .then((result: boolean) => {
-          if (!result) passcode.value = '';
+        .then((result) => {
+          passcode.value = '';
           emit('submit', result);
         })
         .catch(() => {
@@ -217,6 +220,12 @@ function clear(): void {
   justify-content: center;
   border-radius: 50%;
   user-select: none;
+  font-weight: 400;
+
+  @include iPhoneSE {
+    width: 70px;
+    height: 70px;
+  }
 
   &:active {
     background-color: $color-primary-50;

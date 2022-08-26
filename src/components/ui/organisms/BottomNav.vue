@@ -125,8 +125,8 @@ const currentActiveItem = computed(() => {
     [CouponRoutes.AccountMain]: EItemHashTag.account,
 
     // recipients
-    [Route.RecipientsPhone]: EItemHashTag.recipients,
-    [CouponRoutes.RecipientsPhone]: EItemHashTag.recipients,
+    [Route.RecipientsLiber]: EItemHashTag.recipients,
+    [CouponRoutes.RecipientsLiber]: EItemHashTag.recipients,
 
     // invite
     [Route.Invite]: EItemHashTag.gift,
@@ -171,7 +171,7 @@ function handleClickItem(data: TNavBarItem) {
       break;
     }
     case EItemHashTag.recipients: {
-      router.push({ name: computedRoute.value['RecipientsPhone'] });
+      router.push({ name: computedRoute.value['RecipientsLiber'] });
       break;
     }
     case EItemHashTag.gift: {

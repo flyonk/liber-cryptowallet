@@ -31,6 +31,9 @@ import { getEuropeanList, getFullList } from '@/services/country-phone';
 import BaseCountryEntitySelect from '@/components/ui/organisms/BaseCountryEntitySelect.vue';
 
 import { ICountryInformation } from '@/types/country-phone-types';
+import { useErrorsStore } from '@/stores/errors';
+
+const errorsStore = useErrorsStore();
 
 const props = defineProps({
   dialCode: {
@@ -44,22 +47,33 @@ const props = defineProps({
 });
 
 const list = ref([]) as Ref<Array<ICountryInformation>>;
-const selectedData = ref(null) as Ref<ICountryInformation | null>;
+const selectedData = ref(null) as Ref<ICountryInformation | null | undefined>;
 const showList = ref(false) as Ref<boolean>;
 
 onBeforeMount(async (): Promise<void> => {
-  if (props.onlyEuropean) {
-    list.value = await getEuropeanList();
-  } else {
-    list.value = await getFullList();
+  try {
+    list.value = props.onlyEuropean
+      ? await getEuropeanList()
+      : await getFullList();
+
+    const _selectedCode = list.value.filter((item) => {
+      return item.dialCode === props.dialCode;
+    });
+
+    const germanyByDefault = list.value.find((e) => e.dialCode === '+49');
+
+    selectedData.value = _selectedCode.length
+      ? _selectedCode[0]
+      : germanyByDefault;
+    emits('ready', selectedData.value);
+  } catch (err) {
+    errorsStore.handle({
+      err,
+      name: 'BaseCountryPhoneInput',
+      ctx: 'onBeforeMount',
+      description: 'Error when getting a list of countries',
+    });
   }
-
-  const _selectedCode = list.value.filter((item) => {
-    return item.dialCode === props.dialCode;
-  });
-
-  selectedData.value = _selectedCode.length ? _selectedCode[0] : list.value[0];
-  emits('ready', selectedData.value);
 });
 
 const emits = defineEmits(['selected', 'ready']);

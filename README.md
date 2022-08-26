@@ -1,20 +1,18 @@
-# Liber iOs Application
+# Liber PWA Application
 
 ## Development processes
+
+[Develop and Run (PWA & iOs) ](https://www.notion.so/Develop-and-Run-Yarn-Capacitor-4991d510c8e94f7eaffdb219895f341e)
 
 ### Livereload build
 
 ## Links
 
-[Kanban Tasks](https://github.com/orgs/cryptowize-tech/projects/2/views/1)
-
-[Screens Tasks](https://github.com/orgs/cryptowize-tech/projects/9/views/1)
-
 [Figma Liber App](https://www.figma.com/file/jiR05eX1dbN6NFNBEUolDa/Liber-App)
 
 [Figma Liber UI Kit](https://www.figma.com/file/03BEDylTZpq3uwoGEaQ6nk/Liber-UI-KIT)
 
-[Swagger API Scheme (require Liber VPN)](https://auth.middleware.dev.k8s.domain/swagger-ui/)
+[API Schemes](https://www.notion.so/API-Design-7619223c43a34e9db2561dbeb1681b32)
 
 [Sentry](http://172.31.27.249:9000/)
 

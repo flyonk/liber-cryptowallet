@@ -4,7 +4,7 @@ import { Route } from '@/router/types';
 import DepositeRoutes from './routesDeposite';
 import RecipientsRoutes from './routesRecipients';
 import PayRecipientsRoutes from './routesPayRecipients';
-import checkContactsLoaded from '@/router/middleware/checkContacts';
+// import checkContactsLoaded from '@/router/middleware/checkContacts';
 
 import Dashboard from '@/applications/liber/views/Dashboard/index.vue';
 import DashboardVerification from '@/applications/liber/views/Dashboard/DashboardVerification.vue';
@@ -25,6 +25,8 @@ import WhoToPay from '@/applications/liber/views/Contacts/WhoToPay.vue';
 import SendTo from '@/applications/liber/views/Contacts/SendTo.vue';
 import FirstTimeInvite from '@/applications/liber/views/Contacts/FirstTimeInvite.vue';
 import SendInvite from '@/applications/liber/views/Contacts/SendInvite.vue';
+import InviteFriends from '@/applications/liber/views/Contacts/InviteFriends.vue';
+import FindYourFriends from '@/applications/liber/views/Contacts/FindYourFriends.vue';
 import AddNewContact from '@/applications/liber/views/Contacts/AddNewContact.vue';
 import SendViaLink from '@/applications/liber/views/Contacts/SendViaLink.vue';
 
@@ -100,6 +102,7 @@ const routes: Array<RouteRecordRaw> = [
         path: '',
         name: Route.AccountMain,
         component: AllAccounts,
+        meta: { classLayout: '-full-viewport' },
       },
       {
         path: ':coin',
@@ -144,6 +147,7 @@ const routes: Array<RouteRecordRaw> = [
         path: 'all',
         name: Route.TransactionsAll,
         component: TransactionsAll,
+        meta: { classLayout: '-full-viewport' },
       },
     ],
   },
@@ -161,6 +165,18 @@ const routes: Array<RouteRecordRaw> = [
         name: Route.ContactsWhoToPay,
         component: WhoToPay,
         children: PayRecipientsRoutes,
+      },
+      {
+        path: 'invite',
+        name: Route.ContactsInviteFriends,
+        component: InviteFriends,
+        meta: { classLayout: '-full-height' },
+      },
+      {
+        path: 'find',
+        name: Route.ContactsFindYourFriends,
+        component: FindYourFriends,
+        meta: { classLayout: '-full-height' },
       },
       {
         path: 'send/:id',
@@ -204,7 +220,7 @@ const routes: Array<RouteRecordRaw> = [
   {
     path: '/withdraw',
     name: Route.Withdraw,
-    meta: { authRequired: true },
+    meta: { authRequired: true, classLayout: '-full-height' },
     component: Withdraw,
   },
 
@@ -235,7 +251,7 @@ const routes: Array<RouteRecordRaw> = [
     name: Route.Recipients,
     meta: { layout: 'navbar', authRequired: true },
     component: Recipients,
-    beforeEnter: checkContactsLoaded,
+    // beforeEnter: checkContactsLoaded,
     children: RecipientsRoutes,
   },
 

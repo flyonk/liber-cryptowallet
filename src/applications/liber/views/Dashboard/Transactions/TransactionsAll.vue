@@ -1,5 +1,7 @@
 <template>
   <t-top-navigation
+    full-height
+    with-navbar
     @click:left-icon="$router.push({ name: Route.DashboardHome })"
   >
     <template #title>{{ $t('views.dashboard.home.transactions') }}</template>
@@ -32,6 +34,7 @@ onMounted(async () => {
   padding: 10px;
 
   > .transactions-list {
+    touch-action: manipulation;
     margin-top: 30px;
   }
 }
