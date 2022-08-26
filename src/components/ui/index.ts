@@ -14,7 +14,6 @@ export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalA
 export { default as BaseCoinListSelect } from './organisms/BaseCoinListSelect.vue';
 export { default as TopNavigation } from './molecules/TopNavigation.vue';
 export { default as BasePasscode } from './atoms/BasePasscode.vue';
-export { default as BaseToast } from './molecules/BaseToast.vue';
 export { default as TransactionIconWithStatus } from './molecules/TransactionIconWithStatus.vue';
 export { default as TransactionStatus } from './molecules/TransactionStatus.vue';
 export { default as TTopNavigation } from './templates/TTopNavigation.vue';
