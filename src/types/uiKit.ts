@@ -12,7 +12,7 @@ type Component = DefineComponent<
 
 export interface UiKitInterface {
   ACoinSwitcher: Component;
-  AСoinItem: Component;
+  ACoinItem: Component;
   AAccountBalance: Component;
   ABackHistoryBtn: Component;
   ABaseProgressBar: Component;
