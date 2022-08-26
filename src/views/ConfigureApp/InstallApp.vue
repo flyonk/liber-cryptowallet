@@ -93,34 +93,36 @@ const apps = [
   {
     img: require('@/assets/brands/ma.svg'),
     text: 'Microsoft Authenticator',
-    linkIos: 'https://apps.apple.com/ru/app/microsoft-authenticator',
+    linkIos:
+      'https://apps.apple.com/ru/app/microsoft-authenticator/id983156458',
     linkGoogle:
       'https://play.google.com/store/apps/details?id=com.azure.authenticator',
   },
   {
     img: require('@/assets/brands/ga.svg'),
     text: 'Google Authenticator',
-    linkIos: 'https://apps.apple.com/ru/app/google-authenticator',
+    linkIos: 'https://apps.apple.com/ru/app/google-authenticator/id388497605',
     linkGoogle:
       'https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2',
   },
   {
     img: require('@/assets/brands/authy.svg'),
     text: 'Authy',
-    linkIos: 'https://apps.apple.com/ru/app/twilio-authy',
+    linkIos: 'https://apps.apple.com/ru/app/twilio-authy/id494168017',
     linkGoogle: 'https://play.google.com/store/apps/details?id=com.authy.authy',
   },
   {
     img: require('@/assets/brands/dm.svg'),
     text: 'Duo Mobile',
-    linkIos: 'https://apps.apple.com/ru/app/duo-mobile',
+    linkIos: 'https://apps.apple.com/ru/app/duo-mobile/id422663827',
     linkGoogle:
       'https://play.google.com/store/apps/details?id=com.duosecurity.duomobile',
   },
   {
     img: require('@/assets/brands/op.svg'),
     text: '1Password',
-    linkIos: 'https://apps.apple.com/us/app/1password-7-password-manager',
+    linkIos:
+      'https://apps.apple.com/us/app/1password-7-password-manager/id1333542190',
     linkGoogle:
       'https://play.google.com/store/apps/details?id=com.onepassword.android',
   },
