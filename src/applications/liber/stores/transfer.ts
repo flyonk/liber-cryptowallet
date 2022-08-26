@@ -10,7 +10,7 @@ interface ITransferState {
 
 export type TRecipient = {
   id?: string;
-  phone: string;
+  phone?: string;
   email?: string;
 };
 
@@ -21,7 +21,7 @@ export const useTransferStore = defineStore('transfer', {
     coin: '',
     recipient: {
       id: '',
-      phone: '',
+      email: '',
     },
     amount: '',
   }),
@@ -31,7 +31,7 @@ export const useTransferStore = defineStore('transfer', {
       const isFullData =
         Boolean(state.coin) &&
         Boolean(state.recipient.id) &&
-        Boolean(state.recipient.phone) &&
+        Boolean(state.recipient.email) &&
         Boolean(+state.amount > 0);
 
       return isFullData;
@@ -50,7 +50,7 @@ export const useTransferStore = defineStore('transfer', {
       this.$reset();
     },
 
-    setRecipient(data: TRecipient = { id: '', phone: '' }): void {
+    setRecipient(data: TRecipient = { id: '', email: '' }): void {
       this.recipient = data;
     },
   },

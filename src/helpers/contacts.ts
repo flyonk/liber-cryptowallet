@@ -107,5 +107,5 @@ export function getContactInitials(fio = '') {
 }
 
 export function getContactPhone(contact: Contact) {
-  return contact.phoneNumbers[0]?.number || '';
+  return contact?.phoneNumbers[0]?.number || '';
 }

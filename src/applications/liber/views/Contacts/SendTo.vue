@@ -155,7 +155,6 @@ import { getContactPhone } from '@/helpers/contacts';
 import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
-import { formatPhoneNumber } from '@/helpers/auth';
 import { STATIC_BASE_URL } from '@/constants';
 import { uiKitKey } from '@/types/symbols';
 
@@ -184,17 +183,17 @@ const phone = getContactPhone(contact);
 
 const computedRecipient = computed(() => ({
   displayName: contact.displayName,
-  phone: getContactPhone(contact),
+  phone,
 }));
 
 const recipient = {
   id: contact.contactId,
-  phone: formatPhoneNumber(phone || ''),
+  email: phone || '',
 };
-transferStore.recipient = recipient;
+
+transferStore.setRecipient(recipient);
 
 const sendTransaction = async () => {
-  console.log('send transaction');
   if (transferStore.isReadyForTransfer) {
     try {
       const mfaStore = useMfaStore();
