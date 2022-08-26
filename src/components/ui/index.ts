@@ -12,7 +12,6 @@ export { default as OWithdrawConfirmationToast } from './organisms/withdraw/OWit
 export { default as EnterVerificationCode } from './organisms/auth/EnterVerificationCode.vue';
 export { default as TotalAccountBalanceByCoin } from './organisms/account/TotalAccountBalanceByCoin.vue';
 export { default as BaseCoinListSelect } from './organisms/BaseCoinListSelect.vue';
-export { default as TopNavigation } from './molecules/TopNavigation.vue';
 export { default as BasePasscode } from './atoms/BasePasscode.vue';
 export { default as TransactionIconWithStatus } from './molecules/TransactionIconWithStatus.vue';
 export { default as TransactionStatus } from './molecules/TransactionStatus.vue';
