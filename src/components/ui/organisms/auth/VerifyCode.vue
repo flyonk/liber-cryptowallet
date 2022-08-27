@@ -204,9 +204,14 @@ const onComplete = async (data: string) => {
 };
 
 const formatPhone = () => {
-  const formattedPhone = Array.from(phone.value)
+  const number =
+    props.flow === 'login'
+      ? authStore.getLoginSubscriberPhone
+      : authStore.getRegistrationFullPhone;
+
+  const formattedPhone = Array.from(number)
     .map((e, index) => {
-      return index < phone.value.length - 4 ? '*' : e;
+      return index < number.length - 4 ? '*' : e;
     })
     .join('');
   return dialCode.value + formattedPhone;
