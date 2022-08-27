@@ -2,6 +2,7 @@
   <m-base-toast
     v-if="displayCurrent"
     :visible="displayCurrent"
+    content-style="border-radius:32px;"
     @update:visible="hideErrorMsg"
   >
     <template #image>
@@ -19,7 +20,7 @@
         </p>
       </div>
     </template>
-    <template v-if="displayMultipleErrorMessage" #footer>
+    <template v-if="displayMultipleErrorMessage" #content-footer>
       <div class="popup-footer">
         <m-base-button class="btn mb-3" size="large" @click="resetErrors">
           {{ $t('errors.gotIt') }}
@@ -29,13 +30,18 @@
         </m-base-button>
       </div>
     </template>
-    <template v-else #footer>
+    <template v-else #content-footer>
       <div class="popup-footer">
         <template v-if="hasCustomComponent">
           <component :is="customComponent" />
         </template>
         <template v-else-if="isSingleError || displayAllErrors">
-          <m-base-button class="btn mb-3" size="large" @click="hideErrorMsg">
+          <m-base-button
+            class="btn mb-3"
+            block
+            size="large"
+            @click="hideErrorMsg"
+          >
             {{ $t('errors.gotIt') }}
           </m-base-button>
         </template>

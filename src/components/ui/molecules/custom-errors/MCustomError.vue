@@ -1,12 +1,12 @@
 <template>
   <template v-if="!customContent">
-    <m-base-toast :visible="displayCurrent">
+    <m-base-toast :visible="displayCurrent" content-style="border-radius:32px;">
       <template #image>
         <div class="popup-image">
           <img :src="toastImgUrl" class="image" alt="error" />
         </div>
       </template>
-      <template #header>
+      <template #content-header>
         <div>
           <h3>{{ $t(`errors.${error.title}`) }}</h3>
         </div>
@@ -18,7 +18,7 @@
           </p>
         </div>
       </template>
-      <template #footer>
+      <template #content-footer>
         <div class="popup-footer">
           <m-base-button
             :class="{ 'full-width': !error.cancelTitle }"

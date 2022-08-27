@@ -1,5 +1,9 @@
 <template>
-  <m-base-toast :visible="isToastExists" @update:visible="deleteToast">
+  <m-base-toast
+    :visible="isToastExists"
+    content-style="border-radius:32px;"
+    @update:visible="deleteToast"
+  >
     <template #image>
       <div class="popup-image">
         <img
@@ -16,7 +20,7 @@
         </p>
       </div>
     </template>
-    <template #footer>
+    <template #content-footer>
       <div class="popup-footer">
         <template v-if="!!currentToast.additionalContent">
           <component :is="currentToast.additionalContent" />

@@ -1,6 +1,7 @@
 <template>
   <m-base-toast
     v-model:visible="showPasscodeToast"
+    content-style="border-radius:32px;"
     @click="closePasscodeToast()"
   >
     <template #image>
