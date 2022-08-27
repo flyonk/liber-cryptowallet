@@ -10,6 +10,7 @@
       <m-base-toast
         v-if="popupStatus === 'attention'"
         v-model:visible="showPopup"
+        content-style="border-radius:32px;"
       >
         <template #image>
           <div class="popup-image">
@@ -29,16 +30,17 @@
             </p>
           </div>
         </template>
-        <template #footer>
+        <template #content-footer>
           <div class="popup-footer">
             <m-base-button
               class="btn mb-3"
               size="large"
+              block
               @click="showPopup = false"
             >
               No, go back
             </m-base-button>
-            <m-base-button class="btn" size="large" view="secondary">
+            <m-base-button class="btn" block size="large" view="secondary">
               Yes, continue
             </m-base-button>
           </div>
@@ -47,6 +49,7 @@
       <m-base-toast
         v-if="popupStatus === 'confirmation'"
         v-model:visible="showPopup"
+        content-style="border-radius:32px;"
         @click="showPopup = false"
       >
         <template #image>

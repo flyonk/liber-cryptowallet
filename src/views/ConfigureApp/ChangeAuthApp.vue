@@ -35,7 +35,11 @@
     </template>
   </t-top-navigation>
 
-  <m-base-toast v-model:visible="showPopup" @update:visible="onCancel">
+  <m-base-toast
+    v-model:visible="showPopup"
+    content-style="border-radius:32px"
+    @update:visible="onCancel"
+  >
     <template #image>
       <div class="popup-image">
         <img
@@ -52,7 +56,7 @@
         </p>
       </div>
     </template>
-    <template #footer>
+    <template #content-footer>
       <div class="popup-footer">
         <m-base-button class="btn mb-3" size="large" @click="onConfirm">
           {{ $t('common.continueCta') }}

@@ -1,5 +1,10 @@
 <template>
-  <m-base-toast v-if="true" :visible="true" @update:visible="hideErrorMsg">
+  <m-base-toast
+    v-if="true"
+    :visible="true"
+    content-style="border-radius:32px;"
+    @update:visible="hideErrorMsg"
+  >
     <template #image>
       <div class="popup-image">
         <img
@@ -20,7 +25,7 @@
         }}
       </p>
     </template>
-    <template #footer>
+    <template #content-footer>
       <div class="popup-footer">
         <m-base-button class="btn mb-3" size="large" @click="goToLogin">
           {{ $t('auth.signup.welcomeAuth.loginWithThisNumber') }}

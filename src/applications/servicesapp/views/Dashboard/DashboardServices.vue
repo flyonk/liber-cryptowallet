@@ -15,7 +15,7 @@
     </ul>
   </div>
 
-  <m-base-toast v-model:visible="showPopup">
+  <m-base-toast v-model:visible="showPopup" content-style="border-radius:32px;">
     <template #image>
       <div class="popup-image">
         <img

@@ -15,6 +15,7 @@
   </t-top-navigation>
   <m-base-toast
     :visible="sessionExpiredToast"
+    content-style="border-radius:32px"
     @update:visible="sessionExpiredToast = false"
   >
     <template #image>
@@ -28,7 +29,7 @@
     <template #description>
       {{ $t('auth.login.step3SessionExpired') }}
     </template>
-    <template #footer>
+    <template #content-footer>
       <m-base-button block size="large" @click="onLogin">
         {{ $t('common.logInCta') }}
       </m-base-button>
@@ -130,7 +131,7 @@ async function onLogin() {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .login-passcode {
   margin-top: 108px;
 

@@ -48,6 +48,7 @@
   <m-base-toast
     v-if="popupStatus === 'attention'"
     v-model:visible="showSuccessPopup"
+    content-style="border-radius:32px;"
   >
     <template #image>
       <div class="popup-image">
@@ -67,16 +68,17 @@
         </p>
       </div>
     </template>
-    <template #footer>
+    <template #content-footer>
       <div class="popup-footer">
         <m-base-button
           class="btn mb-3"
           size="large"
+          block
           @click="showSuccessPopup = false"
         >
           No, go back
         </m-base-button>
-        <m-base-button class="btn" size="large" view="secondary">
+        <m-base-button class="btn" block size="large" view="secondary">
           Yes, continue
         </m-base-button>
       </div>
@@ -85,6 +87,7 @@
   <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showSuccessPopup"
+    content-style="border-radius:32px;"
     @click="showSuccessPopup = false"
   >
     <template #image>
@@ -107,6 +110,7 @@
   <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showIncorrectDataPopup"
+    content-style="border-radius:32px;"
     @click="showIncorrectDataPopup = false"
   >
     <template #image>
@@ -128,6 +132,7 @@
   <m-base-toast
     v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
+    content-style="border-radius:32px;"
     @click="showFailurePopup = false"
   >
     <template #description>
@@ -290,8 +295,8 @@ const sendTransaction = async () => {
   width: 100%;
 
   > .image {
-    width: 50px;
-    height: 50px;
+    width: 60px;
+    height: 60px;
   }
 }
 
