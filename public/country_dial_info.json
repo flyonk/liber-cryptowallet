@@ -255,7 +255,7 @@
         "dialCode": "+387",
         "isoCode": "BA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ba.svg",
-        "mask": "##-####",
+        "mask": "##-###-###",
         "localPath": "/img/flags/BA.svg",
         "isoCodeAlpha": "BIH"
     },
@@ -595,7 +595,7 @@
         "dialCode": "+372",
         "isoCode": "EE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ee.svg",
-        "mask": "###-####",
+        "mask": "####-####",
         "localPath": "/img/flags/EE.svg",
         "isoCodeAlpha": "EST"
     },
