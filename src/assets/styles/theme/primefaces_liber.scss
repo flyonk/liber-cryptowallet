@@ -2,4 +2,6 @@
 // node_modules/primevue/resources/themes/luna-blue/theme.css
 // Look on them and choose one of it to rewrite here
 
-@import 'primevue/resources/themes/saga-blue/theme.css';
+//TODO: to solve saga-blue problem with styling p-dialog.
+// @import 'primevue/resources/themes/saga-blue/theme.css';
+@import 'saga_blue.scss';
