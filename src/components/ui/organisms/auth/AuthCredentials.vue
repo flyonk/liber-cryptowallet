@@ -115,8 +115,9 @@ const isNumberInvalid = computed(() => {
    * if the length of the entered number is less,
    * then the button is disabled
    */
-  const numOfDigits = mask.value.replace(new RegExp(/\D/, 'g'), '').length;
-  if (number.value.length < numOfDigits) return true;
+  const numOfDigits = getAmountOfNumber(mask.value);
+
+  if (String(number.value).length < numOfDigits) return true;
 
   /**
    * For the only country from the list of European countries without a mask (UK),
@@ -125,7 +126,7 @@ const isNumberInvalid = computed(() => {
   if (props.countryDialCode === '+44' && (number.value + '').length !== 10)
     return true;
 
-  return new RegExp(/_/).test(number.value);
+  return new RegExp(/_/).test('' + number.value);
 });
 
 const handleSelectCountry = (data: ICountryInformation) => {
@@ -139,6 +140,13 @@ const handleSelectCountry = (data: ICountryInformation) => {
       return match;
     });
     mask.value = mask.value.replaceAll('#', '9');
+
+    const copyOfMask = '' + mask.value;
+    const amountOfNumber = getAmountOfNumber(copyOfMask);
+
+    if (number.value) {
+      number.value = new String(number.value).slice(0, amountOfNumber);
+    }
   } else {
     mask.value = '';
   }
@@ -183,6 +191,9 @@ const closeClearBtn = () => {
 const forceUpdate = () => {
   updateKey.value++;
 };
+
+const getAmountOfNumber = (str: string) =>
+  str.replace(new RegExp(/\D/, 'g'), '').length;
 
 watch(toRef(props, 'initialNumber'), () => {
   number.value = props.initialNumber;
