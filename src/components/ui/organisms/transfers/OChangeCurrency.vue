@@ -360,11 +360,12 @@ function changeInfoInterval() {
 }
 
 const proxyPreviewChangeInfo = (direction: 'from' | 'to', event: any) => {
+  if (event === null) event = 0;
+
   if (direction === 'from')
     fundsStore.getConvertInfo.requestAmount = '' + event;
   if (direction === 'to')
     fundsStore.getConvertInfo.estimatedAmount = '' + event;
-
   previewChangeInfo(direction);
 };
 
