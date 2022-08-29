@@ -196,21 +196,13 @@ const _setCurrentSendToCurrency = (index: number) => {
 const _getCurrencyIndex = (code: string) =>
   currencies.findIndex((e) => e.code === code);
 
-const syncModels = (event: InputEvent) => {
-  amount.value = '' + event;
-  recipientAmount.value = amount.value;
+const syncModels = (event: InputEvent | number | string | null) => {
+  const result = event === null ? 0 : event;
+
+  amount.value = '' + result;
+  recipientAmount.value = '' + result;
   transferStore.amount = recipientAmount.value;
 };
-
-// todo: type FocusEvent not describes event as expected
-/* eslint-disable-next-line  @typescript-eslint/no-explicit-any */
-// const onBlur = (event: FocusEvent | any) => {
-//   const newElem = event.relatedTarget?.nodeName;
-//   const elem = event.target;
-//   if (newElem !== 'INPUT' && newElem !== 'BUTTON') {
-//     elem.focus();
-//   }
-// };
 </script>
 
 <style lang="scss" scoped>

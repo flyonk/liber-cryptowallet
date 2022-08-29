@@ -13,7 +13,7 @@ export const CAPACITOR_WEB_ERROR = 'UNIMPLEMENTED';
 export const STATIC_BASE_URL = process.env.VUE_APP_STATIC_STORAGE_URL;
 // export const AUTH_API_URL = process.env.VUE_APP_AUTH_URL;
 // export const PROFILE_API_URL = process.env.VUE_APP_PROFILE_URL;
-export const COUPONS_ENABLED = !!process.env.VUE_APP_COUPONS_ENABLED;
+export const COUPONS_ENABLED = process.env.VUE_APP_COUPONS_ENABLED === 'true';
 export const LOANS_ENABLED = process.env.VUE_APP_LOANS_ENABLED === 'true';
 export const CRYPTO_CURRENCIES_ENABLED =
   process.env.VUE_APP_CRYPTO_CURRENCIES_ENABLED === 'true';

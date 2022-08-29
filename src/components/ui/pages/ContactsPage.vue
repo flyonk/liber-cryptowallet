@@ -38,9 +38,13 @@ const { meta } = useRoute();
 
 const recipientsStore = useRecipientsStore();
 
-const contacts: Contact[] = meta?.friends
-  ? recipientsStore.getFriends
-  : recipientsStore.getContacts;
+recipientsStore.getPhoneContacts();
+
+const contacts = computed(() => {
+  return meta?.friends
+    ? recipientsStore.getFriends
+    : recipientsStore.getContacts;
+});
 
 let isMenuOpen = ref(false);
 
@@ -66,7 +70,7 @@ const props = defineProps({
 const filteredContacts = computed(() => {
   if (props.filter) {
     const filterStr = props.filter.toLowerCase();
-    return contacts
+    return contacts.value
       .filter((contact: Contact) => {
         const name = contact.displayName?.toLowerCase() || '';
         if (name.includes(filterStr)) {
@@ -88,7 +92,7 @@ const filteredContacts = computed(() => {
         return 1;
       });
   }
-  return contacts;
+  return contacts.value;
 });
 </script>
 

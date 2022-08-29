@@ -11,6 +11,7 @@ export enum EStorageKeys {
   refreshToken = 'refresh_token',
   tokenExpire = 'token_expire',
   marketing = 'marketing',
+  contacts = 'liber-app-contacts-list',
   friends = 'liber-app-friends',
   dialCode = 'dial-code',
   phone = 'phone',

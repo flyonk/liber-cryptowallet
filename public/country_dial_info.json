@@ -4,7 +4,7 @@
         "dialCode": "+93",
         "isoCode": "AF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/af.svg",
-        "mask": "+93-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/AF.svg",
         "isoCodeAlpha": "AFG"
     },
@@ -30,7 +30,7 @@
         "dialCode": "+213",
         "isoCode": "DZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dz.svg",
-        "mask": "+213-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/DZ.svg",
         "isoCodeAlpha": "DZA"
     },
@@ -48,7 +48,7 @@
         "dialCode": "+376",
         "isoCode": "AD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ad.svg",
-        "mask": "+376-###-###",
+        "mask": "###-###",
         "localPath": "/img/flags/AD.svg",
         "isoCodeAlpha": "AND"
     },
@@ -75,7 +75,7 @@
         "dialCode": "+672",
         "isoCode": "AQ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/aq.svg",
-        "mask": "+672-1##-###",
+        "mask": "1##-###",
         "localPath": "/img/flags/AQ.svg",
         "isoCodeAlpha": "ATA"
     },
@@ -102,7 +102,7 @@
         "dialCode": "+374",
         "isoCode": "AM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/am.svg",
-        "mask": "+374-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/AM.svg",
         "isoCodeAlpha": "ARM"
     },
@@ -111,7 +111,7 @@
         "dialCode": "+297",
         "isoCode": "AW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/aw.svg",
-        "mask": "+297-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/AW.svg",
         "isoCodeAlpha": "ABW"
     },
@@ -120,7 +120,7 @@
         "dialCode": "+247",
         "isoCode": "AC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ac.svg",
-        "mask": "+247-####",
+        "mask": "####",
         "localPath": "/img/flags/AC.svg",
         "isoCodeAlpha": "ASC"
     },
@@ -129,7 +129,7 @@
         "dialCode": "+61",
         "isoCode": "AU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/au.svg",
-        "mask": "+61-#-####-####",
+        "mask": "#-####-####",
         "localPath": "/img/flags/AU.svg",
         "isoCodeAlpha": "AUS"
     },
@@ -147,7 +147,7 @@
         "dialCode": "+994",
         "isoCode": "AZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/az.svg",
-        "mask": "+994-##-###-##-##",
+        "mask": "##-###-##-##",
         "localPath": "/img/flags/AZ.svg",
         "isoCodeAlpha": "AZE"
     },
@@ -165,7 +165,7 @@
         "dialCode": "+973",
         "isoCode": "BH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bh.svg",
-        "mask": "+973-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/BH.svg",
         "isoCodeAlpha": "BHR"
     },
@@ -174,7 +174,7 @@
         "dialCode": "+880",
         "isoCode": "BD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bd.svg",
-        "mask": "+880-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/BD.svg",
         "isoCodeAlpha": "BGD"
     },
@@ -210,7 +210,7 @@
         "dialCode": "+501",
         "isoCode": "BZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bz.svg",
-        "mask": "+501-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/BZ.svg",
         "isoCodeAlpha": "BLZ"
     },
@@ -219,7 +219,7 @@
         "dialCode": "+229",
         "isoCode": "BJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bj.svg",
-        "mask": "+229-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/BJ.svg",
         "isoCodeAlpha": "BEN"
     },
@@ -237,7 +237,7 @@
         "dialCode": "+975",
         "isoCode": "BT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bt.svg",
-        "mask": "+975-#-###-###",
+        "mask": "#-###-###",
         "localPath": "/img/flags/BT.svg",
         "isoCodeAlpha": "BTN"
     },
@@ -246,7 +246,7 @@
         "dialCode": "+591",
         "isoCode": "BO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bo.svg",
-        "mask": "+591-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/BO.svg",
         "isoCodeAlpha": "BOL"
     },
@@ -255,7 +255,7 @@
         "dialCode": "+387",
         "isoCode": "BA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ba.svg",
-        "mask": "+387-##-####",
+        "mask": "##-###-###",
         "localPath": "/img/flags/BA.svg",
         "isoCodeAlpha": "BIH"
     },
@@ -264,7 +264,7 @@
         "dialCode": "+267",
         "isoCode": "BW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bw.svg",
-        "mask": "+267-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/BW.svg",
         "isoCodeAlpha": "BWA"
     },
@@ -282,7 +282,7 @@
         "dialCode": "+246",
         "isoCode": "IO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/io.svg",
-        "mask": "+246-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/IO.svg",
         "isoCodeAlpha": "IOT"
     },
@@ -291,7 +291,7 @@
         "dialCode": "+673",
         "isoCode": "BN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bn.svg",
-        "mask": "+673-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/BN.svg",
         "isoCodeAlpha": "BRN"
     },
@@ -309,7 +309,7 @@
         "dialCode": "+226",
         "isoCode": "BF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bf.svg",
-        "mask": "+226-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/BF.svg",
         "isoCodeAlpha": "BFA"
     },
@@ -318,7 +318,7 @@
         "dialCode": "+257",
         "isoCode": "BI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/bi.svg",
-        "mask": "+257-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/BI.svg",
         "isoCodeAlpha": "BDI"
     },
@@ -327,7 +327,7 @@
         "dialCode": "+855",
         "isoCode": "KH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kh.svg",
-        "mask": "+855-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/KH.svg",
         "isoCodeAlpha": "KHM"
     },
@@ -336,7 +336,7 @@
         "dialCode": "+237",
         "isoCode": "CM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cm.svg",
-        "mask": "+237-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/CM.svg",
         "isoCodeAlpha": "CMR"
     },
@@ -372,7 +372,7 @@
         "dialCode": "+236",
         "isoCode": "CF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cf.svg",
-        "mask": "+236-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/CF.svg",
         "isoCodeAlpha": "CAF"
     },
@@ -381,7 +381,7 @@
         "dialCode": "+235",
         "isoCode": "TD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/td.svg",
-        "mask": "+235-##-##-##-##",
+        "mask": "##-##-##-##",
         "localPath": "/img/flags/TD.svg",
         "isoCodeAlpha": "TCD"
     },
@@ -390,7 +390,7 @@
         "dialCode": "+56",
         "isoCode": "CL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cl.svg",
-        "mask": "+56-#-####-####",
+        "mask": "#-####-####",
         "localPath": "/img/flags/CL.svg",
         "isoCodeAlpha": "CHL"
     },
@@ -399,7 +399,7 @@
         "dialCode": "+86",
         "isoCode": "CN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cn.svg",
-        "mask": "+86-##-#####-#####",
+        "mask": "##-#####-#####",
         "localPath": "/img/flags/CN.svg",
         "isoCodeAlpha": "CHN"
     },
@@ -433,7 +433,7 @@
         "dialCode": "+269",
         "isoCode": "KM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/km.svg",
-        "mask": "+269-##-#####",
+        "mask": "##-#####",
         "localPath": "/img/flags/KM.svg",
         "isoCodeAlpha": "COM"
     },
@@ -442,7 +442,7 @@
         "dialCode": "+242",
         "isoCode": "CG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cg.svg",
-        "mask": "+242-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/CG.svg",
         "isoCodeAlpha": "COG"
     },
@@ -451,7 +451,7 @@
         "dialCode": "+682",
         "isoCode": "CK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ck.svg",
-        "mask": "+682-##-###",
+        "mask": "##-###",
         "localPath": "/img/flags/CK.svg",
         "isoCodeAlpha": "COK"
     },
@@ -460,7 +460,7 @@
         "dialCode": "+506",
         "isoCode": "CR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cr.svg",
-        "mask": "+506-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/CR.svg",
         "isoCodeAlpha": "CRI"
     },
@@ -469,7 +469,7 @@
         "dialCode": "+385",
         "isoCode": "HR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hr.svg",
-        "mask": "+385-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/HR.svg",
         "isoCodeAlpha": "HRV"
     },
@@ -478,7 +478,7 @@
         "dialCode": "+53",
         "isoCode": "CU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cu.svg",
-        "mask": "+53-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/CU.svg",
         "isoCodeAlpha": "CUB"
     },
@@ -487,7 +487,7 @@
         "dialCode": "+357",
         "isoCode": "CY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/cy.svg",
-        "mask": "+357-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/CY.svg",
         "isoCodeAlpha": "CYP"
     },
@@ -514,7 +514,7 @@
         "dialCode": "+45",
         "isoCode": "DK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dk.svg",
-        "mask": "+45-##-##-##-##",
+        "mask": "##-##-##-##",
         "localPath": "/img/flags/DK.svg",
         "isoCodeAlpha": "DNK"
     },
@@ -523,7 +523,7 @@
         "dialCode": "+253",
         "isoCode": "DJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/dj.svg",
-        "mask": "+253-##-##-##-##",
+        "mask": "##-##-##-##",
         "localPath": "/img/flags/DJ.svg",
         "isoCodeAlpha": "DJI"
     },
@@ -550,7 +550,7 @@
         "dialCode": "+593",
         "isoCode": "EC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ec.svg",
-        "mask": "+593-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/EC.svg",
         "isoCodeAlpha": "ECU"
     },
@@ -568,7 +568,7 @@
         "dialCode": "+503",
         "isoCode": "SV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sv.svg",
-        "mask": "+503-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/SV.svg",
         "isoCodeAlpha": "SLV"
     },
@@ -577,7 +577,7 @@
         "dialCode": "+240",
         "isoCode": "GQ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gq.svg",
-        "mask": "+240-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/GQ.svg",
         "isoCodeAlpha": "GNQ"
     },
@@ -586,7 +586,7 @@
         "dialCode": "+291",
         "isoCode": "ER",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/er.svg",
-        "mask": "+291-#-###-###",
+        "mask": "#-###-###",
         "localPath": "/img/flags/ER.svg",
         "isoCodeAlpha": "ERI"
     },
@@ -595,7 +595,7 @@
         "dialCode": "+372",
         "isoCode": "EE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ee.svg",
-        "mask": "+372-###-####",
+        "mask": "####-####",
         "localPath": "/img/flags/EE.svg",
         "isoCodeAlpha": "EST"
     },
@@ -604,7 +604,7 @@
         "dialCode": "+268",
         "isoCode": "SZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sz.svg",
-        "mask": "+268-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/SZ.svg",
         "isoCodeAlpha": "SWZ"
     },
@@ -613,7 +613,7 @@
         "dialCode": "+251",
         "isoCode": "ET",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/et.svg",
-        "mask": "+251-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/ET.svg",
         "isoCodeAlpha": "ETH"
     },
@@ -622,7 +622,7 @@
         "dialCode": "+500",
         "isoCode": "FK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fk.svg",
-        "mask": "+500-#####",
+        "mask": "#####",
         "localPath": "/img/flags/FK.svg",
         "isoCodeAlpha": "FLK"
     },
@@ -631,7 +631,7 @@
         "dialCode": "+298",
         "isoCode": "FO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fo.svg",
-        "mask": "+298-###-###",
+        "mask": "###-###",
         "localPath": "/img/flags/FO.svg",
         "isoCodeAlpha": "FRO"
     },
@@ -640,7 +640,7 @@
         "dialCode": "+679",
         "isoCode": "FJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fj.svg",
-        "mask": "+679-##-#####",
+        "mask": "##-#####",
         "localPath": "/img/flags/FJ.svg",
         "isoCodeAlpha": "FJI"
     },
@@ -667,7 +667,7 @@
         "dialCode": "+594",
         "isoCode": "GF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gf.svg",
-        "mask": "+594-#####-####",
+        "mask": "#####-####",
         "localPath": "/img/flags/GF.svg",
         "isoCodeAlpha": "GUF"
     },
@@ -676,7 +676,7 @@
         "dialCode": "+689",
         "isoCode": "PF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pf.svg",
-        "mask": "+689-##-##-##",
+        "mask": "##-##-##",
         "localPath": "/img/flags/PF.svg",
         "isoCodeAlpha": "PYF"
     },
@@ -685,7 +685,7 @@
         "dialCode": "+241",
         "isoCode": "GA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ga.svg",
-        "mask": "+241-#-##-##-##",
+        "mask": "#-##-##-##",
         "localPath": "/img/flags/GA.svg",
         "isoCodeAlpha": "GAB"
     },
@@ -712,7 +712,7 @@
         "dialCode": "+49",
         "isoCode": "DE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/de.svg",
-        "mask": "+49-###-###",
+        "mask": "+49(###)-###-####",
         "localPath": "/img/flags/DE.svg",
         "isoCodeAlpha": "DEU"
     },
@@ -730,7 +730,7 @@
         "dialCode": "+350",
         "isoCode": "GI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gi.svg",
-        "mask": "+350-###-#####",
+        "mask": "###-#####",
         "localPath": "/img/flags/GI.svg",
         "isoCodeAlpha": "GIB"
     },
@@ -748,7 +748,7 @@
         "dialCode": "+299",
         "isoCode": "GL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gl.svg",
-        "mask": "+299-##-##-##",
+        "mask": "##-##-##",
         "localPath": "/img/flags/GL.svg",
         "isoCodeAlpha": "GRL"
     },
@@ -783,7 +783,7 @@
         "dialCode": "+502",
         "isoCode": "GT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gt.svg",
-        "mask": "+502-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/GT.svg",
         "isoCodeAlpha": "GTM"
     },
@@ -800,7 +800,7 @@
         "dialCode": "+224",
         "isoCode": "GN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gn.svg",
-        "mask": "+224-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/GN.svg",
         "isoCodeAlpha": "GIN"
     },
@@ -809,7 +809,7 @@
         "dialCode": "+245",
         "isoCode": "GW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gw.svg",
-        "mask": "+245-#-######",
+        "mask": "#-######",
         "localPath": "/img/flags/GW.svg",
         "isoCodeAlpha": "GNB"
     },
@@ -818,7 +818,7 @@
         "dialCode": "+592",
         "isoCode": "GY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/gy.svg",
-        "mask": "+592-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/GY.svg",
         "isoCodeAlpha": "GUY"
     },
@@ -827,7 +827,7 @@
         "dialCode": "+509",
         "isoCode": "HT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ht.svg",
-        "mask": "+509-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/HT.svg",
         "isoCodeAlpha": "HTI"
     },
@@ -836,7 +836,7 @@
         "dialCode": "+379",
         "isoCode": "VA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/va.svg",
-        "mask": "+39-6-698-#####",
+        "mask": "6-698-#####",
         "localPath": "/img/flags/VA.svg",
         "isoCodeAlpha": "VAT"
     },
@@ -845,7 +845,7 @@
         "dialCode": "+504",
         "isoCode": "HN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hn.svg",
-        "mask": "+504-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/HN.svg",
         "isoCodeAlpha": "HND"
     },
@@ -854,7 +854,7 @@
         "dialCode": "+852",
         "isoCode": "HK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/hk.svg",
-        "mask": "+852-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/HK.svg",
         "isoCodeAlpha": "HKG"
     },
@@ -872,7 +872,7 @@
         "dialCode": "+354",
         "isoCode": "IS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/is.svg",
-        "mask": "+354-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/IS.svg",
         "isoCodeAlpha": "ISL"
     },
@@ -934,7 +934,7 @@
         "dialCode": "+972",
         "isoCode": "IL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/il.svg",
-        "mask": "+972-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/IL.svg",
         "isoCodeAlpha": "ISR"
     },
@@ -952,7 +952,7 @@
         "dialCode": "+225",
         "isoCode": "CI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ci.svg",
-        "mask": "+225-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/CI.svg",
         "isoCodeAlpha": "CIV"
     },
@@ -987,7 +987,7 @@
         "dialCode": "+962",
         "isoCode": "JO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/jo.svg",
-        "mask": "+962-#-####-####",
+        "mask": "#-####-####",
         "localPath": "/img/flags/JO.svg",
         "isoCodeAlpha": "JOR"
     },
@@ -1005,7 +1005,7 @@
         "dialCode": "+254",
         "isoCode": "KE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ke.svg",
-        "mask": "+254-###-######",
+        "mask": "###-######",
         "localPath": "/img/flags/KE.svg",
         "isoCodeAlpha": "KEN"
     },
@@ -1014,7 +1014,7 @@
         "dialCode": "+686",
         "isoCode": "KI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ki.svg",
-        "mask": "+686-##-###",
+        "mask": "##-###",
         "localPath": "/img/flags/KI.svg",
         "isoCodeAlpha": "KIR"
     },
@@ -1023,7 +1023,7 @@
         "dialCode": "+850",
         "isoCode": "KP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kp.svg",
-        "mask": "+850-####-#############",
+        "mask": "####-#############",
         "localPath": "/img/flags/KP.svg",
         "isoCodeAlpha": "PRK"
     },
@@ -1032,7 +1032,7 @@
         "dialCode": "+82",
         "isoCode": "KR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kr.svg",
-        "mask": "+82-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/KR.svg",
         "isoCodeAlpha": "KOR"
     },
@@ -1049,7 +1049,7 @@
         "dialCode": "+965",
         "isoCode": "KW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/kw.svg",
-        "mask": "+965-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/KW.svg",
         "isoCodeAlpha": "KWT"
     },
@@ -1067,7 +1067,7 @@
         "dialCode": "+856",
         "isoCode": "LA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/la.svg",
-        "mask": "+856-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/LA.svg",
         "isoCodeAlpha": ""
     },
@@ -1076,7 +1076,7 @@
         "dialCode": "+371",
         "isoCode": "LV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lv.svg",
-        "mask": "+371-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/LV.svg",
         "isoCodeAlpha": "LVA"
     },
@@ -1085,7 +1085,7 @@
         "dialCode": "+961",
         "isoCode": "LB",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lb.svg",
-        "mask": "+961-#-###-###",
+        "mask": "#-###-###",
         "localPath": "/img/flags/LB.svg",
         "isoCodeAlpha": "LBN"
     },
@@ -1094,7 +1094,7 @@
         "dialCode": "+266",
         "isoCode": "LS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ls.svg",
-        "mask": "+266-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/LS.svg",
         "isoCodeAlpha": "LSO"
     },
@@ -1103,7 +1103,7 @@
         "dialCode": "+231",
         "isoCode": "LR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lr.svg",
-        "mask": "+231-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/LR.svg",
         "isoCodeAlpha": "LBR"
     },
@@ -1112,7 +1112,7 @@
         "dialCode": "+218",
         "isoCode": "LY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ly.svg",
-        "mask": "+218-21-###-####",
+        "mask": "21-###-####",
         "localPath": "/img/flags/LY.svg",
         "isoCodeAlpha": "LBY"
     },
@@ -1148,7 +1148,7 @@
         "dialCode": "+853",
         "isoCode": "MO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mo.svg",
-        "mask": "+853-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/MO.svg",
         "isoCodeAlpha": "MAC"
     },
@@ -1157,7 +1157,7 @@
         "dialCode": "+261",
         "isoCode": "MG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mg.svg",
-        "mask": "+261-##-##-#####",
+        "mask": "##-##-#####",
         "localPath": "/img/flags/MG.svg",
         "isoCodeAlpha": "MDG"
     },
@@ -1166,7 +1166,7 @@
         "dialCode": "+265",
         "isoCode": "MW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mw.svg",
-        "mask": "+265-#-####-####",
+        "mask": "#-####-####",
         "localPath": "/img/flags/MW.svg",
         "isoCodeAlpha": "MWI"
     },
@@ -1175,7 +1175,7 @@
         "dialCode": "+60",
         "isoCode": "MY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/my.svg",
-        "mask": "+60-#-###-###",
+        "mask": "#-###-###",
         "localPath": "/img/flags/MY.svg",
         "isoCodeAlpha": "MYS"
     },
@@ -1184,7 +1184,7 @@
         "dialCode": "+960",
         "isoCode": "MV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mv.svg",
-        "mask": "+960-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/MV.svg",
         "isoCodeAlpha": "MDV"
     },
@@ -1193,7 +1193,7 @@
         "dialCode": "+223",
         "isoCode": "ML",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ml.svg",
-        "mask": "+223-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/ML.svg",
         "isoCodeAlpha": "MLI"
     },
@@ -1202,7 +1202,7 @@
         "dialCode": "+356",
         "isoCode": "MT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mt.svg",
-        "mask": "+356-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/MT.svg",
         "isoCodeAlpha": "MLT"
     },
@@ -1211,7 +1211,7 @@
         "dialCode": "+692",
         "isoCode": "MH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mh.svg",
-        "mask": "+692-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/MH.svg",
         "isoCodeAlpha": "MHL"
     },
@@ -1229,7 +1229,7 @@
         "dialCode": "+222",
         "isoCode": "MR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mr.svg",
-        "mask": "+222-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/MR.svg",
         "isoCodeAlpha": "MRT"
     },
@@ -1238,7 +1238,7 @@
         "dialCode": "+230",
         "isoCode": "MU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mu.svg",
-        "mask": "+230-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/MU.svg",
         "isoCodeAlpha": "MUS"
     },
@@ -1255,7 +1255,7 @@
         "dialCode": "+52",
         "isoCode": "MX",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mx.svg",
-        "mask": "+52-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/MX.svg",
         "isoCodeAlpha": "MEX"
     },
@@ -1264,7 +1264,7 @@
         "dialCode": "+691",
         "isoCode": "FM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/fm.svg",
-        "mask": "+691-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/FM.svg",
         "isoCodeAlpha": "FSM"
     },
@@ -1273,7 +1273,7 @@
         "dialCode": "+373",
         "isoCode": "MD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/md.svg",
-        "mask": "+373-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/MD.svg",
         "isoCodeAlpha": "MDA"
     },
@@ -1282,7 +1282,7 @@
         "dialCode": "+377",
         "isoCode": "MC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mc.svg",
-        "mask": "+377-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/MC.svg",
         "isoCodeAlpha": "MCO"
     },
@@ -1291,7 +1291,7 @@
         "dialCode": "+976",
         "isoCode": "MN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mn.svg",
-        "mask": "+976-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/MN.svg",
         "isoCodeAlpha": "MNG"
     },
@@ -1300,7 +1300,7 @@
         "dialCode": "+382",
         "isoCode": "ME",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/me.svg",
-        "mask": "+382-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/ME.svg",
         "isoCodeAlpha": "MNE"
     },
@@ -1318,7 +1318,7 @@
         "dialCode": "+212",
         "isoCode": "MA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ma.svg",
-        "mask": "+212-##-####-###",
+        "mask": "##-####-###",
         "localPath": "/img/flags/MA.svg",
         "isoCodeAlpha": "MAR"
     },
@@ -1327,7 +1327,7 @@
         "dialCode": "+258",
         "isoCode": "MZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mz.svg",
-        "mask": "+258-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/MZ.svg",
         "isoCodeAlpha": "MOZ"
     },
@@ -1336,7 +1336,7 @@
         "dialCode": "+95",
         "isoCode": "MM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mm.svg",
-        "mask": "+95-###-###",
+        "mask": "###-###",
         "localPath": "/img/flags/MM.svg",
         "isoCodeAlpha": "MMR"
     },
@@ -1345,7 +1345,7 @@
         "dialCode": "+264",
         "isoCode": "NA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/na.svg",
-        "mask": "+264-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/NA.svg",
         "isoCodeAlpha": "NAM"
     },
@@ -1354,7 +1354,7 @@
         "dialCode": "+674",
         "isoCode": "NR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nr.svg",
-        "mask": "+674-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/NR.svg",
         "isoCodeAlpha": "NRU"
     },
@@ -1363,7 +1363,7 @@
         "dialCode": "+977",
         "isoCode": "NP",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/np.svg",
-        "mask": "+977-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/NP.svg",
         "isoCodeAlpha": "NPL"
     },
@@ -1372,7 +1372,7 @@
         "dialCode": "+31",
         "isoCode": "NL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nl.svg",
-        "mask": "+31-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/NL.svg",
         "isoCodeAlpha": "NLD"
     },
@@ -1381,7 +1381,7 @@
         "dialCode": "+599",
         "isoCode": "AN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/an.svg",
-        "mask": "+599-9###-####",
+        "mask": "9###-####",
         "localPath": "/img/flags/AN.svg",
         "isoCodeAlpha": "ANT"
     },
@@ -1390,7 +1390,7 @@
         "dialCode": "+687",
         "isoCode": "NC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nc.svg",
-        "mask": "+687-##-####",
+        "mask": "##-####",
         "localPath": "/img/flags/NC.svg",
         "isoCodeAlpha": "NCL"
     },
@@ -1408,7 +1408,7 @@
         "dialCode": "+505",
         "isoCode": "NI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ni.svg",
-        "mask": "+505-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/NI.svg",
         "isoCodeAlpha": "NIC"
     },
@@ -1417,7 +1417,7 @@
         "dialCode": "+227",
         "isoCode": "NE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ne.svg",
-        "mask": "+227-##-##-####",
+        "mask": "##-##-####",
         "localPath": "/img/flags/NE.svg",
         "isoCodeAlpha": "NER"
     },
@@ -1435,7 +1435,7 @@
         "dialCode": "+683",
         "isoCode": "NU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nu.svg",
-        "mask": "+683-####",
+        "mask": "####",
         "localPath": "/img/flags/NU.svg",
         "isoCodeAlpha": "NIU"
     },
@@ -1444,7 +1444,7 @@
         "dialCode": "+672",
         "isoCode": "NF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/nf.svg",
-        "mask": "+672-3##-###",
+        "mask": "3##-###",
         "localPath": "/img/flags/NF.svg",
         "isoCodeAlpha": "NFK"
     },
@@ -1453,7 +1453,7 @@
         "dialCode": "+389",
         "isoCode": "MK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/mk.svg",
-        "mask": "+389-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/MK.svg",
         "isoCodeAlpha": "MKD"
     },
@@ -1480,7 +1480,7 @@
         "dialCode": "+968",
         "isoCode": "OM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/om.svg",
-        "mask": "+968-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/OM.svg",
         "isoCodeAlpha": "OMN"
     },
@@ -1498,7 +1498,7 @@
         "dialCode": "+680",
         "isoCode": "PW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pw.svg",
-        "mask": "+680-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/PW.svg",
         "isoCodeAlpha": "PLW"
     },
@@ -1507,7 +1507,7 @@
         "dialCode": "+970",
         "isoCode": "PS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ps.svg",
-        "mask": "+970-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/PS.svg",
         "isoCodeAlpha": "PSE"
     },
@@ -1516,7 +1516,7 @@
         "dialCode": "+507",
         "isoCode": "PA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pa.svg",
-        "mask": "+507-###-####",
+        "mask": "###-####",
         "localPath": "/img/flags/PA.svg",
         "isoCodeAlpha": "PAN"
     },
@@ -1578,7 +1578,7 @@
         "dialCode": "+351",
         "isoCode": "PT",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/pt.svg",
-        "mask": "+351-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/PT.svg",
         "isoCodeAlpha": "PRT"
     },
@@ -1595,7 +1595,7 @@
         "dialCode": "+974",
         "isoCode": "QA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/qa.svg",
-        "mask": "+974-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/QA.svg",
         "isoCodeAlpha": "QAT"
     },
@@ -1604,7 +1604,7 @@
         "dialCode": "+262",
         "isoCode": "RE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/re.svg",
-        "mask": "+262-#####-####",
+        "mask": "#####-####",
         "localPath": "/img/flags/RE.svg",
         "isoCodeAlpha": "REU"
     },
@@ -1613,7 +1613,7 @@
         "dialCode": "+40",
         "isoCode": "RO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ro.svg",
-        "mask": "+40-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/RO.svg",
         "isoCodeAlpha": "ROU"
     },
@@ -1648,7 +1648,7 @@
         "dialCode": "+290",
         "isoCode": "SH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sh.svg",
-        "mask": "+290-####",
+        "mask": "####",
         "localPath": "/img/flags/SH.svg",
         "isoCodeAlpha": "SHN"
     },
@@ -1700,7 +1700,7 @@
         "dialCode": "+685",
         "isoCode": "WS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ws.svg",
-        "mask": "+685-##-####",
+        "mask": "##-####",
         "localPath": "/img/flags/WS.svg",
         "isoCodeAlpha": "WSM"
     },
@@ -1709,7 +1709,7 @@
         "dialCode": "+378",
         "isoCode": "SM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sm.svg",
-        "mask": "+378-####-######",
+        "mask": "####-######",
         "localPath": "/img/flags/SM.svg",
         "isoCodeAlpha": "SMR"
     },
@@ -1718,7 +1718,7 @@
         "dialCode": "+239",
         "isoCode": "ST",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/st.svg",
-        "mask": "+239-##-#####",
+        "mask": "##-#####",
         "localPath": "/img/flags/ST.svg",
         "isoCodeAlpha": "STP"
     },
@@ -1727,7 +1727,7 @@
         "dialCode": "+966",
         "isoCode": "SA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sa.svg",
-        "mask": "+966-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/SA.svg",
         "isoCodeAlpha": "SAU"
     },
@@ -1736,7 +1736,7 @@
         "dialCode": "+221",
         "isoCode": "SN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sn.svg",
-        "mask": "+221-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/SN.svg",
         "isoCodeAlpha": "SEN"
     },
@@ -1745,7 +1745,7 @@
         "dialCode": "+381",
         "isoCode": "RS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/rs.svg",
-        "mask": "+381-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/RS.svg",
         "isoCodeAlpha": "SRB"
     },
@@ -1754,7 +1754,7 @@
         "dialCode": "+248",
         "isoCode": "SC",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sc.svg",
-        "mask": "+248-#-###-###",
+        "mask": "#-###-###",
         "localPath": "/img/flags/SC.svg",
         "isoCodeAlpha": "SYC"
     },
@@ -1763,7 +1763,7 @@
         "dialCode": "+232",
         "isoCode": "SL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sl.svg",
-        "mask": "+232-##-######",
+        "mask": "##-######",
         "localPath": "/img/flags/SL.svg",
         "isoCodeAlpha": "SLE"
     },
@@ -1772,7 +1772,7 @@
         "dialCode": "+65",
         "isoCode": "SG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sg.svg",
-        "mask": "+65-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/SG.svg",
         "isoCodeAlpha": "SGP"
     },
@@ -1799,7 +1799,7 @@
         "dialCode": "+386",
         "isoCode": "SI",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/si.svg",
-        "mask": "+386-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/SI.svg",
         "isoCodeAlpha": "SVN"
     },
@@ -1808,7 +1808,7 @@
         "dialCode": "+677",
         "isoCode": "SB",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sb.svg",
-        "mask": "+677-#####",
+        "mask": "#####",
         "localPath": "/img/flags/SB.svg",
         "isoCodeAlpha": "SLB"
     },
@@ -1817,7 +1817,7 @@
         "dialCode": "+252",
         "isoCode": "SO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/so.svg",
-        "mask": "+252-#-###-###",
+        "mask": "#-###-###",
         "localPath": "/img/flags/SO.svg",
         "isoCodeAlpha": "SOM"
     },
@@ -1826,7 +1826,7 @@
         "dialCode": "+27",
         "isoCode": "ZA",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/za.svg",
-        "mask": "+27-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/ZA.svg",
         "isoCodeAlpha": "ZAF"
     },
@@ -1843,7 +1843,7 @@
         "dialCode": "+211",
         "isoCode": "SS",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ss.svg",
-        "mask": "+211-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/SS.svg",
         "isoCodeAlpha": "SSD"
     },
@@ -1861,7 +1861,7 @@
         "dialCode": "+94",
         "isoCode": "LK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/lk.svg",
-        "mask": "+94-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/LK.svg",
         "isoCodeAlpha": "LKA"
     },
@@ -1870,7 +1870,7 @@
         "dialCode": "+249",
         "isoCode": "SD",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sd.svg",
-        "mask": "+249-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/SD.svg",
         "isoCodeAlpha": "SDN"
     },
@@ -1879,7 +1879,7 @@
         "dialCode": "+597",
         "isoCode": "SR",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sr.svg",
-        "mask": "+597-###-###",
+        "mask": "###-###",
         "localPath": "/img/flags/SR.svg",
         "isoCodeAlpha": "SUR"
     },
@@ -1896,7 +1896,7 @@
         "dialCode": "+46",
         "isoCode": "SE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/se.svg",
-        "mask": "+46-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/SE.svg",
         "isoCodeAlpha": "SWE"
     },
@@ -1905,7 +1905,7 @@
         "dialCode": "+41",
         "isoCode": "CH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ch.svg",
-        "mask": "+41-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/CH.svg",
         "isoCodeAlpha": "CHE"
     },
@@ -1914,7 +1914,7 @@
         "dialCode": "+963",
         "isoCode": "SY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/sy.svg",
-        "mask": "+963-##-####-###",
+        "mask": "##-####-###",
         "localPath": "/img/flags/SY.svg",
         "isoCodeAlpha": "SYR"
     },
@@ -1923,7 +1923,7 @@
         "dialCode": "+886",
         "isoCode": "TW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tw.svg",
-        "mask": "+886-####-####",
+        "mask": "####-####",
         "localPath": "/img/flags/TW.svg",
         "isoCodeAlpha": "TWN"
     },
@@ -1932,7 +1932,7 @@
         "dialCode": "+992",
         "isoCode": "TJ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tj.svg",
-        "mask": "+992-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/TJ.svg",
         "isoCodeAlpha": "TJK"
     },
@@ -1941,7 +1941,7 @@
         "dialCode": "+255",
         "isoCode": "TZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tz.svg",
-        "mask": "+255-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/TZ.svg",
         "isoCodeAlpha": "TZA"
     },
@@ -1950,7 +1950,7 @@
         "dialCode": "+66",
         "isoCode": "TH",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/th.svg",
-        "mask": "+66-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/TH.svg",
         "isoCodeAlpha": "THA"
     },
@@ -1959,7 +1959,7 @@
         "dialCode": "+670",
         "isoCode": "TL",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tl.svg",
-        "mask": "+670-78#-#####",
+        "mask": "78#-#####",
         "localPath": "/img/flags/TL.svg",
         "isoCodeAlpha": "TLS"
     },
@@ -1968,7 +1968,7 @@
         "dialCode": "+228",
         "isoCode": "TG",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tg.svg",
-        "mask": "+228-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/TG.svg",
         "isoCodeAlpha": "TGO"
     },
@@ -1977,7 +1977,7 @@
         "dialCode": "+690",
         "isoCode": "TK",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tk.svg",
-        "mask": "+690-####",
+        "mask": "####",
         "localPath": "/img/flags/TK.svg",
         "isoCodeAlpha": "TKL"
     },
@@ -1986,7 +1986,7 @@
         "dialCode": "+676",
         "isoCode": "TO",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/to.svg",
-        "mask": "+676-#####",
+        "mask": "#####",
         "localPath": "/img/flags/TO.svg",
         "isoCodeAlpha": "TON"
     },
@@ -2004,7 +2004,7 @@
         "dialCode": "+216",
         "isoCode": "TN",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tn.svg",
-        "mask": "+216-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/TN.svg",
         "isoCodeAlpha": "TUN"
     },
@@ -2022,7 +2022,7 @@
         "dialCode": "+993",
         "isoCode": "TM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tm.svg",
-        "mask": "+993-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/TM.svg",
         "isoCodeAlpha": "TKM"
     },
@@ -2040,7 +2040,7 @@
         "dialCode": "+688",
         "isoCode": "TV",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/tv.svg",
-        "mask": "+688-2####",
+        "mask": "2####",
         "localPath": "/img/flags/TV.svg",
         "isoCodeAlpha": "TUV"
     },
@@ -2067,7 +2067,7 @@
         "dialCode": "+971",
         "isoCode": "AE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ae.svg",
-        "mask": "+971-#-###-####",
+        "mask": "#-###-####",
         "localPath": "/img/flags/AE.svg",
         "isoCodeAlpha": "ARE"
     },
@@ -2101,7 +2101,7 @@
         "dialCode": "+598",
         "isoCode": "UY",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/uy.svg",
-        "mask": "+598-#-###-##-##",
+        "mask": "#-###-##-##",
         "localPath": "/img/flags/UY.svg",
         "isoCodeAlpha": "URY"
     },
@@ -2110,7 +2110,7 @@
         "dialCode": "+998",
         "isoCode": "UZ",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/uz.svg",
-        "mask": "+998-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/UZ.svg",
         "isoCodeAlpha": "UZB"
     },
@@ -2119,7 +2119,7 @@
         "dialCode": "+678",
         "isoCode": "VU",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/vu.svg",
-        "mask": "+678-#####",
+        "mask": "#####",
         "localPath": "/img/flags/VU.svg",
         "isoCodeAlpha": "VUT"
     },
@@ -2164,7 +2164,7 @@
         "dialCode": "+681",
         "isoCode": "WF",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/wf.svg",
-        "mask": "+681-##-####",
+        "mask": "##-####",
         "localPath": "/img/flags/WF.svg",
         "isoCodeAlpha": "WLF"
     },
@@ -2173,7 +2173,7 @@
         "dialCode": "+967",
         "isoCode": "YE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/ye.svg",
-        "mask": "+967-##-###-###",
+        "mask": "##-###-###",
         "localPath": "/img/flags/YE.svg",
         "isoCodeAlpha": "YEM"
     },
@@ -2182,7 +2182,7 @@
         "dialCode": "+260",
         "isoCode": "ZM",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/zm.svg",
-        "mask": "+260-##-###-####",
+        "mask": "##-###-####",
         "localPath": "/img/flags/ZM.svg",
         "isoCodeAlpha": "ZMB"
     },
@@ -2191,7 +2191,7 @@
         "dialCode": "+263",
         "isoCode": "ZW",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/zw.svg",
-        "mask": "+263-#-######",
+        "mask": "#-######",
         "localPath": "/img/flags/ZW.svg",
         "isoCodeAlpha": "ZWE"
     }

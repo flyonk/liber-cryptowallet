@@ -61,7 +61,7 @@ import { EKYCStatuses } from '@/models/profile/profile';
 import { useUIStore } from '@/stores/ui';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { ServicesRoutes } from '@/applications/servicesapp/router/types';
+// import { ServicesRoutes } from '@/applications/servicesapp/router/types';
 
 import DashboardSkeleton from '@/components/ui/organisms/DashboardSkeleton.vue';
 import { TTopNavigation } from '@/components/ui';
@@ -100,11 +100,11 @@ const tabs = [
     name: tm('views.dashboard.home.tabs.dashboard'),
     route: { name: Route.DashboardLiber },
   },
-  {
-    id: 3,
-    name: tm('views.dashboard.home.tabs.services'),
-    route: { name: ServicesRoutes.DashboardHome },
-  },
+  // {
+  //   id: 3,
+  //   name: tm('views.dashboard.home.tabs.services'),
+  //   route: { name: ServicesRoutes.DashboardHome },
+  // },
 ];
 
 if (COUPONS_ENABLED) {

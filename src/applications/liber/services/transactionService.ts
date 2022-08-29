@@ -18,7 +18,8 @@ export default {
     const res = await axios.get(url);
 
     //here is mock data of coupons are added
-    const realDataWithMocks = [...COUPON_TRANSACTION_EXAMPLE, ...res.data.list];
+    // const realDataWithMocks = [...COUPON_TRANSACTION_EXAMPLE, ...res.data.list];
+    const realDataWithMocks = res.data.list;
 
     return realDataWithMocks.map(
       transactionMapper.deserialize

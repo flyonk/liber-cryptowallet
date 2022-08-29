@@ -1,6 +1,7 @@
 <template>
   <m-base-toast
     v-bind="$attrs"
+    content-style="border-radius:32px;"
     @update:visible="$emit('update:visible', $event)"
   >
     <template #image>
@@ -11,7 +12,7 @@
         />
       </div>
     </template>
-    <template #header>
+    <template #content-header>
       <div class="confirmation-header text--title-2 font-weight--semibold">
         {{ $t('views.withdraw.confirmation.title') }}
       </div>
@@ -21,7 +22,7 @@
         {{ $t('views.withdraw.confirmation.description') }}
       </div>
     </template>
-    <template #footer>
+    <template #content-footer>
       <m-base-button
         class="confirmation-button"
         block

@@ -8,9 +8,10 @@ import transactionService from '@/applications/liber/services/transactionService
 import { Contact } from '@/types/contacts';
 import { EStorageKeys } from '@/types/storage';
 
-import { mockedContacts } from '@/helpers/contacts';
 import { CAPACITOR_WEB_ERROR } from '@/constants';
 import { useErrorsStore } from '@/stores/errors';
+
+import { INetTransaction } from '@/models/transaction/transaction';
 
 interface IRecipients {
   contacts: Contact[];
@@ -43,28 +44,35 @@ async function setOptions(value: string[], key: EStorageKeys) {
 }
 
 async function loadFriends() {
-  const transactions = await transactionService.getTransactionList();
   const contacts = <any>[];
-  const userIds =
-    transactions
-      ?.map((transaction) => {
-        const id = transaction.contractor?.id;
-        if (id) {
-          contacts.push({
-            contactId: transaction.contractor?.id || '',
-            displayName: '',
-            phoneNumbers: transaction.contractor?.phone
-              ? [transaction.contractor?.phone]
-              : [],
-            emails: transaction.contractor?.email
-              ? [transaction.contractor?.email]
-              : [],
-            isFriend: true,
-          });
-        }
-        return id || '';
-      })
-      .filter((id) => id !== '') || [];
+  let transactions = <any>[];
+  let userIds = <any>[];
+
+  try {
+    transactions = await transactionService.getTransactionList();
+    userIds =
+      transactions
+        ?.map((transaction: INetTransaction) => {
+          const id = transaction.contractor?.id;
+          if (id) {
+            contacts.push({
+              contactId: transaction.contractor?.id || '',
+              displayName: '',
+              phoneNumbers: transaction.contractor?.phone
+                ? [transaction.contractor?.phone]
+                : [],
+              emails: transaction.contractor?.email
+                ? [transaction.contractor?.email]
+                : [],
+              isFriend: true,
+            });
+          }
+          return id || '';
+        })
+        .filter((id: string) => id !== '') || [];
+  } catch (error) {
+    // handle error
+  }
   const friends = await getStoredOption(EStorageKeys.friends);
   const filteredContacts = contacts.filter(
     (c: any) => c.id && c.phoneNumbers.length
@@ -106,6 +114,7 @@ export const useRecipientsStore = defineStore('recipients', {
   actions: {
     async getPhoneContacts() {
       try {
+        // get contacts from local storage
         const result = await Contacts.getPermissions();
         const { granted } = result;
         this.permission = Boolean(granted);
@@ -131,8 +140,9 @@ export const useRecipientsStore = defineStore('recipients', {
       } catch (err: any) {
         if (err?.code === CAPACITOR_WEB_ERROR) {
           // todo: remove mocked contacts import
-          this.contacts = mockedContacts;
-          const [friends, contacts] = await loadFriends();
+          const { contacts } = await Contacts.getContacts();
+          this.contacts = contacts;
+          const [friends, _contacts] = await loadFriends();
           this.friends = friends;
           this.contacts = this.contacts.map((c: Contact) => {
             if (this.friends.has(c.contactId)) {
@@ -141,7 +151,7 @@ export const useRecipientsStore = defineStore('recipients', {
             return c;
           });
           const contactIds = this.contacts.map((c: Contact) => c.contactId);
-          contacts.forEach((c: Contact) => {
+          _contacts.forEach((c: Contact) => {
             if (!contactIds.includes(c.contactId)) {
               this.contacts.push(c);
             }
@@ -174,6 +184,12 @@ export const useRecipientsStore = defineStore('recipients', {
       };
       this.contacts.push(newContact);
       this.friends.add(newContact.contactId);
+
+      const _strContacts = this.contacts.map((item) => {
+        return JSON.stringify(item);
+      });
+
+      setOptions(_strContacts, EStorageKeys.contacts);
       setOptions(Array.from(this.friends), EStorageKeys.friends);
     },
     async addFriend(contact: Contact) {
@@ -207,6 +223,12 @@ export const useRecipientsStore = defineStore('recipients', {
           description: "Error can't add new contact",
         });
       }
+
+      const _strContacts = this.contacts.map((item) => {
+        return JSON.stringify(item);
+      });
+
+      setOptions(_strContacts, EStorageKeys.contacts);
       setOptions(Array.from(this.friends), EStorageKeys.friends);
     },
     getContactInfo(contactId: string | null | undefined) {
