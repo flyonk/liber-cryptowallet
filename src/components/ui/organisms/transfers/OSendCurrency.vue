@@ -76,9 +76,9 @@ import { useTransferStore } from '@/applications/liber/stores/transfer';
 
 import OSelectCoinInput from '@/components/ui/organisms/transfers/OSelectCoinInput.vue';
 import { STATIC_BASE_URL } from '@/constants';
-import { ICoin } from '@/applications/liber/models/funds/coin';
 import { uiKitKey } from '@/types/symbols';
 import { useAccountStore } from '@/applications/liber/stores/account';
+import { useCoinsStore } from '@/applications/liber/stores/coins';
 
 interface ISelectCoin {
   name: string;
@@ -98,6 +98,7 @@ const transferStore = useTransferStore();
 let amount = ref('');
 let recipientAmount = ref('');
 const accountStore = useAccountStore();
+const coinsStore = useCoinsStore();
 
 const props = defineProps({
   contactName: {
@@ -107,29 +108,30 @@ const props = defineProps({
 });
 
 let currentSendFromCurrency = {
-  name: ref('TBTC'),
-  code: ref('tbtc'),
+  name: ref('BTC'),
+  code: ref('btc'),
   img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
 
 const currentSendToCurrency = {
-  name: ref('TBTC'),
-  code: ref('tbtc'),
+  name: ref('BTC'),
+  code: ref('btc'),
   img: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
 };
 
-const currencies: ICoin[] = [
-  {
-    name: 'TBTC',
-    code: 'tbtc',
-    imageUrl: `${STATIC_BASE_URL}/static/currencies/btc.svg`,
-  },
-  {
-    name: 'TLTC',
-    code: 'tltc',
-    imageUrl: `${STATIC_BASE_URL}/static/currencies/ltc.svg`,
-  },
-];
+const currencies = computed(() => coinsStore.getCoins);
+
+onBeforeMount(async () => {
+  await coinsStore.fetchCoins();
+  if (currencies?.value[0]) {
+    currentSendFromCurrency.name.value = currencies?.value[0].name;
+    currentSendFromCurrency.code.value = currencies?.value[0].code;
+    currentSendFromCurrency.img = '' + currencies?.value[0].imageUrl;
+    currentSendToCurrency.name.value = currencies?.value[0].name;
+    currentSendToCurrency.code.value = currencies?.value[0].code;
+    currentSendToCurrency.img = '' + currencies?.value[0].imageUrl;
+  }
+});
 
 defineEmits(['send-transaction']);
 
@@ -148,16 +150,16 @@ onBeforeMount(() => {
 });
 
 onMounted(() => {
-  transferStore.coin = currencies[0].code;
+  transferStore.coin = currencies?.value[0]?.code;
 });
 
 let isSelectListOpen = ref(false);
 
 function handleChangeCurrentCurrency(index: number, type: string) {
-  if (type === ESendInputType.From) {
-    currentSendFromCurrency.name.value = currencies[index].name;
-    currentSendFromCurrency.code.value = currencies[index].code;
-    currentSendFromCurrency.img = '' + currencies[index].imageUrl;
+  if (type === ESendInputType.From && currencies?.value[index]) {
+    currentSendFromCurrency.name.value = currencies?.value[index].name;
+    currentSendFromCurrency.code.value = currencies?.value[index].code;
+    currentSendFromCurrency.img = '' + currencies?.value[index].imageUrl;
 
     // now API allows send X to X currency
     _setCurrentSendToCurrency(index);
@@ -188,13 +190,13 @@ const adoptedCurrentSendToCurrency: ComputedRef<ISelectCoin> = computed(() => ({
 }));
 
 const _setCurrentSendToCurrency = (index: number) => {
-  currentSendToCurrency.name.value = currencies[index].name;
-  currentSendToCurrency.img = '' + currencies[index].imageUrl;
-  currentSendToCurrency.code.value = currencies[index].code;
+  currentSendToCurrency.name.value = currencies?.value[index].name;
+  currentSendToCurrency.img = '' + currencies?.value[index].imageUrl;
+  currentSendToCurrency.code.value = currencies?.value[index].code;
 };
 
 const _getCurrencyIndex = (code: string) =>
-  currencies.findIndex((e) => e.code === code);
+  currencies.value.findIndex((e) => e.code === code);
 
 const syncModels = (event: InputEvent | number | string | null) => {
   const result = event === null ? 0 : event;
