@@ -5,6 +5,14 @@ import type {
   NewContact,
 } from './definitions';
 
+import { EStorageKeys } from '@/types/storage';
+import { get } from '@/helpers/storage';
+
+const getStoredOption = async (key: EStorageKeys) => {
+  const value = await get(key);
+  return value ? JSON.parse(value) : [];
+};
+
 const UNIMPLEMENTED_CODE_ERROR = 'UNIMPLEMENTED';
 
 function ContactException(message: string, code: string) {
@@ -18,19 +26,27 @@ function ContactException(message: string, code: string) {
 
 export class ContactsPluginWeb implements ContactsPlugin {
   async getPermissions(): Promise<PermissionStatus> {
-    const supported = 'contacts' in navigator && 'ContactsManager' in window;
-    if (!supported) {
-      throw new (ContactException as any)(
-        'getPermissions - Not implemented on web.',
-        UNIMPLEMENTED_CODE_ERROR
-      );
-    }
+    // const supported = 'contacts' in navigator && 'ContactsManager' in window;
+    // if (!supported) {
+    //   throw new (ContactException as any)(
+    //     'getPermissions - Not implemented on web.',
+    //     UNIMPLEMENTED_CODE_ERROR
+    //   );
+    // }
     return {
       granted: true,
     };
   }
 
   async getContacts(): Promise<{ contacts: Contact[] }> {
+    const _contacts = await getStoredOption(EStorageKeys.contacts);
+    if (_contacts && _contacts.length) {
+      const contacts = _contacts.map((item: string) => {
+        return JSON.parse(item);
+      });
+      return { contacts };
+    }
+
     const props = ['name', 'email', 'tel', 'address', 'icon'];
     const opts = { multiple: true };
     try {
