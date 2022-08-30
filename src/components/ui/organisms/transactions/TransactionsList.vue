@@ -4,7 +4,6 @@
       v-for="(transaction, index) in displayedTransactions"
       :key="index"
       class="item"
-      @click="goToRoute(transaction.id, transaction.from, transaction.type)"
     >
       <component
         :is="selectComponent(transaction.type)"
@@ -19,13 +18,11 @@
 
 <script lang="ts" setup>
 import { computed, inject, PropType } from 'vue';
-import { useRouter } from 'vue-router';
 
 import {
   ETransactionType,
   INetTransaction,
 } from '@/models/transaction/transaction';
-import { Route } from '@/router/types';
 import { uiKitKey } from '@/types/symbols';
 
 const uiKit = inject(uiKitKey);
@@ -34,8 +31,6 @@ const {
   MConvertTransactionItem,
   MExternalTransactionItem,
 } = uiKit!;
-
-const router = useRouter();
 
 const props = defineProps({
   transactions: {
@@ -66,30 +61,30 @@ const displayedTransactions = computed(() => {
     : props.transactions;
 });
 
-const goToRoute = (
-  id: string,
-  from: { code: string; amount: string },
-  type: string
-) => {
-  if (type === ETransactionType.convert) {
-    router.push({
-      name: Route.TransactionsDetails,
-      params: {
-        id,
-      },
-      query: {
-        coin: props.mainCoin ? props.mainCoin : from.code.toLowerCase(),
-      },
-    });
-  } else {
-    router.push({
-      name: Route.TransactionsDetails,
-      params: {
-        id,
-      },
-    });
-  }
-};
+// const goToRoute = (
+//   id: string,
+//   from: { code: string; amount: string },
+//   type: string
+// ) => {
+//   if (type === ETransactionType.convert) {
+//     router.push({
+//       name: Route.TransactionsDetails,
+//       params: {
+//         id,
+//       },
+//       query: {
+//         coin: props.mainCoin ? props.mainCoin : from.code.toLowerCase(),
+//       },
+//     });
+//   } else {
+//     router.push({
+//       name: Route.TransactionsDetails,
+//       params: {
+//         id,
+//       },
+//     });
+//   }
+// };
 
 const selectComponent = (type: string) => {
   switch (type) {
