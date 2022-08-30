@@ -31,6 +31,22 @@
       </m-base-button>
     </template>
   </t-top-navigation>
+  <m-base-toast
+    v-model:visible="isEmailInUseToast"
+    content-style="border-radius:32px;"
+  >
+    <template #image>
+      <div class="popup-image">
+        <img
+          :src="`${STATIC_BASE_URL}/static/media/attention.svg`"
+          class="image"
+        />
+      </div>
+    </template>
+    <template #description
+      ><p>Email {{ email }} is already in use</p>
+    </template>
+  </m-base-toast>
 </template>
 
 <script lang="ts" setup>
@@ -44,9 +60,12 @@ import { useProfileStore } from '@/stores/profile';
 import TTopNavigation from '@/components/ui/templates/TTopNavigation.vue';
 import { uiKitKey } from '@/types/symbols';
 import { STATIC_BASE_URL } from '@/constants';
+import { useErrorsStore } from '@/stores/errors';
+
+const errorsStore = useErrorsStore();
 
 const uiKit = inject(uiKitKey);
-const { MBaseInput, MBaseSwitch, MBaseButton } = uiKit!;
+const { MBaseInput, MBaseSwitch, MBaseButton, MBaseToast } = uiKit!;
 
 const emit = defineEmits(['prev', 'next']);
 const authStore = useAuthStore();
@@ -54,6 +73,7 @@ const pStore = useProfileStore();
 
 const sendNews = ref(false);
 
+const isEmailInUseToast = ref(false);
 const email = ref('');
 const isClearBtnShown = ref(false);
 
@@ -70,11 +90,26 @@ const prevStep = () => {
   emit('prev');
 };
 
-const nextStep = () => {
+const nextStep = async () => {
   authStore.registration.email = email.value;
   pStore.user.email = email.value;
-  pStore.sendEmail();
-  emit('next');
+  try {
+    await pStore.sendEmail();
+    emit('next');
+  } catch (err: any) {
+    if (err?.response?.status === 400) {
+      isEmailInUseToast.value = true;
+      return;
+    }
+
+    errorsStore.handle({
+      err,
+      name: 'SignUp3Step',
+      ctx: 'nextStep',
+      description: 'Error when sending an email message',
+      display: false,
+    });
+  }
 };
 
 const clearEmail = () => {
