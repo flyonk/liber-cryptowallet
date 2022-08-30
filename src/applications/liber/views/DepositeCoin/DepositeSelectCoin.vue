@@ -45,11 +45,20 @@ const selectAccount = (coinCode: string) => {
 };
 
 const selectCoin = async (selectedAccount: ICoin) => {
-  depositStore.setAccountInfo(selectAccount(selectedAccount.code) as IAccount);
+  const _account = selectAccount(selectedAccount.code) as IAccount;
 
-  await router.push({
-    name: Route.DepositNetwork,
-  });
+  if (_account) {
+    depositStore.setAccountInfo(_account);
+    router.push({
+      name: Route.DepositNetwork,
+    });
+  } else {
+    accountStore.setNewAccountParams('coin', selectedAccount.code);
+
+    router.push({
+      name: Route.AccountAddSelectNetwork,
+    });
+  }
 };
 </script>
 
