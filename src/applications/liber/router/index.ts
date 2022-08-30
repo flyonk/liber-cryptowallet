@@ -27,7 +27,6 @@ import FirstTimeInvite from '@/applications/liber/views/Contacts/FirstTimeInvite
 import SendInvite from '@/applications/liber/views/Contacts/SendInvite.vue';
 import InviteFriends from '@/applications/liber/views/Contacts/InviteFriends.vue';
 import FindYourFriends from '@/applications/liber/views/Contacts/FindYourFriends.vue';
-import AddNewContact from '@/applications/liber/views/Contacts/AddNewContact.vue';
 import SendViaLink from '@/applications/liber/views/Contacts/SendViaLink.vue';
 
 import ChangeCurrency from '@/components/ui/pages/ChangeCurrency.vue';
@@ -195,8 +194,9 @@ const routes: Array<RouteRecordRaw> = [
       },
       {
         path: 'add',
-        name: Route.ContactsAddNewContact,
-        component: AddNewContact,
+        name: Route.RecipientsAdd,
+        component: () =>
+          import('@/applications/liber/views/Contacts/AddNewContact.vue'),
       },
       {
         path: 'send_link',

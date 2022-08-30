@@ -70,7 +70,6 @@ export enum Route {
   Contacts = 'contacts',
   ContactsInviteFriends = 'contacts.invite.friends',
   ContactsFindYourFriends = 'contacts.find.your.friends',
-  ContactsAddNewContact = 'contacts.add.new.contact',
   ContactsPay = 'contacts.who-to-pay',
   ContactsSend = 'contacts-send',
   ContactsSendFirstTime = 'contacts.send.first.time',
@@ -80,6 +79,7 @@ export enum Route {
   ChooseCoin = 'choose_coin',
 
   Recipients = 'recipients',
+  RecipientsAdd = 'recipients.add',
   RecipientsPhone = 'recipients-phone',
   RecipientsLiber = 'recipients-liber',
   PayRecipientsPhone = 'pay-recipients-phone',
