@@ -58,7 +58,7 @@ const routes: Array<RouteRecordRaw> = [
     path: '/home',
     name: Route.DashboardHome,
     component: DashboardHome,
-    meta: { layout: 'navbar', authRequired: true },
+    meta: { layout: 'navbar', authRequired: true, classLayout: '-scroll-off' },
     redirect: {
       name: Route.DashboardLiber,
     },
