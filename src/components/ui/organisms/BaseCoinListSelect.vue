@@ -27,9 +27,9 @@
 <script lang="ts" setup>
 import { computed, inject, PropType, ref } from 'vue';
 
-import { ICoin } from '@/applications/liber/models/funds/coin';
 import { ICoinForExchange } from '@/applications/liber/stores/funds';
 import { uiKitKey } from '@/types/symbols';
+import { ICoinItem } from '@/applications/liber/models/funds/coin';
 
 const uiKit = inject(uiKitKey);
 const { MSelectCoin } = uiKit!;
@@ -42,7 +42,7 @@ const props = defineProps({
     default: () => ({} as ICoinForExchange),
   },
   coins: {
-    type: Array as PropType<ICoin[]>,
+    type: Array as PropType<ICoinItem[]>,
     default: () => [],
   },
 });

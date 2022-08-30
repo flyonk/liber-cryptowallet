@@ -6,7 +6,7 @@
     <template #content
       ><div class="select-coin">
         <base-coin-list-select
-          :coins="coins"
+          :coins="mappedCoins"
           @back-button="router.push({ name: Route.DashboardHome })"
           @select-coin="selectCoin"
         /></div
@@ -17,7 +17,6 @@
 <script lang="ts" setup>
 import { useRouter } from 'vue-router';
 
-import { ICoin } from '@/applications/liber/models/funds/coin';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useCoinsStore } from '@/applications/liber/stores/coins';
 import { useErrorsStore } from '@/stores/errors';
@@ -25,6 +24,7 @@ import { useErrorsStore } from '@/stores/errors';
 import { BaseCoinListSelect, TTopNavigation } from '@/components/ui';
 import { Route } from '@/router/types';
 import { computed, onMounted } from 'vue';
+import { ICoinItem } from '@/applications/liber/models/funds/coin';
 
 const accountStore = useAccountStore();
 const coinsStore = useCoinsStore();
@@ -46,8 +46,20 @@ onMounted(() => {
 });
 
 const coins = computed(() => coinsStore.coins);
+const accounts = computed(() => accountStore.getAccounts);
 
-const selectCoin = (coin: ICoin) => {
+const mappedCoins = computed(() =>
+  coins.value.map((coin) => {
+    return {
+      ...coin,
+      available: !accounts.value.find((account) => account.code === coin.code),
+    };
+  })
+);
+
+const selectCoin = (coin: ICoinItem) => {
+  if (!coin.available) return;
+
   accountStore.setNewAccountParams('coin', coin.code);
 
   router.push({
