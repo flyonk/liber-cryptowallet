@@ -2,7 +2,7 @@ import { defineStore } from 'pinia';
 import { Contacts } from '@/helpers/contacts/contacts';
 import { get, set } from '@/helpers/storage';
 
-import contactsService from '@/applications/liber/services/contactsService';
+// import contactsService from '@/applications/liber/services/contactsService';
 import transactionService from '@/applications/liber/services/transactionService';
 
 import { Contact } from '@/types/contacts';
@@ -200,29 +200,29 @@ export const useRecipientsStore = defineStore('recipients', {
         }
         return c;
       });
-      const newFriend = {
-        id: contact.contactId,
-        name: contact.displayName || '',
-        phones: contact.phoneNumbers.map((phone) => {
-          return {
-            value: phone.number || '',
-            isPrimary: false,
-          };
-        }),
-        emails: [],
-      };
-      try {
-        await contactsService.createContact(newFriend);
-      } catch (err) {
-        const errorsStore = useErrorsStore();
+      // const newFriend = {
+      //   id: contact.contactId,
+      //   name: contact.displayName || '',
+      //   phones: contact.phoneNumbers.map((phone) => {
+      //     return {
+      //       value: phone.number || '',
+      //       isPrimary: false,
+      //     };
+      //   }),
+      //   emails: [],
+      // };
+      // try {
+      //   await contactsService.createContact(newFriend);
+      // } catch (err) {
+      //   const errorsStore = useErrorsStore();
 
-        errorsStore.handle({
-          err,
-          name: 'recipients.ts',
-          ctx: 'addFriend',
-          description: "Error can't add new contact",
-        });
-      }
+      //   errorsStore.handle({
+      //     err,
+      //     name: 'recipients.ts',
+      //     ctx: 'addFriend',
+      //     description: "Error can't add new contact",
+      //   });
+      // }
 
       const _strContacts = this.contacts.map((item) => {
         return JSON.stringify(item);
