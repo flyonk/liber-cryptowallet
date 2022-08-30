@@ -16,7 +16,7 @@
           />
           <i
             class="icon-plus_circle circle-add"
-            @click="$router.push({ name: Route.ContactsAddNewContact })"
+            @click="$router.push({ name: Route.RecipientsAdd })"
           />
         </div>
       </template>
@@ -59,7 +59,7 @@ const filterContacts = ref('');
 
 <style lang="scss" scoped>
 .view-wrapper {
-  height: calc(100vh - 96px);
+  height: 100%;
 }
 
 .who-topay {

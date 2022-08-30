@@ -19,7 +19,7 @@
       />
       <i
         class="icon-plus_circle circle-add"
-        @click="$router.push({ name: Route.ContactsAddNewContact })"
+        @click="$router.push({ name: Route.RecipientsAdd })"
       />
     </div>
   </div>

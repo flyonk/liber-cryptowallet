@@ -10,11 +10,8 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue';
 import { useRouter } from 'vue-router';
-
 import { useMfaStore } from '@/stores/mfa';
-
 import { Route } from '@/router/types';
-
 import BottomNav from '@/components/ui/organisms/BottomNav.vue';
 
 const route = useRouter();
@@ -38,6 +35,7 @@ watch(route.currentRoute, (val) => {
 .navbar-layout {
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   &.-full-height {
     display: flex;
@@ -52,9 +50,17 @@ watch(route.currentRoute, (val) => {
     height: 100vh;
   }
 
+  &.-scroll-off {
+    > .main {
+      overflow: hidden;
+    }
+  }
+
   > .main {
-    height: 100%;
+    height: calc(100vh - 100px);
+    background: $color-light-grey-100;
     overflow: scroll;
+    padding-bottom: 100px;
   }
 }
 </style>

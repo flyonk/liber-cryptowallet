@@ -216,12 +216,13 @@ const onClick = (carouselItem: ICarouselItem) => {
 <style lang="scss" scoped>
 .account-transactions {
   background: $color-light-grey-100;
-  height: calc(100% - 95px);
-  overflow: scroll;
+  height: 100%;
+  overflow: hidden;
   flex-grow: 1;
 
   > .header {
     padding: 0 16px;
+    max-height: calc(100% - 110px);
 
     > .swiper {
       overflow: visible;
@@ -281,7 +282,7 @@ const onClick = (carouselItem: ICarouselItem) => {
 }
 
 .transactions-block {
-  height: auto;
+  max-height: 350px;
   margin-bottom: 0;
   padding-bottom: 10%;
 }
