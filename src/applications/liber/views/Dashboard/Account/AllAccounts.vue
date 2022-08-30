@@ -1,5 +1,9 @@
 <template name="AllAccounts">
-  <t-top-navigation full-height with-navbar @click:left-icon="$router.back()">
+  <t-top-navigation
+    nav-with-custom-top-left
+    class="max-h-full"
+    @click:left-icon="$router.back()"
+  >
     <template #title>{{ $t('views.account.allAccounts') }}</template>
     <template #top-right>
       <i
@@ -129,7 +133,9 @@ function getCurrencyUrl(code: string): string {
   color: blue;
 }
 
-:deep(.main) {
-  height: 100vh !important;
+.navbar-layout {
+  > .main {
+    padding-bottom: 100px !important;
+  }
 }
 </style>

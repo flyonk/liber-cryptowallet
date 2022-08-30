@@ -93,7 +93,7 @@ defineEmits(['click:left-icon']);
   }
 
   > .content {
-    overflow: visible;
+    overflow: scroll;
     margin-top: 25px;
     flex-grow: 1;
     display: flex;
