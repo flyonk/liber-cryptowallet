@@ -17,6 +17,10 @@ export interface ICoin {
   isPopular?: boolean;
 }
 
+export interface ICoinItem extends ICoin {
+  available?: boolean;
+}
+
 export default {
   deserialize(input: ICoinDto): ICoin {
     return {
