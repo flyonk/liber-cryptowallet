@@ -59,7 +59,7 @@ const filterContacts = ref('');
 
 <style lang="scss" scoped>
 .view-wrapper {
-  height: calc(100vh - 96px);
+  height: 100%;
 }
 
 .who-topay {

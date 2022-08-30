@@ -38,6 +38,7 @@ watch(route.currentRoute, (val) => {
 .navbar-layout {
   height: 100%;
   position: relative;
+  overflow: hidden;
 
   &.-full-height {
     display: flex;
@@ -55,6 +56,7 @@ watch(route.currentRoute, (val) => {
   > .main {
     height: 100%;
     overflow: scroll;
+    padding-bottom: 100px;
   }
 }
 </style>

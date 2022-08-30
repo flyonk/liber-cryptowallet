@@ -95,7 +95,11 @@ const routes: Array<RouteRecordRaw> = [
     path: '/account',
     name: Route.Account,
     component: Account,
-    meta: { layout: 'navbar', authRequired: true },
+    meta: {
+      layout: 'navbar',
+      authRequired: true,
+      classLayout: '-full-viewport',
+    },
     children: [
       {
         path: '',
