@@ -108,7 +108,7 @@
                 {{ is2FAConfigured ? $t('common.on') : $t('common.off') }}
               </p>
             </router-link>
-            <router-link class="item" disabled to="/profile/devices">
+            <router-link class="item" disabled to="">
               <img class="icon" :src="`${menuStaticFolder}devices.svg`" />
               <p class="text-default">
                 {{ $t('views.profile.profileSettings.devices') }}
