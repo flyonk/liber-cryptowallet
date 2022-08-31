@@ -130,6 +130,8 @@ onBeforeMount(async () => {
     currentSendToCurrency.name.value = currencies?.value[0].name;
     currentSendToCurrency.code.value = currencies?.value[0].code;
     currentSendToCurrency.img = '' + currencies?.value[0].imageUrl;
+
+    transferStore.coin = currentSendFromCurrency.code.value;
   }
 });
 

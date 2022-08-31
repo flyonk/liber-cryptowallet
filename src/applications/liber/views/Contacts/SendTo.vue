@@ -46,7 +46,6 @@
   </t-top-navigation>
   <!--TODO: make toasts logic-->
   <m-base-toast
-    v-if="popupStatus === 'attention'"
     v-model:visible="showSuccessPopup"
     content-style="border-radius:32px;"
   >
@@ -85,7 +84,6 @@
     </template>
   </m-base-toast>
   <m-base-toast
-    v-if="popupStatus === 'confirmation'"
     v-model:visible="showSuccessPopup"
     content-style="border-radius:32px;"
     @click="showSuccessPopup = false"
@@ -108,7 +106,6 @@
     </template>
   </m-base-toast>
   <m-base-toast
-    v-if="popupStatus === 'confirmation'"
     v-model:visible="showIncorrectDataPopup"
     content-style="border-radius:32px;"
     @click="showIncorrectDataPopup = false"
@@ -130,7 +127,6 @@
     </template>
   </m-base-toast>
   <m-base-toast
-    v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
     content-style="border-radius:32px;"
     @click="showFailurePopup = false"
@@ -169,7 +165,6 @@ const { AContactInitials, MBaseButton, MBaseToast } = uiKit!;
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
 const showIncorrectDataPopup = ref(false);
-const popupStatus = ref('');
 
 const transferStore = useTransferStore();
 const recipientsStore = useRecipientsStore();
@@ -203,16 +198,17 @@ const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
       const mfaStore = useMfaStore();
+
+      const routePath = router.resolve({ name: Route.DashboardHome }).path;
       mfaStore.show({
         button: 'transactions.send',
-        successRoute: Route.DashboardHome,
+        successRoute: routePath,
         callback: async () => {
           await recipientsStore.addFriend(contact);
           transferStore.clearTransferData();
         },
       });
       await transferStore.transfer();
-      router.push({ name: Route.DashboardHome });
     } catch (err) {
       // todo: not required handling
       showFailurePopup.value = true;

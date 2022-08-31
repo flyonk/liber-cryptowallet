@@ -17,9 +17,13 @@
           {{ getLetter(contact) }}
         </li>
         <li class="contact-item" @click="$emit('contactClick', contact)">
-          <label for="contact" class="radio" @click="targetFriend(index)">
+          <label
+            v-if="props.withRadio"
+            for="contact"
+            class="radio"
+            @click="targetFriend(index)"
+          >
             <input
-              v-if="props.withRadio"
               ref="contactInput"
               type="radio"
               name="contact"
