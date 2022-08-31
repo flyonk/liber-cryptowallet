@@ -126,7 +126,7 @@ const actionButtons = ref([
   {
     code: ECouponsTransactionsEnvVars.purchase,
     icon: 'icon-plus_circle',
-    title: tm('transactions.operations.coupons.buy'),
+    title: tm('transactions.operations.coupons.recieve'),
   },
   {
     code: ECouponsTransactionsEnvVars.redemption,
