@@ -17,7 +17,7 @@
         </div>
         <div class="item -bold">
           <div class="label">{{ $t('views.withdraw.total') }}</div>
-          <div class="value">{{ info.availableSum }} {{ currencyText }}</div>
+          <div class="value">{{ info.total }} {{ currencyText }}</div>
         </div>
       </div>
 

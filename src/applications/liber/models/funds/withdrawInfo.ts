@@ -17,7 +17,7 @@ export interface IWithdrawalInfoRequestDTO {
 export interface IWithdrawalInfoDTO {
   currency_code: string;
   requested_amount: string;
-  amount_to_receive: string;
+  total: string;
   available_sum: string;
   min_request: string;
   max_request: string;
@@ -28,7 +28,7 @@ export interface IWithdrawalInfoDTO {
 export interface IWithdrawalInfo {
   currencyCode: string;
   requestAmount: string;
-  amountToReceive: string;
+  total: string;
   availableSum: string;
   minRequest: string;
   maxRequest: string;
@@ -41,7 +41,7 @@ export default {
     return {
       currencyCode: input.currency_code,
       requestAmount: input.requested_amount,
-      amountToReceive: input.amount_to_receive,
+      total: input.total,
       availableSum: input.available_sum,
       minRequest: input.min_request,
       maxRequest: input.max_request,
