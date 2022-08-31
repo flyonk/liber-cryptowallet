@@ -51,6 +51,7 @@ import { STATIC_BASE_URL } from '@/constants';
 import { UiKitInterface } from '@/types/uiKit';
 import { useUIStore } from '@/stores/ui';
 import { EToastSeverity } from '@/types/toast';
+import { Route } from '@/router/types';
 
 const uiKit = inject(uiKitKey);
 const { MBaseToast, MBaseButton } = uiKit as UiKitInterface;
@@ -85,6 +86,8 @@ const onContinue = async () => {
 const onSubmitWithdrawal = async () => {
   try {
     await withdrawStore.withdraw();
+
+    router.push({ name: Route.DashboardHome });
   } catch (e) {
     await errorsStore.handle({
       err: e,
