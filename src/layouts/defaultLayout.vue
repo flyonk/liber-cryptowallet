@@ -10,7 +10,7 @@
 
 <style lang="scss" scoped>
 .default-layout {
-  overflow: hidden;
+  //overflow: hidden;
 
   &.-full-height {
     display: flex;
