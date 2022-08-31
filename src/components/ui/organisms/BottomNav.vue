@@ -1,6 +1,6 @@
 <template name="BottomNav">
   <div class="bottom-nav">
-    <!-- m-bottom-nav: 
+    <!-- m-bottom-nav:
     the item hashtag is unique and it is used to check for the active element -->
     <m-bottom-nav
       :nav-items="navItems"
@@ -23,7 +23,7 @@ import { computed, inject, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 import { Route } from '@/router/types';
 import { CouponRoutes } from '@/applications/coupons/router/types';
-import { useRouter, useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 
 import BottomSwipeMenu from '@/components/ui/bottom-swipe-menu/BottomSwipeMenu.vue';
 

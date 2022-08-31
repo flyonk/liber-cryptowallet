@@ -17,7 +17,7 @@ import BottomNav from '@/components/ui/organisms/BottomNav.vue';
 const route = useRouter();
 const mfaStore = useMfaStore();
 
-let showNavBar = ref(true && !mfaStore.enabled);
+let showNavBar = ref(!mfaStore.enabled);
 let path = route.currentRoute.value.name;
 
 if (path === Route.DashboardVerification) showNavBar.value = false;
@@ -26,14 +26,14 @@ watch(route.currentRoute, (val) => {
   if (val.name === Route.DashboardVerification) {
     showNavBar.value = false;
   } else {
-    showNavBar.value = true && !mfaStore.enabled;
+    showNavBar.value = !mfaStore.enabled;
   }
 });
 </script>
 
 <style lang="scss" scoped>
 .navbar-layout {
-  height: 100%;
+  height: 100vh;
   position: relative;
   overflow: hidden;
 
@@ -57,7 +57,7 @@ watch(route.currentRoute, (val) => {
   }
 
   > .main {
-    height: calc(100vh - 100px);
+    height: calc(100vh);
     background: $color-light-grey-100;
     overflow: scroll;
     padding-bottom: 100px;
