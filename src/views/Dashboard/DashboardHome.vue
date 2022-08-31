@@ -5,7 +5,7 @@
       v-show="!loading"
       nav-with-custom-top-left
       nav-without-title
-      class="max-h-full"
+      class="h-full"
     >
       <template #top-left>
         <div class="header">

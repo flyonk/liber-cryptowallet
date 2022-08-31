@@ -203,7 +203,6 @@ onBeforeMount(async () => {
 }
 
 .dashboard-container {
-  height: 500px;
   overflow: scroll;
 
   @include iPhoneSE {
