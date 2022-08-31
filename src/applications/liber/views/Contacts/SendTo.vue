@@ -148,6 +148,7 @@
 
 <script setup lang="ts">
 import { computed, inject, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
 
 import OSendCurrency from '@/components/ui/organisms/transfers/OSendCurrency.vue';
 import { TTopNavigation } from '@/components/ui';
@@ -157,7 +158,6 @@ import { useRecipientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { getContactPhone } from '@/helpers/contacts';
-import { useRoute } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { STATIC_BASE_URL } from '@/constants';
@@ -176,6 +176,7 @@ const recipientsStore = useRecipientsStore();
 const errorsStore = useErrorsStore();
 
 const route = useRoute();
+const router = useRouter();
 
 const contactId = route.params.id;
 const contacts: Contact[] = recipientsStore.getContacts;
@@ -211,6 +212,7 @@ const sendTransaction = async () => {
         },
       });
       await transferStore.transfer();
+      router.push({ name: Route.DashboardHome });
     } catch (err) {
       // todo: not required handling
       showFailurePopup.value = true;
