@@ -1,91 +1,89 @@
 <template name="ProfileEdit">
-  <t-top-navigation
-    with-fixed-footer
-    @click:left-icon="$router.push({ name: Route.ProfileSettings })"
-  >
-    <template #title>{{
-      $t('views.profile.profilePhonesAndEmails.acceptedPhonesAndEmails')
-    }}</template>
-    <template #top-right>
-      <i
-        class="icon-plus_circle add"
-        @click="$router.push({ name: Route.ProfileAddNewContactData })"
-      />
-    </template>
-    <template #content>
-      <div class="content-wrapper">
-        <div v-if="KYCStatus !== EKYCStatus.success" class="status-container">
-          <m-kyc-status-card
-            :title="cardInfo.title"
-            :description="cardInfo.description"
-            :icon-name="cardInfo.imgSrc"
-            :state-icon="cardInfo.stateIcon"
-            :is-cta-required="!!cardInfo.isCtaRequired"
-            :cta-text="
-              $t('views.profile.profilePhonesAndEmails.verifyIdentity')
-            "
-            @click:cta-button="$router.push({ name: Route.KYCMain })"
-          />
-        </div>
-        <div v-else class="profile-info">
-          <h1 class="text--title-3 font-bold">
-            {{ $t('views.profile.profilePhonesAndEmails.liberID') }}
-          </h1>
-          <div class="data-container">
-            <div class="row">
-              <div class="wrapper">
-                <i class="icon-verification icon" />
-                <div class="id">@AwesomeLiberId</div>
-              </div>
-              <i class="icon-copy icon" />
+  <div class="page-wrapper">
+    <t-top-navigation
+      with-fixed-footer
+      @click:left-icon="$router.push({ name: Route.ProfileSettings })"
+    >
+      <template #title>{{
+        $t('views.profile.profilePhonesAndEmails.acceptedPhonesAndEmails')
+      }}</template>
+      <template #top-right>
+        <i
+          class="icon-plus_circle add"
+          @click="$router.push({ name: Route.ProfileAddNewContactData })"
+        />
+      </template>
+    </t-top-navigation>
+    <div class="content-wrapper">
+      <div v-if="KYCStatus !== EKYCStatus.success" class="status-container">
+        <m-kyc-status-card
+          :title="cardInfo.title"
+          :description="cardInfo.description"
+          :icon-name="cardInfo.imgSrc"
+          :state-icon="cardInfo.stateIcon"
+          :is-cta-required="!!cardInfo.isCtaRequired"
+          :cta-text="$t('views.profile.profilePhonesAndEmails.verifyIdentity')"
+          @click:cta-button="$router.push({ name: Route.KYCMain })"
+        />
+      </div>
+      <div v-else class="profile-info">
+        <h1 class="text--title-3 font-bold">
+          {{ $t('views.profile.profilePhonesAndEmails.liberID') }}
+        </h1>
+        <div class="data-container">
+          <div class="row">
+            <div class="wrapper">
+              <i class="icon-verification icon" />
+              <div class="id">@AwesomeLiberId</div>
             </div>
+            <i class="icon-copy icon" />
           </div>
         </div>
-        <br />
-        <div class="body-container">
-          <h1 class="text--title-3 font-bold">
-            {{ $t('views.profile.profilePhonesAndEmails.acceptedContact') }}
-          </h1>
-          <ul class="data-list">
-            <li
-              v-for="(value, index) in [phone, ...additionalPhones]"
-              :key="index"
-              class="item"
-            >
-              <div class="text--caption-2 font-medium color-dark-gray">
-                Phone {{ index + 1 }}
-              </div>
-              <div class="flex justify-between">
-                <div class="text--body font-medium">{{ value }}</div>
-                <i v-if="index !== 0" class="icon-trash_full icon" />
-              </div>
-            </li>
-            <li
-              v-for="(value, index) in [email, ...additionalEmails]"
-              :key="index"
-              class="item"
-            >
-              <div class="text--caption-2 font-medium color-dark-gray">
-                Email {{ index + 1 }}
-              </div>
-              <div class="justify-between">
-                <div class="text--body font-medium">{{ value }}</div>
-                <i v-if="index !== 0" class="icon-trash_full icon" />
-              </div>
-            </li>
-          </ul>
-          <!--          <m-base-button-->
-          <!--            class="data-adder"-->
-          <!--            view="flat"-->
-          <!--            icon-left="icon-plus"-->
-          <!--            @click="$router.push({ name: Route.ProfileAddNewContactData })"-->
-          <!--          >-->
-          <!--            + {{ $t('views.newcontact.additionalphone') }}-->
-          <!--          </m-base-button>-->
-        </div>
       </div>
-    </template>
-  </t-top-navigation>
+      <br />
+      <div class="body-container">
+        <h1 class="text--title-3 font-bold">
+          {{ $t('views.profile.profilePhonesAndEmails.acceptedContact') }}
+        </h1>
+        <ul class="data-list">
+          <li
+            v-for="(value, index) in [phone, ...additionalPhones]"
+            :key="index"
+            class="item"
+          >
+            <div class="text--caption-2 font-medium color-dark-gray">
+              Phone {{ index + 1 }}
+            </div>
+            <div class="flex justify-between">
+              <div class="text--body font-medium">{{ value }}</div>
+              <i v-if="index !== 0" class="icon-trash_full icon" />
+            </div>
+          </li>
+          <li
+            v-for="(value, index) in [email, ...additionalEmails]"
+            :key="index"
+            class="item"
+          >
+            <div class="text--caption-2 font-medium color-dark-gray">
+              Email {{ index + 1 }}
+            </div>
+            <div class="justify-between">
+              <div class="text--body font-medium">{{ value }}</div>
+              <i v-if="index !== 0" class="icon-trash_full icon" />
+            </div>
+          </li>
+        </ul>
+        <!--          <m-base-button-->
+        <!--            class="data-adder"-->
+        <!--            view="flat"-->
+        <!--            icon-left="icon-plus"-->
+        <!--            @click="$router.push({ name: Route.ProfileAddNewContactData })"-->
+        <!--          >-->
+        <!--            + {{ $t('views.newcontact.additionalphone') }}-->
+        <!--          </m-base-button>-->
+      </div>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -182,58 +180,53 @@ onBeforeMount(async () => {
 </script>
 
 <style lang="scss" scoped>
-.content-wrapper {
-  > .profile-info {
-    > .data-container {
-      > .row {
-        border-bottom: 1px solid rgb(175 179 195 / 30%);
-        padding: 16px 0;
-        display: flex;
-        justify-content: space-between;
-
-        > .wrapper {
+.page-wrapper {
+  > .content-wrapper {
+    > .profile-info {
+      > .data-container {
+        > .row {
+          border-bottom: 1px solid rgb(175 179 195 / 30%);
+          padding: 16px 0;
           display: flex;
+          justify-content: space-between;
 
-          > .icon {
-            color: $color-green-400;
-            font-size: 20px;
+          > .wrapper {
+            display: flex;
+
+            > .icon {
+              color: $color-green-400;
+              font-size: 20px;
+            }
           }
-        }
 
-        > .icon {
-          color: $color-primary;
-          font-size: 24px;
-        }
-      }
-    }
-  }
-
-  > .status-container {
-    position: relative;
-    width: calc(100% + 40px);
-    left: -20px;
-    background: $color-light-grey-300;
-  }
-
-  > .body-container {
-    margin-top: 24px;
-
-    > .data-list {
-      > .item {
-        border-bottom: 1px solid rgb(175 179 195 / 30%);
-        padding: 16px 0;
-
-        > .value {
           > .icon {
-            color: $color-grey-500;
-            font-size: 20px;
+            color: $color-primary;
+            font-size: 24px;
           }
         }
       }
     }
 
-    > .data-adder {
-      margin: 30px 0;
+    > .body-container {
+      padding: 24px 16px 0;
+
+      > .data-list {
+        > .item {
+          border-bottom: 1px solid rgb(175 179 195 / 30%);
+          padding: 16px 0;
+
+          > .value {
+            > .icon {
+              color: $color-grey-500;
+              font-size: 20px;
+            }
+          }
+        }
+      }
+
+      > .data-adder {
+        margin: 30px 0;
+      }
     }
   }
 }
