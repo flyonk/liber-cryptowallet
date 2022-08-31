@@ -75,6 +75,7 @@ const oneTimeCode = ref('');
 const passcode = ref('');
 const isCodeWrong = ref(false);
 const isPasscodeWrong = ref(false);
+const isProcessing = ref(false);
 
 const text = computed(() => {
   if (pStore.user.is2FAConfigured) {
@@ -113,6 +114,7 @@ const onEmailAndNumberComplete = (form: { phone: string; email: string }) => {
 
 const onComplete = async () => {
   if (oneTimeCode.value.length === 6 && passcode.value.length === 4) {
+    isProcessing.value = true;
     const data = {
       passcode: passcode.value,
       [pStore.user.is2FAConfigured ? 'totp' : 'otp']: oneTimeCode.value,
@@ -139,6 +141,8 @@ const onComplete = async () => {
 
         mfaStore.hide();
       }
+    } finally {
+      isProcessing.value = false;
     }
   }
 };
@@ -168,7 +172,11 @@ const onClose = async () => {
 };
 
 const isDisabled = computed(() => {
-  return oneTimeCode.value.length !== 6 || passcode.value.length !== 4;
+  return (
+    oneTimeCode.value.length !== 6 ||
+    passcode.value.length !== 4 ||
+    isProcessing.value
+  );
 });
 
 // close mfa on back in history
