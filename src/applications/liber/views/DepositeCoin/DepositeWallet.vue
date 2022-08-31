@@ -1,7 +1,7 @@
 <template>
   <div class="page-wrapper">
     <t-top-navigation
-      left-icon-name="icon-app-navigation-back"
+      left-icon-name="icon-app-navigation-close"
       @click:left-icon="$router.push({ name: Route.DashboardHome })"
     >
       <template #title>
