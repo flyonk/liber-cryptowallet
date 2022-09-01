@@ -84,6 +84,7 @@ import { Route } from '@/router/types';
 import { EKYCStatus } from '@/models/profile/profile';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { useProfileStore } from '@/stores/profile';
+import { useDepositStore } from '@/applications/liber/stores/deposit';
 
 // import TotalAccountBalanceByCoin from '@/components/ui/organisms/account/TotalAccountBalanceByCoin.vue';
 import {
@@ -109,6 +110,7 @@ const { tm } = useI18n();
 //TODO: write full name accountStore
 const accountStore = useAccountStore();
 const profileStore = useProfileStore();
+const depositStore = useDepositStore();
 
 const activeTab = ref(1);
 const currentCoin = ref(null) as Ref<string | null>;
@@ -121,15 +123,27 @@ const router = useRouter();
  */
 const coin = ref('');
 
-onBeforeMount(() => {
+const selectAccount = (coinCode: string) => {
+  return accountStore.getAccounts.find(({ code }) => code === coinCode);
+};
+
+onBeforeMount(async () => {
   if (route.params.coin) {
     coin.value = route.params.coin as string;
 
-    accountStore.init(coin.value);
+    await accountStore.init(coin.value);
     currentCoin.value = coin.value;
+
+    const _account = selectAccount(coin.value) as IAccount;
+
+    if (_account) {
+      depositStore.setAccountInfo(_account);
+    } else {
+      accountStore.setNewAccountParams('coin', coin.value);
+    }
   }
 
-  profileStore.init();
+  await profileStore.init();
 });
 
 const transactions = computed(() => accountStore.getCoinTransactions);

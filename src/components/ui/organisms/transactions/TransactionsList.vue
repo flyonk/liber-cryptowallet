@@ -11,6 +11,8 @@
         :main-coin="mainCoin"
         :is-currency="showCoin"
         :transaction-type="transactionType"
+        :receive-title="$t('transactions.operations.crypto.income')"
+        :send-title="$t('transactions.operations.crypto.outcome')"
       />
     </li>
   </ul>

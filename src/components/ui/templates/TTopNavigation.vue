@@ -21,7 +21,13 @@
       </m-top-navigation>
     </div>
 
-    <div class="content" :class="{ '-pb-navbar': withNavbar && fullHeight }">
+    <div
+      class="content"
+      :class="{
+        '-pb-navbar': withNavbar && fullHeight,
+        untouchable: !isTouchable,
+      }"
+    >
       <slot name="content" />
     </div>
 
@@ -132,6 +138,6 @@ defineEmits(['click:left-icon']);
 }
 
 .untouchable {
-  touch-action: none;
+  touch-action: none !important;
 }
 </style>

@@ -4,7 +4,7 @@
       <template #top-left>
         <img
           src="@/assets/images/avatar.png"
-          @click="$router.push({ name: props.routeBack })"
+          @click="$router.push({ name: Route.ProfileSettings })"
         />
       </template>
       <template #top-right>
