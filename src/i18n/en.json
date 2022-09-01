@@ -368,19 +368,6 @@
       "recipients": "Recipients",
       "add": "Add a new contact"
     },
-    "depositecoin": {
-      "depositewalletprint": {
-        "depositBtc": "Deposit BTC",
-        "sendOnlyBtc": "Send only BTC to this deposit address",
-        "walletAddress": "Wallet Address",
-        "minimumDeposit": "Minimum deposit",
-        "btc": "0.000000001 BTC",
-        "expectedArrival": "Expected arrival",
-        "networkConfirmation": "1 network confirmation",
-        "expectedUnlock": "Expected unlock",
-        "networkConfirmations": "2 network confirmations"
-      }
-    },
     "kyc": {
       "kyc1step": {
         "countryOfResidence": "Country of residence",
