@@ -9,11 +9,11 @@
       </template>
       <template #top-right>
         <div class="flex">
-          <img
+          <!-- <img
             class="mr-3"
             :src="`${STATIC_BASE_URL}/static/menu/system_qr.svg`"
             alt="circle-add"
-          />
+          /> -->
           <i
             class="icon-plus_circle circle-add"
             @click="$router.push({ name: Route.RecipientsAdd })"
@@ -44,7 +44,6 @@
 import { inject, ref } from 'vue';
 
 import { TTopNavigation } from '@/components/ui';
-import { STATIC_BASE_URL } from '@/constants';
 
 import ConstactsTabSwitcher from '@/components/ui/molecules/ConstactsTabSwitcher.vue';
 

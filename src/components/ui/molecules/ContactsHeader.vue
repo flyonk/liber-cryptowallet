@@ -12,11 +12,11 @@
       @click="$emit('click:left-icon')"
     />
     <div class="flex">
-      <img
+      <!-- <img
         class="mr-3"
         :src="`${STATIC_BASE_URL}/static/menu/system_qr.svg`"
         alt="circle-add"
-      />
+      /> -->
       <i
         class="icon-plus_circle circle-add"
         @click="$router.push({ name: Route.RecipientsAdd })"
