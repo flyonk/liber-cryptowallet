@@ -60,13 +60,14 @@
       </div>
     </div>
     <div class="tab-wrapper">
-      <transactions-list
-        v-if="activeTab === 1"
-        :main-coin="currentCoin"
-        :show-coin="false"
-        :transactions="transactions"
-        class="transactions-block"
-      />
+      <div class="transactions-block">
+        <transactions-list
+          v-if="activeTab === 1"
+          :main-coin="currentCoin"
+          :show-coin="false"
+          :transactions="transactions"
+        />
+      </div>
 
       <div v-if="activeTab === 2" class="wallet">
         <account-details :coin-code="route.params.coin || 'tbtc'" />
@@ -359,6 +360,7 @@ const onClick = (carouselItem: ICarouselItem) => {
   > .transactions-block {
     padding: 0 16px;
     max-height: 350px;
+    flex-grow: 1;
     margin-bottom: 0;
   }
 }
