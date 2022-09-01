@@ -2,7 +2,7 @@
   <div class="dashboard-container">
     <MDashboardCoinInfo
       :balance="currentAccount.balance"
-      :subtitle="$t('views.dashboard.home.allAccounts')"
+      :subtitle="accountsSubtitle"
       :coin-img="currentAccount.imgSrc"
       :account-code="currentAccount.code"
       :is-arrow-active="!isMenuOpen"
@@ -146,6 +146,9 @@ const accountStore = useAccountStore();
 const profileStore = useProfileStore();
 const errorsStore = useErrorsStore();
 const uiStore = useUIStore();
+import { useI18n } from 'vue-i18n';
+
+const { tm } = useI18n();
 
 const accounts = computed(() => accountStore.getAccounts) as ComputedRef<
   IAccount[]
@@ -254,6 +257,14 @@ const onSelectAccount = (coinCode: string) => {
 };
 
 const hasTransactions = computed(() => transactions.value.length > 0);
+
+const accountsSubtitle = computed(() => {
+  const currentAccount = accountStore.activeAccount;
+  if (currentAccount) {
+    return `${currentAccount.name}`;
+  }
+  return tm('views.dashboard.home.allAccounts');
+});
 
 const showWelcomeMessage = computed(() => {
   return !hasTransactions.value && totalBalance.value.sum == '0.00';
