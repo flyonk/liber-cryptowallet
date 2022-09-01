@@ -229,6 +229,7 @@ const onClick = (carouselItem: ICarouselItem) => {
 
 <style lang="scss" scoped>
 .account-transactions {
+  touch-action: none;
   background: $color-light-grey-100;
   height: 100%;
   overflow: hidden;

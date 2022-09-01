@@ -12,27 +12,25 @@
             src="@/assets/images/euro-coin.svg"
             alt="Euro logo"
           />
-          <h1 class="title">
+          <h1 class="text--title-2">
             {{ $t('views.dashboard.transferFundsToTreasury.transfer') }}
           </h1>
         </header></template
       >
       <template #subtitle>
-        <div class="description text--body mt-3">
-          <p>{{ $t('views.dashboard.transferFundsToTreasury.provide') }}</p>
+        <div class="description mt-3">
+          <p class="text--body">
+            {{ $t('views.dashboard.transferFundsToTreasury.provide') }}
+          </p>
           <br />
-          <p>{{ $t('views.dashboard.transferFundsToTreasury.fees') }}</p>
+          <p class="text--body">
+            {{ $t('views.dashboard.transferFundsToTreasury.fees') }}
+          </p>
         </div></template
       >
       <template #content>
         <div class="main">
-          <img
-            class="image"
-            src="@/assets/images/safe.png"
-            alt="safe"
-            width="200"
-            height="200"
-          />
+          <img class="image" src="@/assets/images/safe.png" alt="safe" />
           <!-- <div class="label text--body font-bold">
             {{ $t('views.dashboard.transferFundsToTreasury.noAgain') }}
           </div> -->
@@ -65,7 +63,6 @@ import { Route } from '@/router/types';
 .description {
   font-weight: normal;
   color: $color-brand-primary;
-  width: 295px;
 }
 
 .main {
@@ -74,6 +71,11 @@ import { Route } from '@/router/types';
 
   > .image {
     align-self: center;
+
+    @include iPhoneSE {
+      width: 140px;
+      height: 140px;
+    }
   }
 
   > .label {

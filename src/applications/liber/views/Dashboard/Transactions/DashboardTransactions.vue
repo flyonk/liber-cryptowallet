@@ -257,6 +257,7 @@ const shareAddress = async () => {
 }
 
 .account-transactions {
+  touch-action: none;
   background: $color-light-grey-100;
   height: 95%;
   overflow: hidden;
@@ -356,6 +357,7 @@ const shareAddress = async () => {
   border-radius: 8px;
   background: $color-light-grey;
   margin-bottom: 30px;
+  touch-action: none;
 
   > .tab {
     width: 49%;

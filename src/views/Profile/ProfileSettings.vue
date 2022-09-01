@@ -70,7 +70,7 @@
             <router-link :to="{ name: Route.AccountMain }" class="item">
               <img class="icon" :src="`${menuStaticFolder}data.svg`" />
               <p class="text-default">
-                {{ $t('views.profile.profileSettings.allAccounts') }}
+                {{ accountsSubtitle }}
               </p>
             </router-link>
             <router-link :to="{ name: Route.ProfileHelp }" class="item">
@@ -186,6 +186,7 @@ import { useAuthStore } from '@/stores/auth';
 import { useProfileStore } from '@/stores/profile';
 import { useErrorsStore } from '@/stores/errors';
 import { STATIC_BASE_URL, MULTI_LANGUAGE } from '@/constants';
+import { useAccountStore } from '@/applications/liber/stores/account';
 
 import { Route } from '@/router/types';
 import { showConfirm } from '@/helpers/nativeDialog';
@@ -203,6 +204,7 @@ const route = useRouter();
 const authStore = useAuthStore();
 const errorsStore = useErrorsStore();
 const { tm } = useI18n();
+const accountStore = useAccountStore();
 
 const menuStaticFolder = ref(`${STATIC_BASE_URL}/static/menu/`);
 
@@ -271,6 +273,14 @@ async function onLogout() {
 
   await route.push({ name: Route.WelcomeLogoScreen });
 }
+
+const accountsSubtitle = computed(() => {
+  const currentAccount = accountStore.activeAccount;
+  if (currentAccount) {
+    return `${currentAccount.name}`;
+  }
+  return tm('views.profile.profileSettings.allAccounts');
+});
 </script>
 
 <style lang="scss" scoped>

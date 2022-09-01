@@ -49,7 +49,6 @@
               {{ tab.name }}
             </router-link>
           </ul>
-
           <router-view />
         </div>
       </template>
@@ -181,5 +180,9 @@ onBeforeMount(async () => {
       font-size: 24px;
     }
   }
+}
+
+:deep(.image-wrap) {
+  margin-right: 0 !important;
 }
 </style>

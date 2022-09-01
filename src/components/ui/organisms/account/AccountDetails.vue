@@ -201,6 +201,7 @@ const shareAddress = async () => {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  touch-action: none;
 }
 
 .wallet-block {
