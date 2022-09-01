@@ -58,7 +58,6 @@ function closeMenu() {
   flex-direction: column;
   align-items: center;
   flex-grow: 1;
-  padding-bottom: 95px; // height of bottom navbar
   width: 100%;
 
   > .image {
