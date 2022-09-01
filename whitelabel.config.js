@@ -12,7 +12,7 @@ module.exports = {
     nameApp: 'Liber App',
     appIconsFolder: 'liber',
     version: '0.1.60',
-    mainColor: '#2862ff',
+    mainColor: '#ffffff',
   },
   dark: {
     brand: 'dark',
