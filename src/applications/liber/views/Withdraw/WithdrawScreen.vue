@@ -1,6 +1,8 @@
 <template>
   <t-top-navigation
     v-if="!showSummaryScreen"
+    class="min-h-screen touch-none"
+    :is-touchable="false"
     with-fixed-footer
     @click:left-icon="$router.back()"
   >
@@ -347,6 +349,10 @@ const onContinue = async () => {
   > .base-input:deep {
     margin-top: 16px;
     height: 72px;
+
+    @media (max-height: 680px) {
+      height: 40px;
+    }
   }
 
   &.-message:deep(.base-input) {
