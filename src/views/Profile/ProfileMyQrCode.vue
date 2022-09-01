@@ -36,15 +36,15 @@
       </div>
     </template>
     <template #fixed-footer>
-      <div class="controls">
+      <!-- <div class="controls">
         <button class="btn" type="button">
           {{ $t('views.profile.profileQRCode.scan') }}
         </button>
         <button class="btn active" type="button">
           {{ $t('views.profile.profileQRCode.code') }}
         </button>
-      </div></template
-    >
+      </div> -->
+    </template>
   </t-top-navigation>
 </template>
 
