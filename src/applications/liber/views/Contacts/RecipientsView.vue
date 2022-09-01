@@ -68,6 +68,7 @@ const filterContacts = ref('');
   flex-grow: 1;
   overflow: auto;
   position: relative;
+  touch-action: none;
 
   > .base-input:deep {
     margin-bottom: 16px;

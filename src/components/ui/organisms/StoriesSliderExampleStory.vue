@@ -80,6 +80,7 @@ const props = defineProps({
       justify-content: center;
       align-items: center;
       overflow: hidden;
+      touch-action: none;
     }
   }
 }

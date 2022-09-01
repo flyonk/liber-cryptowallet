@@ -44,6 +44,7 @@ const props = defineProps({
 <style lang="scss" scoped>
 .contact-tabs {
   margin-bottom: 24px;
+  touch-action: none;
 }
 
 .contact-tabs-item {

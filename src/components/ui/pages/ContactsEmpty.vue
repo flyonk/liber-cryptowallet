@@ -59,6 +59,7 @@ function closeMenu() {
   align-items: center;
   flex-grow: 1;
   width: 100%;
+  touch-action: none;
 
   > .image {
     margin-bottom: 24px;

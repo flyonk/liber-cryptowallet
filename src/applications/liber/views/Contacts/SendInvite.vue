@@ -173,6 +173,7 @@ function closeMenu() {
   margin-bottom: 20px;
   overflow: auto;
   flex-grow: 1;
+  touch-action: none;
 
   > .base-input:deep {
     margin-bottom: 16px;

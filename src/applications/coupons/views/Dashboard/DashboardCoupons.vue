@@ -204,6 +204,7 @@ onBeforeMount(async () => {
 
 .dashboard-container {
   overflow: scroll;
+  touch-action: none;
 
   @include iPhoneSE {
     height: 350px;

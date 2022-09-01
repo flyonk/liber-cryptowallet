@@ -148,6 +148,7 @@ onBeforeMount(async () => {
 
 .tabs {
   margin-bottom: 24px;
+  touch-action: none;
 
   > .tab-item {
     color: $color-brand-primary;

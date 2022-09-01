@@ -211,6 +211,7 @@ watch(toRef(props, 'initialNumber'), () => {
 }
 
 .auth-page-container {
+  touch-action: none;
   > .title {
     margin-bottom: 8px;
     font-style: normal;

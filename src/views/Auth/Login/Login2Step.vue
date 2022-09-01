@@ -16,6 +16,7 @@ defineEmits(['next']);
 
 <style lang="scss">
 .auth-page-container {
+  touch-action: none;
   > .description {
     padding: 0 0 24px;
   }
