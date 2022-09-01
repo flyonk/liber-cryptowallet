@@ -49,7 +49,7 @@
         </button>
       </div>
 
-      <div class="wallet-footer">
+      <!-- <div class="wallet-footer">
         <div class="row row-footer">
           <p class="title">{{ $t('views.deposit.wallet.minimumDeposit') }}</p>
           <p class="content">
@@ -72,17 +72,17 @@
             {{ $t('views.deposit.wallet.networkConfirmations') }}
           </p>
         </div>
-      </div>
+      </div> -->
 
       <div class="btns-container">
-        <m-base-button
+        <!-- <m-base-button
           :view="ViewBaseButton.Secondary"
           disabled
           @click="saveImage"
         >
           {{ $t('views.deposit.wallet.saveImage') }}
-        </m-base-button>
-        <m-base-button @click="shareAddress">
+        </m-base-button> -->
+        <m-base-button block @click="shareAddress">
           {{ $t('views.deposit.wallet.shareAddress') }}
         </m-base-button>
       </div>
@@ -94,7 +94,7 @@
 import { computed, inject, onBeforeMount, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
 
-import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
+// import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { Clipboard } from '@/helpers/clipboard/clipboard';
 import { useToast } from 'primevue/usetoast';
@@ -183,9 +183,9 @@ const copyToClipboard = async () => {
   }
 };
 
-const saveImage = () => {
-  console.log(tm('views.deposit.wallet.saveImage'));
-};
+// const saveImage = () => {
+//   console.log(tm('views.deposit.wallet.saveImage'));
+// };
 
 const shareAddress = async () => {
   const canShare = await check();
@@ -269,6 +269,7 @@ const shareAddress = async () => {
 .btns-container {
   display: flex;
   justify-content: space-between;
+  margin-top: 50px;
 }
 
 .text-default {
