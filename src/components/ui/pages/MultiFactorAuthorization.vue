@@ -58,6 +58,7 @@ import EnterVerificationCode from '@/components/ui/organisms/auth/EnterVerificat
 import EmailAndNumberVerificationCode from '@/components/ui/organisms/auth/EmailAndNumberVerificationCode.vue';
 import { AxiosError } from 'axios';
 import { uiKitKey } from '@/types/symbols';
+import { useErrorsStore } from '@/stores/errors';
 
 const uiKit = inject(uiKitKey);
 const { MBaseVerificationCodeInput, MBaseButton } = uiKit!;
@@ -140,6 +141,17 @@ const onComplete = async () => {
         mfaStore.setError(error.response);
 
         mfaStore.hide();
+      } else if (
+        error.response?.data?.message.includes(`can't transfer to yourself`)
+      ) {
+        mfaStore.hide();
+        const errorsStore = useErrorsStore();
+        errorsStore.handle({
+          err: error,
+          name: 'MultiFactorAuthorization',
+          ctx: 'onComplete',
+          description: `Sorry you can't send funds to yourself`,
+        });
       }
     } finally {
       isProcessing.value = false;

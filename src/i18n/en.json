@@ -292,7 +292,7 @@
       "total": "Total",
       "success": {
         "title": "Your withdrawal request was sent",
-        "description": "We will notify you when your withdrawal request is completed."
+        "description": "We will notify you when your withdrawal request will be completed."
       },
       "confirmation": {
         "text": "Withdraw confirmation",

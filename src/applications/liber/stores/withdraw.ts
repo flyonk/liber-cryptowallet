@@ -14,19 +14,19 @@ export interface IWithdrawState {
 export const useWithdrawStore = defineStore('withdraw', {
   state: (): IWithdrawState => ({
     info: {
+      address: '',
       currencyCode: '',
-      requestAmount: '',
-      amountToReceive: '',
       availableSum: '',
+      requestAmount: '',
+      fee: '',
+      total: '',
       minRequest: '',
       maxRequest: '',
-      fee: '',
-      address: '',
     },
   }),
 
   getters: {
-    getWithdrawInfo: (state) => state.info,
+    getWithdrawInfo: (state: IWithdrawState) => state.info,
   },
 
   actions: {
@@ -38,7 +38,7 @@ export const useWithdrawStore = defineStore('withdraw', {
       await fundsService.withdraw({
         code: this.info.currencyCode,
         address: this.info.address,
-        amount: this.info.amountToReceive,
+        amount: this.info.requestAmount,
         network: 'main',
       });
     },

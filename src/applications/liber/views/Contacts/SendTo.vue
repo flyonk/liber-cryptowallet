@@ -46,7 +46,6 @@
   </t-top-navigation>
   <!--TODO: make toasts logic-->
   <m-base-toast
-    v-if="popupStatus === 'attention'"
     v-model:visible="showSuccessPopup"
     content-style="border-radius:32px;"
   >
@@ -85,7 +84,6 @@
     </template>
   </m-base-toast>
   <m-base-toast
-    v-if="popupStatus === 'confirmation'"
     v-model:visible="showSuccessPopup"
     content-style="border-radius:32px;"
     @click="showSuccessPopup = false"
@@ -108,7 +106,6 @@
     </template>
   </m-base-toast>
   <m-base-toast
-    v-if="popupStatus === 'confirmation'"
     v-model:visible="showIncorrectDataPopup"
     content-style="border-radius:32px;"
     @click="showIncorrectDataPopup = false"
@@ -130,7 +127,6 @@
     </template>
   </m-base-toast>
   <m-base-toast
-    v-if="popupStatus === 'confirmation'"
     v-model:visible="showFailurePopup"
     content-style="border-radius:32px;"
     @click="showFailurePopup = false"
@@ -157,7 +153,7 @@ import { useRecipientsStore } from '@/stores/recipients';
 import { useMfaStore } from '@/stores/mfa';
 import { useErrorsStore } from '@/stores/errors';
 import { getContactPhone } from '@/helpers/contacts';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { Route } from '@/router/types';
 import { Contact } from '@/types/contacts';
 import { STATIC_BASE_URL } from '@/constants';
@@ -169,13 +165,13 @@ const { AContactInitials, MBaseButton, MBaseToast } = uiKit!;
 const showSuccessPopup = ref(false);
 const showFailurePopup = ref(false);
 const showIncorrectDataPopup = ref(false);
-const popupStatus = ref('');
 
 const transferStore = useTransferStore();
 const recipientsStore = useRecipientsStore();
 const errorsStore = useErrorsStore();
 
 const route = useRoute();
+const router = useRouter();
 
 const contactId = route.params.id;
 const contacts: Contact[] = recipientsStore.getContacts;
@@ -202,9 +198,11 @@ const sendTransaction = async () => {
   if (transferStore.isReadyForTransfer) {
     try {
       const mfaStore = useMfaStore();
+
+      const routePath = router.resolve({ name: Route.DashboardHome }).path;
       mfaStore.show({
         button: 'transactions.send',
-        successRoute: Route.DashboardHome,
+        successRoute: routePath,
         callback: async () => {
           await recipientsStore.addFriend(contact);
           transferStore.clearTransferData();

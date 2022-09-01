@@ -275,6 +275,10 @@ const shareAddress = async () => {
     margin-bottom: 6px;
     display: flex;
     justify-content: space-between;
+
+    & > .title {
+      margin-right: 5px;
+    }
   }
 }
 

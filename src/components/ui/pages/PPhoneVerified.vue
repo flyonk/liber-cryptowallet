@@ -22,7 +22,6 @@
           {{ $t('views.pPhoneVerified.done') }}</m-base-button
         >
       </div>
-      /
     </template>
   </t-top-navigation>
 </template>

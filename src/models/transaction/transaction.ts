@@ -3,7 +3,8 @@ export type TTransaction =
   | IRequestFunds
   | IConvertTransaction
   | ITransferTransaction
-  | IDepositTransaction;
+  | IDepositTransaction
+  | IWithdrawalTransaction;
 
 export interface IContractorDto {
   id: string;
@@ -104,6 +105,7 @@ export enum ETransactionType {
   convert = 'convert', //using now
   deposit = 'deposit', //using now
   transfer = 'transfer', //using now
+  withdrawal = 'withdrawal', //using now
   received = 'received',
   send = 'send',
   guard = '',
@@ -157,6 +159,13 @@ export interface ITransactionDefault {
 }
 
 export interface IDepositTransaction extends ITransactionDefault {
+  txid: string;
+  statement?: string;
+  address: string;
+  direction: string;
+}
+
+export interface IWithdrawalTransaction extends ITransactionDefault {
   txid: string;
   statement?: string;
   address: string;
@@ -260,6 +269,21 @@ export default {
         direction: input.direction,
         statement: undefined,
         txid: input.txid,
+        address: '1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l',
+      } as IDepositTransaction;
+    }
+
+    if (input.type === ETransactionType.withdrawal) {
+      return {
+        id: input.id,
+        status: input.status,
+        amount: input.amount,
+        date: input.finished_at ? input.finished_at : input.created_at,
+        type: input.type,
+        code: input.code,
+        direction: input.direction,
+        statement: undefined,
+        txid: input.id,
         address: '1Mtree35df4543sdgErtrryryEe13rrsd21213Opa139z0l',
       } as IDepositTransaction;
     }

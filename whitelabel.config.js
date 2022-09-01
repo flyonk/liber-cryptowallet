@@ -11,8 +11,8 @@ module.exports = {
     storageUrl: '',
     nameApp: 'Liber App',
     appIconsFolder: 'liber',
-    version: '0.1.56',
-    mainColor: '#2862ff',
+    version: '0.1.60',
+    mainColor: '#ffffff',
   },
   dark: {
     brand: 'dark',

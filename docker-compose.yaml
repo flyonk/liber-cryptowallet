@@ -6,7 +6,7 @@ services:
       dockerfile: ./Dockerfile
       args:
         BRANDNAME: liber
-        BRANDNAME_VERSION: 0.1.47
+        BRANDNAME_VERSION: 0.1.52
     ports:
       - 80:8080
     restart: always
