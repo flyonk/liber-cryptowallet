@@ -1,7 +1,7 @@
 <template>
   <AccountDetailsSkeleton v-if="!wallet" />
 
-  <div v-else>
+  <template v-else>
     <div class="qr-code-container">
       <qr-code
         :background-options="{ color: 'transparent' }"
@@ -40,11 +40,12 @@
         <div class="titled-block">
           <h2 class="title">{{ $t('views.deposit.wallet.walletAddress') }}</h2>
           <p class="content">
-            {{ walletAddress }}
+            {{ firstPartOfWalletAddress
+            }}<span class="bold">{{ lastPartOfWalletAddress }}</span>
           </p>
         </div>
         <button class="icon" type="button" @click="copyToClipboard">
-          <i class="ci-copy" />
+          <i class="icon-copy" />
         </button>
       </div>
 
@@ -86,13 +87,13 @@
         </m-base-button>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script lang="ts" setup>
-import { computed, inject, onBeforeMount, ref } from 'vue';
+import { computed, inject, onBeforeMount, Ref, ref } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { ICreateAccount } from '@/models/account/createAccount';
+
 import { ViewBaseButton } from '@/components/ui/molecules/base-button/types';
 import { useAccountStore } from '@/applications/liber/stores/account';
 import { Clipboard } from '@/helpers/clipboard/clipboard';
@@ -103,6 +104,7 @@ import QrCode from 'qrcode-vue3';
 import AccountDetailsSkeleton from './AccountDetailsSkeleton.vue';
 import { useErrorsStore } from '@/stores/errors';
 import { uiKitKey } from '@/types/symbols';
+import { ICreateAccount } from '@/applications/liber/models/account/createAccount';
 
 const uiKit = inject(uiKitKey);
 const { MBaseButton } = uiKit!;
@@ -119,10 +121,22 @@ const props = defineProps({
   },
 });
 
-const wallet = ref<ICreateAccount | null>(null);
+const wallet: Ref<ICreateAccount | null> = ref(null);
 
 const walletAddress = computed(() => {
   return wallet.value?.address;
+});
+
+const firstPartOfWalletAddress = computed(() => {
+  const length = wallet.value?.address.length;
+  if (length) return wallet.value?.address.substring(0, length - 9);
+  return '';
+});
+
+const lastPartOfWalletAddress = computed(() => {
+  const length = wallet.value?.address.length;
+  if (length) return wallet.value?.address.substring(length - 9, length);
+  return '';
 });
 
 onBeforeMount(async () => {
@@ -205,7 +219,7 @@ const shareAddress = async () => {
 
 .wallet-block {
   background-color: $color-white;
-  margin: 0 -15px -15px;
+  margin: 0 -15px;
   padding: 15px;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
@@ -245,6 +259,10 @@ const shareAddress = async () => {
     line-height: 21px;
     letter-spacing: -0.0031em;
     color: $color-black;
+
+    > .bold {
+      font-weight: bold;
+    }
   }
 }
 
