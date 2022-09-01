@@ -127,6 +127,8 @@ const closeClearBtn = () => {
 
 <style lang="scss" scoped>
 .auth-page-container {
+  touch-action: none;
+
   > .base-input:deep {
     margin-bottom: 16px;
   }

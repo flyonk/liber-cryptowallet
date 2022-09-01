@@ -1,6 +1,6 @@
 <template name="RecipientsView">
   <div class="view-wrapper">
-    <t-top-navigation nav-with-custom-top-left class="-contacts">
+    <t-top-navigation nav-with-custom-top-left class="-contacts h-full">
       <template #top-left>
         <img
           src="@/assets/images/avatar.png"
@@ -68,6 +68,7 @@ const filterContacts = ref('');
   flex-grow: 1;
   overflow: auto;
   position: relative;
+  touch-action: none;
 
   > .base-input:deep {
     margin-bottom: 16px;

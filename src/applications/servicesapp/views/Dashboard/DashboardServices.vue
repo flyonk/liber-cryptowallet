@@ -127,6 +127,7 @@ fundsStore.setCrypto(emptyCryptoState.value, 'to');
 <style lang="scss" scoped>
 .dashboard-container {
   min-height: 100%;
+  touch-action: none;
 }
 
 .title {
