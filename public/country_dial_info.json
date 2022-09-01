@@ -712,7 +712,7 @@
         "dialCode": "+49",
         "isoCode": "DE",
         "flag": "https://cdn.kcak11.com/CountryFlags/countries/de.svg",
-        "mask": "+49(###)-###-####",
+        "mask": "+49(###)########",
         "localPath": "/img/flags/DE.svg",
         "isoCodeAlpha": "DEU"
     },
