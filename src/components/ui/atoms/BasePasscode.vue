@@ -183,6 +183,8 @@ function clear(): void {
 
 <style lang="scss" scoped>
 .base-passcode {
+  touch-action: none;
+
   > .code {
     display: flex;
     width: 100%;

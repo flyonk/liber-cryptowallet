@@ -19,10 +19,10 @@
         <i class="icon-copy icon default-input-icon" />
       </label>
 
-      <p class="text--body color-main mb-4">
+      <p class="text--footnote color-main mb-4">
         {{ $t('configureApp.backupCodeMessage') }}
       </p>
-      <p class="text--body color-main">
+      <p class="text--footnote color-main">
         {{ $t('configureApp.verifyIdentityMessage') }}
       </p>
     </template>
@@ -145,6 +145,7 @@ const nextStep = (): void => {
 }
 
 .default-input-label {
+  font-size: 14px;
   position: absolute;
   left: 15px;
   top: 4px;
@@ -165,7 +166,7 @@ const nextStep = (): void => {
   box-sizing: border-box;
   font-style: normal;
   font-weight: normal;
-  font-size: 17px;
+  font-size: 14px;
   line-height: 22px;
   letter-spacing: -0.0043em;
   color: $color-brand-primary;
