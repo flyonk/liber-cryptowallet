@@ -16,7 +16,8 @@ export const getEuropeanList = async (): Promise<ICountryInformation[]> => {
       EUCandidate.includes(isoCode) ||
       potentialEUCandidates.includes(isoCode) ||
       ENPEast.includes(isoCode) ||
-      ENPSouth.includes(isoCode)
+      ENPSouth.includes(isoCode) ||
+      USA.includes(isoCode)
     );
   });
 };
@@ -63,3 +64,4 @@ const EUCandidate = ['ME', 'MK', 'AL', 'RS', 'TR'];
 const potentialEUCandidates = ['BA'];
 const ENPEast = ['AM', 'BY', 'GE', 'AZ', 'MD', 'UA'];
 const ENPSouth = ['DZ', 'EG', 'IL', 'JO', 'PS'];
+const USA = ['US'];

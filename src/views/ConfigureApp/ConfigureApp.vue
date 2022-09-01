@@ -7,7 +7,7 @@
         <canvas ref="canvas" class="qr-code-canvas" />
       </div>
 
-      <label class="default-input-wrapper" @click="copyToClipboard">
+      <div class="default-input-wrapper" @click="copyToClipboard">
         <span class="default-input-label">{{ $t('common.codeLabel') }}</span>
         <input
           v-model="qrCodeValue"
@@ -17,7 +17,7 @@
         />
 
         <i class="icon-copy icon default-input-icon" />
-      </label>
+      </div>
 
       <p class="text--footnote color-main mb-4">
         {{ $t('configureApp.backupCodeMessage') }}
@@ -90,6 +90,7 @@ onMounted(async () => {
 });
 
 const copyToClipboard = async () => {
+  console.log('click');
   try {
     await Clipboard.write({
       string: qrCodeValue.value,
