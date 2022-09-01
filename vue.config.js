@@ -57,32 +57,32 @@ module.exports = {
     // configure the workbox plugin
     workboxPluginMode: 'InjectManifest',
     iconPaths: {
-      favicon32: `img/icons/${whitelabelConfigPath.appIconsFolder}/favicon-32x32.png`,
-      favicon16: `img/icons/${whitelabelConfigPath.appIconsFolder}/favicon-16x16.png`,
-      appleTouchIcon: `img/icons/${whitelabelConfigPath.appIconsFolder}/apple-touch-icon-152x152.png`,
+      favicon32: `img/icons/${whitelabelConfigPath.appIconsFolder}/favicon-32x32-1.png`,
+      favicon16: `img/icons/${whitelabelConfigPath.appIconsFolder}/favicon-16x16-1.png`,
+      appleTouchIcon: `img/icons/${whitelabelConfigPath.appIconsFolder}/apple-touch-icon-152x152-1.png`,
       maskIcon: `img/icons/${whitelabelConfigPath.appIconsFolder}/safari-pinned-tab.svg`,
-      msTileImage: `img/icons/${whitelabelConfigPath.appIconsFolder}/msapplication-icon-144x144.png`,
+      msTileImage: `img/icons/${whitelabelConfigPath.appIconsFolder}/msapplication-icon-144x144-1.png`,
     },
     manifestOptions: {
       icons: [
         {
-          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-192x192.png`,
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-192x192-1.png`,
           sizes: '192x192',
           type: 'image/png',
         },
         {
-          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-512x512.png`,
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-512x512-1.png`,
           sizes: '512x512',
           type: 'image/png',
         },
         {
-          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-maskable-192x192.png`,
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-maskable-192x192-1.png`,
           sizes: '192x192',
           type: 'image/png',
           purpose: 'maskable',
         },
         {
-          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-maskable-512x512.png`,
+          src: `./img/icons/${whitelabelConfigPath.appIconsFolder}/android-chrome-maskable-512x512-1.png`,
           sizes: '512x512',
           type: 'image/png',
           purpose: 'maskable',
