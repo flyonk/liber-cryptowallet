@@ -159,7 +159,6 @@ const filteredList: ComputedRef<IAccount[]> = computed(() => {
       width: 48px;
       height: 48px;
       background: $color-grey-100;
-      margin-right: 12px;
       border-radius: 8px;
     }
 
