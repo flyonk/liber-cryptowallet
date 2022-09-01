@@ -26,7 +26,7 @@
       <template #top-right>
         <div class="header">
           <div class="right">
-            <i class="icon-bell notification ml-auto" />
+            <!-- <i class="icon-bell notification ml-auto" /> -->
             <img
               alt
               class="refresh ml-auto"
