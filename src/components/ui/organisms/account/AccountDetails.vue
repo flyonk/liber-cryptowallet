@@ -291,6 +291,7 @@ const shareAddress = async () => {
   & > .content {
     color: $color-brand-primary;
     font-weight: 500;
+    text-align: right;
   }
 }
 </style>
