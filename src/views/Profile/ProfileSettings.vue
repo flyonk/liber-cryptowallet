@@ -150,7 +150,9 @@
           </ul>
         </div>
         <div class="footer">
-          <p class="text">{{ $t('views.profile.profileSettings.version') }}</p>
+          <p class="text">
+            {{ $t('views.profile.profileSettings.version') }} {{ version }}
+          </p>
           <p class="text">
             {{ $t('views.profile.profileSettings.copyright') }}
           </p>
@@ -220,6 +222,10 @@ const accountID = ref(`${phone}`);
 const showCloseAccount = ref(false);
 const showLanguageSelect = ref(false);
 const { locale } = useI18n({ useScope: 'global' });
+
+const version = computed(() => {
+  return process.env.VUE_APP_VERSION;
+});
 
 onMounted(async () => {
   if (!profileStore.getUser.id)
