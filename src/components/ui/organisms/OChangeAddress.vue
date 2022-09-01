@@ -177,8 +177,8 @@ const isValid = (key: keyof typeof form) => {
 .base-input:deep {
   margin: 0 0 16px;
 
-  @include iPhoneSE {
-    min-height: 50px !important;
+  @media (max-height: 690px) {
+    min-height: 40px !important;
   }
 }
 
