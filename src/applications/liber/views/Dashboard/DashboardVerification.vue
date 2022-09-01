@@ -53,6 +53,10 @@ const isVerificationSuccess = ref(true);
     height: 345px;
     border-radius: 24px;
 
+    > image {
+      width: 200px;
+    }
+
     > .main {
       display: flex;
       flex-direction: column;

@@ -232,6 +232,7 @@ const MOCK_COUPONS_TRANSACTIONS = [
   border-radius: 8px;
   background: $color-light-grey;
   margin-bottom: 30px;
+  touch-action: none;
 
   > .tab {
     width: 49%;

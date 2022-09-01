@@ -72,6 +72,11 @@ const { DashboardHome } = Route;
 
   > .image {
     padding-left: 10%;
+
+    @include iPhoneSE {
+      width: 200px;
+      height: 200px;
+    }
   }
 }
 

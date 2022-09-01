@@ -3,10 +3,11 @@
     <t-top-navigation
       with-fixed-footer
       left-icon-name="icon-app-navigation-close"
+      class="mb-4"
       @click:left-icon="$router.push({ name: Route.DashboardHome })"
     >
       <template #title>
-        <div class="header">
+        <div class="header mb-4">
           <img
             class="image"
             src="@/assets/icon/todo/empty-profile.svg"
@@ -56,6 +57,14 @@ import { TTopNavigation } from '@/components/ui';
   > .main {
     display: flex;
     justify-content: center;
+
+    > .image {
+      width: 70%;
+
+      @include iPhoneSE {
+        width: 180px;
+      }
+    }
   }
 
   > .footer {
