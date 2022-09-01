@@ -27,7 +27,12 @@
         <div class="header">
           <div class="right">
             <i class="icon-bell notification ml-auto" />
-            <img alt class="refresh ml-auto" src="@/assets/icon/refresh.svg" />
+            <img
+              alt
+              class="refresh ml-auto"
+              src="@/assets/icon/refresh.svg"
+              @click="router.go()"
+            />
           </div>
         </div>
       </template>
@@ -54,7 +59,7 @@
 
 <script lang="ts" setup>
 import { computed, inject, onBeforeMount, Ref, ref } from 'vue';
-
+import { useRouter } from 'vue-router';
 import { useI18n } from 'vue-i18n';
 
 import useSafeAreaPaddings from '@/helpers/safeArea';
@@ -78,6 +83,7 @@ const { AKycStatusBadge } = uiKit as UiKitInterface;
 const { tm } = useI18n();
 const uiStore = useUIStore();
 const kycStore = useKYCStore();
+const router = useRouter();
 
 const verificationStatus = ref(EKYCStatuses.success) as Ref<EKYCStatuses>;
 

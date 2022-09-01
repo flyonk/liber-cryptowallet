@@ -1,6 +1,6 @@
 <template name="RecipientsView">
   <div class="view-wrapper">
-    <t-top-navigation nav-with-custom-top-left class="-contacts">
+    <t-top-navigation nav-with-custom-top-left class="-contacts h-full">
       <template #top-left>
         <img
           src="@/assets/images/avatar.png"

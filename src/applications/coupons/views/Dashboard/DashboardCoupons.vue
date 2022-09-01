@@ -229,6 +229,7 @@ onBeforeMount(async () => {
 }
 
 .dashboard-banner-container {
+  padding-bottom: 120px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 8px;
