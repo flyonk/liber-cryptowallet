@@ -90,7 +90,6 @@ onMounted(async () => {
 });
 
 const copyToClipboard = async () => {
-  console.log('click');
   try {
     await Clipboard.write({
       string: qrCodeValue.value,
