@@ -149,6 +149,8 @@ const lastNamePreventExtraCharacters = (value: string) => {
 }
 
 .auth-page-container {
+  touch-action: none;
+
   > .base-input:deep {
     margin-bottom: 16px;
   }

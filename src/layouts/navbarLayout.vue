@@ -57,7 +57,7 @@ watch(route.currentRoute, (val) => {
   }
 
   > .main {
-    height: calc(100vh);
+    height: 100vh;
     background: $color-light-grey-100;
     overflow: scroll;
     padding-bottom: 100px;

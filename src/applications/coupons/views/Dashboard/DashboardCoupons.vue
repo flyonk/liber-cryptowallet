@@ -126,7 +126,7 @@ const actionButtons = ref([
   {
     code: ECouponsTransactionsEnvVars.purchase,
     icon: 'icon-plus_circle',
-    title: tm('transactions.operations.coupons.buy'),
+    title: tm('transactions.operations.coupons.recieve'),
   },
   {
     code: ECouponsTransactionsEnvVars.redemption,
@@ -203,8 +203,8 @@ onBeforeMount(async () => {
 }
 
 .dashboard-container {
-  height: 500px;
   overflow: scroll;
+  touch-action: none;
 
   @include iPhoneSE {
     height: 350px;
@@ -230,6 +230,7 @@ onBeforeMount(async () => {
 }
 
 .dashboard-banner-container {
+  padding-bottom: 120px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-column-gap: 8px;

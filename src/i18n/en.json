@@ -200,7 +200,7 @@
     "usingLiberExchange": "Using Liber Exchange",
     "operations": {
       "coupons": {
-        "buy": "Buy",
+        "recieve": "Recieve",
         "send": "Send",
         "pay": "Pay",
         "convert": "Convert",
@@ -217,7 +217,7 @@
         "withdraw": "Withdraw",
         "convert": "Convert",
         "send": "Send",
-        "buy": "Buy",
+        "recieve": "Recieve",
         "sell": "Sell"
       }
     },
@@ -292,7 +292,7 @@
       "total": "Total",
       "success": {
         "title": "Your withdrawal request was sent",
-        "description": "We will notify you when your withdrawal request is completed."
+        "description": "We will notify you when your withdrawal request will be completed."
       },
       "confirmation": {
         "text": "Withdraw confirmation",

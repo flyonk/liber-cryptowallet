@@ -335,6 +335,12 @@ const onClick = (carouselItem: ICarouselItem) => {
   }
 }
 
+.wallet {
+  padding-bottom: 100px;
+  height: 370px;
+  overflow: scroll;
+}
+
 .wallet-address {
   width: 100%;
   background: $color-white;

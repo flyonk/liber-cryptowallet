@@ -312,6 +312,7 @@ const moveToDepositPage = async () => {
   background: $color-light-grey-100;
   overflow: auto;
   flex-grow: 1;
+  touch-action: none;
 
   > .header {
     display: flex;
