@@ -39,9 +39,6 @@
             <template #label>
               {{ $t('views.sendInvite.emailPhone') }}
             </template>
-            <template v-if="contact.value.length > 1" #actions>
-              <i class="icon icon-trash_full" @click="removeContact(index)" />
-            </template>
           </m-base-input>
         </li>
         <m-base-button
@@ -151,11 +148,11 @@ const clearName = () => {
   newContact.value.name = '';
 };
 
-const removeContact = (index: number) => {
-  newContact.value.phone = newContact.value.phone.filter((item, i) => {
-    return i !== index;
-  });
-};
+// const removeContact = (index: number) => {
+//   newContact.value.phone = newContact.value.phone.filter((item, i) => {
+//     return i !== index;
+//   });
+// };
 
 function closeMenu() {
   isMenuOpen.value = false;
