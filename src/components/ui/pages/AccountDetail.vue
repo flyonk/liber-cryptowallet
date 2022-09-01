@@ -58,7 +58,8 @@
           {{ $t('transactions.walletAddress') }}
         </div>
       </div>
-
+    </div>
+    <div class="tab-wrapper">
       <transactions-list
         v-if="activeTab === 1"
         :main-coin="currentCoin"
@@ -229,10 +230,11 @@ const onClick = (carouselItem: ICarouselItem) => {
 
 <style lang="scss" scoped>
 .account-transactions {
+  display: flex;
+  flex-direction: column;
   background: $color-light-grey-100;
   height: 100%;
   overflow: hidden;
-  flex-grow: 1;
 
   > .header {
     padding: 0 16px;
@@ -273,7 +275,7 @@ const onClick = (carouselItem: ICarouselItem) => {
   padding: 4px;
   border-radius: 8px;
   background: $color-light-grey;
-  margin-bottom: 30px;
+  margin-bottom: 20px;
   margin-top: 24px;
 
   > .tab {
@@ -293,12 +295,6 @@ const onClick = (carouselItem: ICarouselItem) => {
     background: $color-white;
     color: $color-brand-secondary;
   }
-}
-
-.transactions-block {
-  max-height: 350px;
-  margin-bottom: 0;
-  padding-bottom: 10%;
 }
 
 .title-currency {
@@ -349,10 +345,22 @@ const onClick = (carouselItem: ICarouselItem) => {
   }
 }
 
-.wallet {
-  padding-bottom: 100px;
-  height: 370px;
+.tab-wrapper {
+  height: 1px;
+  flex-grow: 1;
   overflow: scroll;
+
+  > .wallet {
+    padding: 0 16px;
+    flex-grow: 1;
+    overflow: scroll;
+  }
+
+  > .transactions-block {
+    padding: 0 16px;
+    max-height: 350px;
+    margin-bottom: 0;
+  }
 }
 
 .wallet-address {
@@ -407,14 +415,6 @@ const onClick = (carouselItem: ICarouselItem) => {
         color: $color-white;
       }
     }
-  }
-}
-
-:deep(.agile) {
-  height: 115px;
-
-  > .agile__list {
-    height: 100%;
   }
 }
 </style>
