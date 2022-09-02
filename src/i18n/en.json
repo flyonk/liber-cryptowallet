@@ -30,6 +30,7 @@
     "daysAgo": "days ago",
     "explorer": "Open in Explorer",
     "copySuccess": "Success",
+    "copyFailure": "Could not copy text",
     "paymentoptions": "Payment Options",
     "confirmChanging": "Confirm changing",
     "pasteClipboardError": "An error occurred when pasting from the clipboard",
