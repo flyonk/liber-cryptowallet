@@ -91,18 +91,6 @@ const emit = defineEmits(['close', 'selected']);
 const searchQuery = ref('') as Ref<string>;
 
 const filteredList: ComputedRef<ICountryInformation[]> = computed(() => {
-  // TODO Implement better filter after demo xD
-  if (
-    searchQuery.value.startsWith('us') ||
-    searchQuery.value === 'USA' ||
-    searchQuery.value === 'usa' ||
-    searchQuery.value === 'Usa'
-  ) {
-    const result = props.list.find(
-      (i) => i.name.toLowerCase() === 'United States'.toLowerCase()
-    );
-    return [result];
-  }
   if (searchQuery.value) {
     const result = props.list.filter(({ name }) =>
       name.toLowerCase().includes(searchQuery.value.toLowerCase())
